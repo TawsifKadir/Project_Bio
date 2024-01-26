@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp">
+
+    <com.github.islamkhsh.CardSliderViewPager
+        android:id="@+id/sliderView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:auto_slide_time="3"
+        app:cardSlider_otherPagesWidth="32dp"
+        app:cardSlider_pageMargin="16dp"
+        app:cardSlider_smallAlphaFactor="0.5"
+        app:cardSlider_smallScaleFactor="0.9" />
+
+</LinearLayout>

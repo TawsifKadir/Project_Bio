@@ -1,0 +1,120 @@
+
+
+
+
+private lateinit var spCountryName: EditText
+private lateinit var spStateName: EditText
+private lateinit var etPayamName: EditText
+private lateinit var etBomaName: EditText
+private lateinit var etLat: EditText
+private lateinit var etLong: EditText
+
+spCountryName = binding.spCountryName
+spStateName = binding.  spStateName
+etPayamName = binding.  etPayamName
+etBomaName = binding.   etBomaName
+etLat = binding.        etLat
+etLong = binding.       etLong
+
+
+
+Household members 0-2 yrs Old
+Household members 3-5 yrs Old
+Household members 6-17 yrs Old
+Household members 18-35 yrs Old
+Household members 46-64 yrs Old
+Household members 65 and Above
+
+spCountryName.text = "abc"
+spStateName.text = "abc"
+etPayamName.text = "abc"
+etBomaName.text = "abc"
+etLat.text = "abc"
+etLong.text = "abc"
+
+
+
+
+
+Household Size
+Male Household members
+Female Household members
+Household members 0-2 yrs Old
+Household members 3-5 yrs Old
+Household members 6-17 yrs Old
+Household members 18-35 yrs Old
+Household members 46-64 yrs Old
+Household members 65 and Above
+Household members with disability
+Household members with chronically ill
+
+
+
+
+spMainSourceOfIncome
+spGender
+spMaritalStatus
+spLegalStatus
+spRelationship
+etFirstName
+etMiddleName
+etLastName
+etAge
+etIdNumber
+etPhoneNumber
+etMonthlyAverageIncome
+etSpouseName
+etSelectionReason
+rgSelectionCriteria
+
+
+
+form.countryName = getOrAssertSpinner(spCountryName, UiData.ERROR_SP_DEFAULT)
+
+
+
+
+
+etHouseholdSize
+etMaleHouseholdMembers
+etFemaleHouseholdMembers
+etHouseholdMembers0_2
+etHouseholdMembers3_5
+etHouseholdMembers6_17
+etHouseholdMembers18_35
+etHouseholdMembers36_45
+etHouseholdMembers46_64
+etHouseholdMembers65andAbove
+etHouseholdMembersWithDisability
+etHouseholdMembersWithChronicallyIll
+
+
+
+
+etHouseholdSize
+etMaleHouseholdMembers
+etFemaleHouseholdMembers
+etHouseholdMembers0_2
+etHouseholdMembers3_5
+etHouseholdMembers6_17
+etHouseholdMembers18_35
+etHouseholdMembers36_45
+etHouseholdMembers46_64
+etHouseholdMembers65andAbove
+etHouseholdMembersWithDisability
+etHouseholdMembersWithChronicallyIll
+
+
+
+form.countryName = getOrAssertEditText(spCountryName, UiData.ERROR_ET_DEFAULT)
+
+
+
+
+if (this.age == null) return false
+
+
+
+
+
+

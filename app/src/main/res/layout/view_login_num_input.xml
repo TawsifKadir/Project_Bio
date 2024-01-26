@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llInputNum"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorBackground"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:padding="8dp">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:padding="1dp"
+        android:text="@string/continue_with_phone_number"
+        android:textAlignment="textStart"
+
+        android:visibility="visible" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:padding="1dp"
+        android:text="@string/use_your_phone_number_to_continue"
+        android:textAlignment="textStart"
+        android:visibility="visible" />
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:backgroundTint="?attr/colorOnBackground"
+        android:clickable="false"
+        android:focusable="false"
+        app:cardCornerRadius="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/ccp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:ccpDialog_backgroundColor="?attr/colorBackground"
+                app:ccpDialog_textColor="?attr/colorTextPrimary"
+                app:ccp_contentColor="?attr/colorTextPrimaryContrastPrimary"
+                app:ccp_countryPreference="BD,US,SA,IN"
+                app:ccp_defaultNameCode="BD"
+                app:ccp_showFlag="false"
+                app:ccp_showFullName="false"
+                app:ccp_showNameCode="false" />
+
+            <EditText
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:focusable="true"
+                android:hint="@string/phone_number_enter"
+                android:inputType="number|phone"
+                android:maxLength="11"
+                android:padding="10dp"
+                android:textColor="?attr/colorTextPrimaryContrastPrimary"
+                android:textColorHint="?attr/colorTextPrimaryContrastPrimary"
+                android:textSize="16sp"
+                tools:text="1834927083" />
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <Button
+        android:id="@+id/btOtpSend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="?attr/colorBrand"
+        android:focusable="true"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/otp_send"
+        android:textColor="@color/contrast_dark" />
+
+    <TextView
+        android:id="@+id/btSkip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:padding="1dp"
+        android:text="@string/skip_to_home"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="?attr/colorBrandLight"
+
+        android:visibility="visible" />
+
+</LinearLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ivPrime"
+    android:layout_width="24dp"
+    android:layout_height="24dp"
+    android:layout_margin="5dp"
+    android:background="@drawable/round_background_transparent_dark"
+    android:padding="3dp"
+    android:src="@drawable/ic_prime"
+    android:visibility="invisible"
+    app:layout_constraintStart_toStartOf="@+id/ivThumb"
+    app:layout_constraintTop_toTopOf="@+id/ivThumb"
+    app:tint="@color/prime_icon"
+    tools:visibility="visible" />

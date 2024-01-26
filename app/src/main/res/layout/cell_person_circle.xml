@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:background="?attr/colorBackground"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.fragments.BlankFragment">
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/ivThumb"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="3dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_boy"
+        app:civ_border="false"
+        app:civ_border_width="0dp"
+        app:civ_circle_color="@color/gray"
+        app:civ_shadow="false"
+        app:civ_shadow_color="@color/gray"
+        app:civ_shadow_radius="3dp" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dummy_name_male"
+        android:textAlignment="center" />
+
+</LinearLayout>

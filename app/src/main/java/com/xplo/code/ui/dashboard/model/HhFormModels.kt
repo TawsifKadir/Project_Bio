@@ -1,0 +1,119 @@
+package com.xplo.code.ui.dashboard.model
+
+import com.google.gson.GsonBuilder
+import com.xplo.code.core.TestConfig
+
+
+data class HouseholdForm(
+    var form1: HhForm1? = null,
+    var form2: HhForm2? = null,
+    var form3: HhForm3? = null,
+    var form4: HhForm4? = null,
+    var form5: HhForm4? = null
+)
+
+data class HhForm1(
+    var countryName: String? = null,
+    var stateName: String? = null,
+    var payamName: String? = null,
+    var bomaName: String? = null,
+    var lat: Double? = null,
+    var lon: Double? = null
+)
+
+data class HhForm2(
+    var name: String? = null,
+    var age: Int? = null,
+    var idNumber: String? = null,
+    var phoneNumber: String? = null,
+    var mainSourceOfIncome: String? = null,
+    var monthlyAverageIncome: Int? = null,
+    var gender: String? = null,
+    var maritalStatus: String? = null,
+    var legalStatus: String? = null,
+    var spouseName: String? = null,
+    var selectionReason: String? = null,
+    var selectionCriteria: String? = null
+)
+
+data class HhForm3(
+    var householdSize: Int? = null,
+    var maleHouseholdMembers: Int? = null,
+    var femaleHouseholdMembers: Int? = null,
+    var householdMembers0_2: Int? = null,
+    var householdMembers3_5: Int? = null,
+    var householdMembers6_17: Int? = null,
+    var householdMembers18_35: Int? = null,
+    var householdMembers36_45: Int? = null,
+    var householdMembers46_64: Int? = null,
+    var householdMembers65andAbove: Int? = null,
+    var householdMembersWithDisability: Int? = null,
+    var householdMembersWithChronicallyIll: Int? = null
+)
+
+
+data class HhForm4(
+    var img: String? = null
+)
+
+data class HhForm5(
+    var finger: String? = null
+)
+
+fun HhForm1.isOk(): Boolean {
+    if (!TestConfig.isValidationEnabled) return true
+
+    if (this.countryName.isNullOrBlank()) return false
+    if (this.stateName.isNullOrBlank()) return false
+    if (this.payamName.isNullOrBlank()) return false
+    if (this.bomaName.isNullOrBlank()) return false
+    if (this.lat == null) return false
+    if (this.lon == null) return false
+    return true
+}
+
+fun HhForm2.isOk(): Boolean {
+    if (!TestConfig.isValidationEnabled) return true
+
+    if (this.name.isNullOrBlank()) return false
+    if (this.idNumber.isNullOrBlank()) return false
+    if (this.phoneNumber.isNullOrBlank()) return false
+    if (this.mainSourceOfIncome.isNullOrBlank()) return false
+    if (this.gender.isNullOrBlank()) return false
+    if (this.maritalStatus.isNullOrBlank()) return false
+    if (this.legalStatus.isNullOrBlank()) return false
+    if (this.spouseName.isNullOrBlank()) return false
+    if (this.selectionReason.isNullOrBlank()) return false
+    if (this.selectionCriteria.isNullOrBlank()) return false
+
+    if (this.age == null) return false
+    if (this.monthlyAverageIncome == null) return false
+
+    return true
+}
+
+fun HhForm3.isOk(): Boolean {
+    if (!TestConfig.isValidationEnabled) return true
+
+    if (this.householdSize == null) return false
+    if (this.maleHouseholdMembers == null) return false
+    if (this.femaleHouseholdMembers == null) return false
+    if (this.householdMembers0_2 == null) return false
+    if (this.householdMembers3_5 == null) return false
+    if (this.householdMembers6_17 == null) return false
+    if (this.householdMembers18_35 == null) return false
+    if (this.householdMembers36_45 == null) return false
+    if (this.householdMembers46_64 == null) return false
+    if (this.householdMembers65andAbove == null) return false
+    if (this.householdMembersWithDisability == null) return false
+    if (this.householdMembersWithChronicallyIll == null) return false
+    return true
+}
+
+fun HouseholdForm?.toJson(): String? {
+    //return Gson().toJson(this)
+    return GsonBuilder()
+        .setPrettyPrinting()
+        .create()
+        .toJson(this)
+}

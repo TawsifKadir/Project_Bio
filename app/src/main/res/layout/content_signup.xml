@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="50dp"
+    android:paddingTop="0dp"
+    android:paddingRight="50dp"
+    android:paddingBottom="80dp"
+    tools:background="?attr/colorBackground">
+
+    <ImageView
+        android:id="@+id/ivBannar"
+        android:layout_width="250dp"
+        android:layout_height="140dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="10dp"
+        android:padding="0dp"
+        android:src="@drawable/splash_logo"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tvUserId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_person_outline_black_24dp"
+            android:drawablePadding="16dp"
+            android:padding="5dp"
+            android:text="@string/userid" />
+
+        <EditText
+            android:id="@+id/etUserId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:ems="10"
+            android:focusable="true"
+            android:hint="@string/id"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/tvPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_lock_black_24dp"
+            android:drawablePadding="16dp"
+            android:padding="5dp"
+            android:text="@string/password" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:focusable="true"
+            android:hint="****"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:padding="8dp" />
+
+
+        <TextView
+            android:id="@+id/tvPasswordAgain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_lock_black_24dp"
+            android:drawablePadding="16dp"
+            android:padding="5dp"
+            android:text="@string/password_again" />
+
+        <EditText
+            android:id="@+id/etPasswordAgain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:focusable="true"
+            android:hint="****"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:padding="8dp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btSignup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="?attr/colorPrimary"
+        android:padding="20dp"
+        android:text="@string/signup"
+        android:textAllCaps="false"
+        android:textColor="@color/contrast_dark"
+
+        android:textStyle="normal" />
+
+
+</LinearLayout>

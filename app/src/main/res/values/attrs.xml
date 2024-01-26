@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <attr name="colorBrand" format="reference|color" />
+    <attr name="colorOnBrand" format="reference|color" />
+    <attr name="colorBrandLight" format="reference|color" />
+    <attr name="colorBrandDark" format="reference|color" />
+    <attr name="colorBrandSemiTransparent" format="reference|color" />
+    <attr name="colorBrandDisabled" format="reference|color" />
+    <attr name="colorOnBrandDisabled" format="reference|color" />
+
+    <attr name="colorAppbar" format="reference|color" />
+    <attr name="colorOnAppbar" format="reference|color" />
+
+    <attr name="colorBottomBar" format="reference|color" />
+    <attr name="colorOnBottomBar" format="reference|color" />
+    <attr name="colorOnBottomBarChecked" format="reference|color" />
+
+    <attr name="colorBackground" format="reference|color" />
+    <attr name="colorOnBackground" format="reference|color" />
+    <attr name="colorBackgroundSecondary" format="reference|color" />
+
+    <attr name="colorTextPrimary" format="reference|color" />
+    <attr name="colorTextSecondary" format="reference|color" />
+    <attr name="colorTextPrimaryContrastPrimary" format="reference|color" />
+    <attr name="colorTextHint" format="reference|color" />
+
+    <attr name="colorIcon" format="reference|color" />
+    <attr name="colorDivider" format="reference|color" />
+    <attr name="colorBorder" format="reference|color" />
+    <attr name="colorNavigationItem" format="color" />
+
+    <attr name="colorTag" format="reference|color" />
+    <attr name="colorOnTag" format="reference|color" />
+    <attr name="colorTagTvod" format="reference|color" />
+    <attr name="colorOnTagTvod" format="reference|color" />
+
+    <attr name="colorTab" format="reference|color" />
+    <attr name="colorOnTab" format="reference|color" />
+    <attr name="colorTabSelected" format="reference|color" />
+    <attr name="colorOnTabSelected" format="reference|color" />
+
+    <attr name="colorShimmer" format="reference|color" />
+    <attr name="colorTransparentDarkA" format="reference|color" />
+
+    <attr name="colorButtonPrimary" format="reference|color" />
+    <attr name="colorOnButtonPrimary" format="reference|color" />
+    <attr name="colorButtonPrimaryDisabled" format="reference|color" />
+    <attr name="colorButtonPrimaryBorder" format="reference|color" />
+
+    <attr name="colorButtonA" format="reference|color" />
+    <attr name="colorOnButtonA" format="reference|color" />
+    <attr name="colorButtonADisabled" format="reference|color" />
+    <attr name="colorButtonABorder" format="reference|color" />
+
+    <attr name="colorButtonB" format="reference|color" />
+    <attr name="colorOnButtonB" format="reference|color" />
+    <attr name="colorButtonBDisabled" format="reference|color" />
+    <attr name="colorButtonBBorder" format="reference|color" />
+
+    <attr name="colorGrid" format="reference|color" />
+    <attr name="colorOnGrid" format="reference|color" />
+
+    <attr name="themeToolbar" format="reference" />
+    <attr name="themePopup" format="reference" />
+    <attr name="themeNavDrawer" format="reference" />
+
+    <attr name="drawableAppPicto" format="reference" />
+    <attr name="drawableAppLogoBanner" format="reference" />
+    <attr name="drawableAppLogoBannerOnBrand" format="reference" />
+<!--    <attr name="drawableGOLPackageTop" format="reference" />-->
+
+    <!--    <attr name="colorBrand" format="reference|color" />-->
+<!--    <attr name="colorBrandDark" format="reference|color" />-->
+<!--    <attr name="colorBrandLight" format="reference|color" />-->
+<!--    <attr name="colorOnBrand" format="reference|color" />-->
+<!--    <attr name="colorAppbar" format="reference|color" />-->
+
+<!--    <attr name="colorBackground" format="reference|color" />-->
+<!--    <attr name="colorBackgroundCell" format="reference|color" />-->
+<!--    <attr name="colorBackgroundLight" format="reference|color" />-->
+<!--    <attr name="colorOnBackground" format="reference|color" />-->
+
+<!--    <attr name="colorPrimaryText" format="reference|color" />-->
+<!--    <attr name="colorSecondaryText" format="reference|color" />-->
+<!--    <attr name="colorContrastPrimaryText" format="reference|color" />-->
+<!--    <attr name="colorContrastSecondaryText" format="reference|color" />-->
+<!--    <attr name="colorIcon" format="reference|color" />-->
+<!--    <attr name="colorDivider" format="reference|color" />-->
+
+<!--    <attr name="colorTextTitle" format="reference|color" />-->
+<!--    <attr name="colorTextSubTitle" format="reference|color" />-->
+<!--    <attr name="colorTextDescription" format="reference|color" />-->
+
+<!--    <attr name="colorTagText" format="reference|color" />-->
+<!--    <attr name="colorTagBackground" format="reference|color" />-->
+
+<!--    <attr name="themeToolbar" format="reference" />-->
+<!--    <attr name="themePopup" format="reference" />-->
+
+<!--    <attr name="themeNavDrawer" format="reference" />-->
+
+
+
+    <!--    <attr name="colorNavigationItemSelected" format="color" />-->
+    <!--    <attr name="colorOnPrimary" format="color" />-->
+    <!--    <attr name="drawableNavigationItemBackground" format="reference" />-->
+
+
+<!--    <attr name="drawableLogoBongo" format="reference" />-->
+
+</resources>

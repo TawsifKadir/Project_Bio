@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="respondent_first_name_min_3_letters">Respondent First Name (min 3 letters)</string>
+    <string name="respondent_middle_name_min_3_letters">Respondent Middle Name (min 3 letters)</string>
+    <string name="respondent_last_name_min_3_letters">Respondent Last Name (min 3 letters)</string>
+
+    <string name="respondent_age_max_3_digit">Respondent Age (max 3 digit)</string>
+    <string name="respondent_id_number">Respondent Id Number</string>
+
+    <string name="selection_criteria">Selection Criteria</string>
+<!--    <string name="household_main_source_of_income">Household Main Source of Income</string>-->
+<!--    <string name="country_name">Country Name</string>-->
+
+    <string name="payam_name">Payam Name</string>
+    <string name="boma_name">Boma Name</string>
+
+    <string name="respondent_phone_number_max_10_digit">Respondent Phone Number (max 10 digit)</string>
+    <string name="household_monthly_average_income">Household Monthly Average Income</string>
+<!--    <string name="respondent_gender">Respondent Gender</string>-->
+    <string name="respondent_legal_status">Respondent Legal Status</string>
+<!--    <string name="respondent_marital_status">Respondent Marital Status</string>-->
+    <string name="selection_reason">Selection Reason</string>
+<!--    <string name="respondent_relationship_to_the_household_head">Respondent relationship to the household head</string>-->
+    <string name="gps_coordinates_lat">GPS Coordinates (Lat)</string>
+    <string name="gps_coordinates_long">GPS Coordinates (Long)</string>
+
+
+    <string name="household_size">Household Size</string>
+    <string name="male_household_members">Male Household members</string>
+    <string name="female_household_members">Female Household members</string>
+    <string name="household_members_0_2_yrs_old">Household members 0-2 yrs Old</string>
+    <string name="household_members_3_5_yrs_old">Household members 3-5 yrs Old</string>
+    <string name="household_members_6_17_yrs_old">Household members 6-17 yrs Old</string>
+    <string name="household_members_18_35_yrs_old">Household members 18-35 yrs Old</string>
+    <string name="household_members_36_45_yrs_old">Household members 36-45 yrs Old</string>
+    <string name="household_members_46_64_yrs_old">Household members 46-64 yrs Old</string>
+    <string name="household_members_65_and_above">Household members 65 and Above</string>
+    <string name="household_members_with_disability">Household members with disability</string>
+    <string name="household_members_with_chronically_ill">Household members with chronically ill</string>
+
+    <string name="respondent_relationship_to_the_household_head_label">Respondent relationship to the household head</string>
+    <string-array name="respondent_relationship_to_the_household_head_array">
+        <item>Select Relationship with Respondent</item>
+        <item>Household Head</item>
+        <item>Spouse/Wife</item>
+        <item>Son/Daughter</item>
+        <item>Son/Daughter in law</item>
+        <item>Grandchild</item>
+        <item>Father/Mother</item>
+        <item>Father/Mother in law</item>
+        <item>Sibling</item>
+        <item>Other Relative</item>
+        <item>Domestic Worker</item>
+        <item>No Relation</item>
+        <item>Does not know</item>
+    </string-array>
+
+    <string name="respondent_gender_label">Respondent Gender</string>
+    <string-array name="respondent_gender_array">
+        <item>Select Respondent Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+
+<string name="respondent_marital_status_label">Respondent Marital Status</string>
+    <string-array name="respondent_marital_status_array">
+        <item>Select Respondent Marital Status</item>
+        <item>Single</item>
+        <item>Married</item>
+        <item>Widow/Widower</item>
+        <item>Separated</item>
+        <item>Divorce</item>
+    </string-array>
+
+<string name="respondent_legal_status_label">Respondent Legal Status</string>
+    <string-array name="respondent_legal_status_array">
+        <item>Select Respondent Legal Status</item>
+        <item>Host</item>
+        <item>Returnee</item>
+        <item>Refugee</item>
+        <item>IDP</item>
+    </string-array>
+
+<string name="household_main_source_of_income_label">Household Main Source of Income</string>
+    <string-array name="household_main_source_of_income_array">
+        <item>Select Household Main Source of Income</item>
+        <item>None</item>
+        <item>Selling of farm produce including crops and livestock, fishing</item>
+        <item>Selling of non-farm goods (e.g. tea, fire wood, charcoal, grass, alcohol)</item>
+        <item>Casual labour</item>
+        <item>Formal employment</item>
+        <item>Remittances</item>
+        <item>Gift from family/ friends</item>
+        <item>Assistance from the Government</item>
+        <item>Assistance from NGOs/charitable organization/church/mosque</item>
+        <item>Pension</item>
+        <item>Other (specify)</item>
+    </string-array>
+
+<string name="country_name_label">Country Name</string>
+    <string-array name="country_nam_array">
+        <item>Select Country Name</item>
+        <item>USA</item>
+    </string-array>
+
+<string name="state_name_label">Select State Name</string>
+    <string-array name="state_name_array">
+        <item>State Name</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+<string name="respondent_relationship_to_the_household_head1_label">Respondent relationship to the household head</string>
+    <string-array name="respondent_relationship_to_the_household_head1_array">
+        <item>Select Relationship with Respondent</item>
+        <item>Household Head</item>
+        <item>Spouse/Wife</item>
+        <item>Son/Daughter</item>
+        <item>Son/Daughter in law</item>
+        <item>Grandchild</item>
+        <item>Father/Mother</item>
+        <item>Father/Mother in law</item>
+        <item>Sibling</item>
+        <item>Other Relative</item>
+        <item>Domestic Worker</item>
+        <item>No Relation</item>
+        <item>Does not know</item>
+    </string-array>
+
+<string name="select_nominee_gender_label">Select Nominee Gender</string>
+    <string-array name="select_nominee_gender_array">
+        <item>Select Nominee Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+<string name="what_does_currently_do_for_a_living_label">What does currently do for a living?</string>
+    <string-array name="what_does_currently_do_for_a_living_array">
+        <item>Select Nominee Occupation</item>
+        <item>Employed in a formal job</item>
+        <item>Casual work or daily wage labor</item>
+        <item>Self-employed in a business or trade</item>
+        <item>Agricultural work or farming</item>
+        <item>Homemaker (manages household activities)</item>
+        <item>Unemployed and actively seeking work</item>
+        <item>Student or in education</item>
+        <item>Disabled or chronically ill</item>
+        <item>Retired or not working</item>
+        <item>Other (specify)</item>
+    </string-array>
+
+<string name="what_were_the_main_reasons_for_nominating_first_nominee_label">What were the main reasons for nominating First Nominee</string>
+    <string-array name="what_were_the_main_reasons_for_nominating_first_nominee_array">
+        <item>Select Nominee Priority Reason</item>
+        <item>has more available time for participation.</item>
+        <item>has relevant skills or experience.</item>
+        <item>has expressed a strong interest in participating in this type of programs</item>
+        <item>needs the program\'s benefits more urgently.</item>
+        <item>can contribute more to the household income.</item>
+        <item>can handle the program\'s expectations or conditions better.</item>
+        <item>has a better understanding of the program.</item>
+        <item>has better access to resources for participation.</item>
+        <item>has a greater potential for success in the program.</item>
+        <item>Other (specify)</item>
+    </string-array>
+
+<string name="payee_gender_label">Payee Gender</string>
+    <string-array name="payee_gender_array">
+        <item>Select Payee Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string name="household_name">Household Name</string>
+    <string name="alternate_name">Alternate Name</string>
+    <string name="alternate_age">Age</string>
+    <string name="alternate_id">ID Number</string>
+    <string name="alternate_phone">Phonenumber</string>
+    <string name="alternate_relation">Select Alternate Relationship</string>
+    <string name="alternate_gender">Gender</string>
+</resources>

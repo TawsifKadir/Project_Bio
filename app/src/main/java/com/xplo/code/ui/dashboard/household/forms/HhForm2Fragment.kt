@@ -1,0 +1,256 @@
+package com.xplo.code.ui.dashboard.household.forms
+
+import android.content.Context
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.RadioGroup
+import android.widget.Spinner
+import androidx.fragment.app.viewModels
+import com.xplo.code.R
+import com.xplo.code.core.Bk
+import com.xplo.code.core.TestConfig
+import com.xplo.code.databinding.FragmentHhForm2PerInfoBinding
+import com.xplo.code.ui.dashboard.UiData
+import com.xplo.code.ui.dashboard.base.BasicFormFragment
+import com.xplo.code.ui.dashboard.household.HouseholdContract
+import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.model.HhForm2
+import com.xplo.code.ui.dashboard.model.isOk
+import com.xplo.data.BuildConfig
+import dagger.hilt.android.AndroidEntryPoint
+
+/**
+ * Copyright 2020 (C) xplo
+ *
+ * Created  : 3/14/20
+ * Author   : xplo
+ * Desc     :
+ * Comment  :
+ */
+
+@AndroidEntryPoint
+class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
+
+    companion object {
+        const val TAG = "HhForm2Fragment"
+
+        @JvmStatic
+        fun newInstance(
+            parent: String?
+        ): HhForm2Fragment {
+            Log.d(TAG, "newInstance() called with: parent = $parent")
+            val fragment = HhForm2Fragment()
+            val bundle = Bundle()
+            bundle.putString(Bk.KEY_PARENT, parent)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
+
+    private lateinit var binding: FragmentHhForm2PerInfoBinding
+    private val viewModel: HouseholdViewModel by viewModels()
+
+    //private lateinit var presenter: RegistrationContract.Presenter
+    private var interactor: HouseholdContract.View? = null
+
+    private lateinit var spMainSourceOfIncome: Spinner
+    private lateinit var spGender: Spinner
+    private lateinit var spMaritalStatus: Spinner
+    private lateinit var spLegalStatus: Spinner
+    private lateinit var etFirstName: EditText
+    private lateinit var etMiddleName: EditText
+    private lateinit var etLastName: EditText
+    private lateinit var etAge: EditText
+    private lateinit var etIdNumber: EditText
+    private lateinit var etPhoneNumber: EditText
+    private lateinit var etMonthlyAverageIncome: EditText
+    private lateinit var etSpouseName: EditText
+    private lateinit var etSelectionReason: EditText
+    private lateinit var rgSelectionCriteria: RadioGroup
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if (context is HouseholdContract.View) {
+            interactor = activity as HouseholdContract.View
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentHhForm2PerInfoBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initInitial()
+        initView()
+        initObserver()
+
+    }
+
+    override fun initInitial() {
+        //presenter = RegistrationPresenter(DataRepoImpl())
+        //presenter.attach(this)
+
+
+        spMainSourceOfIncome = binding.spMainSourceOfIncome
+        spGender = binding.spGender
+        spMaritalStatus = binding.spMaritalStatus
+        spLegalStatus = binding.spLegalStatus
+        etFirstName = binding.etFirstName
+        etMiddleName = binding.etMiddleName
+        etLastName = binding.etLastName
+        etAge = binding.etAge
+        etIdNumber = binding.etIdNumber
+        etPhoneNumber = binding.etPhoneNumber
+        etMonthlyAverageIncome = binding.etMonthlyAverageIncome
+        etSpouseName = binding.etSpouseName
+        etSelectionReason = binding.etSelectionReason
+        rgSelectionCriteria = binding.rgSelectionCriteria
+    }
+
+    override fun initView() {
+
+        bindSpinnerData(spMainSourceOfIncome, UiData.mainIncomeOptions)
+        bindSpinnerData(spGender, UiData.genderOptions)
+        bindSpinnerData(spMaritalStatus, UiData.maritalStatusOptions)
+        bindSpinnerData(spLegalStatus, UiData.legalStatusOptions)
+
+    }
+
+    override fun initObserver() {
+        binding.viewButtonBackNext.btBack.setOnClickListener {
+            onClickBackButton()
+        }
+
+        binding.viewButtonBackNext.btNext.setOnClickListener {
+            onClickNextButton()
+        }
+
+        if (BuildConfig.DEBUG) {
+            binding.viewButtonBackNext.btNext.setOnLongClickListener {
+                onGenerateDummyInput()
+                return@setOnLongClickListener true
+            }
+        }
+
+        onGenerateDummyInput()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        setToolbarTitle("Personal Information Registration")
+
+//        binding.viewButtonBackNext.btBack.visible()
+//        binding.viewButtonBackNext.btNext.visible()
+
+    }
+
+    override fun onDestroy() {
+        //presenter.onDetachView()
+        super.onDestroy()
+    }
+
+    override fun onValidated(form: HhForm2?) {
+        Log.d(TAG, "onValidated() called with: form = $form")
+        //showToast(form.toString())
+
+        val rootForm = interactor?.getRootForm()
+        rootForm?.form2 = form
+        interactor?.setRootForm(rootForm)
+
+        Log.d(TAG, "onValidated: $rootForm")
+
+        interactor?.navigateToForm3()
+    }
+
+    override fun onClickBackButton() {
+        Log.d(TAG, "onClickBackButton() called")
+        interactor?.onBackButton()
+    }
+
+    override fun onClickNextButton() {
+        Log.d(TAG, "onClickNextButton() called")
+        //interactor?.navigateToForm3()
+
+//        if (!TestConfig.isValidationEnabled) {
+//            interactor?.navigateToForm3()
+//            return
+//        }
+
+        onReadInput()
+    }
+
+    override fun onReadInput() {
+        Log.d(TAG, "onValidation() called")
+
+        val form = HhForm2()
+
+        form.mainSourceOfIncome = chkSpinner(spMainSourceOfIncome, UiData.ER_SP_DF)
+        form.gender = chkSpinner(spGender, UiData.ER_SP_DF)
+        form.maritalStatus = chkSpinner(spMaritalStatus, UiData.ER_SP_DF)
+        form.legalStatus = chkSpinner(spLegalStatus, UiData.ER_SP_DF)
+
+//        form.firstName = chkEditText(etFirstName, UiData.ER_SP_DF)
+//        form.middleName = chkEditText(etMiddleName, UiData.ER_SP_DF)
+//        form.lastName = chkEditText(etLastName, UiData.ER_SP_DF)
+
+        form.name = chkEditText(etFirstName, UiData.ER_ET_DF)
+        form.age = chkEditText(etAge, UiData.ER_ET_DF)?.toInt()
+        form.idNumber = chkEditText(etIdNumber, UiData.ER_ET_DF)
+        form.phoneNumber = chkEditText(etPhoneNumber, UiData.ER_ET_DF)
+        form.monthlyAverageIncome = chkEditText(etMonthlyAverageIncome, UiData.ER_ET_DF)?.toInt()
+        form.spouseName = chkEditText(etSpouseName, UiData.ER_ET_DF)
+        form.selectionReason = chkEditText(etSelectionReason, UiData.ER_ET_DF)
+        form.selectionCriteria = chkRadioGroup(rgSelectionCriteria, UiData.ER_ET_DF)
+
+
+        if (!form.isOk()) {
+            return
+        }
+
+        onValidated(form)
+    }
+
+    override fun onGenerateDummyInput() {
+        Log.d(TAG, "onGenerateDummyInput() called")
+        if (!BuildConfig.DEBUG) return
+        if (!TestConfig.isDummyDataEnabled) return
+
+        spMainSourceOfIncome.setSelection(1)
+        spGender.setSelection(1)
+        spMaritalStatus.setSelection(1)
+        spLegalStatus.setSelection(1)
+
+        etFirstName.setText("abc")
+        etMiddleName.setText("abc")
+        etLastName.setText("abc")
+        etAge.setText("12")
+        etIdNumber.setText("abc")
+        etPhoneNumber.setText("abc")
+        etMonthlyAverageIncome.setText("12")
+        etSpouseName.setText("abc")
+        etSelectionReason.setText("abc")
+
+        rgSelectionCriteria.check(R.id.rbA)
+    }
+
+    override fun onPopulateView() {
+        Log.d(TAG, "onPopulateView() called")
+
+    }
+
+
+}
