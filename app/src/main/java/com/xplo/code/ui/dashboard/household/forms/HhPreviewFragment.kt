@@ -199,21 +199,21 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             .setLayoutId(R.layout.custom_dialog_pnn)
             .setTitle(getString(R.string.review_complete_reg))
             .setMessage(getString(R.string.review_complete_reg_msg))
-            .setPosButtonText(getString(R.string.alternate_reg))
+            .setPosButtonText(getString(R.string.household_reg))
             .setNegButtonText(getString(R.string.cancel))
-            .setNeuButtonText(getString(R.string.household_reg))
+            .setNeuButtonText(getString(R.string.alternate_reg))
             .setThumbId(R.drawable.ic_logo_photo)
             .setCancelable(false)
             .setListener(object : XDialog.DialogListener {
                 override fun onClickPositiveButton() {
-                    interactor?.navigateToAlternate()
+                    interactor?.navigateToHousehold()
                 }
 
                 override fun onClickNegativeButton() {
                     
                 }
                 override fun onClickNeutralButton() {
-                    interactor?.navigateToHousehold()
+                    interactor?.navigateToAlternate()
                 }
             })
             .build()
