@@ -211,10 +211,10 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         form.middleName = chkEditText(etMiddleName, UiData.ER_ET_DF)
         form.lastName = chkEditText(etLastName, UiData.ER_ET_DF)
 
-        form.age = chkEditText(etAge, UiData.ER_ET_DF)?.toInt()
+        form.age = chkEditText(etAge, UiData.ER_ET_DF)
         form.idNumber = chkEditText(etIdNumber, UiData.ER_ET_DF)
         form.phoneNumber = chkEditText(etPhoneNumber, UiData.ER_ET_DF)
-        form.monthlyAverageIncome = chkEditText(etMonthlyAverageIncome, UiData.ER_ET_DF)?.toInt()
+        form.monthlyAverageIncome = chkEditText(etMonthlyAverageIncome, UiData.ER_ET_DF)
         form.spouseName = chkEditText(etSpouseName, UiData.ER_ET_DF)
         form.selectionReason = chkEditText(etSelectionReason, UiData.ER_ET_DF)
         form.selectionCriteria = chkRadioGroup(rgSelectionCriteria, UiData.ER_ET_DF)

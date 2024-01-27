@@ -15,7 +15,10 @@ abstract class BasicFormFragment : BaseFragment(), BaseFormFragmentView {
 
     override fun chkEditText(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
-        if (!isValidationEnabled()) return txt
+        if (!isValidationEnabled()) {
+            if (txt == "")
+            return "0"
+        }
         if (txt.isEmpty()) {
             editText.error = error
             return null
