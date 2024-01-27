@@ -30,6 +30,7 @@ import com.xplo.code.databinding.FragmentHhForm4CapPhotoBinding
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.model.HhForm3
 import com.xplo.code.ui.dashboard.model.HhForm4
 import com.xplo.code.ui.photo.ImagePickerActivity
 import com.xplo.code.ui.photo.ImageUtil
@@ -265,6 +266,7 @@ class HhForm4Fragment : BasicFormFragment(), HouseholdContract.Form4View {
                     val bitmap =
                         MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
                     newPhotoBase64 = ImageUtil.convert(bitmap)
+                    setToModel(uri.toString())
                     loadProfile(uri.toString())
                 } catch (e: IOException) {
                     e.printStackTrace()
@@ -273,6 +275,13 @@ class HhForm4Fragment : BasicFormFragment(), HouseholdContract.Form4View {
         }
     }
 
+    private fun setToModel(newPhotoBase64: String?) {
+        val form = HhForm4()
+        form.img = newPhotoBase64
+        val rootForm = interactor?.getRootForm()
+        rootForm?.form4 = form
+        interactor?.setRootForm(rootForm)
+    }
     /**
      * Showing Alert Dialog with Settings option
      * Navigates user to app settings

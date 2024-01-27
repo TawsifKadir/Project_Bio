@@ -6,12 +6,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
+import com.xplo.code.R
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.visible
 import com.xplo.code.databinding.FragmentHhPreviewBinding
+import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.HouseholdForm
@@ -135,7 +139,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         binding.txtLR.text = "true"
         binding.txtLL.text = "true"
 
-        //binding.imgPhoto = rootForm?.form2?.im ?: ""
+        loadImage(rootForm?.form4?.img ?: "")
     }
 
     override fun initObserver() {
@@ -190,6 +194,30 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
 
         viewModel.saveHouseholdForm(rootForm)
 
+
+        XDialog.Builder(requireActivity().supportFragmentManager)
+            .setLayoutId(R.layout.custom_dialog_pnn)
+            .setTitle(getString(R.string.review_complete_reg))
+            .setMessage(getString(R.string.review_complete_reg_msg))
+            .setPosButtonText(getString(R.string.alternate_reg))
+            .setNegButtonText(getString(R.string.cancel))
+            .setNeuButtonText(getString(R.string.household_reg))
+            .setThumbId(R.drawable.ic_logo_photo)
+            .setCancelable(false)
+            .setListener(object : XDialog.DialogListener {
+                override fun onClickPositiveButton() {
+                    interactor?.navigateToAlternate()
+                }
+
+                override fun onClickNegativeButton() {
+                    
+                }
+                override fun onClickNeutralButton() {
+                    interactor?.navigateToAlternate()
+                }
+            })
+            .build()
+            .show()
     }
 
     override fun onReadInput() {
@@ -204,6 +232,19 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
 
     override fun onPopulateView() {
         Log.d(TAG, "onPopulateView() called")
+    }
+    private fun loadImage(url: String) {
+        if(url != ""){
+            Glide.with(this).load(url)
+                .into(this!!.binding.imgPhoto!!)
+            binding.imgPhoto!!.setColorFilter(
+                ContextCompat.getColor(
+                    requireContext(),
+                    android.R.color.transparent
+                )
+            )
+        }
+
     }
 
 }

@@ -84,6 +84,8 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View {
 
     override fun initView() {
 
+        val rootForm = interactor?.getRootForm()
+        Log.d(HhPreviewFragment.TAG, "initView: $rootForm")
     }
 
     override fun initObserver() {
