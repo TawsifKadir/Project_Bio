@@ -9,7 +9,10 @@ data class HouseholdForm(
     var form2: HhForm2? = null,
     var form3: HhForm3? = null,
     var form4: HhForm4? = null,
-    var form5: HhForm4? = null
+    var form5: HhForm4? = null,
+    var altform1: ALTForm1? = null,
+    var altform2: ALTForm2? = null,
+    var altform3: ALTForm3? = null,
 )
 
 data class HhForm1(
@@ -58,6 +61,31 @@ data class HhForm4(
 
 data class HhForm5(
     var finger: String? = null
+)
+
+data class ALTForm1(
+    var householdName: String? = null,
+    var alternateName: String? = null,
+    var age: String? = null,
+    var idNumber: String? = null,
+    var phoneNumber: String? = null,
+    var selectAlternateRlt: String? = null,
+    var gender: String? = null
+)
+data class ALTForm2(
+    var img: String? = null
+)
+data class ALTForm3(
+    var fingerRT: String? = null,
+    var fingerRI: String? = null,
+    var fingerRM: String? = null,
+    var fingerRR: String? = null,
+    var fingerRL: String? = null,
+    var fingerLT: String? = null,
+    var fingerLI: String? = null,
+    var fingerLM: String? = null,
+    var fingerLR: String? = null,
+    var fingerLL: String? = null,
 )
 
 fun HhForm1.isOk(): Boolean {
@@ -109,7 +137,18 @@ fun HhForm3.isOk(): Boolean {
     if (this.householdMembersWithChronicallyIll == null) return false
     return true
 }
+fun ALTForm1.isOk(): Boolean {
+    if (!TestConfig.isValidationEnabled) return true
 
+    if (this.householdName.isNullOrBlank()) return false
+    if (this.alternateName.isNullOrBlank()) return false
+    if (this.age.isNullOrBlank()) return false
+    if (this.idNumber.isNullOrBlank()) return false
+    if (this.phoneNumber.isNullOrBlank()) return false
+    if (this.selectAlternateRlt == null) return false
+    if (this.gender == null) return false
+    return true
+}
 fun HouseholdForm?.toJson(): String? {
     //return Gson().toJson(this)
     return GsonBuilder()

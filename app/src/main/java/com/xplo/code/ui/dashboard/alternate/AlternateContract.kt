@@ -3,6 +3,9 @@ package com.xplo.code.ui.dashboard.alternate
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import com.xplo.code.base.BaseContract
+import com.xplo.code.ui.dashboard.model.ALTForm1
+import com.xplo.code.ui.dashboard.model.ALTForm3
+import com.xplo.code.ui.dashboard.model.HouseholdForm
 
 /**
  * Copyright 2020 (C) xplo
@@ -44,6 +47,8 @@ interface AlternateContract {
 
         fun onPageAdd()
 
+        fun getRootForm(): HouseholdForm?
+        fun setRootForm(form: HouseholdForm?)
     }
 
     interface Presenter : BaseContract.Presenter<View> {
@@ -55,6 +60,9 @@ interface AlternateContract {
 
         fun onClickBackButton()
         fun onClickNextButton()
+        fun onReadInput()
+        fun onGenerateDummyInput()
+
 //        fun onClickSubmitButton()
 
 //        fun bindSpinnerData(spinner: Spinner, items: Array<String>)
@@ -64,15 +72,18 @@ interface AlternateContract {
     interface Form1View : BaseContract.View, CommonView {
 
 
+        fun onValidated(form: ALTForm1?)
     }
 
     interface Form2View : BaseContract.View, CommonView {
 
+        fun onValidated(form: ALTForm1?)
 
     }
 
     interface Form3View : BaseContract.View, CommonView {
 
+        fun onValidated(form: ALTForm3?)
 
     }
 
@@ -88,6 +99,7 @@ interface AlternateContract {
 
     interface PreviewView : BaseContract.View, CommonView {
 
+        fun onValidated(form: ALTForm1?)
 
     }
 

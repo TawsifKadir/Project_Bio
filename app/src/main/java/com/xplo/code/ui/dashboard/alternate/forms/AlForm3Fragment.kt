@@ -3,43 +3,44 @@ package com.xplo.code.ui.dashboard.alternate.forms
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import com.bumptech.glide.Glide
-import com.xplo.code.base.BaseFragment
+import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.ext.visible
-import com.xplo.code.databinding.FragmentAlPreviewBinding
+import com.xplo.code.databinding.FragmentAlForm3Binding
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.alternate.AlternateViewModel
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.model.ALTForm1
+import com.xplo.code.ui.dashboard.model.ALTForm3
 import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * Copyright 2020 (C) xplo
- *
- * Created  : 3/14/20
- * Author   : xplo
- * Desc     :
- * Comment  :
- */
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
 
+/**
+ * A simple [Fragment] subclass.
+ * Use the [AlForm3Fragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
 @AndroidEntryPoint
-class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
+class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
 
     companion object {
-        const val TAG = "AlPreviewFragment"
+        const val TAG = "AlForm3Fragment"
 
         @JvmStatic
         fun newInstance(
             parent: String?
-        ): AlPreviewFragment {
+        ): AlForm3Fragment {
             Log.d(TAG, "newInstance() called with: parent = $parent")
-            val fragment = AlPreviewFragment()
+            val fragment = AlForm3Fragment()
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
             fragment.arguments = bundle
@@ -47,7 +48,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
         }
     }
 
-    private lateinit var binding: FragmentAlPreviewBinding
+    private lateinit var binding: FragmentAlForm3Binding
     private val viewModel: AlternateViewModel by viewModels()
 
     //private lateinit var presenter: RegistrationContract.Presenter
@@ -67,7 +68,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAlPreviewBinding.inflate(inflater, container, false)
+        binding = FragmentAlForm3Binding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -86,45 +87,9 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
     }
 
     override fun initView() {
-        val rootForm = interactor?.getRootForm()
-
-        //info
-        binding.txtHouseHoldName.text = rootForm?.altform1?.householdName ?: ""
-        binding.txtAltName.text = rootForm?.altform1?.alternateName ?: ""
-        binding.txtAge.text = rootForm?.altform1?.age ?: ""
-        binding.txtIdNo.text = rootForm?.altform1?.idNumber ?: ""
-        binding.txtPhoneNo.text = rootForm?.altform1?.phoneNumber ?: ""
-        binding.txtAltRelation.text = rootForm?.altform1?.selectAlternateRlt ?: ""
-        binding.txtGender.text = rootForm?.altform1?.gender ?: ""
-
-        binding.txtRT.text = "true"
-        binding.txtRI.text = "true"
-        binding.txtRM.text = "true"
-        binding.txtRR.text = "true"
-        binding.txtRL.text = "true"
-
-        binding.txtLT.text = "true"
-        binding.txtLI.text = "true"
-        binding.txtLM.text = "true"
-        binding.txtLR.text = "true"
-        binding.txtLL.text = "true"
-
-        loadImage(rootForm?.altform2?.img ?: "")
 
     }
-    private fun loadImage(url: String) {
-        if(url != ""){
-            Glide.with(this).load(url)
-                .into(this!!.binding.imgPhoto!!)
-            binding.imgPhoto!!.setColorFilter(
-                ContextCompat.getColor(
-                    requireContext(),
-                    android.R.color.transparent
-                )
-            )
-        }
 
-    }
     override fun initObserver() {
 
         binding.viewButtonBackNext.btBack.setOnClickListener {
@@ -151,8 +116,8 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
         super.onDestroy()
     }
 
-    override fun onValidated(form: ALTForm1?) {
-        //TODO("Not yet implemented")
+    override fun onValidated(form: ALTForm3?) {
+        TODO("Not yet implemented")
     }
 
     override fun onClickBackButton() {
@@ -162,7 +127,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
 
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
-        //interactor?.navigateToPreview()
+        interactor?.navigateToPreview()
     }
 
     override fun onReadInput() {

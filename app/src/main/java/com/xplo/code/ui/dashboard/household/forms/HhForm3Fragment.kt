@@ -217,15 +217,15 @@ class HhForm3Fragment : BasicFormFragment(), HouseholdContract.Form3View {
         etHouseholdSize.setText("12")
         etMaleHouseholdMembers.setText("12")
         etFemaleHouseholdMembers.setText("12")
-        etHouseholdMembers0_2.setText("12")
-        etHouseholdMembers3_5.setText("12")
-        etHouseholdMembers6_17.setText("12")
-        etHouseholdMembers18_35.setText("12")
-        etHouseholdMembers36_45.setText("12")
-        etHouseholdMembers46_64.setText("12")
+        etHouseholdMembers0_2.setText("2")
+        etHouseholdMembers3_5.setText("4")
+        etHouseholdMembers6_17.setText("2")
+        etHouseholdMembers18_35.setText("1")
+        etHouseholdMembers36_45.setText("1")
+        etHouseholdMembers46_64.setText("2")
         etHouseholdMembers65andAbove.setText("12")
-        etHouseholdMembersWithDisability.setText("12")
-        etHouseholdMembersWithChronicallyIll.setText("12")
+        etHouseholdMembersWithDisability.setText("2")
+        etHouseholdMembersWithChronicallyIll.setText("2")
     }
 
     override fun onPopulateView() {

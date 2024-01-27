@@ -16,7 +16,10 @@ import com.xplo.code.core.Bk
 import com.xplo.code.databinding.ActivityAlternateBinding
 import com.xplo.code.ui.dashboard.alternate.forms.AlForm1Fragment
 import com.xplo.code.ui.dashboard.alternate.forms.AlForm2Fragment
+import com.xplo.code.ui.dashboard.alternate.forms.AlForm3Fragment
 import com.xplo.code.ui.dashboard.alternate.forms.AlPreviewFragment
+import com.xplo.code.ui.dashboard.household.HouseholdActivity
+import com.xplo.code.ui.dashboard.model.HouseholdForm
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -52,6 +55,7 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
     private val viewModel: AlternateViewModel by viewModels()
     //private lateinit var toolbar: Toolbar
 
+    private var rootForm: HouseholdForm? = HouseholdForm()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAlternateBinding.inflate(layoutInflater)
@@ -169,12 +173,12 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
     override fun navigateToForm3() {
         Log.d(TAG, "navigateToForm3() called")
         STEP = 3
-//        doFragmentTransaction(
-//            AlForm3Fragment.newInstance(null),
-//            AlForm3Fragment.TAG,
-//            true,
-//            false
-//        )
+        doFragmentTransaction(
+            AlForm3Fragment.newInstance(null),
+            AlForm3Fragment.TAG,
+            true,
+            false
+        )
     }
 
     override fun navigateToForm4() {
@@ -257,5 +261,11 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
         Log.d(TAG, "onPageAdd() called")
 
     }
+    override fun getRootForm(): HouseholdForm? {
+        return rootForm
+    }
 
+    override fun setRootForm(form: HouseholdForm?) {
+        this.rootForm = form
+    }
 }

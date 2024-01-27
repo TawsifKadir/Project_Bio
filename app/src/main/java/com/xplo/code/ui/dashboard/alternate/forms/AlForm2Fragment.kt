@@ -31,6 +31,9 @@ import com.xplo.code.databinding.FragmentAlForm2FingerBinding
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.alternate.AlternateViewModel
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
+import com.xplo.code.ui.dashboard.model.ALTForm1
+import com.xplo.code.ui.dashboard.model.ALTForm2
+import com.xplo.code.ui.dashboard.model.HhForm4
 import com.xplo.code.ui.photo.ImagePickerActivity
 import com.xplo.code.ui.photo.ImageUtil
 import dagger.hilt.android.AndroidEntryPoint
@@ -199,6 +202,10 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         super.onDestroy()
     }
 
+    override fun onValidated(form: ALTForm1?) {
+        //TODO("Not yet implemented")
+    }
+
 
 //    @Subscribe(threadMode = ThreadMode.MAIN)
 //    fun onEventButtonAction(event: EventButtonAction?) {
@@ -221,8 +228,14 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
 
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
-        interactor?.navigateToPreview()
+        interactor?.navigateToForm3()
 
+    }
+
+    override fun onReadInput() {
+    }
+
+    override fun onGenerateDummyInput() {
     }
 
     private fun showImagePickerOptions() {
@@ -275,6 +288,7 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
                     val bitmap =
                         MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
                     newPhotoBase64 = ImageUtil.convert(bitmap)
+                    setToModel(uri.toString())
                     loadProfile(uri.toString())
                 } catch (e: IOException) {
                     e.printStackTrace()
@@ -283,6 +297,13 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         }
     }
 
+    private fun setToModel(newPhotoBase64: String?) {
+        val form = ALTForm2()
+        form.img = newPhotoBase64
+        val rootForm = interactor?.getRootForm()
+        rootForm?.altform2 = form
+        interactor?.setRootForm(rootForm)
+    }
     /**
      * Showing Alert Dialog with Settings option
      * Navigates user to app settings

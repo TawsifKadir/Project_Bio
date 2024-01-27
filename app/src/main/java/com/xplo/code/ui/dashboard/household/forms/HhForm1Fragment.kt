@@ -230,8 +230,8 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View {
 
         spCountryName.setSelection(1)
         spStateName.setSelection(1)
-        etPayamName.setText("abc")
-        etBomaName.setText("abc")
+        etPayamName.setText("Payma")
+        etBomaName.setText("Boma")
 
     }
 
