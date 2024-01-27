@@ -25,7 +25,9 @@ data class HhForm1(
 )
 
 data class HhForm2(
-    var name: String? = null,
+    var firstName: String? = null,
+    var middleName: String? = null,
+    var lastName: String? = null,
     var age: Int? = null,
     var idNumber: String? = null,
     var phoneNumber: String? = null,
@@ -103,7 +105,7 @@ fun HhForm1.isOk(): Boolean {
 fun HhForm2.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
 
-    if (this.name.isNullOrBlank()) return false
+    if (this.firstName.isNullOrBlank()) return false
     if (this.idNumber.isNullOrBlank()) return false
     if (this.phoneNumber.isNullOrBlank()) return false
     if (this.mainSourceOfIncome.isNullOrBlank()) return false

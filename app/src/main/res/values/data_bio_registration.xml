@@ -103,13 +103,14 @@
     <string-array name="country_nam_array">
         <item>Select Country Name</item>
         <item>USA</item>
+        <item>AFRICA</item>
     </string-array>
 
 <string name="state_name_label">Select State Name</string>
     <string-array name="state_name_array">
         <item>State Name</item>
-        <item>Male</item>
-        <item>Female</item>
+        <item>state 1</item>
+        <item>state 2</item>
     </string-array>
 
 <string name="respondent_relationship_to_the_household_head1_label">Respondent relationship to the household head</string>

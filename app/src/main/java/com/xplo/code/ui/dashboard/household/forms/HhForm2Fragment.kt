@@ -207,7 +207,10 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
 //        form.middleName = chkEditText(etMiddleName, UiData.ER_SP_DF)
 //        form.lastName = chkEditText(etLastName, UiData.ER_SP_DF)
 
-        form.name = chkEditText(etFirstName, UiData.ER_ET_DF)
+        form.firstName = chkEditText(etFirstName, UiData.ER_ET_DF)
+        form.middleName = chkEditText(etMiddleName, UiData.ER_ET_DF)
+        form.lastName = chkEditText(etLastName, UiData.ER_ET_DF)
+
         form.age = chkEditText(etAge, UiData.ER_ET_DF)?.toInt()
         form.idNumber = chkEditText(etIdNumber, UiData.ER_ET_DF)
         form.phoneNumber = chkEditText(etPhoneNumber, UiData.ER_ET_DF)

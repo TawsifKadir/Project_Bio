@@ -100,9 +100,9 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             binding.txtBoma.text = rootForm?.form1?.bomaName ?: ""
             binding.txtPayam.text = rootForm?.form1?.payamName ?: ""
         //HouseHold
-            binding.txtFirstName.text = rootForm?.form2?.name ?: ""
-            binding.txtMiddleName.text = rootForm?.form2?.name ?: ""
-            binding.txtLastName.text = rootForm?.form2?.name ?: ""
+            binding.txtFirstName.text = rootForm?.form2?.firstName ?: ""
+            binding.txtMiddleName.text = rootForm?.form2?.middleName ?: ""
+            binding.txtLastName.text = rootForm?.form2?.lastName ?: ""
 
             binding.txtAge.text = (rootForm?.form2?.age ?: "").toString()
             binding.txtId.text = rootForm?.form2?.idNumber ?: ""
@@ -213,7 +213,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                     
                 }
                 override fun onClickNeutralButton() {
-                    interactor?.navigateToAlternate()
+                    interactor?.navigateToHousehold()
                 }
             })
             .build()
