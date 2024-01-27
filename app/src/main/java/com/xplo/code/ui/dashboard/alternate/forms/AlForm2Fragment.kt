@@ -228,7 +228,7 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
 
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
-        interactor?.navigateToForm3()
+        interactor?.navigateToPreview()
 
     }
 

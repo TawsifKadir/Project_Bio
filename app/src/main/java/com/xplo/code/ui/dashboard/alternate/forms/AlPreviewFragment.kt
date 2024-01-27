@@ -9,10 +9,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.xplo.code.R
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.core.ext.visible
 import com.xplo.code.databinding.FragmentAlPreviewBinding
+import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.alternate.AlternateViewModel
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
@@ -162,7 +164,28 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
 
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
-        //interactor?.navigateToPreview()
+
+        XDialog.Builder(requireActivity().supportFragmentManager)
+            .setLayoutId(R.layout.custom_dialog_pnn)
+            .setTitle(getString(R.string.alternate_reg))
+            .setMessage(getString(R.string.alternate_details))
+            .setPosButtonText(getString(R.string.next))
+            .setNegButtonText(getString(R.string.cancel))
+            .setThumbId(R.drawable.ic_logo_photo)
+            .setCancelable(false)
+            .setListener(object : XDialog.DialogListener {
+                override fun onClickPositiveButton() {
+                    interactor?.navigateToForm3()
+                }
+
+                override fun onClickNegativeButton() {
+                }
+
+                override fun onClickNeutralButton() {
+                }
+            })
+            .build()
+            .show()
     }
 
     override fun onReadInput() {

@@ -12,6 +12,7 @@ import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.ext.visible
 import com.xplo.code.databinding.FragmentAlForm3Binding
+import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.alternate.AlternateViewModel
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
@@ -127,7 +128,30 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
 
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
-        interactor?.navigateToPreview()
+        //interactor?.navigateToPreview()
+        XDialog.Builder(requireActivity().supportFragmentManager)
+            .setLayoutId(R.layout.custom_dialog_pnn)
+            .setTitle(getString(R.string.fingerprint_enroll_title))
+            .setMessage(getString(R.string.fingerprint_enroll_msg))
+            .setPosButtonText(getString(R.string.household_reg))
+            .setNegButtonText(getString(R.string.cancel))
+            .setNeuButtonText(getString(R.string.alternate_reg_title))
+            .setThumbId(R.drawable.ic_logo_photo)
+            .setCancelable(false)
+            .setListener(object : XDialog.DialogListener {
+                override fun onClickPositiveButton() {
+                    interactor?.navigateToHousehold()
+                }
+
+                override fun onClickNegativeButton() {
+
+                }
+                override fun onClickNeutralButton() {
+                    interactor?.navigateToAlternate()
+                }
+            })
+            .build()
+            .show()
     }
 
     override fun onReadInput() {

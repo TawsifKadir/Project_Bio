@@ -331,4 +331,9 @@
     <string name="alternate_reg">Alternate Registration</string>
     <string name="review_complete_reg">Review and Complete Registration</string>
     <string name="review_complete_reg_msg">Do you want to complete the household registration process.Do you want to procced to Alternate Registration</string>
+    <string name="alternate_details">Alternate Details and Passport photo Saved Successfully.Move to the next page for fingerprint capture</string>
+
+    <string name="fingerprint_enroll_title">Fingerprint Enrollment</string>
+    <string name="fingerprint_enroll_msg">Fingerprints Enrolled are 10.Do you want to proceed</string>
+    <string name="alternate_reg_title">Register Another Alternate</string>
 </resources>
