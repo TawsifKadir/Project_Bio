@@ -8,6 +8,7 @@ import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.HhForm3
 import com.xplo.code.ui.dashboard.model.HhForm4
 import com.xplo.code.ui.dashboard.model.HhForm5
+import com.xplo.code.ui.dashboard.model.HhForm6
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 
 /**
@@ -29,6 +30,7 @@ interface HouseholdContract {
         fun navigateToForm3()
         fun navigateToForm4()
         fun navigateToForm5()
+        fun navigateToForm6()
         fun navigateToPreview()
 
         fun onBackButton()
@@ -83,6 +85,10 @@ interface HouseholdContract {
 
     interface Form5View : BaseContract.View, CommonView {
         fun onValidated(form: HhForm5?)
+
+    }
+    interface Form6View : BaseContract.View, CommonView {
+        fun onValidated(form: HhForm6?)
 
     }
 
