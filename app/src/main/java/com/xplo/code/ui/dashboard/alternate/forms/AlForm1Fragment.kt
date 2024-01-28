@@ -206,7 +206,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
-        etName.setText("Shadhin")
+        //etName.setText("Shadhin")
         etAge.setText("29")
         etIdNumber.setText("122")
         etPhoneNo.setText("01829372012")

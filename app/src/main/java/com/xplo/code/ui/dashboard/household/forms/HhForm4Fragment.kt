@@ -27,9 +27,11 @@ import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.databinding.FragmentHhForm4CapPhotoBinding
+import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.HhForm3
 import com.xplo.code.ui.dashboard.model.HhForm4
 import com.xplo.code.ui.photo.ImagePickerActivity
@@ -181,6 +183,7 @@ class HhForm4Fragment : BasicFormFragment(), HouseholdContract.Form4View {
 
 //        binding.viewButtonBackNext.btBack.visible()
 //        binding.viewButtonBackNext.btNext.visible()
+        onReinstateData(interactor?.getRootForm()?.form4)
     }
 
     override fun onDestroy() {
@@ -190,6 +193,11 @@ class HhForm4Fragment : BasicFormFragment(), HouseholdContract.Form4View {
 
     override fun onValidated(form: HhForm4?) {
         Log.d(TAG, "onValidated() called with: form = $form")
+    }
+
+    override fun onReinstateData(form: HhForm4?) {
+        Log.d(TAG, "onReinstateData() called with: form = $form")
+
     }
 
     override fun onClickBackButton() {

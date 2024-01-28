@@ -145,6 +145,8 @@ class HhForm3Fragment : BasicFormFragment(), HouseholdContract.Form3View {
 
 //        binding.viewButtonBackNext.btBack.visible()
 //        binding.viewButtonBackNext.btNext.visible()
+
+        onReinstateData(interactor?.getRootForm()?.form3)
     }
 
     override fun onDestroy() {
@@ -162,6 +164,25 @@ class HhForm3Fragment : BasicFormFragment(), HouseholdContract.Form3View {
 
 
         interactor?.navigateToForm4()
+    }
+
+    override fun onReinstateData(form: HhForm3?) {
+        Log.d(TAG, "onReinstateData() called with: form = $form")
+        if (form == null) return
+
+        etHouseholdSize.setText(form.householdSize.toString())
+        etMaleHouseholdMembers.setText(form.maleHouseholdMembers.toString())
+        etFemaleHouseholdMembers.setText(form.femaleHouseholdMembers.toString())
+        etHouseholdMembers0_2.setText(form.householdMembers0_2.toString())
+        etHouseholdMembers3_5.setText(form.householdMembers3_5.toString())
+        etHouseholdMembers6_17.setText(form.householdMembers6_17.toString())
+        etHouseholdMembers18_35.setText(form.householdMembers18_35.toString())
+        etHouseholdMembers36_45.setText(form.householdMembers36_45.toString())
+        etHouseholdMembers46_64.setText(form.householdMembers46_64.toString())
+        etHouseholdMembers65andAbove.setText(form.householdMembers65andAbove.toString())
+        etHouseholdMembersWithDisability.setText(form.householdMembersWithDisability.toString())
+        etHouseholdMembersWithChronicallyIll.setText(form.householdMembersWithChronicallyIll.toString())
+
     }
 
     override fun onClickBackButton() {

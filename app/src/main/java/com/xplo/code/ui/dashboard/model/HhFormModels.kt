@@ -9,7 +9,7 @@ data class HouseholdForm(
     var form2: HhForm2? = null,
     var form3: HhForm3? = null,
     var form4: HhForm4? = null,
-    var form5: HhForm4? = null,
+    var form5: HhForm5? = null,
     var altform1: ALTForm1? = null,
     var altform2: ALTForm2? = null,
     var altform3: ALTForm3? = null,

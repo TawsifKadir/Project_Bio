@@ -65,24 +65,29 @@ interface HouseholdContract {
 
     interface Form1View : BaseContract.View, CommonView {
         fun onValidated(form: HhForm1?)
+        fun onReinstateData(form: HhForm1?)
     }
 
     interface Form2View : BaseContract.View, CommonView {
         fun onValidated(form: HhForm2?)
+        fun onReinstateData(form: HhForm2?)
     }
 
     interface Form3View : BaseContract.View, CommonView {
         fun onValidated(form: HhForm3?)
+        fun onReinstateData(form: HhForm3?)
 
     }
 
     interface Form4View : BaseContract.View, CommonView {
         fun onValidated(form: HhForm4?)
+        fun onReinstateData(form: HhForm4?)
 
     }
 
     interface Form5View : BaseContract.View, CommonView {
         fun onValidated(form: HhForm5?)
+        fun onReinstateData(form: HhForm5?)
 
     }
 

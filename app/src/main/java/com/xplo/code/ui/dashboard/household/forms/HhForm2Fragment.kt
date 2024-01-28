@@ -156,6 +156,8 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
 //        binding.viewButtonBackNext.btBack.visible()
 //        binding.viewButtonBackNext.btNext.visible()
 
+        onReinstateData(interactor?.getRootForm()?.form2)
+
     }
 
     override fun onDestroy() {
@@ -174,6 +176,27 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         Log.d(TAG, "onValidated: $rootForm")
 
         interactor?.navigateToForm3()
+    }
+
+    override fun onReinstateData(form: HhForm2?) {
+        Log.d(TAG, "onReinstateData() called with: form = $form")
+        if (form == null) return
+
+        setSpinnerItem(spMainSourceOfIncome, UiData.mainIncomeOptions, form.mainSourceOfIncome)
+        setSpinnerItem(spGender, UiData.genderOptions, form.gender)
+        setSpinnerItem(spMaritalStatus, UiData.maritalStatusOptions, form.maritalStatus)
+        setSpinnerItem(spLegalStatus, UiData.legalStatusOptions, form.legalStatus)
+
+        etFirstName.setText(form.firstName)
+        etMiddleName.setText(form.middleName)
+        etLastName.setText(form.lastName)
+        etAge.setText(form.age)
+        etIdNumber.setText(form.idNumber)
+        etPhoneNumber.setText(form.phoneNumber)
+        etMonthlyAverageIncome.setText(form.monthlyAverageIncome)
+        etSpouseName.setText(form.spouseName)
+        etSelectionReason.setText(form.selectionReason)
+
     }
 
     override fun onClickBackButton() {

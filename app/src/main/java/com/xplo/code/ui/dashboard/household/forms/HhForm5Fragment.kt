@@ -10,9 +10,11 @@ import androidx.fragment.app.viewModels
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.databinding.FragmentHhForm5FingerBinding
+import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.HhForm5
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -105,6 +107,8 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View {
 
 //        binding.viewButtonBackNext.btBack.visible()
 //        binding.viewButtonBackNext.btNext.visible()
+
+        onReinstateData(interactor?.getRootForm()?.form5)
     }
 
     override fun onDestroy() {
@@ -114,6 +118,11 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View {
 
     override fun onValidated(form: HhForm5?) {
         Log.d(TAG, "onValidated() called with: form = $form")
+    }
+
+    override fun onReinstateData(form: HhForm5?) {
+        Log.d(TAG, "onReinstateData() called with: form = $form")
+
     }
 
     override fun onClickBackButton() {

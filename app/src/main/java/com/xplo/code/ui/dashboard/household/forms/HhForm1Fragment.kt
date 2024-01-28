@@ -153,6 +153,8 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View {
         binding.viewButtonBackNext.btBack.gone()
         binding.viewButtonBackNext.btNext.visible()
 
+        onReinstateData(interactor?.getRootForm()?.form1)
+
 
     }
 
@@ -170,6 +172,19 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View {
         interactor?.setRootForm(rootForm)
 
         interactor?.navigateToForm2()
+    }
+
+    override fun onReinstateData(form: HhForm1?) {
+        Log.d(TAG, "onReinstateData() called with: form = $form")
+        if (form == null) return
+
+//        spCountryName.setSelection(1)
+//        spStateName.setSelection(1)
+        etPayamName.setText(form.payamName)
+        etBomaName.setText(form.bomaName)
+
+        setSpinnerItem(spCountryName, UiData.countryNameOptions, form.countryName)
+        setSpinnerItem(spStateName, UiData.stateNameOptions, form.stateName)
     }
 
 
@@ -232,6 +247,7 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View {
         spStateName.setSelection(1)
         etPayamName.setText("Payma")
         etBomaName.setText("Boma")
+
 
     }
 
