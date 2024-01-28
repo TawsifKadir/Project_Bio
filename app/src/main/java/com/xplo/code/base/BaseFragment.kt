@@ -214,8 +214,8 @@ abstract class BaseFragment : Fragment(), BaseContract.View {
         getBaseActivity()?.navigateToHousehold()
     }
 
-    override fun navigateToAlternate() {
-        getBaseActivity()?.navigateToAlternate()
+    override fun navigateToAlternate(id: String?) {
+        getBaseActivity()?.navigateToAlternate(id)
     }
 
     override fun navigateToPayment() {

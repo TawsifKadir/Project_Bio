@@ -98,7 +98,7 @@ interface BaseContract {
         fun navigateToHistory()
 
         fun navigateToHousehold()
-        fun navigateToAlternate()
+        fun navigateToAlternate(id: String?)
         fun navigateToPayment()
         fun navigateToReport()
 

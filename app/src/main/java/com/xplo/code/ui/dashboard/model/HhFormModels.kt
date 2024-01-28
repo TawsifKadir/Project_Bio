@@ -74,9 +74,11 @@ data class ALTForm1(
     var selectAlternateRlt: String? = null,
     var gender: String? = null
 )
+
 data class ALTForm2(
     var img: String? = null
 )
+
 data class ALTForm3(
     var fingerRT: String? = null,
     var fingerRI: String? = null,
@@ -89,6 +91,11 @@ data class ALTForm3(
     var fingerLR: String? = null,
     var fingerLL: String? = null,
 )
+
+fun HhForm2?.getFullName(): String? {
+    if (this == null) return null
+    return "${this.firstName} ${this.middleName} ${this.lastName}"
+}
 
 fun HhForm1.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
@@ -142,6 +149,7 @@ fun HhForm3.isOk(): Boolean {
     if (this.householdMembersWithChronicallyIll == null) return false
     return true
 }
+
 fun ALTForm1.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
 
@@ -154,6 +162,7 @@ fun ALTForm1.isOk(): Boolean {
     if (this.gender == null) return false
     return true
 }
+
 fun HouseholdForm?.toJson(): String? {
     //return Gson().toJson(this)
     return GsonBuilder()

@@ -19,7 +19,7 @@ import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.HouseholdForm
-import com.xplo.code.ui.dashboard.model.toJson
+import com.xplo.code.ui.dashboard.model.getFullName
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -195,6 +195,9 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         viewModel.saveHouseholdForm(rootForm)
 
 
+        val name = interactor?.getRootForm()?.form2.getFullName()
+
+
         XDialog.Builder(requireActivity().supportFragmentManager)
             .setLayoutId(R.layout.custom_dialog_pnn)
             .setTitle(getString(R.string.review_complete_reg))
@@ -213,7 +216,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                     
                 }
                 override fun onClickNeutralButton() {
-                    interactor?.navigateToAlternate()
+                    interactor?.navigateToAlternate(name)
                 }
             })
             .build()

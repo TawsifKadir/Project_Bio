@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import com.xplo.code.R
 import com.xplo.code.base.BaseFragment
@@ -79,7 +78,7 @@ class DashboardFragment : BaseFragment(), DashboardContract.View {
             navigateToHousehold()
         }
         binding.viewAlternate.setOnClickListener {
-            navigateToAlternate()
+            navigateToAlternate(null)
         }
         binding.viewReport.setOnClickListener {
             navigateToReport()

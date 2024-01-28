@@ -16,7 +16,6 @@ import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.alternate.AlternateViewModel
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
-import com.xplo.code.ui.dashboard.model.ALTForm1
 import com.xplo.code.ui.dashboard.model.ALTForm3
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -147,7 +146,7 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
 
                 }
                 override fun onClickNeutralButton() {
-                    interactor?.navigateToAlternate()
+                    //interactor?.navigateToAlternate(id)
                 }
             })
             .build()

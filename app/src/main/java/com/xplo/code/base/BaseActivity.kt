@@ -380,8 +380,8 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
         HouseholdActivity.open(this, null)
     }
 
-    override fun navigateToAlternate() {
-        AlternateActivity.open(this, null)
+    override fun navigateToAlternate(id: String?) {
+        AlternateActivity.open(this, null, id)
     }
 
     override fun navigateToPayment() {

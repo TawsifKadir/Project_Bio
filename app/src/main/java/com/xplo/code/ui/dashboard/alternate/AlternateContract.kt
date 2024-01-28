@@ -1,6 +1,5 @@
 package com.xplo.code.ui.dashboard.alternate
 
-import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import com.xplo.code.base.BaseContract
 import com.xplo.code.ui.dashboard.model.ALTForm1
@@ -20,7 +19,7 @@ interface AlternateContract {
 
     interface View : BaseContract.View {
 
-        fun navigateToForm1()
+        fun navigateToForm1(id: String?)
         fun navigateToForm2()
         fun navigateToForm3()
         fun navigateToForm4()

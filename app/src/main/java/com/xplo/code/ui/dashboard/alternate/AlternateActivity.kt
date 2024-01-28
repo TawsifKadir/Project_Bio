@@ -18,7 +18,6 @@ import com.xplo.code.ui.dashboard.alternate.forms.AlForm1Fragment
 import com.xplo.code.ui.dashboard.alternate.forms.AlForm2Fragment
 import com.xplo.code.ui.dashboard.alternate.forms.AlForm3Fragment
 import com.xplo.code.ui.dashboard.alternate.forms.AlPreviewFragment
-import com.xplo.code.ui.dashboard.household.HouseholdActivity
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,10 +37,11 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
         private const val TAG = "AlternateActivity"
 
         @JvmStatic
-        fun open(context: Context, parent: String?) {
-            Log.d(TAG, "open() called with: context = $context, parent = $parent")
+        fun open(context: Context, parent: String?, id: String?) {
+            Log.d(TAG, "open() called with: context = $context, parent = $parent, id = $id")
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
+            bundle.putString(Bk.KEY_ID, id)
             val intent = Intent(context, AlternateActivity::class.java)
             intent.putExtras(bundle)
             context.startActivity(intent)
@@ -76,6 +76,7 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
         setToolBar()
 
         val parent = intent.getStringExtra(Bk.KEY_PARENT)
+        val id = intent.getStringExtra(Bk.KEY_ID)
         Log.d(TAG, "initView: parent: $parent")
 
 //        if (!isNetworkIsConnected) {
@@ -83,7 +84,7 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
 //            return
 //        }
 
-        navigateToForm1()
+        navigateToForm1(id)
 
     }
 
@@ -146,12 +147,12 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun navigateToForm1() {
-        Log.d(TAG, "navigateToForm1() called")
+    override fun navigateToForm1(id: String?) {
+        Log.d(TAG, "navigateToForm1() called with: id = $id")
 
         STEP = 1
         doFragmentTransaction(
-            AlForm1Fragment.newInstance(null),
+            AlForm1Fragment.newInstance(null, id),
             AlForm1Fragment.TAG,
             false,
             true

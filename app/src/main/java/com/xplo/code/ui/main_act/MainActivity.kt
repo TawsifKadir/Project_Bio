@@ -185,7 +185,7 @@ class MainActivity : BaseActivity(), MainContract.View,
             R.id.mContentList -> {
                 title = menuItem.title
                 menuItem.isChecked = true
-                //loadFragment(HouseholdListFragment.newInstance(null), null)
+                loadFragment(HouseholdListFragment.newInstance(null), null)
                 return true
             }
 

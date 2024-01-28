@@ -46,12 +46,14 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
         @JvmStatic
         fun newInstance(
-            parent: String?
+            parent: String?,
+            id: String?
         ): AlForm1Fragment {
-            Log.d(TAG, "newInstance() called with: parent = $parent")
+            Log.d(TAG, "newInstance() called with: parent = $parent, id = $id")
             val fragment = AlForm1Fragment()
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
+            bundle.putString(Bk.KEY_ID, id)
             fragment.arguments = bundle
             return fragment
         }
@@ -62,6 +64,8 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
     //private lateinit var presenter: RegistrationContract.Presenter
     private var interactor: AlternateContract.View? = null
+
+    private var id: String? = null
 
     private lateinit var spGender: Spinner
     private lateinit var spAlternateRelation: Spinner
@@ -102,6 +106,10 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         //presenter = RegistrationPresenter(DataRepoImpl())
         //presenter.attach(this)
 
+        if (arguments != null) {
+            id = arguments?.getString(Bk.KEY_ID)
+        }
+
         spGender = binding.spGender
         spAlternateRelation = binding.spAlternateRelation
         etPhoneNo = binding.etPhoneNo
@@ -112,6 +120,9 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
     }
 
     override fun initView() {
+
+        etName.setText(id)
+        etName.isEnabled = false
 
         bindSpinnerData(spGender, UiData.genderOptions)
         bindSpinnerData(spAlternateRelation, UiData.legalStatusOptions)
