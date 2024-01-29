@@ -16,6 +16,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,7 +38,7 @@ class HouseholdViewModel @Inject constructor(
         class GetHouseholdItemSuccess(val items: List<HouseholdItem>?) : Event()
         class GetHouseholdItemFailure(val msg: String?) : Event()
 
-        object SaveHouseholdFormSuccess : Event()
+        class SaveHouseholdFormSuccess(val id: String) : Event()
         class SaveHouseholdFormFailure(val msg: String?) : Event()
 
         object DeleteHouseholdItemSuccess : Event()
@@ -109,20 +110,22 @@ class HouseholdViewModel @Inject constructor(
         Log.d(TAG, "saveHouseholdForm() called with: form = $form")
         if (form == null) return
 
-        var item = HouseholdItem(data = form.toJson())
+        val id = UUID.randomUUID().toString()
+        var item = HouseholdItem(data = form.toJson(), id = id)
 
         viewModelScope.launch(dispatchers.io) {
             _event.value = Event.Loading
             when (val response = dbRepo.insertHousehold(item)) {
 
                 is Resource.Success -> {
-                    _event.value = Event.SaveHouseholdFormSuccess
+                    _event.value = Event.SaveHouseholdFormSuccess(id)
                 }
 
                 is Resource.Failure -> {
                     _event.value = Event.SaveHouseholdFormFailure(response.callInfo?.msg)
                 }
 
+                else -> {}
             }
         }
 

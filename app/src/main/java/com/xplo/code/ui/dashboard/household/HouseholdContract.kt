@@ -129,7 +129,8 @@ interface HouseholdContract {
 
     interface PreviewView : BaseContract.View, CommonView {
         fun onGetCompleteData(data: HouseholdForm?)
-
+        fun onSaveSuccess(id: String?)
+        fun onSaveFailure(msg: String?)
     }
 
     interface HouseholdListView : BaseContract.View {

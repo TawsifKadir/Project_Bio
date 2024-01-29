@@ -14,7 +14,8 @@ data class HouseholdItem(
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "id")
-    var id: String = UUID.randomUUID().toString(),
+    //var id: String = UUID.randomUUID().toString(),
+    var id: String,
     var data: String? = null,
     var isSynced: Boolean = false
 )

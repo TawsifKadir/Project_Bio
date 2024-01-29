@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.xplo.code.R
 import com.xplo.code.base.BaseFragment
@@ -144,6 +145,33 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
 
     override fun initObserver() {
 
+        lifecycleScope.launchWhenStarted {
+            viewModel.event.collect { event ->
+                when (event) {
+
+                    is HouseholdViewModel.Event.Loading -> {
+                        //showLoading()
+                    }
+
+                    is HouseholdViewModel.Event.SaveHouseholdFormSuccess -> {
+                        hideLoading()
+                        onSaveSuccess(event.id)
+                        viewModel.clearEvent()
+                    }
+
+                    is HouseholdViewModel.Event.SaveHouseholdFormFailure -> {
+                        hideLoading()
+                        onSaveFailure(event.msg)
+                        viewModel.clearEvent()
+                    }
+
+
+                    else -> Unit
+                }
+            }
+        }
+
+
         binding.viewButtonBackNext.btBack.setOnClickListener {
             onClickBackButton()
         }
@@ -172,6 +200,39 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         Log.d(TAG, "onGetCompleteData() called with: data = $data")
     }
 
+    override fun onSaveSuccess(id: String?) {
+        Log.d(TAG, "onSaveSuccess() called with: id = $id")
+
+        XDialog.Builder(requireActivity().supportFragmentManager)
+            .setLayoutId(R.layout.custom_dialog_pnn)
+            .setTitle(getString(R.string.review_complete_reg))
+            .setMessage(getString(R.string.review_complete_reg_msg))
+            .setPosButtonText("Alternate")
+            .setNegButtonText(getString(R.string.cancel))
+            .setNeuButtonText("Household")
+            .setThumbId(R.drawable.ic_logo_photo)
+            .setCancelable(false)
+            .setListener(object : XDialog.DialogListener {
+                override fun onClickPositiveButton() {
+                    interactor?.navigateToAlternate(id)
+                }
+
+                override fun onClickNegativeButton() {
+
+                }
+
+                override fun onClickNeutralButton() {
+                    interactor?.navigateToHousehold()
+                }
+            })
+            .build()
+            .show()
+    }
+
+    override fun onSaveFailure(msg: String?) {
+        Log.d(TAG, "onSaveFailure() called with: msg = $msg")
+    }
+
     override fun onClickBackButton() {
         Log.d(TAG, "onClickBackButton() called")
         interactor?.onBackButton()
@@ -198,30 +259,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         val name = interactor?.getRootForm()?.form2.getFullName()
 
 
-        XDialog.Builder(requireActivity().supportFragmentManager)
-            .setLayoutId(R.layout.custom_dialog_pnn)
-            .setTitle(getString(R.string.review_complete_reg))
-            .setMessage(getString(R.string.review_complete_reg_msg))
-            .setPosButtonText(getString(R.string.household_reg))
-            .setNegButtonText(getString(R.string.cancel))
-            .setNeuButtonText(getString(R.string.alternate_reg))
-            .setThumbId(R.drawable.ic_logo_photo)
-            .setCancelable(false)
-            .setListener(object : XDialog.DialogListener {
-                override fun onClickPositiveButton() {
-                    interactor?.navigateToHousehold()
-                }
 
-                override fun onClickNegativeButton() {
-
-                }
-
-                override fun onClickNeutralButton() {
-                    interactor?.navigateToAlternate(name)
-                }
-            })
-            .build()
-            .show()
     }
 
     override fun onReadInput() {
