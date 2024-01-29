@@ -124,7 +124,6 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
         //presenter = RegistrationPresenter(DataRepoImpl())
         //presenter.attach(this)
 
-        getLocation()
 
 
         spStateName = binding.spStateName
@@ -133,6 +132,7 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
         spBomaName = binding.spBomaName
         etLat = binding.etLat
         etLon = binding.etLon
+        getLocation()
     }
 
     override fun initView() {
@@ -499,10 +499,25 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
 
     private fun getLocation() {
         locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if ((ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            // Permission is already granted, get the last known location
+            val lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+            if (lastKnownLocation != null) {
+                // Use the last known location
+                updateUIWithLocation(lastKnownLocation)
+            } else {
+                // If no last known location, request updates
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 50, 5f, this)
+            }
+        } else {
+            // Permission is not granted, request for permission
             ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
+    }
+    private fun updateUIWithLocation(location: Location) {
+        // Update your UI here with the location data
+        etLat.setText(location.latitude.toString())
+        etLon.setText(location.longitude.toString())
     }
 
 
