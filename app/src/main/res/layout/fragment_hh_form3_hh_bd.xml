@@ -241,6 +241,53 @@
 
                 </LinearLayout>
             </LinearLayout>
+            <LinearLayout style="@style/AppLinearLayoutInputBox">
+
+                <TextView
+                    style="@style/AppTextView.Input.Header"
+                    android:text="Can you read and write? (any language)" />
+
+
+                <RadioGroup
+                    android:id="@+id/rgSelectionCriteria"
+                    style="@style/AppRadioGroupForm">
+
+                    <RadioButton
+                        android:id="@+id/rbA"
+                        style="@style/AppRadioButton.Form"
+                        android:text="Yes"
+                        tools:checked="true" />
+
+                    <RadioButton
+                        android:id="@+id/rbB"
+                        style="@style/AppRadioButton.Form"
+                        android:text="No"
+                        tools:checked="false" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    style="@style/AppLinearLayoutInputBox"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/AppTextView.Input.Header"
+                        android:singleLine="false"
+                        android:text="Not including yourself, how many other members of your household are between 18 and 35 and can read and write ?" />
+
+                    <EditText
+                        android:id="@+id/etPhoneNumber"
+                        style="@style/AppEditText.Form.Number" />
+
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
 
 
