@@ -137,7 +137,15 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
 
     override fun initView() {
 
-        viewModel.getStateItems()
+
+        bindSpinnerData(spStateName, UiData.stateNameOptions)
+        bindSpinnerData(spCountryName, UiData.countryNameOptions)
+        bindSpinnerData(spPayamName, UiData.stateNameOptions)
+        bindSpinnerData(spBomaName, UiData.stateNameOptions)
+
+        //viewModel.getStateItems()
+
+
     }
 
     override fun initObserver() {
@@ -212,28 +220,6 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
         binding.viewButtonBackNext.btNext.setOnClickListener {
             onClickNextButton()
         }
-
-//        spStateName.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(
-//                parent: AdapterView<*>?,
-//                view: View?,
-//                position: Int,
-//                id: Long
-//            ) {
-//                Log.d(
-//                    TAG,
-//                    "onItemSelected() called with: parent = $parent, view = $view, position = $position, id = $id"
-//                )
-//
-//                onSelectSpinnerItem(view, position)
-//
-//
-//            }
-//
-//            override fun onNothingSelected(p0: AdapterView<*>?) {
-//
-//            }
-//        }
 
         spStateName.onItemSelectedListener = this
         spCountryName.onItemSelectedListener = this
@@ -431,10 +417,10 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
-//        spStateName.setSelection(1)
-//        spCountryName.setSelection(1)
-//        spPayamName.setSelection(1)
-//        spBomaName.setSelection(1)
+        spStateName.setSelection(1)
+        spCountryName.setSelection(1)
+        spPayamName.setSelection(1)
+        spBomaName.setSelection(1)
 
 
     }
@@ -445,8 +431,10 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
         val form = interactor?.getRootForm()?.form1
         if (form == null) return
 
-//        setSpinnerItem(spCountryName, UiData.countryNameOptions, form.countryName)
-//        setSpinnerItem(spStateName, UiData.stateNameOptions, form.stateName)
+        setSpinnerItem(spStateName, UiData.stateNameOptions, form.stateName)
+        setSpinnerItem(spCountryName, UiData.countryNameOptions, form.countryName)
+        setSpinnerItem(spPayamName, UiData.stateNameOptions, form.stateName)
+        setSpinnerItem(spBomaName, UiData.stateNameOptions, form.stateName)
 
     }
 
