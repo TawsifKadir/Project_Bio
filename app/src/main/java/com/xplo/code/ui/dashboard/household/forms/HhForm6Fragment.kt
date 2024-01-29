@@ -3,31 +3,26 @@ package com.xplo.code.ui.dashboard.household.forms
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.xplo.code.R
 import com.xplo.code.core.Bk
-import com.xplo.code.databinding.FragmentHhForm6Binding
+import com.xplo.code.databinding.FragmentHhForm6NomineeBinding
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.HhForm6
 import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 /**
- * A simple [Fragment] subclass.
- * Use the [HhForm6Fragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Copyright 2020 (C) xplo
+ *
+ * Created  : 5/15/20
+ * Author   : xplo
+ * Desc     :
+ * Comment  :
  */
-
 @AndroidEntryPoint
 class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
 
@@ -47,7 +42,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         }
     }
 
-    private lateinit var binding: FragmentHhForm6Binding
+    private lateinit var binding: FragmentHhForm6NomineeBinding
     private val viewModel: HouseholdViewModel by viewModels()
 
     //private lateinit var presenter: RegistrationContract.Presenter
@@ -67,7 +62,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHhForm6Binding.inflate(inflater, container, false)
+        binding = FragmentHhForm6NomineeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -88,7 +83,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
     override fun initView() {
 
         val rootForm = interactor?.getRootForm()
-        Log.d(HhForm6Fragment.TAG, "initView: $rootForm")
+        Log.d(TAG, "initView: $rootForm")
     }
 
     override fun initObserver() {
@@ -104,7 +99,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
 
     override fun onResume() {
         super.onResume()
-        setToolbarTitle("Enroll Fingerprints")
+        setToolbarTitle("Nominee")
 
 //        binding.viewButtonBackNext.btBack.visible()
 //        binding.viewButtonBackNext.btNext.visible()

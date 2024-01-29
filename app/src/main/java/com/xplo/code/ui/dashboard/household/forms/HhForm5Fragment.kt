@@ -132,7 +132,7 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View {
 
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
-        interactor?.navigateToPreview()
+        interactor?.navigateToForm6()
     }
 
     override fun onReadInput() {

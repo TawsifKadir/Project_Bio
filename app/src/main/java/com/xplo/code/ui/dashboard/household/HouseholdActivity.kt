@@ -133,6 +133,8 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
     override fun onResume() {
         super.onResume()
 
+        setToolbarTitle("Household")
+
     }
 
     override fun onDestroy() {
