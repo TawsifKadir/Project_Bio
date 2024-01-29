@@ -156,7 +156,7 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
                 when (event) {
 
                     is HouseholdViewModel.Event.Loading -> {
-                        showLoading()
+                        //showLoading()
                     }
 
                     is HouseholdViewModel.Event.GetStateItemsSuccess -> {

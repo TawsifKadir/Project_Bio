@@ -26,6 +26,7 @@ interface HouseholdContract {
 
     interface View : BaseContract.View {
 
+        fun navigateToHouseholdHome()
         fun navigateToForm1()
         fun navigateToForm2()
         fun navigateToForm3()
@@ -65,6 +66,16 @@ interface HouseholdContract {
         fun onPopulateView()
 
     }
+
+    interface HouseholdHomeView : BaseContract.View {
+        fun navigateToHouseholdDetails(item: HouseholdItem)
+
+        fun onGetHouseholdList(items: List<HouseholdItem>?)
+        fun onGetHouseholdListFailure(msg: String?)
+
+
+    }
+
 
     interface Form1View : BaseContract.View, CommonView {
         fun onValidated(form: HhForm1?)

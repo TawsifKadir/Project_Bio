@@ -21,6 +21,8 @@ import com.xplo.code.ui.dashboard.household.forms.HhForm4Fragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm5Fragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm6Fragment
 import com.xplo.code.ui.dashboard.household.forms.HhPreviewFragment
+import com.xplo.code.ui.dashboard.household.forms.HouseholdHomeFragment
+import com.xplo.code.ui.dashboard.household.list.HouseholdListFragment
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -87,7 +89,7 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
 //            return
 //        }
 
-        navigateToForm1()
+        navigateToHouseholdHome()
 
     }
 
@@ -150,6 +152,17 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun navigateToHouseholdHome() {
+        Log.d(TAG, "navigateToHouseholdHome() called")
+        STEP = 1
+        doFragmentTransaction(
+            HouseholdHomeFragment.newInstance(null),
+            HouseholdHomeFragment.TAG,
+            false,
+            true
+        )
+    }
+
     override fun navigateToForm1() {
         Log.d(TAG, "navigateToForm1() called")
 
@@ -157,8 +170,8 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         doFragmentTransaction(
             HhForm1Fragment.newInstance(null),
             HhForm1Fragment.TAG,
-            false,
-            true
+            true,
+            false
         )
 
     }
@@ -235,10 +248,10 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         val entryCount = supportFragmentManager.backStackEntryCount
         Log.d(TAG, "onBackButton: $entryCount")
 
-        if (entryCount < 1) {
-            finish()
-            return
-        }
+//        if (entryCount < 1) {
+//            //finish()
+//            return
+//        }
 
         supportFragmentManager.popBackStack()
     }
