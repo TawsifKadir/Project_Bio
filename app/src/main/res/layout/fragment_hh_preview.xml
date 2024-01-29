@@ -40,7 +40,7 @@
                 android:padding="8dp">
 
                 <TextView
-                    
+
                     style="@style/PreviewTitleStyle"
                     android:text="Address">
 
@@ -191,8 +191,7 @@
                             style="@style/PreviewLLStyle"
                             android:visibility="invisible">
 
-                            <TextView
-                                style="@style/PreviewTitleLableStyle" />
+                            <TextView style="@style/PreviewTitleLableStyle" />
 
                             <TextView
                                 style="@style/PreviewTitleLableValueStyle"
@@ -257,14 +256,15 @@
                                 android:text="" />
                         </LinearLayout>
 
-                        <LinearLayout android:visibility="invisible" style="@style/PreviewLLStyle">
+                        <LinearLayout
+                            style="@style/PreviewLLStyle"
+                            android:visibility="invisible">
 
                             <TextView
                                 style="@style/PreviewTitleLableStyle"
                                 android:text="Middle Name" />
 
-                            <TextView
-                                style="@style/PreviewTitleLableValueStyle" />
+                            <TextView style="@style/PreviewTitleLableValueStyle" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -329,11 +329,9 @@
                             style="@style/PreviewLLStyle"
                             android:visibility="invisible">
 
-                            <TextView
-                                style="@style/PreviewTitleLableStyle"/>
+                            <TextView style="@style/PreviewTitleLableStyle" />
 
-                            <TextView
-                                style="@style/PreviewTitleLableValueStyle"/>
+                            <TextView style="@style/PreviewTitleLableValueStyle" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -398,11 +396,9 @@
                             style="@style/PreviewLLStyle"
                             android:visibility="invisible">
 
-                            <TextView
-                                style="@style/PreviewTitleLableStyle"/>
+                            <TextView style="@style/PreviewTitleLableStyle" />
 
-                            <TextView
-                                style="@style/PreviewTitleLableValueStyle"/>
+                            <TextView style="@style/PreviewTitleLableValueStyle" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -432,11 +428,9 @@
                             style="@style/PreviewLLStyle"
                             android:visibility="invisible">
 
-                            <TextView
-                                style="@style/PreviewTitleLableStyle"/>
+                            <TextView style="@style/PreviewTitleLableStyle" />
 
-                            <TextView
-                                style="@style/PreviewTitleLableValueStyle"/>
+                            <TextView style="@style/PreviewTitleLableValueStyle" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -571,11 +565,9 @@
                             style="@style/PreviewLLStyle"
                             android:visibility="invisible">
 
-                            <TextView
-                                style="@style/PreviewTitleLableStyle"/>
+                            <TextView style="@style/PreviewTitleLableStyle" />
 
-                            <TextView
-                                style="@style/PreviewTitleLableValueStyle"/>
+                            <TextView style="@style/PreviewTitleLableValueStyle" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -818,7 +810,7 @@
                 android:padding="8dp">
 
                 <TextView
-                    
+
                     style="@style/PreviewTitleStyle"
                     android:text="Photo">
 
@@ -829,13 +821,16 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <LinearLayout android:gravity="center" android:layout_gravity="center" style="@style/PreviewLLTopStyle">
+                    <LinearLayout
+                        style="@style/PreviewLLTopStyle"
+                        android:layout_gravity="center"
+                        android:gravity="center">
 
                         <ImageView
                             android:id="@+id/imgPhoto"
-                            android:src="@drawable/ic_person"
                             android:layout_width="200dp"
-                            android:layout_height="200dp"/>
+                            android:layout_height="200dp"
+                            android:src="@drawable/ic_person" />
 
 
                     </LinearLayout>

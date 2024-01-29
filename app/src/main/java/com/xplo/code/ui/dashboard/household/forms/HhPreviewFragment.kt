@@ -95,37 +95,37 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         //binding.tvDetails.text = rootForm.toJson()
 
         //Address
-            binding.tvCountry.text = rootForm?.form1?.countryName ?: ""
-            binding.tvState.text = rootForm?.form1?.stateName ?: ""
-            binding.tvBoma.text = rootForm?.form1?.bomaName ?: ""
-            binding.tvPayam.text = rootForm?.form1?.payamName ?: ""
+        binding.tvCountry.text = rootForm?.form1?.countryName ?: ""
+        binding.tvState.text = rootForm?.form1?.stateName ?: ""
+        binding.tvBoma.text = rootForm?.form1?.bomaName ?: ""
+        binding.tvPayam.text = rootForm?.form1?.payamName ?: ""
         //HouseHold
-            binding.tvFirstName.text = rootForm?.form2?.firstName ?: ""
-            binding.tvMiddleName.text = rootForm?.form2?.middleName ?: ""
-            binding.tvLastName.text = rootForm?.form2?.lastName ?: ""
+        binding.tvFirstName.text = rootForm?.form2?.firstName ?: ""
+        binding.tvMiddleName.text = rootForm?.form2?.middleName ?: ""
+        binding.tvLastName.text = rootForm?.form2?.lastName ?: ""
 
-            binding.tvAge.text = (rootForm?.form2?.age ?: "").toString()
-            binding.tvId.text = rootForm?.form2?.idNumber ?: ""
-            binding.tvPhoneNo.text = rootForm?.form2?.phoneNumber ?: ""
+        binding.tvAge.text = (rootForm?.form2?.age ?: "").toString()
+        binding.tvId.text = rootForm?.form2?.idNumber ?: ""
+        binding.tvPhoneNo.text = rootForm?.form2?.phoneNumber ?: ""
 
-            binding.tvSourceOfIncome.text = rootForm?.form2?.mainSourceOfIncome ?: ""
-            binding.tvAvgIncome.text = (rootForm?.form2?.monthlyAverageIncome ?: "").toString()
-            binding.tvLegalStatus.text = rootForm?.form2?.legalStatus ?: ""
-            binding.tvGender.text = rootForm?.form2?.gender ?: ""
-            binding.tvMeritalStatus.text = rootForm?.form2?.maritalStatus ?: ""
-            binding.tvSpouseName.text = rootForm?.form2?.spouseName ?: ""
+        binding.tvSourceOfIncome.text = rootForm?.form2?.mainSourceOfIncome ?: ""
+        binding.tvAvgIncome.text = (rootForm?.form2?.monthlyAverageIncome ?: "").toString()
+        binding.tvLegalStatus.text = rootForm?.form2?.legalStatus ?: ""
+        binding.tvGender.text = rootForm?.form2?.gender ?: ""
+        binding.tvMeritalStatus.text = rootForm?.form2?.maritalStatus ?: ""
+        binding.tvSpouseName.text = rootForm?.form2?.spouseName ?: ""
 
 
-            binding.tvHouseHoldSize.text = (rootForm?.form3?.householdSize ?: "").toString()
-            binding.tvMaleDepen.text = (rootForm?.form3?.maleHouseholdMembers ?: "").toString()
-            binding.tvFemaleDepen.text = (rootForm?.form3?.femaleHouseholdMembers ?: "").toString()
-            binding.tv05YearsOld.text = (rootForm?.form3?.householdMembers0_2 ?: "").toString()
-            binding.tv617YearsOld.text = (rootForm?.form3?.householdMembers18_35 ?: "").toString()
-            binding.tv1845YearsOld.text = (rootForm?.form3?.householdMembers18_35 ?: "").toString()
-            binding.tv4665YearsOld.text = (rootForm?.form3?.householdMembers46_64 ?: "").toString()
-            binding.tv66YearsOld.text = (rootForm?.form3?.householdMembers65andAbove ?: "").toString()
-            //binding.tvSelectionCriteria.text = rootForm?.form3?. ?: ""
-            //binding.tvSelectionReason.text = rootForm?.form3?.phoneNumber ?: ""
+        binding.tvHouseHoldSize.text = (rootForm?.form3?.householdSize ?: "").toString()
+        binding.tvMaleDepen.text = (rootForm?.form3?.maleHouseholdMembers ?: "").toString()
+        binding.tvFemaleDepen.text = (rootForm?.form3?.femaleHouseholdMembers ?: "").toString()
+        binding.tv05YearsOld.text = (rootForm?.form3?.householdMembers0_2 ?: "").toString()
+        binding.tv617YearsOld.text = (rootForm?.form3?.householdMembers18_35 ?: "").toString()
+        binding.tv1845YearsOld.text = (rootForm?.form3?.householdMembers18_35 ?: "").toString()
+        binding.tv4665YearsOld.text = (rootForm?.form3?.householdMembers46_64 ?: "").toString()
+        binding.tv66YearsOld.text = (rootForm?.form3?.householdMembers65andAbove ?: "").toString()
+        //binding.tvSelectionCriteria.text = rootForm?.form3?. ?: ""
+        //binding.tvSelectionReason.text = rootForm?.form3?.phoneNumber ?: ""
 
         binding.tvRT.text = "true"
         binding.tvRI.text = "true"
@@ -139,7 +139,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         binding.tvLR.text = "true"
         binding.tvLL.text = "true"
 
-        loadImage(rootForm?.form4?.img ?: "")
+        loadImage(rootForm?.form4?.img)
     }
 
     override fun initObserver() {
@@ -213,8 +213,9 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                 }
 
                 override fun onClickNegativeButton() {
-                    
+
                 }
+
                 override fun onClickNeutralButton() {
                     interactor?.navigateToAlternate(name)
                 }
@@ -236,17 +237,20 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
     override fun onPopulateView() {
         Log.d(TAG, "onPopulateView() called")
     }
-    private fun loadImage(url: String) {
-        if(url != ""){
-            Glide.with(this).load(url)
-                .into(this!!.binding.imgPhoto!!)
-            binding.imgPhoto!!.setColorFilter(
-                ContextCompat.getColor(
-                    requireContext(),
-                    android.R.color.transparent
-                )
+
+    private fun loadImage(url: String?) {
+        if (url.isNullOrEmpty()) return
+
+        Glide.with(this)
+            .load(url)
+            .into(this.binding.imgPhoto)
+
+        binding.imgPhoto.setColorFilter(
+            ContextCompat.getColor(
+                requireContext(),
+                android.R.color.transparent
             )
-        }
+        )
 
     }
 
