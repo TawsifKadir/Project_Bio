@@ -208,7 +208,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             .setTitle(getString(R.string.review_complete_reg))
             .setMessage(getString(R.string.review_complete_reg_msg))
             .setPosButtonText("Alternate")
-            .setNegButtonText(getString(R.string.cancel))
+            .setNegButtonText(getString(R.string.home))
             .setNeuButtonText("Household")
             .setThumbId(R.drawable.ic_logo_photo)
             .setCancelable(false)
