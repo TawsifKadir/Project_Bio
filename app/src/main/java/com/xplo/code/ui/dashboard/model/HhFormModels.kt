@@ -64,6 +64,11 @@ data class HhForm4(
 data class HhForm5(
     var finger: String? = null
 )
+data class HhForm6(
+    var firstName: String? = null,
+    var middleName: String? = null,
+    var lastName: String? = null,
+)
 
 data class ALTForm1(
     var householdName: String? = null,

@@ -2,13 +2,13 @@
 
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-<!--    <string name="startup_sound">Startup Sound</string>-->
-<!--    <string name="settings_advance">Advance Settings</string>-->
-<!--    <string name="developer_option">Developer Option</string>-->
+    <!--    <string name="startup_sound">Startup Sound</string>-->
+    <!--    <string name="settings_advance">Advance Settings</string>-->
+    <!--    <string name="developer_option">Developer Option</string>-->
     <string name="my_book">My Book</string>
     <string name="splash_title">bio-registration</string>
-<!--    <string name="dummy_book_title">নন্দিত নরকে</string>-->
-<!--    <string name="dummy_writer">হুমায়ূন আহমেদ</string>-->
+    <!--    <string name="dummy_book_title">নন্দিত নরকে</string>-->
+    <!--    <string name="dummy_writer">হুমায়ূন আহমেদ</string>-->
 
 
     <string name="book_details">কাল রাত্তির থেকে মেঘের কামাই নেই । কেবলই চলছে বৃষ্টি । গাছগুলো বোকার মতো জবুস্থবু হয়ে রয়েছে । পাখির ডাক বন্ধ । আজ মনে পড়ছে আমার ছেলেবেলাকার সন্ধেবেলা ।
@@ -74,7 +74,7 @@
     <string name="tab_ads">Ads</string>
     <string name="no_item_found">No item found</string>
     <string name="rental">Rental</string>
-<!--    <string name="packages">Packages</string>-->
+    <!--    <string name="packages">Packages</string>-->
     <string name="type_your_comment">Type your comment..</string>
     <string name="comment_history_loading">Comment history is loading..</string>
     <string name="user_vote_up">Up</string>

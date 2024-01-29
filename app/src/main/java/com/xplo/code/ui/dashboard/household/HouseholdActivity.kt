@@ -19,6 +19,7 @@ import com.xplo.code.ui.dashboard.household.forms.HhForm2Fragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm3Fragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm4Fragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm5Fragment
+import com.xplo.code.ui.dashboard.household.forms.HhForm6Fragment
 import com.xplo.code.ui.dashboard.household.forms.HhPreviewFragment
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import dagger.hilt.android.AndroidEntryPoint
@@ -206,10 +207,21 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         )
     }
 
+    override fun navigateToForm6() {
+        Log.d(TAG, "navigateToForm6() called")
+        STEP = 6
+        doFragmentTransaction(
+            HhForm6Fragment.newInstance(null),
+            HhForm6Fragment.TAG,
+            true,
+            false
+        )
+    }
+
 
     override fun navigateToPreview() {
         Log.d(TAG, "navigateToPreview() called")
-        STEP = 6
+        STEP = 7
         doFragmentTransaction(
             HhPreviewFragment.newInstance(null),
             HhPreviewFragment.TAG,
