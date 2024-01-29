@@ -3,6 +3,7 @@ package com.xplo.code.ui.dashboard.household
 import androidx.fragment.app.Fragment
 import com.xplo.code.base.BaseContract
 import com.xplo.code.data.db.models.HouseholdItem
+import com.xplo.code.data.db.offline.OptionItem
 import com.xplo.code.ui.dashboard.model.HhForm1
 import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.HhForm3
@@ -66,6 +67,24 @@ interface HouseholdContract {
     interface Form1View : BaseContract.View, CommonView {
         fun onValidated(form: HhForm1?)
         fun onReinstateData(form: HhForm1?)
+
+        fun onGetStateItems(items: List<OptionItem>?)
+        fun onGetStateItemsFailure(msg: String?)
+        fun onSelectStateItem(item: OptionItem?)
+
+        fun onGetCountryItems(items: List<OptionItem>?)
+        fun onGetCountryItemsFailure(msg: String?)
+        fun onSelectCountryItem(item: OptionItem?)
+
+        fun onGetPayamItems(items: List<OptionItem>?)
+        fun onGetPayamItemsFailure(msg: String?)
+        fun onSelectPayamItem(item: OptionItem?)
+
+        fun onGetBomaItems(items: List<OptionItem>?)
+        fun onGetBomaItemsFailure(msg: String?)
+        fun onSelectBomaItem(item: OptionItem?)
+
+
     }
 
     interface Form2View : BaseContract.View, CommonView {

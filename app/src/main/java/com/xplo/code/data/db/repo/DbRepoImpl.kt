@@ -3,6 +3,8 @@ package com.xplo.code.data.db.repo
 import com.xplo.code.data.db.dao.HouseholdDao
 import com.xplo.code.data.db.dao.PostDao
 import com.xplo.code.data.db.models.HouseholdItem
+import com.xplo.code.data.db.offline.DbCallImpl
+import com.xplo.code.data.db.offline.OptionItem
 import com.xplo.data.utils.CallInfo
 import com.xplo.data.utils.Resource
 import javax.inject.Inject
@@ -49,6 +51,26 @@ class DbRepoImpl @Inject constructor(
         } catch (e: Exception) {
             Resource.Failure(CallInfo(-1, e.message))
         }
+    }
+
+    override suspend fun getOptionItems(
+        column: String,
+        argColName: String?,
+        argColValue: String?
+    ): Resource<List<OptionItem>> {
+
+        return try {
+            val response = DbCallImpl().getOptionItems(getTable(), column, argColName, argColValue)
+            Resource.Success(response, null)
+        } catch (e: Exception) {
+            Resource.Failure(CallInfo(-1, e.message))
+        }
+
+    }
+
+
+    private fun getTable(): String {
+        return "state"
     }
 
 }

@@ -1,6 +1,8 @@
 package com.xplo.code.ui.dashboard.base
 
 import android.graphics.Color
+import android.view.View
+import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -13,11 +15,13 @@ import com.xplo.code.core.ext.setItem
 
 abstract class BasicFormFragment : BaseFragment(), BaseFormFragmentView {
 
+    private val TAG = "BasicFormFragment"
+
     override fun chkEditText(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
         if (!isValidationEnabled()) {
             if (txt == "")
-            return "0"
+                return "0"
         }
         if (txt.isEmpty()) {
             editText.error = error
@@ -30,6 +34,7 @@ abstract class BasicFormFragment : BaseFragment(), BaseFormFragmentView {
     override fun chkSpinner(spinner: Spinner, error: String?): String? {
 
         val pos = spinner.selectedItemPosition
+        if (pos < 0) return null
         val txt = spinner.selectedItem.toString()
 
         if (!isValidationEnabled()) return txt
@@ -66,6 +71,9 @@ abstract class BasicFormFragment : BaseFragment(), BaseFormFragmentView {
     override fun setSpinnerItem(spinner: Spinner, items: Array<String>, item: String?) {
         //spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(item));
         spinner.setItem(items, item)
+    }
+
+    override fun onSelectSpinnerItem(parent: AdapterView<*>?, view: View?, position: Int) {
     }
 
     override fun isValidationEnabled(): Boolean {

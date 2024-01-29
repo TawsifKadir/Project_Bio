@@ -43,11 +43,11 @@
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
-                        android:text="@string/country_name_label" />
+                        android:text="@string/state_name_label" />
 
 
                     <Spinner
-                        android:id="@+id/spCountryName"
+                        android:id="@+id/spStateName"
                         style="@style/AppSpinnerForm" />
 
                 </LinearLayout>
@@ -60,14 +60,15 @@
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
-                        android:text="@string/state_name_label" />
+                        android:text="@string/country_name_label" />
 
 
                     <Spinner
-                        android:id="@+id/spStateName"
+                        android:id="@+id/spCountryName"
                         style="@style/AppSpinnerForm" />
 
                 </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -84,9 +85,9 @@
                         android:text="Payam Name" />
 
 
-                    <EditText
-                        android:id="@+id/etPayamName"
-                        style="@style/AppEditText.Form.Text" />
+                    <Spinner
+                        android:id="@+id/spPayamName"
+                        style="@style/AppSpinnerForm" />
 
                 </LinearLayout>
 
@@ -101,9 +102,9 @@
                         android:text="Boma Name" />
 
 
-                    <EditText
-                        android:id="@+id/etBomaName"
-                        style="@style/AppEditText.Form.Text" />
+                    <Spinner
+                        android:id="@+id/spBomaName"
+                        style="@style/AppSpinnerForm" />
 
                 </LinearLayout>
             </LinearLayout>

@@ -224,7 +224,7 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         Log.d(TAG, "onBackButton: $entryCount")
 
         if (entryCount < 1) {
-            //onCloseDialog()
+            finish()
             return
         }
 

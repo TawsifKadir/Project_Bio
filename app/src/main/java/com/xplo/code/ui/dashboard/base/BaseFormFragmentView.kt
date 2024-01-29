@@ -1,5 +1,7 @@
 package com.xplo.code.ui.dashboard.base
 
+import android.view.View
+import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.Spinner
@@ -14,6 +16,8 @@ interface BaseFormFragmentView {
     fun chkRadioGroup(radioGroup: RadioGroup, error: String?): String?
 
     fun setSpinnerItem(spinner: Spinner, items: Array<String>, item: String?)
+
+    fun onSelectSpinnerItem(parent: AdapterView<*>?, view: View?, position: Int)
 
     fun isValidationEnabled(): Boolean
 }
