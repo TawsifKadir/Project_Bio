@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Spinner
 import androidx.fragment.app.viewModels
-import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.gone
@@ -20,10 +19,7 @@ import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.alternate.AlternateViewModel
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
-import com.xplo.code.ui.dashboard.household.forms.HhForm2Fragment
-import com.xplo.code.ui.dashboard.model.ALTForm1
-import com.xplo.code.ui.dashboard.model.HhForm1
-import com.xplo.code.ui.dashboard.model.HhForm2
+import com.xplo.code.ui.dashboard.model.AlForm1
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
@@ -194,7 +190,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
         Log.d(AlForm1Fragment.TAG, "onValidation() called")
 
-        val form = ALTForm1()
+        val form = AlForm1()
 
         form.householdName = chkEditText(etName, UiData.ER_ET_DF)
         form.alternateName = chkEditText(etAlternateName, UiData.ER_ET_DF)
@@ -224,7 +220,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         etAlternateName.setText("Nasif Ahmed")
     }
 
-    override fun onValidated(form: ALTForm1?) {
+    override fun onValidated(form: AlForm1?) {
         Log.d(TAG, "onValidated() called with: form = $form")
         //showToast(form.toString())
 

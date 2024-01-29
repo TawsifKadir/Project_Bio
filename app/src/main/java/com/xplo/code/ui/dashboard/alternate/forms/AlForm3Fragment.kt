@@ -16,7 +16,7 @@ import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.alternate.AlternateViewModel
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
-import com.xplo.code.ui.dashboard.model.ALTForm3
+import com.xplo.code.ui.dashboard.model.AlForm3
 import dagger.hilt.android.AndroidEntryPoint
 
 // TODO: Rename parameter arguments, choose names that match
@@ -116,7 +116,7 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
         super.onDestroy()
     }
 
-    override fun onValidated(form: ALTForm3?) {
+    override fun onValidated(form: AlForm3?) {
         TODO("Not yet implemented")
     }
 

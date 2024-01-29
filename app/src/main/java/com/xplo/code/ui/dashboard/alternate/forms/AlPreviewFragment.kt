@@ -10,7 +10,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.xplo.code.R
-import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.core.ext.visible
 import com.xplo.code.databinding.FragmentAlPreviewBinding
@@ -18,7 +17,7 @@ import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.alternate.AlternateViewModel
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
-import com.xplo.code.ui.dashboard.model.ALTForm1
+import com.xplo.code.ui.dashboard.model.AlForm1
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -153,7 +152,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
         super.onDestroy()
     }
 
-    override fun onValidated(form: ALTForm1?) {
+    override fun onValidated(form: AlForm1?) {
         //TODO("Not yet implemented")
     }
 

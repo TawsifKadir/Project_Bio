@@ -2,8 +2,8 @@ package com.xplo.code.ui.dashboard.alternate
 
 import androidx.fragment.app.Fragment
 import com.xplo.code.base.BaseContract
-import com.xplo.code.ui.dashboard.model.ALTForm1
-import com.xplo.code.ui.dashboard.model.ALTForm3
+import com.xplo.code.ui.dashboard.model.AlForm1
+import com.xplo.code.ui.dashboard.model.AlForm3
 import com.xplo.code.ui.dashboard.model.AlternateForm
 
 /**
@@ -63,18 +63,18 @@ interface AlternateContract {
     interface Form1View : BaseContract.View, CommonView {
 
 
-        fun onValidated(form: ALTForm1?)
+        fun onValidated(form: AlForm1?)
     }
 
     interface Form2View : BaseContract.View, CommonView {
 
-        fun onValidated(form: ALTForm1?)
+        fun onValidated(form: AlForm1?)
 
     }
 
     interface Form3View : BaseContract.View, CommonView {
 
-        fun onValidated(form: ALTForm3?)
+        fun onValidated(form: AlForm3?)
 
     }
 
@@ -90,7 +90,7 @@ interface AlternateContract {
 
     interface PreviewView : BaseContract.View, CommonView {
 
-        fun onValidated(form: ALTForm1?)
+        fun onValidated(form: AlForm1?)
 
     }
 

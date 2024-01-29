@@ -25,15 +25,13 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.xplo.code.R
-import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.databinding.FragmentAlForm2FingerBinding
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.alternate.AlternateViewModel
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
-import com.xplo.code.ui.dashboard.model.ALTForm1
-import com.xplo.code.ui.dashboard.model.ALTForm2
-import com.xplo.code.ui.dashboard.model.HhForm4
+import com.xplo.code.ui.dashboard.model.AlForm1
+import com.xplo.code.ui.dashboard.model.AlForm2
 import com.xplo.code.ui.photo.ImagePickerActivity
 import com.xplo.code.ui.photo.ImageUtil
 import dagger.hilt.android.AndroidEntryPoint
@@ -202,7 +200,7 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         super.onDestroy()
     }
 
-    override fun onValidated(form: ALTForm1?) {
+    override fun onValidated(form: AlForm1?) {
         //TODO("Not yet implemented")
     }
 
@@ -298,7 +296,7 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
     }
 
     private fun setToModel(newPhotoBase64: String?) {
-        val form = ALTForm2()
+        val form = AlForm2()
         form.img = newPhotoBase64
         val rootForm = interactor?.getRootForm()
         rootForm?.form2 = form

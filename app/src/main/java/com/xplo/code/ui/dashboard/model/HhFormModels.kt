@@ -15,16 +15,12 @@ data class HouseholdForm(
 
     var alPerson1: AlternateForm? = null,
     var alPerson2: AlternateForm? = null
-
-//    var altform1: ALTForm1? = null,
-//    var altform2: ALTForm2? = null,
-//    var altform3: ALTForm3? = null,
 )
 
 data class AlternateForm(
-    var form1: ALTForm1? = null,
-    var form2: ALTForm2? = null,
-    var form3: ALTForm3? = null
+    var form1: AlForm1? = null,
+    var form2: AlForm2? = null,
+    var form3: AlForm3? = null
 )
 
 data class HhForm1(
@@ -76,6 +72,7 @@ data class HhForm4(
 data class HhForm5(
     var finger: String? = null
 )
+
 data class HhForm6(
     var nominees: ArrayList<Nominee>? = arrayListOf()
 )
@@ -86,7 +83,7 @@ data class Nominee(
     var lastName: String? = null
 )
 
-data class ALTForm1(
+data class AlForm1(
     var householdName: String? = null,
     var alternateName: String? = null,
     var age: String? = null,
@@ -96,11 +93,11 @@ data class ALTForm1(
     var gender: String? = null
 )
 
-data class ALTForm2(
+data class AlForm2(
     var img: String? = null
 )
 
-data class ALTForm3(
+data class AlForm3(
     var fingerRT: String? = null,
     var fingerRI: String? = null,
     var fingerRM: String? = null,
@@ -171,7 +168,7 @@ fun HhForm3.isOk(): Boolean {
     return true
 }
 
-fun ALTForm1.isOk(): Boolean {
+fun AlForm1.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
 
     if (this.householdName.isNullOrBlank()) return false
