@@ -1,14 +1,24 @@
 package com.xplo.code.ui.dashboard.household.forms
 
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.EditText
 import android.widget.Spinner
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.xplo.code.R
@@ -41,7 +51,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
-    AdapterView.OnItemSelectedListener {
+    AdapterView.OnItemSelectedListener,
+    LocationListener
+{
 
     companion object {
         const val TAG = "HhForm1Fragment"
@@ -70,6 +82,12 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
     private lateinit var spCountryName: Spinner
     private lateinit var spPayamName: Spinner
     private lateinit var spBomaName: Spinner
+
+    private lateinit var etLat: EditText
+    private lateinit var etLon: EditText
+
+    private lateinit var locationManager: LocationManager
+    private val locationPermissionCode = 2
 
 
     override fun onAttach(context: Context) {
@@ -106,11 +124,15 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
         //presenter = RegistrationPresenter(DataRepoImpl())
         //presenter.attach(this)
 
+        getLocation()
+
 
         spStateName = binding.spStateName
         spCountryName = binding.spCountryName
         spPayamName = binding.spPayamName
         spBomaName = binding.spBomaName
+        etLat = binding.etLat
+        etLon = binding.etLon
     }
 
     override fun initView() {
@@ -466,6 +488,33 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
     override fun onNothingSelected(p0: AdapterView<*>?) {
         Log.d(TAG, "onNothingSelected() called with: p0 = $p0")
 
+    }
+
+    override fun onLocationChanged(location: Location) {
+        Log.d(TAG, "onLocationChanged() called with: location = $location")
+
+        etLat.setText(location.latitude.toString())
+        etLon.setText(location.latitude.toString())
+
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == locationPermissionCode) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun getLocation() {
+        locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if ((ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
     }
 
 

@@ -107,6 +107,46 @@
                         style="@style/AppSpinnerForm" />
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        style="@style/AppLinearLayoutInputBox"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/AppTextView.Input.Header"
+                            android:text="GPS Coordinates (Lat)" />
+
+
+                        <EditText
+                            android:id="@+id/etLat"
+                            style="@style/AppEditText.Form.Number.Decimal" />
+
+                    </LinearLayout>
+
+                    <include layout="@layout/view_margin_space" />
+
+
+                    <LinearLayout
+                        style="@style/AppLinearLayoutInputBox"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/AppTextView.Input.Header"
+                            android:text="GPS Coordinates (Long)" />
+
+
+                        <EditText
+                            android:id="@+id/etLon"
+                            style="@style/AppEditText.Form.Number.Decimal" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
