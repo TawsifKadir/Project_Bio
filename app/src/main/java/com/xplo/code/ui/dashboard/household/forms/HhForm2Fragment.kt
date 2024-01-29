@@ -115,7 +115,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         etIdNumber = binding.etIdNumber
         etPhoneNumber = binding.etPhoneNumber
         etMonthlyAverageIncome = binding.etMonthlyAverageIncome
-        etSpouseName = binding.etSpouseName
+        //etSpouseName = binding.etSpouseName
         etSelectionReason = binding.etSelectionReason
         rgSelectionCriteria = binding.rgSelectionCriteria
     }
@@ -194,7 +194,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         etIdNumber.setText(form.idNumber)
         etPhoneNumber.setText(form.phoneNumber)
         etMonthlyAverageIncome.setText(form.monthlyAverageIncome)
-        etSpouseName.setText(form.spouseName)
+        //etSpouseName.setText(form.spouseName)
         etSelectionReason.setText(form.selectionReason)
 
     }
@@ -238,7 +238,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         form.idNumber = chkEditText(etIdNumber, UiData.ER_ET_DF)
         form.phoneNumber = chkEditText(etPhoneNumber, UiData.ER_ET_DF)
         form.monthlyAverageIncome = chkEditText(etMonthlyAverageIncome, UiData.ER_ET_DF)
-        form.spouseName = chkEditText(etSpouseName, UiData.ER_ET_DF)
+        //form.spouseName = chkEditText(etSpouseName, UiData.ER_ET_DF)
         form.selectionReason = chkEditText(etSelectionReason, UiData.ER_ET_DF)
         form.selectionCriteria = chkRadioGroup(rgSelectionCriteria, UiData.ER_ET_DF)
 
@@ -267,7 +267,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         etIdNumber.setText("12")
         etPhoneNumber.setText("01672708329")
         etMonthlyAverageIncome.setText("5000")
-        etSpouseName.setText("Yesmin")
+        //etSpouseName.setText("Yesmin")
         etSelectionReason.setText("Poor")
 
         rgSelectionCriteria.check(R.id.rbA)

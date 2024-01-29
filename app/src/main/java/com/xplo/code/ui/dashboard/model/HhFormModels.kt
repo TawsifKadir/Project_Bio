@@ -140,8 +140,7 @@ fun HhForm2.isOk(): Boolean {
     if (this.spouseName.isNullOrBlank()) return false
     if (this.selectionReason.isNullOrBlank()) return false
     if (this.selectionCriteria.isNullOrBlank()) return false
-    if (this.monthlyAverageIncome.isNullOrBlank()) return false
-    if (this.spouseName.isNullOrBlank()) return false
+    if (this.monthlyAverageIncome.isNullOrBlank()) return false 
 
     if (this.age == null) return false
     if (this.idNumber == null) return false

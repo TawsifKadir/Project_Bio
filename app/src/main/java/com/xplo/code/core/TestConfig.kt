@@ -1,6 +1,6 @@
 package com.xplo.code.core
 
 object TestConfig {
-    val isValidationEnabled = true
+    val isValidationEnabled = false
     val isDummyDataEnabled = true
 }

@@ -121,7 +121,27 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <LinearLayout
+                    style="@style/AppLinearLayoutInputBox"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/AppTextView.Input.Header"
+                        android:text="@string/respondent_relationship_to_the_household_head_label" />
+
+
+                    <Spinner
+                        android:id="@+id/spRespondentRlt"
+                        style="@style/AppSpinnerForm" />
+
+                </LinearLayout>
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -217,7 +237,13 @@
 
                 </LinearLayout>
 
-                <include layout="@layout/view_margin_space" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
 
                 <LinearLayout
                     style="@style/AppLinearLayoutInputBox"
@@ -232,9 +258,22 @@
                         style="@style/AppEditText.Form.Number" />
 
                 </LinearLayout>
+                <include layout="@layout/view_margin_space" />
+                <LinearLayout
+                    style="@style/AppLinearLayoutInputBox"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/AppTextView.Input.Header"
+                        android:text="Currency" />
+
+
+                    <Spinner
+                        style="@style/AppSpinnerForm" />
+
+                </LinearLayout>
 
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -256,7 +295,81 @@
 
                 </LinearLayout>
 
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    style="@style/AppLinearLayoutInputBox"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/AppTextView.Input.Header"
+                        android:text="@string/respondent_spouse_first_name_min_3_letters" />
+
+                    <EditText
+                        android:id="@+id/etSpouseFirstName"
+                        style="@style/AppEditText.Form.Text" />
+
+                </LinearLayout>
+
                 <include layout="@layout/view_margin_space" />
+
+                <LinearLayout
+                    style="@style/AppLinearLayoutInputBox"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/AppTextView.Input.Header"
+                        android:text="@string/respondent_spouse_middle_name_min_3_letters" />
+
+                    <EditText
+                        android:id="@+id/etSpouseMiddleName"
+                        style="@style/AppEditText.Form.Text" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    style="@style/AppLinearLayoutInputBox"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/AppTextView.Input.Header"
+                        android:text="@string/respondent_spouse_last_name_min_3_letters" />
+
+                    <EditText
+                        android:id="@+id/etSpouseLastName"
+                        style="@style/AppEditText.Form.Text" />
+
+                </LinearLayout>
+
+                <include layout="@layout/view_margin_space" />
+
+                <LinearLayout
+                    style="@style/AppLinearLayoutInputBox"
+                    android:layout_weight="1"
+                    android:visibility="invisible">
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
 
                 <LinearLayout
                     style="@style/AppLinearLayoutInputBox"
@@ -286,23 +399,6 @@
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
-                        android:text="Spouse Name" />
-
-
-                    <EditText
-                        android:id="@+id/etSpouseName"
-                        style="@style/AppEditText.Form.Text" />
-
-                </LinearLayout>
-
-                <include layout="@layout/view_margin_space" />
-
-                <LinearLayout
-                    style="@style/AppLinearLayoutInputBox"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/AppTextView.Input.Header"
                         android:text="@string/selection_reason" />
 
                     <EditText
@@ -317,7 +413,7 @@
 
                 <TextView
                     style="@style/AppTextView.Input.Header"
-                    android:text="@string/selection_criteria" />
+                    android:text="Support Type" />
 
 
                 <RadioGroup
@@ -327,13 +423,13 @@
                     <RadioButton
                         android:id="@+id/rbA"
                         style="@style/AppRadioButton.Form"
-                        android:text="LIPW"
+                        android:text="Public Works"
                         tools:checked="true" />
 
                     <RadioButton
                         android:id="@+id/rbB"
                         style="@style/AppRadioButton.Form"
-                        android:text="DIS"
+                        android:text="Direct Income support"
                         tools:checked="false" />
 
                 </RadioGroup>

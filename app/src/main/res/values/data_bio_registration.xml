@@ -2,8 +2,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
     <string name="respondent_first_name_min_3_letters">Respondent First Name (min 3 letters)</string>
-    <string name="respondent_middle_name_min_3_letters">Respondent Middle Name (min 3 letters)</string>
+    <string name="respondent_middle_name_min_3_letters">Respondent Middle Name</string>
     <string name="respondent_last_name_min_3_letters">Respondent Last Name (min 3 letters)</string>
+
+    <string name="respondent_spouse_first_name_min_3_letters">Respondent Spouse First Name (min 3 letters)</string>
+    <string name="respondent_spouse_middle_name_min_3_letters">Respondent Spouse Middle Name</string>
+    <string name="respondent_spouse_last_name_min_3_letters">Respondent Spouse Last Name (min 3 letters)</string>
 
     <string name="respondent_age_max_3_digit">Respondent Age (max 3 digit)</string>
     <string name="respondent_id_number">Respondent Id Number</string>
