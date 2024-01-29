@@ -110,15 +110,15 @@ class HouseholdViewModel @Inject constructor(
         Log.d(TAG, "saveHouseholdForm() called with: form = $form")
         if (form == null) return
 
-        val id = UUID.randomUUID().toString()
-        var item = HouseholdItem(data = form.toJson(), id = id)
+        val uuid = UUID.randomUUID().toString()
+        var item = HouseholdItem(data = form.toJson(), uuid = uuid)
 
         viewModelScope.launch(dispatchers.io) {
             _event.value = Event.Loading
             when (val response = dbRepo.insertHousehold(item)) {
 
                 is Resource.Success -> {
-                    _event.value = Event.SaveHouseholdFormSuccess(id)
+                    _event.value = Event.SaveHouseholdFormSuccess(uuid)
                 }
 
                 is Resource.Failure -> {

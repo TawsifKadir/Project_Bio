@@ -48,7 +48,7 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
         fun bind(item: HouseholdItem) {
             Log.d(TAG, "bind() called with: item = $item")
             //val form = item.toHouseholdForm()
-            binding.tvId.text = item.id
+            binding.tvId.text = item.id.toString()
             binding.tvData.text = item.data
             binding.tvStatus.text = item.isSynced.toString()
         }
