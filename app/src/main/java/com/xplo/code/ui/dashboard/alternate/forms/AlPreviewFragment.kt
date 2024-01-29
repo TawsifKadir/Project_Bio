@@ -91,13 +91,13 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
         val rootForm = interactor?.getRootForm()
 
         //info
-        binding.txtHouseHoldName.text = rootForm?.altform1?.householdName ?: ""
-        binding.txtAltName.text = rootForm?.altform1?.alternateName ?: ""
-        binding.txtAge.text = rootForm?.altform1?.age ?: ""
-        binding.txtIdNo.text = rootForm?.altform1?.idNumber ?: ""
-        binding.txtPhoneNo.text = rootForm?.altform1?.phoneNumber ?: ""
-        binding.txtAltRelation.text = rootForm?.altform1?.selectAlternateRlt ?: ""
-        binding.txtGender.text = rootForm?.altform1?.gender ?: ""
+        binding.txtHouseHoldName.text = rootForm?.form1?.householdName ?: ""
+        binding.txtAltName.text = rootForm?.form1?.alternateName ?: ""
+        binding.txtAge.text = rootForm?.form1?.age ?: ""
+        binding.txtIdNo.text = rootForm?.form1?.idNumber ?: ""
+        binding.txtPhoneNo.text = rootForm?.form1?.phoneNumber ?: ""
+        binding.txtAltRelation.text = rootForm?.form1?.selectAlternateRlt ?: ""
+        binding.txtGender.text = rootForm?.form1?.gender ?: ""
 
         binding.txtRT.text = "true"
         binding.txtRI.text = "true"
@@ -111,7 +111,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
         binding.txtLR.text = "true"
         binding.txtLL.text = "true"
 
-        loadImage(rootForm?.altform2?.img ?: "")
+        loadImage(rootForm?.form2?.img ?: "")
 
     }
     private fun loadImage(url: String) {

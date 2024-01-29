@@ -5,14 +5,26 @@ import com.xplo.code.core.TestConfig
 
 
 data class HouseholdForm(
+
     var form1: HhForm1? = null,
     var form2: HhForm2? = null,
     var form3: HhForm3? = null,
     var form4: HhForm4? = null,
     var form5: HhForm5? = null,
-    var altform1: ALTForm1? = null,
-    var altform2: ALTForm2? = null,
-    var altform3: ALTForm3? = null,
+    var form6: HhForm6? = null,
+
+    var alPerson1: AlternateForm? = null,
+    var alPerson2: AlternateForm? = null
+
+//    var altform1: ALTForm1? = null,
+//    var altform2: ALTForm2? = null,
+//    var altform3: ALTForm3? = null,
+)
+
+data class AlternateForm(
+    var form1: ALTForm1? = null,
+    var form2: ALTForm2? = null,
+    var form3: ALTForm3? = null
 )
 
 data class HhForm1(
@@ -65,9 +77,13 @@ data class HhForm5(
     var finger: String? = null
 )
 data class HhForm6(
+    var nominees: ArrayList<Nominee>? = arrayListOf()
+)
+
+data class Nominee(
     var firstName: String? = null,
     var middleName: String? = null,
-    var lastName: String? = null,
+    var lastName: String? = null
 )
 
 data class ALTForm1(

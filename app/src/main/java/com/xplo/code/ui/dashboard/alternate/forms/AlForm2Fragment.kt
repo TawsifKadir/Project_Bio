@@ -301,7 +301,7 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         val form = ALTForm2()
         form.img = newPhotoBase64
         val rootForm = interactor?.getRootForm()
-        rootForm?.altform2 = form
+        rootForm?.form2 = form
         interactor?.setRootForm(rootForm)
     }
     /**

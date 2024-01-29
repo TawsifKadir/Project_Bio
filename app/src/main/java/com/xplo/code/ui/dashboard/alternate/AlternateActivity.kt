@@ -18,7 +18,7 @@ import com.xplo.code.ui.dashboard.alternate.forms.AlForm1Fragment
 import com.xplo.code.ui.dashboard.alternate.forms.AlForm2Fragment
 import com.xplo.code.ui.dashboard.alternate.forms.AlForm3Fragment
 import com.xplo.code.ui.dashboard.alternate.forms.AlPreviewFragment
-import com.xplo.code.ui.dashboard.model.HouseholdForm
+import com.xplo.code.ui.dashboard.model.AlternateForm
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -55,7 +55,8 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
     private val viewModel: AlternateViewModel by viewModels()
     //private lateinit var toolbar: Toolbar
 
-    private var rootForm: HouseholdForm? = HouseholdForm()
+    private var rootForm: AlternateForm? = AlternateForm()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAlternateBinding.inflate(layoutInflater)
@@ -182,32 +183,9 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
         )
     }
 
-    override fun navigateToForm4() {
-        Log.d(TAG, "navigateToForm4() called")
-        STEP = 4
-//        doFragmentTransaction(
-//            AlForm4Fragment.newInstance(null),
-//            AlForm4Fragment.TAG,
-//            true,
-//            false
-//        )
-    }
-
-    override fun navigateToForm5() {
-        Log.d(TAG, "navigateToForm5() called")
-        STEP = 5
-//        doFragmentTransaction(
-//            AlForm5Fragment.newInstance(null),
-//            HhForm5Fragment.TAG,
-//            true,
-//            false
-//        )
-    }
-
-
     override fun navigateToPreview() {
         Log.d(TAG, "navigateToPreview() called")
-        STEP = 6
+        STEP = 5
         doFragmentTransaction(
             AlPreviewFragment.newInstance(null),
             AlPreviewFragment.TAG,
@@ -262,11 +240,12 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
         Log.d(TAG, "onPageAdd() called")
 
     }
-    override fun getRootForm(): HouseholdForm? {
+
+    override fun getRootForm(): AlternateForm? {
         return rootForm
     }
 
-    override fun setRootForm(form: HouseholdForm?) {
+    override fun setRootForm(form: AlternateForm?) {
         this.rootForm = form
     }
 }

@@ -225,14 +225,14 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
     }
 
     override fun onValidated(form: ALTForm1?) {
-        Log.d(HhForm2Fragment.TAG, "onValidated() called with: form = $form")
+        Log.d(TAG, "onValidated() called with: form = $form")
         //showToast(form.toString())
 
         val rootForm = interactor?.getRootForm()
-        rootForm?.altform1 = form
+        rootForm?.form1 = form
         interactor?.setRootForm(rootForm)
 
-        Log.d(HhForm2Fragment.TAG, "onValidated: $rootForm")
+        Log.d(TAG, "onValidated: $rootForm")
         interactor?.navigateToForm2()
     }
 

@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import com.xplo.code.base.BaseContract
 import com.xplo.code.ui.dashboard.model.ALTForm1
 import com.xplo.code.ui.dashboard.model.ALTForm3
-import com.xplo.code.ui.dashboard.model.HouseholdForm
+import com.xplo.code.ui.dashboard.model.AlternateForm
 
 /**
  * Copyright 2020 (C) xplo
@@ -22,16 +22,8 @@ interface AlternateContract {
         fun navigateToForm1(id: String?)
         fun navigateToForm2()
         fun navigateToForm3()
-        fun navigateToForm4()
-        fun navigateToForm5()
         fun navigateToPreview()
 
-//        fun showBackButton()
-//        fun hideBackButton()
-//        fun showNextButton()
-//        fun hideNextButton()
-//        fun showSubmitButton()
-//        fun hideSubmitButton()
 
         fun onBackButton()
         fun onNextButton()
@@ -46,8 +38,8 @@ interface AlternateContract {
 
         fun onPageAdd()
 
-        fun getRootForm(): HouseholdForm?
-        fun setRootForm(form: HouseholdForm?)
+        fun getRootForm(): AlternateForm?
+        fun setRootForm(form: AlternateForm?)
     }
 
     interface Presenter : BaseContract.Presenter<View> {
