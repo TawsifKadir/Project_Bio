@@ -60,7 +60,7 @@
                                 android:text="Country" />
 
                             <TextView
-                                android:id="@+id/txtCountry"
+                                android:id="@+id/tvCountry"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -72,7 +72,7 @@
                                 android:text="State" />
 
                             <TextView
-                                android:id="@+id/txtState"
+                                android:id="@+id/tvState"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -96,7 +96,7 @@
 
                             <TextView
 
-                                android:id="@+id/txtPayam"
+                                android:id="@+id/tvPayam"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -109,7 +109,7 @@
 
                             <TextView
 
-                                android:id="@+id/txtBoma"
+                                android:id="@+id/tvBoma"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -147,7 +147,7 @@
                                 android:text="First Name" />
 
                             <TextView
-                                android:id="@+id/txtFirstName"
+                                android:id="@+id/tvFirstName"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -159,7 +159,7 @@
                                 android:text="Middle Name" />
 
                             <TextView
-                                android:id="@+id/txtMiddleName"
+                                android:id="@+id/tvMiddleName"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -182,7 +182,7 @@
                                 android:text="Last Name" />
 
                             <TextView
-                                android:id="@+id/txtLastName"
+                                android:id="@+id/tvLastName"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -217,7 +217,7 @@
                                 android:text="Age" />
 
                             <TextView
-                                android:id="@+id/txtAge"
+                                android:id="@+id/tvAge"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -229,7 +229,7 @@
                                 android:text="ID" />
 
                             <TextView
-                                android:id="@+id/txtId"
+                                android:id="@+id/tvId"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -252,7 +252,7 @@
                                 android:text="Phone No" />
 
                             <TextView
-                                android:id="@+id/txtPhoneNo"
+                                android:id="@+id/tvPhoneNo"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -285,7 +285,7 @@
                                 android:text="Source of income" />
 
                             <TextView
-                                android:id="@+id/txtSourceOfIncome"
+                                android:id="@+id/tvSourceOfIncome"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -297,7 +297,7 @@
                                 android:text="Average Income" />
 
                             <TextView
-                                android:id="@+id/txtAvgIncome"
+                                android:id="@+id/tvAvgIncome"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -320,7 +320,7 @@
                                 android:text="Legal Status" />
 
                             <TextView
-                                android:id="@+id/txtLegalStatus"
+                                android:id="@+id/tvLegalStatus"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -354,7 +354,7 @@
                                 android:text="Gender" />
 
                             <TextView
-                                android:id="@+id/txtGender"
+                                android:id="@+id/tvGender"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -366,7 +366,7 @@
                                 android:text="Merital Status" />
 
                             <TextView
-                                android:id="@+id/txtMeritalStatus"
+                                android:id="@+id/tvMeritalStatus"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -389,7 +389,7 @@
                                 android:text="Spouse Name" />
 
                             <TextView
-                                android:id="@+id/txtSpouseName"
+                                android:id="@+id/tvSpouseName"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -423,7 +423,7 @@
                                 android:text="Household Size" />
 
                             <TextView
-                                android:id="@+id/txtHouseHoldSize"
+                                android:id="@+id/tvHouseHoldSize"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -457,7 +457,7 @@
                                 android:text="Male Dependants" />
 
                             <TextView
-                                android:id="@+id/txtMaleDepen"
+                                android:id="@+id/tvMaleDepen"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -469,7 +469,7 @@
                                 android:text="Female Dependants" />
 
                             <TextView
-                                android:id="@+id/txtFemaleDepen"
+                                android:id="@+id/tvFemaleDepen"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -492,7 +492,7 @@
                                 android:text="0-5 Years old" />
 
                             <TextView
-                                android:id="@+id/txt05YearsOld"
+                                android:id="@+id/tv05YearsOld"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -504,7 +504,7 @@
                                 android:text="6-17 Years old" />
 
                             <TextView
-                                android:id="@+id/txt617YearsOld"
+                                android:id="@+id/tv617YearsOld"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -527,7 +527,7 @@
                                 android:text="18-45 Years old" />
 
                             <TextView
-                                android:id="@+id/txt1845YearsOld"
+                                android:id="@+id/tv1845YearsOld"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -539,7 +539,7 @@
                                 android:text="46-65 Years old" />
 
                             <TextView
-                                android:id="@+id/txt4665YearsOld"
+                                android:id="@+id/tv4665YearsOld"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -562,7 +562,7 @@
                                 android:text="66+ Years old" />
 
                             <TextView
-                                android:id="@+id/txt66YearsOld"
+                                android:id="@+id/tv66YearsOld"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -596,7 +596,7 @@
                                 android:text="Selection Criteria" />
 
                             <TextView
-                                android:id="@+id/txtSelectionCriteria"
+                                android:id="@+id/tvSelectionCriteria"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -608,7 +608,7 @@
                                 android:text="Selection Reason" />
 
                             <TextView
-                                android:id="@+id/txtSelectionReason"
+                                android:id="@+id/tvSelectionReason"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -647,7 +647,7 @@
                                 android:text="@string/right_thumb" />
 
                             <TextView
-                                android:id="@+id/txtRT"
+                                android:id="@+id/tvRT"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -659,7 +659,7 @@
                                 android:text="@string/left_thumb" />
 
                             <TextView
-                                android:id="@+id/txtLT"
+                                android:id="@+id/tvLT"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -682,7 +682,7 @@
                                 android:text="@string/right_index" />
 
                             <TextView
-                                android:id="@+id/txtRI"
+                                android:id="@+id/tvRI"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -694,7 +694,7 @@
                                 android:text="@string/left_index" />
 
                             <TextView
-                                android:id="@+id/txtLI"
+                                android:id="@+id/tvLI"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -717,7 +717,7 @@
                                 android:text="@string/right_middle" />
 
                             <TextView
-                                android:id="@+id/txtRM"
+                                android:id="@+id/tvRM"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -729,7 +729,7 @@
                                 android:text="@string/left_middle" />
 
                             <TextView
-                                android:id="@+id/txtLM"
+                                android:id="@+id/tvLM"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -752,7 +752,7 @@
                                 android:text="@string/right_ring" />
 
                             <TextView
-                                android:id="@+id/txtRR"
+                                android:id="@+id/tvRR"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -764,7 +764,7 @@
                                 android:text="@string/left_ring" />
 
                             <TextView
-                                android:id="@+id/txtLR"
+                                android:id="@+id/tvLR"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -787,7 +787,7 @@
                                 android:text="@string/right_little" />
 
                             <TextView
-                                android:id="@+id/txtRL"
+                                android:id="@+id/tvRL"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
@@ -799,7 +799,7 @@
                                 android:text="@string/left_little" />
 
                             <TextView
-                                android:id="@+id/txtLL"
+                                android:id="@+id/tvLL"
                                 style="@style/PreviewTitleLableValueStyle"
                                 android:text="" />
                         </LinearLayout>
