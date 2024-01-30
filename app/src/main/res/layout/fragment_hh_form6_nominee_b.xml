@@ -75,6 +75,39 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/viewNominee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/nominee1"
+                    layout="@layout/view_nominee_block" />
+
+
+                <include
+                    android:id="@+id/nominee2"
+                    layout="@layout/view_nominee_block" />
+
+
+                <include
+                    android:id="@+id/nominee3"
+                    layout="@layout/view_nominee_block" />
+
+
+                <include
+                    android:id="@+id/nominee4"
+                    layout="@layout/view_nominee_block" />
+
+
+                <include
+                    android:id="@+id/nominee5"
+                    layout="@layout/view_nominee_block" />
+
+
+            </LinearLayout>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btAdd"
                 style="@style/AppButton.TextButton.Secondary"
@@ -85,12 +118,6 @@
                 android:textAlignment="viewEnd"
                 android:visibility="gone"
                 tools:visibility="visible" />
-
-            <LinearLayout
-                android:id="@+id/viewNominee"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
 
 
         </LinearLayout>

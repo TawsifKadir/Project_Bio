@@ -66,6 +66,11 @@ fun HhForm3.isOk(): Boolean {
     return true
 }
 
+fun HhForm6.isOk(): Boolean {
+    if (!TestConfig.isValidationEnabled) return true
+    return true
+}
+
 fun AlForm1.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
 

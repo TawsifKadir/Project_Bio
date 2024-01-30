@@ -6,16 +6,29 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.Spinner
+import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.ext.gone
+import com.xplo.code.core.ext.isNo
+import com.xplo.code.core.ext.isYes
 import com.xplo.code.core.ext.visible
 import com.xplo.code.databinding.FragmentHhForm6NomineeBinding
+import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.HhForm6
+import com.xplo.code.ui.dashboard.model.Nominee
+import com.xplo.code.ui.dashboard.model.getNomineeNumber
+import com.xplo.code.ui.dashboard.model.isOk
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -52,6 +65,14 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
     private var interactor: HouseholdContract.View? = null
 
 
+    private lateinit var layoutList: LinearLayout
+    //private lateinit var btAdd: Button
+    //var buttonSubmitList: Button? = null
+
+    //var teamList: List<String> = arrayListOf()
+    //var cricketersList: ArrayList<Cricketer> = ArrayList<Cricketer>()
+
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -80,12 +101,13 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
 
     override fun initInitial() {
 
+        layoutList = binding.viewNominee
     }
 
     override fun initView() {
 
-        val rootForm = interactor?.getRootForm()
-        Log.d(TAG, "initView: $rootForm")
+        bindSpinnerData(binding.spReasonNoNominee, UiData.stateNameOptions)
+
     }
 
     override fun initObserver() {
@@ -106,7 +128,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         }
 
         binding.btAdd.setOnClickListener {
-
+            onClickAddNominee()
         }
 
     }
@@ -117,6 +139,8 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
 
 //        binding.viewButtonBackNext.btBack.visible()
 //        binding.viewButtonBackNext.btNext.visible()
+
+        onReinstateData(interactor?.getRootForm()?.form6)
     }
 
     override fun onDestroy() {
@@ -126,6 +150,33 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
 
     override fun onValidated(form: HhForm6?) {
         Log.d(TAG, "onValidated() called with: form = $form")
+
+        val rootForm = interactor?.getRootForm()
+        rootForm?.form6 = form
+        interactor?.setRootForm(rootForm)
+
+        Log.d(TAG, "onValidated: $rootForm")
+
+        interactor?.navigateToPreview()
+    }
+
+    override fun onReinstateData(form: HhForm6?) {
+        Log.d(TAG, "onReinstateData() called with: form = $form")
+        if (form == null) return
+
+        if (form.isNomineeAdd.isYes()) {
+            onDecisionAddNominee(true)
+            //onClickAddNominee()
+
+            for ((i, item) in form.nominees.withIndex()) {
+                addView(i + 1, item)
+            }
+
+
+        } else {
+            onDecisionAddNominee(false)
+        }
+
     }
 
     override fun onDecisionAddNominee(isAdd: Boolean) {
@@ -144,27 +195,30 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
     }
 
     override fun onClickAddNominee() {
+        val rootForm = interactor?.getRootForm()
+        if (rootForm == null) return
 
+        addView(rootForm.form6.getNomineeNumber(), null)
     }
 
     override fun onAddNominee(number: Int) {
-        when (number) {
-            1 -> binding.nominee1.root.visible()
-            2 -> binding.nominee2.root.visible()
-            3 -> binding.nominee3.root.visible()
-            4 -> binding.nominee4.root.visible()
-            5 -> binding.nominee5.root.visible()
-        }
+//        when (number) {
+//            1 -> binding.nominee1.root.visible()
+//            2 -> binding.nominee2.root.visible()
+//            3 -> binding.nominee3.root.visible()
+//            4 -> binding.nominee4.root.visible()
+//            5 -> binding.nominee5.root.visible()
+//        }
     }
 
     override fun onHideNominee(number: Int) {
-        when (number) {
-            1 -> binding.nominee1.root.gone()
-            2 -> binding.nominee2.root.gone()
-            3 -> binding.nominee3.root.gone()
-            4 -> binding.nominee4.root.gone()
-            5 -> binding.nominee5.root.gone()
-        }
+//        when (number) {
+//            1 -> binding.nominee1.root.gone()
+//            2 -> binding.nominee2.root.gone()
+//            3 -> binding.nominee3.root.gone()
+//            4 -> binding.nominee4.root.gone()
+//            5 -> binding.nominee5.root.gone()
+//        }
     }
 
     override fun onClickBackButton() {
@@ -174,13 +228,62 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
 
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
-        interactor?.navigateToPreview()
+        //interactor?.navigateToPreview()
+        onReadInput()
     }
 
     override fun onReadInput() {
-        Log.d(TAG, "onValidation() called")
+        Log.d(TAG, "onReadInput() called")
 
         val form = HhForm6()
+
+        form.isNomineeAdd = chkRadioGroup(binding.rgNomineeAdd, UiData.ER_ET_DF)
+
+        if (form.isNomineeAdd.isNo()) {
+            form.noNomineeReason = chkSpinner(binding.spReasonNoNominee, UiData.ER_SP_DF)
+            if (form.isOk()) {
+                onValidated(form)
+                return
+            }
+        }
+
+        for (i in 0 until layoutList.childCount) {
+            Log.d(TAG, "onReadInput: i: $i")
+
+            val rowView = layoutList.getChildAt(i)
+
+            val etFirstName: EditText = rowView.findViewById(R.id.etFirstName)
+            val etMiddleName: EditText = rowView.findViewById(R.id.etMiddleName)
+            val etLastName: EditText = rowView.findViewById(R.id.etLastName)
+            val etAge: EditText = rowView.findViewById(R.id.etAge)
+
+            val spRelation: Spinner = rowView.findViewById(R.id.spRelation)
+            val spGender: Spinner = rowView.findViewById(R.id.spGender)
+            val spOccupation: Spinner = rowView.findViewById(R.id.spOccupation)
+
+            val rgReadWrite: RadioGroup = rowView.findViewById(R.id.rgReadWrite)
+            val rbReadWriteYes: RadioButton = rowView.findViewById(R.id.rbReadWriteYes)
+            val rbReadWriteNo: RadioButton = rowView.findViewById(R.id.rbReadWriteNo)
+
+            val firstName = etFirstName.text.toString()
+
+            var nominee: Nominee? = null
+
+            if (firstName.isNotEmpty()) {
+                nominee = Nominee(firstName = firstName)
+            }
+
+            if (nominee != null) {
+                form.nominees.add(nominee)
+            }
+
+
+        }
+
+
+        if (form.isOk()) {
+            onValidated(form)
+        }
 
 
     }
@@ -191,5 +294,62 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
 
     override fun onPopulateView() {
         Log.d(TAG, "onPopulateView() called")
+    }
+
+
+    private fun addView(number: Int, nominee: Nominee?) {
+
+        val rowView: View = layoutInflater.inflate(R.layout.row_nominee_add, null, false)
+
+        val btRemove: ImageButton = rowView.findViewById(R.id.btRemove)
+        val tvHeader: TextView = rowView.findViewById(R.id.tvHeader)
+
+        val etFirstName: EditText = rowView.findViewById(R.id.etFirstName)
+        val etMiddleName: EditText = rowView.findViewById(R.id.etMiddleName)
+        val etLastName: EditText = rowView.findViewById(R.id.etLastName)
+        val etAge: EditText = rowView.findViewById(R.id.etAge)
+
+        val spRelation: Spinner = rowView.findViewById(R.id.spRelation)
+        val spGender: Spinner = rowView.findViewById(R.id.spGender)
+        val spOccupation: Spinner = rowView.findViewById(R.id.spOccupation)
+
+        val rgReadWrite: RadioGroup = rowView.findViewById(R.id.rgReadWrite)
+        val rbReadWriteYes: RadioButton = rowView.findViewById(R.id.rbReadWriteYes)
+        val rbReadWriteNo: RadioButton = rowView.findViewById(R.id.rbReadWriteNo)
+
+        bindSpinnerData(spRelation, UiData.relationshipOptions)
+        bindSpinnerData(spGender, UiData.genderOptions)
+        bindSpinnerData(spOccupation, UiData.genderOptions)
+
+        btRemove.setOnClickListener {
+            removeView(rowView)
+        }
+
+        when (number) {
+            1 -> {
+                tvHeader.text = "First Nominee"
+                updateView(nominee, etFirstName)
+            }
+
+            2 -> tvHeader.text = "Second Nominee"
+            3 -> tvHeader.text = "Third Nominee"
+            4 -> tvHeader.text = "Fourth Nominee"
+            5 -> tvHeader.text = "Fifth Nominee"
+        }
+
+        layoutList.addView(rowView)
+    }
+
+    private fun removeView(view: View) {
+        layoutList.removeView(view)
+    }
+
+    private fun updateView(
+        nominee: Nominee?,
+        etFirstName: EditText
+    ) {
+        Log.d(TAG, "updateView() called with: nominee = $nominee, etFirstName = $etFirstName")
+        if (nominee == null) return
+        etFirstName.setText(nominee.firstName)
     }
 }

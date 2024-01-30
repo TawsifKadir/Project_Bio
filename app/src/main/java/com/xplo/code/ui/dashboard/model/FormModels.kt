@@ -23,8 +23,8 @@ data class AlternateForm(
 )
 
 data class HhForm1(
-    var countryName: String? = null,
     var stateName: String? = null,
+    var countryName: String? = null,
     var payamName: String? = null,
     var bomaName: String? = null,
     var lat: Double? = null,
@@ -75,15 +75,21 @@ data class HhForm5(
 )
 
 data class HhForm6(
-    //var nominees: ArrayList<Nominee>? = arrayListOf()
-    var isNominee: Boolean = false,
+
+    var isNomineeAdd: String? = null,
     var noNomineeReason: String? = null,
-    var nominee1: Nominee? = null,
-    var nominee2: Nominee? = null,
-    var nominee3: Nominee? = null,
-    var nominee4: Nominee? = null,
-    var nominee5: Nominee? = null
+//    var nominee1: Nominee? = null,
+//    var nominee2: Nominee? = null,
+//    var nominee3: Nominee? = null,
+//    var nominee4: Nominee? = null,
+//    var nominee5: Nominee? = null
+    var nominees: ArrayList<Nominee> = arrayListOf()
 )
+
+fun HhForm6?.getNomineeNumber(): Int {
+    if (this == null)  return 1
+    return this.nominees?.size?.plus(1) ?: 1
+}
 
 data class Nominee(
     var firstName: String? = null,
