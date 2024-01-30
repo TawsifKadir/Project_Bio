@@ -27,6 +27,16 @@ abstract class BasicFormFragment : BaseFragment(), BaseFormFragmentView {
         }
         return txt
     }
+    override fun chkEditText3Char(editText: EditText, error: String?): String? {
+        val txt = editText.text.toString()
+        if (isValidationEnabled()) {
+            if (txt.isEmpty() || txt == "" || txt.length < 3) {
+                editText.error = error
+                return null
+            }
+        }
+        return txt
+    }
 
 
     override fun chkSpinner(spinner: Spinner, error: String?): String? {

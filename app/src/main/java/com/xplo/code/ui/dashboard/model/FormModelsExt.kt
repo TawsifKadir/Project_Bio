@@ -27,7 +27,6 @@ fun HhForm2.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
 
     if (this.firstName.isNullOrBlank()) return false
-    if (this.middleName.isNullOrBlank()) return false
     if (this.lastName.isNullOrBlank()) return false
     if (this.idNumber.isNullOrBlank()) return false
     if (this.phoneNumber.isNullOrBlank()) return false

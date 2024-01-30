@@ -9,6 +9,7 @@ import android.widget.Spinner
 interface BaseFormFragmentView {
 
     fun chkEditText(editText: EditText, error: String?): String?
+    fun chkEditText3Char(editText: EditText, error: String?): String?
 
     //    fun getOrAssertEditTextInt(view: EditText, error: String?): Int?
 //    fun getOrAssertEditTextDouble(view: EditText, error: String?): Double?
