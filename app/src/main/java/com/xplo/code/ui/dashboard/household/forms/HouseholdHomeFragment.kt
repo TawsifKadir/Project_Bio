@@ -2,11 +2,8 @@ package com.xplo.code.ui.dashboard.household.forms
 
 import android.Manifest
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
@@ -17,8 +14,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -67,6 +62,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HouseholdHomeVie
 
     private lateinit var binding: FragmentHouseholdHomeBinding
     private val viewModel: HouseholdViewModel by viewModels()
+
     //private lateinit var presenter: HomeContract.Presenter
     private var interactor: HouseholdContract.View? = null
 
@@ -198,12 +194,15 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HouseholdHomeVie
     }
 
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         if (requestCode == locationPermissionCode) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT).show()
-            }
-            else {
+            } else {
                 Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
             }
         }
@@ -234,22 +233,21 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HouseholdHomeVie
                 }
             }).check()
     }
+
     private fun showSettingsDialog() {
-        val builder =
-            AlertDialog.Builder(requireContext())
+        val builder = AlertDialog.Builder(requireContext())
         builder.setTitle(getString(R.string.dialog_permission_title))
         builder.setMessage(getString(R.string.dialog_permission_message))
-        builder.setPositiveButton(
-            getString(R.string.go_to_settings)
-        ) { dialog: DialogInterface, which: Int ->
+        builder.setPositiveButton(getString(R.string.go_to_settings)) { dialog, _: Int ->
             dialog.cancel()
             openSettings()
         }
-        builder.setNegativeButton(
-            getString(android.R.string.cancel)
-        ) { dialog: DialogInterface, which: Int -> dialog.cancel() }
+        builder.setNegativeButton(getString(R.string.cancel)) { dialog, _: Int ->
+            dialog.cancel()
+        }
         builder.show()
     }
+
     private fun openSettings() {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
         val uri = Uri.fromParts("package", requireContext().packageName, null)
