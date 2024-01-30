@@ -126,6 +126,12 @@ interface HouseholdContract {
     interface Form6View : BaseContract.View, CommonView {
         fun onValidated(form: HhForm6?)
 
+        fun onDecisionAddNominee(isAdd: Boolean)
+
+        fun onClickAddNominee()
+        fun onAddNominee(number: Int)
+        fun onHideNominee(number: Int)
+
     }
 
     interface PreviewView : BaseContract.View, CommonView {

@@ -7,7 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.xplo.code.R
 import com.xplo.code.core.Bk
+import com.xplo.code.core.ext.gone
+import com.xplo.code.core.ext.visible
 import com.xplo.code.databinding.FragmentHhForm6NomineeBinding
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
@@ -76,8 +79,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
     }
 
     override fun initInitial() {
-        //presenter = RegistrationPresenter(DataRepoImpl())
-        //presenter.attach(this)
+
     }
 
     override fun initView() {
@@ -95,6 +97,18 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         binding.viewButtonBackNext.btNext.setOnClickListener {
             onClickNextButton()
         }
+
+        binding.rgNomineeAdd.setOnCheckedChangeListener { radioGroup, id ->
+            when (id) {
+                R.id.rbYes -> onDecisionAddNominee(true)
+                R.id.rbNo -> onDecisionAddNominee(false)
+            }
+        }
+
+        binding.btAdd.setOnClickListener {
+
+        }
+
     }
 
     override fun onResume() {
@@ -114,6 +128,45 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         Log.d(TAG, "onValidated() called with: form = $form")
     }
 
+    override fun onDecisionAddNominee(isAdd: Boolean) {
+        Log.d(TAG, "onDecisionAddNominee() called with: isAdd = $isAdd")
+
+        if (isAdd) {
+            binding.viewNominee.visible()
+            binding.btAdd.visible()
+            binding.viewReasonNoNominee.gone()
+        } else {
+            binding.viewNominee.gone()
+            binding.btAdd.gone()
+            binding.viewReasonNoNominee.visible()
+        }
+
+    }
+
+    override fun onClickAddNominee() {
+
+    }
+
+    override fun onAddNominee(number: Int) {
+        when (number) {
+            1 -> binding.nominee1.root.visible()
+            2 -> binding.nominee2.root.visible()
+            3 -> binding.nominee3.root.visible()
+            4 -> binding.nominee4.root.visible()
+            5 -> binding.nominee5.root.visible()
+        }
+    }
+
+    override fun onHideNominee(number: Int) {
+        when (number) {
+            1 -> binding.nominee1.root.gone()
+            2 -> binding.nominee2.root.gone()
+            3 -> binding.nominee3.root.gone()
+            4 -> binding.nominee4.root.gone()
+            5 -> binding.nominee5.root.gone()
+        }
+    }
+
     override fun onClickBackButton() {
         Log.d(TAG, "onClickBackButton() called")
         interactor?.onBackButton()
@@ -126,6 +179,10 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
 
     override fun onReadInput() {
         Log.d(TAG, "onValidation() called")
+
+        val form = HhForm6()
+
+
     }
 
     override fun onGenerateDummyInput() {

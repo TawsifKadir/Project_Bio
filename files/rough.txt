@@ -115,6 +115,23 @@ if (this.age == null) return false
 
 
 
+blockRoot
+tvHeader
+ivClose
+etFirstName
+etMiddleName
+etLastName
+spRelation
+etAge
+spGender
+rgReadWrite
+rbReadWriteYes
+rbReadWriteNo
+spOccupation
+
+
+
+
 
 
 

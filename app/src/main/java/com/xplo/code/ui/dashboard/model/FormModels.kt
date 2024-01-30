@@ -75,13 +75,24 @@ data class HhForm5(
 )
 
 data class HhForm6(
-    var nominees: ArrayList<Nominee>? = arrayListOf()
+    //var nominees: ArrayList<Nominee>? = arrayListOf()
+    var isNominee: Boolean = false,
+    var noNomineeReason: String? = null,
+    var nominee1: Nominee? = null,
+    var nominee2: Nominee? = null,
+    var nominee3: Nominee? = null,
+    var nominee4: Nominee? = null,
+    var nominee5: Nominee? = null
 )
 
 data class Nominee(
     var firstName: String? = null,
     var middleName: String? = null,
-    var lastName: String? = null
+    var lastName: String? = null,
+    var relation: String? = null,
+    var age: Int? = null,
+    var gender: String? = null,
+    var isReadWrite: Boolean? = null
 )
 
 data class AlForm1(
