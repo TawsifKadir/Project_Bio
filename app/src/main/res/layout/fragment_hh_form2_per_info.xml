@@ -426,7 +426,7 @@
                         android:id="@+id/rbA"
                         style="@style/AppRadioButton.Form"
                         android:text="Public Works"
-                        tools:checked="true" />
+                        android:checked="true" />
 
                     <RadioButton
                         android:id="@+id/rbB"
