@@ -32,6 +32,7 @@
             android:gravity="center"
             android:orientation="vertical"
             android:padding="8dp">
+
             <LinearLayout style="@style/AppLinearLayoutInputBox">
 
                 <TextView
@@ -39,8 +40,7 @@
                     android:text="Would anyone from your household (including yourself) be interested in participating?" />
 
 
-                <RadioGroup
-                    style="@style/AppRadioGroupForm">
+                <RadioGroup style="@style/AppRadioGroupForm">
 
                     <RadioButton
                         style="@style/AppRadioButton.Form"
@@ -60,6 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <LinearLayout
                     style="@style/AppLinearLayoutInputBox"
                     android:layout_weight="1">
@@ -210,7 +211,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <LinearLayout  android:layout_weight="1" style="@style/AppLinearLayoutInputBox">
+                <LinearLayout
+                    style="@style/AppLinearLayoutInputBox"
+                    android:layout_weight="1">
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
