@@ -2,6 +2,7 @@ package com.xplo.code.ui.dashboard.model
 
 import com.google.gson.GsonBuilder
 import com.xplo.code.core.TestConfig
+import com.xplo.code.core.ext.isNull
 
 
 fun HhForm2?.getFullName(): String? {
@@ -16,6 +17,9 @@ fun HhForm1.isOk(): Boolean {
     if (this.stateName.isNullOrBlank()) return false
     if (this.payamName.isNullOrBlank()) return false
     if (this.bomaName.isNullOrBlank()) return false
+    if (this.lat == null) return false
+    if (this.lon == null) return false
+
     return true
 }
 
