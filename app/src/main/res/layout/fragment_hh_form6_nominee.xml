@@ -28,8 +28,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
             android:orientation="vertical"
             android:padding="8dp">
 
@@ -40,14 +38,18 @@
                     android:text="@string/would_anyone_from_your_household_including_yourself_be_interested_in_participating" />
 
 
-                <RadioGroup style="@style/AppRadioGroupForm">
+                <RadioGroup
+                    android:id="@+id/rgNomineeAdd"
+                    style="@style/AppRadioGroupForm">
 
                     <RadioButton
+                        android:id="@+id/rbYes"
                         style="@style/AppRadioButton.Form"
                         android:text="@string/yes"
                         tools:checked="true" />
 
                     <RadioButton
+                        android:id="@+id/rbNo"
                         style="@style/AppRadioButton.Form"
                         android:text="@string/no"
                         tools:checked="false" />
@@ -61,9 +63,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    style="@style/AppLinearLayoutInputBox"
-                    android:layout_weight="1">
+                <LinearLayout style="@style/AppLinearLayoutInputBox">
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
@@ -71,7 +71,7 @@
 
 
                     <Spinner
-                        android:id="@+id/spMaritalStatus"
+                        android:id="@+id/spReasonNoNominee"
                         style="@style/AppSpinnerForm" />
 
                 </LinearLayout>
@@ -160,7 +160,7 @@
 
 
                     <Spinner
-                        android:id="@+id/spAlternateRelation"
+                        android:id="@+id/spRelation"
                         style="@style/AppSpinnerForm" />
 
                 </LinearLayout>
@@ -182,9 +182,9 @@
                         android:text="@string/nominee_age" />
 
 
-                    <Spinner
-                        android:id="@+id/spGender"
-                        style="@style/AppSpinnerForm" />
+                    <EditText
+                        android:id="@+id/etAge"
+                        style="@style/AppEditText.Form.Number" />
 
                 </LinearLayout>
 
@@ -198,9 +198,10 @@
                         style="@style/AppTextView.Input.Header"
                         android:text="@string/nominee_gender" />
 
-                    <EditText
-                        android:id="@+id/etAge"
-                        style="@style/AppEditText.Form.Number" />
+
+                    <Spinner
+                        android:id="@+id/spGender"
+                        style="@style/AppSpinnerForm" />
 
                 </LinearLayout>
 
@@ -221,17 +222,17 @@
 
 
                     <RadioGroup
-                        android:id="@+id/rgSelectionCriteria"
+                        android:id="@+id/rgReadWrite"
                         style="@style/AppRadioGroupForm">
 
                         <RadioButton
-                            android:id="@+id/rbA"
+                            android:id="@+id/rbReadWriteYes"
                             style="@style/AppRadioButton.Form"
                             android:text="Yes"
                             tools:checked="true" />
 
                         <RadioButton
-                            android:id="@+id/rbB"
+                            android:id="@+id/rbReadWriteNo"
                             style="@style/AppRadioButton.Form"
                             android:text="No"
                             tools:checked="false" />
@@ -253,7 +254,7 @@
 
 
                     <Spinner
-                        android:id="@+id/spLegalStatus"
+                        android:id="@+id/spOccupation"
                         style="@style/AppSpinnerForm" />
 
                 </LinearLayout>
