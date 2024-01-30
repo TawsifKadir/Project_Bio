@@ -9,11 +9,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never"
         tools:itemCount="4"
-        tools:listitem="@layout/row_content_list" />
+        tools:listitem="@layout/row_household_list" />
 
 </LinearLayout>
 
