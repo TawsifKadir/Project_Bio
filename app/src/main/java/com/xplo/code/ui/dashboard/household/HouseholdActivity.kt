@@ -13,7 +13,9 @@ import androidx.lifecycle.lifecycleScope
 import com.xplo.code.R
 import com.xplo.code.base.BaseActivity
 import com.xplo.code.core.Bk
+import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.databinding.ActivityHouseholdBinding
+import com.xplo.code.ui.dashboard.household.forms.FormDetailsFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm1Fragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm2Fragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm3Fragment
@@ -22,7 +24,6 @@ import com.xplo.code.ui.dashboard.household.forms.HhForm5Fragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm6Fragment
 import com.xplo.code.ui.dashboard.household.forms.HhPreviewFragment
 import com.xplo.code.ui.dashboard.household.forms.HouseholdHomeFragment
-import com.xplo.code.ui.dashboard.household.list.HouseholdListFragment
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -240,6 +241,16 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         doFragmentTransaction(
             HhPreviewFragment.newInstance(null),
             HhPreviewFragment.TAG,
+            true,
+            false
+        )
+    }
+
+    override fun navigateToFormDetails(item: HouseholdItem?) {
+        Log.d(TAG, "navigateToFormDetails() called with: item = ${item?.id}")
+        doFragmentTransaction(
+            FormDetailsFragment.newInstance(null, item),
+            FormDetailsFragment.TAG,
             true,
             false
         )

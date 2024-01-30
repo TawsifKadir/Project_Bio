@@ -161,12 +161,12 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HouseholdHomeVie
     }
 
     override fun navigateToHouseholdDetails(content: HouseholdItem) {
-        Log.d(TAG, "navigateToHouseholdDetails() called with: content = $content")
-
+        Log.d(TAG, "navigateToHouseholdDetails() called with: content = ${content.id}")
+        interactor?.navigateToFormDetails(content)
     }
 
     override fun onGetHouseholdList(items: List<HouseholdItem>?) {
-        Log.d(TAG, "onGetHouseholdList() called with: items = $items")
+        Log.d(TAG, "onGetHouseholdList() called with: items = ${items?.size}")
         if (items == null) return
         adapter?.addAll(items)
     }
@@ -177,7 +177,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HouseholdHomeVie
     }
 
     override fun onClickHouseholdItem(item: HouseholdItem, pos: Int) {
-        Log.d(TAG, "onClickHouseholdItem() called with: item = $item, pos = $pos")
+        Log.d(TAG, "onClickHouseholdItem() called with: item = ${item.id}, pos = $pos")
         //dToast(item.title)
         navigateToHouseholdDetails(item)
     }

@@ -34,6 +34,7 @@ interface HouseholdContract {
         fun navigateToForm5()
         fun navigateToForm6()
         fun navigateToPreview()
+        fun navigateToFormDetails(item: HouseholdItem?)
 
         fun onBackButton()
         fun onNextButton()
@@ -140,6 +141,10 @@ interface HouseholdContract {
         fun onGetHouseholdListFailure(msg: String?)
 
 
+    }
+
+    interface FormDetailsView : BaseContract.View {
+        fun onGetCompleteData(item: HouseholdItem?)
     }
 
 

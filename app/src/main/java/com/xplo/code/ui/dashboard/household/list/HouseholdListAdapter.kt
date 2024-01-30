@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.xplo.code.data.db.models.HouseholdItem
+import com.xplo.code.data.db.models.toSummary
 import com.xplo.code.databinding.RowHouseholdListBinding
 
 /**
@@ -46,10 +47,10 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
         }
 
         fun bind(item: HouseholdItem) {
-            Log.d(TAG, "bind() called with: item = $item")
+            //Log.d(TAG, "bind() called with: item = $item")
             //val form = item.toHouseholdForm()
             binding.tvId.text = item.id.toString()
-            binding.tvData.text = item.data
+            binding.tvData.text = item.toSummary()
             binding.tvStatus.text = item.isSynced.toString()
         }
 
