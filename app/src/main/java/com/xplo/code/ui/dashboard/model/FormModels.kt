@@ -1,8 +1,5 @@
 package com.xplo.code.ui.dashboard.model
 
-import com.google.gson.GsonBuilder
-import com.xplo.code.core.TestConfig
-
 
 data class HouseholdForm(
 
@@ -44,6 +41,7 @@ data class HhForm2(
     var mainSourceOfIncome: String? = null,
     var monthlyAverageIncome: String? = null,
     var gender: String? = null,
+    var respondentRlt: String? = null,
     var maritalStatus: String? = null,
     var legalStatus: String? = null,
     var spouseName: String? = null,

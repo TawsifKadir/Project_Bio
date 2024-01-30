@@ -37,6 +37,18 @@ abstract class BasicFormFragment : BaseFragment(), BaseFormFragmentView {
         }
         return txt
     }
+    override fun chkEditTextMax3Digit(editText: EditText, error: String?): String? {
+        val txt = editText.text.toString()
+        if (isValidationEnabled()) {
+            if (txt.isEmpty() || txt == "") {
+                editText.error = error
+                return null
+            }else if(txt.toInt()>999){
+                editText.error = error
+            }
+        }
+        return txt
+    }
 
 
     override fun chkSpinner(spinner: Spinner, error: String?): String? {

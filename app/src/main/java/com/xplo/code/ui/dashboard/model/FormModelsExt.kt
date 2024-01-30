@@ -29,7 +29,9 @@ fun HhForm2.isOk(): Boolean {
     if (this.firstName.isNullOrBlank()) return false
     if (this.lastName.isNullOrBlank()) return false
     if (this.idNumber.isNullOrBlank()) return false
-    if (this.phoneNumber.isNullOrBlank()) return false
+    if (this.phoneNumber.isNullOrBlank()){
+        return false
+    }
     if (this.mainSourceOfIncome.isNullOrBlank()) return false
     if (this.gender.isNullOrBlank()) return false
     if (this.maritalStatus.isNullOrBlank()) return false
@@ -40,7 +42,6 @@ fun HhForm2.isOk(): Boolean {
     if (this.monthlyAverageIncome.isNullOrBlank()) return false
 
     if (this.age == null) return false
-    if (this.idNumber == null) return false
     if (this.monthlyAverageIncome == null) return false
 
     return true
