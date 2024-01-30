@@ -123,7 +123,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HouseholdHomeVie
                 when (event) {
 
                     is HouseholdViewModel.Event.Loading -> {
-                        showLoading()
+                        //showLoading()
                     }
 
                     is HouseholdViewModel.Event.GetHouseholdItemSuccess -> {
@@ -151,6 +151,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HouseholdHomeVie
 
     override fun onResume() {
         super.onResume()
+        setToolbarTitle("Household")
 
     }
 
