@@ -117,6 +117,16 @@
         <item>Pound</item>
         <item>Euro</item>
     </string-array>
+
+    <string-array name="selection_reason_array">
+        <item>Selection Reason</item>
+        <item>Poor household with no sufficient income to sustain the household</item>
+        <item>Household contain able bodied youth member (18-35)</item>
+        <item>Household headed by young men and women between the ages of 18 and 35</item>
+        <item>Many members who are dependents (HH with dependants greater than 3)</item>
+        <item>Poor household which have persons with severe disabilities</item>
+    </string-array>
+
 <string name="state_name_label">State Name</string>
     <string-array name="state_name_array">
         <item>State Name</item>

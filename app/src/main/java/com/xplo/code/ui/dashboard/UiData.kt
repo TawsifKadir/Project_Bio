@@ -31,6 +31,7 @@ object UiData {
     val bomaNameOptions = getStringArray(R.array.boma_name_array)
     val payaamNameOptions = getStringArray(R.array.payam_name_array)
     val currency = getStringArray(R.array.currency_array)
+    val selectionReason = getStringArray(R.array.selection_reason_array)
 
 
     private fun getString(resId: Int): String {

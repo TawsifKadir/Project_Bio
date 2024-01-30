@@ -403,9 +403,10 @@
                         style="@style/AppTextView.Input.Header"
                         android:text="@string/selection_reason" />
 
-                    <EditText
-                        android:id="@+id/etSelectionReason"
-                        style="@style/AppEditText.Form.Text" />
+
+                    <Spinner
+                        android:id="@+id/spSelectionReason"
+                        style="@style/AppSpinnerForm" />
 
                 </LinearLayout>
 

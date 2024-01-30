@@ -63,6 +63,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
     private lateinit var spRespondentRlt: Spinner
     private lateinit var spMaritalStatus: Spinner
     private lateinit var spLegalStatus: Spinner
+    private lateinit var spSelectionReason: Spinner
     private lateinit var etFirstName: EditText
     private lateinit var etMiddleName: EditText
     private lateinit var etLastName: EditText
@@ -71,7 +72,6 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
     private lateinit var etPhoneNumber: EditText
     private lateinit var etMonthlyAverageIncome: EditText
     private lateinit var etSpouseName: EditText
-    private lateinit var etSelectionReason: EditText
     private lateinit var rgSelectionCriteria: RadioGroup
 
 
@@ -112,6 +112,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         spRespondentRlt = binding.spRespondentRlt
         spMaritalStatus = binding.spMaritalStatus
         spLegalStatus = binding.spLegalStatus
+        spSelectionReason = binding.spSelectionReason
         etFirstName = binding.etFirstName
         etMiddleName = binding.etMiddleName
         etLastName = binding.etLastName
@@ -120,7 +121,6 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         etPhoneNumber = binding.etPhoneNumber
         etMonthlyAverageIncome = binding.etMonthlyAverageIncome
         //etSpouseName = binding.etSpouseName
-        etSelectionReason = binding.etSelectionReason
         rgSelectionCriteria = binding.rgSelectionCriteria
     }
 
@@ -132,6 +132,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         bindSpinnerData(spRespondentRlt, UiData.relationshipOptions)
         bindSpinnerData(spMaritalStatus, UiData.maritalStatusOptions)
         bindSpinnerData(spLegalStatus, UiData.legalStatusOptions)
+        bindSpinnerData(spSelectionReason, UiData.selectionReason)
 
     }
 
@@ -194,6 +195,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         setSpinnerItem(spRespondentRlt, UiData.relationshipOptions, form.respondentRlt)
         setSpinnerItem(spMaritalStatus, UiData.maritalStatusOptions, form.maritalStatus)
         setSpinnerItem(spLegalStatus, UiData.legalStatusOptions, form.legalStatus)
+        setSpinnerItem(spSelectionReason, UiData.selectionReason, form.selectionReason)
 
         etFirstName.setText(form.firstName)
         etMiddleName.setText(form.middleName)
@@ -203,7 +205,6 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         etPhoneNumber.setText(form.phoneNumber)
         etMonthlyAverageIncome.setText(form.monthlyAverageIncome)
         //etSpouseName.setText(form.spouseName)
-        etSelectionReason.setText(form.selectionReason)
 
     }
 
@@ -235,6 +236,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         form.respondentRlt = chkSpinner(spRespondentRlt, UiData.ER_SP_DF)
         form.maritalStatus = chkSpinner(spMaritalStatus, UiData.ER_SP_DF)
         form.legalStatus = chkSpinner(spLegalStatus, UiData.ER_SP_DF)
+        form.selectionReason = chkSpinner(spSelectionReason, UiData.ER_SP_DF)
 
 //        form.firstName = chkEditText(etFirstName, UiData.ER_SP_DF)
 //        form.middleName = chkEditText(etMiddleName, UiData.ER_SP_DF)
@@ -249,7 +251,6 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         form.phoneNumber = chkEditText(etPhoneNumber, UiData.ER_ET_DF)
         form.monthlyAverageIncome = chkEditText(etMonthlyAverageIncome, UiData.ER_ET_DF)
         //form.spouseName = chkEditText(etSpouseName, UiData.ER_ET_DF)
-        form.selectionReason = chkEditText(etSelectionReason, UiData.ER_ET_DF)
         form.selectionCriteria = chkRadioGroup(rgSelectionCriteria, UiData.ER_ET_DF)
 
 
@@ -270,6 +271,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         spRespondentRlt.setSelection(1)
         spMaritalStatus.setSelection(1)
         spLegalStatus.setSelection(1)
+        spSelectionReason.setSelection(1)
         spCurrency.setSelection(1)
 
         etFirstName.setText("MD")
@@ -280,7 +282,6 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         etPhoneNumber.setText("01672708329")
         etMonthlyAverageIncome.setText("5000")
         //etSpouseName.setText("Yesmin")
-        etSelectionReason.setText("Poor")
 
         rgSelectionCriteria.check(R.id.rbA)
     }
