@@ -165,6 +165,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         if (form == null) return
 
         if (form.isNomineeAdd.isYes()) {
+
             onDecisionAddNominee(true)
             //onClickAddNominee()
 
@@ -236,7 +237,6 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         Log.d(TAG, "onReadInput() called")
 
         val form = HhForm6()
-
         form.isNomineeAdd = chkRadioGroup(binding.rgNomineeAdd, UiData.ER_ET_DF)
 
         if (form.isNomineeAdd.isNo()) {
@@ -265,15 +265,23 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
             val rbReadWriteYes: RadioButton = rowView.findViewById(R.id.rbReadWriteYes)
             val rbReadWriteNo: RadioButton = rowView.findViewById(R.id.rbReadWriteNo)
 
-            val firstName = etFirstName.text.toString()
+            //val firstName = etFirstName.text.toString()
 
-            var nominee: Nominee? = null
+            var nominee = Nominee()
 
-            if (firstName.isNotEmpty()) {
-                nominee = Nominee(firstName = firstName)
-            }
+            nominee.firstName = chkEditText(etFirstName, UiData.ER_ET_DF)
+            nominee.lastName = chkEditText(etLastName, UiData.ER_ET_DF)
+            nominee.age = chkEditText(etAge, UiData.ER_ET_DF)?.toInt()
 
-            if (nominee != null) {
+            nominee.relation = chkSpinner(spRelation, UiData.ER_SP_DF)
+            nominee.gender = chkSpinner(spGender, UiData.ER_SP_DF)
+            nominee.occupation = chkSpinner(spOccupation, UiData.ER_SP_DF)
+
+//            if (firstName.isNotEmpty()) {
+//                nominee = Nominee(firstName = firstName)
+//            }
+
+            if (nominee.isOk()) {
                 form.nominees.add(nominee)
             }
 
@@ -328,7 +336,6 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         when (number) {
             1 -> {
                 tvHeader.text = "First Nominee"
-                updateView(nominee, etFirstName)
             }
 
             2 -> tvHeader.text = "Second Nominee"
@@ -337,6 +344,16 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
             5 -> tvHeader.text = "Fifth Nominee"
         }
 
+        updateView(
+            nominee,
+            etFirstName,
+            etMiddleName,
+            etLastName,
+            etAge,
+            spRelation,
+            spGender,
+            spOccupation
+        )
         layoutList.addView(rowView)
     }
 
@@ -346,10 +363,24 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
 
     private fun updateView(
         nominee: Nominee?,
-        etFirstName: EditText
+        etFirstName: EditText,
+        etMiddleName: EditText,
+        etLastName: EditText,
+        etAge: EditText,
+        spRelation: Spinner,
+        spGender: Spinner,
+        spOccupation: Spinner
     ) {
         Log.d(TAG, "updateView() called with: nominee = $nominee, etFirstName = $etFirstName")
         if (nominee == null) return
+
         etFirstName.setText(nominee.firstName)
+        etMiddleName.setText(nominee.middleName)
+        etLastName.setText(nominee.lastName)
+        etAge.setText(nominee.age.toString())
+
+        setSpinnerItem(spRelation, UiData.relationshipOptions, nominee.relation)
+        setSpinnerItem(spGender, UiData.genderOptions, nominee.gender)
+        setSpinnerItem(spOccupation, UiData.genderOptions, nominee.occupation)
     }
 }

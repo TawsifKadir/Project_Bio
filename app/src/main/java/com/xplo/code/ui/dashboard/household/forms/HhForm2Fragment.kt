@@ -156,7 +156,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         onGenerateDummyInput()
 
         spMaritalStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val selectedItem = parent.getItemAtPosition(position).toString()
                 if (selectedItem.equals("Married", ignoreCase = true)) {
                     binding.llspouse1.visibility = View.VISIBLE

@@ -2,7 +2,6 @@ package com.xplo.code.ui.dashboard.model
 
 import com.google.gson.GsonBuilder
 import com.xplo.code.core.TestConfig
-import com.xplo.code.core.ext.isNull
 
 
 fun HhForm2?.getFullName(): String? {
@@ -29,7 +28,7 @@ fun HhForm2.isOk(): Boolean {
     if (this.firstName.isNullOrBlank()) return false
     if (this.lastName.isNullOrBlank()) return false
     //if (this.idNumber.isNullOrBlank()) return false
-    if (this.phoneNumber.isNullOrBlank()){
+    if (this.phoneNumber.isNullOrBlank()) {
         return false
     }
     if (this.mainSourceOfIncome.isNullOrBlank()) return false
@@ -68,8 +67,37 @@ fun HhForm3.isOk(): Boolean {
 
 fun HhForm6.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
+    if (this.isNomineeAdd.isNullOrEmpty()) return false
+    if (this.nominees.size < 1) return false
+    if (!this.nominees.isOk()) return false
     return true
 }
+
+fun Nominee?.isOk(): Boolean {
+    if (!TestConfig.isValidationEnabled) return true
+    if (this == null) return false
+    if (this.firstName.isNullOrBlank()) return false
+    if (this.lastName.isNullOrBlank()) return false
+    if (this.relation.isNullOrBlank()) return false
+    if (this.age == null) return false
+    if (this.gender.isNullOrEmpty()) return false
+    if (this.occupation.isNullOrEmpty()) return false
+
+    //var isReadWrite: Boolean? = null
+    return true
+}
+
+fun List<Nominee>?.isOk(): Boolean {
+    if (!TestConfig.isValidationEnabled) return true
+    if (this == null) return false
+
+    for (item in this){
+        if (!item.isOk()) return false
+    }
+
+    return true
+}
+
 
 fun AlForm1.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true

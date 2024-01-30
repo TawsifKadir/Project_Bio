@@ -98,6 +98,7 @@ data class Nominee(
     var relation: String? = null,
     var age: Int? = null,
     var gender: String? = null,
+    var occupation: String? = null,
     var isReadWrite: Boolean? = null
 )
 
