@@ -291,7 +291,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         spSelectionReason.setSelection(1)
         spCurrency.setSelection(1)
 
-        etFirstName.setText("MD")
+        etFirstName.setText("Mohd")
         etMiddleName.setText("Moniruzzaman")
         etLastName.setText("Shadhin")
         etAge.setText("33")

@@ -90,9 +90,9 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
 //            return
 //        }
 
-        //navigateToHouseholdHome()
+        navigateToHouseholdHome()
 
-        navigateToForm6()
+        //navigateToForm6()
 
     }
 

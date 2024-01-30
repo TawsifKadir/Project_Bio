@@ -218,8 +218,8 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                 }
 
                 override fun onClickNegativeButton() {
-                    requireActivity().finish()
-                    //navigateToHome()
+                    //requireActivity().finish()
+
                 }
 
                 override fun onClickNeutralButton() {

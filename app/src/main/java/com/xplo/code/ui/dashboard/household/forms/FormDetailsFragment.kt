@@ -1,6 +1,7 @@
 package com.xplo.code.ui.dashboard.household.forms
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,6 @@ import androidx.fragment.app.viewModels
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.data.db.models.HouseholdItem
-import com.xplo.code.data.db.models.toJson
 import com.xplo.code.databinding.FragmentFormDetailsBinding
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
@@ -68,7 +68,7 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
 
 
     override fun initInitial() {
-
+        binding.tvDetails.movementMethod = ScrollingMovementMethod()
 
     }
 
