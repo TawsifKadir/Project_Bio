@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.Spinner
@@ -153,6 +154,22 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         }
 
         onGenerateDummyInput()
+
+        spMaritalStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                if (selectedItem.equals("Married", ignoreCase = true)) {
+                    binding.llspouse1.visibility = View.VISIBLE
+                    binding.llspouse2.visibility = View.VISIBLE
+                } else {
+                    binding.llspouse1.visibility = View.GONE
+                    binding.llspouse2.visibility = View.GONE
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Another interface callback
+            }
+        }
     }
 
     override fun onResume() {
