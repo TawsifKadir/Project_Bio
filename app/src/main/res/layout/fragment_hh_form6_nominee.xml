@@ -37,19 +37,19 @@
 
                 <TextView
                     style="@style/AppTextView.Input.Header"
-                    android:text="Would anyone from your household (including yourself) be interested in participating?" />
+                    android:text="@string/would_anyone_from_your_household_including_yourself_be_interested_in_participating" />
 
 
                 <RadioGroup style="@style/AppRadioGroupForm">
 
                     <RadioButton
                         style="@style/AppRadioButton.Form"
-                        android:text="Yes"
+                        android:text="@string/yes"
                         tools:checked="true" />
 
                     <RadioButton
                         style="@style/AppRadioButton.Form"
-                        android:text="No"
+                        android:text="@string/no"
                         tools:checked="false" />
 
                 </RadioGroup>
@@ -67,7 +67,7 @@
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
-                        android:text="Select Reason Why Not?" />
+                        android:text="@string/select_reason_why_not" />
 
 
                     <Spinner
@@ -88,7 +88,7 @@
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
-                        android:text="Nominee First Name(min 3 letters)" />
+                        android:text="@string/nominee_first_name_min_3_letters" />
 
                     <EditText
                         android:id="@+id/etFirstName"
@@ -104,7 +104,7 @@
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
-                        android:text="Nominee Middle Name" />
+                        android:text="@string/nominee_middle_name" />
 
                     <EditText
                         android:id="@+id/etMiddleName"
@@ -125,7 +125,7 @@
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
-                        android:text="Nominee Last Name(min 3 letters)" />
+                        android:text="@string/nominee_last_name_min_3_letters" />
 
                     <EditText
                         android:id="@+id/etLastName"
@@ -156,7 +156,7 @@
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
-                        android:text="Respondent Relationship to the household head" />
+                        android:text="@string/respondent_relationship_to_the_household_head" />
 
 
                     <Spinner
@@ -179,7 +179,7 @@
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
-                        android:text="Nominee Age" />
+                        android:text="@string/nominee_age" />
 
 
                     <Spinner
@@ -196,7 +196,7 @@
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
-                        android:text="Nominee Gender" />
+                        android:text="@string/nominee_gender" />
 
                     <EditText
                         android:id="@+id/etAge"
@@ -217,7 +217,7 @@
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
-                        android:text="Can read and write ?" />
+                        android:text="@string/can_read_and_write" />
 
 
                     <RadioGroup
@@ -249,7 +249,7 @@
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
-                        android:text="What does currently do for a living?" />
+                        android:text="@string/what_does_currently_do_for_a_living" />
 
 
                     <Spinner

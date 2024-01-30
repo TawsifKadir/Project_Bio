@@ -79,16 +79,7 @@
     <string name="comment_history_loading">Comment history is loading..</string>
     <string name="user_vote_up">Up</string>
     <string name="user_vote_down">Down</string>
-    <string name="right_thumb">Right Thumb</string>
-    <string name="right_index">Right Index</string>
-    <string name="right_middle">Right Middle</string>
-    <string name="right_ring">Right Ring</string>
-    <string name="right_little">Right Little</string>
-    <string name="left_thumb">Left Thumb</string>
-    <string name="left_index">Left Index</string>
-    <string name="left_middle">Left Middle</string>
-    <string name="left_ring">Left Ring</string>
-    <string name="left_little">Left Little</string>
+
 
 
 </resources>

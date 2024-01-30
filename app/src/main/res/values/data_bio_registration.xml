@@ -213,4 +213,28 @@
     <string name="alternate_phone">Phonenumber</string>
     <string name="alternate_relation">Select Alternate Relationship</string>
     <string name="alternate_gender">Gender</string>
+
+
+    <string name="right_thumb">Right Thumb</string>
+    <string name="right_index">Right Index</string>
+    <string name="right_middle">Right Middle</string>
+    <string name="right_ring">Right Ring</string>
+    <string name="right_little">Right Little</string>
+    <string name="left_thumb">Left Thumb</string>
+    <string name="left_index">Left Index</string>
+    <string name="left_middle">Left Middle</string>
+    <string name="left_ring">Left Ring</string>
+    <string name="left_little">Left Little</string>
+
+    <string name="would_anyone_from_your_household_including_yourself_be_interested_in_participating">Would anyone from your household (including yourself) be interested in participating?</string>
+    <string name="select_reason_why_not">Select Reason Why Not?</string>
+    <string name="nominee_first_name_min_3_letters">Nominee First Name(min 3 letters)</string>
+    <string name="nominee_middle_name">Nominee Middle Name</string>
+    <string name="nominee_last_name_min_3_letters">Nominee Last Name(min 3 letters)</string>
+    <string name="respondent_relationship_to_the_household_head">Respondent Relationship to the household head</string>
+    <string name="nominee_age">Nominee Age</string>
+    <string name="nominee_gender">Nominee Gender</string>
+    <string name="can_read_and_write">Can read and write ?</string>
+    <string name="what_does_currently_do_for_a_living">What does currently do for a living?</string>
+
 </resources>
