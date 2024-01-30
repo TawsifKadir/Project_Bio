@@ -111,6 +111,12 @@
         <item>Country 2</item>
     </string-array>
 
+    <string-array name="currency_array">
+        <item>Sudanese Pound</item>
+        <item>USD</item>
+        <item>Pound</item>
+        <item>Euro</item>
+    </string-array>
 <string name="state_name_label">State Name</string>
     <string-array name="state_name_array">
         <item>State Name</item>

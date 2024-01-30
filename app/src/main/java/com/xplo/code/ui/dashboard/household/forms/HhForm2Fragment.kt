@@ -58,6 +58,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
     private var interactor: HouseholdContract.View? = null
 
     private lateinit var spMainSourceOfIncome: Spinner
+    private lateinit var spCurrency: Spinner
     private lateinit var spGender: Spinner
     private lateinit var spRespondentRlt: Spinner
     private lateinit var spMaritalStatus: Spinner
@@ -106,6 +107,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
 
 
         spMainSourceOfIncome = binding.spMainSourceOfIncome
+        spCurrency = binding.spCurrency
         spGender = binding.spGender
         spRespondentRlt = binding.spRespondentRlt
         spMaritalStatus = binding.spMaritalStatus
@@ -125,6 +127,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
     override fun initView() {
 
         bindSpinnerData(spMainSourceOfIncome, UiData.mainIncomeOptions)
+        bindSpinnerData(spCurrency, UiData.currency)
         bindSpinnerData(spGender, UiData.genderOptions)
         bindSpinnerData(spRespondentRlt, UiData.relationshipOptions)
         bindSpinnerData(spMaritalStatus, UiData.maritalStatusOptions)
@@ -186,6 +189,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         if (form == null) return
 
         setSpinnerItem(spMainSourceOfIncome, UiData.mainIncomeOptions, form.mainSourceOfIncome)
+        setSpinnerItem(spCurrency, UiData.countryNameOptions, form.currency)
         setSpinnerItem(spGender, UiData.genderOptions, form.gender)
         setSpinnerItem(spRespondentRlt, UiData.relationshipOptions, form.respondentRlt)
         setSpinnerItem(spMaritalStatus, UiData.maritalStatusOptions, form.maritalStatus)
@@ -226,6 +230,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         val form = HhForm2()
 
         form.mainSourceOfIncome = chkSpinner(spMainSourceOfIncome, UiData.ER_SP_DF)
+        form.currency = chkSpinner(spCurrency, UiData.ER_SP_DF)
         form.gender = chkSpinner(spGender, UiData.ER_SP_DF)
         form.respondentRlt = chkSpinner(spRespondentRlt, UiData.ER_SP_DF)
         form.maritalStatus = chkSpinner(spMaritalStatus, UiData.ER_SP_DF)
@@ -265,6 +270,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         spRespondentRlt.setSelection(1)
         spMaritalStatus.setSelection(1)
         spLegalStatus.setSelection(1)
+        spCurrency.setSelection(1)
 
         etFirstName.setText("MD")
         etMiddleName.setText("Moniruzzaman")

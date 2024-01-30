@@ -270,6 +270,7 @@
 
 
                     <Spinner
+                        android:id="@+id/spCurrency"
                         style="@style/AppSpinnerForm" />
 
                 </LinearLayout>
