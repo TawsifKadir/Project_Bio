@@ -140,8 +140,8 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
 
         bindSpinnerData(spStateName, UiData.stateNameOptions)
         bindSpinnerData(spCountryName, UiData.countryNameOptions)
-        bindSpinnerData(spPayamName, UiData.stateNameOptions)
-        bindSpinnerData(spBomaName, UiData.stateNameOptions)
+        bindSpinnerData(spPayamName, UiData.payaamNameOptions)
+        bindSpinnerData(spBomaName, UiData.bomaNameOptions)
 
         //viewModel.getStateItems()
 

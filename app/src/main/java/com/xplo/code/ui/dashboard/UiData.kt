@@ -28,6 +28,8 @@ object UiData {
     val mainIncomeOptions = getStringArray(R.array.household_main_source_of_income_array)
     val countryNameOptions = getStringArray(R.array.country_nam_array)
     val stateNameOptions = getStringArray(R.array.state_name_array)
+    val bomaNameOptions = getStringArray(R.array.boma_name_array)
+    val payaamNameOptions = getStringArray(R.array.payam_name_array)
 
 
     private fun getString(resId: Int): String {

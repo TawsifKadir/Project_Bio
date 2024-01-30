@@ -105,16 +105,28 @@
 
 <string name="country_name_label">Country Name</string>
     <string-array name="country_nam_array">
-        <item>Select Country Name</item>
-        <item>USA</item>
-        <item>AFRICA</item>
+        <item>Country Name</item>
+        <item>Country 1</item>
+        <item>Country 2</item>
     </string-array>
 
-<string name="state_name_label">Select State Name</string>
+<string name="state_name_label">State Name</string>
     <string-array name="state_name_array">
         <item>State Name</item>
-        <item>state 1</item>
-        <item>state 2</item>
+        <item>State 1</item>
+        <item>State 2</item>
+    </string-array>
+
+    <string-array name="payam_name_array">
+        <item>Payam Name</item>
+        <item>Payam 1</item>
+        <item>Payam 2</item>
+    </string-array>
+
+    <string-array name="boma_name_array">
+        <item>Boma Name</item>
+        <item>Boma 1</item>
+        <item>Boma 2</item>
     </string-array>
 
 <string name="respondent_relationship_to_the_household_head1_label">Respondent relationship to the household head</string>
