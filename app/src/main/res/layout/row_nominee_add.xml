@@ -1,224 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:backgroundTint="?attr/colorBackground"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="4dp"
+    app:cardUseCompatPadding="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="12dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="12dp">
 
-        <TextView
-            android:id="@+id/tvHeader"
-            style="@style/AppTextView.Input.Header"
-            android:layout_width="wrap_content"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvHeader"
+                style="@style/AppTextView.Nominee.Header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="First Nominee" />
+
+            <ImageButton
+                android:id="@+id/btRemove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/transparent"
+                android:src="@drawable/com_facebook_close"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="First Nominee" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="First Nominee" />
+            android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/btRemove"
-            android:layout_width="wrap_content"
+            <LinearLayout
+                style="@style/AppLinearLayoutInputBox"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/AppTextView.Input.Header"
+                    android:text="@string/nominee_first_name_min_3_letters" />
+
+                <EditText
+                    android:id="@+id/etFirstName"
+                    style="@style/AppEditText.Form.Text" />
+
+            </LinearLayout>
+
+            <include layout="@layout/view_margin_space" />
+
+            <LinearLayout
+                style="@style/AppLinearLayoutInputBox"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/AppTextView.Input.Header"
+                    android:text="@string/nominee_middle_name" />
+
+                <EditText
+                    android:id="@+id/etMiddleName"
+                    style="@style/AppEditText.Form.Text" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/com_facebook_close"
-            android:backgroundTint="@color/transparent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="First Nominee" />
+            android:orientation="horizontal">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                style="@style/AppLinearLayoutInputBox"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/AppTextView.Input.Header"
+                    android:text="@string/nominee_last_name_min_3_letters" />
+
+                <EditText
+                    android:id="@+id/etLastName"
+                    style="@style/AppEditText.Form.Text" />
+
+            </LinearLayout>
+
+            <include layout="@layout/view_margin_space" />
+
+            <LinearLayout
+                style="@style/AppLinearLayoutInputBox"
+                android:layout_weight="1"
+                android:visibility="invisible">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            style="@style/AppLinearLayoutInputBox"
-            android:layout_weight="1">
-
-            <TextView
-                style="@style/AppTextView.Input.Header"
-                android:text="@string/nominee_first_name_min_3_letters" />
-
-            <EditText
-                android:id="@+id/etFirstName"
-                style="@style/AppEditText.Form.Text" />
-
-        </LinearLayout>
-
-        <include layout="@layout/view_margin_space" />
-
-        <LinearLayout
-            style="@style/AppLinearLayoutInputBox"
-            android:layout_weight="1">
-
-            <TextView
-                style="@style/AppTextView.Input.Header"
-                android:text="@string/nominee_middle_name" />
-
-            <EditText
-                android:id="@+id/etMiddleName"
-                style="@style/AppEditText.Form.Text" />
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
         <LinearLayout
-            style="@style/AppLinearLayoutInputBox"
-            android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <TextView
-                style="@style/AppTextView.Input.Header"
-                android:text="@string/nominee_last_name_min_3_letters" />
+            <LinearLayout
+                style="@style/AppLinearLayoutInputBox"
+                android:layout_weight="1">
 
-            <EditText
-                android:id="@+id/etLastName"
-                style="@style/AppEditText.Form.Text" />
+                <TextView
+                    style="@style/AppTextView.Input.Header"
+                    android:text="@string/respondent_relationship_to_the_household_head" />
 
-        </LinearLayout>
 
-        <include layout="@layout/view_margin_space" />
+                <Spinner
+                    android:id="@+id/spRelation"
+                    style="@style/AppSpinnerForm" />
 
-        <LinearLayout
-            style="@style/AppLinearLayoutInputBox"
-            android:layout_weight="1"
-            android:visibility="invisible">
+            </LinearLayout>
 
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
         <LinearLayout
-            style="@style/AppLinearLayoutInputBox"
-            android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <TextView
-                style="@style/AppTextView.Input.Header"
-                android:text="@string/respondent_relationship_to_the_household_head" />
+            <LinearLayout
+                style="@style/AppLinearLayoutInputBox"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/AppTextView.Input.Header"
+                    android:text="@string/nominee_age" />
 
 
-            <Spinner
-                android:id="@+id/spRelation"
-                style="@style/AppSpinnerForm" />
+                <EditText
+                    android:id="@+id/etAge"
+                    style="@style/AppEditText.Form.Number" />
+
+            </LinearLayout>
+
+            <include layout="@layout/view_margin_space" />
+
+            <LinearLayout
+                style="@style/AppLinearLayoutInputBox"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/AppTextView.Input.Header"
+                    android:text="@string/nominee_gender" />
+
+
+                <Spinner
+                    android:id="@+id/spGender"
+                    style="@style/AppSpinnerForm" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
         <LinearLayout
-            style="@style/AppLinearLayoutInputBox"
-            android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <TextView
-                style="@style/AppTextView.Input.Header"
-                android:text="@string/nominee_age" />
+            <LinearLayout
+                style="@style/AppLinearLayoutInputBox"
+                android:layout_weight="1">
 
-
-            <EditText
-                android:id="@+id/etAge"
-                style="@style/AppEditText.Form.Number" />
-
-        </LinearLayout>
-
-        <include layout="@layout/view_margin_space" />
-
-        <LinearLayout
-            style="@style/AppLinearLayoutInputBox"
-            android:layout_weight="1">
-
-            <TextView
-                style="@style/AppTextView.Input.Header"
-                android:text="@string/nominee_gender" />
+                <TextView
+                    style="@style/AppTextView.Input.Header"
+                    android:text="@string/can_read_and_write" />
 
 
-            <Spinner
-                android:id="@+id/spGender"
-                style="@style/AppSpinnerForm" />
+                <RadioGroup
+                    android:id="@+id/rgReadWrite"
+                    style="@style/AppRadioGroupForm">
 
-        </LinearLayout>
+                    <RadioButton
+                        android:id="@+id/rbReadWriteYes"
+                        style="@style/AppRadioButton.Form"
+                        android:text="Yes"
+                        tools:checked="true" />
 
-    </LinearLayout>
+                    <RadioButton
+                        android:id="@+id/rbReadWriteNo"
+                        style="@style/AppRadioButton.Form"
+                        android:text="No"
+                        tools:checked="false" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+                </RadioGroup>
 
-        <LinearLayout
-            style="@style/AppLinearLayoutInputBox"
-            android:layout_weight="1">
-
-            <TextView
-                style="@style/AppTextView.Input.Header"
-                android:text="@string/can_read_and_write" />
-
-
-            <RadioGroup
-                android:id="@+id/rgReadWrite"
-                style="@style/AppRadioGroupForm">
-
-                <RadioButton
-                    android:id="@+id/rbReadWriteYes"
-                    style="@style/AppRadioButton.Form"
-                    android:text="Yes"
-                    tools:checked="true" />
-
-                <RadioButton
-                    android:id="@+id/rbReadWriteNo"
-                    style="@style/AppRadioButton.Form"
-                    android:text="No"
-                    tools:checked="false" />
-
-            </RadioGroup>
-
-        </LinearLayout>
+            </LinearLayout>
 
 
-        <include layout="@layout/view_margin_space" />
+            <include layout="@layout/view_margin_space" />
 
-        <LinearLayout
-            style="@style/AppLinearLayoutInputBox"
-            android:layout_weight="1">
+            <LinearLayout
+                style="@style/AppLinearLayoutInputBox"
+                android:layout_weight="1">
 
-            <TextView
-                style="@style/AppTextView.Input.Header"
-                android:text="@string/what_does_currently_do_for_a_living" />
+                <TextView
+                    style="@style/AppTextView.Input.Header"
+                    android:text="@string/what_does_currently_do_for_a_living" />
 
 
-            <Spinner
-                android:id="@+id/spOccupation"
-                style="@style/AppSpinnerForm" />
+                <Spinner
+                    android:id="@+id/spOccupation"
+                    style="@style/AppSpinnerForm" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>
 
 
