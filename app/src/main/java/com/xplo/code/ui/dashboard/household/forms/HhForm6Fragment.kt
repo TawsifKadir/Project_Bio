@@ -362,7 +362,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         bindSpinnerData(spOccupation, UiData.genderOptions)
 
         btRemove.setOnClickListener {
-            removeView(rowView)
+            removeNomineeView(rowView)
         }
 
         when (number) {
@@ -389,7 +389,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
             rbReadWriteNo
         )
 
-        updateView(
+        updateNomineeView(
             nominee,
             etFirstName,
             etMiddleName,
@@ -405,11 +405,11 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         layoutList.addView(rowView)
     }
 
-    private fun removeView(view: View) {
+    private fun removeNomineeView(view: View) {
         layoutList.removeView(view)
     }
 
-    private fun updateView(
+    private fun updateNomineeView(
         nominee: Nominee?,
         etFirstName: EditText,
         etMiddleName: EditText,
@@ -422,7 +422,10 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         rbReadWriteYes: RadioButton,
         rbReadWriteNo: RadioButton
     ) {
-        Log.d(TAG, "updateView() called with: nominee = $nominee, etFirstName = $etFirstName")
+        Log.d(
+            TAG,
+            "updateNomineeView() called with: nominee = $nominee, etFirstName = $etFirstName, etMiddleName = $etMiddleName, etLastName = $etLastName, etAge = $etAge, spRelation = $spRelation, spGender = $spGender, spOccupation = $spOccupation, rgReadWrite = $rgReadWrite, rbReadWriteYes = $rbReadWriteYes, rbReadWriteNo = $rbReadWriteNo"
+        )
         if (nominee == null) return
 
         etFirstName.setText(nominee.firstName)
