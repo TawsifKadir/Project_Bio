@@ -126,13 +126,13 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HouseholdHomeVie
                         //showLoading()
                     }
 
-                    is HouseholdViewModel.Event.GetHouseholdItemSuccess -> {
+                    is HouseholdViewModel.Event.GetHouseholdItemsSuccess -> {
                         hideLoading()
                         onGetHouseholdList(event.items)
                         viewModel.clearEvent()
                     }
 
-                    is HouseholdViewModel.Event.GetHouseholdItemFailure -> {
+                    is HouseholdViewModel.Event.GetHouseholdItemsFailure -> {
                         hideLoading()
                         onGetHouseholdListFailure(event.msg)
                         viewModel.clearEvent()

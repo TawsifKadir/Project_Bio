@@ -6,7 +6,8 @@ import com.xplo.code.core.TestConfig
 
 fun HhForm2?.getFullName(): String? {
     if (this == null) return null
-    return "${this.firstName} ${this.middleName} ${this.lastName}"
+    var name = "${this.firstName} ${this.middleName} ${this.lastName}"
+    return name.replace(" null ", " ")
 }
 
 fun HhForm1.isOk(): Boolean {

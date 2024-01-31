@@ -2,6 +2,7 @@ package com.xplo.code.ui.dashboard.alternate
 
 import androidx.fragment.app.Fragment
 import com.xplo.code.base.BaseContract
+import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.ui.dashboard.model.AlForm1
 import com.xplo.code.ui.dashboard.model.AlForm3
 import com.xplo.code.ui.dashboard.model.AlternateForm
@@ -61,9 +62,10 @@ interface AlternateContract {
     }
 
     interface Form1View : BaseContract.View, CommonView {
-
-
         fun onValidated(form: AlForm1?)
+
+        fun onGetHouseholdItem(item: HouseholdItem?)
+        fun onGetHouseholdItemFailure(msg: String?)
     }
 
     interface Form2View : BaseContract.View, CommonView {

@@ -35,8 +35,11 @@ class HouseholdViewModel @Inject constructor(
         object Loading : Event()
         object Empty : Event()
 
-        class GetHouseholdItemSuccess(val items: List<HouseholdItem>?) : Event()
+        class GetHouseholdItemSuccess(val item: HouseholdItem?) : Event()
         class GetHouseholdItemFailure(val msg: String?) : Event()
+
+        class GetHouseholdItemsSuccess(val items: List<HouseholdItem>?) : Event()
+        class GetHouseholdItemsFailure(val msg: String?) : Event()
 
         class SaveHouseholdFormSuccess(val id: String) : Event()
         class SaveHouseholdFormFailure(val msg: String?) : Event()
@@ -66,6 +69,26 @@ class HouseholdViewModel @Inject constructor(
         _event.value = Event.Empty
     }
 
+    fun getHouseholdItem(id: String?) {
+        Log.d(TAG, "getHouseholdItem() called with: id = $id")
+        if (id == null) return
+
+        viewModelScope.launch(dispatchers.io) {
+            _event.value = Event.Loading
+            when (val response = dbRepo.getHousehold(id)) {
+
+                is Resource.Success -> {
+                    _event.value = Event.GetHouseholdItemSuccess(response.data)
+                }
+
+                is Resource.Failure -> {
+                    _event.value = Event.GetHouseholdItemFailure(response.callInfo?.msg)
+                }
+            }
+        }
+
+    }
+
     fun getHouseholdItems() {
         Log.d(TAG, "getHouseholdItems() called")
 
@@ -74,11 +97,11 @@ class HouseholdViewModel @Inject constructor(
             when (val response = dbRepo.getHouseholds()) {
 
                 is Resource.Success -> {
-                    _event.value = Event.GetHouseholdItemSuccess(response.data)
+                    _event.value = Event.GetHouseholdItemsSuccess(response.data)
                 }
 
                 is Resource.Failure -> {
-                    _event.value = Event.GetHouseholdItemFailure(response.callInfo?.msg)
+                    _event.value = Event.GetHouseholdItemsFailure(response.callInfo?.msg)
                 }
             }
         }

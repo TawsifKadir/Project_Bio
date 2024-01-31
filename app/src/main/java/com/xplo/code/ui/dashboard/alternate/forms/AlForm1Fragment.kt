@@ -10,16 +10,20 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Spinner
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.gone
 import com.xplo.code.core.ext.visible
+import com.xplo.code.data.db.models.HouseholdItem
+import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.databinding.FragmentAlForm1RegSetupBinding
 import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
-import com.xplo.code.ui.dashboard.alternate.AlternateViewModel
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
+import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.AlForm1
+import com.xplo.code.ui.dashboard.model.getFullName
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,7 +60,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
     }
 
     private lateinit var binding: FragmentAlForm1RegSetupBinding
-    private val viewModel: AlternateViewModel by viewModels()
+    private val viewModel: HouseholdViewModel by viewModels()
 
     //private lateinit var presenter: RegistrationContract.Presenter
     private var interactor: AlternateContract.View? = null
@@ -117,7 +121,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
     override fun initView() {
 
-        etName.setText(id)
+        //etName.setText(id)
         etName.isEnabled = false
 
         bindSpinnerData(spGender, UiData.genderOptions)
@@ -125,10 +129,37 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
 //        bindSpinnerData(binding.spCountryName, UiData.countryNameOptions)
 
+        viewModel.getHouseholdItem(id)
 
     }
 
     override fun initObserver() {
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.event.collect { event ->
+                when (event) {
+
+                    is HouseholdViewModel.Event.Loading -> {
+                        //showLoading()
+                    }
+
+                    is HouseholdViewModel.Event.GetHouseholdItemSuccess -> {
+                        hideLoading()
+                        onGetHouseholdItem(event.item)
+                        viewModel.clearEvent()
+                    }
+
+                    is HouseholdViewModel.Event.GetHouseholdItemFailure -> {
+                        hideLoading()
+                        onGetHouseholdItemFailure(event.msg)
+                        viewModel.clearEvent()
+                    }
+
+                    else -> Unit
+                }
+            }
+        }
+
 
         binding.viewButtonBackNext.btBack.setOnClickListener {
             onClickBackButton()
@@ -186,6 +217,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         Log.d(TAG, "onClickNextButton() called")
         onReadInput()
     }
+
     override fun onReadInput() {
         Log.d(TAG, "onReadInput() called")
 
@@ -229,6 +261,15 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
         Log.d(TAG, "onValidated: $rootForm")
         interactor?.navigateToForm2()
+    }
+
+    override fun onGetHouseholdItem(item: HouseholdItem?) {
+        Log.d(TAG, "onGetHouseholdItem() called with: item = $item")
+        binding.etName.setText(item.toHouseholdForm()?.form2.getFullName())
+    }
+
+    override fun onGetHouseholdItemFailure(msg: String?) {
+        Log.d(TAG, "onGetHouseholdItemFailure() called with: msg = $msg")
     }
 
 }

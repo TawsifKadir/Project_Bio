@@ -25,6 +25,14 @@ class DbRepoImpl @Inject constructor(
 
     private val TAG = "DbRepoImpl"
 
+    override suspend fun getHousehold(id: String): Resource<HouseholdItem> {
+        return try {
+            val response = householdDao.readByUuid(id)
+            Resource.Success(response, null)
+        } catch (e: Exception) {
+            Resource.Failure(CallInfo(-1, e.message))
+        }
+    }
 
     override suspend fun getHouseholds(): Resource<List<HouseholdItem>> {
         return try {

@@ -287,6 +287,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
             var nominee = Nominee()
 
             nominee.firstName = chkEditText(etFirstName, UiData.ER_ET_DF)
+            //nominee.middleName = chkEditText(etMiddleName, UiData.ER_ET_DF)
             nominee.lastName = chkEditText(etLastName, UiData.ER_ET_DF)
             nominee.age = chkEditText(etAge, UiData.ER_ET_DF)?.toInt()
 
