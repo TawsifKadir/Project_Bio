@@ -91,7 +91,7 @@ data class HhForm6(
 
 fun HhForm6?.getNomineeNumber(): Int {
     if (this == null)  return 1
-    return this.nominees?.size?.plus(1) ?: 1
+    return this.nominees.size.plus(1) ?: 1
 }
 
 data class Nominee(
@@ -102,7 +102,7 @@ data class Nominee(
     var age: Int? = null,
     var gender: String? = null,
     var occupation: String? = null,
-    var isReadWrite: Boolean? = null
+    var isReadWrite: String? = null
 )
 
 data class AlForm1(

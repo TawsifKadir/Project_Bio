@@ -16,6 +16,7 @@ import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.xplo.code.R
 import com.xplo.code.core.Bk
+import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.gone
 import com.xplo.code.core.ext.isNo
 import com.xplo.code.core.ext.isYes
@@ -284,9 +285,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
             nominee.gender = chkSpinner(spGender, UiData.ER_SP_DF)
             nominee.occupation = chkSpinner(spOccupation, UiData.ER_SP_DF)
 
-//            if (firstName.isNotEmpty()) {
-//                nominee = Nominee(firstName = firstName)
-//            }
+            nominee.isReadWrite = chkRadioGroup(rgReadWrite, UiData.ER_RB_DF)
 
             if (nominee.isOk()) {
                 form.nominees.add(nominee)
@@ -305,6 +304,32 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
 
     override fun onGenerateDummyInput() {
         Log.d(TAG, "onGenerateDummyInput() called")
+    }
+
+    private fun onGenerateDummyInputNomineeView(
+        etFirstName: EditText,
+        etMiddleName: EditText,
+        etLastName: EditText,
+        etAge: EditText,
+        spRelation: Spinner,
+        spGender: Spinner,
+        spOccupation: Spinner,
+        rgReadWrite: RadioGroup,
+        rbReadWriteYes: RadioButton,
+        rbReadWriteNo: RadioButton
+    ) {
+        Log.d(TAG, "onGenerateDummyInputNomineeView() called")
+        if (!TestConfig.isDummyDataEnabled) return
+
+        etFirstName.setText("first")
+        etMiddleName.setText("middle")
+        etLastName.setText("last")
+        etAge.setText("12")
+        spRelation.setSelection(2)
+        spGender.setSelection(2)
+        spOccupation.setSelection(2)
+        rgReadWrite.check(rbReadWriteNo.id)
+
     }
 
     override fun onPopulateView() {
@@ -351,6 +376,19 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
             5 -> tvHeader.text = "Fifth Nominee"
         }
 
+        onGenerateDummyInputNomineeView(
+            etFirstName,
+            etMiddleName,
+            etLastName,
+            etAge,
+            spRelation,
+            spGender,
+            spOccupation,
+            rgReadWrite,
+            rbReadWriteYes,
+            rbReadWriteNo
+        )
+
         updateView(
             nominee,
             etFirstName,
@@ -396,6 +434,6 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         setSpinnerItem(spGender, UiData.genderOptions, nominee.gender)
         setSpinnerItem(spOccupation, UiData.genderOptions, nominee.occupation)
 
-        //checkRbPosNeg()
+        checkRbPosNeg(rgReadWrite, rbReadWriteYes, rbReadWriteNo, nominee.isReadWrite)
     }
 }
