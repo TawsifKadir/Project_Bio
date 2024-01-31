@@ -50,6 +50,8 @@ interface HouseholdContract {
 
         fun getRootForm(): HouseholdForm?
         fun setRootForm(form: HouseholdForm?)
+        fun resetRootForm()
+        fun resetRootFormKeepSetup()
 
     }
 

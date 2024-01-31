@@ -315,4 +315,19 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         this.rootForm = form
     }
 
+    override fun resetRootForm() {
+        Log.d(TAG, "resetRootForm() called")
+        this.rootForm = null
+        this.rootForm = HouseholdForm()
+        Log.d(TAG, "resetRootForm: rootForm: $rootForm")
+    }
+
+    override fun resetRootFormKeepSetup() {
+        Log.d(TAG, "resetRootFormKeepSetup() called")
+        val form1 = rootForm?.form1
+        this.rootForm = null
+        this.rootForm = HouseholdForm(form1 = form1)
+        Log.d(TAG, "resetRootFormKeepSetup: rootForm: $rootForm")
+    }
+
 }

@@ -153,6 +153,8 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HouseholdHomeVie
         super.onResume()
         setToolbarTitle("Household")
 
+        interactor?.resetRootForm()
+
     }
 
 
