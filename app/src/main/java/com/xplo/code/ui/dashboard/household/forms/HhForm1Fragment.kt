@@ -138,12 +138,12 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
     override fun initView() {
 
 
-        bindSpinnerData(spStateName, UiData.stateNameOptions)
-        bindSpinnerData(spCountryName, UiData.countryNameOptions)
-        bindSpinnerData(spPayamName, UiData.payaamNameOptions)
-        bindSpinnerData(spBomaName, UiData.bomaNameOptions)
+//        bindSpinnerData(spStateName, UiData.stateNameOptions)
+//        bindSpinnerData(spCountryName, UiData.countryNameOptions)
+//        bindSpinnerData(spPayamName, UiData.payaamNameOptions)
+//        bindSpinnerData(spBomaName, UiData.bomaNameOptions)
 
-        //viewModel.getStateItems()
+        viewModel.getStateItems()
 
 
     }
@@ -235,7 +235,7 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
             }
         }
 
-        onGenerateDummyInput()
+        //onGenerateDummyInput()
 
     }
 
