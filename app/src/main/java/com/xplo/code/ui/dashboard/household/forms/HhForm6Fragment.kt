@@ -123,6 +123,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         }
 
         binding.rgNomineeAdd.setOnCheckedChangeListener { radioGroup, id ->
+            Log.d(TAG, "initObserver() called with: radioGroup = $radioGroup, id = $id")
             when (id) {
                 R.id.rbYes -> onDecisionAddNominee(true)
                 R.id.rbNo -> onDecisionAddNominee(false)
@@ -167,6 +168,8 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         if (form == null) return
 
         if (form.isNomineeAdd.isYes()) {
+
+            binding.rgNomineeAdd.check(binding.rbYes.id)
 
             onDecisionAddNominee(true)
             //onClickAddNominee()
