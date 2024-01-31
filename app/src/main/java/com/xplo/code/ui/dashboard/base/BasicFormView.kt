@@ -6,7 +6,7 @@ import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.Spinner
 
-interface BaseFormFragmentView {
+interface BasicFormView {
 
     fun chkEditText(editText: EditText, error: String?): String?
     fun chkEditText3Char(editText: EditText, error: String?): String?

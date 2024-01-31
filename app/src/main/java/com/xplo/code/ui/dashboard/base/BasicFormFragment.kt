@@ -13,7 +13,7 @@ import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.setItem
 
 
-abstract class BasicFormFragment : BaseFragment(), BaseFormFragmentView {
+abstract class BasicFormFragment : BaseFragment(), BasicFormView {
 
     private val TAG = "BasicFormFragment"
 
