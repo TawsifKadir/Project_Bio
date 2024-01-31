@@ -30,6 +30,7 @@ import com.xplo.code.ui.dashboard.model.Nominee
 import com.xplo.code.ui.dashboard.model.getNomineeNumber
 import com.xplo.code.ui.dashboard.model.isOk
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.ArrayList
 
 /**
  * Copyright 2020 (C) xplo
@@ -169,15 +170,21 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
             onDecisionAddNominee(true)
             //onClickAddNominee()
 
-            for ((i, item) in form.nominees.withIndex()) {
-                addView(i + 1, item)
-            }
+            addAllNomineeViews(form.nominees)
 
 
         } else {
             onDecisionAddNominee(false)
         }
 
+    }
+
+    private fun addAllNomineeViews(nominees: ArrayList<Nominee>?) {
+        Log.d(TAG, "addAllNomineeViews() called with: nominees = ${nominees?.size}")
+        if (nominees.isNullOrEmpty()) return
+        for ((i, item) in nominees.withIndex()) {
+            addNomineeView(i + 1, item)
+        }
     }
 
     override fun onDecisionAddNominee(isAdd: Boolean) {
@@ -199,7 +206,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         val rootForm = interactor?.getRootForm()
         if (rootForm == null) return
 
-        addView(rootForm.form6.getNomineeNumber(), null)
+        addNomineeView(rootForm.form6.getNomineeNumber(), null)
     }
 
     override fun onAddNominee(number: Int) {
@@ -305,7 +312,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
     }
 
 
-    private fun addView(number: Int, nominee: Nominee?) {
+    private fun addNomineeView(number: Int, nominee: Nominee?) {
 
         val rowView: View = layoutInflater.inflate(R.layout.row_nominee_add, null, false)
 
@@ -352,7 +359,10 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
             etAge,
             spRelation,
             spGender,
-            spOccupation
+            spOccupation,
+            rgReadWrite,
+            rbReadWriteYes,
+            rbReadWriteNo
         )
         layoutList.addView(rowView)
     }
@@ -369,7 +379,10 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         etAge: EditText,
         spRelation: Spinner,
         spGender: Spinner,
-        spOccupation: Spinner
+        spOccupation: Spinner,
+        rgReadWrite: RadioGroup,
+        rbReadWriteYes: RadioButton,
+        rbReadWriteNo: RadioButton
     ) {
         Log.d(TAG, "updateView() called with: nominee = $nominee, etFirstName = $etFirstName")
         if (nominee == null) return
@@ -382,5 +395,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         setSpinnerItem(spRelation, UiData.relationshipOptions, nominee.relation)
         setSpinnerItem(spGender, UiData.genderOptions, nominee.gender)
         setSpinnerItem(spOccupation, UiData.genderOptions, nominee.occupation)
+
+        //checkRbPosNeg()
     }
 }
