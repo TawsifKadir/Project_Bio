@@ -1,5 +1,7 @@
 package com.xplo.code.core.ext
 
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
 
@@ -30,6 +32,18 @@ fun Spinner.setItem(items: Array<String>, item: String?) {
     if (item == null) return
     val index = items.indexOf(item)
     this.post { this.setSelection(index) }
+}
+
+fun RadioGroup?.checkRbPosNeg(rbPos: RadioButton, rbNeg: RadioButton, item: String?) {
+    if (this == null) return
+    if (item.isNullOrEmpty()) return
+
+    if (item.equals("yes", ignoreCase = true)) {
+        rbPos.isChecked = true
+    } else {
+        rbNeg.isChecked = true
+    }
+
 }
 
 fun TextView?.setValue(value: Int?) {

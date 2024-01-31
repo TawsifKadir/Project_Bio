@@ -10,6 +10,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.TestConfig
+import com.xplo.code.core.ext.checkRbPosNeg
 import com.xplo.code.core.ext.setItem
 
 
@@ -86,6 +87,15 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         }
 
         return null
+    }
+
+    override fun checkRbPosNeg(
+        radioGroup: RadioGroup,
+        rbPos: RadioButton,
+        rbNeg: RadioButton,
+        item: String?
+    ) {
+        radioGroup.checkRbPosNeg(rbPos, rbNeg, item)
     }
 
     override fun setSpinnerItem(spinner: Spinner, items: Array<String>, item: String?) {

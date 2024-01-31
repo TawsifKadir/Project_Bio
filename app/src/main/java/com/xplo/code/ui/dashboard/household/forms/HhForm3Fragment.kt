@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.fragment.app.viewModels
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -67,6 +69,11 @@ class HhForm3Fragment : BasicFormFragment(), HouseholdContract.Form3View {
     private lateinit var etHouseholdMembers65andAbove: EditText
     private lateinit var etHouseholdMembersWithDisability: EditText
     private lateinit var etHouseholdMembersWithChronicallyIll: EditText
+    private lateinit var etReadWriteNumber: EditText
+
+    private lateinit var rgReadWrite: RadioGroup
+    private lateinit var rbYes: RadioButton
+    private lateinit var rbNo: RadioButton
 
 
     override fun onAttach(context: Context) {
@@ -112,6 +119,11 @@ class HhForm3Fragment : BasicFormFragment(), HouseholdContract.Form3View {
         etHouseholdMembers65andAbove = binding.etHouseholdMembers65andAbove
         etHouseholdMembersWithDisability = binding.etHouseholdMembersWithDisability
         etHouseholdMembersWithChronicallyIll = binding.etHouseholdMembersWithChronicallyIll
+        etReadWriteNumber = binding.etReadWriteNumber
+
+        rgReadWrite = binding.rgReadWrite
+        rbYes = binding.rbYes
+        rbNo = binding.rbNo
 
     }
 
@@ -182,6 +194,9 @@ class HhForm3Fragment : BasicFormFragment(), HouseholdContract.Form3View {
         etHouseholdMembers65andAbove.setText(form.householdMembers65andAbove.toString())
         etHouseholdMembersWithDisability.setText(form.householdMembersWithDisability.toString())
         etHouseholdMembersWithChronicallyIll.setText(form.householdMembersWithChronicallyIll.toString())
+        etReadWriteNumber.setText(form.readWriteNumber.toString())
+
+        checkRbPosNeg(rgReadWrite, rbYes, rbNo, form.isReadWrite)
 
     }
 
@@ -219,8 +234,9 @@ class HhForm3Fragment : BasicFormFragment(), HouseholdContract.Form3View {
             chkEditText(etHouseholdMembers65andAbove, UiData.ER_ET_DF)?.toInt()
         form.householdMembersWithDisability =
             chkEditText(etHouseholdMembersWithDisability, UiData.ER_ET_DF)?.toInt()
-        form.householdMembersWithChronicallyIll =
-            chkEditText(etHouseholdMembersWithChronicallyIll, UiData.ER_ET_DF)?.toInt()
+        form.householdMembersWithChronicallyIll = chkEditText(etHouseholdMembersWithChronicallyIll, UiData.ER_ET_DF)?.toInt()
+        form.readWriteNumber = chkEditText(etReadWriteNumber, UiData.ER_ET_DF)?.toInt()
+        form.isReadWrite = chkRadioGroup(rgReadWrite, UiData.ER_RB_DF)
 
         if (!form.isOk()) {
             return

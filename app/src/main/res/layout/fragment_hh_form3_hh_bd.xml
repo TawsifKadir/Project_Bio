@@ -241,25 +241,26 @@
 
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout style="@style/AppLinearLayoutInputBox">
 
                 <TextView
                     style="@style/AppTextView.Input.Header"
-                    android:text="Can you read and write? (any language)" />
+                    android:text="@string/can_you_read_and_write_any_language" />
 
 
                 <RadioGroup
-                    android:id="@+id/rgSelectionCriteria"
+                    android:id="@+id/rgReadWrite"
                     style="@style/AppRadioGroupForm">
 
                     <RadioButton
-                        android:id="@+id/rbA"
+                        android:id="@+id/rbYes"
                         style="@style/AppRadioButton.Form"
                         android:text="Yes"
                         tools:checked="true" />
 
                     <RadioButton
-                        android:id="@+id/rbB"
+                        android:id="@+id/rbNo"
                         style="@style/AppRadioButton.Form"
                         android:text="No"
                         tools:checked="false" />
@@ -267,6 +268,7 @@
                 </RadioGroup>
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -279,10 +281,10 @@
                     <TextView
                         style="@style/AppTextView.Input.Header"
                         android:singleLine="false"
-                        android:text="Not including yourself, how many other members of your household are between 18 and 35 and can read and write ?" />
+                        android:text="@string/not_including_yourself_how_many_other_members_of_your_household_are_between_18_and_35_and_can_read_and_write" />
 
                     <EditText
-                        android:id="@+id/etPhoneNumber"
+                        android:id="@+id/etReadWriteNumber"
                         style="@style/AppEditText.Form.Number" />
 
                 </LinearLayout>

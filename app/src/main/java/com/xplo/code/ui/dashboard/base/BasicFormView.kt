@@ -3,6 +3,7 @@ package com.xplo.code.ui.dashboard.base
 import android.view.View
 import android.widget.AdapterView
 import android.widget.EditText
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 
@@ -16,6 +17,8 @@ interface BasicFormView {
 //    fun getOrAssertEditTextDouble(view: EditText, error: String?): Double?
     fun chkSpinner(spinner: Spinner, error: String?): String?
     fun chkRadioGroup(radioGroup: RadioGroup, error: String?): String?
+
+    fun checkRbPosNeg(radioGroup: RadioGroup, rbPos: RadioButton, rbNeg: RadioButton, item: String?)
 
     fun setSpinnerItem(spinner: Spinner, items: Array<String>, item: String?)
 

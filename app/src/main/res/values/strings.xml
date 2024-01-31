@@ -79,7 +79,8 @@
     <string name="comment_history_loading">Comment history is loading..</string>
     <string name="user_vote_up">Up</string>
     <string name="user_vote_down">Down</string>
-
+    <string name="can_you_read_and_write_any_language">Can you read and write? (any language)</string>
+    <string name="not_including_yourself_how_many_other_members_of_your_household_are_between_18_and_35_and_can_read_and_write">Not including yourself, how many other members of your household are between 18 and 35 and can read and write ?</string>
 
 
 </resources>

@@ -62,7 +62,10 @@ data class HhForm3(
     var householdMembers46_64: Int? = null,
     var householdMembers65andAbove: Int? = null,
     var householdMembersWithDisability: Int? = null,
-    var householdMembersWithChronicallyIll: Int? = null
+    var householdMembersWithChronicallyIll: Int? = null,
+    var readWriteNumber: Int? = null,
+    var isReadWrite: String? = null
+
 )
 
 

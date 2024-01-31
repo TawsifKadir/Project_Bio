@@ -62,6 +62,9 @@ fun HhForm3.isOk(): Boolean {
     if (this.householdMembers65andAbove == null) return false
     if (this.householdMembersWithDisability == null) return false
     if (this.householdMembersWithChronicallyIll == null) return false
+    if (this.readWriteNumber == null) return false
+    if (this.isReadWrite.isNullOrEmpty()) return false
+
     return true
 }
 
