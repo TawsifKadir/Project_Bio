@@ -263,6 +263,7 @@ class HhForm3Fragment : BasicFormFragment(), HouseholdContract.Form3View {
         etHouseholdMembers65andAbove.setText("12")
         etHouseholdMembersWithDisability.setText("2")
         etHouseholdMembersWithChronicallyIll.setText("2")
+        etReadWriteNumber.setText("2")
     }
 
     override fun onPopulateView() {

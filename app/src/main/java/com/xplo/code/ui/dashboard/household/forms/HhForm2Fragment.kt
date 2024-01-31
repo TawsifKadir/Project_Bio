@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
+import com.xplo.code.core.ext.checkRbOpAB
 import com.xplo.code.databinding.FragmentHhForm2PerInfoBinding
 import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
@@ -214,6 +215,8 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         setSpinnerItem(spLegalStatus, UiData.legalStatusOptions, form.legalStatus)
         setSpinnerItem(spSelectionReason, UiData.selectionReason, form.selectionReason)
 
+        rgSelectionCriteria.checkRbOpAB(binding.rbA, binding.rbB, form.selectionCriteria)
+
         etFirstName.setText(form.firstName)
         etMiddleName.setText(form.middleName)
         etLastName.setText(form.lastName)
@@ -268,7 +271,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         form.phoneNumber = chkEditText(etPhoneNumber, UiData.ER_ET_DF)
         form.monthlyAverageIncome = chkEditText(etMonthlyAverageIncome, UiData.ER_ET_DF)
         //form.spouseName = chkEditText(etSpouseName, UiData.ER_ET_DF)
-        form.selectionCriteria = chkRadioGroup(rgSelectionCriteria, UiData.ER_ET_DF)
+        form.selectionCriteria = chkRadioGroup(rgSelectionCriteria, UiData.ER_RB_DF)
 
 
         if (!form.isOk()) {

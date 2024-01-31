@@ -37,7 +37,7 @@ fun HhForm2.isOk(): Boolean {
     if (this.legalStatus.isNullOrBlank()) return false
     //if (this.spouseName.isNullOrBlank()) return false
     if (this.selectionReason.isNullOrBlank()) return false
-    //if (this.selectionCriteria.isNullOrBlank()) return false
+    if (this.selectionCriteria.isNullOrBlank()) return false
     if (this.monthlyAverageIncome.isNullOrBlank()) return false
     if (this.selectionReason.isNullOrBlank()) return false
 
@@ -71,8 +71,20 @@ fun HhForm3.isOk(): Boolean {
 fun HhForm6.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
     if (this.isNomineeAdd.isNullOrEmpty()) return false
+
+    if (this.isNomineeAdd.equals("no", true)){
+        return this.isOkNoNominee()
+    }
+
     if (this.nominees.size < 1) return false
     if (!this.nominees.isOk()) return false
+    return true
+}
+
+fun HhForm6.isOkNoNominee(): Boolean {
+    if (!TestConfig.isValidationEnabled) return true
+    if (this.isNomineeAdd.isNullOrEmpty()) return false
+    if (this.noNomineeReason.isNullOrEmpty()) return false
     return true
 }
 

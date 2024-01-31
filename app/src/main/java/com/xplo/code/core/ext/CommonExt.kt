@@ -46,6 +46,18 @@ fun RadioGroup?.checkRbPosNeg(rbPos: RadioButton, rbNeg: RadioButton, item: Stri
 
 }
 
+fun RadioGroup?.checkRbOpAB(rbA: RadioButton, rbB: RadioButton, item: String?) {
+    if (this == null) return
+    if (item.isNullOrEmpty()) return
+
+    if (item.equals("public works", ignoreCase = true)) {
+        rbA.isChecked = true
+    } else {
+        rbB.isChecked = true
+    }
+
+}
+
 fun TextView?.setValue(value: Int?) {
     if (this == null) return
     this.text = value.toString()
