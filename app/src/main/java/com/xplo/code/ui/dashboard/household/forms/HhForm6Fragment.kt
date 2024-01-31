@@ -125,8 +125,8 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         binding.rgNomineeAdd.setOnCheckedChangeListener { radioGroup, id ->
             Log.d(TAG, "initObserver() called with: radioGroup = $radioGroup, id = $id")
             when (id) {
-                R.id.rbYes -> onDecisionAddNominee(true)
-                R.id.rbNo -> onDecisionAddNominee(false)
+                R.id.rbYes -> onEnableDisableNominee(true)
+                R.id.rbNo -> onEnableDisableNominee(false)
             }
         }
 
@@ -138,6 +138,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
 
     override fun onResume() {
         super.onResume()
+        Log.d(TAG, "onResume() called")
         setToolbarTitle("Nominee")
 
 //        binding.viewButtonBackNext.btBack.visible()
@@ -171,14 +172,15 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
 
             binding.rgNomineeAdd.check(binding.rbYes.id)
 
-            onDecisionAddNominee(true)
+            onEnableDisableNominee(true)
             //onClickAddNominee()
 
             addAllNomineeViews(form.nominees)
 
 
         } else {
-            onDecisionAddNominee(false)
+            onEnableDisableNominee(false)
+            setSpinnerItem(binding.spReasonNoNominee, UiData.stateNameOptions, form.noNomineeReason)
         }
 
     }
@@ -191,10 +193,9 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         }
     }
 
-    override fun onDecisionAddNominee(isAdd: Boolean) {
-        Log.d(TAG, "onDecisionAddNominee() called with: isAdd = $isAdd")
-
-        if (isAdd) {
+    override fun onEnableDisableNominee(isNomineeAdd: Boolean) {
+        Log.d(TAG, "onEnableDisableNominee() called with: isNomineeAdd = $isNomineeAdd")
+        if (isNomineeAdd) {
             binding.viewNominee.visible()
             binding.btAdd.visible()
             binding.viewReasonNoNominee.gone()
