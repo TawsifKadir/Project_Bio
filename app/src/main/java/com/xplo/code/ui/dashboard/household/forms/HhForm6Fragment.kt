@@ -122,13 +122,13 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
             onClickNextButton()
         }
 
-        binding.rgNomineeAdd.setOnCheckedChangeListener { radioGroup, id ->
-            Log.d(TAG, "initObserver() called with: radioGroup = $radioGroup, id = $id")
-            when (id) {
-                R.id.rbYes -> onEnableDisableNominee(true)
-                R.id.rbNo -> onEnableDisableNominee(false)
-            }
-        }
+//        binding.rgNomineeAdd.setOnCheckedChangeListener { radioGroup, id ->
+//            Log.d(TAG, "initObserver() called with: radioGroup = $radioGroup, id = $id")
+//            when (id) {
+//                R.id.rbYes -> onEnableDisableNominee(true)
+//                R.id.rbNo -> onEnableDisableNominee(false)
+//            }
+//        }
 
         binding.btAdd.setOnClickListener {
             onClickAddNominee()
@@ -145,6 +145,14 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
 //        binding.viewButtonBackNext.btNext.visible()
 
         onReinstateData(interactor?.getRootForm()?.form6)
+
+        binding.rgNomineeAdd.setOnCheckedChangeListener { radioGroup, id ->
+            Log.d(TAG, "initObserver() called with: radioGroup = $radioGroup, id = $id")
+            when (id) {
+                R.id.rbYes -> onEnableDisableNominee(true)
+                R.id.rbNo -> onEnableDisableNominee(false)
+            }
+        }
     }
 
     override fun onDestroy() {
@@ -171,14 +179,11 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         if (form.isNomineeAdd.isYes()) {
 
             binding.rgNomineeAdd.check(binding.rbYes.id)
-
             onEnableDisableNominee(true)
-            //onClickAddNominee()
-
             addAllNomineeViews(form.nominees)
 
-
         } else {
+            binding.rgNomineeAdd.check(binding.rbYes.id)
             onEnableDisableNominee(false)
             setSpinnerItem(binding.spReasonNoNominee, UiData.stateNameOptions, form.noNomineeReason)
         }
