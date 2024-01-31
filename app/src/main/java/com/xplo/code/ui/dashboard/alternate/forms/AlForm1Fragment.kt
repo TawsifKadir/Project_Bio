@@ -187,8 +187,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         onReadInput()
     }
     override fun onReadInput() {
-
-        Log.d(AlForm1Fragment.TAG, "onValidation() called")
+        Log.d(TAG, "onReadInput() called")
 
         val form = AlForm1()
 

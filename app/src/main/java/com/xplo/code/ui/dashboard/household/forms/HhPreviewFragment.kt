@@ -264,7 +264,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
     }
 
     override fun onReadInput() {
-        Log.d(TAG, "onValidation() called")
+        Log.d(TAG, "onReadInput() called")
     }
 
     override fun onGenerateDummyInput() {

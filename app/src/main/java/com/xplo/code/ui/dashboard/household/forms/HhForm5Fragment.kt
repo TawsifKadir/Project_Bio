@@ -136,7 +136,7 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View {
     }
 
     override fun onReadInput() {
-        Log.d(TAG, "onValidation() called")
+        Log.d(TAG, "onReadInput() called")
     }
 
     override fun onGenerateDummyInput() {

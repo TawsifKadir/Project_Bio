@@ -156,7 +156,7 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
     }
 
     override fun onReadInput() {
-        //TODO("Not yet implemented")
+        Log.d(TAG, "onReadInput() called")
     }
 
     override fun onGenerateDummyInput() {

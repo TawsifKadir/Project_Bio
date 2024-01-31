@@ -188,7 +188,8 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
     }
 
     override fun onReadInput() {
-        //TODO("Not yet implemented")
+        Log.d(TAG, "onReadInput() called")
+
     }
 
     override fun onGenerateDummyInput() {

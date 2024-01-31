@@ -231,6 +231,8 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
     }
 
     override fun onReadInput() {
+        Log.d(TAG, "onReadInput() called")
+
     }
 
     override fun onGenerateDummyInput() {

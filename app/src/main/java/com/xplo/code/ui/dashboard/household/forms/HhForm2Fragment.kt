@@ -246,7 +246,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
     }
 
     override fun onReadInput() {
-        Log.d(TAG, "onValidation() called")
+        Log.d(TAG, "onReadInput() called")
 
         val form = HhForm2()
 

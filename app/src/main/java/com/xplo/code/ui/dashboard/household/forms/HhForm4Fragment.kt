@@ -211,7 +211,7 @@ class HhForm4Fragment : BasicFormFragment(), HouseholdContract.Form4View {
     }
 
     override fun onReadInput() {
-        Log.d(TAG, "onValidation() called")
+        Log.d(TAG, "onReadInput() called")
     }
 
     override fun onGenerateDummyInput() {
