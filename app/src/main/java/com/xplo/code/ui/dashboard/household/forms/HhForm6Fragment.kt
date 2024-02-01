@@ -28,6 +28,8 @@ import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.household.forms.nominee.NomineeListAdapter
+import com.xplo.code.ui.dashboard.household.forms.nominee.NomineeModal
 import com.xplo.code.ui.dashboard.model.HhForm6
 import com.xplo.code.ui.dashboard.model.Nominee
 import com.xplo.code.ui.dashboard.model.getNomineeNumber

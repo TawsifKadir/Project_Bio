@@ -1,4 +1,4 @@
-package com.xplo.code.ui.dashboard.household.forms
+package com.xplo.code.ui.dashboard.household.forms.nominee
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

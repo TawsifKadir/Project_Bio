@@ -12,7 +12,7 @@ import com.xplo.code.core.utils.NetUtils
 import com.xplo.code.BuildConfig
 import com.xplo.code.data.pref.PrefHelper
 import com.xplo.code.data.pref.PrefHelperImpl
-import com.xplo.code.ui.dashboard.household.forms.NomineeModal
+import com.xplo.code.ui.dashboard.household.forms.nominee.NomineeModal
 import com.xplo.code.ui.dashboard.model.Nominee
 import java.util.*
 

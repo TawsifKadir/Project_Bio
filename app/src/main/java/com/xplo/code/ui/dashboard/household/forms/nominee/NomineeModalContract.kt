@@ -1,4 +1,4 @@
-package com.xplo.code.ui.dashboard.household.forms
+package com.xplo.code.ui.dashboard.household.forms.nominee
 
 import androidx.fragment.app.Fragment
 import com.xplo.code.ui.dashboard.model.Nominee
