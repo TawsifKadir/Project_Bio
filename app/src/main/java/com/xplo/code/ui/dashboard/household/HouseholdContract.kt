@@ -132,8 +132,6 @@ interface HouseholdContract {
         fun onEnableDisableNominee(isNomineeAdd: Boolean)
 
         fun onClickAddNominee()
-        fun onAddNominee(number: Int)
-        fun onHideNominee(number: Int)
 
     }
 

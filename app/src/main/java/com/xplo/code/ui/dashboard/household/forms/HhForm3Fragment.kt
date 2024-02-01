@@ -89,12 +89,20 @@ class HhForm3Fragment : BasicFormFragment(), HouseholdContract.Form3View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.d(
+            TAG,
+            "onCreateView() called with: inflater = $inflater, container = $container, savedInstanceState = $savedInstanceState"
+        )
         binding = FragmentHhForm3HhBdBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d(
+            TAG,
+            "onViewCreated() called with: view = $view, savedInstanceState = $savedInstanceState"
+        )
 
         initInitial()
         initView()

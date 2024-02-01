@@ -121,6 +121,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
 //    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Log.d(TAG, "onOptionsItemSelected() called with: item = $item")
 
         when (item.itemId) {
             android.R.id.home -> {

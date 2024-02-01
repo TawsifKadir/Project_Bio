@@ -18,7 +18,6 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.xplo.code.R
@@ -52,8 +51,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
     AdapterView.OnItemSelectedListener,
-    LocationListener
-{
+    LocationListener {
 
     companion object {
         const val TAG = "HhForm1Fragment"
@@ -103,6 +101,10 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.d(
+            TAG,
+            "onCreateView() called with: inflater = $inflater, container = $container, savedInstanceState = $savedInstanceState"
+        )
         binding = FragmentHhForm1RegSetupBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -123,7 +125,6 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
     override fun initInitial() {
         //presenter = RegistrationPresenter(DataRepoImpl())
         //presenter.attach(this)
-
 
 
         spStateName = binding.spStateName
@@ -235,7 +236,7 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
             }
         }
 
-        //onGenerateDummyInput()
+        onGenerateDummyInput()
 
     }
 
@@ -429,6 +430,11 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
+        bindSpinnerData(spStateName, UiData.stateNameOptions)
+        bindSpinnerData(spCountryName, UiData.countryNameOptions)
+        bindSpinnerData(spPayamName, UiData.payaamNameOptions)
+        bindSpinnerData(spBomaName, UiData.bomaNameOptions)
+
         spStateName.setSelection(1)
         spCountryName.setSelection(1)
         spPayamName.setSelection(1)
@@ -498,22 +504,31 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
 
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         if (requestCode == locationPermissionCode) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT).show()
-            }
-            else {
+            } else {
                 Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun getLocation() {
-        locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        locationManager =
+            requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             // Permission is already granted, get the last known location
-            val lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+            val lastKnownLocation =
+                locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             if (lastKnownLocation != null) {
                 // Use the last known location
                 updateUIWithLocation(lastKnownLocation)
@@ -523,9 +538,14 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
             }
         } else {
             // Permission is not granted, request for permission
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                locationPermissionCode
+            )
         }
     }
+
     private fun updateUIWithLocation(location: Location) {
         // Update your UI here with the location data
         etLat.setText(location.latitude.toString())

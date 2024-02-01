@@ -106,15 +106,15 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
                         showLoading()
                     }
 
-                    is HouseholdViewModel.Event.GetHouseholdItemsSuccess -> {
-                        hideLoading()
-                        //onGetHouseholds(event.items)
-                    }
-
-                    is HouseholdViewModel.Event.GetHouseholdItemsFailure -> {
-                        hideLoading()
-                        //onGetHouseholdsFailure(event.msg)
-                    }
+//                    is HouseholdViewModel.Event.GetHouseholdItemsSuccess -> {
+//                        hideLoading()
+//                        //onGetHouseholds(event.items)
+//                    }
+//
+//                    is HouseholdViewModel.Event.GetHouseholdItemsFailure -> {
+//                        hideLoading()
+//                        //onGetHouseholdsFailure(event.msg)
+//                    }
 
 
                     else -> Unit

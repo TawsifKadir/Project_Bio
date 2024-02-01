@@ -90,12 +90,20 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.d(
+            TAG,
+            "onCreateView() called with: inflater = $inflater, container = $container, savedInstanceState = $savedInstanceState"
+        )
         binding = FragmentHhForm2PerInfoBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d(
+            TAG,
+            "onViewCreated() called with: view = $view, savedInstanceState = $savedInstanceState"
+        )
 
         initInitial()
         initView()

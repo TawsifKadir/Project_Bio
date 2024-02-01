@@ -219,26 +219,6 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         addNomineeView(rootForm.form6.getNomineeNumber(), null)
     }
 
-    override fun onAddNominee(number: Int) {
-//        when (number) {
-//            1 -> binding.nominee1.root.visible()
-//            2 -> binding.nominee2.root.visible()
-//            3 -> binding.nominee3.root.visible()
-//            4 -> binding.nominee4.root.visible()
-//            5 -> binding.nominee5.root.visible()
-//        }
-    }
-
-    override fun onHideNominee(number: Int) {
-//        when (number) {
-//            1 -> binding.nominee1.root.gone()
-//            2 -> binding.nominee2.root.gone()
-//            3 -> binding.nominee3.root.gone()
-//            4 -> binding.nominee4.root.gone()
-//            5 -> binding.nominee5.root.gone()
-//        }
-    }
-
     override fun onClickBackButton() {
         Log.d(TAG, "onClickBackButton() called")
         interactor?.onBackButton()
