@@ -109,7 +109,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View,
 
     override fun initView() {
 
-        bindSpinnerData(binding.spReasonNoNominee, UiData.stateNameOptions)
+        bindSpinnerData(binding.spReasonNoNominee, UiData.whyNot)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.itemAnimator = DefaultItemAnimator()

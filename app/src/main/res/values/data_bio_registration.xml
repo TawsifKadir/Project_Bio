@@ -127,6 +127,15 @@
         <item>Poor household which have persons with severe disabilities</item>
     </string-array>
 
+    <string-array name="why_not">
+        <item>All eligible household members have other commitments that occupy their time.</item>
+        <item>I am uncertain about the ability of the household members to comply with the program\'s expectations or conditions.</item>
+        <item>The health or physical condition of the eligible household members prevents me from participating.</item>
+        <item>I am not convinced that the program will provide meaningful benefits.</item>
+        <item>The program activities don\'t align with my interests.</item>
+        <item>Other (specify)</item>
+    </string-array>
+
 <string name="state_name_label">State Name</string>
     <string-array name="state_name_array">
         <item>State Name</item>

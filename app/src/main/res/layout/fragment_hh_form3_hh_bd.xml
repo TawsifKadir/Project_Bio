@@ -263,7 +263,7 @@
                         android:id="@+id/rbNo"
                         style="@style/AppRadioButton.Form"
                         android:text="No"
-                        tools:checked="false" />
+                        android:checked="true"/>
 
                 </RadioGroup>
 
