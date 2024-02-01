@@ -20,12 +20,12 @@ fun Double?.isNull(): Boolean {
 
 fun String?.isYes(): Boolean {
     if (this == null) return false
-    return this.equals("Yes")
+    return this.equals("Yes", ignoreCase = true)
 }
 
 fun String?.isNo(): Boolean {
     if (this == null) return false
-    return this.equals("No")
+    return this.equals("No", ignoreCase = true)
 }
 
 fun Spinner.setItem(items: Array<String>, item: String?) {

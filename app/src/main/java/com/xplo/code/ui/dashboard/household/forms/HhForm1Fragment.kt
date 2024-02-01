@@ -55,12 +55,14 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
 
     companion object {
         const val TAG = "HhForm1Fragment"
+        private var isUseOldView = false
 
         @JvmStatic
         fun newInstance(
             parent: String?
         ): HhForm1Fragment {
             Log.d(TAG, "newInstance() called with: parent = $parent")
+            isUseOldView = false
             val fragment = HhForm1Fragment()
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
@@ -105,6 +107,12 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
             TAG,
             "onCreateView() called with: inflater = $inflater, container = $container, savedInstanceState = $savedInstanceState"
         )
+
+        if (this::binding.isInitialized) {
+            isUseOldView = true
+            return binding.root
+        }
+
         binding = FragmentHhForm1RegSetupBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -133,18 +141,15 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
         spBomaName = binding.spBomaName
         etLat = binding.etLat
         etLon = binding.etLon
-        getLocation()
+
     }
 
     override fun initView() {
 
-
-//        bindSpinnerData(spStateName, UiData.stateNameOptions)
-//        bindSpinnerData(spCountryName, UiData.countryNameOptions)
-//        bindSpinnerData(spPayamName, UiData.payaamNameOptions)
-//        bindSpinnerData(spBomaName, UiData.bomaNameOptions)
-
-        viewModel.getStateItems()
+        if (!isUseOldView) {
+            getLocation()
+            viewModel.getStateItems()
+        }
 
 
     }
@@ -228,7 +233,6 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
         spBomaName.onItemSelectedListener = this
 
 
-
 //        if (BuildConfig.DEBUG) {
 //            binding.viewButtonBackNext.btNext.setOnLongClickListener {
 //                onGenerateDummyInput()
@@ -238,7 +242,7 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
 
         onLongClickDataGeneration()
 
-        onGenerateDummyInput()
+        //onGenerateDummyInput()
 
     }
 
@@ -279,10 +283,6 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
     override fun onReinstateData(form: HhForm1?) {
         Log.d(TAG, "onReinstateData() called with: form = $form")
         if (form == null) return
-
-
-//        setSpinnerItem(spStateName, UiData.stateNameOptions, form.stateName)
-//        setSpinnerItem(spCountryName, UiData.countryNameOptions, form.countryName)
 
 
     }
@@ -407,15 +407,15 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
         form.payamName = chkSpinner(spPayamName, UiData.ER_SP_DF)
         form.bomaName = chkSpinner(spBomaName, UiData.ER_SP_DF)
 
-        if(chkEditText(etLat, UiData.ER_ET_DF) == null){
+        if (chkEditText(etLat, UiData.ER_ET_DF) == null) {
             form.lat = null
-        }else{
+        } else {
             form.lat = chkEditText(etLat, UiData.ER_ET_DF)?.toDouble()
         }
 
-        if(chkEditText(etLon, UiData.ER_ET_DF) == null){
+        if (chkEditText(etLon, UiData.ER_ET_DF) == null) {
             form.lon = null
-        }else{
+        } else {
             form.lon = chkEditText(etLon, UiData.ER_ET_DF)?.toDouble()
         }
 

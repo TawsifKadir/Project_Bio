@@ -184,7 +184,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
             addAllNomineeViews(form.nominees)
 
         } else {
-            binding.rgNomineeAdd.check(binding.rbYes.id)
+            binding.rgNomineeAdd.check(binding.rbNo.id)
             onEnableDisableNominee(false)
             setSpinnerItem(binding.spReasonNoNominee, UiData.stateNameOptions, form.noNomineeReason)
         }
