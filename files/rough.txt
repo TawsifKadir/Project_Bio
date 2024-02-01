@@ -115,19 +115,32 @@ if (this.age == null) return false
 
 
 
-blockRoot
-tvHeader
-ivClose
+
+
 etFirstName
 etMiddleName
 etLastName
-spRelation
 etAge
+spRelation
 spGender
+spOccupation
 rgReadWrite
 rbReadWriteYes
 rbReadWriteNo
-spOccupation
+
+
+
+etFirstName = binding.etFirstName
+etMiddleName = binding.etMiddleName
+etLastName = binding.etLastName
+etAge = binding.etAge
+spRelation = binding.spRelation
+spGender = binding.spGender
+spOccupation = binding.spOccupation
+rgReadWrite = binding.rgReadWrite
+rbReadWriteYes = binding.rbReadWriteYes
+rbReadWriteNo = binding.rbReadWriteNo
+
 
 
 

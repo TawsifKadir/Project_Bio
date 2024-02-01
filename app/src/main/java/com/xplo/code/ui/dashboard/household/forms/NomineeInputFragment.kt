@@ -6,13 +6,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.Spinner
 import androidx.fragment.app.viewModels
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.databinding.BsdNomineeInputBinding
+import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.Nominee
+import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -51,6 +57,18 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
     private var interactor: NomineeModal? = null
 
 
+    private lateinit var etFirstName: EditText
+    private lateinit var etMiddleName: EditText
+    private lateinit var etLastName: EditText
+    private lateinit var etAge: EditText
+    private lateinit var spRelation: Spinner
+    private lateinit var spGender: Spinner
+    private lateinit var spOccupation: Spinner
+    private lateinit var rgReadWrite: RadioGroup
+    private lateinit var rbReadWriteYes: RadioButton
+    private lateinit var rbReadWriteNo: RadioButton
+
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -79,6 +97,17 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
 
     override fun initInitial() {
         interactor = this.parentFragment as NomineeModal
+
+        etFirstName = binding.include.etFirstName
+        etMiddleName = binding.include.etMiddleName
+        etLastName = binding.include.etLastName
+        etAge = binding.include.etAge
+        spRelation = binding.include.spRelation
+        spGender = binding.include.spGender
+        spOccupation = binding.include.spOccupation
+        rgReadWrite = binding.include.rgReadWrite
+        rbReadWriteYes = binding.include.rbReadWriteYes
+        rbReadWriteNo = binding.include.rbReadWriteNo
     }
 
     override fun initView() {
@@ -115,7 +144,24 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
     override fun onReadInput() {
         Log.d(TAG, "onReadInput() called")
 
-        onGetNomineeSuccess(Nominee("majid"))
+//        var nominee = Nominee()
+//
+//        nominee.firstName = chkEditText(etFirstName, UiData.ER_ET_DF)
+//        //nominee.middleName = chkEditText(etMiddleName, UiData.ER_ET_DF)
+//        nominee.lastName = chkEditText(etLastName, UiData.ER_ET_DF)
+//        nominee.age = chkEditText(etAge, UiData.ER_ET_DF)?.toInt()
+//
+//        nominee.relation = chkSpinner(spRelation, UiData.ER_SP_DF)
+//        nominee.gender = chkSpinner(spGender, UiData.ER_SP_DF)
+//        nominee.occupation = chkSpinner(spOccupation, UiData.ER_SP_DF)
+//
+//        nominee.isReadWrite = chkRadioGroup(rgReadWrite, UiData.ER_RB_DF)
+//
+//        if (nominee.isOk()) {
+//            onGetNomineeSuccess(nominee)
+//        }
+
+        onGetNomineeSuccess(Nominee(firstName = "jalal"))
     }
 
     override fun onLongClickDataGeneration() {
