@@ -192,15 +192,21 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View,
                 binding.rgNomineeAdd.check(binding.rbYes.id)
                 onEnableDisableNominee(true)
                 //addAllNomineeViews(form.nominees)
+                adapter?.addAll(form.nominees)
 
             } else {
                 binding.rgNomineeAdd.check(binding.rbNo.id)
                 onEnableDisableNominee(false)
-                setSpinnerItem(binding.spReasonNoNominee, UiData.stateNameOptions, form.noNomineeReason)
+                setSpinnerItem(
+                    binding.spReasonNoNominee,
+                    UiData.stateNameOptions,
+                    form.noNomineeReason
+                )
             }
             return
         }
 
+        // dynamic view
         if (form.isNomineeAdd.isYes()) {
 
             binding.rgNomineeAdd.check(binding.rbYes.id)
@@ -307,6 +313,27 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View,
             }
         }
 
+        if (isUsePopupInput) {
+            form.nominees = readNomineeInputsFromList()
+        } else {
+            form.nominees = readNomineeInputsFromDynamicView()
+        }
+
+        if (form.isOk()) {
+            onValidated(form)
+        }
+
+
+    }
+
+    private fun readNomineeInputsFromList(): ArrayList<Nominee> {
+        var nominees = adapter?.getDataset()
+        return nominees ?: arrayListOf()
+    }
+
+    private fun readNomineeInputsFromDynamicView(): ArrayList<Nominee> {
+        var nominees = arrayListOf<Nominee>()
+
         for (i in 0 until layoutList.childCount) {
             Log.d(TAG, "onReadInput: i: $i")
 
@@ -341,17 +368,12 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View,
             nominee.isReadWrite = chkRadioGroup(rgReadWrite, UiData.ER_RB_DF)
 
             if (nominee.isOk()) {
-                form.nominees.add(nominee)
+                nominees.add(nominee)
             }
 
 
         }
-
-
-        if (form.isOk()) {
-            onValidated(form)
-        }
-
+        return nominees
 
     }
 

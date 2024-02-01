@@ -103,6 +103,10 @@ class NomineeListAdapter : RecyclerView.Adapter<NomineeListAdapter.ViewHolder>()
         notifyDataSetChanged()
     }
 
+    fun getDataset(): ArrayList<Nominee> {
+        return dataset
+    }
+
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
         this.listener = listener
