@@ -90,7 +90,7 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
 //        }
 
         if (id != null) {
-            navigateToForm1(id)
+            navigateToForm1(id, false, true)
         } else {
             navigateToAlternateHome()
         }
@@ -167,16 +167,18 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
         )
     }
 
-    override fun navigateToForm1(id: String?) {
+    override fun navigateToForm1(id: String?, addToBackStack: Boolean, clearBackStack: Boolean) {
         Log.d(TAG, "navigateToForm1() called with: id = $id")
 
         STEP = 1
+
         doFragmentTransaction(
             AlForm1Fragment.newInstance(null, id),
             AlForm1Fragment.TAG,
-            false,
-            true
+            addToBackStack,
+            clearBackStack
         )
+
 
     }
 

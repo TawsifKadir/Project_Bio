@@ -214,6 +214,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             .setCancelable(false)
             .setListener(object : XDialog.DialogListener {
                 override fun onClickPositiveButton() {
+                    requireActivity().finish()
                     interactor?.navigateToAlternate(id)
                 }
 
@@ -245,20 +246,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
 
         val rootForm = interactor?.getRootForm()
 
-//        //Gson().fromJson(jsonTxt, ApiError::class.java).message
-//        val jsonTxt = Gson().toJson(rootForm)
-//
-//        // save to room
-//        val dao = DbController.getAppDb().householdDao()
-//
-//        val householdItem = HouseholdItem(data = jsonTxt)
-//        dao.insert(householdItem)
-
         viewModel.saveHouseholdForm(rootForm)
-
-
-        val name = interactor?.getRootForm()?.form2.getFullName()
-
 
 
     }

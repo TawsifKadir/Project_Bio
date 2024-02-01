@@ -42,6 +42,7 @@
                 android:id="@+id/btDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:backgroundTint="@color/transparent"
                 android:src="@drawable/ic_delete_black_24dp"
                 android:tint="?attr/colorIcon" />
@@ -50,9 +51,20 @@
                 android:id="@+id/btSend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:backgroundTint="@color/transparent"
                 android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
                 android:tint="?attr/colorIcon" />
+
+            <ImageButton
+                android:id="@+id/btAddAlternate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/transparent"
+                android:src="@drawable/ic_add_black_24dp"
+                android:tint="?attr/colorIcon" />
+
 
         </LinearLayout>
 

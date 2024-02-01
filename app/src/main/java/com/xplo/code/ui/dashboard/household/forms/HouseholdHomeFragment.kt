@@ -196,6 +196,11 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
     }
 
+    override fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int) {
+        Log.d(TAG, "onClickHouseholdItemAddAlternate() called with: item = $item, pos = $pos")
+
+    }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,

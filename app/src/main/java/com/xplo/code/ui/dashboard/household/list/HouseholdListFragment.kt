@@ -167,5 +167,10 @@ class HouseholdListFragment : BaseFragment(), HouseholdContract.HouseholdListVie
 
     }
 
+    override fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int) {
+        Log.d(TAG, "onClickHouseholdItemAddAlternate() called with: item = $item, pos = $pos")
+
+    }
+
 
 }

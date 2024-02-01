@@ -178,4 +178,9 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
 
     }
 
+    override fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int) {
+        Log.d(TAG, "onClickHouseholdItemAddAlternate() called with: item = $item, pos = $pos")
+        interactor?.navigateToForm1(item.uuid,true, false)
+    }
+
 }

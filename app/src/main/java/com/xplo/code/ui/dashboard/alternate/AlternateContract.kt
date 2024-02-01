@@ -21,7 +21,7 @@ interface AlternateContract {
     interface View : BaseContract.View {
 
         fun navigateToAlternateHome()
-        fun navigateToForm1(id: String?)
+        fun navigateToForm1(id: String?, addToBackStack: Boolean, clearBackStack: Boolean)
         fun navigateToForm2()
         fun navigateToForm3()
         fun navigateToPreview()

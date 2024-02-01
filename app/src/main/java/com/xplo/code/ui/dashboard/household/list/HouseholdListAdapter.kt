@@ -44,6 +44,13 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
                 )
             }
 
+            binding.btAddAlternate.setOnClickListener {
+                listener?.onClickHouseholdItemAddAlternate(
+                    getItem(absoluteAdapterPosition),
+                    absoluteAdapterPosition
+                )
+            }
+
         }
 
         fun bind(item: HouseholdItem) {
@@ -116,6 +123,7 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
         fun onClickHouseholdItem(item: HouseholdItem, pos: Int)
         fun onClickHouseholdItemDelete(item: HouseholdItem, pos: Int)
         fun onClickHouseholdItemSend(item: HouseholdItem, pos: Int)
+        fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int)
     }
 
 }
