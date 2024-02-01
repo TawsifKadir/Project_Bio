@@ -65,6 +65,7 @@ interface HouseholdContract {
         fun onClickBackButton()
         fun onClickNextButton()
         fun onReadInput()
+        fun onLongClickDataGeneration()
         fun onGenerateDummyInput()
         fun onPopulateView()
 

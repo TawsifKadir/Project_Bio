@@ -155,13 +155,15 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
             onClickNextButton()
         }
 
-        if (BuildConfig.DEBUG) {
-            binding.viewButtonBackNext.btNext.setOnLongClickListener {
-                onGenerateDummyInput()
-                return@setOnLongClickListener true
-            }
-        }
 
+//        if (BuildConfig.DEBUG) {
+//            binding.viewButtonBackNext.btNext.setOnLongClickListener {
+//                onGenerateDummyInput()
+//                return@setOnLongClickListener true
+//            }
+//        }
+
+        onLongClickDataGeneration()
         onGenerateDummyInput()
 
         spMaritalStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -287,6 +289,16 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         }
 
         onValidated(form)
+    }
+
+    override fun onLongClickDataGeneration() {
+        if (!BuildConfig.DEBUG) return
+        if (!TestConfig.isLongClickDGEnabled) return
+
+        binding.viewButtonBackNext.btNext.setOnLongClickListener {
+            onGenerateDummyInput()
+            return@setOnLongClickListener true
+        }
     }
 
     override fun onGenerateDummyInput() {

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
+import com.xplo.code.core.TestConfig
 import com.xplo.code.databinding.FragmentHhForm5FingerBinding
 import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
@@ -16,6 +17,7 @@ import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.HhForm5
+import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -139,8 +141,20 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View {
         Log.d(TAG, "onReadInput() called")
     }
 
+    override fun onLongClickDataGeneration() {
+        if (!BuildConfig.DEBUG) return
+        if (!TestConfig.isLongClickDGEnabled) return
+
+        binding.viewButtonBackNext.btNext.setOnLongClickListener {
+            onGenerateDummyInput()
+            return@setOnLongClickListener true
+        }
+    }
+
     override fun onGenerateDummyInput() {
         Log.d(TAG, "onGenerateDummyInput() called")
+        if (!BuildConfig.DEBUG) return
+        if (!TestConfig.isDummyDataEnabled) return
     }
 
     override fun onPopulateView() {

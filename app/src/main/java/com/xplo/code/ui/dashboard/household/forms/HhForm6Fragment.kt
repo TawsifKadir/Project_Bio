@@ -30,6 +30,7 @@ import com.xplo.code.ui.dashboard.model.HhForm6
 import com.xplo.code.ui.dashboard.model.Nominee
 import com.xplo.code.ui.dashboard.model.getNomineeNumber
 import com.xplo.code.ui.dashboard.model.isOk
+import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.ArrayList
 
@@ -292,8 +293,20 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
 
     }
 
+    override fun onLongClickDataGeneration() {
+        if (!BuildConfig.DEBUG) return
+        if (!TestConfig.isLongClickDGEnabled) return
+
+        binding.viewButtonBackNext.btNext.setOnLongClickListener {
+            onGenerateDummyInput()
+            return@setOnLongClickListener true
+        }
+    }
+
     override fun onGenerateDummyInput() {
         Log.d(TAG, "onGenerateDummyInput() called")
+        if (!BuildConfig.DEBUG) return
+        if (!TestConfig.isDummyDataEnabled) return
     }
 
     private fun onGenerateDummyInputNomineeView(

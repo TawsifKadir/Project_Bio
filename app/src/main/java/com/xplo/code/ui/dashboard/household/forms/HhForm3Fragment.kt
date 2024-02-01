@@ -149,12 +149,15 @@ class HhForm3Fragment : BasicFormFragment(), HouseholdContract.Form3View {
             onClickNextButton()
         }
 
-        if (BuildConfig.DEBUG) {
-            binding.viewButtonBackNext.btNext.setOnLongClickListener {
-                onGenerateDummyInput()
-                return@setOnLongClickListener true
-            }
-        }
+
+//        if (BuildConfig.DEBUG) {
+//            binding.viewButtonBackNext.btNext.setOnLongClickListener {
+//                onGenerateDummyInput()
+//                return@setOnLongClickListener true
+//            }
+//        }
+
+        onLongClickDataGeneration()
 
         onGenerateDummyInput()
     }
@@ -252,6 +255,16 @@ class HhForm3Fragment : BasicFormFragment(), HouseholdContract.Form3View {
 
         onValidated(form)
 
+    }
+
+    override fun onLongClickDataGeneration() {
+        if (!BuildConfig.DEBUG) return
+        if (!TestConfig.isLongClickDGEnabled) return
+
+        binding.viewButtonBackNext.btNext.setOnLongClickListener {
+            onGenerateDummyInput()
+            return@setOnLongClickListener true
+        }
     }
 
     override fun onGenerateDummyInput() {
