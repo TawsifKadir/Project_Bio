@@ -279,6 +279,10 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         form.spouseFirstName = chkEditText3Char(etSpouseFirstName, UiData.ER_SP_DF)
         //form.spouseMiddleName = chkEditText3Char(etSpouseMiddleName, UiData.ER_SP_DF)
         form.spouseLastName = chkEditText3Char(etSpouseLastName, UiData.ER_SP_DF)
+        }else{
+            form.spouseFirstName = null
+            form.spouseMiddleName = null
+            form.spouseLastName = null
         }
 
         form.firstName = chkEditText3Char(etFirstName, UiData.ER_ET_DF)
