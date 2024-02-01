@@ -72,7 +72,7 @@ interface HouseholdContract {
 
     }
 
-    interface HouseholdHomeView : BaseContract.View {
+    interface HomeView : BaseContract.View {
         fun navigateToHouseholdDetails(item: HouseholdItem)
 
         fun onGetHouseholdList(items: List<HouseholdItem>?)

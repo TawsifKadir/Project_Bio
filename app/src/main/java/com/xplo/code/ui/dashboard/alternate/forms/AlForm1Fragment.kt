@@ -239,8 +239,17 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         onValidated(form)
     }
 
-    override fun onGenerateDummyInput() {
+    override fun onLongClickDataGeneration() {
+        if (!BuildConfig.DEBUG) return
+        if (!TestConfig.isLongClickDGEnabled) return
 
+        binding.viewButtonBackNext.btNext.setOnLongClickListener {
+            onGenerateDummyInput()
+            return@setOnLongClickListener true
+        }
+    }
+
+    override fun onGenerateDummyInput() {
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
@@ -249,6 +258,10 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         etIdNumber.setText("122")
         etPhoneNo.setText("01829372012")
         etAlternateName.setText("Nasif Ahmed")
+    }
+
+    override fun onPopulateView() {
+        TODO("Not yet implemented")
     }
 
     override fun onValidated(form: AlForm1?) {

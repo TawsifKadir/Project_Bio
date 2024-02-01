@@ -41,7 +41,7 @@
             android:layout_height="match_parent"
             android:overScrollMode="never"
             tools:itemCount="4"
-            tools:listitem="@layout/row_household_list" />
+            tools:listitem="@layout/row_alternate_list" />
 
     </LinearLayout>
 

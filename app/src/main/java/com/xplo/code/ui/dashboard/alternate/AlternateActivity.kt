@@ -13,11 +13,15 @@ import androidx.lifecycle.lifecycleScope
 import com.xplo.code.R
 import com.xplo.code.base.BaseActivity
 import com.xplo.code.core.Bk
+import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.databinding.ActivityAlternateBinding
 import com.xplo.code.ui.dashboard.alternate.forms.AlForm1Fragment
 import com.xplo.code.ui.dashboard.alternate.forms.AlForm2Fragment
 import com.xplo.code.ui.dashboard.alternate.forms.AlForm3Fragment
 import com.xplo.code.ui.dashboard.alternate.forms.AlPreviewFragment
+import com.xplo.code.ui.dashboard.alternate.forms.AlternateHomeFragment
+import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.household.forms.FormDetailsFragment
 import com.xplo.code.ui.dashboard.model.AlternateForm
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,7 +56,7 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
     }
 
     private lateinit var binding: ActivityAlternateBinding
-    private val viewModel: AlternateViewModel by viewModels()
+    private val viewModel: HouseholdViewModel by viewModels()
     //private lateinit var toolbar: Toolbar
 
     private var rootForm: AlternateForm? = AlternateForm()
@@ -85,7 +89,12 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
 //            return
 //        }
 
-        navigateToForm1(id)
+        if (id != null) {
+            navigateToForm1(id)
+        } else {
+            navigateToAlternateHome()
+        }
+
 
     }
 
@@ -95,19 +104,19 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
             viewModel.event.collect { event ->
                 when (event) {
 
-                    is AlternateViewModel.Event.Loading -> {
+                    is HouseholdViewModel.Event.Loading -> {
                         showLoading()
                     }
 
-                    is AlternateViewModel.Event.GetItemSuccess -> {
-                        hideLoading()
-                        //onGetAlternates(event.items)
-                    }
-
-                    is AlternateViewModel.Event.GetItemFailure -> {
-                        hideLoading()
-                        //onGetAlternatesFailure(event.msg)
-                    }
+//                    is HouseholdViewModel.Event.GetItemSuccess -> {
+//                        hideLoading()
+//                        //onGetAlternates(event.items)
+//                    }
+//
+//                    is HouseholdViewModel.Event.GetItemFailure -> {
+//                        hideLoading()
+//                        //onGetAlternatesFailure(event.msg)
+//                    }
 
 
                     else -> Unit
@@ -146,6 +155,16 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
 //            }
 //        }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun navigateToAlternateHome() {
+        Log.d(TAG, "navigateToAlternateHome() called")
+        doFragmentTransaction(
+            AlternateHomeFragment.newInstance(null),
+            AlternateHomeFragment.TAG,
+            false,
+            true
+        )
     }
 
     override fun navigateToForm1(id: String?) {
@@ -194,15 +213,25 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
         )
     }
 
+    override fun navigateToFormDetails(item: HouseholdItem?) {
+        Log.d(TAG, "navigateToFormDetails() called with: item = $item")
+        doFragmentTransaction(
+            FormDetailsFragment.newInstance(null, item),
+            FormDetailsFragment.TAG,
+            true,
+            false
+        )
+    }
+
     override fun onBackButton() {
         Log.d(TAG, "onBackButton() called")
         val entryCount = supportFragmentManager.backStackEntryCount
         Log.d(TAG, "onBackButton: $entryCount")
 
-        if (entryCount < 1) {
-            //onCloseDialog()
-            return
-        }
+//        if (entryCount < 1) {
+//            //finish()
+//            return
+//        }
 
         supportFragmentManager.popBackStack()
     }

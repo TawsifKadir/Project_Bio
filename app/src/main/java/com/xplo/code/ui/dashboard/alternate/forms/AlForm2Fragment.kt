@@ -26,14 +26,17 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.xplo.code.R
 import com.xplo.code.core.Bk
+import com.xplo.code.core.TestConfig
 import com.xplo.code.databinding.FragmentAlForm2FingerBinding
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.alternate.AlternateViewModel
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
+import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.AlForm1
 import com.xplo.code.ui.dashboard.model.AlForm2
 import com.xplo.code.ui.photo.ImagePickerActivity
 import com.xplo.code.ui.photo.ImageUtil
+import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.IOException
@@ -68,7 +71,7 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
     }
 
     private lateinit var binding: FragmentAlForm2FingerBinding
-    private val viewModel: AlternateViewModel by viewModels()
+    private val viewModel: HouseholdViewModel by viewModels()
 
     //private lateinit var presenter: RegistrationContract.Presenter
     private var interactor: AlternateContract.View? = null
@@ -235,7 +238,24 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
 
     }
 
+    override fun onLongClickDataGeneration() {
+        if (!BuildConfig.DEBUG) return
+        if (!TestConfig.isLongClickDGEnabled) return
+
+        binding.viewButtonBackNext.btNext.setOnLongClickListener {
+            onGenerateDummyInput()
+            return@setOnLongClickListener true
+        }
+    }
+
     override fun onGenerateDummyInput() {
+        if (!BuildConfig.DEBUG) return
+        if (!TestConfig.isDummyDataEnabled) return
+
+    }
+
+    override fun onPopulateView() {
+        TODO("Not yet implemented")
     }
 
     private fun showImagePickerOptions() {
@@ -304,6 +324,7 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         rootForm?.form2 = form
         interactor?.setRootForm(rootForm)
     }
+
     /**
      * Showing Alert Dialog with Settings option
      * Navigates user to app settings

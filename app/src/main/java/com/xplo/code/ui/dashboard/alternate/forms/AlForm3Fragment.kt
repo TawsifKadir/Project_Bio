@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.xplo.code.R
 import com.xplo.code.core.Bk
+import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.isActivityFinishing
 import com.xplo.code.core.ext.visible
 import com.xplo.code.databinding.FragmentAlForm3Binding
@@ -17,19 +18,12 @@ import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.alternate.AlternateViewModel
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
+import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.AlForm3
+import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AlForm3Fragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 @AndroidEntryPoint
 class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
 
@@ -50,7 +44,7 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
     }
 
     private lateinit var binding: FragmentAlForm3Binding
-    private val viewModel: AlternateViewModel by viewModels()
+    private val viewModel: HouseholdViewModel by viewModels()
 
     //private lateinit var presenter: RegistrationContract.Presenter
     private var interactor: AlternateContract.View? = null
@@ -147,6 +141,7 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
 
                     interactor?.navigateToHome()
                 }
+
                 override fun onClickNeutralButton() {
                     //interactor?.navigateToAlternate(id)
                 }
@@ -159,7 +154,23 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
         Log.d(TAG, "onReadInput() called")
     }
 
+    override fun onLongClickDataGeneration() {
+        if (!BuildConfig.DEBUG) return
+        if (!TestConfig.isLongClickDGEnabled) return
+
+        binding.viewButtonBackNext.btNext.setOnLongClickListener {
+            onGenerateDummyInput()
+            return@setOnLongClickListener true
+        }
+    }
+
     override fun onGenerateDummyInput() {
+        if (!BuildConfig.DEBUG) return
+        if (!TestConfig.isDummyDataEnabled) return
+
+    }
+
+    override fun onPopulateView() {
         TODO("Not yet implemented")
     }
 

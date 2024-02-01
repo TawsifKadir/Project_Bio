@@ -17,7 +17,9 @@ import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.alternate.AlternateViewModel
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
+import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.AlForm1
+import com.xplo.code.ui.dashboard.model.AlternateForm
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -49,7 +51,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
     }
 
     private lateinit var binding: FragmentAlPreviewBinding
-    private val viewModel: AlternateViewModel by viewModels()
+    private val viewModel: HouseholdViewModel by viewModels()
 
     //private lateinit var presenter: RegistrationContract.Presenter
     private var interactor: AlternateContract.View? = null
@@ -113,8 +115,9 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
         loadImage(rootForm?.form2?.img ?: "")
 
     }
+
     private fun loadImage(url: String) {
-        if(url != ""){
+        if (url != "") {
             Glide.with(this).load(url)
                 .into(this!!.binding.imgPhoto!!)
             binding.imgPhoto!!.setColorFilter(
@@ -126,6 +129,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
         }
 
     }
+
     override fun initObserver() {
 
         binding.viewButtonBackNext.btBack.setOnClickListener {
@@ -152,8 +156,10 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
         super.onDestroy()
     }
 
-    override fun onValidated(form: AlForm1?) {
-        //TODO("Not yet implemented")
+
+    override fun onValidated(form: AlternateForm) {
+        Log.d(TAG, "onValidated() called with: form = $form")
+
     }
 
     override fun onClickBackButton() {
@@ -192,8 +198,16 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
 
     }
 
+    override fun onLongClickDataGeneration() {
+
+    }
+
     override fun onGenerateDummyInput() {
-        TODO("Not yet implemented")
+
+    }
+
+    override fun onPopulateView() {
+
     }
 
 

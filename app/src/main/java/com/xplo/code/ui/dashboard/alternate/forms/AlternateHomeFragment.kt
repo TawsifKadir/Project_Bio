@@ -1,34 +1,20 @@
-package com.xplo.code.ui.dashboard.household.forms
+package com.xplo.code.ui.dashboard.alternate.forms
 
-import android.Manifest
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.LocationManager
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.MultiplePermissionsReport
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import com.xplo.code.R
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.data.db.models.HouseholdItem
-import com.xplo.code.databinding.FragmentHouseholdHomeBinding
-import com.xplo.code.ui.dashboard.household.HouseholdContract
+import com.xplo.code.databinding.FragmentAlternateHomeBinding
+import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.list.HouseholdListAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,16 +29,16 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
+class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
     HouseholdListAdapter.OnItemClickListener {
 
     companion object {
-        const val TAG = "HouseholdHomeFragment"
+        const val TAG = "AlternateHomeFragment"
 
         @JvmStatic
-        fun newInstance(parent: String?): HouseholdHomeFragment {
+        fun newInstance(parent: String?): AlternateHomeFragment {
             Log.d(TAG, "newInstance() called with: parent = $parent")
-            val fragment = HouseholdHomeFragment()
+            val fragment = AlternateHomeFragment()
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
             fragment.arguments = bundle
@@ -60,22 +46,20 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         }
     }
 
-    private lateinit var binding: FragmentHouseholdHomeBinding
+    private lateinit var binding: FragmentAlternateHomeBinding
     private val viewModel: HouseholdViewModel by viewModels()
 
     //private lateinit var presenter: HomeContract.Presenter
-    private var interactor: HouseholdContract.View? = null
+    private var interactor: AlternateContract.View? = null
 
     private var adapter: HouseholdListAdapter? = null
 
-    private lateinit var locationManager: LocationManager
-    private val locationPermissionCode = 2
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is HouseholdContract.View) {
-            interactor = activity as HouseholdContract.View
+        if (context is AlternateContract.View) {
+            interactor = activity as AlternateContract.View
         }
     }
 
@@ -83,7 +67,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHouseholdHomeBinding.inflate(inflater, container, false)
+        binding = FragmentAlternateHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -144,16 +128,14 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         }
 
         binding.btRegistration.setOnClickListener {
-            getLocation()
+
         }
 
     }
 
     override fun onResume() {
         super.onResume()
-        setToolbarTitle("Household")
-
-        interactor?.resetRootForm()
+        setToolbarTitle("Alternate Home")
 
     }
 
@@ -192,69 +174,8 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     }
 
     override fun onClickHouseholdItemSend(item: HouseholdItem, pos: Int) {
-        Log.d(TAG, "onClickHouseholdItemSend() called with: item = $item, pos = $pos")
+        Log.d(TAG, "onClickAlternateItemSend() called with: item = $item, pos = $pos")
 
     }
 
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == locationPermissionCode) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun getLocation() {
-
-        Dexter.withActivity(requireActivity())
-            .withPermissions(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            .withListener(object : MultiplePermissionsListener {
-                override fun onPermissionsChecked(report: MultiplePermissionsReport) {
-                    if (report.areAllPermissionsGranted()) {
-                        interactor?.navigateToForm1()
-                    }
-                    if (report.isAnyPermissionPermanentlyDenied) {
-                        showSettingsDialog()
-                    }
-                }
-
-                override fun onPermissionRationaleShouldBeShown(
-                    permissions: List<PermissionRequest>,
-                    token: PermissionToken
-                ) {
-                    token.continuePermissionRequest()
-                }
-            }).check()
-    }
-
-    private fun showSettingsDialog() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle(getString(R.string.dialog_permission_title))
-        builder.setMessage(getString(R.string.dialog_permission_message))
-        builder.setPositiveButton(getString(R.string.go_to_settings)) { dialog, _: Int ->
-            dialog.cancel()
-            openSettings()
-        }
-        builder.setNegativeButton(getString(R.string.cancel)) { dialog, _: Int ->
-            dialog.cancel()
-        }
-        builder.show()
-    }
-
-    private fun openSettings() {
-        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-        val uri = Uri.fromParts("package", requireContext().packageName, null)
-        intent.data = uri
-        startActivityForResult(intent, 101)
-    }
 }

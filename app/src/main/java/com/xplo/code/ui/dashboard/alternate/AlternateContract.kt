@@ -20,15 +20,16 @@ interface AlternateContract {
 
     interface View : BaseContract.View {
 
+        fun navigateToAlternateHome()
         fun navigateToForm1(id: String?)
         fun navigateToForm2()
         fun navigateToForm3()
         fun navigateToPreview()
+        fun navigateToFormDetails(item: HouseholdItem?)
 
 
         fun onBackButton()
         fun onNextButton()
-        //fun onSubmitButton()
 
         fun doFragmentTransaction(
             fragment: Fragment,
@@ -41,6 +42,7 @@ interface AlternateContract {
 
         fun getRootForm(): AlternateForm?
         fun setRootForm(form: AlternateForm?)
+
     }
 
     interface Presenter : BaseContract.Presenter<View> {
@@ -53,11 +55,18 @@ interface AlternateContract {
         fun onClickBackButton()
         fun onClickNextButton()
         fun onReadInput()
+        fun onLongClickDataGeneration()
         fun onGenerateDummyInput()
+        fun onPopulateView()
 
-//        fun onClickSubmitButton()
+    }
 
-//        fun bindSpinnerData(spinner: Spinner, items: Array<String>)
+    interface HomeView : BaseContract.View {
+        fun navigateToHouseholdDetails(item: HouseholdItem)
+
+        fun onGetHouseholdList(items: List<HouseholdItem>?)
+        fun onGetHouseholdListFailure(msg: String?)
+
 
     }
 
@@ -80,19 +89,19 @@ interface AlternateContract {
 
     }
 
-    interface Form4View : BaseContract.View, CommonView {
-
-
-    }
-
-    interface Form5View : BaseContract.View, CommonView {
-
-
-    }
+//    interface Form4View : BaseContract.View, CommonView {
+//
+//
+//    }
+//
+//    interface Form5View : BaseContract.View, CommonView {
+//
+//
+//    }
 
     interface PreviewView : BaseContract.View, CommonView {
 
-        fun onValidated(form: AlForm1?)
+        fun onValidated(form: AlternateForm)
 
     }
 

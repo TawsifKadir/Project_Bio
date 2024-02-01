@@ -27,38 +27,10 @@ class AlternateViewModel @Inject constructor(
         class GetItemSuccess(val items: List<ContentItem>) : Event()
         class GetItemFailure(val msg: String?) : Event()
 
-        class UpdateFavoriteSuccess(val position: Int) : Event()
-        class UpdateFavoriteFailure(val msg: String?) : Event()
-
     }
 
     private val _event = MutableStateFlow<Event>(Event.Empty)
     val event: StateFlow<Event> = _event
-
-    fun getFavorites(offset: Int, limit: Int) {
-
-//        viewModelScope.launch(dispatchers.io) {
-//            _event.value = Event.Loading
-//            when (val response = repo.getFavorites(offset, limit)) {
-//
-//                is Resource.Failure -> {
-//                    _event.value = Event.GetItemFailure(response.callInfo?.msg)
-//                }
-//
-//                is Resource.Success -> {
-//                    //_data.value = Event.Success(response.data?.items)
-//                    val items = response.data?.items
-//                    if (items.isNullOrEmpty()) {
-//                        _event.value = Event.GetItemFailure(response.callInfo?.msg)
-//                    } else {
-//                        _event.value = Event.GetItemSuccess(items)
-//                    }
-//                }
-//            }
-//        }
-//
-
-    }
 
 
 }
