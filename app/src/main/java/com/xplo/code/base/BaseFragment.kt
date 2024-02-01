@@ -3,6 +3,7 @@ package com.xplo.code.base
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.widget.Spinner
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -11,6 +12,8 @@ import com.xplo.code.core.utils.NetUtils
 import com.xplo.code.BuildConfig
 import com.xplo.code.data.pref.PrefHelper
 import com.xplo.code.data.pref.PrefHelperImpl
+import com.xplo.code.ui.dashboard.household.forms.NomineeModal
+import com.xplo.code.ui.dashboard.model.Nominee
 import java.util.*
 
 
@@ -23,8 +26,9 @@ import java.util.*
  * Desc     :
  * Comment  :
  */
-abstract class BaseFragment : Fragment(), BaseContract.View {
+abstract class BaseFragment : Fragment(), BaseContract.View, NomineeModal.Listener {
 
+    private val TAG = "BaseFragment"
 
     protected abstract fun initInitial()
 
@@ -232,6 +236,26 @@ abstract class BaseFragment : Fragment(), BaseContract.View {
             return activity as BaseActivity
         }
         return null
+
+    }
+
+    override fun onNomineeModalOpen() {
+        Log.d(TAG, "onNomineeModalOpen() called")
+
+    }
+
+    override fun onNomineeModalClose() {
+        Log.d(TAG, "onNomineeModalClose() called")
+
+    }
+
+    override fun onNomineeModalNomineeInputSuccess(item: Nominee?) {
+        Log.d(TAG, "onNomineeModalNomineeInputSuccess() called with: item = $item")
+
+    }
+
+    override fun onNomineeModalNomineeInputFailure(msg: String?) {
+        Log.d(TAG, "onNomineeModalNomineeInputFailure() called with: msg = $msg")
 
     }
 

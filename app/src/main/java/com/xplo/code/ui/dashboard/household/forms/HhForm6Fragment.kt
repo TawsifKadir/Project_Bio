@@ -73,7 +73,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View,
 
     private lateinit var layoutList: LinearLayout
 
-    private var isUsePopupInput = false
+    private var isUsePopupInput = true
 
 
     override fun onAttach(context: Context) {
@@ -257,7 +257,14 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View,
         if (rootForm == null) return
 
         if (isUsePopupInput) {
-            onGetANomineeFromPopup(Nominee(firstName = "hamid"))
+            //onGetANomineeFromPopup(Nominee(firstName = "hamid"))
+
+            NomineeModal.Builder(requireActivity().supportFragmentManager)
+                .listener(this)
+                .parent(null)
+                .build()
+                .show()
+
             return
         }
 
