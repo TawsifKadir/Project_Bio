@@ -29,10 +29,8 @@ import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.databinding.FragmentAlForm2FingerBinding
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
-import com.xplo.code.ui.dashboard.alternate.AlternateViewModel
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
-import com.xplo.code.ui.dashboard.model.AlForm1
 import com.xplo.code.ui.dashboard.model.AlForm2
 import com.xplo.code.ui.photo.ImagePickerActivity
 import com.xplo.code.ui.photo.ImageUtil
@@ -180,6 +178,9 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
             onClickNextButton()
         }
 
+        onLongClickDataGeneration()
+        onGenerateDummyInput()
+
     }
 
     override fun onPause() {
@@ -203,8 +204,14 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         super.onDestroy()
     }
 
-    override fun onValidated(form: AlForm1?) {
-        //TODO("Not yet implemented")
+    override fun onValidated(form: AlForm2?) {
+        Log.d(TAG, "onValidated() called with: form = $form")
+
+    }
+
+    override fun onReinstateData(form: AlForm2?) {
+        Log.d(TAG, "onReinstateData() called with: form = $form")
+
     }
 
 

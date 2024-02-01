@@ -125,9 +125,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         etName.isEnabled = false
 
         bindSpinnerData(spGender, UiData.genderOptions)
-        bindSpinnerData(spAlternateRelation, UiData.legalStatusOptions)
-
-//        bindSpinnerData(binding.spCountryName, UiData.countryNameOptions)
+        bindSpinnerData(spAlternateRelation, UiData.relationshipOptions)
 
         viewModel.getHouseholdItem(id)
 
@@ -169,6 +167,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
             onClickNextButton()
         }
 
+        onLongClickDataGeneration()
         onGenerateDummyInput()
     }
 
@@ -253,11 +252,16 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
+        spGender.setSelection(2)
+        spAlternateRelation.setSelection(2)
+
         //etName.setText("Shadhin")
         etAge.setText("29")
         etIdNumber.setText("122")
         etPhoneNo.setText("01829372012")
         etAlternateName.setText("Nasif Ahmed")
+
+
     }
 
     override fun onPopulateView() {
@@ -274,6 +278,23 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
         Log.d(TAG, "onValidated: $rootForm")
         interactor?.navigateToForm2()
+    }
+
+    override fun onReinstateData(form: AlForm1?) {
+        Log.d(TAG, "onReinstateData() called with: form = $form")
+        if (form == null) return
+
+        setSpinnerItem(spGender, UiData.genderOptions, form.gender)
+        setSpinnerItem(spAlternateRelation, UiData.relationshipOptions, form.selectAlternateRlt)
+
+
+        etName.setText(form.householdName)
+        etAge.setText(form.age.toString())
+        etIdNumber.setText(form.idNumber)
+        etPhoneNo.setText(form.phoneNumber)
+        etAlternateName.setText(form.alternateName)
+
+
     }
 
     override fun onGetHouseholdItem(item: HouseholdItem?) {

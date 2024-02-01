@@ -94,6 +94,9 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
         binding.viewButtonBackNext.btNext.setOnClickListener {
             onClickNextButton()
         }
+
+        onLongClickDataGeneration()
+        onGenerateDummyInput()
     }
 
     override fun onResume() {
@@ -112,7 +115,13 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
     }
 
     override fun onValidated(form: AlForm3?) {
-        TODO("Not yet implemented")
+        Log.d(TAG, "onValidated() called with: form = $form")
+
+    }
+
+    override fun onReinstateData(form: AlForm3?) {
+        Log.d(TAG, "onReinstateData() called with: form = $form")
+
     }
 
     override fun onClickBackButton() {
