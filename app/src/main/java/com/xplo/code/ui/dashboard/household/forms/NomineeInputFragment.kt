@@ -11,7 +11,6 @@ import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.databinding.BsdNomineeInputBinding
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
-import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.Nominee
 import com.xplo.data.BuildConfig
@@ -49,15 +48,15 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
     private val viewModel: HouseholdViewModel by viewModels()
 
     //private lateinit var presenter: RegistrationContract.Presenter
-    private var interactor: HouseholdContract.View? = null
+    private var interactor: NomineeModal? = null
 
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is HouseholdContract.View) {
-            interactor = activity as HouseholdContract.View
-        }
+//        if (context is NomineeModal) {
+//            interactor = context as NomineeModal
+//        }
     }
 
     override fun onCreateView(
@@ -79,8 +78,7 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
     }
 
     override fun initInitial() {
-        //presenter = RegistrationPresenter(DataRepoImpl())
-        //presenter.attach(this)
+        interactor = this.parentFragment as NomineeModal
     }
 
     override fun initView() {
@@ -88,7 +86,9 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
     }
 
     override fun initObserver() {
-
+        binding.btNext.setOnClickListener {
+            onReadInput()
+        }
     }
 
     override fun onResume() {
@@ -104,7 +104,7 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
 
     override fun onGetNomineeSuccess(item: Nominee?) {
         Log.d(TAG, "onGetNomineeSuccess() called with: item = $item")
-
+        interactor?.onCompleteModal(item)
     }
 
     override fun onGetNomineeFailure(msg: String?) {
@@ -114,6 +114,8 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
 
     override fun onReadInput() {
         Log.d(TAG, "onReadInput() called")
+
+        onGetNomineeSuccess(Nominee("majid"))
     }
 
     override fun onLongClickDataGeneration() {

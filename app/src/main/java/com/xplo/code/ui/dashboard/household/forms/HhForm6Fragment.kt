@@ -512,4 +512,9 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View,
         Log.d(TAG, "onClickNomineeDelete() called with: item = $item, pos = $pos")
         adapter?.remove(pos)
     }
+
+    override fun onNomineeModalNomineeInputSuccess(item: Nominee?) {
+        super.onNomineeModalNomineeInputSuccess(item)
+        onGetANomineeFromPopup(item)
+    }
 }
