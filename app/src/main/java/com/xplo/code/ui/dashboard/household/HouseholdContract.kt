@@ -11,6 +11,7 @@ import com.xplo.code.ui.dashboard.model.HhForm4
 import com.xplo.code.ui.dashboard.model.HhForm5
 import com.xplo.code.ui.dashboard.model.HhForm6
 import com.xplo.code.ui.dashboard.model.HouseholdForm
+import com.xplo.code.ui.dashboard.model.Nominee
 
 /**
  * Copyright 2020 (C) xplo
@@ -133,6 +134,8 @@ interface HouseholdContract {
         fun onEnableDisableNominee(isNomineeAdd: Boolean)
 
         fun onClickAddNominee()
+
+        fun onGetANomineeFromPopup(nominee: Nominee?)
 
     }
 

@@ -14,6 +14,8 @@ import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -32,7 +34,6 @@ import com.xplo.code.ui.dashboard.model.getNomineeNumber
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.ArrayList
 
 /**
  * Copyright 2020 (C) xplo
@@ -43,7 +44,8 @@ import java.util.ArrayList
  * Comment  :
  */
 @AndroidEntryPoint
-class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
+class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View,
+    NomineeListAdapter.OnItemClickListener {
 
     companion object {
         const val TAG = "HhForm6Fragment"
@@ -67,13 +69,11 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
     //private lateinit var presenter: RegistrationContract.Presenter
     private var interactor: HouseholdContract.View? = null
 
+    private var adapter: NomineeListAdapter? = null
 
     private lateinit var layoutList: LinearLayout
-    //private lateinit var btAdd: Button
-    //var buttonSubmitList: Button? = null
 
-    //var teamList: List<String> = arrayListOf()
-    //var cricketersList: ArrayList<Cricketer> = ArrayList<Cricketer>()
+    private var isUsePopupInput = false
 
 
     override fun onAttach(context: Context) {
@@ -110,6 +110,13 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
     override fun initView() {
 
         bindSpinnerData(binding.spReasonNoNominee, UiData.stateNameOptions)
+
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.itemAnimator = DefaultItemAnimator()
+        adapter = NomineeListAdapter()
+        adapter?.setOnItemClickListener(this)
+        binding.recyclerView.adapter = adapter
+
 
     }
 
@@ -177,6 +184,21 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         Log.d(TAG, "onReinstateData() called with: form = $form")
         if (form == null) return
 
+        if (isUsePopupInput) {
+            if (form.isNomineeAdd.isYes()) {
+
+                binding.rgNomineeAdd.check(binding.rbYes.id)
+                onEnableDisableNominee(true)
+                //addAllNomineeViews(form.nominees)
+
+            } else {
+                binding.rgNomineeAdd.check(binding.rbNo.id)
+                onEnableDisableNominee(false)
+                setSpinnerItem(binding.spReasonNoNominee, UiData.stateNameOptions, form.noNomineeReason)
+            }
+            return
+        }
+
         if (form.isNomineeAdd.isYes()) {
 
             binding.rgNomineeAdd.check(binding.rbYes.id)
@@ -188,6 +210,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
             onEnableDisableNominee(false)
             setSpinnerItem(binding.spReasonNoNominee, UiData.stateNameOptions, form.noNomineeReason)
         }
+
 
     }
 
@@ -201,6 +224,22 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
 
     override fun onEnableDisableNominee(isNomineeAdd: Boolean) {
         Log.d(TAG, "onEnableDisableNominee() called with: isNomineeAdd = $isNomineeAdd")
+
+        if (isUsePopupInput) {
+
+            if (isNomineeAdd) {
+                binding.recyclerView.visible()
+                binding.btAdd.visible()
+                binding.viewReasonNoNominee.gone()
+            } else {
+                binding.recyclerView.gone()
+                binding.btAdd.gone()
+                binding.viewReasonNoNominee.visible()
+            }
+
+            return
+        }
+
         if (isNomineeAdd) {
             binding.viewNominee.visible()
             binding.btAdd.visible()
@@ -217,7 +256,21 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         val rootForm = interactor?.getRootForm()
         if (rootForm == null) return
 
+        if (isUsePopupInput) {
+            onGetANomineeFromPopup(Nominee(firstName = "hamid"))
+            return
+        }
+
         addNomineeView(rootForm.form6.getNomineeNumber(), null)
+
+    }
+
+    override fun onGetANomineeFromPopup(nominee: Nominee?) {
+        Log.d(TAG, "onGetANomineeFromPopup() called with: nominee = $nominee")
+        if (nominee == null) return
+
+        adapter?.addItem(nominee)
+
     }
 
     override fun onClickBackButton() {
@@ -441,5 +494,15 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         setSpinnerItem(spOccupation, UiData.genderOptions, nominee.occupation)
 
         checkRbPosNeg(rgReadWrite, rbReadWriteYes, rbReadWriteNo, nominee.isReadWrite)
+    }
+
+    override fun onClickNomineeItem(item: Nominee, pos: Int) {
+        Log.d(TAG, "onClickNomineeItem() called with: item = $item, pos = $pos")
+
+    }
+
+    override fun onClickNomineeDelete(item: Nominee, pos: Int) {
+        Log.d(TAG, "onClickNomineeDelete() called with: item = $item, pos = $pos")
+        adapter?.remove(pos)
     }
 }

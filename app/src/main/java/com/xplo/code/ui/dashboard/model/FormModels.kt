@@ -105,6 +105,11 @@ data class Nominee(
     var isReadWrite: String? = null
 )
 
+fun Nominee?.toSummary() : String? {
+    if (this == null) return null
+    return this.toString()
+}
+
 data class AlForm1(
     var householdName: String? = null,
     var alternateName: String? = null,

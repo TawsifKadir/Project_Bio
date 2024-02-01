@@ -87,6 +87,17 @@
                 app:icon="@drawable/ic_add_black_24dp"
                 tools:visibility="visible" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:visibility="gone"
+                tools:itemCount="4"
+                tools:listitem="@layout/row_nominee_item"
+                tools:visibility="visible" />
+
+
             <LinearLayout
                 android:id="@+id/viewNominee"
                 android:layout_width="match_parent"
