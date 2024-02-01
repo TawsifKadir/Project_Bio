@@ -112,12 +112,19 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
 
     override fun initView() {
 
+        bindSpinnerData(spRelation, UiData.relationshipOptions)
+        bindSpinnerData(spGender, UiData.genderOptions)
+        bindSpinnerData(spOccupation, UiData.genderOptions)
+
     }
 
     override fun initObserver() {
         binding.btNext.setOnClickListener {
             onReadInput()
         }
+
+        onLongClickDataGeneration()
+        onGenerateDummyInput()
     }
 
     override fun onResume() {
@@ -144,40 +151,49 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
     override fun onReadInput() {
         Log.d(TAG, "onReadInput() called")
 
-//        var nominee = Nominee()
-//
-//        nominee.firstName = chkEditText(etFirstName, UiData.ER_ET_DF)
-//        //nominee.middleName = chkEditText(etMiddleName, UiData.ER_ET_DF)
-//        nominee.lastName = chkEditText(etLastName, UiData.ER_ET_DF)
-//        nominee.age = chkEditText(etAge, UiData.ER_ET_DF)?.toInt()
-//
-//        nominee.relation = chkSpinner(spRelation, UiData.ER_SP_DF)
-//        nominee.gender = chkSpinner(spGender, UiData.ER_SP_DF)
-//        nominee.occupation = chkSpinner(spOccupation, UiData.ER_SP_DF)
-//
-//        nominee.isReadWrite = chkRadioGroup(rgReadWrite, UiData.ER_RB_DF)
-//
-//        if (nominee.isOk()) {
-//            onGetNomineeSuccess(nominee)
-//        }
+        var nominee = Nominee()
 
-        onGetNomineeSuccess(Nominee(firstName = "jalal"))
+        nominee.firstName = chkEditText(etFirstName, UiData.ER_ET_DF)
+        nominee.middleName = chkEditText(etMiddleName, UiData.ER_ET_DF)
+        nominee.lastName = chkEditText(etLastName, UiData.ER_ET_DF)
+        nominee.age = chkEditText(etAge, UiData.ER_ET_DF)?.toInt()
+
+        nominee.relation = chkSpinner(spRelation, UiData.ER_SP_DF)
+        nominee.gender = chkSpinner(spGender, UiData.ER_SP_DF)
+        nominee.occupation = chkSpinner(spOccupation, UiData.ER_SP_DF)
+
+        nominee.isReadWrite = chkRadioGroup(rgReadWrite, UiData.ER_RB_DF)
+
+        if (nominee.isOk()) {
+            onGetNomineeSuccess(nominee)
+        }
+
+        //onGetNomineeSuccess(Nominee(firstName = "jalal"))
     }
 
     override fun onLongClickDataGeneration() {
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isLongClickDGEnabled) return
 
-//        binding.viewButtonBackNext.btNext.setOnLongClickListener {
-//            onGenerateDummyInput()
-//            return@setOnLongClickListener true
-//        }
+        binding.btNext.setOnLongClickListener {
+            onGenerateDummyInput()
+            return@setOnLongClickListener true
+        }
     }
 
     override fun onGenerateDummyInput() {
         Log.d(TAG, "onGenerateDummyInput() called")
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
+
+        etFirstName.setText("first")
+        etMiddleName.setText("middle")
+        etLastName.setText("last")
+        etAge.setText("12")
+        spRelation.setSelection(2)
+        spGender.setSelection(2)
+        spOccupation.setSelection(2)
+        rgReadWrite.check(rbReadWriteNo.id)
     }
 
     override fun onPopulateView() {
