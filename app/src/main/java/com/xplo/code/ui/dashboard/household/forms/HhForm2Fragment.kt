@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.Spinner
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.xplo.code.R
 import com.xplo.code.core.Bk
@@ -22,6 +23,7 @@ import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.isOk
+import com.xplo.code.utils.MaritalStatus
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -73,7 +75,9 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
     private lateinit var etIdNumber: EditText
     private lateinit var etPhoneNumber: EditText
     private lateinit var etMonthlyAverageIncome: EditText
-    private lateinit var etSpouseName: EditText
+    private lateinit var etSpouseFirstName: EditText
+    private lateinit var etSpouseMiddleName: EditText
+    private lateinit var etSpouseLastName: EditText
     private lateinit var rgSelectionCriteria: RadioGroup
 
 
@@ -116,6 +120,9 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         //presenter.attach(this)
 
 
+        etSpouseFirstName = binding.etSpouseFirstName
+        etSpouseMiddleName = binding.etSpouseMiddleName
+        etSpouseLastName = binding.etSpouseLastName
         spMainSourceOfIncome = binding.spMainSourceOfIncome
         spCurrency = binding.spCurrency
         spGender = binding.spGender
@@ -169,7 +176,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         spMaritalStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val selectedItem = parent.getItemAtPosition(position).toString()
-                if (selectedItem.equals("Married", ignoreCase = true)) {
+                if (selectedItem.equals(MaritalStatus.MARRIED.status, ignoreCase = true)) {
                     binding.llspouse1.visibility = View.VISIBLE
                     binding.llspouse2.visibility = View.VISIBLE
                 } else {
@@ -268,9 +275,11 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         form.legalStatus = chkSpinner(spLegalStatus, UiData.ER_SP_DF)
         form.selectionReason = chkSpinner(spSelectionReason, UiData.ER_SP_DF)
 
-//        form.firstName = chkEditText(etFirstName, UiData.ER_SP_DF)
-//        form.middleName = chkEditText(etMiddleName, UiData.ER_SP_DF)
-//        form.lastName = chkEditText(etLastName, UiData.ER_SP_DF)
+        if(binding.llspouse1.isVisible &&  binding.llspouse2.isVisible){
+        form.spouseFirstName = chkEditText3Char(etSpouseFirstName, UiData.ER_SP_DF)
+        //form.spouseMiddleName = chkEditText3Char(etSpouseMiddleName, UiData.ER_SP_DF)
+        form.spouseLastName = chkEditText3Char(etSpouseLastName, UiData.ER_SP_DF)
+        }
 
         form.firstName = chkEditText3Char(etFirstName, UiData.ER_ET_DF)
         //form.middleName = chkEditText(etMiddleName, UiData.ER_ET_DF)

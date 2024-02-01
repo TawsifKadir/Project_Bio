@@ -2,6 +2,7 @@ package com.xplo.code.ui.dashboard.model
 
 import com.google.gson.GsonBuilder
 import com.xplo.code.core.TestConfig
+import com.xplo.code.utils.MaritalStatus
 
 
 fun HhForm2?.getFullName(): String? {
@@ -34,7 +35,19 @@ fun HhForm2.isOk(): Boolean {
     }
     if (this.mainSourceOfIncome.isNullOrBlank()) return false
     if (this.gender.isNullOrBlank()) return false
-    if (this.maritalStatus.isNullOrBlank()) return false
+    if (this.maritalStatus.isNullOrBlank()){
+        return false
+    }
+
+    if (this.maritalStatus == MaritalStatus.MARRIED.status){
+        if(this.spouseFirstName.isNullOrBlank()){
+            return false
+        }
+    if(this.spouseLastName.isNullOrBlank()){
+            return false
+        }
+    }
+
     if (this.legalStatus.isNullOrBlank()) return false
     //if (this.spouseName.isNullOrBlank()) return false
     if (this.selectionReason.isNullOrBlank()) return false
