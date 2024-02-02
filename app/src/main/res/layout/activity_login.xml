@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,65 +30,98 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/etUserId"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout.Outline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:background="@android:color/transparent"
-            android:drawableStart="@drawable/ic_person_black_24dp"
-            android:drawablePadding="12dp"
-            android:ems="10"
-            android:focusable="true"
-            android:hint="@string/id"
-            android:inputType="textPersonName"
-            android:maxLines="1"
-            android:padding="8dp"
-            android:textColor="?attr/colorTextPrimary"
-            tools:text="admin" />
+            android:layout_marginTop="32dp"
+            android:hint="@string/username">
 
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/AppTextInputEditText.Outline"
+                android:id="@+id/etUserId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-
-        <EditText
-            android:id="@+id/etPassword"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@android:color/transparent"
-            android:drawableStart="@drawable/ic_lock_black_24dp"
-            android:drawablePadding="12dp"
-            android:ems="10"
-            android:focusable="true"
-            android:hint="****"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:padding="8dp"
-            android:textColor="?attr/colorTextPrimary" />
+            android:layout_marginTop="8dp"
+            android:hint="@string/password"
+            app:endIconMode="password_toggle"
+            app:endIconTint="?attr/colorIcon">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray" />
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/AppTextInputEditText.Outline"
+                android:layout_width="match_parent"
+                android:id="@+id/etPassword"
+                android:layout_height="wrap_content" />
 
-        <CheckBox
-            android:id="@+id/cbShowPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="4dp"
-            android:buttonTint="?attr/colorIcon"
-            android:text="@string/password_show"
-            android:textColor="?attr/colorTextPrimary" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="#f9d7db" />
+
+
+<!--        <EditText-->
+<!--            android:id="@+id/etUserId"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="40dp"-->
+<!--            android:background="@android:color/transparent"-->
+<!--            android:drawableStart="@drawable/ic_person_black_24dp"-->
+<!--            android:drawablePadding="12dp"-->
+<!--            android:ems="10"-->
+<!--            android:focusable="true"-->
+<!--            android:hint="@string/id"-->
+<!--            android:inputType="textPersonName"-->
+<!--            android:maxLines="1"-->
+<!--            android:padding="8dp"-->
+<!--            android:textColor="?attr/colorTextPrimary"-->
+<!--            tools:text="admin" />-->
+
+
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:background="@color/gray" />-->
+
+
+<!--        <EditText-->
+<!--            android:id="@+id/etPassword"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="4dp"-->
+<!--            android:background="@android:color/transparent"-->
+<!--            android:drawableStart="@drawable/ic_lock_black_24dp"-->
+<!--            android:drawablePadding="12dp"-->
+<!--            android:ems="10"-->
+<!--            android:focusable="true"-->
+<!--            android:hint="****"-->
+<!--            android:inputType="textPassword"-->
+<!--            android:maxLines="1"-->
+<!--            android:padding="8dp"-->
+<!--            android:textColor="?attr/colorTextPrimary" />-->
+
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:background="@color/gray" />-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/cbShowPassword"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="5dp"-->
+<!--            android:layout_marginTop="4dp"-->
+<!--            android:buttonTint="?attr/colorIcon"-->
+<!--            android:text="@string/password_show"-->
+<!--            android:textColor="?attr/colorTextPrimary" />-->
+
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:background="#f9d7db" />-->
 
     </LinearLayout>
 

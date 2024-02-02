@@ -3,8 +3,8 @@ package com.xplo.code.ui.login
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.method.HideReturnsTransformationMethod
-import android.text.method.PasswordTransformationMethod
+//import android.text.method.HideReturnsTransformationMethod
+//import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -71,15 +71,15 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         }
         //btSignup.setOnClickListener(this)
 
-        binding.cbShowPassword.setOnCheckedChangeListener { buttonView, isChecked ->
-            // checkbox status is changed from uncheck to checked.
-            if (!isChecked) {
-                binding.etPassword.transformationMethod = PasswordTransformationMethod.getInstance()
-            } else {
-                binding.etPassword.transformationMethod =
-                    HideReturnsTransformationMethod.getInstance()
-            }
-        }
+//        binding.cbShowPassword.setOnCheckedChangeListener { buttonView, isChecked ->
+//            // checkbox status is changed from uncheck to checked.
+//            if (!isChecked) {
+//                binding.etPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+//            } else {
+//                binding.etPassword.transformationMethod =
+//                    HideReturnsTransformationMethod.getInstance()
+//            }
+//        }
 
         lifecycleScope.launchWhenStarted {
             viewModel.event.collect { event ->
