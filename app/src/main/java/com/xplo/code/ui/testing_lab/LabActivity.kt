@@ -1,6 +1,8 @@
 package com.xplo.code.ui.testing_lab
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Button
 import com.xplo.code.R
 import com.xplo.code.base.BaseActivity
 
@@ -28,6 +30,13 @@ class LabActivity : BaseActivity(), LabContract.View {
     override fun initView() {
         setupToolbar()
         setToolbarTitle("my lab")
+
+        findViewById<Button>(R.id.btTest).setOnClickListener {
+            val bottomSheet = SimpleBottomSheet(){
+                Log.d(TAG, "initView() called: $it")
+            }
+            bottomSheet.show(supportFragmentManager, "ModalBottomSheet")
+        }
 
 
     }
