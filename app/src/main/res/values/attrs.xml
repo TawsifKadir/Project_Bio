@@ -71,38 +71,6 @@
     <attr name="drawableAppLogoBannerOnBrand" format="reference" />
 <!--    <attr name="drawableGOLPackageTop" format="reference" />-->
 
-    <!--    <attr name="colorBrand" format="reference|color" />-->
-<!--    <attr name="colorBrandDark" format="reference|color" />-->
-<!--    <attr name="colorBrandLight" format="reference|color" />-->
-<!--    <attr name="colorOnBrand" format="reference|color" />-->
-<!--    <attr name="colorAppbar" format="reference|color" />-->
-
-<!--    <attr name="colorBackground" format="reference|color" />-->
-<!--    <attr name="colorBackgroundCell" format="reference|color" />-->
-<!--    <attr name="colorBackgroundLight" format="reference|color" />-->
-<!--    <attr name="colorOnBackground" format="reference|color" />-->
-
-<!--    <attr name="colorPrimaryText" format="reference|color" />-->
-<!--    <attr name="colorSecondaryText" format="reference|color" />-->
-<!--    <attr name="colorContrastPrimaryText" format="reference|color" />-->
-<!--    <attr name="colorContrastSecondaryText" format="reference|color" />-->
-<!--    <attr name="colorIcon" format="reference|color" />-->
-<!--    <attr name="colorDivider" format="reference|color" />-->
-
-<!--    <attr name="colorTextTitle" format="reference|color" />-->
-<!--    <attr name="colorTextSubTitle" format="reference|color" />-->
-<!--    <attr name="colorTextDescription" format="reference|color" />-->
-
-<!--    <attr name="colorTagText" format="reference|color" />-->
-<!--    <attr name="colorTagBackground" format="reference|color" />-->
-
-<!--    <attr name="themeToolbar" format="reference" />-->
-<!--    <attr name="themePopup" format="reference" />-->
-
-<!--    <attr name="themeNavDrawer" format="reference" />-->
-
-
-
     <!--    <attr name="colorNavigationItemSelected" format="color" />-->
     <!--    <attr name="colorOnPrimary" format="color" />-->
     <!--    <attr name="drawableNavigationItemBackground" format="reference" />-->
