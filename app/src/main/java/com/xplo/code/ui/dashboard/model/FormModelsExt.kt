@@ -48,6 +48,15 @@ fun HhForm2.isOk(): Boolean {
         }
     }
 
+    if (this.idIsOrNot == "Yes"){
+        if(this.idNumber.isNullOrBlank()){
+            return false
+        }
+    if(this.idNumberType.isNullOrBlank()){
+            return false
+        }
+    }
+
     if (this.legalStatus.isNullOrBlank()) return false
     //if (this.spouseName.isNullOrBlank()) return false
     if (this.selectionReason.isNullOrBlank()) return false

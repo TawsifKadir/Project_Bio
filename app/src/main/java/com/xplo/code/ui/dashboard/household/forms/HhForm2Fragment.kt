@@ -61,6 +61,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
     //private lateinit var presenter: RegistrationContract.Presenter
     private var interactor: HouseholdContract.View? = null
 
+    private lateinit var spIdType: Spinner
     private lateinit var spMainSourceOfIncome: Spinner
     private lateinit var spCurrency: Spinner
     private lateinit var spGender: Spinner
@@ -79,6 +80,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
     private lateinit var etSpouseMiddleName: EditText
     private lateinit var etSpouseLastName: EditText
     private lateinit var rgSelectionCriteria: RadioGroup
+    private lateinit var rgId: RadioGroup
 
 
     override fun onAttach(context: Context) {
@@ -124,6 +126,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         etSpouseMiddleName = binding.etSpouseMiddleName
         etSpouseLastName = binding.etSpouseLastName
         spMainSourceOfIncome = binding.spMainSourceOfIncome
+        spIdType = binding.spIdType
         spCurrency = binding.spCurrency
         spGender = binding.spGender
         spRespondentRlt = binding.spRespondentRlt
@@ -139,6 +142,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         etMonthlyAverageIncome = binding.etMonthlyAverageIncome
         //etSpouseName = binding.etSpouseName
         rgSelectionCriteria = binding.rgSelectionCriteria
+        rgId = binding.rgId
     }
 
     override fun initView() {
@@ -150,6 +154,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         bindSpinnerData(spMaritalStatus, UiData.maritalStatusOptions)
         bindSpinnerData(spLegalStatus, UiData.legalStatusOptions)
         bindSpinnerData(spSelectionReason, UiData.selectionReason)
+        bindSpinnerData(spIdType, UiData.idType)
 
     }
 
@@ -188,8 +193,24 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
                 // Another interface callback
             }
         }
+
+        binding.rgId.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.rbYes -> doSomethingForYes()
+                R.id.rbNo -> doSomethingForNo()
+                else -> {}
+            }
+        }
+    }
+    fun doSomethingForYes() {
+        binding.llIdType.isVisible = true
+        binding.llIdTypeInput.isVisible = true
     }
 
+    fun doSomethingForNo() {
+        binding.llIdType.isVisible = false
+        binding.llIdTypeInput.isVisible = false
+    }
     override fun onResume() {
         super.onResume()
 
@@ -224,6 +245,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         Log.d(TAG, "onReinstateData() called with: form = $form")
         if (form == null) return
 
+        setSpinnerItem(spIdType, UiData.idType, form.idNumberType)
         setSpinnerItem(spMainSourceOfIncome, UiData.mainIncomeOptions, form.mainSourceOfIncome)
         setSpinnerItem(spCurrency, UiData.countryNameOptions, form.currency)
         setSpinnerItem(spGender, UiData.genderOptions, form.gender)
@@ -233,6 +255,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         setSpinnerItem(spSelectionReason, UiData.selectionReason, form.selectionReason)
 
         rgSelectionCriteria.checkRbOpAB(binding.rbA, binding.rbB, form.selectionCriteria)
+        rgId.checkRbOpAB(binding.rbA, binding.rbB, form.idIsOrNot)
 
         etFirstName.setText(form.firstName)
         etMiddleName.setText(form.middleName)
@@ -285,16 +308,24 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
             form.spouseLastName = null
         }
 
+        if(binding.llIdTypeInput.isVisible &&  binding.llIdInput.isVisible){
+            form.idNumber = chkEditText(etIdNumber, UiData.ER_ET_DF)
+            form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
+        }else{
+            form.idNumber = null
+            form.idNumberType = null
+        }
+
         form.firstName = chkEditText3Char(etFirstName, UiData.ER_ET_DF)
         //form.middleName = chkEditText(etMiddleName, UiData.ER_ET_DF)
         form.lastName = chkEditText3Char(etLastName, UiData.ER_ET_DF)
 
         form.age = chkEditTextMax3Digit(etAge, UiData.ER_ET_DF)
-        //form.idNumber = chkEditText(etIdNumber, UiData.ER_ET_DF)
         form.phoneNumber = chkEditText(etPhoneNumber, UiData.ER_ET_DF)
         form.monthlyAverageIncome = chkEditText(etMonthlyAverageIncome, UiData.ER_ET_DF)
         //form.spouseName = chkEditText(etSpouseName, UiData.ER_ET_DF)
         form.selectionCriteria = chkRadioGroup(rgSelectionCriteria, UiData.ER_RB_DF)
+        form.idIsOrNot = chkRadioGroup(rgId, UiData.ER_RB_DF)
 
 
         if (!form.isOk()) {
@@ -319,6 +350,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
+        spIdType.setSelection(1)
         spMainSourceOfIncome.setSelection(1)
         spGender.setSelection(1)
         spRespondentRlt.setSelection(1)

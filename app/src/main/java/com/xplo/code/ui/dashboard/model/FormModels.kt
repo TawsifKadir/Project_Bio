@@ -42,6 +42,7 @@ data class HhForm2(
     var spouseLastName: String? = null,
     var age: String? = null,
     var idNumber: String? = null,
+    var idNumberType: String? = null,
     var phoneNumber: String? = null,
     var mainSourceOfIncome: String? = null,
     var currency: String? = null,
@@ -52,7 +53,8 @@ data class HhForm2(
     var legalStatus: String? = null,
     var spouseName: String? = null,
     var selectionReason: String? = null,
-    var selectionCriteria: String? = null
+    var selectionCriteria: String? = null,
+    var idIsOrNot: String? = null
 )
 
 data class HhForm3(

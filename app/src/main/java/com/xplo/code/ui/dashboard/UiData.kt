@@ -34,6 +34,7 @@ object UiData {
     val currency = getStringArray(R.array.currency_array)
     val selectionReason = getStringArray(R.array.selection_reason_array)
     val whyNot = getStringArray(R.array.why_not)
+    val idType = getStringArray(R.array.id_type)
 
 
     private fun getString(resId: Int): String {

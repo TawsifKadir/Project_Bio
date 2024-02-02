@@ -201,14 +201,13 @@
                         <RadioButton
                             android:id="@+id/rbYes"
                             style="@style/AppRadioButton.Form"
-                            android:text="@string/yes"
-                            tools:checked="true" />
+                            android:text="@string/yes"/>
 
                         <RadioButton
                             android:id="@+id/rbNo"
                             style="@style/AppRadioButton.Form"
                             android:text="@string/no"
-                            tools:checked="false" />
+                            android:checked="true"  />
 
                     </RadioGroup>
 
@@ -217,6 +216,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/llIdType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -238,6 +239,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/llIdTypeInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -260,6 +263,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/llIdInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
