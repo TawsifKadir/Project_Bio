@@ -327,9 +327,10 @@
 
                 </LinearLayout>
 
-                <include layout="@layout/view_margin_space" />
+                <include android:visibility="gone" layout="@layout/view_margin_space" />
 
                 <LinearLayout
+                    android:visibility="gone"
                     style="@style/AppLinearLayoutInputBox"
                     android:layout_weight="1">
 
@@ -339,7 +340,6 @@
 
 
                     <Spinner
-                        android:id="@+id/spCurrency"
                         style="@style/AppSpinnerForm" />
 
                 </LinearLayout>
