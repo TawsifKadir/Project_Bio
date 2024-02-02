@@ -1,0 +1,12 @@
+Local git clear:
+git branch --merged | grep -v '\*\|master\|main\|develop' | xargs -n 1 git branch -d
+Remote git clear:
+git branch -r --merged | grep -v '\*\|master\|main\|develop' | sed 's/origin\///' | xargs -n 1 git push --delete origin
+Sync local registry of remote branches:
+git fetch -p
+
+
+
+git branch --merged
+git branch --merged| grep -Ev "(^\*|master|main|dev)
+git branch --merged| grep -Ev "(^\*|master|main|dev|skip_branch_name)
