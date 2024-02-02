@@ -146,8 +146,7 @@ fun List<Nominee>?.isOk(): Boolean {
 fun AlForm1.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
 
-    if (this.householdFirstName.isNullOrBlank()) return false
-    if (this.householdLastName.isNullOrBlank()) return false
+    if (this.householdName.isNullOrBlank()) return false
     if (this.alternateFirstName.isNullOrBlank()) return false
     if (this.alternateLastName.isNullOrBlank()) return false
     if (this.age.isNullOrBlank()) return false

@@ -71,9 +71,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
     private var id: String? = null
 
-    private lateinit var etHouseholdFirstName: EditText
-    private lateinit var etHouseholdMiddleName: EditText
-    private lateinit var etHouseholdLastName: EditText
+    private lateinit var etHouseholdName: EditText
 
     private lateinit var etAlternateFirstName: EditText
     private lateinit var etAlternateMiddleName: EditText
@@ -134,10 +132,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         rgId = binding.rgId
 
 
-        etHouseholdFirstName = binding.etHouseholdFirstName
-        etHouseholdMiddleName = binding.etHouseholdMiddleName
-        etHouseholdLastName = binding.etHouseholdLastName
-
+        etHouseholdName = binding.etHouseholdName
         etAlternateFirstName = binding.etAlternateFirstName
         etAlternateMiddleName = binding.etAlternateMiddleName
         etAlternateLastName = binding.etAlternateLastName
@@ -280,9 +275,9 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         }
         form.idIsOrNot = chkRadioGroup(rgId, UiData.ER_RB_DF)
 
-        form.householdFirstName = chkEditText3Char(etHouseholdFirstName, UiData.ER_ET_DF)
+        form.householdName = chkEditText3Char(etHouseholdName, UiData.ER_ET_DF)
         //form.middleName = chkEditText(etMiddleName, UiData.ER_ET_DF)
-        form.householdLastName = chkEditText3Char(etHouseholdLastName, UiData.ER_ET_DF)
+        //form.householdLastName = chkEditText3Char(etHouseholdLastName, UiData.ER_ET_DF)
 
         form.alternateFirstName = chkEditText3Char(etAlternateFirstName, UiData.ER_ET_DF)
         //form.middleName = chkEditText(etMiddleName, UiData.ER_ET_DF)
@@ -319,9 +314,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         etPhoneNo.setText("01829372012")
         spIdType.setSelection(1)
 
-        etHouseholdFirstName.setText("Mohd")
-        etHouseholdMiddleName.setText("Moniruzzaman")
-        etHouseholdLastName.setText("Shadhin")
+        etHouseholdName.setText("Mohd")
 
         etAlternateFirstName.setText("Mohd")
         etAlternateMiddleName.setText("Moniruzzaman")
@@ -359,9 +352,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         etIdNumber.setText(form.idNumber)
         etPhoneNo.setText(form.phoneNumber)
 
-        etHouseholdFirstName.setText(form.householdFirstName)
-        etHouseholdMiddleName.setText(form.householdMiddleName)
-        etHouseholdLastName.setText(form.householdLastName)
+        etHouseholdName.setText(form.householdName)
 
         etAlternateFirstName.setText(form.alternateFirstName)
         etAlternateMiddleName.setText(form.alternateMiddleName)
@@ -373,9 +364,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
         interactor?.setHouseholdItem(item)
 
-        binding.etHouseholdFirstName.setText(item.toHouseholdForm()?.form2?.firstName ?: "")
-        binding.etHouseholdMiddleName.setText(item.toHouseholdForm()?.form2?.middleName ?: "")
-        binding.etHouseholdLastName.setText(item.toHouseholdForm()?.form2?.lastName ?: "")
+        binding.etHouseholdName.setText(item.toHouseholdForm()?.form2?.getFullName())
     }
 
     override fun onGetHouseholdItemFailure(msg: String?) {

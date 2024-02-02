@@ -129,9 +129,9 @@ fun Nominee?.toSummary() : String? {
 }
 
 data class AlForm1(
-    var householdFirstName: String? = null,
-    var householdMiddleName: String? = null,
-    var householdLastName: String? = null,
+    var householdName: String? = null,
+//    var householdMiddleName: String? = null,
+//    var householdLastName: String? = null,
     var alternateFirstName: String? = null,
     var alternateMiddleName: String? = null,
     var alternateLastName: String? = null,

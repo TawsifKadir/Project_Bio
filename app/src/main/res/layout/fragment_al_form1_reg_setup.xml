@@ -45,45 +45,7 @@
                         android:text="Household First Name (min 3 letters)" />
 
                     <EditText
-                        android:id="@+id/etHouseholdFirstName"
-                        style="@style/AppEditText.Form.Text" />
-
-                </LinearLayout>
-
-                <include layout="@layout/view_margin_space" />
-
-                <LinearLayout
-                    style="@style/AppLinearLayoutInputBox"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/AppTextView.Input.Header"
-                        android:text="Household Middle Name (min 3 letters)" />
-
-                    <EditText
-                        android:id="@+id/etHouseholdMiddleName"
-                        style="@style/AppEditText.Form.Text" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    style="@style/AppLinearLayoutInputBox"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/AppTextView.Input.Header"
-                        android:text="Household Last Name (min 3 letters)" />
-
-                    <EditText
-                        android:id="@+id/etHouseholdLastName"
+                        android:id="@+id/etHouseholdName"
                         style="@style/AppEditText.Form.Text" />
 
                 </LinearLayout>
@@ -99,6 +61,7 @@
                 </LinearLayout>
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -167,6 +130,7 @@
                 </LinearLayout>
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -182,9 +146,9 @@
                         android:text="@string/alternate_age" />
 
                     <EditText
-                        android:maxLength="2"
                         android:id="@+id/etAge"
-                        style="@style/AppEditText.Form.Number" />
+                        style="@style/AppEditText.Form.Number"
+                        android:maxLength="2" />
 
                 </LinearLayout>
 
@@ -211,13 +175,13 @@
                         <RadioButton
                             android:id="@+id/rbYes"
                             style="@style/AppRadioButton.Form"
-                            android:text="@string/yes"/>
+                            android:text="@string/yes" />
 
                         <RadioButton
                             android:id="@+id/rbNo"
                             style="@style/AppRadioButton.Form"
-                            android:text="@string/no"
-                            android:checked="true"  />
+                            android:checked="true"
+                            android:text="@string/no" />
 
                     </RadioGroup>
 
@@ -226,11 +190,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/llIdType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <LinearLayout
                     style="@style/AppLinearLayoutInputBox"
@@ -249,11 +213,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/llIdTypeInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
 
                 <LinearLayout
@@ -315,6 +279,7 @@
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
