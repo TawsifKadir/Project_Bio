@@ -18,6 +18,11 @@ fun Double?.isNull(): Boolean {
     return this != null
 }
 
+fun Int?.plusOne(): Int {
+    if (this == null) return 0
+    return this.plus(1)
+}
+
 fun String?.isYes(): Boolean {
     if (this == null) return false
     return this.equals("Yes", ignoreCase = true)

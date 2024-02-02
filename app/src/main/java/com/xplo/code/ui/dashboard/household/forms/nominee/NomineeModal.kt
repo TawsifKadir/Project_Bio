@@ -36,15 +36,6 @@ class NomineeModal(builder: Builder) : BottomSheetDialogFragment(), NomineeModal
     companion object {
         const val TAG = "NomineeModal"
 
-
-//        @JvmStatic
-//        fun newInstance(): LoginBottomSheet {
-//            val fragment = LoginBottomSheet()
-//            val bundle = Bundle()
-//            fragment.arguments = bundle
-//            //bundle.putBoolean(LoginOptionFragment.KEY_IS_SIGNUP, isSignup)
-//            return fragment
-//        }
     }
 
     private lateinit var binding: BsdNomineeRootBinding
@@ -55,11 +46,13 @@ class NomineeModal(builder: Builder) : BottomSheetDialogFragment(), NomineeModal
     private var fm: FragmentManager
 
     private var parent: String? = null
+    private var no: Int = 0
 
     init {
         this.fm = builder.fm
         this.listener = builder.listener
         this.parent = builder.parent
+        this.no = builder.no
     }
 
     override fun onAttach(context: Context) {
@@ -302,7 +295,7 @@ class NomineeModal(builder: Builder) : BottomSheetDialogFragment(), NomineeModal
         Log.d(TAG, "navigateToFirstPage() called")
 
         doFragmentTransaction(
-            NomineeInputFragment.newInstance(null),
+            NomineeInputFragment.newInstance(null, no),
             NomineeInputFragment.TAG,
             true,
             false
@@ -342,10 +335,13 @@ class NomineeModal(builder: Builder) : BottomSheetDialogFragment(), NomineeModal
 
         var listener: Listener? = null
         var parent: String? = null
+        var no: Int = 0
 
         fun listener(listener: Listener?) = apply { this.listener = listener }
 
         fun parent(parent: String?) = apply { this.parent = parent }
+
+        fun no(no: Int) = apply { this.no = no }
 
         fun build() = NomineeModal(this)
 

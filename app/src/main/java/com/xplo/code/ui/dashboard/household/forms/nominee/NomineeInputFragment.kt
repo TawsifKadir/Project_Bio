@@ -39,12 +39,14 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
 
         @JvmStatic
         fun newInstance(
-            parent: String?
+            parent: String?,
+            no: Int
         ): NomineeInputFragment {
             Log.d(TAG, "newInstance() called with: parent = $parent")
             val fragment = NomineeInputFragment()
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
+            bundle.putInt(Bk.KEY_NO, no)
             fragment.arguments = bundle
             return fragment
         }
@@ -67,6 +69,8 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
     private lateinit var rgReadWrite: RadioGroup
     private lateinit var rbReadWriteYes: RadioButton
     private lateinit var rbReadWriteNo: RadioButton
+
+    private var nomineeNo = 0
 
 
     override fun onAttach(context: Context) {
@@ -98,6 +102,10 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
     override fun initInitial() {
         interactor = this.parentFragment as NomineeModal
 
+        arguments?.let {
+            nomineeNo = it.getInt(Bk.KEY_NO)
+        }
+
         etFirstName = binding.include.etFirstName
         etMiddleName = binding.include.etMiddleName
         etLastName = binding.include.etLastName
@@ -111,6 +119,8 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
     }
 
     override fun initView() {
+
+        binding.tvHeader.text = getNomineeHeader(nomineeNo)
 
         bindSpinnerData(spRelation, UiData.relationshipOptions)
         bindSpinnerData(spGender, UiData.genderOptions)
@@ -198,5 +208,16 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
 
     override fun onPopulateView() {
         Log.d(TAG, "onPopulateView() called")
+    }
+
+    private fun getNomineeHeader(number: Int): String {
+        when (number) {
+            1 -> return "First Nominee"
+            2 -> return "Second Nominee"
+            3 -> return "Third Nominee"
+            4 -> return "Fourth Nominee"
+            5 -> return "Fifth Nominee"
+        }
+        return "First Nominee"
     }
 }

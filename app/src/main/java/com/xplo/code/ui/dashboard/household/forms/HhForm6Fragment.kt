@@ -22,6 +22,7 @@ import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.gone
 import com.xplo.code.core.ext.isNo
 import com.xplo.code.core.ext.isYes
+import com.xplo.code.core.ext.plusOne
 import com.xplo.code.core.ext.visible
 import com.xplo.code.databinding.FragmentHhForm6NomineeBinding
 import com.xplo.code.ui.dashboard.UiData
@@ -270,6 +271,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View,
             NomineeModal.Builder(requireActivity().supportFragmentManager)
                 .listener(this)
                 .parent(null)
+                .no(getNomineeNo())
                 .build()
                 .show()
 
@@ -278,6 +280,10 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View,
 
         addNomineeView(rootForm.form6.getNomineeNumber(), null)
 
+    }
+
+    private fun getNomineeNo(): Int {
+        return adapter?.itemCount.plusOne()
     }
 
     override fun onGetANomineeFromPopup(nominee: Nominee?) {
