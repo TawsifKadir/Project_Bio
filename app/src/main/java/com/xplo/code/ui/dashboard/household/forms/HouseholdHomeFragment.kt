@@ -28,7 +28,6 @@ import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.databinding.FragmentHouseholdHomeBinding
-import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
@@ -146,35 +145,11 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         }
 
         binding.btRegistration.setOnClickListener {
-            askForAcknowledgement()
+            askForConsent()
         }
 
     }
 
-    fun askForAcknowledgement (){
-        XDialogSheet.Builder(requireActivity().supportFragmentManager)
-            .setLayoutId(R.layout.bsd_consent_sheet)
-            .setTitle("Consent")
-            .setMessage(getString(R.string.agreement))
-            .setPosButtonText("Yes")
-            .setNegButtonText("No")
-            .setCancelable(true)
-            .setListener(object : XDialogSheet.DialogListener {
-                override fun onClickPositiveButton() {
-                    getLocation()
-                }
-
-                override fun onClickNegativeButton() {
-
-                }
-
-                override fun onClickNeutralButton() {
-
-                }
-            })
-            .build()
-            .show()
-    }
     override fun onResume() {
         super.onResume()
         setToolbarTitle("Household")
@@ -287,5 +262,34 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         val uri = Uri.fromParts("package", requireContext().packageName, null)
         intent.data = uri
         startActivityForResult(intent, 101)
+    }
+
+    private fun askForConsent() {
+        XDialogSheet.Builder(requireActivity().supportFragmentManager)
+            .setLayoutId(R.layout.bsd_consent_sheet)
+            .setTitle("Consent")
+            .setMessage(getString(R.string.agreement))
+            .setPosButtonText("Yes")
+            .setNegButtonText("No")
+            .setCancelable(true)
+            .setListener(object : XDialogSheet.DialogListener {
+                override fun onClickPositiveButton() {
+                    onGetConsent()
+                }
+
+                override fun onClickNegativeButton() {
+
+                }
+
+                override fun onClickNeutralButton() {
+
+                }
+            })
+            .build()
+            .show()
+    }
+
+    private fun onGetConsent() {
+        getLocation()
     }
 }

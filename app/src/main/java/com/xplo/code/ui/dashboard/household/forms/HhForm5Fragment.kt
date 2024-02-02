@@ -7,15 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.xplo.code.base.BaseFragment
+import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.databinding.FragmentHhForm5FingerBinding
-import com.xplo.code.ui.dashboard.UiData
+import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
-import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.HhForm5
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
@@ -134,7 +133,8 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View {
 
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
-        interactor?.navigateToForm6()
+        //interactor?.navigateToForm6()
+        askForConsent()
     }
 
     override fun onReadInput() {
@@ -159,5 +159,35 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View {
 
     override fun onPopulateView() {
         Log.d(TAG, "onPopulateView() called")
+    }
+
+
+    private fun askForConsent() {
+        XDialogSheet.Builder(requireActivity().supportFragmentManager)
+            .setLayoutId(R.layout.bsd_consent_sheet)
+            .setTitle("Consent Nominee")
+            .setMessage(getString(R.string.agreement))
+            .setPosButtonText("Yes")
+            .setNegButtonText("No")
+            .setCancelable(true)
+            .setListener(object : XDialogSheet.DialogListener {
+                override fun onClickPositiveButton() {
+                    onGetConsent()
+                }
+
+                override fun onClickNegativeButton() {
+
+                }
+
+                override fun onClickNeutralButton() {
+
+                }
+            })
+            .build()
+            .show()
+    }
+
+    private fun onGetConsent() {
+        interactor?.navigateToForm6()
     }
 }
