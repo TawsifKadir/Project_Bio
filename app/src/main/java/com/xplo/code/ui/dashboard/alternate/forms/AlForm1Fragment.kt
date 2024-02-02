@@ -71,13 +71,19 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
     private var id: String? = null
 
+    private lateinit var etHouseholdFirstName: EditText
+    private lateinit var etHouseholdMiddleName: EditText
+    private lateinit var etHouseholdLastName: EditText
+
+    private lateinit var etAlternateFirstName: EditText
+    private lateinit var etAlternateMiddleName: EditText
+    private lateinit var etAlternateLastName: EditText
+
     private lateinit var spGender: Spinner
     private lateinit var spAlternateRelation: Spinner
     private lateinit var etPhoneNo: EditText
     private lateinit var etIdNumber: EditText
     private lateinit var etAge: EditText
-    private lateinit var etAlternateName: EditText
-    private lateinit var etName: EditText
 
     private lateinit var spIdType: Spinner
 
@@ -124,10 +130,17 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         etPhoneNo = binding.etPhoneNo
         etIdNumber = binding.etIdNumber
         etAge = binding.etAge
-        etAlternateName = binding.etAlternateName
-        etName = binding.etName
         spIdType = binding.spIdType
         rgId = binding.rgId
+
+
+        etHouseholdFirstName = binding.etHouseholdFirstName
+        etHouseholdMiddleName = binding.etHouseholdMiddleName
+        etHouseholdLastName = binding.etHouseholdLastName
+
+        etAlternateFirstName = binding.etAlternateFirstName
+        etAlternateMiddleName = binding.etAlternateMiddleName
+        etAlternateLastName = binding.etAlternateLastName
     }
 
     override fun initView() {
@@ -252,8 +265,6 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
         val form = AlForm1()
 
-        form.householdName = chkEditText(etName, UiData.ER_ET_DF)
-        form.alternateName = chkEditText(etAlternateName, UiData.ER_ET_DF)
         form.age = chkEditText(etAge, UiData.ER_ET_DF)
         form.idNumber = chkEditText(etIdNumber, UiData.ER_ET_DF)
         form.phoneNumber = chkEditText(etPhoneNo, UiData.ER_ET_DF)
@@ -268,6 +279,15 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
             form.idNumberType = null
         }
         form.idIsOrNot = chkRadioGroup(rgId, UiData.ER_RB_DF)
+
+        form.householdFirstName = chkEditText3Char(etHouseholdFirstName, UiData.ER_ET_DF)
+        //form.middleName = chkEditText(etMiddleName, UiData.ER_ET_DF)
+        form.householdLastName = chkEditText3Char(etHouseholdLastName, UiData.ER_ET_DF)
+
+        form.alternateFirstName = chkEditText3Char(etAlternateFirstName, UiData.ER_ET_DF)
+        //form.middleName = chkEditText(etMiddleName, UiData.ER_ET_DF)
+        form.alternateLastName = chkEditText3Char(etAlternateLastName, UiData.ER_ET_DF)
+
 
         if (!form.isOk()) {
             return
@@ -297,8 +317,15 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         etAge.setText("29")
         etIdNumber.setText("122")
         etPhoneNo.setText("01829372012")
-        etAlternateName.setText("Nasif Ahmed")
         spIdType.setSelection(1)
+
+        etHouseholdFirstName.setText("Mohd")
+        etHouseholdMiddleName.setText("Moniruzzaman")
+        etHouseholdLastName.setText("Shadhin")
+
+        etAlternateFirstName.setText("Mohd")
+        etAlternateMiddleName.setText("Moniruzzaman")
+        etAlternateLastName.setText("Shadhin")
 
     }
 
@@ -328,13 +355,17 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
         setSpinnerItem(spIdType, UiData.idType, form.idNumberType)
         rgId.checkRbOpAB(binding.rbYes, binding.rbNo, form.idIsOrNot)
-        etName.setText(form.householdName)
         etAge.setText(form.age.toString())
         etIdNumber.setText(form.idNumber)
         etPhoneNo.setText(form.phoneNumber)
-        etAlternateName.setText(form.alternateName)
 
+        etHouseholdFirstName.setText(form.householdFirstName)
+        etHouseholdMiddleName.setText(form.householdMiddleName)
+        etHouseholdLastName.setText(form.householdLastName)
 
+        etAlternateFirstName.setText(form.alternateFirstName)
+        etAlternateMiddleName.setText(form.alternateMiddleName)
+        etAlternateLastName.setText(form.alternateLastName)
     }
 
     override fun onGetHouseholdItem(item: HouseholdItem?) {
@@ -342,7 +373,9 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
         interactor?.setHouseholdItem(item)
 
-        binding.etName.setText(item.toHouseholdForm()?.form2.getFullName())
+        binding.etHouseholdFirstName.setText(item.toHouseholdForm()?.form2?.firstName ?: "")
+        binding.etHouseholdMiddleName.setText(item.toHouseholdForm()?.form2?.middleName ?: "")
+        binding.etHouseholdLastName.setText(item.toHouseholdForm()?.form2?.lastName ?: "")
     }
 
     override fun onGetHouseholdItemFailure(msg: String?) {

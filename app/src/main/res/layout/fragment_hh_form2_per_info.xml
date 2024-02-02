@@ -156,6 +156,7 @@
                         android:text="@string/respondent_age_max_3_digit" />
 
                     <EditText
+                        android:maxLength="2"
                         android:id="@+id/etAge"
                         style="@style/AppEditText.Form.Number" />
 

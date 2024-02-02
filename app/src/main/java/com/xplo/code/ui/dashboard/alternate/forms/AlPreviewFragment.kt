@@ -93,7 +93,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
         val rootForm = interactor?.getRootForm()
 
         //info
-        binding.txtHouseHoldName.text = rootForm?.form1?.householdName ?: ""
+        binding.txtHouseHoldName.text = rootForm?.form1?.householdFirstName ?: ""
         binding.txtAltName.text = rootForm?.form1?.alternateName ?: ""
         binding.txtAge.text = rootForm?.form1?.age ?: ""
         binding.txtIdNo.text = rootForm?.form1?.idNumber ?: ""
