@@ -171,8 +171,8 @@ fun HouseholdForm?.toSummary(): String? {
     if (this == null) return null
 
     var sb = StringBuilder()
-        .append("name: " + this.form2.getFullName())
-        .append("\nsize: " + this.alternates.size)
+        .append("Name: " + this.form2.getFullName())
+        .append("\nAlternate Added: " + this.alternates.size)
 
 
     var txt = sb.toString()

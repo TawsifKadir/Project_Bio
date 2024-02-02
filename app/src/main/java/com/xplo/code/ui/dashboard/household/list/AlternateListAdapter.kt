@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toSummary
-import com.xplo.code.databinding.RowHouseholdItemBinding
+import com.xplo.code.databinding.RowAlternateItemBinding
 
 /**
  * Copyright 2022 (C) xplo
@@ -15,16 +15,16 @@ import com.xplo.code.databinding.RowHouseholdItemBinding
  * Desc     :
  * Comment  :
  */
-class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolder>() {
+class AlternateListAdapter : RecyclerView.Adapter<AlternateListAdapter.ViewHolder>() {
 
     companion object {
-        private const val TAG = "HouseholdListAdapter"
+        private const val TAG = "AlternateListAdapter"
     }
 
     private var dataset = ArrayList<HouseholdItem>()
     private var listener: OnItemClickListener? = null
 
-    inner class ViewHolder(private val binding: RowHouseholdItemBinding) :
+    inner class ViewHolder(private val binding: RowAlternateItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -36,19 +36,19 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
                 )
             }
 
-            binding.btDelete.setOnClickListener {
-                listener?.onClickHouseholdItemDelete(
-                    getItem(absoluteAdapterPosition),
-                    absoluteAdapterPosition
-                )
-            }
-
-            binding.btAddAlternate.setOnClickListener {
-                listener?.onClickHouseholdItemAddAlternate(
-                    getItem(absoluteAdapterPosition),
-                    absoluteAdapterPosition
-                )
-            }
+//            binding.btDelete.setOnClickListener {
+//                listener?.onClickHouseholdItemDelete(
+//                    getItem(absoluteAdapterPosition),
+//                    absoluteAdapterPosition
+//                )
+//            }
+//
+//            binding.btAddAlternate.setOnClickListener {
+//                listener?.onClickHouseholdItemAddAlternate(
+//                    getItem(absoluteAdapterPosition),
+//                    absoluteAdapterPosition
+//                )
+//            }
 
         }
 
@@ -57,18 +57,14 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
             //val form = item.toHouseholdForm()
             binding.tvId.text = item.id.toString()
             binding.tvData.text = item.toSummary()
-            if (item.isSynced) {
-                binding.tvStatus.text = "Synced"
-            } else {
-                binding.tvStatus.text = "Not Synced"
-            }
+            //binding.tvStatus.text = item.isSynced.toString()
         }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            RowHouseholdItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            RowAlternateItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         // set the view's size, margins, paddings and layout parameters
         return ViewHolder(binding)
     }

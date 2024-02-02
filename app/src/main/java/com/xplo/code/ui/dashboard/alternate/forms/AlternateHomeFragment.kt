@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
+import com.xplo.code.core.ext.gone
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.databinding.FragmentAlternateHomeBinding
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
-import com.xplo.code.ui.dashboard.household.list.HouseholdListAdapter
+import com.xplo.code.ui.dashboard.household.list.AlternateListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -30,7 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
-    HouseholdListAdapter.OnItemClickListener {
+    AlternateListAdapter.OnItemClickListener {
 
     companion object {
         const val TAG = "AlternateHomeFragment"
@@ -52,7 +53,7 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
     //private lateinit var presenter: HomeContract.Presenter
     private var interactor: AlternateContract.View? = null
 
-    private var adapter: HouseholdListAdapter? = null
+    private var adapter: AlternateListAdapter? = null
 
 
     override fun onAttach(context: Context) {
@@ -91,7 +92,7 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
 
-        adapter = HouseholdListAdapter()
+        adapter = AlternateListAdapter()
         adapter?.setOnItemClickListener(this)
         binding.recyclerView.adapter = adapter
 
@@ -137,6 +138,8 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
         super.onResume()
         setToolbarTitle("Alternate Home")
 
+        binding.llFooter.gone()
+
     }
 
 
@@ -164,7 +167,8 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
     override fun onClickHouseholdItem(item: HouseholdItem, pos: Int) {
         Log.d(TAG, "onClickHouseholdItem() called with: item = ${item.id}, pos = $pos")
         //dToast(item.title)
-        navigateToHouseholdDetails(item)
+        //navigateToHouseholdDetails(item)
+        interactor?.navigateToForm1(item.uuid,true, false)
     }
 
     override fun onClickHouseholdItemDelete(item: HouseholdItem, pos: Int) {
