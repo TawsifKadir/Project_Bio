@@ -128,6 +128,7 @@
     </string-array>
 
     <string-array name="why_not">
+        <item>Select Reason Why Not?</item>
         <item>All eligible household members have other commitments that occupy their time.</item>
         <item>I am uncertain about the ability of the household members to comply with the program\'s expectations or conditions.</item>
         <item>The health or physical condition of the eligible household members prevents me from participating.</item>
@@ -236,7 +237,7 @@
     <string name="left_little">Left Little</string>
 
     <string name="would_anyone_from_your_household_including_yourself_be_interested_in_participating">Would anyone from your household (including yourself) be interested in participating?</string>
-    <string name="select_reason_why_not">Select Reason Why Not?</string>
+    <string name="select_reason_why_not">Why Not?</string>
     <string name="nominee_first_name_min_3_letters">Nominee First Name(min 3 letters)</string>
     <string name="nominee_middle_name">Nominee Middle Name</string>
     <string name="nominee_last_name_min_3_letters">Nominee Last Name(min 3 letters)</string>
