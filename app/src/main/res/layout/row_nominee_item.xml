@@ -4,7 +4,7 @@
     android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:backgroundTint="?attr/colorBackground"
+    android:backgroundTint="?attr/colorBackgroundSecondary"
     android:foreground="?android:attr/selectableItemBackground"
     app:cardUseCompatPadding="true">
 
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"

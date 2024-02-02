@@ -349,14 +349,14 @@
     </declare-styleable>
 
 
-    <style name="BottomSheetDialog.Login" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+    <style name="AppBottomSheetDialog.Default" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
-        <item name="bottomSheetStyle">@style/BottomSheetStyleWrapper.Login</item>
+        <item name="bottomSheetStyle">@style/BottomSheetStyleWrapper.Default</item>
     </style>
 
-    <style name="BottomSheetStyleWrapper.Login" parent="Widget.Design.BottomSheet.Modal">
+    <style name="BottomSheetStyleWrapper.Default" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
     </style>
 

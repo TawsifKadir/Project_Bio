@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.core.widget.ImageViewCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import com.xplo.code.R
@@ -55,6 +56,8 @@ class XDialogSheet(builder: Builder) : BottomSheetDialogFragment() {
     private var btDialogNegativeButton: MaterialButton? = null
     private var btDialogNeutralButton: MaterialButton? = null
 
+    private var mBehavior: BottomSheetBehavior<*>? = null
+
     init {
         //this.activity = builder.activity;
         fragmentManager = builder.fragmentManager
@@ -73,6 +76,8 @@ class XDialogSheet(builder: Builder) : BottomSheetDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog);
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.AppBottomSheetDialog_Default)
+
     }
 
     override fun onCreateView(
@@ -101,7 +106,15 @@ class XDialogSheet(builder: Builder) : BottomSheetDialogFragment() {
         btDialogPositiveButton = view.findViewById(R.id.btDialogPositiveButton)
         btDialogNegativeButton = view.findViewById(R.id.btDialogNegativeButton)
         btDialogNeutralButton = view.findViewById(R.id.btDialogNeutralButton)
+
+        mBehavior = BottomSheetBehavior.from(view.parent as View)
+        mBehavior?.isDraggable = false
         setView()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
     private fun setView() {

@@ -11,6 +11,12 @@ fun HhForm2?.getFullName(): String? {
     return name.replace(" null ", " ")
 }
 
+fun Nominee?.getFullName(): String? {
+    if (this == null) return null
+    var name = "${this.firstName} ${this.middleName} ${this.lastName}"
+    return name.replace(" null ", " ")
+}
+
 fun HhForm1.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
 

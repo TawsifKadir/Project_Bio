@@ -40,9 +40,9 @@ fun HouseholdItem?.toSummary(): String? {
     if (this == null) return null
     val form = this.toHouseholdForm()
     var txt = "" +
-//            "\nid: " + this.id.toString() +
-            "\n" + form.toSummary()+
+//            "id: " + this.id.toString() +
+            "" + form.toSummary()+
             "\n" + "Not Synced"
-    return txt
+    return txt.trim()
 }
 

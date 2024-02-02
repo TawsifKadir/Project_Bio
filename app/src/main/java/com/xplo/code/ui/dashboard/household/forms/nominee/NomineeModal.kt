@@ -61,7 +61,7 @@ class NomineeModal(builder: Builder) : BottomSheetDialogFragment(), NomineeModal
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialog_Login)
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.AppBottomSheetDialog_Default)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -73,6 +73,7 @@ class NomineeModal(builder: Builder) : BottomSheetDialogFragment(), NomineeModal
         dialog.setContentView(view)
         dialog.setCanceledOnTouchOutside(false)
         mBehavior = BottomSheetBehavior.from(view.parent as View)
+        mBehavior?.isDraggable = false
 
 //        // full screen
 //        val parentLayout = dialog.findViewById<View>(
@@ -171,7 +172,8 @@ class NomineeModal(builder: Builder) : BottomSheetDialogFragment(), NomineeModal
 
     override fun onStart() {
         super.onStart()
-        mBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+        //mBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+        mBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
     override fun onResume() {
