@@ -28,6 +28,7 @@ import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.databinding.FragmentHouseholdHomeBinding
+import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.list.HouseholdListAdapter
@@ -144,11 +145,35 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         }
 
         binding.btRegistration.setOnClickListener {
-            getLocation()
+            askForAcknowledgement()
         }
 
     }
 
+    fun askForAcknowledgement (){
+        XDialog.Builder(requireActivity().supportFragmentManager)
+            .setLayoutId(R.layout.custom_dialog_acknowledgment)
+            .setTitle("Consent")
+            .setMessage(getString(R.string.agreement))
+            .setPosButtonText("Yes")
+            .setNegButtonText("No")
+            .setCancelable(false)
+            .setListener(object : XDialog.DialogListener {
+                override fun onClickPositiveButton() {
+                    getLocation()
+                }
+
+                override fun onClickNegativeButton() {
+
+                }
+
+                override fun onClickNeutralButton() {
+
+                }
+            })
+            .build()
+            .show()
+    }
     override fun onResume() {
         super.onResume()
         setToolbarTitle("Household")
