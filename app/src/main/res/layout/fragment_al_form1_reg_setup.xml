@@ -103,7 +103,68 @@
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
-                        android:text="@string/alternate_id" />
+                        android:text="Do you have a national ID?" />
+
+
+                    <RadioGroup
+                        android:id="@+id/rgId"
+                        style="@style/AppRadioGroupForm">
+
+                        <RadioButton
+                            android:id="@+id/rbYes"
+                            style="@style/AppRadioButton.Form"
+                            android:text="@string/yes"/>
+
+                        <RadioButton
+                            android:id="@+id/rbNo"
+                            style="@style/AppRadioButton.Form"
+                            android:text="@string/no"
+                            android:checked="true"  />
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/llIdType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    style="@style/AppLinearLayoutInputBox"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/AppTextView.Input.Header"
+                        android:text="What type of ID number do you possess?" />
+
+
+                    <Spinner
+                        android:id="@+id/spIdType"
+                        style="@style/AppSpinnerForm" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/llIdTypeInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    style="@style/AppLinearLayoutInputBox"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/AppTextView.Input.Header"
+                        android:text="@string/respondent_id_number" />
 
                     <EditText
                         android:id="@+id/etIdNumber"
@@ -111,7 +172,12 @@
 
                 </LinearLayout>
 
-                <include layout="@layout/view_margin_space" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     style="@style/AppLinearLayoutInputBox"

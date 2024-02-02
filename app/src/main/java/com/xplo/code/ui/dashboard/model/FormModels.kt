@@ -122,6 +122,8 @@ data class AlForm1(
     var alternateName: String? = null,
     var age: String? = null,
     var idNumber: String? = null,
+    var idNumberType: String? = null,
+    var idIsOrNot: String? = null,
     var phoneNumber: String? = null,
     var selectAlternateRlt: String? = null,
     var gender: String? = null

@@ -255,7 +255,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         setSpinnerItem(spSelectionReason, UiData.selectionReason, form.selectionReason)
 
         rgSelectionCriteria.checkRbOpAB(binding.rbA, binding.rbB, form.selectionCriteria)
-        rgId.checkRbOpAB(binding.rbA, binding.rbB, form.idIsOrNot)
+        rgId.checkRbOpAB(binding.rbYes, binding.rbNo, form.idIsOrNot)
 
         etFirstName.setText(form.firstName)
         etMiddleName.setText(form.middleName)
@@ -308,7 +308,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
             form.spouseLastName = null
         }
 
-        if(binding.llIdTypeInput.isVisible &&  binding.llIdInput.isVisible){
+        if(binding.llIdTypeInput.isVisible &&  binding.llIdType.isVisible){
             form.idNumber = chkEditText(etIdNumber, UiData.ER_ET_DF)
             form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
         }else{

@@ -8,11 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.RadioGroup
 import android.widget.Spinner
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
+import com.xplo.code.core.ext.checkRbOpAB
 import com.xplo.code.core.ext.gone
 import com.xplo.code.core.ext.visible
 import com.xplo.code.data.db.models.HouseholdItem
@@ -75,7 +79,12 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
     private lateinit var etAlternateName: EditText
     private lateinit var etName: EditText
 
+    private lateinit var spIdType: Spinner
 
+    private lateinit var etSpouseFirstName: EditText
+    private lateinit var etSpouseMiddleName: EditText
+    private lateinit var etSpouseLastName: EditText
+    private lateinit var rgId: RadioGroup
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -117,6 +126,8 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         etAge = binding.etAge
         etAlternateName = binding.etAlternateName
         etName = binding.etName
+        spIdType = binding.spIdType
+        rgId = binding.rgId
     }
 
     override fun initView() {
@@ -129,6 +140,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
         viewModel.getHouseholdItem(id)
 
+        bindSpinnerData(spIdType, UiData.idType)
     }
 
     override fun initObserver() {
@@ -169,8 +181,26 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
         onLongClickDataGeneration()
         onGenerateDummyInput()
+
+
+        binding.rgId.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.rbYes -> doSomethingForYes()
+                R.id.rbNo -> doSomethingForNo()
+                else -> {}
+            }
+        }
+
+    }
+    fun doSomethingForYes() {
+        binding.llIdType.isVisible = true
+        binding.llIdTypeInput.isVisible = true
     }
 
+    fun doSomethingForNo() {
+        binding.llIdType.isVisible = false
+        binding.llIdTypeInput.isVisible = false
+    }
     override fun onPause() {
         super.onPause()
         //EventBus.getDefault().unregister(this)
@@ -230,6 +260,14 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         form.selectAlternateRlt = chkSpinner(spAlternateRelation, UiData.ER_SP_DF)
         form.gender = chkSpinner(spGender, UiData.ER_SP_DF)
 
+        if(binding.llIdTypeInput.isVisible &&  binding.llIdType.isVisible){
+            form.idNumber = chkEditText(etIdNumber, UiData.ER_ET_DF)
+            form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
+        }else{
+            form.idNumber = null
+            form.idNumberType = null
+        }
+        form.idIsOrNot = chkRadioGroup(rgId, UiData.ER_RB_DF)
 
         if (!form.isOk()) {
             return
@@ -260,7 +298,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         etIdNumber.setText("122")
         etPhoneNo.setText("01829372012")
         etAlternateName.setText("Nasif Ahmed")
-
+        spIdType.setSelection(1)
 
     }
 
@@ -288,6 +326,8 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         setSpinnerItem(spAlternateRelation, UiData.relationshipOptions, form.selectAlternateRlt)
 
 
+        setSpinnerItem(spIdType, UiData.idType, form.idNumberType)
+        rgId.checkRbOpAB(binding.rbYes, binding.rbNo, form.idIsOrNot)
         etName.setText(form.householdName)
         etAge.setText(form.age.toString())
         etIdNumber.setText(form.idNumber)
