@@ -8,18 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.ext.visible
+import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.databinding.FragmentAlPreviewBinding
 import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
-import com.xplo.code.ui.dashboard.alternate.AlternateViewModel
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
-import com.xplo.code.ui.dashboard.model.AlForm1
 import com.xplo.code.ui.dashboard.model.AlternateForm
+import com.xplo.code.ui.dashboard.model.toJson
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -132,6 +133,32 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
 
     override fun initObserver() {
 
+        lifecycleScope.launchWhenStarted {
+            viewModel.event.collect { event ->
+                when (event) {
+
+                    is HouseholdViewModel.Event.Loading -> {
+                        //showLoading()
+                    }
+
+                    is HouseholdViewModel.Event.UpdateHouseholdItemSuccess -> {
+                        hideLoading()
+                        onUpdateSuccess(event.id)
+                        viewModel.clearEvent()
+                    }
+
+                    is HouseholdViewModel.Event.UpdateHouseholdItemFailure -> {
+                        hideLoading()
+                        onUpdateFailure(event.msg)
+                        viewModel.clearEvent()
+                    }
+
+
+                    else -> Unit
+                }
+            }
+        }
+
         binding.viewButtonBackNext.btBack.setOnClickListener {
             onClickBackButton()
         }
@@ -162,6 +189,38 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
 
     }
 
+    override fun onUpdateSuccess(id: String?) {
+        Log.d(TAG, "onUpdateSuccess() called with: id = $id")
+
+        XDialog.Builder(requireActivity().supportFragmentManager)
+            .setLayoutId(R.layout.custom_dialog_pnn)
+            .setTitle(getString(R.string.alternate_reg))
+            .setMessage(getString(R.string.alternate_details))
+            .setPosButtonText(getString(R.string.ok))
+            .setNegButtonText(getString(R.string.cancel))
+            .setThumbId(R.drawable.ic_logo_photo)
+            .setCancelable(false)
+            .setListener(object : XDialog.DialogListener {
+                override fun onClickPositiveButton() {
+
+                }
+
+                override fun onClickNegativeButton() {
+
+                }
+
+                override fun onClickNeutralButton() {
+                }
+            })
+            .build()
+            .show()
+    }
+
+    override fun onUpdateFailure(msg: String?) {
+        Log.d(TAG, "onUpdateFailure() called with: msg = $msg")
+
+    }
+
     override fun onClickBackButton() {
         Log.d(TAG, "onClickBackButton() called")
         interactor?.onBackButton()
@@ -170,27 +229,22 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
 
-        XDialog.Builder(requireActivity().supportFragmentManager)
-            .setLayoutId(R.layout.custom_dialog_pnn)
-            .setTitle(getString(R.string.alternate_reg))
-            .setMessage(getString(R.string.alternate_details))
-            .setPosButtonText(getString(R.string.next))
-            .setNegButtonText(getString(R.string.cancel))
-            .setThumbId(R.drawable.ic_logo_photo)
-            .setCancelable(false)
-            .setListener(object : XDialog.DialogListener {
-                override fun onClickPositiveButton() {
-                    interactor?.navigateToForm3()
-                }
 
-                override fun onClickNegativeButton() {
-                }
+        val rootForm = interactor?.getRootForm()
+        if (rootForm == null) {
+            return
+        }
 
-                override fun onClickNeutralButton() {
-                }
-            })
-            .build()
-            .show()
+        var hhItem = interactor?.getHouseholdItem()
+        if (hhItem == null) return
+
+        val hhForm = hhItem.toHouseholdForm()
+        hhForm?.alternates?.add(rootForm)
+        hhItem.data = hhForm.toJson()
+
+        viewModel.updateHouseholdItem(hhItem)
+
+
     }
 
     override fun onReadInput() {

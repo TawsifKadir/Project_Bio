@@ -59,6 +59,7 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
     private val viewModel: HouseholdViewModel by viewModels()
     //private lateinit var toolbar: Toolbar
 
+    private var householdItem: HouseholdItem? = HouseholdItem()
     private var rootForm: AlternateForm? = AlternateForm()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -278,5 +279,13 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
 
     override fun setRootForm(form: AlternateForm?) {
         this.rootForm = form
+    }
+
+    override fun getHouseholdItem(): HouseholdItem? {
+        return this.householdItem
+    }
+
+    override fun setHouseholdItem(item: HouseholdItem?) {
+        this.householdItem = item
     }
 }

@@ -43,6 +43,15 @@ class DbRepoImpl @Inject constructor(
         }
     }
 
+    override suspend fun updateHousehold(item: HouseholdItem): Resource<Unit> {
+        return try {
+            val response = householdDao.update(item)
+            Resource.Success(response, null)
+        } catch (e: Exception) {
+            Resource.Failure(CallInfo(-1, e.message))
+        }
+    }
+
     override suspend fun insertHousehold(item: HouseholdItem): Resource<Unit> {
         return try {
             val response = householdDao.insert(item)

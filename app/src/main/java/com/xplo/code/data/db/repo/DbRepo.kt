@@ -18,6 +18,7 @@ interface DbRepo {
     suspend fun getHousehold(id: String): Resource<HouseholdItem>
     suspend fun getHouseholds(): Resource<List<HouseholdItem>>
     suspend fun insertHousehold(item: HouseholdItem): Resource<Unit>
+    suspend fun updateHousehold(item: HouseholdItem): Resource<Unit>
     suspend fun deleteHousehold(item: HouseholdItem): Resource<Unit>
 
     suspend fun getOptionItems(

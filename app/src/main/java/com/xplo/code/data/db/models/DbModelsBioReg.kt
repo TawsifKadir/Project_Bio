@@ -20,7 +20,7 @@ data class HouseholdItem(
     var id: Long = 0,
     @ColumnInfo(name = "uuid")
     //var id: String = UUID.randomUUID().toString(),
-    var uuid: String,
+    var uuid: String? = null,
     var data: String? = null,
     var isSynced: Boolean = false
 ) : Serializable

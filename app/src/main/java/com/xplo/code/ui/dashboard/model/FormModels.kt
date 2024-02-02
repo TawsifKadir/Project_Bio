@@ -12,8 +12,10 @@ data class HouseholdForm(
     var form5: HhForm5? = null,
     var form6: HhForm6? = null,
 
-    var alPerson1: AlternateForm? = null,
-    var alPerson2: AlternateForm? = null
+//    var alPerson1: AlternateForm? = null,
+//    var alPerson2: AlternateForm? = null
+
+    var alternates: ArrayList<AlternateForm> = arrayListOf()
 )
 
 data class AlternateForm(

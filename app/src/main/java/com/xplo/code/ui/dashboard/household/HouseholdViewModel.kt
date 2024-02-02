@@ -44,6 +44,13 @@ class HouseholdViewModel @Inject constructor(
         class SaveHouseholdFormSuccess(val id: String) : Event()
         class SaveHouseholdFormFailure(val msg: String?) : Event()
 
+        class UpdateHouseholdFormSuccess(val id: String) : Event()
+        class UpdateHouseholdFormFailure(val msg: String?) : Event()
+
+
+        class UpdateHouseholdItemSuccess(val id: String?) : Event()
+        class UpdateHouseholdItemFailure(val msg: String?) : Event()
+
         object DeleteHouseholdItemSuccess : Event()
         class DeleteHouseholdItemFailure(val msg: String?) : Event()
 
@@ -151,8 +158,51 @@ class HouseholdViewModel @Inject constructor(
                 else -> {}
             }
         }
+    }
 
+    fun updateHouseholdForm(form: HouseholdForm?) {
+        Log.d(TAG, "saveHouseholdForm() called with: form = $form")
+        if (form == null) return
 
+        val uuid = UUID.randomUUID().toString()
+        var item = HouseholdItem(data = form.toJson(), uuid = uuid)
+
+        viewModelScope.launch(dispatchers.io) {
+            _event.value = Event.Loading
+            when (val response = dbRepo.updateHousehold(item)) {
+
+                is Resource.Success -> {
+                    _event.value = Event.SaveHouseholdFormSuccess(uuid)
+                }
+
+                is Resource.Failure -> {
+                    _event.value = Event.SaveHouseholdFormFailure(response.callInfo?.msg)
+                }
+
+                else -> {}
+            }
+        }
+    }
+
+    fun updateHouseholdItem(item: HouseholdItem?) {
+        Log.d(TAG, "updateHouseholdItem() called with: item = $item")
+        if (item == null) return
+
+        viewModelScope.launch(dispatchers.io) {
+            _event.value = Event.Loading
+            when (val response = dbRepo.updateHousehold(item)) {
+
+                is Resource.Success -> {
+                    _event.value = Event.UpdateHouseholdItemSuccess(item.uuid)
+                }
+
+                is Resource.Failure -> {
+                    _event.value = Event.UpdateHouseholdItemFailure(response.callInfo?.msg)
+                }
+
+                else -> {}
+            }
+        }
     }
 
     fun getStateItems() {

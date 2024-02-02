@@ -44,6 +44,9 @@ interface AlternateContract {
         fun getRootForm(): AlternateForm?
         fun setRootForm(form: AlternateForm?)
 
+        fun getHouseholdItem(): HouseholdItem?
+        fun setHouseholdItem(item: HouseholdItem?)
+
     }
 
     interface Presenter : BaseContract.Presenter<View> {
@@ -108,6 +111,9 @@ interface AlternateContract {
     interface PreviewView : BaseContract.View, CommonView {
 
         fun onValidated(form: AlternateForm)
+
+        fun onUpdateSuccess(id: String?)
+        fun onUpdateFailure(msg: String?)
 
     }
 

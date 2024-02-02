@@ -299,6 +299,9 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
     override fun onGetHouseholdItem(item: HouseholdItem?) {
         Log.d(TAG, "onGetHouseholdItem() called with: item = $item")
+
+        interactor?.setHouseholdItem(item)
+
         binding.etName.setText(item.toHouseholdForm()?.form2.getFullName())
     }
 
