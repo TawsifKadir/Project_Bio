@@ -46,44 +46,50 @@
             style="@style/AppTextView.Dialog.Body"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:maxHeight="500dp"
             android:layout_marginTop="8dp"
+            android:maxHeight="500dp"
             android:scrollbars="vertical"
             tools:text="@string/dummy_text_big" />
     </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/viewButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="right"
         android:orientation="horizontal"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btDialogPositiveButton"
-            style="@style/AppButton.Dialog.Positive"
+            android:id="@+id/btDialogNegativeButton"
+            style="@style/AppButton.Dialog.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/confirm"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
+            android:layout_marginStart="4dp"
+            android:text="@string/cancel" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btDialogNegativeButton"
-            style="@style/AppButton.Dialog.Negative"
+            android:id="@+id/btDialogNeutralButton"
+            style="@style/AppButton.Dialog.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cancel"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginStart="4dp"
+            android:text="Neutral" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btDialogPositiveButton"
+            style="@style/AppButton.Dialog.TextButton.Positive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/confirm" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

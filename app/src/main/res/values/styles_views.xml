@@ -93,6 +93,12 @@
 
     </style>
 
+    <style name="AppButton.Dialog.TextButton.Positive" parent="AppButton.Dialog.TextButton">
+        <item name="android:textColor">?attr/colorBrand</item>
+    </style>
+    <style name="AppButton.Dialog.TextButton.Negative" parent="AppButton.Dialog.TextButton">
+    </style>
+
 
     <!--    <style name="AppButton.Bottom.Positive" parent="AppButton.Primary">-->
 
