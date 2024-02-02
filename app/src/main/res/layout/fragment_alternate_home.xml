@@ -18,11 +18,11 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btRegistration"
+            android:id="@+id/btAddAlternate"
             style="@style/AppButton.Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Registration" />
+            android:text="Add Alternate" />
 
     </LinearLayout>
 

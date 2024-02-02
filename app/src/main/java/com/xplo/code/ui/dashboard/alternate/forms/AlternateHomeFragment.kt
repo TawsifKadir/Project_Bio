@@ -127,8 +127,8 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
             }
         }
 
-        binding.btRegistration.setOnClickListener {
-
+        binding.btAddAlternate.setOnClickListener {
+            interactor?.navigateToForm1(null,false,false)
         }
 
     }

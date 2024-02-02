@@ -122,7 +122,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
     override fun initView() {
 
         //etName.setText(id)
-        etName.isEnabled = false
+        //etName.isEnabled = false
 
         bindSpinnerData(spGender, UiData.genderOptions)
         bindSpinnerData(spAlternateRelation, UiData.relationshipOptions)
