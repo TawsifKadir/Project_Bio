@@ -30,5 +30,4 @@ class SimpleBottomSheet(private val callback: (String?) -> Unit) : BottomSheetDi
         return view
     }
 
-    fun setListener()
 }

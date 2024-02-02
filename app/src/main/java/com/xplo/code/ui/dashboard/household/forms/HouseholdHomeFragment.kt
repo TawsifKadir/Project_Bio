@@ -29,6 +29,7 @@ import com.xplo.code.core.Bk
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.databinding.FragmentHouseholdHomeBinding
 import com.xplo.code.ui.components.XDialog
+import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.list.HouseholdListAdapter
@@ -151,14 +152,14 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     }
 
     fun askForAcknowledgement (){
-        XDialog.Builder(requireActivity().supportFragmentManager)
-            .setLayoutId(R.layout.custom_dialog_acknowledgment)
+        XDialogSheet.Builder(requireActivity().supportFragmentManager)
+            .setLayoutId(R.layout.bsd_consent_sheet)
             .setTitle("Consent")
             .setMessage(getString(R.string.agreement))
             .setPosButtonText("Yes")
             .setNegButtonText("No")
-            .setCancelable(false)
-            .setListener(object : XDialog.DialogListener {
+            .setCancelable(true)
+            .setListener(object : XDialogSheet.DialogListener {
                 override fun onClickPositiveButton() {
                     getLocation()
                 }

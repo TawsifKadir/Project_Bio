@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.core.widget.ImageViewCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import com.xplo.code.R
 
@@ -27,7 +28,7 @@ import com.xplo.code.R
  * Desc     :
  * Comment  :
  */
-class XDialog(builder: Builder) : DialogFragment() {
+class XDialogSheet(builder: Builder) : BottomSheetDialogFragment() {
 
     companion object {
         private const val TAG = "XDialog"
@@ -46,7 +47,7 @@ class XDialog(builder: Builder) : DialogFragment() {
     private val isCancelable: Boolean
 
     private val listener: DialogListener?
-    private var layoutRoot: LinearLayout? = null
+    private var layoutRoot: View? = null
     private var ivDialogThumb: ImageView? = null
     private var tvDialogTitle: TextView? = null
     private var tvDialogMessage: TextView? = null
@@ -122,7 +123,7 @@ class XDialog(builder: Builder) : DialogFragment() {
         if (negButtonText != null) btDialogNegativeButton?.text = negButtonText
         if (neuButtonText != null) btDialogNeutralButton?.text = neuButtonText
 
-        //tvDialogMessage?.movementMethod = ScrollingMovementMethod()
+        tvDialogMessage?.movementMethod = ScrollingMovementMethod()
 
         btDialogPositiveButton?.setOnClickListener {
             listener?.onClickPositiveButton()
@@ -212,8 +213,8 @@ class XDialog(builder: Builder) : DialogFragment() {
             return this
         }
 
-        fun build(): XDialog {
-            return XDialog(this)
+        fun build(): XDialogSheet {
+            return XDialogSheet(this)
         }
     }
 
