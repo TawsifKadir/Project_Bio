@@ -27,6 +27,21 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/llNoContentText"
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:textAlignment="center"
+            android:text="No household registered yet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="visible"
         android:id="@+id/llBody"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

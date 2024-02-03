@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -171,11 +172,21 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
     override fun onGetHouseholdList(items: List<HouseholdItem>?) {
         Log.d(TAG, "onGetHouseholdList() called with: items = ${items?.size}")
-        if (items == null) return
+        if (items == null){
+            binding.llNoContentText.visibility = View.VISIBLE
+            binding.llBody.visibility = View.GONE
+            return
+        }else{
+            binding.llNoContentText.visibility = View.GONE
+            binding.llBody.visibility = View.VISIBLE
+        }
+
         adapter?.addAll(items)
     }
 
     override fun onGetHouseholdListFailure(msg: String?) {
+            binding.llNoContentText.visibility = View.VISIBLE
+            binding.llBody.visibility = View.GONE
         Log.d(TAG, "onGetHouseholdListFailure() called with: msg = $msg")
         //showMessage(msg)
     }
