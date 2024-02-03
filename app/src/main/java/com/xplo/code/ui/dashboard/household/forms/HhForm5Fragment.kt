@@ -188,6 +188,11 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View {
     }
 
     private fun onGetConsent() {
-        interactor?.navigateToForm6()
+        if(interactor?.getRootForm()?.form1?.countryName.equals("JUBA")){
+            interactor?.navigateToPreview()
+        }else{
+            interactor?.navigateToForm6()
+        }
+
     }
 }
