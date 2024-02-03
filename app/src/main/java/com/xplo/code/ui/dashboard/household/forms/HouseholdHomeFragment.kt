@@ -176,6 +176,10 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
             binding.llNoContentText.visibility = View.VISIBLE
             binding.llBody.visibility = View.GONE
             return
+        }else if (items.isEmpty()){
+            binding.llNoContentText.visibility = View.VISIBLE
+            binding.llBody.visibility = View.GONE
+            return
         }else{
             binding.llNoContentText.visibility = View.GONE
             binding.llBody.visibility = View.VISIBLE
