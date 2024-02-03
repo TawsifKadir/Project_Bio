@@ -52,7 +52,7 @@
                         android:id="@+id/rbNo"
                         style="@style/AppRadioButton.Form"
                         android:text="@string/no"
-                        tools:checked="false" />
+                        android:checked="true"/>
 
                 </RadioGroup>
 
@@ -61,7 +61,6 @@
             <LinearLayout
                 android:id="@+id/viewReasonNoNominee"
                 style="@style/AppLinearLayoutInputBox"
-                android:visibility="gone"
                 tools:visibility="visible">
 
                 <TextView
