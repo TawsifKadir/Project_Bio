@@ -319,7 +319,8 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
         val items1 = items.addSpinnerHeader().toSpinnerOptions()
         Log.d(TAG, "onGetCountryItems: $items1")
         bindSpinnerData(spCountryName, items1)
-
+        bindSpinnerData(spPayamName, arrayOf(""))
+        bindSpinnerData(spBomaName, arrayOf(""))
     }
 
     override fun onGetCountryItemsFailure(msg: String?) {
@@ -339,6 +340,7 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
         val items1 = items.addSpinnerHeader().toSpinnerOptions()
         Log.d(TAG, "onGetPayamItems: $items1")
         bindSpinnerData(spPayamName, items1)
+        bindSpinnerData(spBomaName, arrayOf(""))
 
     }
 
