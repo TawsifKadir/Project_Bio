@@ -164,7 +164,7 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View {
 
     private fun askForConsent() {
 
-        if (getPrefHelper().isHouseholdConsentAccept()) {
+        if (getPrefHelper().isNomineeConsentAccept()) {
             onGetConsent()
             return
         }
