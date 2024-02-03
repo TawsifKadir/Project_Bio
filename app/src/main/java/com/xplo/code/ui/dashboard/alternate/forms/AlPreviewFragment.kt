@@ -202,7 +202,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
             .setCancelable(false)
             .setListener(object : XDialog.DialogListener {
                 override fun onClickPositiveButton() {
-
+                    interactor?.navigateToForm3()
                 }
 
                 override fun onClickNegativeButton() {
