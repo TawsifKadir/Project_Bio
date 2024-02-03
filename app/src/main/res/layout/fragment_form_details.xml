@@ -1,18 +1,447 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layoutRootHistory"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/colorBackground"
-    android:orientation="vertical">
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/layoutRootHistory"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="?attr/colorBackground">
 
-    <TextView
-        android:id="@+id/tvDetails"
+<TextView
+    android:visibility="gone"
+    android:id="@+id/tvPage"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="start"
+    android:padding="8dp"
+    android:text="Page - (3/4)"
+    android:textAlignment="textStart"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<ScrollView
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layout_constraintBottom_toTopOf="@id/llBottom"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/tvPage">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        tools:text="Registration" />
+        android:orientation="vertical"
+        android:padding="8dp">
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tvDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            tools:text="Registration" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_round_box"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+
+                style="@style/PreviewTitleStyle"
+                android:text="Basic Information">
+
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/PreviewLLTopStyle">
+
+                    <LinearLayout style="@style/PreviewLLStyle">
+
+                        <TextView
+                            style="@style/PreviewTitleLableStyle"
+                            android:text="Household Name" />
+
+                        <TextView
+                            android:id="@+id/txtHouseHoldName"
+                            style="@style/PreviewTitleLableValueStyle"
+                            android:text="" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/PreviewLLStyle">
+
+                        <TextView
+                            style="@style/PreviewTitleLableStyle"
+                            android:text="Alternate Name" />
+
+                        <TextView
+                            android:id="@+id/txtAltName"
+                            style="@style/PreviewTitleLableValueStyle"
+                            android:text="" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/PreviewLLTopStyle">
+
+                    <LinearLayout style="@style/PreviewLLStyle">
+
+                        <TextView
+                            style="@style/PreviewTitleLableStyle"
+                            android:text="Age" />
+
+                        <TextView
+
+                            android:id="@+id/txtAge"
+                            style="@style/PreviewTitleLableValueStyle"
+                            android:text="" />
+                    </LinearLayout>
+
+                    <LinearLayout android:visibility="invisible" style="@style/PreviewLLStyle">
+
+                        <TextView
+                            style="@style/PreviewTitleLableStyle"/>
+                        <TextView
+                            style="@style/PreviewTitleLableValueStyle"
+                            android:text="" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/PreviewLLTopStyle">
+
+                    <LinearLayout style="@style/PreviewLLStyle">
+
+                        <TextView
+                            style="@style/PreviewTitleLableStyle"
+                            android:text="ID Number" />
+
+                        <TextView
+
+                            android:id="@+id/txtIdNo"
+                            style="@style/PreviewTitleLableValueStyle"
+                            android:text="" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/PreviewLLStyle">
+
+                        <TextView
+                            style="@style/PreviewTitleLableStyle"
+                            android:text="Phone Number" />
+
+                        <TextView
+
+                            android:id="@+id/txtPhoneNo"
+                            style="@style/PreviewTitleLableValueStyle"
+                            android:text="" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/PreviewLLTopStyle">
+
+                    <LinearLayout style="@style/PreviewLLStyle">
+
+                        <TextView
+                            style="@style/PreviewTitleLableStyle"
+                            android:text="Alternate Relationship" />
+
+                        <TextView
+
+                            android:id="@+id/txtAltRelation"
+                            style="@style/PreviewTitleLableValueStyle"
+                            android:text="" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/PreviewLLStyle">
+
+                        <TextView
+                            style="@style/PreviewTitleLableStyle"
+                            android:text="Gender" />
+
+                        <TextView
+
+                            android:id="@+id/txtGender"
+                            style="@style/PreviewTitleLableValueStyle"
+                            android:text="" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_round_box"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                style="@style/PreviewTitleStyle"
+                android:text="Fingerprints">
+
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/PreviewLLTopStyle">
+
+                    <LinearLayout style="@style/PreviewLLStyle">
+
+                        <TextView
+                            style="@style/PreviewTitleLableStyle"
+                            android:text="@string/right_thumb" />
+
+                        <TextView
+                            android:id="@+id/txtRT"
+                            style="@style/PreviewTitleLableValueStyle"
+                            android:text="" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/PreviewLLStyle">
+
+                        <TextView
+                            style="@style/PreviewTitleLableStyle"
+                            android:text="@string/left_thumb" />
+
+                        <TextView
+                            android:id="@+id/txtLT"
+                            style="@style/PreviewTitleLableValueStyle"
+                            android:text="" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/PreviewLLTopStyle">
+
+                    <LinearLayout style="@style/PreviewLLStyle">
+
+                        <TextView
+                            style="@style/PreviewTitleLableStyle"
+                            android:text="@string/right_index" />
+
+                        <TextView
+                            android:id="@+id/txtRI"
+                            style="@style/PreviewTitleLableValueStyle"
+                            android:text="" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/PreviewLLStyle">
+
+                        <TextView
+                            style="@style/PreviewTitleLableStyle"
+                            android:text="@string/left_index" />
+
+                        <TextView
+                            android:id="@+id/txtLI"
+                            style="@style/PreviewTitleLableValueStyle"
+                            android:text="" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/PreviewLLTopStyle">
+
+                    <LinearLayout style="@style/PreviewLLStyle">
+
+                        <TextView
+                            style="@style/PreviewTitleLableStyle"
+                            android:text="@string/right_middle" />
+
+                        <TextView
+                            android:id="@+id/txtRM"
+                            style="@style/PreviewTitleLableValueStyle"
+                            android:text="" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/PreviewLLStyle">
+
+                        <TextView
+                            style="@style/PreviewTitleLableStyle"
+                            android:text="@string/left_middle" />
+
+                        <TextView
+                            android:id="@+id/txtLM"
+                            style="@style/PreviewTitleLableValueStyle"
+                            android:text="" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/PreviewLLTopStyle">
+
+                    <LinearLayout style="@style/PreviewLLStyle">
+
+                        <TextView
+                            style="@style/PreviewTitleLableStyle"
+                            android:text="@string/right_ring" />
+
+                        <TextView
+                            android:id="@+id/txtRR"
+                            style="@style/PreviewTitleLableValueStyle"
+                            android:text="" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/PreviewLLStyle">
+
+                        <TextView
+                            style="@style/PreviewTitleLableStyle"
+                            android:text="@string/left_ring" />
+
+                        <TextView
+                            android:id="@+id/txtLR"
+                            style="@style/PreviewTitleLableValueStyle"
+                            android:text="" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/PreviewLLTopStyle">
+
+                    <LinearLayout style="@style/PreviewLLStyle">
+
+                        <TextView
+                            style="@style/PreviewTitleLableStyle"
+                            android:text="@string/right_little" />
+
+                        <TextView
+                            android:id="@+id/txtRL"
+                            style="@style/PreviewTitleLableValueStyle"
+                            android:text="" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/PreviewLLStyle">
+
+                        <TextView
+                            style="@style/PreviewTitleLableStyle"
+                            android:text="@string/left_little" />
+
+                        <TextView
+                            android:id="@+id/txtLL"
+                            style="@style/PreviewTitleLableValueStyle"
+                            android:text="" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_round_box"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+
+                style="@style/PreviewTitleStyle"
+                android:text="Photo">
+
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout android:gravity="center" android:layout_gravity="center" style="@style/PreviewLLTopStyle">
+
+                    <ImageView
+                        android:id="@+id/imgPhoto"
+                        android:src="@drawable/ic_person"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"/>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
+
+<LinearLayout
+    android:id="@+id/llBottom"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="0dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    tools:layout_height="wrap_content">
+
+    <include
+        android:id="@+id/view_button_back_next"
+        layout="@layout/view_button_back_next" />
 
 </LinearLayout>
 
+</androidx.constraintlayout.widget.ConstraintLayout>
