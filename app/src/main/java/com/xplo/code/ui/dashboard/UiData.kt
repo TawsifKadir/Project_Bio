@@ -35,6 +35,7 @@ object UiData {
     val selectionReason = getStringArray(R.array.selection_reason_array)
     val whyNot = getStringArray(R.array.why_not)
     val idType = getStringArray(R.array.id_type)
+    val nomineeOccupation = getStringArray(R.array.what_does_currently_do_for_a_living_array)
 
 
     private fun getString(resId: Int): String {

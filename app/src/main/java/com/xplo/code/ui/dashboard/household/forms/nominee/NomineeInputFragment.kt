@@ -124,7 +124,7 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
 
         bindSpinnerData(spRelation, UiData.relationshipOptions)
         bindSpinnerData(spGender, UiData.genderOptions)
-        bindSpinnerData(spOccupation, UiData.genderOptions)
+        bindSpinnerData(spOccupation, UiData.nomineeOccupation)
 
     }
 
@@ -163,9 +163,9 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
 
         var nominee = Nominee()
 
-        nominee.firstName = chkEditText(etFirstName, UiData.ER_ET_DF)
-        nominee.middleName = chkEditText(etMiddleName, UiData.ER_ET_DF)
-        nominee.lastName = chkEditText(etLastName, UiData.ER_ET_DF)
+        nominee.firstName = chkEditText3Char(etFirstName, UiData.ER_ET_DF)
+        //nominee.middleName = chkEditText(etMiddleName, UiData.ER_ET_DF)
+        nominee.lastName = chkEditText3Char(etLastName, UiData.ER_ET_DF)
         nominee.age = chkEditText(etAge, UiData.ER_ET_DF)?.toInt()
 
         nominee.relation = chkSpinner(spRelation, UiData.ER_SP_DF)

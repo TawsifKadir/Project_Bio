@@ -112,8 +112,11 @@
 
 
             <EditText
+
                 android:id="@+id/etAge"
-                style="@style/AppEditText.Form.Number" />
+                style="@style/AppEditText.Form.Number"
+                android:maxLength="2"
+                />
 
         </LinearLayout>
 
@@ -147,7 +150,7 @@
 
             <TextView
                 style="@style/AppTextView.Input.Header"
-                android:text="@string/can_read_and_write" />
+                android:text="Do you read and write?" />
 
 
             <RadioGroup
