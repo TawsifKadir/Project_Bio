@@ -209,7 +209,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
     override fun onClickHouseholdItemSend(item: HouseholdItem, pos: Int) {
         Log.d(TAG, "onClickHouseholdItemSend() called with: item = $item, pos = $pos")
-
+        showToast("Feature not implemented yet")
     }
 
     override fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int) {
@@ -280,6 +280,12 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     }
 
     private fun askForConsent() {
+
+        if (getPrefHelper().isHouseholdConsentAccept()) {
+            onGetConsent()
+            return
+        }
+
         XDialogSheet.Builder(requireActivity().supportFragmentManager)
             .setLayoutId(R.layout.bsd_consent_sheet)
             .setTitle("Consent")
@@ -308,6 +314,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         return context.packageManager.hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)
     }
     private fun onGetConsent() {
+        getPrefHelper().setHouseholdConsentAcceptStatus(true)
         val gpsAvailable = isGpsAvailable(requireContext())
         if (gpsAvailable) {
             getLocation()

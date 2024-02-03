@@ -43,6 +43,13 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
                 )
             }
 
+            binding.btSend.setOnClickListener {
+                listener?.onClickHouseholdItemSend(
+                    getItem(absoluteAdapterPosition),
+                    absoluteAdapterPosition
+                )
+            }
+
             binding.btAddAlternate.setOnClickListener {
                 listener?.onClickHouseholdItemAddAlternate(
                     getItem(absoluteAdapterPosition),

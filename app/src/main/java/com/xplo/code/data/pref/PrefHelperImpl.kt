@@ -94,6 +94,22 @@ class PrefHelperImpl : PrefHelper {
         PrefUtils.putBoolean(Pk.IS_TOOLTIP_ACTIVE, false)
     }
 
+    override fun isHouseholdConsentAccept(): Boolean {
+        return PrefUtils.getBoolean(Pk.IS_HH_CONSENT, false)
+    }
+
+    override fun setHouseholdConsentAcceptStatus(isAccept: Boolean) {
+        PrefUtils.putBoolean(Pk.IS_HH_CONSENT, isAccept)
+    }
+
+    override fun isNomineeConsentAccept(): Boolean {
+        return PrefUtils.getBoolean(Pk.IS_NOMINEE_CONSENT, false)
+    }
+
+    override fun setNomineeConsentAcceptStatus(isAccept: Boolean) {
+        PrefUtils.putBoolean(Pk.IS_NOMINEE_CONSENT, isAccept)
+    }
+
     override fun getLaunchCounter(): Int {
         return PrefUtils.getInt(Pk.LAUNCH_COUNTER, 0)
     }

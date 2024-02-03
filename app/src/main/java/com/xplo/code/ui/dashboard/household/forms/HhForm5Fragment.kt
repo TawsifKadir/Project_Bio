@@ -88,7 +88,7 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View {
     override fun initView() {
 
         val rootForm = interactor?.getRootForm()
-        Log.d(HhPreviewFragment.TAG, "initView: $rootForm")
+        Log.d(TAG, "initView: $rootForm")
     }
 
     override fun initObserver() {
@@ -163,6 +163,12 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View {
 
 
     private fun askForConsent() {
+
+        if (getPrefHelper().isHouseholdConsentAccept()) {
+            onGetConsent()
+            return
+        }
+
         XDialogSheet.Builder(requireActivity().supportFragmentManager)
             .setLayoutId(R.layout.bsd_consent_sheet)
             .setTitle("Consent Nominee")
@@ -188,9 +194,10 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View {
     }
 
     private fun onGetConsent() {
-        if(interactor?.getRootForm()?.form1?.countryName.equals("JUBA")){
+        getPrefHelper().setNomineeConsentAcceptStatus(true)
+        if (interactor?.getRootForm()?.form1?.countryName.equals("JUBA")) {
             interactor?.navigateToPreview()
-        }else{
+        } else {
             interactor?.navigateToForm6()
         }
 

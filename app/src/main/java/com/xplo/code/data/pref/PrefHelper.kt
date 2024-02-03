@@ -46,5 +46,11 @@ interface PrefHelper {
     fun isTooltipAlive(): Boolean
     fun offTooltip()
 
+    fun isHouseholdConsentAccept(): Boolean
+    fun setHouseholdConsentAcceptStatus(isAccept: Boolean)
+
+    fun isNomineeConsentAccept(): Boolean
+    fun setNomineeConsentAcceptStatus(isAccept: Boolean)
+
 
 }
