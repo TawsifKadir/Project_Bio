@@ -105,7 +105,20 @@ fun HhForm6.isOk(): Boolean {
         return this.isOkNoNominee()
     }
 
-    if (this.nominees.size < 1) return false
+    if (this.nominees.size < 2) return false
+    if (this.nominees.size > 5) return false
+
+    var isFemaleExist = false
+    for (nominee in this.nominees){
+         if(nominee.gender == "Female"){
+             isFemaleExist = true
+         }
+     }
+
+    if(isFemaleExist == false){
+        return false
+    }
+
     if (!this.nominees.isOk()) return false
     return true
 }

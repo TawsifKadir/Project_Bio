@@ -239,10 +239,12 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View,
             if (isNomineeAdd) {
                 binding.recyclerView.visible()
                 binding.btAdd.visible()
+                binding.txtErrorText.visible()
                 binding.viewReasonNoNominee.gone()
             } else {
                 binding.recyclerView.gone()
                 binding.btAdd.gone()
+                binding.txtErrorText.gone()
                 binding.viewReasonNoNominee.visible()
             }
 
@@ -252,10 +254,12 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View,
         if (isNomineeAdd) {
             binding.viewNominee.visible()
             binding.btAdd.visible()
+            binding.txtErrorText.visible()
             binding.viewReasonNoNominee.gone()
         } else {
             binding.viewNominee.gone()
             binding.btAdd.gone()
+            binding.txtErrorText.gone()
             binding.viewReasonNoNominee.visible()
         }
 
