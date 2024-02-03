@@ -3,6 +3,7 @@ package com.xplo.code.ui.splash
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.xplo.code.R
 import com.xplo.code.base.BaseActivity
 import com.xplo.code.data.db.DbController
@@ -73,7 +74,8 @@ class SplashActivity : BaseActivity(), SplashContract.View, CoroutineScope {
         if (isDebugBuild()) {
             playSound()
             Log.d(TAG, "initView: getDeviceDensityName: " + Utils.getDeviceDensityName(this))
-        }
+             }
+        Utils.getDeviceDensityName(this)?.let { showToast(it) }
 
     }
 
