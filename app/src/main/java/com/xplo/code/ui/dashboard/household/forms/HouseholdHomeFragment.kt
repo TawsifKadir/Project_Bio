@@ -289,7 +289,16 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
             .show()
     }
 
+    fun isGpsAvailable(context: Context): Boolean {
+        return context.packageManager.hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)
+    }
     private fun onGetConsent() {
-        getLocation()
+        val gpsAvailable = isGpsAvailable(requireContext())
+        if (gpsAvailable) {
+            getLocation()
+        } else {
+            interactor?.navigateToForm1()
+        }
+
     }
 }

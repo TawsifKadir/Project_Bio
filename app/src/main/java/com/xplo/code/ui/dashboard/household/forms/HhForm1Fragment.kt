@@ -143,11 +143,17 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
         etLon = binding.etLon
 
     }
+    fun isGpsAvailable(context: Context): Boolean {
+        return context.packageManager.hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)
+    }
 
     override fun initView() {
 
         if (!isUseOldView) {
-            getLocation()
+
+            if(isGpsAvailable(requireContext())){
+                getLocation()
+            }
             viewModel.getStateItems()
         }
 
