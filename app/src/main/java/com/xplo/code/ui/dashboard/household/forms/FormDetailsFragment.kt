@@ -6,13 +6,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.data.db.models.HouseholdItem
+import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.databinding.FragmentFormDetailsBinding
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.model.getFullName
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -72,6 +76,19 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
 
     }
 
+    private fun loadImage(url: String) {
+        if (url != "") {
+            Glide.with(this).load(url)
+                .into(this!!.binding.imgPhoto!!)
+            binding.imgPhoto!!.setColorFilter(
+                ContextCompat.getColor(
+                    requireContext(),
+                    android.R.color.transparent
+                )
+            )
+        }
+
+    }
     override fun initView() {
 
         if (arguments != null) {
@@ -101,6 +118,29 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         Log.d(TAG, "onGetCompleteData() called with: item = $item")
 
         binding.tvDetails.text = item.toString()
+
+
+        //info
+        var name =  item?.toHouseholdForm()?.form2.getFullName()
+        binding.txtHouseHoldName.text = name
+        binding.txtAge.text = item?.toHouseholdForm()?.form2?.age
+        binding.txtIdNo.text = item?.toHouseholdForm()?.form2?.idNumber
+        binding.txtPhoneNo.text = item?.toHouseholdForm()?.form2?.phoneNumber
+        binding.txtGender.text = item?.toHouseholdForm()?.form2?.gender
+
+        binding.txtRT.text = "true"
+        binding.txtRI.text = "true"
+        binding.txtRM.text = "true"
+        binding.txtRR.text = "true"
+        binding.txtRL.text = "true"
+
+        binding.txtLT.text = "true"
+        binding.txtLI.text = "true"
+        binding.txtLM.text = "true"
+        binding.txtLR.text = "true"
+        binding.txtLL.text = "true"
+
+        loadImage(item?.toHouseholdForm()?.form4?.img ?: "")
     }
 
 
