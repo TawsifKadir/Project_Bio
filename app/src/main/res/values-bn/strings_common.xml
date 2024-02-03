@@ -98,7 +98,7 @@
     <string name="id">আইডি</string>
     <string name="id_pass_enter">দয়া করে আইডি এবং পাসওয়ার্ড দিন</string>
     <string name="image">ছবি</string>
-    <string name="image_capture">ছবি তোলা</string>
+    <string name="image_capture">Capture Photo</string>
     <string name="image_change">ছবি পরিবর্তন করুন</string>
     <string name="image_upload_failed">ছবি আপলোড ব্যর্থ হয়েছে</string>
     <string name="image_upload_success">ছবি সফলভাবে আপলোড করা হয়েছে</string>

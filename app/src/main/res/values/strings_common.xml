@@ -98,7 +98,7 @@
     <string name="id">Id</string>
     <string name="id_pass_enter">Give Id Pass Please</string>
     <string name="image">image</string>
-    <string name="image_capture">Image Capture</string>
+    <string name="image_capture">Capture Photo</string>
     <string name="image_change">Change Photo</string>
     <string name="image_upload_failed">Image Upload Failed</string>
     <string name="image_upload_success">Image Uploaded Successfully</string>

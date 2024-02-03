@@ -120,7 +120,8 @@ class HhForm4Fragment : BasicFormFragment(), HouseholdContract.Form4View {
                     .withListener(object : MultiplePermissionsListener {
                         override fun onPermissionsChecked(report: MultiplePermissionsReport) {
                             if (report.areAllPermissionsGranted()) {
-                                showImagePickerOptions()
+                                //showImagePickerOptions()
+                                launchCameraIntent()
                             }
                             if (report.isAnyPermissionPermanentlyDenied) {
                                 showSettingsDialog()
@@ -143,7 +144,8 @@ class HhForm4Fragment : BasicFormFragment(), HouseholdContract.Form4View {
                     .withListener(object : MultiplePermissionsListener {
                         override fun onPermissionsChecked(report: MultiplePermissionsReport) {
                             if (report.areAllPermissionsGranted()) {
-                                showImagePickerOptions()
+                                //showImagePickerOptions()
+                                launchCameraIntent()
                             }
                             if (report.isAnyPermissionPermanentlyDenied) {
                                 showSettingsDialog()
