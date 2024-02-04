@@ -23,6 +23,11 @@ fun Int?.plusOne(): Int {
     return this.plus(1)
 }
 
+fun Boolean?.toBool(): Boolean {
+    if (this == null) return false
+    return this
+}
+
 fun String?.isYes(): Boolean {
     if (this == null) return false
     return this.equals("Yes", ignoreCase = true)

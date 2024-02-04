@@ -27,6 +27,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.xplo.code.R
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
+import com.xplo.code.core.ext.toBool
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.databinding.FragmentHouseholdHomeBinding
 import com.xplo.code.ui.components.XDialogSheet
@@ -281,7 +282,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
     private fun askForConsent() {
 
-        if (getPrefHelper().isHouseholdConsentAccept()) {
+        if (isConsentGiven()) {
             onGetConsent()
             return
         }
@@ -310,11 +311,16 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
             .show()
     }
 
+    fun isConsentGiven() : Boolean{
+        return interactor?.getRootForm()?.consentStatus?.isConsentGivenHhHome.toBool()
+    }
+
     fun isGpsAvailable(context: Context): Boolean {
         return context.packageManager.hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)
     }
     private fun onGetConsent() {
         getPrefHelper().setHouseholdConsentAcceptStatus(true)
+        interactor?.getRootForm()?.consentStatus?.isConsentGivenHhHome = true
         val gpsAvailable = isGpsAvailable(requireContext())
         if (gpsAvailable) {
             getLocation()

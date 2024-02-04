@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
+import com.xplo.code.core.ext.toBool
 import com.xplo.code.databinding.FragmentHhForm5FingerBinding
 import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
@@ -164,7 +165,7 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View {
 
     private fun askForConsent() {
 
-        if (getPrefHelper().isNomineeConsentAccept()) {
+        if (isConsentGiven()) {
             onGetConsent()
             return
         }
@@ -194,12 +195,17 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View {
     }
 
     private fun onGetConsent() {
-        getPrefHelper().setNomineeConsentAcceptStatus(true)
+        //getPrefHelper().setNomineeConsentAcceptStatus(true)
+        interactor?.getRootForm()?.consentStatus?.isConsentGivenNominee = true
         if (interactor?.getRootForm()?.form1?.countryName.equals("JUBA")) {
             interactor?.navigateToPreview()
         } else {
             interactor?.navigateToForm6()
         }
 
+    }
+
+    fun isConsentGiven(): Boolean {
+        return interactor?.getRootForm()?.consentStatus?.isConsentGivenNominee.toBool()
     }
 }

@@ -15,7 +15,13 @@ data class HouseholdForm(
 //    var alPerson1: AlternateForm? = null,
 //    var alPerson2: AlternateForm? = null
 
-    var alternates: ArrayList<AlternateForm> = arrayListOf()
+    var alternates: ArrayList<AlternateForm> = arrayListOf(),
+    var consentStatus: ConsentStatus = ConsentStatus()
+)
+
+data class ConsentStatus(
+    var isConsentGivenHhHome: Boolean = false,
+    var isConsentGivenNominee: Boolean = false
 )
 
 data class AlternateForm(
@@ -97,7 +103,7 @@ data class HhForm6(
 )
 
 fun HhForm6?.getNomineeNumber(): Int {
-    if (this == null)  return 1
+    if (this == null) return 1
     return this.nominees.size.plus(1) ?: 1
 }
 
@@ -112,7 +118,7 @@ data class Nominee(
     var isReadWrite: String? = null
 )
 
-fun Nominee?.toSummary() : String? {
+fun Nominee?.toSummary(): String? {
     if (this == null) return null
 
     var sb = StringBuilder()
