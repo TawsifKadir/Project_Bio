@@ -96,7 +96,7 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
         }
 
         onLongClickDataGeneration()
-        onGenerateDummyInput()
+        //onGenerateDummyInput()
     }
 
     override fun onResume() {
@@ -155,7 +155,7 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
     }
 
     override fun onPopulateView() {
-        TODO("Not yet implemented")
+
     }
 
 
