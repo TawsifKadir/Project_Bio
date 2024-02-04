@@ -158,8 +158,7 @@ class HhForm3Fragment : BasicFormFragment(), HouseholdContract.Form3View {
 //        }
 
         onLongClickDataGeneration()
-
-        onGenerateDummyInput()
+        //onGenerateDummyInput()
     }
 
     override fun onResume() {

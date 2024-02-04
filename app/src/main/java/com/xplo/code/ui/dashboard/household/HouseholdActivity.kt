@@ -24,6 +24,7 @@ import com.xplo.code.ui.dashboard.household.forms.HhForm5Fragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm6Fragment
 import com.xplo.code.ui.dashboard.household.forms.HhPreviewFragment
 import com.xplo.code.ui.dashboard.household.forms.HouseholdHomeFragment
+import com.xplo.code.ui.dashboard.model.HhForm1
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -255,6 +256,15 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
             FormDetailsFragment.TAG,
             true,
             false
+        )
+    }
+
+    override fun navigateToAnotherHousehold(hhForm1: HhForm1?) {
+        Log.d(TAG, "navigateToAnotherHousehold() called with: hhForm1 = $hhForm1")
+        resetRootFormKeepSetup()
+        supportFragmentManager.popBackStack(
+            HhForm3Fragment.TAG,
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
         )
     }
 

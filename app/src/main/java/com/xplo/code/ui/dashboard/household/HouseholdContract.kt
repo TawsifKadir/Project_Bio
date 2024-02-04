@@ -37,6 +37,8 @@ interface HouseholdContract {
         fun navigateToPreview()
         fun navigateToFormDetails(item: HouseholdItem?)
 
+        fun navigateToAnotherHousehold(hhForm1: HhForm1?)
+
         fun onBackButton()
         fun onNextButton()
 

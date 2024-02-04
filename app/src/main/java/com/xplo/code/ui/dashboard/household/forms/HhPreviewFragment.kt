@@ -20,7 +20,6 @@ import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.HouseholdForm
-import com.xplo.code.ui.dashboard.model.getFullName
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -207,9 +206,9 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             .setLayoutId(R.layout.custom_dialog_pnn)
             .setTitle(getString(R.string.review_complete_reg))
             .setMessage(getString(R.string.review_complete_reg_msg))
-            .setPosButtonText("Alternate")
+            .setPosButtonText("Alternate Reg")
             .setNegButtonText(getString(R.string.home))
-            .setNeuButtonText("Household")
+            .setNeuButtonText("Household Reg")
             .setThumbId(R.drawable.ic_logo_photo)
             .setCancelable(false)
             .setListener(object : XDialog.DialogListener {
@@ -224,7 +223,8 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                 }
 
                 override fun onClickNeutralButton() {
-                    interactor?.navigateToHousehold()
+                    //interactor?.navigateToHousehold()
+                    interactor?.navigateToAnotherHousehold(interactor?.getRootForm()?.form1)
                 }
             })
             .build()

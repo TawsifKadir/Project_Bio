@@ -188,7 +188,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         }
 
         onLongClickDataGeneration()
-        onGenerateDummyInput()
+        //onGenerateDummyInput()
 
 
         binding.rgId.setOnCheckedChangeListener { group, checkedId ->
