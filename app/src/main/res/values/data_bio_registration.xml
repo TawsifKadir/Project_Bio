@@ -14,7 +14,7 @@
 
     <string name="selection_criteria">Selection Criteria</string>
 <!--    <string name="household_main_source_of_income">Household Main Source of Income</string>-->
-<!--    <string name="country_name">Country Name</string>-->
+<!--    <string name="country_name">County Name</string>-->
 
     <string name="payam_name">Payam Name</string>
     <string name="boma_name">Boma Name</string>
@@ -104,11 +104,11 @@
         <item>Other (specify)</item>
     </string-array>
 
-<string name="country_name_label">Country Name</string>
+<string name="country_name_label">County Name</string>
     <string-array name="country_nam_array">
-        <item>Country Name</item>
-        <item>Country 1</item>
-        <item>Country 2</item>
+        <item>County Name</item>
+        <item>County 1</item>
+        <item>County 2</item>
     </string-array>
 
     <string-array name="currency_array">

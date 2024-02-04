@@ -57,7 +57,7 @@
 
                             <TextView
                                 style="@style/PreviewTitleLableStyle"
-                                android:text="Country" />
+                                android:text="County" />
 
                             <TextView
                                 android:id="@+id/tvCountry"
