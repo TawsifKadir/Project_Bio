@@ -96,17 +96,17 @@
     <style name="AppButton.Dialog.TextButton.Positive" parent="AppButton.Dialog.TextButton">
         <item name="android:textColor">?attr/colorBrand</item>
     </style>
-    <style name="AppButton.Dialog.TextButton.Negative" parent="AppButton.Dialog.TextButton">
-    </style>
+
+    <style name="AppButton.Dialog.TextButton.Negative" parent="AppButton.Dialog.TextButton"></style>
 
 
     <!--    <style name="AppButton.Bottom.Positive" parent="AppButton.Primary">-->
 
-<!--    </style>-->
+    <!--    </style>-->
 
-<!--    <style name="AppButton.Bottom.Negative" parent="AppButton.Secondary">-->
+    <!--    <style name="AppButton.Bottom.Negative" parent="AppButton.Secondary">-->
 
-<!--    </style>-->
+    <!--    </style>-->
 
     <!--    for test purpose-->
 
@@ -155,49 +155,49 @@
         <item name="android:textAlignment">textStart</item>
     </style>
 
-<!--    <style name="AppTextView.Input.Header" parent="android:Widget.TextView">-->
-<!--        <item name="android:layout_width">match_parent</item>-->
-<!--        <item name="android:layout_height">wrap_content</item>-->
-<!--        <item name="android:layout_marginStart">8dp</item>-->
-<!--        <item name="android:layout_marginTop">8dp</item>-->
-<!--        <item name="android:layout_marginBottom">4dp</item>-->
-<!--        <item name="android:textColor">?attr/colorTextSecondary</item>-->
-<!--        <item name="android:textSize">@dimen/text_size_input_header</item>-->
-<!--        <item name="android:textStyle">normal</item>-->
-<!--        <item name="android:textAlignment">textStart</item>-->
-<!--        <item name="android:singleLine">true</item>-->
-<!--    </style>-->
+    <!--    <style name="AppTextView.Input.Header" parent="android:Widget.TextView">-->
+    <!--        <item name="android:layout_width">match_parent</item>-->
+    <!--        <item name="android:layout_height">wrap_content</item>-->
+    <!--        <item name="android:layout_marginStart">8dp</item>-->
+    <!--        <item name="android:layout_marginTop">8dp</item>-->
+    <!--        <item name="android:layout_marginBottom">4dp</item>-->
+    <!--        <item name="android:textColor">?attr/colorTextSecondary</item>-->
+    <!--        <item name="android:textSize">@dimen/text_size_input_header</item>-->
+    <!--        <item name="android:textStyle">normal</item>-->
+    <!--        <item name="android:textAlignment">textStart</item>-->
+    <!--        <item name="android:singleLine">true</item>-->
+    <!--    </style>-->
 
-<!--    <style name="AppEditText.Form" parent="android:Widget.EditText">-->
-<!--        <item name="android:layout_width">match_parent</item>-->
-<!--        <item name="android:layout_height">@dimen/input_row_height</item>-->
-<!--        <item name="android:layout_marginStart">8dp</item>-->
-<!--        <item name="android:layout_marginTop">0dp</item>-->
-<!--        <item name="android:background">@android:color/transparent</item>-->
-<!--        <item name="android:textColor">?attr/colorTextPrimary</item>-->
-<!--        <item name="android:textColorHint">?attr/colorTextSecondary</item>-->
-<!--        <item name="android:textStyle">normal</item>-->
-<!--        <item name="android:textAlignment">textStart</item>-->
-<!--        <item name="android:singleLine">true</item>-->
-<!--        <item name="android:hint">hint</item>-->
-<!--    </style>-->
+    <!--    <style name="AppEditText.Form" parent="android:Widget.EditText">-->
+    <!--        <item name="android:layout_width">match_parent</item>-->
+    <!--        <item name="android:layout_height">@dimen/input_row_height</item>-->
+    <!--        <item name="android:layout_marginStart">8dp</item>-->
+    <!--        <item name="android:layout_marginTop">0dp</item>-->
+    <!--        <item name="android:background">@android:color/transparent</item>-->
+    <!--        <item name="android:textColor">?attr/colorTextPrimary</item>-->
+    <!--        <item name="android:textColorHint">?attr/colorTextSecondary</item>-->
+    <!--        <item name="android:textStyle">normal</item>-->
+    <!--        <item name="android:textAlignment">textStart</item>-->
+    <!--        <item name="android:singleLine">true</item>-->
+    <!--        <item name="android:hint">hint</item>-->
+    <!--    </style>-->
 
-<!--    <style name="AppSpinnerForm" >-->
-<!--        <item name="android:layout_width">match_parent</item>-->
-<!--        <item name="android:layout_height">@dimen/input_row_height</item>-->
-<!--        <item name="android:popupBackground">?attr/colorBackground</item>-->
+    <!--    <style name="AppSpinnerForm" >-->
+    <!--        <item name="android:layout_width">match_parent</item>-->
+    <!--        <item name="android:layout_height">@dimen/input_row_height</item>-->
+    <!--        <item name="android:popupBackground">?attr/colorBackground</item>-->
 
-<!--    </style>-->
+    <!--    </style>-->
 
-<!--    <style name="AppLinearLayoutInputBox">-->
-<!--        <item name="android:layout_width">match_parent</item>-->
-<!--        <item name="android:layout_height">wrap_content</item>-->
-<!--        <item name="android:layout_marginStart">0dp</item>-->
-<!--        <item name="android:layout_marginTop">8dp</item>-->
-<!--        <item name="android:background">@drawable/bg_round_box</item>-->
-<!--        <item name="android:orientation">vertical</item>-->
-<!--        <item name="android:padding">8dp</item>-->
-<!--    </style>-->
+    <!--    <style name="AppLinearLayoutInputBox">-->
+    <!--        <item name="android:layout_width">match_parent</item>-->
+    <!--        <item name="android:layout_height">wrap_content</item>-->
+    <!--        <item name="android:layout_marginStart">0dp</item>-->
+    <!--        <item name="android:layout_marginTop">8dp</item>-->
+    <!--        <item name="android:background">@drawable/bg_round_box</item>-->
+    <!--        <item name="android:orientation">vertical</item>-->
+    <!--        <item name="android:padding">8dp</item>-->
+    <!--    </style>-->
 
     <style name="TextInputLayout.Outline" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/box_stroke_color</item>
@@ -216,8 +216,8 @@
         <item name="android:textColor">?attr/colorTextPrimary</item>
     </style>
 
-<!--    <style name="TextInputLayout.Outline.Dropdown" parent="AppTextInputLayout.Outline.Dropdown"/>-->
-<!--    <style name="TextInput.Outline" parent="AppTextInputEditText.Outline"/>-->
+    <!--    <style name="TextInputLayout.Outline.Dropdown" parent="AppTextInputLayout.Outline.Dropdown"/>-->
+    <!--    <style name="TextInput.Outline" parent="AppTextInputEditText.Outline"/>-->
 
     <style name="DialogIconLeft">
         <item name="android:layout_width">50dp</item>
@@ -236,6 +236,22 @@
         <item name="android:layout_marginTop">16dp</item>
         <item name="android:visibility">visible</item>
     </style>
+
+
+    <style name="AlertTextAppr">
+        <item name="android:textColor">?attr/colorOnBrand</item>
+        <item name="android:textSize">@dimen/alerter_text_small</item>
+    </style>
+
+    <style name="AlertTextAppr.Text" parent="AlertTextAppr">
+
+    </style>
+
+    <style name="AlertTextAppr.Title" parent="AlertTextAppr">
+        <item name="android:textSize">@dimen/alerter_text_medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 
 
 </resources>

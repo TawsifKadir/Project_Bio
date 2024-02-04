@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentManager
 import com.tapadoo.alerter.Alerter
 import com.xplo.code.BuildConfig
 import com.xplo.code.R
+import com.xplo.code.core.utils.AttrUtils
 import com.xplo.code.core.utils.NetUtils
 import com.xplo.code.core.utils.ProgressDialog
 import com.xplo.code.data.Constants
@@ -238,8 +239,11 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
     override fun showAlerter(title: String?, msg: String?) {
         Alerter.create(this)
             .setTitle(title ?: "")
-            .setText(title ?: "")
-            .setBackgroundColorRes(R.color.colorAccent) // or setBackgroundColorInt(Color.CYAN)
+            .setText(msg ?: "")
+            .enableSwipeToDismiss()
+            .setBackgroundColorInt(AttrUtils.getAttrColor(this, R.attr.colorBrand)) // or setBackgroundColorInt(Color.CYAN)
+            .setTextAppearance(R.style.AlertTextAppr_Text)
+            .setTitleAppearance(R.style.AlertTextAppr_Title)
             .show()
     }
 

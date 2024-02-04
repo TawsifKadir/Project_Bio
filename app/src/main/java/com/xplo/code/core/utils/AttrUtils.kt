@@ -19,7 +19,7 @@ object AttrUtils {
     private const val TAG = "AttrUtils"
 
 
-    fun getColorAttribute(context: Context, attributeId: Int): Int {
+    fun getAttrColor(context: Context, attributeId: Int): Int {
         val typedValue = TypedValue()
         context.theme.resolveAttribute(attributeId, typedValue, true)
         val resourceId = typedValue.resourceId
@@ -35,7 +35,7 @@ object AttrUtils {
         return res
     }
 
-    fun getDrawableAttribute(context: Context, attributeId: Int): Drawable? {
+    fun getAttrDrawable(context: Context, attributeId: Int): Drawable? {
         val typedValue = TypedValue()
         context.theme.resolveAttribute(attributeId, typedValue, true)
         val resourceId = typedValue.resourceId

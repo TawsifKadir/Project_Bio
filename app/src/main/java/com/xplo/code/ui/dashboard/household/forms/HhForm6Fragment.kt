@@ -333,7 +333,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View,
         if (form.isOk()) {
             val checkExtraCases = form.checkExtraCases()
             if (checkExtraCases != null) {
-                showAlerter(title = null, msg = checkExtraCases)
+                showAlerter(checkExtraCases, null)
                 return
             }
             onValidated(form)
