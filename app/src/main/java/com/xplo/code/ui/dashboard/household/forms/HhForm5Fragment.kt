@@ -101,6 +101,9 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View {
         binding.viewButtonBackNext.btNext.setOnClickListener {
             onClickNextButton()
         }
+
+        onLongClickDataGeneration()
+        onGenerateDummyInput()
     }
 
     override fun onResume() {
@@ -156,6 +159,8 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View {
         Log.d(TAG, "onGenerateDummyInput() called")
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
+
+
     }
 
     override fun onPopulateView() {

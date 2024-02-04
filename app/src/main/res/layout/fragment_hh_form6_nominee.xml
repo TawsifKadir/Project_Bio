@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="start"
         android:padding="8dp"
-        android:text="Page - (5/6)"
+        android:text="Page - (6/6)"
         android:textAlignment="textStart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -51,8 +51,8 @@
                     <RadioButton
                         android:id="@+id/rbNo"
                         style="@style/AppRadioButton.Form"
-                        android:text="@string/no"
-                        android:checked="true"/>
+                        android:checked="true"
+                        android:text="@string/no" />
 
                 </RadioGroup>
 
@@ -75,9 +75,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btAdd"
                     style="@style/AppButton.TextButton.Secondary"
@@ -89,16 +90,17 @@
                     android:visibility="gone"
                     app:icon="@drawable/ic_add_black_24dp"
                     tools:visibility="visible" />
+
                 <TextView
                     android:id="@+id/txtErrorText"
-                    android:textAlignment="textEnd"
-                    android:visibility="gone"
-                    tools:visibility="visible"
-                    android:textColor="@color/colorAccent"
-                    android:text="(Minimum 2 and Maximum 5 Nominee and 1 female Nominee required)"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="(Minimum 2 and Maximum 5 Nominee and 1 female Nominee required)"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorAccent"
                     android:textSize="14sp"
-                    android:layout_height="wrap_content">
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
                 </TextView>
             </LinearLayout>

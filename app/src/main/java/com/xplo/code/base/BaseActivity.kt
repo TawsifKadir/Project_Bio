@@ -17,21 +17,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.tapadoo.alerter.Alerter
 import com.xplo.code.BuildConfig
 import com.xplo.code.R
 import com.xplo.code.core.utils.NetUtils
+import com.xplo.code.core.utils.ProgressDialog
 import com.xplo.code.data.Constants
 import com.xplo.code.data.pref.PrefHelper
 import com.xplo.code.data.pref.PrefHelperImpl
-import com.xplo.code.ui.login.LoginActivity
-import com.xplo.code.ui.main_act.MainActivity
-import com.xplo.code.ui.settings.SettingsActivity
-import com.xplo.code.core.utils.ProgressDialog
-import com.xplo.code.ui.dashboard.alternate.AlternateActivity
 import com.xplo.code.ui.components.SpItemAdapter
+import com.xplo.code.ui.dashboard.alternate.AlternateActivity
 import com.xplo.code.ui.dashboard.household.HouseholdActivity
 import com.xplo.code.ui.dashboard.payment.PaymentActivity
 import com.xplo.code.ui.dashboard.report.ReportActivity
+import com.xplo.code.ui.login.LoginActivity
+import com.xplo.code.ui.main_act.MainActivity
+import com.xplo.code.ui.settings.SettingsActivity
 import java.util.*
 
 /**
@@ -232,6 +233,14 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
 
     override fun showToast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showAlerter(title: String?, msg: String?) {
+        Alerter.create(this)
+            .setTitle(title ?: "")
+            .setText(title ?: "")
+            .setBackgroundColorRes(R.color.colorAccent) // or setBackgroundColorInt(Color.CYAN)
+            .show()
     }
 
     override fun showErrorMessage(msg: String?) {

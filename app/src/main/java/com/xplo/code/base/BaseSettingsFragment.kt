@@ -93,6 +93,10 @@ open class BaseSettingsFragment : PreferenceFragmentCompat(), BaseContract.View 
         getBaseActivity()?.showErrorMessage(msg)
     }
 
+    override fun showAlerter(title: String?, msg: String?) {
+        getBaseActivity()?.showAlerter(title, msg)
+    }
+
     override fun isNetworkConnected(): Boolean {
         if (getBaseActivity() != null) {
             return getBaseActivity()!!.isNetworkConnected()

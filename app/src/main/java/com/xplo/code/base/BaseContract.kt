@@ -58,6 +58,7 @@ interface BaseContract {
         fun showMessage(msg: String)
         fun showToast(msg: String)
         fun showErrorMessage(msg: String?)
+        fun showAlerter(title: String?, msg: String?)
         fun isNetworkConnected(): Boolean
         fun onNetworkStatusChanged(isConnected: Boolean)
         fun onNetworkError(errorCode: Int, msg: String)

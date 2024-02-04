@@ -214,7 +214,7 @@ dependencies {
     implementation 'com.github.karanchuri:PermissionManager:0.1.0'
     //    implementation 'de.hdodenhof:circleimageview:3.0.1'
     implementation 'com.mikhaellopez:circularimageview:4.2.0'
-    //implementation 'com.tapadoo.android:alerter:6.1.0'
+    implementation 'com.tapadoo.android:alerter:6.1.0'
     //implementation 'com.afollestad.material-dialogs:core:3.3.0'
     //implementation 'com.github.f0ris.sweetalert:library:1.6.2'
     implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'

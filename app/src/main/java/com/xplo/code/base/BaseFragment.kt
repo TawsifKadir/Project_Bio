@@ -103,6 +103,10 @@ abstract class BaseFragment : Fragment(), BaseContract.View, NomineeModal.Listen
         getBaseActivity()?.showErrorMessage(msg)
     }
 
+    override fun showAlerter(title: String?, msg: String?) {
+        getBaseActivity()?.showAlerter(title, msg)
+    }
+
     override fun isNetworkConnected(): Boolean {
         if (getBaseActivity() != null) {
             return getBaseActivity()!!.isNetworkConnected()

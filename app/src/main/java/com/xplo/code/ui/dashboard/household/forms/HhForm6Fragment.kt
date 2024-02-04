@@ -33,6 +33,7 @@ import com.xplo.code.ui.dashboard.household.forms.nominee.NomineeListAdapter
 import com.xplo.code.ui.dashboard.household.forms.nominee.NomineeModal
 import com.xplo.code.ui.dashboard.model.HhForm6
 import com.xplo.code.ui.dashboard.model.Nominee
+import com.xplo.code.ui.dashboard.model.checkExtraCases
 import com.xplo.code.ui.dashboard.model.getNomineeNumber
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.data.BuildConfig
@@ -330,6 +331,11 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View,
         }
 
         if (form.isOk()) {
+            val checkExtraCases = form.checkExtraCases()
+            if (checkExtraCases != null) {
+                showAlerter(title = null, msg = checkExtraCases)
+                return
+            }
             onValidated(form)
         }
 
