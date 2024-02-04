@@ -196,19 +196,19 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
             .setLayoutId(R.layout.custom_dialog_pnn)
             .setTitle(getString(R.string.fingerprint_enroll_title))
             .setMessage(getString(R.string.fingerprint_enroll_msg))
-            .setPosButtonText(getString(R.string.household_reg))
+            .setPosButtonText(getString(R.string.alternate_reg_title))
             .setNegButtonText(getString(R.string.home))
-            .setNeuButtonText(getString(R.string.alternate_reg_title))
+            //.setNeuButtonText(getString(R.string.alternate_reg_title))
             .setThumbId(R.drawable.ic_logo_photo)
             .setCancelable(false)
             .setListener(object : XDialog.DialogListener {
                 override fun onClickPositiveButton() {
-                    interactor?.navigateToHousehold()
+                    interactor?.navigateToAlternateHome()
                 }
 
                 override fun onClickNegativeButton() {
-
-                    interactor?.navigateToHome()
+                    requireActivity().finish()
+                    //interactor?.navigateToHome()
                 }
 
                 override fun onClickNeutralButton() {
