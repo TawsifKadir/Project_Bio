@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    pink theme-->
+    <color name="pi_primary">#FF6F69</color>
+    <color name="pi_on_primary">#ffffff</color>
+    <color name="pi_primary_light">#FF6F69</color>
+    <color name="pi_primary_dark">#fe485a</color>
+    <color name="pi_accent">#009688</color>
+    <color name="pi_on_accent">#FFFFFF</color>
+
+    <color name="pi_brand">#FF6F69</color>
+    <color name="pi_on_brand">#ffffff</color>
+    <color name="pi_brand_light">#FF6F69</color>
+    <color name="pi_brand_dark">#fe485a</color>
+    <color name="pi_brand_semi_transparent">#B3FF6F69</color>
+    <color name="pi_brand_disabled">#99FF6F69</color>
+    <color name="pi_on_brand_disabled">#ffffff</color>
+
+    <color name="pi_appbar">@color/transparent</color>
+    <color name="pi_on_appbar">#A6A6A6</color>
+
+    <color name="pi_bottom_bar">#ffffff</color>
+    <color name="pi_on_bottom_bar">#A6A6A6</color>
+    <color name="pi_on_bottom_bar_checked">#FF6F69</color>
+
+    <color name="pi_background">#FFFFFF</color>
+    <color name="pi_on_background">#647276</color>
+    <color name="pi_background_secondary">#EFEFEF</color>
+
+    <color name="pi_text_primary">#000000</color>
+    <color name="pi_text_secondary">#686A6A</color>
+    <color name="pi_text_primary_contrast">#ffffff</color>
+    <color name="pi_text_hint">#616F71</color>
+
+    <color name="pi_icon">#616F71</color>
+    <color name="pi_divider">#616F71</color>
+    <color name="pi_border">#899091</color>
+
+    <color name="pi_tag">#FF6F69</color>
+    <color name="pi_on_tag">#ffffff</color>
+    <color name="pi_tag_tvod">#aff4c7</color>
+    <color name="pi_on_tag_tvod">#213438</color>
+
+    <color name="pi_tab">#aff4c7</color>
+    <color name="pi_on_tab">#213438</color>
+    <color name="pi_tab_selected">#FF6F69</color>
+    <color name="pi_on_tab_selected">#ffffff</color>
+
+    <color name="pi_shimmer">#171717</color>
+    <color name="pi_transparent_dark_a">#E6FFFFFF</color>
+
+    <color name="pi_button_primary">#FF6F69</color>
+    <color name="pi_on_button_primary">#ffffff</color>
+    <color name="pi_button_primary_disabled">#B3FF6F69</color>
+    <color name="pi_button_primary_border">#FF6F69</color>
+
+    <color name="pi_button_a">#000000</color>
+    <color name="pi_on_button_a">#ffffff</color>
+    <color name="pi_button_a_disabled">#99000000</color>
+    <color name="pi_button_a_border">#000000</color>
+
+    <color name="pi_button_b">#ffffff</color>
+    <color name="pi_on_button_b">#213438</color>
+    <color name="pi_button_b_disabled">#99FFFFFF</color>
+    <color name="pi_button_b_border">#FF6F69</color>
+
+    <color name="pi_grid">#EAE9E9</color>
+    <color name="pi_on_grid">#FF6F69</color>
+
+    <!--    green theme-->
+    <color name="gr_primary">#11998e</color>
+    <color name="gr_on_primary">#ffffff</color>
+    <color name="gr_primary_light">#11998e</color>
+    <color name="gr_primary_dark">#0D8C82</color>
+    <color name="gr_accent">#FF6F69</color>
+    <color name="gr_on_accent">#FFFFFF</color>
+
+    <color name="gr_brand">#11998e</color>
+    <color name="gr_on_brand">#ffffff</color>
+    <color name="gr_brand_light">#11998e</color>
+    <color name="gr_brand_dark">#0D8C82</color>
+    <color name="gr_brand_semi_transparent">#B311998e</color>
+    <color name="gr_brand_disabled">#9911998e</color>
+    <color name="gr_on_brand_disabled">#ffffff</color>
+
+    <color name="gr_appbar">@color/transparent</color>
+    <color name="gr_on_appbar">#A6A6A6</color>
+
+    <color name="gr_bottom_bar">#ffffff</color>
+    <color name="gr_on_bottom_bar">#A6A6A6</color>
+    <color name="gr_on_bottom_bar_checked">#11998e</color>
+
+    <color name="gr_background">#FFFFFF</color>
+    <color name="gr_on_background">#647276</color>
+    <color name="gr_background_secondary">#EFEFEF</color>
+
+    <color name="gr_text_primary">#000000</color>
+    <color name="gr_text_secondary">#686A6A</color>
+    <color name="gr_text_primary_contrast">#ffffff</color>
+    <color name="gr_text_hint">#616F71</color>
+
+    <color name="gr_icon">#616F71</color>
+    <color name="gr_divider">#616F71</color>
+    <color name="gr_border">#899091</color>
+
+    <color name="gr_tag">#11998e</color>
+    <color name="gr_on_tag">#ffffff</color>
+    <color name="gr_tag_tvod">#aff4c7</color>
+    <color name="gr_on_tag_tvod">#213438</color>
+
+    <color name="gr_tab">#aff4c7</color>
+    <color name="gr_on_tab">#213438</color>
+    <color name="gr_tab_selected">#11998e</color>
+    <color name="gr_on_tab_selected">#ffffff</color>
+
+    <color name="gr_shimmer">#171717</color>
+    <color name="gr_transparent_dark_a">#E6FFFFFF</color>
+
+    <color name="gr_button_primary">#11998e</color>
+    <color name="gr_on_button_primary">#ffffff</color>
+    <color name="gr_button_primary_disabled">#B311998e</color>
+    <color name="gr_button_primary_border">#11998e</color>
+
+    <color name="gr_button_a">#000000</color>
+    <color name="gr_on_button_a">#ffffff</color>
+    <color name="gr_button_a_disabled">#99000000</color>
+    <color name="gr_button_a_border">#000000</color>
+
+    <color name="gr_button_b">#ffffff</color>
+    <color name="gr_on_button_b">#213438</color>
+    <color name="gr_button_b_disabled">#99FFFFFF</color>
+    <color name="gr_button_b_border">#11998e</color>
+
+    <color name="gr_grid">#EAE9E9</color>
+    <color name="gr_on_grid">#11998e</color>
+
+</resources>
