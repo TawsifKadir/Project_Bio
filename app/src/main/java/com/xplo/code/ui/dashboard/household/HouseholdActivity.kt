@@ -263,9 +263,10 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         Log.d(TAG, "navigateToAnotherHousehold() called with: hhForm1 = $hhForm1")
         resetRootFormKeepSetup()
         supportFragmentManager.popBackStack(
-            HhForm3Fragment.TAG,
+            HhForm2Fragment.TAG,
             FragmentManager.POP_BACK_STACK_INCLUSIVE
         )
+        navigateToForm2()
     }
 
     override fun onBackButton() {
