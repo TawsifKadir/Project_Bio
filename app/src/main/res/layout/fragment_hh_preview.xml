@@ -361,7 +361,7 @@
 
                             <TextView
                                 style="@style/PreviewTitleLableStyle"
-                                android:text="Merital Status" />
+                                android:text="Marital Status" />
 
                             <TextView
                                 android:id="@+id/tvMeritalStatus"
