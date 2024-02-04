@@ -119,7 +119,8 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
                     .withListener(object : MultiplePermissionsListener {
                         override fun onPermissionsChecked(report: MultiplePermissionsReport) {
                             if (report.areAllPermissionsGranted()) {
-                                showImagePickerOptions()
+                                //showImagePickerOptions()
+                                launchCameraIntent()
                             }
                             if (report.isAnyPermissionPermanentlyDenied) {
                                 showSettingsDialog()
@@ -142,7 +143,8 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
                     .withListener(object : MultiplePermissionsListener {
                         override fun onPermissionsChecked(report: MultiplePermissionsReport) {
                             if (report.areAllPermissionsGranted()) {
-                                showImagePickerOptions()
+                                //showImagePickerOptions()
+                                launchCameraIntent()
                             }
                             if (report.isAnyPermissionPermanentlyDenied) {
                                 showSettingsDialog()
