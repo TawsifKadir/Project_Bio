@@ -72,9 +72,16 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
         val selectedTheme = getPrefHelper().getSelectedTheme()
         Log.d(TAG, "initTheme: selectedTheme: $selectedTheme")
 
-        //apply theme only dark selected
-        if (selectedTheme == Constants.THEME_DARK) {
-            setTheme(R.style.AppTheme_Dark)
+//        //apply theme only dark selected
+//        if (selectedTheme == Constants.THEME_DARK) {
+//            setTheme(R.style.AppTheme_Dark)
+//        }
+
+        //apply theme only custom theme selected
+        when (selectedTheme) {
+            Constants.THEME_DARK -> setTheme(R.style.AppTheme_Dark)
+            Constants.THEME_PINK -> setTheme(R.style.AppTheme_Pink)
+            Constants.THEME_GREEN -> setTheme(R.style.AppTheme_Green)
         }
 
     }
