@@ -32,7 +32,7 @@
     <color name="li_text_primary">#213438</color>
     <color name="li_text_secondary">#647276</color>
     <color name="li_text_primary_contrast">#ffffff</color>
-    <color name="li_text_hint">#616F71</color>
+    <color name="li_text_hint">#B3647276</color>
 
     <color name="li_icon">#616F71</color>
     <color name="li_divider">#616F71</color>

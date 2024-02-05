@@ -68,7 +68,7 @@
 
                     <EditText
                         android:id="@+id/etFirstName"
-                        style="@style/AppEditText.Form.Text" />
+                        style="@style/AppEditText.Form.Text.Min3" />
 
                 </LinearLayout>
 
@@ -84,17 +84,12 @@
 
                     <EditText
                         android:id="@+id/etMiddleName"
-                        style="@style/AppEditText.Form.Text" />
+                        style="@style/AppEditText.Form.Text.Min3" />
 
                 </LinearLayout>
 
-            </LinearLayout>
+                <include layout="@layout/view_margin_space" />
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
                 <LinearLayout
                     style="@style/AppLinearLayoutInputBox"
@@ -106,21 +101,13 @@
 
                     <EditText
                         android:id="@+id/etLastName"
-                        style="@style/AppEditText.Form.Text" />
-
-                </LinearLayout>
-
-                <include layout="@layout/view_margin_space" />
-
-                <LinearLayout
-                    style="@style/AppLinearLayoutInputBox"
-                    android:layout_weight="1"
-                    android:visibility="invisible">
-
+                        style="@style/AppEditText.Form.Text.Min3" />
 
                 </LinearLayout>
 
             </LinearLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -142,6 +129,7 @@
                 </LinearLayout>
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -156,9 +144,9 @@
                         android:text="@string/respondent_age_max_3_digit" />
 
                     <EditText
-                        android:maxLength="2"
                         android:id="@+id/etAge"
-                        style="@style/AppEditText.Form.Number" />
+                        style="@style/AppEditText.Form.Number"
+                        android:maxLength="2" />
 
                 </LinearLayout>
 
@@ -202,13 +190,13 @@
                         <RadioButton
                             android:id="@+id/rbYes"
                             style="@style/AppRadioButton.Form"
-                            android:text="@string/yes"/>
+                            android:text="@string/yes" />
 
                         <RadioButton
                             android:id="@+id/rbNo"
                             style="@style/AppRadioButton.Form"
-                            android:text="@string/no"
-                            android:checked="true"  />
+                            android:checked="true"
+                            android:text="@string/no" />
 
                     </RadioGroup>
 
@@ -217,11 +205,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/llIdType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <LinearLayout
                     style="@style/AppLinearLayoutInputBox"
@@ -240,11 +228,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/llIdTypeInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
 
                 <LinearLayout
@@ -327,20 +315,21 @@
 
                 </LinearLayout>
 
-                <include android:visibility="gone" layout="@layout/view_margin_space" />
+                <include
+                    layout="@layout/view_margin_space"
+                    android:visibility="gone" />
 
                 <LinearLayout
-                    android:visibility="gone"
                     style="@style/AppLinearLayoutInputBox"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
                         android:text="Currency" />
 
 
-                    <Spinner
-                        style="@style/AppSpinnerForm" />
+                    <Spinner style="@style/AppSpinnerForm" />
 
                 </LinearLayout>
 

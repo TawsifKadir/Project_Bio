@@ -42,16 +42,20 @@
         <item name="android:layout_marginTop">0dp</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textColor">?attr/colorTextPrimary</item>
-        <item name="android:textColorHint">?attr/colorTextSecondary</item>
+        <item name="android:textColorHint">?attr/colorTextHint</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textAlignment">textStart</item>
         <item name="android:singleLine">true</item>
-        <item name="android:hint"></item>
+
     </style>
 
 
     <style name="AppEditText.Form.Text" parent="AppEditText.Form">
         <item name="android:inputType">text</item>
+    </style>
+
+    <style name="AppEditText.Form.Text.Min3" parent="AppEditText.Form.Text">
+        <item name="android:hint">Minimum 3 char</item>
     </style>
 
     <style name="AppEditText.Form.Number" parent="AppEditText.Form">
@@ -66,14 +70,14 @@
         <item name="android:inputType">phone</item>
     </style>
 
-    <style name="AppSpinnerForm" >
+    <style name="AppSpinnerForm">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/input_row_height</item>
         <item name="android:popupBackground">?attr/colorBackground</item>
 
     </style>
 
-    <style name="AppFingerLayoutStyle" >
+    <style name="AppFingerLayoutStyle">
         <item name="android:orientation">vertical</item>
         <item name="android:padding">@dimen/finger_img_padding</item>
         <item name="android:layout_weight">1</item>
@@ -82,12 +86,13 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="AppFingerImgStyle" >
+    <style name="AppFingerImgStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">4</item>
     </style>
-    <style name="AppFingerText" >
+
+    <style name="AppFingerText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/finger_img_height</item>
         <item name="android:layout_weight">1</item>
@@ -110,7 +115,7 @@
 
     </style>
 
-    <style name="AppRadioGroupForm" >
+    <style name="AppRadioGroupForm">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/input_row_height</item>
         <item name="android:orientation">horizontal</item>
@@ -135,6 +140,7 @@
         <item name="android:textSize">25sp</item>
         <item name="android:textColor">@color/bottom_nav</item>
     </style>
+
     <style name="PreviewTitleLableStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -142,12 +148,14 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
     </style>
-   <style name="PreviewTitleLableValueStyle">
+
+    <style name="PreviewTitleLableValueStyle">
         <item name="android:textAlignment">center</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
     </style>
+
     <style name="PreviewLLStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -155,6 +163,7 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:weightSum">2</item>
     </style>
+
     <style name="PreviewLLTopStyle">
         <item name="android:layout_margin">10dp</item>
         <item name="android:layout_width">match_parent</item>
@@ -163,8 +172,9 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
-    <style name="TextInputLayout.Outline.Dropdown" parent="AppTextInputLayout.Outline.Dropdown"/>
-    <style name="TextInput.Outline" parent="AppTextInputEditText.Outline"/>
+    <style name="TextInputLayout.Outline.Dropdown" parent="AppTextInputLayout.Outline.Dropdown" />
+
+    <style name="TextInput.Outline" parent="AppTextInputEditText.Outline" />
 
 
 </resources>

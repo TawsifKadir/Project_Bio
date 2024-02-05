@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
-    <string name="respondent_first_name_min_3_letters">Respondent First Name (min 3 letters)</string>
+    <string name="respondent_first_name_min_3_letters">Respondent First Name</string>
     <string name="respondent_middle_name_min_3_letters">Respondent Middle Name</string>
-    <string name="respondent_last_name_min_3_letters">Respondent Last Name (min 3 letters)</string>
+    <string name="respondent_last_name_min_3_letters">Respondent Last Name</string>
 
     <string name="respondent_spouse_first_name_min_3_letters">Respondent Spouse First Name (min 3 letters)</string>
     <string name="respondent_spouse_middle_name_min_3_letters">Respondent Spouse Middle Name</string>
