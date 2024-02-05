@@ -8,7 +8,7 @@
     android:layout_height="wrap_content"
     android:backgroundTint="?attr/colorBackground"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardCornerRadius="4dp"
+    app:cardCornerRadius="@dimen/ccr_default"
     app:cardUseCompatPadding="true">
 
 
