@@ -7,16 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
-import com.xplo.code.core.ext.toBool
 import com.xplo.code.databinding.FragmentHhForm6FingerBinding
-import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
-import com.xplo.code.ui.dashboard.model.HhForm5
+import com.xplo.code.ui.dashboard.model.HhForm6
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,7 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form5View {
+class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
 
     companion object {
         const val TAG = "HhForm6Fragment"
@@ -121,11 +118,11 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form5View {
         super.onDestroy()
     }
 
-    override fun onValidated(form: HhForm5?) {
+    override fun onValidated(form: HhForm6?) {
         Log.d(TAG, "onValidated() called with: form = $form")
     }
 
-    override fun onReinstateData(form: HhForm5?) {
+    override fun onReinstateData(form: HhForm6?) {
         Log.d(TAG, "onReinstateData() called with: form = $form")
 
     }
@@ -166,7 +163,6 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form5View {
     override fun onPopulateView() {
         Log.d(TAG, "onPopulateView() called")
     }
-
 
 
 }

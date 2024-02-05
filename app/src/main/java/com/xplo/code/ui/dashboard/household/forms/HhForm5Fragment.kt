@@ -31,7 +31,7 @@ import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.forms.nominee.NomineeListAdapter
 import com.xplo.code.ui.dashboard.household.forms.nominee.NomineeModal
-import com.xplo.code.ui.dashboard.model.HhForm6
+import com.xplo.code.ui.dashboard.model.HhForm5
 import com.xplo.code.ui.dashboard.model.Nominee
 import com.xplo.code.ui.dashboard.model.checkExtraCases
 import com.xplo.code.ui.dashboard.model.getNomineeNumber
@@ -48,7 +48,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * Comment  :
  */
 @AndroidEntryPoint
-class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form6View,
+class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View,
     NomineeListAdapter.OnItemClickListener {
 
     companion object {
@@ -172,7 +172,7 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form6View,
         super.onDestroy()
     }
 
-    override fun onValidated(form: HhForm6?) {
+    override fun onValidated(form: HhForm5?) {
         Log.d(TAG, "onValidated() called with: form = $form")
 
         val rootForm = interactor?.getRootForm()
@@ -184,7 +184,7 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form6View,
         interactor?.navigateToForm6()
     }
 
-    override fun onReinstateData(form: HhForm6?) {
+    override fun onReinstateData(form: HhForm5?) {
         Log.d(TAG, "onReinstateData() called with: form = $form")
         if (form == null) return
 
@@ -313,7 +313,7 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form6View,
     override fun onReadInput() {
         Log.d(TAG, "onReadInput() called")
 
-        val form = HhForm6()
+        val form = HhForm5()
         form.isNomineeAdd = chkRadioGroup(binding.rgNomineeAdd, UiData.ER_ET_DF)
 
         if (form.isNomineeAdd.isNo()) {

@@ -9,8 +9,8 @@ data class HouseholdForm(
     var form2: HhForm2? = null,
     var form3: HhForm3? = null,
     var form4: HhForm4? = null,
-    var form5: HhForm5? = null,
-    var form6: HhForm6? = null,
+    var form5: HhForm6? = null,
+    var form6: HhForm5? = null,
 
 //    var alPerson1: AlternateForm? = null,
 //    var alPerson2: AlternateForm? = null
@@ -87,10 +87,6 @@ data class HhForm4(
 )
 
 data class HhForm5(
-    var finger: String? = null
-)
-
-data class HhForm6(
 
     var isNomineeAdd: String? = null,
     var noNomineeReason: String? = null,
@@ -102,7 +98,7 @@ data class HhForm6(
     var nominees: ArrayList<Nominee> = arrayListOf()
 )
 
-fun HhForm6?.getNomineeNumber(): Int {
+fun HhForm5?.getNomineeNumber(): Int {
     if (this == null) return 1
     return this.nominees.size.plus(1) ?: 1
 }
@@ -133,6 +129,11 @@ fun Nominee?.toSummary(): String? {
     var txt = sb.toString()
     return txt
 }
+
+
+data class HhForm6(
+    var finger: String? = null
+)
 
 data class AlForm1(
     var householdName: String? = null,

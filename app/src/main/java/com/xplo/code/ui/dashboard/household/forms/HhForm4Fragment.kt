@@ -380,9 +380,9 @@ class HhForm4Fragment : BasicFormFragment(), HouseholdContract.Form4View {
         //getPrefHelper().setNomineeConsentAcceptStatus(true)
         interactor?.getRootForm()?.consentStatus?.isConsentGivenNominee = true
         if (interactor?.getRootForm()?.form1?.countryName.equals("JUBA")) {
-            interactor?.navigateToPreview()
-        } else {
             interactor?.navigateToForm6()
+        } else {
+            interactor?.navigateToForm5()
         }
 
     }
