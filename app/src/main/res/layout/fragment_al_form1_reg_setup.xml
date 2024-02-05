@@ -42,7 +42,7 @@
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
-                        android:text="Household First Name (min 3 letters)" />
+                        android:text="@string/household_name" />
 
                     <EditText
                         android:id="@+id/etHouseholdName"
@@ -73,11 +73,11 @@
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
-                        android:text="Alternate First Name (min 3 letters)" />
+                        android:text="@string/alternate_first_name_min_3_letters" />
 
                     <EditText
                         android:id="@+id/etAlternateFirstName"
-                        style="@style/AppEditText.Form.Text" />
+                        style="@style/AppEditText.Form.Text.Min3" />
 
                 </LinearLayout>
 
@@ -89,33 +89,11 @@
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
-                        android:text="Alternate Middle Name (min 3 letters)" />
+                        android:text="@string/alternate_middle_name_min_3_letters" />
 
                     <EditText
                         android:id="@+id/etAlternateMiddleName"
-                        style="@style/AppEditText.Form.Text" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    style="@style/AppLinearLayoutInputBox"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/AppTextView.Input.Header"
-                        android:text="Alternate Last Name (min 3 letters)" />
-
-                    <EditText
-                        android:id="@+id/etAlternateLastName"
-                        style="@style/AppEditText.Form.Text" />
+                        style="@style/AppEditText.Form.Text.Min3" />
 
                 </LinearLayout>
 
@@ -123,11 +101,18 @@
 
                 <LinearLayout
                     style="@style/AppLinearLayoutInputBox"
-                    android:layout_weight="1"
-                    android:visibility="invisible">
+                    android:layout_weight="1">
 
+                    <TextView
+                        style="@style/AppTextView.Input.Header"
+                        android:text="@string/alternate_last_name_min_3_letters" />
+
+                    <EditText
+                        android:id="@+id/etAlternateLastName"
+                        style="@style/AppEditText.Form.Text.Min3" />
 
                 </LinearLayout>
+
 
             </LinearLayout>
 
@@ -165,7 +150,7 @@
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
-                        android:text="Do you have a national ID?" />
+                        android:text="@string/do_you_have_a_national_id" />
 
 
                     <RadioGroup
@@ -202,7 +187,7 @@
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
-                        android:text="What type of ID number do you possess?" />
+                        android:text="@string/what_type_of_id_number_do_you_possess" />
 
 
                     <Spinner

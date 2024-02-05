@@ -254,4 +254,15 @@
     <string name="can_read_and_write">Can read and write ?</string>
     <string name="what_does_currently_do_for_a_living">What does currently do for a living?</string>
 
+    <string name="can_you_read_and_write_any_language">Do you read and write? (any language)</string>
+    <string name="not_including_yourself_how_many_other_members_of_your_household_are_between_18_and_35_and_can_read_and_write">Not including yourself, how many other members of your household are between 18 and 35 and can read and write ?</string>
+    <string name="minimum_2_maximum_5_and_1_female_nominee_required">Minimum 2, maximum 5 and 1 female nominee required</string>
+    <string name="do_you_have_a_national_id">Do you have a national ID?</string>
+    <string name="what_type_of_id_number_do_you_possess">What type of ID number do you possess?</string>
+    <string name="household_first_name_min_3_letters">Household First Name (min 3 letters)</string>
+    <string name="alternate_first_name_min_3_letters">Alternate First Name (min 3 letters)</string>
+    <string name="alternate_middle_name_min_3_letters">Alternate Middle Name (min 3 letters)</string>
+    <string name="alternate_last_name_min_3_letters">Alternate Last Name (min 3 letters)</string>
+
+
 </resources>
