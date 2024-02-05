@@ -137,8 +137,8 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form5View {
 
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
-        //interactor?.navigateToForm6()
-        askForConsent()
+        interactor?.navigateToPreview()
+        //askForConsent()
     }
 
     override fun onReadInput() {
@@ -168,49 +168,5 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form5View {
     }
 
 
-    private fun askForConsent() {
 
-        if (isConsentGiven()) {
-            onGetConsent()
-            return
-        }
-
-        XDialogSheet.Builder(requireActivity().supportFragmentManager)
-            .setLayoutId(R.layout.bsd_consent_sheet)
-            .setTitle("Consent Nominee")
-            .setMessage(getString(R.string.agreement))
-            .setPosButtonText("Yes")
-            .setNegButtonText("No")
-            .setCancelable(true)
-            .setListener(object : XDialogSheet.DialogListener {
-                override fun onClickPositiveButton() {
-                    onGetConsent()
-                }
-
-                override fun onClickNegativeButton() {
-
-                }
-
-                override fun onClickNeutralButton() {
-
-                }
-            })
-            .build()
-            .show()
-    }
-
-    private fun onGetConsent() {
-        //getPrefHelper().setNomineeConsentAcceptStatus(true)
-        interactor?.getRootForm()?.consentStatus?.isConsentGivenNominee = true
-        if (interactor?.getRootForm()?.form1?.countryName.equals("JUBA")) {
-            interactor?.navigateToPreview()
-        } else {
-            interactor?.navigateToForm6()
-        }
-
-    }
-
-    fun isConsentGiven(): Boolean {
-        return interactor?.getRootForm()?.consentStatus?.isConsentGivenNominee.toBool()
-    }
 }

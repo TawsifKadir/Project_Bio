@@ -26,13 +26,12 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
+import com.xplo.code.core.ext.toBool
 import com.xplo.code.databinding.FragmentHhForm4CapPhotoBinding
-import com.xplo.code.ui.dashboard.UiData
+import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
-import com.xplo.code.ui.dashboard.model.HhForm2
-import com.xplo.code.ui.dashboard.model.HhForm3
 import com.xplo.code.ui.dashboard.model.HhForm4
 import com.xplo.code.ui.photo.ImagePickerActivity
 import com.xplo.code.ui.photo.ImageUtil
@@ -209,7 +208,8 @@ class HhForm4Fragment : BasicFormFragment(), HouseholdContract.Form4View {
 
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
-        interactor?.navigateToForm5()
+        //interactor?.navigateToForm5()
+        askForConsent()
     }
 
     override fun onReadInput() {
@@ -302,6 +302,7 @@ class HhForm4Fragment : BasicFormFragment(), HouseholdContract.Form4View {
         rootForm?.form4 = form
         interactor?.setRootForm(rootForm)
     }
+
     /**
      * Showing Alert Dialog with Settings option
      * Navigates user to app settings
@@ -335,12 +336,58 @@ class HhForm4Fragment : BasicFormFragment(), HouseholdContract.Form4View {
     private fun loadProfile(url: String) {
         // filePath=url;
         Glide.with(this).load(url)
-            .into(this!!.binding.img!!)
-        binding.img!!.setColorFilter(
+            .into(this.binding.img)
+        binding.img.setColorFilter(
             ContextCompat.getColor(
                 requireContext(),
                 android.R.color.transparent
             )
         )
+    }
+
+    private fun askForConsent() {
+
+        if (isConsentGiven()) {
+            onGetConsent()
+            return
+        }
+
+        XDialogSheet.Builder(requireActivity().supportFragmentManager)
+            .setLayoutId(R.layout.bsd_consent_sheet)
+            .setTitle("Consent Nominee")
+            .setMessage(getString(R.string.agreement))
+            .setPosButtonText("Yes")
+            .setNegButtonText("No")
+            .setCancelable(true)
+            .setListener(object : XDialogSheet.DialogListener {
+                override fun onClickPositiveButton() {
+                    onGetConsent()
+                }
+
+                override fun onClickNegativeButton() {
+
+                }
+
+                override fun onClickNeutralButton() {
+
+                }
+            })
+            .build()
+            .show()
+    }
+
+    private fun onGetConsent() {
+        //getPrefHelper().setNomineeConsentAcceptStatus(true)
+        interactor?.getRootForm()?.consentStatus?.isConsentGivenNominee = true
+        if (interactor?.getRootForm()?.form1?.countryName.equals("JUBA")) {
+            interactor?.navigateToPreview()
+        } else {
+            interactor?.navigateToForm6()
+        }
+
+    }
+
+    fun isConsentGiven(): Boolean {
+        return interactor?.getRootForm()?.consentStatus?.isConsentGivenNominee.toBool()
     }
 }
