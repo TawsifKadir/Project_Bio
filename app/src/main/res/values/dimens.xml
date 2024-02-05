@@ -20,6 +20,7 @@
     <dimen name="ss_app_version">18sp</dimen>
 
     <dimen name="ccr_default">8dp</dimen>
+    <dimen name="scr_input_box">4dp</dimen>
     <dimen name="img_btn_size_medium">50dp</dimen>
     <dimen name="img_btn_size_large">70dp</dimen>
 

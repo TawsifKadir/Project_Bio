@@ -27,7 +27,7 @@
 
     <color name="li_background">#FFFFFF</color>
     <color name="li_on_background">#647276</color>
-    <color name="li_background_secondary">#EFEFEF</color>
+    <color name="li_background_secondary">#F1F1F1</color>
 
     <color name="li_text_primary">#213438</color>
     <color name="li_text_secondary">#647276</color>
