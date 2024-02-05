@@ -26,6 +26,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvPage">
 
         <LinearLayout
+            android:id="@+id/llCapture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -39,8 +40,19 @@
                 android:layout_marginBottom="50dp"
                 android:src="@drawable/ic_finger"
                 app:tint="@color/gray" />
+            <TextView
+                android:id="@+id/txt"
+                android:textAlignment="center"
+                android:text="Add Fingerprints"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TextView>
 
             <LinearLayout
+                android:id="@+id/llDataShow"
+                tools:visibility="visible"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:orientation="vertical"
@@ -56,9 +68,10 @@
                     <LinearLayout style="@style/AppFingerLayoutStyle">
 
                         <ImageView
+                            android:id="@+id/imgRT"
                             style="@style/AppFingerImgStyle"
-                            android:src="@drawable/ic_finger_add"
-                            app:tint="@color/green" />
+                            android:src="@drawable/ic_finger_minus"
+                            app:tint="@color/red" />
 
                         <TextView
                             style="@style/AppFingerText"
@@ -68,9 +81,10 @@
                     <LinearLayout style="@style/AppFingerLayoutStyle">
 
                         <ImageView
+                            android:id="@+id/imgRI"
                             style="@style/AppFingerImgStyle"
-                            android:src="@drawable/ic_finger_add"
-                            app:tint="@color/green" />
+                            android:src="@drawable/ic_finger_minus"
+                            app:tint="@color/red" />
 
                         <TextView
                             style="@style/AppFingerText"
@@ -80,6 +94,7 @@
                     <LinearLayout style="@style/AppFingerLayoutStyle">
 
                         <ImageView
+                            android:id="@+id/imgRM"
                             style="@style/AppFingerImgStyle"
                             android:src="@drawable/ic_finger_minus"
                             app:tint="@color/red" />
@@ -92,6 +107,7 @@
                     <LinearLayout style="@style/AppFingerLayoutStyle">
 
                         <ImageView
+                            android:id="@+id/imgRR"
                             style="@style/AppFingerImgStyle"
                             android:src="@drawable/ic_finger_minus"
                             app:tint="@color/red" />
@@ -104,6 +120,7 @@
                     <LinearLayout style="@style/AppFingerLayoutStyle">
 
                         <ImageView
+                            android:id="@+id/imgRL"
                             style="@style/AppFingerImgStyle"
                             android:src="@drawable/ic_finger_minus"
                             app:tint="@color/red" />
@@ -125,6 +142,7 @@
                     <LinearLayout style="@style/AppFingerLayoutStyle">
 
                         <ImageView
+                            android:id="@+id/imgLT"
                             style="@style/AppFingerImgStyle"
                             android:src="@drawable/ic_finger_minus"
                             app:tint="@color/red" />
@@ -137,6 +155,7 @@
                     <LinearLayout style="@style/AppFingerLayoutStyle">
 
                         <ImageView
+                            android:id="@+id/imgLI"
                             style="@style/AppFingerImgStyle"
                             android:src="@drawable/ic_finger_minus"
                             app:tint="@color/red" />
@@ -149,6 +168,7 @@
                     <LinearLayout style="@style/AppFingerLayoutStyle">
 
                         <ImageView
+                            android:id="@+id/imgLM"
                             style="@style/AppFingerImgStyle"
                             android:src="@drawable/ic_finger_minus"
                             app:tint="@color/red" />
@@ -161,6 +181,7 @@
                     <LinearLayout style="@style/AppFingerLayoutStyle">
 
                         <ImageView
+                            android:id="@+id/imgLR"
                             style="@style/AppFingerImgStyle"
                             android:src="@drawable/ic_finger_minus"
                             app:tint="@color/red" />
@@ -173,6 +194,7 @@
                     <LinearLayout style="@style/AppFingerLayoutStyle">
 
                         <ImageView
+                            android:id="@+id/imgLL"
                             style="@style/AppFingerImgStyle"
                             android:src="@drawable/ic_finger_minus"
                             app:tint="@color/red" />

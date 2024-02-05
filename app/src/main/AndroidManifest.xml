@@ -29,7 +29,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Light"
         android:usesCleartextTraffic="true"
-        tools:ignore="AllowBackup,GoogleAppIndexingWarning,LockedOrientationActivity">
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning,LockedOrientationActivity"
+        tools:replace="android:theme"
+        >
 
         <activity
             android:name=".ui.photo.ImagePickerActivity"
