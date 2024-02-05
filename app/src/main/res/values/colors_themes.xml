@@ -2,19 +2,20 @@
 <resources>
 
     <!--    light theme-->
-    <color name="li_primary">#00C388</color>
+    <!--    green theme-->
+    <color name="li_primary">#11998e</color>
     <color name="li_on_primary">#ffffff</color>
-    <color name="li_primary_light">#00C388</color>
-    <color name="li_primary_dark">#00C388</color>
-    <color name="li_accent">#FF5B52</color>
+    <color name="li_primary_light">#11998e</color>
+    <color name="li_primary_dark">#0D8C82</color>
+    <color name="li_accent">#FF6F69</color>
     <color name="li_on_accent">#FFFFFF</color>
 
-    <color name="li_brand">#00C388</color>
+    <color name="li_brand">#11998e</color>
     <color name="li_on_brand">#ffffff</color>
-    <color name="li_brand_light">#00C388</color>
-    <color name="li_brand_dark">#00C388</color>
-    <color name="li_brand_semi_transparent">#B300C388</color>
-    <color name="li_brand_disabled">#9900C388</color>
+    <color name="li_brand_light">#11998e</color>
+    <color name="li_brand_dark">#0D8C82</color>
+    <color name="li_brand_semi_transparent">#B311998e</color>
+    <color name="li_brand_disabled">#9911998e</color>
     <color name="li_on_brand_disabled">#ffffff</color>
 
     <color name="li_appbar">@color/transparent</color>
@@ -22,14 +23,14 @@
 
     <color name="li_bottom_bar">#ffffff</color>
     <color name="li_on_bottom_bar">#A6A6A6</color>
-    <color name="li_on_bottom_bar_checked">#00C388</color>
+    <color name="li_on_bottom_bar_checked">#11998e</color>
 
     <color name="li_background">#FFFFFF</color>
     <color name="li_on_background">#647276</color>
     <color name="li_background_secondary">#EFEFEF</color>
 
-    <color name="li_text_primary">#000000</color>
-    <color name="li_text_secondary">#727575</color>
+    <color name="li_text_primary">#213438</color>
+    <color name="li_text_secondary">#647276</color>
     <color name="li_text_primary_contrast">#ffffff</color>
     <color name="li_text_hint">#616F71</color>
 
@@ -37,23 +38,23 @@
     <color name="li_divider">#616F71</color>
     <color name="li_border">#899091</color>
 
-    <color name="li_tag">#00C388</color>
+    <color name="li_tag">#11998e</color>
     <color name="li_on_tag">#ffffff</color>
     <color name="li_tag_tvod">#aff4c7</color>
     <color name="li_on_tag_tvod">#213438</color>
 
     <color name="li_tab">#aff4c7</color>
     <color name="li_on_tab">#213438</color>
-    <color name="li_tab_selected">#00C388</color>
+    <color name="li_tab_selected">#11998e</color>
     <color name="li_on_tab_selected">#ffffff</color>
 
     <color name="li_shimmer">#171717</color>
     <color name="li_transparent_dark_a">#E6FFFFFF</color>
 
-    <color name="li_button_primary">#00C388</color>
+    <color name="li_button_primary">#11998e</color>
     <color name="li_on_button_primary">#ffffff</color>
-    <color name="li_button_primary_disabled">#9900C388</color>
-    <color name="li_button_primary_border">#00C388</color>
+    <color name="li_button_primary_disabled">#B311998e</color>
+    <color name="li_button_primary_border">#11998e</color>
 
     <color name="li_button_a">#000000</color>
     <color name="li_on_button_a">#ffffff</color>
@@ -63,10 +64,10 @@
     <color name="li_button_b">#ffffff</color>
     <color name="li_on_button_b">#213438</color>
     <color name="li_button_b_disabled">#99FFFFFF</color>
-    <color name="li_button_b_border">#00C388</color>
+    <color name="li_button_b_border">#11998e</color>
 
     <color name="li_grid">#EAE9E9</color>
-    <color name="li_on_grid">#00C388</color>
+    <color name="li_on_grid">#11998e</color>
 
     <!--    dark theme-->
     <color name="dk_primary">#D21E28</color>

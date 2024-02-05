@@ -80,7 +80,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
 
         //apply theme only custom theme selected
         when (selectedTheme) {
-            Constants.THEME_LIGHT -> setTheme(R.style.AppTheme_Light)
+            //Constants.THEME_LIGHT -> setTheme(R.style.AppTheme_Light)
             Constants.THEME_DARK -> setTheme(R.style.AppTheme_Dark)
             Constants.THEME_PINK -> setTheme(R.style.AppTheme_Pink)
             Constants.THEME_GREEN -> setTheme(R.style.AppTheme_Green)
