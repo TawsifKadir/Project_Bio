@@ -253,7 +253,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
             .setBackgroundColorInt(
                 AttrUtils.getAttrColor(
                     this,
-                    R.attr.colorBrand
+                    R.attr.colorWarning
                 )
             ) // or setBackgroundColorInt(Color.CYAN)
             .setTextAppearance(R.style.AlertTextAppr_Text)

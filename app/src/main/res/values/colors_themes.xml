@@ -37,6 +37,8 @@
     <color name="li_icon">#616F71</color>
     <color name="li_divider">#616F71</color>
     <color name="li_border">#899091</color>
+    <color name="li_waring">#FF5B52</color>
+    <color name="li_error">#FF5B52</color>
 
     <color name="li_tag">#11998e</color>
     <color name="li_on_tag">#ffffff</color>
@@ -61,10 +63,10 @@
     <color name="li_button_a_disabled">#99000000</color>
     <color name="li_button_a_border">#000000</color>
 
-    <color name="li_button_b">#ffffff</color>
-    <color name="li_on_button_b">#213438</color>
+    <color name="li_button_b">#FF5B52</color>
+    <color name="li_on_button_b">#ffffff</color>
     <color name="li_button_b_disabled">#99FFFFFF</color>
-    <color name="li_button_b_border">#11998e</color>
+    <color name="li_button_b_border">#FF5B52</color>
 
     <color name="li_grid">#EAE9E9</color>
     <color name="li_on_grid">#11998e</color>
@@ -106,6 +108,8 @@
     <color name="dk_icon">#ffffff</color>
     <color name="dk_divider">#2CFFFFFF</color>
     <color name="dk_border">#2CFFFFFF</color>
+    <color name="dk_waring">#FF5B52</color>
+    <color name="dk_error">#FF5B52</color>
 
     <color name="dk_tag">#D21E28</color>
     <color name="dk_on_tag">#ffffff</color>

@@ -29,6 +29,9 @@
     <attr name="colorIcon" format="reference|color" />
     <attr name="colorDivider" format="reference|color" />
     <attr name="colorBorder" format="reference|color" />
+    <attr name="colorWarning" format="color" />
+    <attr name="colorError" format="color" />
+
     <attr name="colorNavigationItem" format="color" />
 
     <attr name="colorTag" format="reference|color" />

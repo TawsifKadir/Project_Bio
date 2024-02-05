@@ -36,6 +36,8 @@
     <color name="pi_icon">#616F71</color>
     <color name="pi_divider">#616F71</color>
     <color name="pi_border">#899091</color>
+    <color name="pi_waring">#FF5B52</color>
+    <color name="pi_error">#FF5B52</color>
 
     <color name="pi_tag">#FF6F69</color>
     <color name="pi_on_tag">#ffffff</color>
@@ -103,6 +105,8 @@
     <color name="gr_icon">#616F71</color>
     <color name="gr_divider">#616F71</color>
     <color name="gr_border">#899091</color>
+    <color name="gr_waring">#FF5B52</color>
+    <color name="gr_error">#FF5B52</color>
 
     <color name="gr_tag">#11998e</color>
     <color name="gr_on_tag">#ffffff</color>

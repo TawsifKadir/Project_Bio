@@ -48,6 +48,8 @@
         <item name="colorIcon">@color/pi_icon</item>
         <item name="colorDivider">@color/pi_divider</item>
         <item name="colorBorder">@color/pi_border</item>
+        <item name="colorWarning">@color/pi_waring</item>
+        <item name="colorError">@color/pi_error</item>
 
         <item name="colorTag">@color/pi_tag</item>
         <item name="colorOnTag">@color/pi_on_tag</item>
@@ -130,6 +132,8 @@
         <item name="colorIcon">@color/gr_icon</item>
         <item name="colorDivider">@color/gr_divider</item>
         <item name="colorBorder">@color/gr_border</item>
+        <item name="colorWarning">@color/gr_waring</item>
+        <item name="colorError">@color/gr_error</item>
 
         <item name="colorTag">@color/gr_tag</item>
         <item name="colorOnTag">@color/gr_on_tag</item>

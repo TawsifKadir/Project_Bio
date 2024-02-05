@@ -77,6 +77,8 @@
         <item name="colorIcon">@color/li_icon</item>
         <item name="colorDivider">@color/li_divider</item>
         <item name="colorBorder">@color/li_border</item>
+        <item name="colorWarning">@color/li_waring</item>
+        <item name="colorError">@color/li_error</item>
 
         <item name="colorTag">@color/li_tag</item>
         <item name="colorOnTag">@color/li_on_tag</item>
@@ -177,6 +179,8 @@
         <item name="colorIcon">@color/dk_icon</item>
         <item name="colorDivider">@color/dk_divider</item>
         <item name="colorBorder">@color/dk_border</item>
+        <item name="colorWarning">@color/li_waring</item>
+        <item name="colorError">@color/li_error</item>
 
         <item name="colorTag">@color/dk_tag</item>
         <item name="colorOnTag">@color/dk_on_tag</item>
