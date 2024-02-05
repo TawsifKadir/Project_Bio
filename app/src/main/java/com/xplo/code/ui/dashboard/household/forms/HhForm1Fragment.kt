@@ -143,6 +143,7 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
         etLon = binding.etLon
 
     }
+
     fun isGpsAvailable(context: Context): Boolean {
         return context.packageManager.hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)
     }
@@ -151,7 +152,7 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
 
         if (!isUseOldView) {
 
-            if(isGpsAvailable(requireContext())){
+            if (isGpsAvailable(requireContext())) {
                 getLocation()
             }
             viewModel.getStateItems()
@@ -459,6 +460,9 @@ class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
         spCountryName.setSelection(1)
         spPayamName.setSelection(1)
         spBomaName.setSelection(1)
+
+        etLat.setText("99.99")
+        etLon.setText("99.99")
 
 
     }

@@ -69,6 +69,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
     }
 
     protected open fun initTheme() {
+        //requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         val selectedTheme = getPrefHelper().getSelectedTheme()
         Log.d(TAG, "initTheme: selectedTheme: $selectedTheme")
 
@@ -79,6 +80,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
 
         //apply theme only custom theme selected
         when (selectedTheme) {
+            Constants.THEME_LIGHT -> setTheme(R.style.AppTheme_Light)
             Constants.THEME_DARK -> setTheme(R.style.AppTheme_Dark)
             Constants.THEME_PINK -> setTheme(R.style.AppTheme_Pink)
             Constants.THEME_GREEN -> setTheme(R.style.AppTheme_Green)
@@ -248,7 +250,12 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
             .setTitle(title ?: "")
             .setText(msg ?: "")
             .enableSwipeToDismiss()
-            .setBackgroundColorInt(AttrUtils.getAttrColor(this, R.attr.colorBrand)) // or setBackgroundColorInt(Color.CYAN)
+            .setBackgroundColorInt(
+                AttrUtils.getAttrColor(
+                    this,
+                    R.attr.colorBrand
+                )
+            ) // or setBackgroundColorInt(Color.CYAN)
             .setTextAppearance(R.style.AlertTextAppr_Text)
             .setTitleAppearance(R.style.AlertTextAppr_Title)
             .show()

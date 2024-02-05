@@ -76,18 +76,15 @@
     <!--    </style>-->
 
     <style name="AppButton.Dialog.Positive" parent="AppButton.Primary">
-        <item name="android:textSize">14sp</item>
         <item name="android:padding">16dp</item>
     </style>
 
     <style name="AppButton.Dialog.Negative" parent="AppButton.TextButton.Secondary">
-        <item name="android:textSize">14sp</item>
         <item name="android:padding">16dp</item>
     </style>
 
     <style name="AppButton.Dialog.TextButton" parent="AppButton.TextButton.Primary">
         <item name="android:textColor">?attr/colorTextPrimary</item>
-        <item name="android:textSize">14sp</item>
         <item name="android:padding">4dp</item>
         <item name="android:singleLine">true</item>
 
@@ -143,14 +140,12 @@
 
     <style name="AppTextView.Dialog.Title" parent="android:Widget.TextView">
         <item name="android:textColor">?attr/colorTextPrimary</item>
-        <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAlignment">textStart</item>
     </style>
 
     <style name="AppTextView.Dialog.Body" parent="android:Widget.TextView">
         <item name="android:textColor">?attr/colorTextSecondary</item>
-        <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textAlignment">textStart</item>
     </style>
