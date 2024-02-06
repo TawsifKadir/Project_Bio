@@ -58,19 +58,46 @@ class HhForm3Fragment : BasicFormFragment(), HouseholdContract.Form3View {
 
 
     private lateinit var etHouseholdSize: EditText
-    private lateinit var etMaleHouseholdMembers: EditText
-    private lateinit var etFemaleHouseholdMembers: EditText
-    private lateinit var etHouseholdMembers0_2: EditText
-    private lateinit var etHouseholdMembers3_5: EditText
-    private lateinit var etHouseholdMembers6_17: EditText
-    private lateinit var etHouseholdMembers18_35: EditText
-    private lateinit var etHouseholdMembers36_45: EditText
-    private lateinit var etHouseholdMembers46_64: EditText
-    private lateinit var etHouseholdMembers65andAbove: EditText
-    private lateinit var etHouseholdMembersWithDisability: EditText
-    private lateinit var etHouseholdMembersWithChronicallyIll: EditText
-    private lateinit var etReadWriteNumber: EditText
 
+    private lateinit var etMem0NormalMale: EditText
+    private lateinit var etMem0DisableMale: EditText
+    private lateinit var etMem0IllMale: EditText
+    private lateinit var etMem3NormalMale: EditText
+    private lateinit var etMem3DisableMale: EditText
+    private lateinit var etMem3IllMale: EditText
+    private lateinit var etMem6NormalMale: EditText
+    private lateinit var etMem6DisableMale: EditText
+    private lateinit var etMem6IllMale: EditText
+    private lateinit var etMem18NormalMale: EditText
+    private lateinit var etMem18DisableMale: EditText
+    private lateinit var etMem18IllMale: EditText
+    private lateinit var etMem36NormalMale: EditText
+    private lateinit var etMem36DisableMale: EditText
+    private lateinit var etMem36IllMale: EditText
+    private lateinit var etMem65NormalMale: EditText
+    private lateinit var etMem65DisableMale: EditText
+    private lateinit var etMem65IllMale: EditText
+
+    private lateinit var etMem0NormalFemale: EditText
+    private lateinit var etMem0DisableFemale: EditText
+    private lateinit var etMem0IllFemale: EditText
+    private lateinit var etMem3NormalFemale: EditText
+    private lateinit var etMem3DisableFemale: EditText
+    private lateinit var etMem3IllFemale: EditText
+    private lateinit var etMem6NormalFemale: EditText
+    private lateinit var etMem6DisableFemale: EditText
+    private lateinit var etMem6IllFemale: EditText
+    private lateinit var etMem18NormalFemale: EditText
+    private lateinit var etMem18DisableFemale: EditText
+    private lateinit var etMem18IllFemale: EditText
+    private lateinit var etMem36NormalFemale: EditText
+    private lateinit var etMem36DisableFemale: EditText
+    private lateinit var etMem36IllFemale: EditText
+    private lateinit var etMem65NormalFemale: EditText
+    private lateinit var etMem65DisableFemale: EditText
+    private lateinit var etMem65IllFemale: EditText
+
+    private lateinit var etReadWriteNumber: EditText
     private lateinit var rgReadWrite: RadioGroup
     private lateinit var rbYes: RadioButton
     private lateinit var rbNo: RadioButton
@@ -116,19 +143,47 @@ class HhForm3Fragment : BasicFormFragment(), HouseholdContract.Form3View {
 
 
         etHouseholdSize = binding.etHouseholdSize
-        etMaleHouseholdMembers = binding.etMaleHouseholdMembers
-        etFemaleHouseholdMembers = binding.etFemaleHouseholdMembers
-        etHouseholdMembers0_2 = binding.etHouseholdMembers02
-        etHouseholdMembers3_5 = binding.etHouseholdMembers35
-        etHouseholdMembers6_17 = binding.etHouseholdMembers617
-        etHouseholdMembers18_35 = binding.etHouseholdMembers1835
-        etHouseholdMembers36_45 = binding.etHouseholdMembers3645
-        etHouseholdMembers46_64 = binding.etHouseholdMembers4664
-        etHouseholdMembers65andAbove = binding.etHouseholdMembers65andAbove
-        etHouseholdMembersWithDisability = binding.etHouseholdMembersWithDisability
-        etHouseholdMembersWithChronicallyIll = binding.etHouseholdMembersWithChronicallyIll
-        etReadWriteNumber = binding.etReadWriteNumber
 
+        etMem0NormalMale = binding.viewHhTable.etMem0NormalMale
+        etMem0DisableMale = binding.viewHhTable.etMem0DisableMale
+        etMem0IllMale = binding.viewHhTable.etMem0IllMale
+        etMem3NormalMale = binding.viewHhTable.etMem3NormalMale
+        etMem3DisableMale = binding.viewHhTable.etMem3DisableMale
+        etMem3IllMale = binding.viewHhTable.etMem3IllMale
+        etMem6NormalMale = binding.viewHhTable.etMem6NormalMale
+        etMem6DisableMale = binding.viewHhTable.etMem6DisableMale
+        etMem6IllMale = binding.viewHhTable.etMem6IllMale
+        etMem18NormalMale = binding.viewHhTable.etMem18NormalMale
+        etMem18DisableMale = binding.viewHhTable.etMem18DisableMale
+        etMem18IllMale = binding.viewHhTable.etMem18IllMale
+        etMem36NormalMale = binding.viewHhTable.etMem36NormalMale
+        etMem36DisableMale = binding.viewHhTable.etMem36DisableMale
+        etMem36IllMale = binding.viewHhTable.etMem36IllMale
+        etMem65NormalMale = binding.viewHhTable.etMem65NormalMale
+        etMem65DisableMale = binding.viewHhTable.etMem65DisableMale
+        etMem65IllMale = binding.viewHhTable.etMem65IllMale
+
+        etMem0NormalFemale = binding.viewHhTable.etMem0NormalFemale
+        etMem0DisableFemale = binding.viewHhTable.etMem0DisableFemale
+        etMem0IllFemale = binding.viewHhTable.etMem0IllFemale
+        etMem3NormalFemale = binding.viewHhTable.etMem3NormalFemale
+        etMem3DisableFemale = binding.viewHhTable.etMem3DisableFemale
+        etMem3IllFemale = binding.viewHhTable.etMem3IllFemale
+        etMem6NormalFemale = binding.viewHhTable.etMem6NormalFemale
+        etMem6DisableFemale = binding.viewHhTable.etMem6DisableFemale
+        etMem6IllFemale = binding.viewHhTable.etMem6IllFemale
+        etMem18NormalFemale = binding.viewHhTable.etMem18NormalFemale
+        etMem18DisableFemale = binding.viewHhTable.etMem18DisableFemale
+        etMem18IllFemale = binding.viewHhTable.etMem18IllFemale
+        etMem36NormalFemale = binding.viewHhTable.etMem36NormalFemale
+        etMem36DisableFemale = binding.viewHhTable.etMem36DisableFemale
+        etMem36IllFemale = binding.viewHhTable.etMem36IllFemale
+        etMem65NormalFemale = binding.viewHhTable.etMem65NormalFemale
+        etMem65DisableFemale = binding.viewHhTable.etMem65DisableFemale
+        etMem65IllFemale = binding.viewHhTable.etMem65IllFemale
+
+
+        etReadWriteNumber = binding.etReadWriteNumber
         rgReadWrite = binding.rgReadWrite
         rbYes = binding.rbYes
         rbNo = binding.rbNo
@@ -193,17 +248,46 @@ class HhForm3Fragment : BasicFormFragment(), HouseholdContract.Form3View {
         if (form == null) return
 
         etHouseholdSize.setText(form.householdSize.toString())
-        etMaleHouseholdMembers.setText(form.maleHouseholdMembers.toString())
-        etFemaleHouseholdMembers.setText(form.femaleHouseholdMembers.toString())
-        etHouseholdMembers0_2.setText(form.householdMembers0_2.toString())
-        etHouseholdMembers3_5.setText(form.householdMembers3_5.toString())
-        etHouseholdMembers6_17.setText(form.householdMembers6_17.toString())
-        etHouseholdMembers18_35.setText(form.householdMembers18_35.toString())
-        etHouseholdMembers36_45.setText(form.householdMembers36_45.toString())
-        etHouseholdMembers46_64.setText(form.householdMembers46_64.toString())
-        etHouseholdMembers65andAbove.setText(form.householdMembers65andAbove.toString())
-        etHouseholdMembersWithDisability.setText(form.householdMembersWithDisability.toString())
-        etHouseholdMembersWithChronicallyIll.setText(form.householdMembersWithChronicallyIll.toString())
+
+        etMem0NormalMale.setText(form.mem0NormalMale.toString())
+        etMem0DisableMale.setText(form.mem0DisableMale.toString())
+        etMem0IllMale.setText(form.mem0IllMale.toString())
+        etMem3NormalMale.setText(form.mem3NormalMale.toString())
+        etMem3DisableMale.setText(form.mem3DisableMale.toString())
+        etMem3IllMale.setText(form.mem3IllMale.toString())
+        etMem6NormalMale.setText(form.mem6NormalMale.toString())
+        etMem6DisableMale.setText(form.mem6DisableMale.toString())
+        etMem6IllMale.setText(form.mem6IllMale.toString())
+        etMem18NormalMale.setText(form.mem18NormalMale.toString())
+        etMem18DisableMale.setText(form.mem18DisableMale.toString())
+        etMem18IllMale.setText(form.mem18IllMale.toString())
+        etMem36NormalMale.setText(form.mem36NormalMale.toString())
+        etMem36DisableMale.setText(form.mem36DisableMale.toString())
+        etMem36IllMale.setText(form.mem36IllMale.toString())
+        etMem65NormalMale.setText(form.mem65NormalMale.toString())
+        etMem65DisableMale.setText(form.mem65DisableMale.toString())
+        etMem65IllMale.setText(form.mem65IllMale.toString())
+
+        etMem0NormalFemale.setText(form.mem0NormalFemale.toString())
+        etMem0DisableFemale.setText(form.mem0DisableFemale.toString())
+        etMem0IllFemale.setText(form.mem0IllFemale.toString())
+        etMem3NormalFemale.setText(form.mem3NormalFemale.toString())
+        etMem3DisableFemale.setText(form.mem3DisableFemale.toString())
+        etMem3IllFemale.setText(form.mem3IllFemale.toString())
+        etMem6NormalFemale.setText(form.mem6NormalFemale.toString())
+        etMem6DisableFemale.setText(form.mem6DisableFemale.toString())
+        etMem6IllFemale.setText(form.mem6IllFemale.toString())
+        etMem18NormalFemale.setText(form.mem18NormalFemale.toString())
+        etMem18DisableFemale.setText(form.mem18DisableFemale.toString())
+        etMem18IllFemale.setText(form.mem18IllFemale.toString())
+        etMem36NormalFemale.setText(form.mem36NormalFemale.toString())
+        etMem36DisableFemale.setText(form.mem36DisableFemale.toString())
+        etMem36IllFemale.setText(form.mem36IllFemale.toString())
+        etMem65NormalFemale.setText(form.mem65NormalFemale.toString())
+        etMem65DisableFemale.setText(form.mem65DisableFemale.toString())
+        etMem65IllFemale.setText(form.mem65IllFemale.toString())
+
+
         etReadWriteNumber.setText(form.readWriteNumber.toString())
 
         checkRbPosNeg(rgReadWrite, rbYes, rbNo, form.isReadWrite)
@@ -231,21 +315,47 @@ class HhForm3Fragment : BasicFormFragment(), HouseholdContract.Form3View {
         val form = HhForm3()
 
         form.householdSize = chkEditText(etHouseholdSize, UiData.ER_ET_DF)?.toInt()
-        form.maleHouseholdMembers = chkEditText(etMaleHouseholdMembers, UiData.ER_ET_DF)?.toInt()
-        form.femaleHouseholdMembers =
-            chkEditText(etFemaleHouseholdMembers, UiData.ER_ET_DF)?.toInt()
-        form.householdMembers0_2 = chkEditText(etHouseholdMembers0_2, UiData.ER_ET_DF)?.toInt()
-        form.householdMembers3_5 = chkEditText(etHouseholdMembers3_5, UiData.ER_ET_DF)?.toInt()
-        form.householdMembers6_17 = chkEditText(etHouseholdMembers6_17, UiData.ER_ET_DF)?.toInt()
-        form.householdMembers18_35 = chkEditText(etHouseholdMembers18_35, UiData.ER_ET_DF)?.toInt()
-        form.householdMembers36_45 = chkEditText(etHouseholdMembers36_45, UiData.ER_ET_DF)?.toInt()
-        form.householdMembers46_64 = chkEditText(etHouseholdMembers46_64, UiData.ER_ET_DF)?.toInt()
-        form.householdMembers65andAbove =
-            chkEditText(etHouseholdMembers65andAbove, UiData.ER_ET_DF)?.toInt()
-        form.householdMembersWithDisability =
-            chkEditText(etHouseholdMembersWithDisability, UiData.ER_ET_DF)?.toInt()
-        form.householdMembersWithChronicallyIll = chkEditText(etHouseholdMembersWithChronicallyIll, UiData.ER_ET_DF)?.toInt()
-        form.readWriteNumber = chkEditText(etReadWriteNumber, UiData.ER_ET_DF)?.toInt()
+
+        form.mem0NormalMale = getEditTextInt(etMem0NormalMale)
+        form.mem0DisableMale = getEditTextInt(etMem0DisableMale)
+        form.mem0IllMale = getEditTextInt(etMem0IllMale)
+        form.mem3NormalMale = getEditTextInt(etMem3NormalMale)
+        form.mem3DisableMale = getEditTextInt(etMem3DisableMale)
+        form.mem3IllMale = getEditTextInt(etMem3IllMale)
+        form.mem6NormalMale = getEditTextInt(etMem6NormalMale)
+        form.mem6DisableMale = getEditTextInt(etMem6DisableMale)
+        form.mem6IllMale = getEditTextInt(etMem6IllMale)
+        form.mem18NormalMale = getEditTextInt(etMem18NormalMale)
+        form.mem18DisableMale = getEditTextInt(etMem18DisableMale)
+        form.mem18IllMale = getEditTextInt(etMem18IllMale)
+        form.mem36NormalMale = getEditTextInt(etMem36NormalMale)
+        form.mem36DisableMale = getEditTextInt(etMem36DisableMale)
+        form.mem36IllMale = getEditTextInt(etMem36IllMale)
+        form.mem65NormalMale = getEditTextInt(etMem65NormalMale)
+        form.mem65DisableMale = getEditTextInt(etMem65DisableMale)
+        form.mem65IllMale = getEditTextInt(etMem65IllMale)
+
+
+        form.mem0NormalFemale = getEditTextInt(etMem0NormalFemale)
+        form.mem0DisableFemale = getEditTextInt(etMem0DisableFemale)
+        form.mem0IllFemale = getEditTextInt(etMem0IllFemale)
+        form.mem3NormalFemale = getEditTextInt(etMem3NormalFemale)
+        form.mem3DisableFemale = getEditTextInt(etMem3DisableFemale)
+        form.mem3IllFemale = getEditTextInt(etMem3IllFemale)
+        form.mem6NormalFemale = getEditTextInt(etMem6NormalFemale)
+        form.mem6DisableFemale = getEditTextInt(etMem6DisableFemale)
+        form.mem6IllFemale = getEditTextInt(etMem6IllFemale)
+        form.mem18NormalFemale = getEditTextInt(etMem18NormalFemale)
+        form.mem18DisableFemale = getEditTextInt(etMem18DisableFemale)
+        form.mem18IllFemale = getEditTextInt(etMem18IllFemale)
+        form.mem36NormalFemale = getEditTextInt(etMem36NormalFemale)
+        form.mem36DisableFemale = getEditTextInt(etMem36DisableFemale)
+        form.mem36IllFemale = getEditTextInt(etMem36IllFemale)
+        form.mem65NormalFemale = getEditTextInt(etMem65NormalFemale)
+        form.mem65DisableFemale = getEditTextInt(etMem65DisableFemale)
+        form.mem65IllFemale = getEditTextInt(etMem65IllFemale)
+
+        form.readWriteNumber = getEditTextInt(etReadWriteNumber)
         form.isReadWrite = chkRadioGroup(rgReadWrite, UiData.ER_RB_DF)
 
         if (!form.isOk()) {
@@ -272,17 +382,9 @@ class HhForm3Fragment : BasicFormFragment(), HouseholdContract.Form3View {
         if (!TestConfig.isDummyDataEnabled) return
 
         etHouseholdSize.setText("12")
-        etMaleHouseholdMembers.setText("12")
-        etFemaleHouseholdMembers.setText("12")
-        etHouseholdMembers0_2.setText("2")
-        etHouseholdMembers3_5.setText("4")
-        etHouseholdMembers6_17.setText("2")
-        etHouseholdMembers18_35.setText("1")
-        etHouseholdMembers36_45.setText("1")
-        etHouseholdMembers46_64.setText("2")
-        etHouseholdMembers65andAbove.setText("12")
-        etHouseholdMembersWithDisability.setText("2")
-        etHouseholdMembersWithChronicallyIll.setText("2")
+
+        etMem0NormalMale.setText("3")
+
         etReadWriteNumber.setText("2")
 
         rgReadWrite.check(binding.rbNo.id)

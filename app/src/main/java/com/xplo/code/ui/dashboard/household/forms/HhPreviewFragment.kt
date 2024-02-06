@@ -117,13 +117,13 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
 
 
         binding.tvHouseHoldSize.text = (rootForm?.form3?.householdSize ?: "").toString()
-        binding.tvMaleDepen.text = (rootForm?.form3?.maleHouseholdMembers ?: "").toString()
-        binding.tvFemaleDepen.text = (rootForm?.form3?.femaleHouseholdMembers ?: "").toString()
-        binding.tv05YearsOld.text = (rootForm?.form3?.householdMembers0_2 ?: "").toString()
-        binding.tv617YearsOld.text = (rootForm?.form3?.householdMembers18_35 ?: "").toString()
-        binding.tv1845YearsOld.text = (rootForm?.form3?.householdMembers18_35 ?: "").toString()
-        binding.tv4665YearsOld.text = (rootForm?.form3?.householdMembers46_64 ?: "").toString()
-        binding.tv66YearsOld.text = (rootForm?.form3?.householdMembers65andAbove ?: "").toString()
+//        binding.tvMaleDepen.text = (rootForm?.form3?.maleHouseholdMembers ?: "").toString()
+//        binding.tvFemaleDepen.text = (rootForm?.form3?.femaleHouseholdMembers ?: "").toString()
+//        binding.tv05YearsOld.text = (rootForm?.form3?.householdMembers0_2 ?: "").toString()
+//        binding.tv617YearsOld.text = (rootForm?.form3?.householdMembers18_35 ?: "").toString()
+//        binding.tv1845YearsOld.text = (rootForm?.form3?.householdMembers18_35 ?: "").toString()
+//        binding.tv4665YearsOld.text = (rootForm?.form3?.householdMembers46_64 ?: "").toString()
+//        binding.tv66YearsOld.text = (rootForm?.form3?.householdMembers65andAbove ?: "").toString()
         //binding.tvSelectionCriteria.text = rootForm?.form3?. ?: ""
         //binding.tvSelectionReason.text = rootForm?.form3?.phoneNumber ?: ""
 

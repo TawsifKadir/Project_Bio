@@ -35,6 +35,30 @@
         <item name="android:letterSpacing">.2</item>
     </style>
 
+    <style name="AppTextView.Table.Header" parent="android:Widget.TextView">
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+<!--        <item name="android:textSize">@dimen/text_size_input_header</item>-->
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">false</item>
+    </style>
+
+    <style name="AppEditText.Table.Number" parent="android:Widget.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textColorHint">?attr/colorTextHint</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:hint">0</item>
+        <item name="android:inputType">number</item>
+
+    </style>
+
     <style name="AppEditText.Form" parent="android:Widget.EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/input_row_height</item>
@@ -129,6 +153,15 @@
         <item name="android:layout_marginStart">0dp</item>
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:background">@drawable/bg_round_box</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="AppLinearLayoutInputBoxTable">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/border_table_cell</item>
         <item name="android:orientation">vertical</item>
         <item name="android:padding">8dp</item>
     </style>

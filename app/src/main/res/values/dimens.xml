@@ -40,5 +40,9 @@
     <dimen name="finger_img_height">30dp</dimen>
     <dimen name="finger_img_text_size">10sp</dimen>
 
+    <dimen name="table_row_height_header">80dp</dimen>
+    <dimen name="table_row_height_header_half">40dp</dimen>
+    <dimen name="table_row_height_normal">65dp</dimen>
+
 
 </resources>

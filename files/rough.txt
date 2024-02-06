@@ -142,9 +142,89 @@ rbReadWriteYes = binding.rbReadWriteYes
 rbReadWriteNo = binding.rbReadWriteNo
 
 
+etMem0NormalMale
+etMem0DisableMale
+etMem0IllMale
+etMem3NormalMale
+etMem3DisableMale
+etMem3IllMale
+etMem6NormalMale
+etMem6DisableMale
+etMem6IllMale
+etMem18NormalMale
+etMem18DisableMale
+etMem18IllMale
+etMem36NormalMale
+etMem36DisableMale
+etMem36IllMale
+etMem65NormalMale
+etMem65DisableMale
+etMem65IllMale
 
 
 
+etMaleHouseholdMembers.setText(form.maleHouseholdMembers.toString())
 
+
+
+etMem0NormalMale = binding.etMem0NormalMale
+etMem0DisableMale = binding.etMem0DisableMale
+etMem0IllMale = binding.etMem0IllMale
+etMem3NormalMale = binding.etMem3NormalMale
+etMem3DisableMale = binding.etMem3DisableMale
+etMem3IllMale = binding.etMem3IllMale
+etMem6NormalMale = binding.etMem6NormalMale
+etMem6DisableMale = binding.etMem6DisableMale
+etMem6IllMale = binding.etMem6IllMale
+etMem18NormalMale = binding.etMem18NormalMale
+etMem18DisableMale = binding.etMem18DisableMale
+etMem18IllMale = binding.etMem18IllMale
+etMem36NormalMale = binding.etMem36NormalMale
+etMem36DisableMale = binding.etMem36DisableMale
+etMem36IllMale = binding.etMem36IllMale
+etMem65NormalMale = binding.etMem65NormalMale
+etMem65DisableMale = binding.etMem65DisableMale
+etMem65IllMale = binding.etMem65IllMale
+
+
+
+mem0NormalMale
+mem0DisableMale
+mem0IllMale
+mem3NormalMale
+mem3DisableMale
+mem3IllMale
+mem6NormalMale
+mem6DisableMale
+mem6IllMale
+mem18NormalMale
+mem18DisableMale
+mem18IllMale
+mem36NormalMale
+mem36DisableMale
+mem36IllMale
+mem65NormalMale
+mem65DisableMale
+mem65IllMale
+
+
+mem0NormalMale = getEditTextInt(etMem0NormalMale)
+mem0DisableMale = getEditTextInt(etMem0DisableMale)
+mem0IllMale = getEditTextInt(etMem0IllMale)
+mem3NormalMale = getEditTextInt(etMem3NormalMale)
+mem3DisableMale = getEditTextInt(etMem3DisableMale)
+mem3IllMale = getEditTextInt(etMem3IllMale)
+mem6NormalMale = getEditTextInt(etMem6NormalMale)
+mem6DisableMale = getEditTextInt(etMem6DisableMale)
+mem6IllMale = getEditTextInt(etMem6IllMale)
+mem18NormalMale = getEditTextInt(etMem18NormalMale)
+mem18DisableMale = getEditTextInt(etMem18DisableMale)
+mem18IllMale = getEditTextInt(etMem18IllMale)
+mem36NormalMale = getEditTextInt(etMem36NormalMale)
+mem36DisableMale = getEditTextInt(etMem36DisableMale)
+mem36IllMale = getEditTextInt(etMem36IllMale)
+mem65NormalMale = getEditTextInt(etMem65NormalMale)
+mem65DisableMale = getEditTextInt(etMem65DisableMale)
+mem65IllMale = getEditTextInt(etMem65IllMale)
 
 
