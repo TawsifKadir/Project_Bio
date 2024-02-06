@@ -80,17 +80,7 @@ fun HhForm3.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
 
     if (this.householdSize == null) return false
-    if (this.maleHouseholdMembers == null) return false
-    if (this.femaleHouseholdMembers == null) return false
-    if (this.householdMembers0_2 == null) return false
-    if (this.householdMembers3_5 == null) return false
-    if (this.householdMembers6_17 == null) return false
-    if (this.householdMembers18_35 == null) return false
-    if (this.householdMembers36_45 == null) return false
-    if (this.householdMembers46_64 == null) return false
-    if (this.householdMembers65andAbove == null) return false
-    if (this.householdMembersWithDisability == null) return false
-    if (this.householdMembersWithChronicallyIll == null) return false
+
     if (this.readWriteNumber == null) return false
     if (this.isReadWrite.isNullOrEmpty()) return false
 

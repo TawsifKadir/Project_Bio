@@ -18,6 +18,12 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
 
     private val TAG = "BasicFormFragment"
 
+    override fun getEditTextInt(editText: EditText): Int {
+        val txt = editText.text.toString()
+        if (txt.isEmpty()) return 0
+        return txt.toInt()
+    }
+
     override fun chkEditText(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {

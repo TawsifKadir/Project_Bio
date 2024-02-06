@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="8dp"
+    tools:padding="0dp">
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_table_root">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/table_row_height_header">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_table_cell" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/AppTextView.Table.Header"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/table_row_height_header_half"
+                    android:background="@drawable/border_table_cell"
+                    android:text="@string/male" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/table_row_height_header_half"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/AppTextView.Table.Header"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_table_cell"
+                        android:text="@string/normal" />
+
+                    <TextView
+                        style="@style/AppTextView.Table.Header"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_table_cell"
+                        android:text="@string/with_disability" />
+
+                    <TextView
+                        style="@style/AppTextView.Table.Header"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_table_cell"
+                        android:text="@string/with_chronically_ill" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/AppTextView.Table.Header"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/table_row_height_header_half"
+                    android:background="@drawable/border_table_cell"
+                    android:text="@string/female" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/table_row_height_header_half"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/AppTextView.Table.Header"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_table_cell"
+                        android:text="@string/normal" />
+
+                    <TextView
+                        style="@style/AppTextView.Table.Header"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_table_cell"
+                        android:text="@string/with_disability" />
+
+                    <TextView
+                        style="@style/AppTextView.Table.Header"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_table_cell"
+                        android:text="@string/with_chronically_ill" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/table_row_height_normal">
+
+            <TextView
+                style="@style/AppTextView.Table.Header"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_table_cell"
+                android:text="@string/_0_2_yrs_old" />
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="horizontal">
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem0NormalMale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem0DisableMale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem0IllMale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="horizontal">
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem0NormalFemale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem0DisableFemale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem0IllFemale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/table_row_height_normal">
+
+            <TextView
+                style="@style/AppTextView.Table.Header"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_table_cell"
+                android:text="@string/_3_5_yrs_old" />
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="horizontal">
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem3NormalMale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem3DisableMale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem3IllMale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="horizontal">
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem3NormalFemale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem3DisableFemale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem3IllFemale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/table_row_height_normal">
+
+            <TextView
+                style="@style/AppTextView.Table.Header"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_table_cell"
+                android:text="@string/_6_17_yrs_old" />
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="horizontal">
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem6NormalMale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem6DisableMale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem6IllMale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="horizontal">
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem6NormalFemale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem6DisableFemale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem6IllFemale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/table_row_height_normal">
+
+            <TextView
+                style="@style/AppTextView.Table.Header"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_table_cell"
+                android:text="@string/_18_35_yrs_old" />
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="horizontal">
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem18NormalMale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem18DisableMale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem18IllMale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="horizontal">
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem18NormalFemale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem18DisableFemale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem18IllFemale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/table_row_height_normal">
+
+            <TextView
+                style="@style/AppTextView.Table.Header"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_table_cell"
+                android:text="@string/_36_64_yrs_old" />
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="horizontal">
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem36NormalMale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem36DisableMale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem36IllMale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="horizontal">
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem36NormalFemale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem36DisableFemale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem36IllFemale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/table_row_height_normal">
+
+            <TextView
+                style="@style/AppTextView.Table.Header"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_table_cell"
+                android:text="@string/_65_yrs_and_above" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="horizontal">
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem65NormalMale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem65DisableMale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem65IllMale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="horizontal">
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem65NormalFemale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem65DisableFemale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/AppLinearLayoutInputBoxTable">
+
+                    <EditText
+                        android:id="@+id/etMem65IllFemale"
+                        style="@style/AppEditText.Table.Number" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </TableRow>
+
+    </TableLayout>
+
+
+</LinearLayout>

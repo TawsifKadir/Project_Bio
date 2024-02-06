@@ -264,5 +264,13 @@
     <string name="alternate_middle_name_min_3_letters">Alternate Middle Name (min 3 letters)</string>
     <string name="alternate_last_name_min_3_letters">Alternate Last Name (min 3 letters)</string>
 
+    <string name="with_disability">With Disability</string>
+    <string name="with_chronically_ill">With Chronically ill</string>
+    <string name="_0_2_yrs_old">0-2Y old</string>
+    <string name="_3_5_yrs_old">3-5Y old</string>
+    <string name="_6_17_yrs_old">6-17Y old</string>
+    <string name="_18_35_yrs_old">18-35Y old</string>
+    <string name="_36_64_yrs_old">36-64Y old</string>
+    <string name="_65_yrs_and_above">65Y and above</string>
 
 </resources>

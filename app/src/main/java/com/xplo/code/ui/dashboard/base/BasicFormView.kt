@@ -9,6 +9,7 @@ import android.widget.Spinner
 
 interface BasicFormView {
 
+    fun getEditTextInt(editText: EditText): Int
     fun chkEditText(editText: EditText, error: String?): String?
     fun chkEditText3Char(editText: EditText, error: String?): String?
     fun chkEditTextMax3Digit(editText: EditText, error: String?): String?
