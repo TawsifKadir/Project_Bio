@@ -133,7 +133,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
                 val fpList = ArrayList<FingerprintData>()
-                val names = arrayOf("right_thumb", "right_index","right_middle", "right_ring", "right_small", "left_thumb", "left_index","left_middle", "left_right", "left_small")
+                val names =  arrayOf("right_thumb", "right_index","right_middle", "right_ring", "right_small", "left_thumb", "left_index","left_middle", "left_ring", "left_small")
                 val ids = arrayOf(com.xplo.code.R.id.right_thumb, com.xplo.code.R.id.right_index,com.xplo.code.R.id.right_middle, com.xplo.code.R.id.right_ring,
                     com.xplo.code.R.id.right_small, com.xplo.code.R.id.left_thumb, com.xplo.code.R.id.left_index,
                     com.xplo.code.R.id.left_middle, com.xplo.code.R.id.left_ring, com.xplo.code.R.id.left_small)
