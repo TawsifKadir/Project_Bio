@@ -2,6 +2,7 @@
 <resources>
 
     <dimen name="text_size_normal">14sp</dimen>
+    <dimen name="text_size_list_title">16sp</dimen>
     <dimen name="text_size_input_header">12sp</dimen>
 
     <dimen name="text_size_small_1">12sp</dimen>
@@ -21,7 +22,7 @@
 
     <dimen name="ccr_default">8dp</dimen>
     <dimen name="scr_input_box">4dp</dimen>
-    <dimen name="img_btn_size_medium">50dp</dimen>
+    <dimen name="img_btn_size_medium">40dp</dimen>
     <dimen name="img_btn_size_large">70dp</dimen>
 
     <dimen name="profile_block_title">25sp</dimen>
@@ -46,6 +47,8 @@
 
     <dimen name="finger_cell_size">90dp</dimen>
     <dimen name="finger_img_size">60dp</dimen>
+
+    <dimen name="list_avatar_size">70dp</dimen>
 
 
 </resources>

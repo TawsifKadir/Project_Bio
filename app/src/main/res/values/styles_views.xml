@@ -149,6 +149,7 @@
     <style name="AppImageButton.Base" parent="android:Widget.ImageButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
         <item name="android:scaleType">fitCenter</item>
         <item name="android:backgroundTint">@color/transparent</item>
         <item name="android:tint">?attr/colorIcon</item>
@@ -160,7 +161,7 @@
 
     <style name="AppImageButton.Medium" parent="AppImageButton.Base">
         <item name="android:layout_width">@dimen/img_btn_size_medium</item>
-        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_height">@dimen/img_btn_size_medium</item>
     </style>
 
     <style name="AppImageButton.Large" parent="AppImageButton.Base">

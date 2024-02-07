@@ -4,8 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.xplo.code.data.db.models.HouseholdItem
-import com.xplo.code.data.db.models.toSummary
+import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.databinding.RowHouseholdItemBinding
+import com.xplo.code.ui.dashboard.model.getFullName
 
 /**
  * Copyright 2022 (C) xplo
@@ -61,14 +62,18 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
 
         fun bind(item: HouseholdItem) {
             //Log.d(TAG, "bind() called with: item = $item")
-            //val form = item.toHouseholdForm()
-            binding.tvId.text = item.id.toString()
-            binding.tvData.text = item.toSummary()
-            if (item.isSynced) {
-                binding.tvStatus.text = "Synced"
-            } else {
-                binding.tvStatus.text = "Not Synced"
-            }
+            val form = item.toHouseholdForm()
+            if (form == null) return
+
+            binding.tvId.text = "id: " + item.id.toString()
+            binding.tvName.text = form.form2.getFullName()
+            binding.tvGender.text = form.form2?.gender
+            binding.tvAge.text = "age: " + form.form2?.age
+//            if (item.isSynced) {
+//                binding.tvStatus.text = "Synced"
+//            } else {
+//                binding.tvStatus.text = "Not Synced"
+//            }
         }
 
     }

@@ -11,70 +11,66 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tvId"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textSize="@dimen/text_size_xl_3"
-            android:textStyle="bold"
-            tools:text="1" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="0dp">
 
-            <!--            <TextView-->
-            <!--                android:id="@+id/tvId"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                tools:text="@string/dummy_text_small" />-->
-
-
-            <TextView
-                android:id="@+id/tvData"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:lineSpacingMultiplier="1.5"
-                tools:text="@string/dummy_text_medium" />
-
-            <TextView
-                android:id="@+id/tvStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                tools:text="synced" />
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/ivAvatar"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_width="@dimen/list_avatar_size"
+                android:layout_height="@dimen/list_avatar_size"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_avatar_3"
+                app:civ_border="false"
+                app:civ_shadow="false" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <ImageButton
-                    android:id="@+id/btDelete"
-                    style="@style/AppImageButton.Medium"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_delete_black_24dp" />
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_list_title"
+                    android:textStyle="bold"
+                    tools:text="@string/name_full" />
 
-                <ImageButton
-                    android:id="@+id/btSend"
-                    style="@style/AppImageButton.Medium"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
+                <TextView
+                    android:id="@+id/tvGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Female" />
+
+                <TextView
+                    android:id="@+id/tvAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Age: 22" />
 
 
-                <ImageButton
-                    android:id="@+id/btAddAlternate"
-                    style="@style/AppImageButton.Medium"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_add_black_24dp"
-                    android:visibility="gone" />
+                <TextView
+                    android:id="@+id/tvId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="id: 02" />
+
+                <!--            <TextView-->
+                <!--                android:id="@+id/tvData"-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:includeFontPadding="false"-->
+                <!--                android:lineSpacingMultiplier="1.5"-->
+                <!--                tools:text="@string/dummy_text_medium" />-->
 
 
             </LinearLayout>
@@ -82,6 +78,44 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height=".5dp"
+            android:background="?attr/colorDivider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <ImageButton
+                android:id="@+id/btDelete"
+                style="@style/AppImageButton.Medium"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/delete_24px" />
+
+            <ImageButton
+                android:id="@+id/btSend"
+                style="@style/AppImageButton.Medium"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/send_24px" />
+
+
+            <ImageButton
+                android:id="@+id/btAddAlternate"
+                style="@style/AppImageButton.Medium"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_add_black_24dp"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/btSyncStatus"
+                style="@style/AppImageButton.Medium"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/sync_saved_locally_24px"
+                android:visibility="visible" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

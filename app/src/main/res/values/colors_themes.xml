@@ -35,7 +35,7 @@
     <color name="li_text_hint">#B3647276</color>
 
     <color name="li_icon">#616F71</color>
-    <color name="li_divider">#616F71</color>
+    <color name="li_divider">#80616F71</color>
     <color name="li_border">#899091</color>
     <color name="li_waring">#FF5B52</color>
     <color name="li_error">#FF5B52</color>
