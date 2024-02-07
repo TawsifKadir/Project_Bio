@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:maxHeight="500dp"
+            android:maxHeight="@dimen/consent_body_max_height"
             android:scrollbars="vertical"
             tools:text="@string/dummy_text_big" />
     </LinearLayout>
@@ -57,9 +57,10 @@
         android:id="@+id/viewButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:background="?attr/colorBackgroundSecondary"
         android:gravity="right"
         android:orientation="horizontal"
+        android:paddingTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
