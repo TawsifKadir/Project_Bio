@@ -47,7 +47,7 @@
 
     <style name="AppTextView.Table.Header" parent="android:Widget.TextView">
         <item name="android:textColor">?attr/colorTextPrimary</item>
-        <!--        <item name="android:textSize">@dimen/text_size_input_header</item>-->
+        <item name="android:textSize">@dimen/text_size_table_header</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAlignment">center</item>
         <item name="android:gravity">center</item>
@@ -137,13 +137,13 @@
 
 
     <style name="AppLayoutStyleFinger">
-                <item name="android:layout_width">wrap_content</item>
-                <item name="android:layout_height">wrap_content</item>
-<!--        <item name="android:layout_width">@dimen/finger_cell_size</item>-->
-<!--        <item name="android:layout_height">@dimen/finger_cell_size</item>-->
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!--        <item name="android:layout_width">@dimen/finger_cell_size</item>-->
+        <!--        <item name="android:layout_height">@dimen/finger_cell_size</item>-->
         <item name="android:gravity">center</item>
         <item name="android:orientation">vertical</item>
-<!--        <item name="android:background">@color/gr_primary</item>-->
+        <!--        <item name="android:background">@color/gr_primary</item>-->
         <item name="android:layout_margin">@dimen/finger_margin</item>
         <!--        <item name="android:padding">@dimen/finger_img_padding</item>-->
         <!--        <item name="android:layout_weight">1</item>-->
