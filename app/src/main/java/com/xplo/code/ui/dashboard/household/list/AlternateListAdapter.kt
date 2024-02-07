@@ -3,9 +3,13 @@ package com.xplo.code.ui.dashboard.household.list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.xplo.code.R
 import com.xplo.code.data.db.models.HouseholdItem
+import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.data.db.models.toSummary
 import com.xplo.code.databinding.RowAlternateItemBinding
+import com.xplo.code.ui.dashboard.model.getFullName
 
 /**
  * Copyright 2022 (C) xplo
@@ -54,10 +58,28 @@ class AlternateListAdapter : RecyclerView.Adapter<AlternateListAdapter.ViewHolde
 
         fun bind(item: HouseholdItem) {
             //Log.d(TAG, "bind() called with: item = $item")
-            //val form = item.toHouseholdForm()
-            binding.tvId.text = item.id.toString()
-            binding.tvData.text = item.toSummary()
-            //binding.tvStatus.text = item.isSynced.toString()
+
+            val form = item.toHouseholdForm()
+            if (form == null) return
+
+            binding.tvId.text = "id: " + item.id.toString()
+            binding.tvName.text = form.form2.getFullName()
+            binding.tvGender.text = form.form2?.gender
+            binding.tvAge.text = "age: " + form.form2?.age
+            binding.tvAlternate.text = "Alternate added: " + form.alternates.size
+
+            loadImage(form.form4?.img)
+
+        }
+
+        private fun loadImage(url: String?) {
+            if (url.isNullOrEmpty()) return
+
+            Glide.with(binding.ivAvatar.context)
+                .load(url)
+                .placeholder(R.drawable.ic_avatar_3)
+                .into(binding.ivAvatar)
+
         }
 
     }
