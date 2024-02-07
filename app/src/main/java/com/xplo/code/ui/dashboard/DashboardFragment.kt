@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class  DashboardFragment : BaseFragment(), DashboardContract.View {
+class DashboardFragment : BaseFragment(), DashboardContract.View {
 
     companion object {
         private const val TAG = "DashboardFragment"
@@ -86,6 +86,7 @@ class  DashboardFragment : BaseFragment(), DashboardContract.View {
         }
         binding.viewPayment.setOnClickListener {
             navigateToPayment()
+            //binding.btTest.callOnClick()
         }
 
         binding.btTest.setOnClickListener {
@@ -101,13 +102,38 @@ class  DashboardFragment : BaseFragment(), DashboardContract.View {
 //                .create()
 //                .show()
 
+//            XDialog.Builder(requireActivity().supportFragmentManager)
+//                .setLayoutId(R.layout.custom_dialog_pnn)
+//                .setTitle(getString(R.string.dummy_text_small))
+//                .setMessage(getString(R.string.dummy_text_big))
+//                .setPosButtonText(getString(R.string.confirm))
+//                .setNegButtonText(getString(R.string.cancel))
+//                .setNeuButtonText(getString(R.string.day))
+//                .setCancelable(false)
+//                .setListener(object : XDialog.DialogListener {
+//                    override fun onClickPositiveButton() {
+//
+//                    }
+//
+//                    override fun onClickNegativeButton() {
+//
+//                    }
+//
+//                    override fun onClickNeutralButton() {
+//
+//                    }
+//                })
+//                .build()
+//                .show()
+
             XDialog.Builder(requireActivity().supportFragmentManager)
                 .setLayoutId(R.layout.custom_dialog_pnn)
-                .setTitle(getString(R.string.dummy_text_small))
-                .setMessage(getString(R.string.dummy_text_big))
-                .setPosButtonText(getString(R.string.confirm))
-                .setNegButtonText(getString(R.string.cancel))
-                .setNeuButtonText(getString(R.string.day))
+                .setTitle(getString(R.string.review_complete_reg))
+                .setMessage(getString(R.string.review_complete_reg_msg))
+                .setPosButtonText("Alternate Registration")
+                .setNegButtonText(getString(R.string.home))
+                .setNeuButtonText("Household Registration")
+                .setThumbId(R.drawable.ic_logo_photo)
                 .setCancelable(false)
                 .setListener(object : XDialog.DialogListener {
                     override fun onClickPositiveButton() {

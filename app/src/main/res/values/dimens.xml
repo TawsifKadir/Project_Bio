@@ -53,6 +53,7 @@
     <dimen name="list_avatar_size">70dp</dimen>
 
     <dimen name="consent_body_max_height">200dp</dimen>
+    <dimen name="dialog_min_width">600dp</dimen>
 
 
 </resources>

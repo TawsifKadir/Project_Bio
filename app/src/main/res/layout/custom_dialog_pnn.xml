@@ -8,6 +8,10 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:minWidth="@dimen/dialog_min_width" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +31,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:minWidth="300dp"
         tools:text="@string/dummy_text_small" />
 
     <TextView
@@ -36,7 +39,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:minWidth="300dp"
         tools:text="@string/dummy_text_small" />
 
 
