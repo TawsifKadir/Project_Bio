@@ -229,7 +229,7 @@
     <string name="alternate_id">ID Number</string>
     <string name="alternate_phone">Phonenumber</string>
     <string name="alternate_relation">Select Alternate Relationship</string>
-    <string name="alternate_gender">Gender</string>
+    <string name="alternate_gender">Alternate\'s Gender</string>
 
 
     <string name="right_thumb">Right Thumb</string>

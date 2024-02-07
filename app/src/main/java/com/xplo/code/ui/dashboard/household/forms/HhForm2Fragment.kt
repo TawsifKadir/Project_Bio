@@ -317,7 +317,7 @@ class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
         }
 
         form.firstName = chkEditText3Char(etFirstName, UiData.ER_ET_DF)
-        //form.middleName = chkEditText(etMiddleName, UiData.ER_ET_DF)
+        form.middleName = etMiddleName.text.toString()
         form.lastName = chkEditText3Char(etLastName, UiData.ER_ET_DF)
 
         form.age = chkEditTextMax3Digit(etAge, UiData.ER_ET_DF)
