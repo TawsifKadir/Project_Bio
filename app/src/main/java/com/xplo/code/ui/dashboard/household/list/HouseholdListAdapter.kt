@@ -3,6 +3,8 @@ package com.xplo.code.ui.dashboard.household.list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.xplo.code.R
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.databinding.RowHouseholdItemBinding
@@ -74,6 +76,17 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
 //            } else {
 //                binding.tvStatus.text = "Not Synced"
 //            }
+            loadImage(form.form4?.img)
+        }
+
+        private fun loadImage(url: String?) {
+            if (url.isNullOrEmpty()) return
+
+            Glide.with(binding.ivAvatar.context)
+                .load(url)
+                .placeholder(R.drawable.ic_avatar_3)
+                .into(binding.ivAvatar)
+
         }
 
     }
