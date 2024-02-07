@@ -245,9 +245,9 @@
 
     <string name="would_anyone_from_your_household_including_yourself_be_interested_in_participating">Would anyone from your household (including yourself) be interested in participating?</string>
     <string name="select_reason_why_not">Why Not?</string>
-    <string name="nominee_first_name_min_3_letters">Nominee First Name(min 3 letters)</string>
+    <string name="nominee_first_name_min_3_letters">Nominee First Nam</string>
     <string name="nominee_middle_name">Nominee Middle Name</string>
-    <string name="nominee_last_name_min_3_letters">Nominee Last Name(min 3 letters)</string>
+    <string name="nominee_last_name_min_3_letters">Nominee Last Nam</string>
     <string name="respondent_relationship_to_the_household_head">Respondent Relationship to the household head</string>
     <string name="nominee_age">Nominee Age</string>
     <string name="nominee_gender">Nominee Gender</string>
@@ -259,10 +259,10 @@
     <string name="minimum_2_maximum_5_and_1_female_nominee_required">Minimum 2, maximum 5 and 1 female nominee required</string>
     <string name="do_you_have_a_national_id">Do you have a national ID?</string>
     <string name="what_type_of_id_number_do_you_possess">What type of ID number do you possess?</string>
-    <string name="household_first_name_min_3_letters">Household First Name (min 3 letters)</string>
-    <string name="alternate_first_name_min_3_letters">Alternate First Name (min 3 letters)</string>
-    <string name="alternate_middle_name_min_3_letters">Alternate Middle Name (min 3 letters)</string>
-    <string name="alternate_last_name_min_3_letters">Alternate Last Name (min 3 letters)</string>
+    <string name="household_first_name_min_3_letters">Household First Name</string>
+    <string name="alternate_first_name_min_3_letters">Alternate First Name</string>
+    <string name="alternate_middle_name_min_3_letters">Alternate Middle Name</string>
+    <string name="alternate_last_name_min_3_letters">Alternate Last Name</string>
 
     <string name="with_disability">With Disability</string>
     <string name="with_chronically_ill">With Chronically ill</string>

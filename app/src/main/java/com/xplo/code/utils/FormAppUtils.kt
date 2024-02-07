@@ -1,6 +1,7 @@
 package com.xplo.code.utils
 
 import com.xplo.code.ui.dashboard.model.HouseholdForm
+import com.xplo.data.BuildConfig
 
 
 /**
@@ -18,6 +19,9 @@ object FormAppUtils {
 
     fun canNomineeAdd(form: HouseholdForm?): Boolean {
         if (form == null) return false
+
+        //if (BuildConfig.DEBUG) return true
+
         if (form.form1?.countryName.equals("JUBA", ignoreCase = true)) return true
         return false
     }

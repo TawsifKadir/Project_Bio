@@ -9,23 +9,37 @@
     android:paddingEnd="16dp"
     android:paddingBottom="16dp">
 
-    <TextView
-        android:id="@+id/tvHeader"
-        style="@style/AppTextView.Nominee.Header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="First Nominee" />
-
-    <include
-        android:id="@+id/include"
-        layout="@layout/view_nominee_input_fields" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btNext"
-        style="@style/AppButton.Bottom.Positive"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/confirm" />
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvHeader"
+                style="@style/AppTextView.Nominee.Header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="First Nominee" />
+
+            <include
+                android:id="@+id/include"
+                layout="@layout/view_nominee_input_fields" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btNext"
+                style="@style/AppButton.Bottom.Positive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/confirm" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
