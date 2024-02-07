@@ -26,6 +26,7 @@
             android:entryValues="@array/language_list"
             android:key="@string/pfLanguage"
             android:summary="%1$s"
+            app:isPreferenceVisible="false"
             android:title="@string/language_change" />
 
         <Preference
