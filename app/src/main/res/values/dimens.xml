@@ -47,6 +47,8 @@
 
     <dimen name="finger_cell_size">90dp</dimen>
     <dimen name="finger_img_size">60dp</dimen>
+    <dimen name="finger_text_size">10sp</dimen>
+    <dimen name="finger_margin">8dp</dimen>
 
     <dimen name="list_avatar_size">70dp</dimen>
 

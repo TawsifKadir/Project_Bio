@@ -137,14 +137,14 @@
 
 
     <style name="AppLayoutStyleFinger">
-        <!--        <item name="android:layout_width">wrap_content</item>-->
-        <!--        <item name="android:layout_height">wrap_content</item>-->
-        <item name="android:layout_width">@dimen/finger_cell_size</item>
-        <item name="android:layout_height">@dimen/finger_cell_size</item>
+                <item name="android:layout_width">wrap_content</item>
+                <item name="android:layout_height">wrap_content</item>
+<!--        <item name="android:layout_width">@dimen/finger_cell_size</item>-->
+<!--        <item name="android:layout_height">@dimen/finger_cell_size</item>-->
         <item name="android:gravity">center</item>
         <item name="android:orientation">vertical</item>
 <!--        <item name="android:background">@color/gr_primary</item>-->
-        <item name="android:layout_margin">4dp</item>
+        <item name="android:layout_margin">@dimen/finger_margin</item>
         <!--        <item name="android:padding">@dimen/finger_img_padding</item>-->
         <!--        <item name="android:layout_weight">1</item>-->
         <!--        <item name="android:weightSum">5</item>-->
@@ -167,7 +167,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <!--        <item name="android:layout_weight">1</item>-->
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">@dimen/finger_text_size</item>
         <item name="android:textAlignment">center</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_marginTop">4dp</item>

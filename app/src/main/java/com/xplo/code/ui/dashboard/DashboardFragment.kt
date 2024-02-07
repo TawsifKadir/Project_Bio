@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class DashboardFragment : BaseFragment(), DashboardContract.View {
+class  DashboardFragment : BaseFragment(), DashboardContract.View {
 
     companion object {
         private const val TAG = "DashboardFragment"
