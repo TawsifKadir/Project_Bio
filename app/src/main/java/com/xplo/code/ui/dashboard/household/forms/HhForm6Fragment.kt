@@ -153,7 +153,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
                         fpList.add(nowFPData)
                     }
                 }
-                binding.llDataShow.visibility = View.VISIBLE
+                //binding.llDataShow.visibility = View.VISIBLE
 
                for (item in fpList){
                    if (item.fingerprintId.name == FingerprintID.RIGHT_THUMB.name){

@@ -44,5 +44,8 @@
     <dimen name="table_row_height_header_half">40dp</dimen>
     <dimen name="table_row_height_normal">65dp</dimen>
 
+    <dimen name="finger_cell_size">90dp</dimen>
+    <dimen name="finger_img_size">60dp</dimen>
+
 
 </resources>

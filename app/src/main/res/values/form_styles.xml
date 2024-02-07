@@ -9,6 +9,16 @@
 
     </style>
 
+    <style name="AppTextView.Base" parent="android:Widget.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <!--        <item name="android:textSize">@dimen/text_size_input_header</item>-->
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
     <style name="AppTextView.Input.Header" parent="android:Widget.TextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -37,7 +47,7 @@
 
     <style name="AppTextView.Table.Header" parent="android:Widget.TextView">
         <item name="android:textColor">?attr/colorTextPrimary</item>
-<!--        <item name="android:textSize">@dimen/text_size_input_header</item>-->
+        <!--        <item name="android:textSize">@dimen/text_size_input_header</item>-->
         <item name="android:textStyle">bold</item>
         <item name="android:textAlignment">center</item>
         <item name="android:gravity">center</item>
@@ -123,6 +133,44 @@
         <item name="android:textAlignment">center</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:textSize">@dimen/finger_img_text_size</item>
+    </style>
+
+
+    <style name="AppLayoutStyleFinger">
+        <!--        <item name="android:layout_width">wrap_content</item>-->
+        <!--        <item name="android:layout_height">wrap_content</item>-->
+        <item name="android:layout_width">@dimen/finger_cell_size</item>
+        <item name="android:layout_height">@dimen/finger_cell_size</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+<!--        <item name="android:background">@color/gr_primary</item>-->
+        <item name="android:layout_margin">4dp</item>
+        <!--        <item name="android:padding">@dimen/finger_img_padding</item>-->
+        <!--        <item name="android:layout_weight">1</item>-->
+        <!--        <item name="android:weightSum">5</item>-->
+
+    </style>
+
+    <style name="AppImgStyleFinger">
+        <!--        <item name="android:layout_width">match_parent</item>-->
+        <!--        <item name="android:layout_height">wrap_content</item>-->
+        <item name="android:layout_width">@dimen/finger_img_size</item>
+        <item name="android:layout_height">@dimen/finger_img_size</item>
+        <!--        <item name="android:layout_weight">4</item>-->
+        <item name="android:src">@drawable/ic_finger_minus</item>
+        <item name="android:tint">?attr/colorError</item>
+        <item name="android:scaleType">fitCenter</item>
+
+    </style>
+
+    <style name="AppTextView.Finger" parent="AppTextView.Base">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!--        <item name="android:layout_weight">1</item>-->
+        <item name="android:textSize">10sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">4dp</item>
     </style>
 
     <style name="AppRadioButton.Form" parent="android:Widget.CompoundButton.RadioButton">
