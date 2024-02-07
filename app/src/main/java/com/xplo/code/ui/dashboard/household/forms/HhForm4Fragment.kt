@@ -35,6 +35,7 @@ import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.HhForm4
 import com.xplo.code.ui.photo.ImagePickerActivity
 import com.xplo.code.ui.photo.ImageUtil
+import com.xplo.code.utils.FormAppUtils
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -209,7 +210,17 @@ class HhForm4Fragment : BasicFormFragment(), HouseholdContract.Form4View {
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
         //interactor?.navigateToForm5()
-        askForConsent()
+
+        if (FormAppUtils.canNomineeAdd(interactor?.getRootForm())) {
+            askForConsent()
+        } else {
+            interactor?.navigateToForm6()
+        }
+        //askForConsent()
+    }
+
+    private fun shouldAskForConsent(): Boolean {
+        return FormAppUtils.canNomineeAdd(interactor?.getRootForm())
     }
 
     override fun onReadInput() {
@@ -379,7 +390,7 @@ class HhForm4Fragment : BasicFormFragment(), HouseholdContract.Form4View {
     private fun onGetConsent() {
         //getPrefHelper().setNomineeConsentAcceptStatus(true)
         interactor?.getRootForm()?.consentStatus?.isConsentGivenNominee = true
-        if (interactor?.getRootForm()?.form1?.countryName.equals("JUBA")) {
+        if (FormAppUtils.canNomineeAdd(interactor?.getRootForm())) {
             interactor?.navigateToForm5()
         } else {
             interactor?.navigateToForm6()
