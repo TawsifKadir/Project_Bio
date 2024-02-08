@@ -48,18 +48,18 @@ import dagger.hilt.android.AndroidEntryPoint
  * Comment  :
  */
 @AndroidEntryPoint
-class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View,
+class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
     NomineeListAdapter.OnItemClickListener {
 
     companion object {
-        const val TAG = "HhForm5Fragment"
+        const val TAG = "HhForm6NomineeFragment"
 
         @JvmStatic
         fun newInstance(
             parent: String?
-        ): HhForm5Fragment {
+        ): HhForm6NomineeFragment {
             Log.d(TAG, "newInstance() called with: parent = $parent")
-            val fragment = HhForm5Fragment()
+            val fragment = HhForm6NomineeFragment()
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
             fragment.arguments = bundle

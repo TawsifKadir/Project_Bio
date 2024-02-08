@@ -20,8 +20,8 @@ import com.xplo.code.ui.dashboard.household.forms.HhForm1Fragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm2Fragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm3Fragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm4Fragment
-import com.xplo.code.ui.dashboard.household.forms.HhForm5Fragment
-import com.xplo.code.ui.dashboard.household.forms.HhForm6Fragment
+import com.xplo.code.ui.dashboard.household.forms.HhForm6NomineeFragment
+import com.xplo.code.ui.dashboard.household.forms.HhForm5FingerFragment
 import com.xplo.code.ui.dashboard.household.forms.HhPreviewFragment
 import com.xplo.code.ui.dashboard.household.forms.HouseholdHomeFragment
 import com.xplo.code.ui.dashboard.model.HhForm1
@@ -219,8 +219,8 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         Log.d(TAG, "navigateToForm5() called")
         STEP = 5
         doFragmentTransaction(
-            HhForm5Fragment.newInstance(null),
-            HhForm5Fragment.TAG,
+            HhForm6NomineeFragment.newInstance(null),
+            HhForm6NomineeFragment.TAG,
             true,
             false
         )
@@ -230,8 +230,8 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         Log.d(TAG, "navigateToForm6() called")
         STEP = 6
         doFragmentTransaction(
-            HhForm6Fragment.newInstance(null),
-            HhForm6Fragment.TAG,
+            HhForm5FingerFragment.newInstance(null),
+            HhForm5FingerFragment.TAG,
             true,
             false
         )

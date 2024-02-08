@@ -41,17 +41,17 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
+class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form6View {
 
     companion object {
-        const val TAG = "HhForm6Fragment"
+        const val TAG = "HhForm5FingerFragment"
 
         @JvmStatic
         fun newInstance(
             parent: String?
-        ): HhForm6Fragment {
+        ): HhForm5FingerFragment {
             Log.d(TAG, "newInstance() called with: parent = $parent")
-            val fragment = HhForm6Fragment()
+            val fragment = HhForm5FingerFragment()
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
             fragment.arguments = bundle
@@ -120,7 +120,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         }
     }
     fun onStartFingerprintCapture() {
-        Log.d(HhForm5Fragment.TAG, "onStartFingerprintCapture() called")
+        Log.d(HhForm6NomineeFragment.TAG, "onStartFingerprintCapture() called")
 
         val intent = Intent(context, FingerprintCaptureActivity::class.java)
         getResult.launch(intent)
