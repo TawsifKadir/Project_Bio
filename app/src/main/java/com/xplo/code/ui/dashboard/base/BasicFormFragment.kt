@@ -24,9 +24,9 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         return txt.toInt()
     }
 
-    override fun getEditTextString(editText: EditText): String {
+    override fun getEditText(editText: EditText): String? {
         val txt = editText.text.toString()
-        if (txt.isEmpty()) return ""
+        if (txt.isEmpty()) return null
         return txt
     }
 

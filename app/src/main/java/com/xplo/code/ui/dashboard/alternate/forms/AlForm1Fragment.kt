@@ -278,7 +278,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         form.householdName = chkEditText3Char(etHouseholdName, UiData.ER_ET_DF)
 
         form.alternateFirstName = chkEditText3Char(etAlternateFirstName, UiData.ER_ET_DF)
-        form.alternateMiddleName = getEditTextString(etAlternateMiddleName)
+        form.alternateMiddleName = getEditText(etAlternateMiddleName)
         form.alternateLastName = chkEditText3Char(etAlternateLastName, UiData.ER_ET_DF)
 
 
@@ -312,10 +312,10 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         etPhoneNo.setText("01829372012")
         spIdType.setSelection(1)
 
-        etHouseholdName.setText("Mohd")
+        //etHouseholdName.setText("Mohd")
 
         etAlternateFirstName.setText("Mohd")
-        etAlternateMiddleName.setText("Moniruzzaman")
+        //etAlternateMiddleName.setText("Moniruzzaman")
         etAlternateLastName.setText("Shadhin")
 
     }
