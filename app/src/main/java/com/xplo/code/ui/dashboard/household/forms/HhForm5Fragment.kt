@@ -24,7 +24,7 @@ import com.xplo.code.core.ext.isNo
 import com.xplo.code.core.ext.isYes
 import com.xplo.code.core.ext.plusOne
 import com.xplo.code.core.ext.visible
-import com.xplo.code.databinding.FragmentHhForm5NomineeBinding
+import com.xplo.code.databinding.FragmentHhForm6NomineeBinding
 import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
@@ -67,7 +67,7 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View,
         }
     }
 
-    private lateinit var binding: FragmentHhForm5NomineeBinding
+    private lateinit var binding: FragmentHhForm6NomineeBinding
     private val viewModel: HouseholdViewModel by viewModels()
 
     //private lateinit var presenter: RegistrationContract.Presenter
@@ -93,7 +93,7 @@ class HhForm5Fragment : BasicFormFragment(), HouseholdContract.Form5View,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHhForm5NomineeBinding.inflate(inflater, container, false)
+        binding = FragmentHhForm6NomineeBinding.inflate(inflater, container, false)
         return binding.root
     }
 

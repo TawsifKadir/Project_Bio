@@ -107,7 +107,7 @@
 <string name="country_name_label">County Name</string>
     <string-array name="country_nam_array">
         <item>County Name</item>
-        <item>County 1</item>
+        <item>JUBA</item>
         <item>County 2</item>
     </string-array>
 

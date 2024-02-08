@@ -1,4 +1,15 @@
 
+middle name?
+page navigation kono problem ase?
+location info disabled or optional?
+house size calculation, 36 field, default value 0
+hh size enable or disable
+
+
+hh name disabled
+alternate finger
+
+
 
 
 

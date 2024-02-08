@@ -23,7 +23,7 @@ import com.faisal.fingerprintcapture.utils.ImageProc
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
-import com.xplo.code.databinding.FragmentHhForm6FingerBinding
+import com.xplo.code.databinding.FragmentHhForm5FingerBinding
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
@@ -59,7 +59,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         }
     }
 
-    private lateinit var binding: FragmentHhForm6FingerBinding
+    private lateinit var binding: FragmentHhForm5FingerBinding
     private val viewModel: HouseholdViewModel by viewModels()
 
     //private lateinit var presenter: RegistrationContract.Presenter
@@ -79,7 +79,7 @@ class HhForm6Fragment : BasicFormFragment(), HouseholdContract.Form6View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHhForm6FingerBinding.inflate(inflater, container, false)
+        binding = FragmentHhForm5FingerBinding.inflate(inflater, container, false)
         return binding.root
     }
 
