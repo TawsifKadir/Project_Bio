@@ -8,8 +8,8 @@ import com.xplo.code.ui.dashboard.model.HhForm1
 import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.HhForm3
 import com.xplo.code.ui.dashboard.model.HhForm4
-import com.xplo.code.ui.dashboard.model.HhForm6
 import com.xplo.code.ui.dashboard.model.HhForm5
+import com.xplo.code.ui.dashboard.model.HhForm6
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.Nominee
 
@@ -125,13 +125,13 @@ interface HouseholdContract {
     }
 
     interface Form6View : BaseContract.View, CommonView {
-        fun onValidated(form: HhForm6?)
-        fun onReinstateData(form: HhForm6?)
+        fun onValidated(form: HhForm5?)
+        fun onReinstateData(form: HhForm5?)
 
     }
     interface Form5View : BaseContract.View, CommonView {
-        fun onValidated(form: HhForm5?)
-        fun onReinstateData(form: HhForm5?)
+        fun onValidated(form: HhForm6?)
+        fun onReinstateData(form: HhForm6?)
 
         fun onEnableDisableNominee(isNomineeAdd: Boolean)
 

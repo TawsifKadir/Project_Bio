@@ -9,12 +9,8 @@ data class HouseholdForm(
     var form2: HhForm2? = null,
     var form3: HhForm3? = null,
     var form4: HhForm4? = null,
-    var form5: HhForm6? = null,
-    var form6: HhForm5? = null,
-
-//    var alPerson1: AlternateForm? = null,
-//    var alPerson2: AlternateForm? = null
-
+    var form5: HhForm5? = null,
+    var form6: HhForm6? = null,
     var alternates: ArrayList<AlternateForm> = arrayListOf(),
     var consentStatus: ConsentStatus = ConsentStatus()
 )
@@ -114,7 +110,7 @@ data class HhForm4(
     var img: String? = null
 )
 
-data class HhForm5(
+data class HhForm6(
 
     var isNomineeAdd: String? = null,
     var noNomineeReason: String? = null,
@@ -126,7 +122,7 @@ data class HhForm5(
     var nominees: ArrayList<Nominee> = arrayListOf()
 )
 
-fun HhForm5?.getNomineeNumber(): Int {
+fun HhForm6?.getNomineeNumber(): Int {
     if (this == null) return 1
     return this.nominees.size.plus(1) ?: 1
 }
@@ -159,7 +155,7 @@ fun Nominee?.toSummary(): String? {
 }
 
 
-data class HhForm6(
+data class HhForm5(
     var finger: String? = null
 )
 

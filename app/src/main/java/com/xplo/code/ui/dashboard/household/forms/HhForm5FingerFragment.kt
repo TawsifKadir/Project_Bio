@@ -29,7 +29,7 @@ import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
-import com.xplo.code.ui.dashboard.model.HhForm6
+import com.xplo.code.ui.dashboard.model.HhForm5
 import com.xplo.code.utils.FormAppUtils
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
@@ -243,11 +243,11 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form6View {
         super.onDestroy()
     }
 
-    override fun onValidated(form: HhForm6?) {
+    override fun onValidated(form: HhForm5?) {
         Log.d(TAG, "onValidated() called with: form = $form")
     }
 
-    override fun onReinstateData(form: HhForm6?) {
+    override fun onReinstateData(form: HhForm5?) {
         Log.d(TAG, "onReinstateData() called with: form = $form")
 
     }

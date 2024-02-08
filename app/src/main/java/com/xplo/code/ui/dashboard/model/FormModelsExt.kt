@@ -87,7 +87,7 @@ fun HhForm3.isOk(): Boolean {
     return true
 }
 
-fun HhForm5.isOk(): Boolean {
+fun HhForm6.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
     if (this.isNomineeAdd.isNullOrEmpty()) return false
 
@@ -113,7 +113,7 @@ fun HhForm5.isOk(): Boolean {
     return true
 }
 
-fun HhForm5.checkExtraCases(): String? {
+fun HhForm6.checkExtraCases(): String? {
     if (!TestConfig.isValidationEnabled) return null
     if (!this.isOkCaseSizeMin()) return "Minimum 2 nominee required"
     if (!this.isOkCaseSizeMax()) return "Maximum 5 nominee allowed"
@@ -121,21 +121,21 @@ fun HhForm5.checkExtraCases(): String? {
     return null
 }
 
-fun HhForm5.isOkCaseSizeMin(): Boolean {
+fun HhForm6.isOkCaseSizeMin(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
     if (this.nominees.size < 2) return false
     //if (this.nominees.size > 5) return false
     return true
 }
 
-fun HhForm5.isOkCaseSizeMax(): Boolean {
+fun HhForm6.isOkCaseSizeMax(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
     //if (this.nominees.size < 2) return false
     if (this.nominees.size > 5) return false
     return true
 }
 
-fun HhForm5.isOkCaseMaleFemale(): Boolean {
+fun HhForm6.isOkCaseMaleFemale(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
     if (this.nominees.isEmpty()) return false
     for (nominee in this.nominees) {
@@ -146,7 +146,7 @@ fun HhForm5.isOkCaseMaleFemale(): Boolean {
 }
 
 
-fun HhForm5.isOkNoNominee(): Boolean {
+fun HhForm6.isOkNoNominee(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
     if (this.isNomineeAdd.isNullOrEmpty()) return false
     if (this.noNomineeReason.isNullOrEmpty()) return false
