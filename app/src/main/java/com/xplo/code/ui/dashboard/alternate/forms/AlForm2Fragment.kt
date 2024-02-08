@@ -27,7 +27,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
-import com.xplo.code.databinding.FragmentAlForm2FingerBinding
+import com.xplo.code.databinding.FragmentAlForm2CapPhotoBinding
 import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
@@ -69,7 +69,7 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         }
     }
 
-    private lateinit var binding: FragmentAlForm2FingerBinding
+    private lateinit var binding: FragmentAlForm2CapPhotoBinding
     private val viewModel: HouseholdViewModel by viewModels()
 
     //private lateinit var presenter: RegistrationContract.Presenter
@@ -92,7 +92,7 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAlForm2FingerBinding.inflate(inflater, container, false)
+        binding = FragmentAlForm2CapPhotoBinding.inflate(inflater, container, false)
         return binding.root
     }
 

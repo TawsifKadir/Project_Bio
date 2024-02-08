@@ -3,20 +3,15 @@ package com.xplo.code.ui.dashboard.alternate.forms
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
-import com.xplo.code.core.ext.isActivityFinishing
 import com.xplo.code.core.ext.visible
-import com.xplo.code.databinding.FragmentAlForm3Binding
-import com.xplo.code.ui.components.XDialog
+import com.xplo.code.databinding.FragmentAlForm3FingerBinding
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
-import com.xplo.code.ui.dashboard.alternate.AlternateViewModel
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.AlForm3
@@ -43,7 +38,7 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
         }
     }
 
-    private lateinit var binding: FragmentAlForm3Binding
+    private lateinit var binding: FragmentAlForm3FingerBinding
     private val viewModel: HouseholdViewModel by viewModels()
 
     //private lateinit var presenter: RegistrationContract.Presenter
@@ -63,7 +58,7 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAlForm3Binding.inflate(inflater, container, false)
+        binding = FragmentAlForm3FingerBinding.inflate(inflater, container, false)
         return binding.root
     }
 
