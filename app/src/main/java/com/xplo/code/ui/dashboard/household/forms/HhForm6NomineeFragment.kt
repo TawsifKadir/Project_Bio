@@ -181,7 +181,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
 
         Log.d(TAG, "onValidated: $rootForm")
 
-        interactor?.navigateToForm6()
+        interactor?.navigateToPreview()
     }
 
     override fun onReinstateData(form: HhForm5?) {

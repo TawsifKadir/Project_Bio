@@ -23,11 +23,14 @@ import com.faisal.fingerprintcapture.utils.ImageProc
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
+import com.xplo.code.core.ext.toBool
 import com.xplo.code.databinding.FragmentHhForm5FingerBinding
+import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.HhForm6
+import com.xplo.code.utils.FormAppUtils
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -256,8 +259,13 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form6View {
 
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
-        interactor?.navigateToPreview()
-        //askForConsent()
+        //interactor?.navigateToPreview()
+
+        if (FormAppUtils.canNomineeAdd(interactor?.getRootForm())) {
+            askForConsent()
+        } else {
+            interactor?.navigateToPreview()
+        }
     }
 
     override fun onReadInput() {
@@ -284,6 +292,52 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form6View {
 
     override fun onPopulateView() {
         Log.d(TAG, "onPopulateView() called")
+    }
+
+    private fun askForConsent() {
+
+        if (isConsentGiven()) {
+            onGetConsent()
+            return
+        }
+
+        XDialogSheet.Builder(requireActivity().supportFragmentManager)
+            .setLayoutId(R.layout.bsd_consent_sheet)
+            .setTitle("Consent Nominee")
+            .setMessage(getString(R.string.agreement))
+            .setPosButtonText("Yes")
+            .setNegButtonText("No")
+            .setCancelable(true)
+            .setListener(object : XDialogSheet.DialogListener {
+                override fun onClickPositiveButton() {
+                    onGetConsent()
+                }
+
+                override fun onClickNegativeButton() {
+
+                }
+
+                override fun onClickNeutralButton() {
+
+                }
+            })
+            .build()
+            .show()
+    }
+
+    private fun onGetConsent() {
+        //getPrefHelper().setNomineeConsentAcceptStatus(true)
+        interactor?.getRootForm()?.consentStatus?.isConsentGivenNominee = true
+        if (FormAppUtils.canNomineeAdd(interactor?.getRootForm())) {
+            interactor?.navigateToForm6()
+        } else {
+            interactor?.navigateToPreview()
+        }
+
+    }
+
+    fun isConsentGiven(): Boolean {
+        return interactor?.getRootForm()?.consentStatus?.isConsentGivenNominee.toBool()
     }
 
 

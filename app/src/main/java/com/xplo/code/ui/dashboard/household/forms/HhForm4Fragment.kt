@@ -209,13 +209,7 @@ class HhForm4Fragment : BasicFormFragment(), HouseholdContract.Form4View {
 
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
-        //interactor?.navigateToForm5()
-
-        if (FormAppUtils.canNomineeAdd(interactor?.getRootForm())) {
-            askForConsent()
-        } else {
-            interactor?.navigateToForm6()
-        }
+        interactor?.navigateToForm5()
         //askForConsent()
     }
 
@@ -356,49 +350,5 @@ class HhForm4Fragment : BasicFormFragment(), HouseholdContract.Form4View {
         )
     }
 
-    private fun askForConsent() {
 
-        if (isConsentGiven()) {
-            onGetConsent()
-            return
-        }
-
-        XDialogSheet.Builder(requireActivity().supportFragmentManager)
-            .setLayoutId(R.layout.bsd_consent_sheet)
-            .setTitle("Consent Nominee")
-            .setMessage(getString(R.string.agreement))
-            .setPosButtonText("Yes")
-            .setNegButtonText("No")
-            .setCancelable(true)
-            .setListener(object : XDialogSheet.DialogListener {
-                override fun onClickPositiveButton() {
-                    onGetConsent()
-                }
-
-                override fun onClickNegativeButton() {
-
-                }
-
-                override fun onClickNeutralButton() {
-
-                }
-            })
-            .build()
-            .show()
-    }
-
-    private fun onGetConsent() {
-        //getPrefHelper().setNomineeConsentAcceptStatus(true)
-        interactor?.getRootForm()?.consentStatus?.isConsentGivenNominee = true
-        if (FormAppUtils.canNomineeAdd(interactor?.getRootForm())) {
-            interactor?.navigateToForm5()
-        } else {
-            interactor?.navigateToForm6()
-        }
-
-    }
-
-    fun isConsentGiven(): Boolean {
-        return interactor?.getRootForm()?.consentStatus?.isConsentGivenNominee.toBool()
-    }
 }

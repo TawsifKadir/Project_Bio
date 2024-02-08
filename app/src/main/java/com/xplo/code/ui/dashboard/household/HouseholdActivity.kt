@@ -219,8 +219,8 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         Log.d(TAG, "navigateToForm5() called")
         STEP = 5
         doFragmentTransaction(
-            HhForm6NomineeFragment.newInstance(null),
-            HhForm6NomineeFragment.TAG,
+            HhForm5FingerFragment.newInstance(null),
+            HhForm5FingerFragment.TAG,
             true,
             false
         )
@@ -230,8 +230,8 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         Log.d(TAG, "navigateToForm6() called")
         STEP = 6
         doFragmentTransaction(
-            HhForm5FingerFragment.newInstance(null),
-            HhForm5FingerFragment.TAG,
+            HhForm6NomineeFragment.newInstance(null),
+            HhForm6NomineeFragment.TAG,
             true,
             false
         )
