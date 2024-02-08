@@ -21,7 +21,7 @@ import com.xplo.code.core.ext.gone
 import com.xplo.code.core.ext.visible
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
-import com.xplo.code.databinding.FragmentAlForm1RegSetupBinding
+import com.xplo.code.databinding.FragmentAlForm1PerInfoBinding
 import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
@@ -63,7 +63,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         }
     }
 
-    private lateinit var binding: FragmentAlForm1RegSetupBinding
+    private lateinit var binding: FragmentAlForm1PerInfoBinding
     private val viewModel: HouseholdViewModel by viewModels()
 
     //private lateinit var presenter: RegistrationContract.Presenter
@@ -102,7 +102,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAlForm1RegSetupBinding.inflate(inflater, container, false)
+        binding = FragmentAlForm1PerInfoBinding.inflate(inflater, container, false)
         return binding.root
     }
 
