@@ -276,11 +276,9 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         form.idIsOrNot = chkRadioGroup(rgId, UiData.ER_RB_DF)
 
         form.householdName = chkEditText3Char(etHouseholdName, UiData.ER_ET_DF)
-        //form.middleName = chkEditText(etMiddleName, UiData.ER_ET_DF)
-        //form.householdLastName = chkEditText3Char(etHouseholdLastName, UiData.ER_ET_DF)
 
         form.alternateFirstName = chkEditText3Char(etAlternateFirstName, UiData.ER_ET_DF)
-        //form.middleName = chkEditText(etMiddleName, UiData.ER_ET_DF)
+        form.alternateMiddleName = getEditTextString(etAlternateMiddleName)
         form.alternateLastName = chkEditText3Char(etAlternateLastName, UiData.ER_ET_DF)
 
 

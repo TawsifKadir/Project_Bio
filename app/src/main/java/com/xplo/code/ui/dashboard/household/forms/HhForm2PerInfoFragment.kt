@@ -63,6 +63,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
 
     private lateinit var spIdType: Spinner
     private lateinit var spMainSourceOfIncome: Spinner
+
     //private lateinit var spCurrency: Spinner
     private lateinit var spGender: Spinner
     private lateinit var spRespondentRlt: Spinner
@@ -179,7 +180,12 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         //onGenerateDummyInput()
 
         spMaritalStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 val selectedItem = parent.getItemAtPosition(position).toString()
                 if (selectedItem.equals(MaritalStatus.MARRIED.status, ignoreCase = true)) {
                     binding.llspouse1.visibility = View.VISIBLE
@@ -189,6 +195,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
                     binding.llspouse2.visibility = View.GONE
                 }
             }
+
             override fun onNothingSelected(parent: AdapterView<*>) {
                 // Another interface callback
             }
@@ -202,6 +209,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
             }
         }
     }
+
     fun doSomethingForYes() {
         binding.llIdType.isVisible = true
         binding.llIdTypeInput.isVisible = true
@@ -211,6 +219,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         binding.llIdType.isVisible = false
         binding.llIdTypeInput.isVisible = false
     }
+
     override fun onResume() {
         super.onResume()
 
@@ -298,26 +307,26 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         form.legalStatus = chkSpinner(spLegalStatus, UiData.ER_SP_DF)
         form.selectionReason = chkSpinner(spSelectionReason, UiData.ER_SP_DF)
 
-        if(binding.llspouse1.isVisible &&  binding.llspouse2.isVisible){
-        form.spouseFirstName = chkEditText3Char(etSpouseFirstName, UiData.ER_SP_DF)
-        //form.spouseMiddleName = chkEditText3Char(etSpouseMiddleName, UiData.ER_SP_DF)
-        form.spouseLastName = chkEditText3Char(etSpouseLastName, UiData.ER_SP_DF)
-        }else{
+        if (binding.llspouse1.isVisible && binding.llspouse2.isVisible) {
+            form.spouseFirstName = chkEditText3Char(etSpouseFirstName, UiData.ER_SP_DF)
+            form.spouseMiddleName = getEditTextString(etSpouseMiddleName)
+            form.spouseLastName = chkEditText3Char(etSpouseLastName, UiData.ER_SP_DF)
+        } else {
             form.spouseFirstName = null
             form.spouseMiddleName = null
             form.spouseLastName = null
         }
 
-        if(binding.llIdTypeInput.isVisible &&  binding.llIdType.isVisible){
+        if (binding.llIdTypeInput.isVisible && binding.llIdType.isVisible) {
             form.idNumber = chkEditText(etIdNumber, UiData.ER_ET_DF)
             form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
-        }else{
+        } else {
             form.idNumber = null
             form.idNumberType = null
         }
 
         form.firstName = chkEditText3Char(etFirstName, UiData.ER_ET_DF)
-        form.middleName = etMiddleName.text.toString()
+        form.middleName = getEditTextString(etMiddleName)
         form.lastName = chkEditText3Char(etLastName, UiData.ER_ET_DF)
 
         form.age = chkEditTextMax3Digit(etAge, UiData.ER_ET_DF)
@@ -360,7 +369,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         //spCurrency.setSelection(1)
 
         etFirstName.setText("Mohd")
-        etMiddleName.setText("Moniruzzaman")
+        //etMiddleName.setText("Moniruzzaman")
         etLastName.setText("Shadhin")
         etAge.setText("33")
         etIdNumber.setText("12")

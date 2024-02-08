@@ -88,6 +88,11 @@
         <item name="android:inputType">text</item>
     </style>
 
+    <style name="AppEditText.Form.Text.NonEditable" parent="AppEditText.Form.Text">
+        <item name="android:enabled">false</item>
+        <item name="android:editable">false</item>
+    </style>
+
     <style name="AppEditText.Form.Text.Min3" parent="AppEditText.Form.Text">
         <item name="android:hint">Minimum 3 char</item>
     </style>

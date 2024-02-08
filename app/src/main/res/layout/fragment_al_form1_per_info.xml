@@ -46,7 +46,7 @@
 
                     <EditText
                         android:id="@+id/etHouseholdName"
-                        style="@style/AppEditText.Form.Text" />
+                        style="@style/AppEditText.Form.Text.NonEditable" />
 
                 </LinearLayout>
 

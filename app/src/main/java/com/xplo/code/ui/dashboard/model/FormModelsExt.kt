@@ -24,8 +24,8 @@ fun HhForm1.isOk(): Boolean {
     if (this.stateName.isNullOrBlank()) return false
     if (this.payamName.isNullOrBlank()) return false
     if (this.bomaName.isNullOrBlank()) return false
-    if (this.lat == null) return false
-    if (this.lon == null) return false
+    //if (this.lat == null) return false
+    //if (this.lon == null) return false
 
     return true
 }

@@ -164,7 +164,7 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         var nominee = Nominee()
 
         nominee.firstName = chkEditText3Char(etFirstName, UiData.ER_ET_DF)
-        //nominee.middleName = chkEditText(etMiddleName, UiData.ER_ET_DF)
+        nominee.middleName = getEditTextString(etMiddleName)
         nominee.lastName = chkEditText3Char(etLastName, UiData.ER_ET_DF)
         nominee.age = chkEditText(etAge, UiData.ER_ET_DF)?.toInt()
 
@@ -196,9 +196,9 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
-        etFirstName.setText("first")
-        etMiddleName.setText("middle")
-        etLastName.setText("last")
+        etFirstName.setText("Ruben")
+        //etMiddleName.setText("middle")
+        etLastName.setText("Dias")
         etAge.setText("12")
         spRelation.setSelection(2)
         spGender.setSelection(2)

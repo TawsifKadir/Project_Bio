@@ -416,17 +416,20 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
         form.payamName = chkSpinner(spPayamName, UiData.ER_SP_DF)
         form.bomaName = chkSpinner(spBomaName, UiData.ER_SP_DF)
 
-        if (chkEditText(etLat, UiData.ER_ET_DF) == null) {
-            form.lat = null
-        } else {
-            form.lat = chkEditText(etLat, UiData.ER_ET_DF)?.toDouble()
-        }
+        form.lat = getEditTextString(etLat).toDouble()
+        form.lon = getEditTextString(etLon).toDouble()
 
-        if (chkEditText(etLon, UiData.ER_ET_DF) == null) {
-            form.lon = null
-        } else {
-            form.lon = chkEditText(etLon, UiData.ER_ET_DF)?.toDouble()
-        }
+//        if (chkEditText(etLat, UiData.ER_ET_DF) == null) {
+//            form.lat = null
+//        } else {
+//            form.lat = chkEditText(etLat, UiData.ER_ET_DF)?.toDouble()
+//        }
+//
+//        if (chkEditText(etLon, UiData.ER_ET_DF) == null) {
+//            form.lon = null
+//        } else {
+//            form.lon = chkEditText(etLon, UiData.ER_ET_DF)?.toDouble()
+//        }
 
 
         if (!form.isOk()) {

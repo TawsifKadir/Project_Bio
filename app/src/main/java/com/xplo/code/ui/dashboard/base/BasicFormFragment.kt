@@ -24,6 +24,12 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         return txt.toInt()
     }
 
+    override fun getEditTextString(editText: EditText): String {
+        val txt = editText.text.toString()
+        if (txt.isEmpty()) return ""
+        return txt
+    }
+
     override fun chkEditText(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {

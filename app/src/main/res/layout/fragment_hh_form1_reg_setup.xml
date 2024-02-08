@@ -127,7 +127,7 @@
 
                     <EditText
                         android:id="@+id/etLat"
-                        style="@style/AppEditText.Form.Number.Decimal" />
+                        style="@style/AppEditText.Form.Text.NonEditable" />
 
                 </LinearLayout>
 
@@ -145,7 +145,7 @@
 
                     <EditText
                         android:id="@+id/etLon"
-                        style="@style/AppEditText.Form.Number.Decimal" />
+                        style="@style/AppEditText.Form.Text.NonEditable" />
 
                 </LinearLayout>
 
