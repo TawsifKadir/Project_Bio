@@ -16,10 +16,10 @@ import com.xplo.code.core.Bk
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.databinding.ActivityHouseholdBinding
 import com.xplo.code.ui.dashboard.household.forms.FormDetailsFragment
-import com.xplo.code.ui.dashboard.household.forms.HhForm1Fragment
-import com.xplo.code.ui.dashboard.household.forms.HhForm2Fragment
-import com.xplo.code.ui.dashboard.household.forms.HhForm3Fragment
-import com.xplo.code.ui.dashboard.household.forms.HhForm4Fragment
+import com.xplo.code.ui.dashboard.household.forms.HhForm1RegSetupFragment
+import com.xplo.code.ui.dashboard.household.forms.HhForm2PerInfoFragment
+import com.xplo.code.ui.dashboard.household.forms.HhForm3HhBdFragment
+import com.xplo.code.ui.dashboard.household.forms.HhForm4CapPhotoFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm6NomineeFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm5FingerFragment
 import com.xplo.code.ui.dashboard.household.forms.HhPreviewFragment
@@ -174,8 +174,8 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
 
         STEP = 1
         doFragmentTransaction(
-            HhForm1Fragment.newInstance(null),
-            HhForm1Fragment.TAG,
+            HhForm1RegSetupFragment.newInstance(null),
+            HhForm1RegSetupFragment.TAG,
             true,
             false
         )
@@ -186,8 +186,8 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         Log.d(TAG, "navigateToForm2() called")
         STEP = 2
         doFragmentTransaction(
-            HhForm2Fragment.newInstance(null),
-            HhForm2Fragment.TAG,
+            HhForm2PerInfoFragment.newInstance(null),
+            HhForm2PerInfoFragment.TAG,
             true,
             false
         )
@@ -197,8 +197,8 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         Log.d(TAG, "navigateToForm3() called")
         STEP = 3
         doFragmentTransaction(
-            HhForm3Fragment.newInstance(null),
-            HhForm3Fragment.TAG,
+            HhForm3HhBdFragment.newInstance(null),
+            HhForm3HhBdFragment.TAG,
             true,
             false
         )
@@ -208,8 +208,8 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         Log.d(TAG, "navigateToForm4() called")
         STEP = 4
         doFragmentTransaction(
-            HhForm4Fragment.newInstance(null),
-            HhForm4Fragment.TAG,
+            HhForm4CapPhotoFragment.newInstance(null),
+            HhForm4CapPhotoFragment.TAG,
             true,
             false
         )
@@ -263,7 +263,7 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         Log.d(TAG, "navigateToAnotherHousehold() called with: hhForm1 = $hhForm1")
         resetRootFormKeepSetup()
         supportFragmentManager.popBackStack(
-            HhForm2Fragment.TAG,
+            HhForm2PerInfoFragment.TAG,
             FragmentManager.POP_BACK_STACK_INCLUSIVE
         )
         navigateToForm2()

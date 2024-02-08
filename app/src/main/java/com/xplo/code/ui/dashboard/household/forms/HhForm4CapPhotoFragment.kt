@@ -26,9 +26,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
-import com.xplo.code.core.ext.toBool
 import com.xplo.code.databinding.FragmentHhForm4CapPhotoBinding
-import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
@@ -51,17 +49,17 @@ import java.io.IOException
  */
 
 @AndroidEntryPoint
-class HhForm4Fragment : BasicFormFragment(), HouseholdContract.Form4View {
+class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View {
 
     companion object {
-        const val TAG = "HhForm4Fragment"
+        const val TAG = "HhForm4CapPhotoFragment"
 
         @JvmStatic
         fun newInstance(
             parent: String?
-        ): HhForm4Fragment {
+        ): HhForm4CapPhotoFragment {
             Log.d(TAG, "newInstance() called with: parent = $parent")
-            val fragment = HhForm4Fragment()
+            val fragment = HhForm4CapPhotoFragment()
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
             fragment.arguments = bundle

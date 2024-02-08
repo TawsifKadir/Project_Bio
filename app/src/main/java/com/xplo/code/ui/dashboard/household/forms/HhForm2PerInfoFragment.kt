@@ -37,17 +37,17 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class HhForm2Fragment : BasicFormFragment(), HouseholdContract.Form2View {
+class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View {
 
     companion object {
-        const val TAG = "HhForm2Fragment"
+        const val TAG = "HhForm2PerInfoFragment"
 
         @JvmStatic
         fun newInstance(
             parent: String?
-        ): HhForm2Fragment {
+        ): HhForm2PerInfoFragment {
             Log.d(TAG, "newInstance() called with: parent = $parent")
-            val fragment = HhForm2Fragment()
+            val fragment = HhForm2PerInfoFragment()
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
             fragment.arguments = bundle

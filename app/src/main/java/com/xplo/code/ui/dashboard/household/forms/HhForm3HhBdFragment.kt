@@ -32,17 +32,17 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class HhForm3Fragment : BasicFormFragment(), HouseholdContract.Form3View {
+class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
 
     companion object {
-        const val TAG = "HhForm3Fragment"
+        const val TAG = "HhForm3HhBdFragment"
 
         @JvmStatic
         fun newInstance(
             parent: String?
-        ): HhForm3Fragment {
+        ): HhForm3HhBdFragment {
             Log.d(TAG, "newInstance() called with: parent = $parent")
-            val fragment = HhForm3Fragment()
+            val fragment = HhForm3HhBdFragment()
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
             fragment.arguments = bundle

@@ -49,21 +49,21 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class HhForm1Fragment : BasicFormFragment(), HouseholdContract.Form1View,
+class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View,
     AdapterView.OnItemSelectedListener,
     LocationListener {
 
     companion object {
-        const val TAG = "HhForm1Fragment"
+        const val TAG = "HhForm1RegSetupFragment"
         private var isUseOldView = false
 
         @JvmStatic
         fun newInstance(
             parent: String?
-        ): HhForm1Fragment {
+        ): HhForm1RegSetupFragment {
             Log.d(TAG, "newInstance() called with: parent = $parent")
             isUseOldView = false
-            val fragment = HhForm1Fragment()
+            val fragment = HhForm1RegSetupFragment()
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
             fragment.arguments = bundle
