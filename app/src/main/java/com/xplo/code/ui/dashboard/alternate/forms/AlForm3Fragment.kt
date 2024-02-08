@@ -1,12 +1,22 @@
 package com.xplo.code.ui.dashboard.alternate.forms
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import androidx.core.widget.ImageViewCompat
 import androidx.fragment.app.viewModels
+import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.visible
@@ -17,6 +27,11 @@ import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.AlForm3
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
+
+import com.faisal.fingerprintcapture.FingerprintCaptureActivity
+import com.faisal.fingerprintcapture.model.FingerprintData
+import com.faisal.fingerprintcapture.model.FingerprintID
+import com.faisal.fingerprintcapture.utils.ImageProc
 
 
 @AndroidEntryPoint
@@ -91,7 +106,10 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
         }
 
         onLongClickDataGeneration()
-        //onGenerateDummyInput()
+        onGenerateDummyInput()
+        binding.llCapture.setOnClickListener {
+            onStartFingerprintCapture()
+        }
     }
 
     override fun onResume() {
@@ -99,9 +117,11 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
 
         setToolbarTitle("Alternate Fingerprints")
 
-        binding.viewButtonBackNext.btBack.visible()
-        binding.viewButtonBackNext.btNext.visible()
-        binding.viewButtonBackNext.btNext.text = "Submit"
+//        binding.viewButtonBackNext.btBack.visible()
+//        binding.viewButtonBackNext.btNext.visible()
+//        binding.viewButtonBackNext.btNext.text = "Submit"
+
+        onReinstateData(interactor?.getRootForm()?.form3)
     }
 
     override fun onDestroy() {
@@ -151,6 +171,140 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
 
     override fun onPopulateView() {
 
+    }
+
+    fun onStartFingerprintCapture() {
+        Log.d(TAG, "onStartFingerprintCapture() called")
+
+        val intent = Intent(context, FingerprintCaptureActivity::class.java)
+        getResult.launch(intent)
+
+    }
+
+    private val getResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val fpList = ArrayList<FingerprintData>()
+                val names = arrayOf(
+                    "right_thumb",
+                    "right_index",
+                    "right_middle",
+                    "right_ring",
+                    "right_small",
+                    "left_thumb",
+                    "left_index",
+                    "left_middle",
+                    "left_ring",
+                    "left_small"
+                )
+                val ids = arrayOf(
+                    com.xplo.code.R.id.right_thumb,
+                    com.xplo.code.R.id.right_index,
+                    com.xplo.code.R.id.right_middle,
+                    com.xplo.code.R.id.right_ring,
+                    com.xplo.code.R.id.right_small,
+                    com.xplo.code.R.id.left_thumb,
+                    com.xplo.code.R.id.left_index,
+                    com.xplo.code.R.id.left_middle,
+                    com.xplo.code.R.id.left_ring,
+                    com.xplo.code.R.id.left_small
+                )
+
+                val data: Intent? = it.data
+
+                for (i in 0 until names.size) {
+                    val nowName = names[i]
+                    val nowID = ids[i]
+
+                    val nowFPData = data?.getParcelableExtra(nowName) as FingerprintData?
+                    if (nowFPData != null && nowFPData.fingerprintData != null) {
+                        drawWSQ(nowID, nowFPData)
+                        Log.d("HouseHold Fingerprint", ">>>>>> $nowName is not null >>>>>>")
+                    }
+                    if (nowFPData != null) {
+                        fpList.add(nowFPData)
+                    }
+                }
+                //binding.llDataShow.visibility = View.VISIBLE
+
+                for (item in fpList) {
+                    if (item.fingerprintId.name == FingerprintID.RIGHT_THUMB.name) {
+                        addFingerDrawable(binding.imgRT)
+                    } else if (item.fingerprintId.name == FingerprintID.RIGHT_INDEX.name) {
+                        addFingerDrawable(binding.imgRI)
+                    } else if (item.fingerprintId.name == FingerprintID.RIGHT_MIDDLE.name) {
+                        addFingerDrawable(binding.imgRM)
+                    } else if (item.fingerprintId.name == FingerprintID.RIGHT_RING.name) {
+                        addFingerDrawable(binding.imgRR)
+                    } else if (item.fingerprintId.name == FingerprintID.RIGHT_SMALL.name) {
+                        addFingerDrawable(binding.imgRL)
+                    } else if (item.fingerprintId.name == FingerprintID.LEFT_THUMB.name) {
+                        addFingerDrawable(binding.imgLT)
+                    } else if (item.fingerprintId.name == FingerprintID.LEFT_INDEX.name) {
+                        addFingerDrawable(binding.imgLI)
+                    } else if (item.fingerprintId.name == FingerprintID.LEFT_MIDDLE.name) {
+                        addFingerDrawable(binding.imgLM)
+                    } else if (item.fingerprintId.name == FingerprintID.LEFT_RING.name) {
+                        addFingerDrawable(binding.imgLR)
+                    } else if (item.fingerprintId.name == FingerprintID.LEFT_SMALL.name) {
+                        addFingerDrawable(binding.imgLL)
+                    }
+                    Toast.makeText(
+                        activity,
+                        "Received Positive Result From Fingerprint Capture",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+            } else {
+                Toast.makeText(
+                    activity,
+                    "Received Negative Result From Fingerprint Capture",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+
+    private fun addFingerDrawable(img: ImageView) {
+        img.setImageResource(R.drawable.ic_finger_add)
+        val color = ContextCompat.getColor(requireContext(), R.color.green) // Your color resource
+        ImageViewCompat.setImageTintList(img, ColorStateList.valueOf(color))
+    }
+
+
+    fun drawWSQ(id: Int, fpData: FingerprintData?) {
+        Log.d("IDEMIADeviceIntegration", ">>>> Entering drawWSQ >>>>")
+        try {
+            if (fpData == null) {
+                Log.e("IDEMIADeviceIntegration", ">>>> fpData is null >>>>")
+                return
+            }
+            val fingerprintData = fpData.getFingerprintData()
+            if (fingerprintData == null) {
+                Log.e("IDEMIADeviceIntegration", ">>>> fpData.getFingerprintData() is null >>>>")
+                return
+            }
+            val imView = activity?.findViewById<ImageView>(id)
+            if (imView == null) {
+                Log.e("IDEMIADeviceIntegration", ">>>> Image View is null >>>>")
+                return
+            }
+            val width = 248
+            val height = 448
+            val data = ImageProc.fromWSQ(fingerprintData, width, height)
+            if (data == null) {
+                Log.e("IDEMIADeviceIntegration", ">>>> Could not decode WSQ >>>>")
+                return
+            }
+            val bitmap = Bitmap.createBitmap(ImageProc.toGrayscale(data, width, height))
+            imView.setImageBitmap(bitmap)
+        } catch (t: Throwable) {
+            Log.e("IDEMIADeviceIntegration", t.localizedMessage ?: "Unknown error")
+            t.printStackTrace()
+        }
+        Log.d("IDEMIADeviceIntegration", ">>>> Leaving drawWSQ >>>>")
     }
 
 
