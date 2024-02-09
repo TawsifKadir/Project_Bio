@@ -8,11 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.core.ext.gone
 import com.xplo.code.core.ext.visible
 import com.xplo.code.databinding.FragmentPaymentForm1Binding
+import com.xplo.code.ui.dashboard.UiData
+import com.xplo.code.ui.dashboard.household.list.CheckboxListAdapter
+import com.xplo.code.ui.dashboard.household.list.HouseholdListAdapter
+import com.xplo.code.ui.dashboard.model.CheckboxItem
 import com.xplo.code.ui.dashboard.payment.PaymentContract
 import com.xplo.code.ui.dashboard.payment.PaymentViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +34,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class PaymentForm1Fragment : BaseFragment(), PaymentContract.Form1View {
+class PaymentForm1Fragment : BaseFragment(), PaymentContract.Form1View, CheckboxListAdapter.OnItemClickListener {
 
     companion object {
         const val TAG = "PaymentForm1Fragment"
@@ -52,6 +58,7 @@ class PaymentForm1Fragment : BaseFragment(), PaymentContract.Form1View {
     //private lateinit var presenter: RegistrationContract.Presenter
     private var interactor: PaymentContract.View? = null
 
+    private var adapter: CheckboxListAdapter? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -87,8 +94,15 @@ class PaymentForm1Fragment : BaseFragment(), PaymentContract.Form1View {
     override fun initView() {
 
 
-//        bindSpinnerData(binding.spCountryName, UiData.countryNameOptions)
+        binding.recyclerView.setHasFixedSize(true)
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.itemAnimator = DefaultItemAnimator()
 
+        adapter = CheckboxListAdapter()
+        adapter?.setOnItemClickListener(this)
+        binding.recyclerView.adapter = adapter
+
+        adapter?.addAll(UiData.getReason())
 
     }
 
@@ -147,7 +161,18 @@ class PaymentForm1Fragment : BaseFragment(), PaymentContract.Form1View {
 
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
-        interactor?.navigateToForm2()
+        //interactor?.navigateToForm2()
+        
+        var txt = adapter?.getCheckedItems().toString()
+        Log.d(TAG, "onClickNextButton: $txt")
+
+    }
+
+    override fun onStatusChangeCheckboxItem(item: CheckboxItem, pos: Int, isChecked: Boolean) {
+        Log.d(
+            TAG,
+            "onStatusChangeCheckboxItem() called with: item = $item, pos = $pos, isChecked = $isChecked"
+        )
 
     }
 
