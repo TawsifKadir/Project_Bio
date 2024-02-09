@@ -28,6 +28,7 @@ import com.xplo.code.ui.dashboard.model.HhForm6
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.ReportRow
 import com.xplo.code.ui.dashboard.model.getReportRows
+import com.xplo.code.ui.dashboard.model.getReportRowsAltSummary
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -248,6 +249,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         addReportForm4(form.form4)
         addReportForm5(form.form5)
         addReportForm6(form.form6)
+        addReportAlternate(form)
     }
 
     private fun addReportForm1(form: HhForm1?) {
@@ -297,6 +299,15 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         for (item in rows) {
             val view = getRowView(item)
             binding.viewPreview.blockNominee.addView(view)
+        }
+    }
+
+    private fun addReportAlternate(form: HouseholdForm?) {
+        if (form == null) return
+        val rows = form.getReportRowsAltSummary()
+        for (item in rows) {
+            val view = getRowView(item)
+            binding.viewPreview.blockAlternate.addView(view)
         }
     }
 

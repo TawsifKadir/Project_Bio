@@ -189,7 +189,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
         onLongClickDataGeneration()
         if (TestConfig.isAutoDGEnabled) {
-            //onGenerateDummyInput()
+            onGenerateDummyInput()
         }
 
 

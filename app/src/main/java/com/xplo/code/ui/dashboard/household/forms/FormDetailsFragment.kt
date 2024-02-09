@@ -25,6 +25,8 @@ import com.xplo.code.ui.dashboard.model.HhForm6
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.ReportRow
 import com.xplo.code.ui.dashboard.model.getReportRows
+import com.xplo.code.ui.dashboard.model.getReportRowsAltSummary
+import com.xplo.code.ui.testing_lab.JvActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -61,6 +63,8 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
     //private lateinit var presenter: HomeContract.Presenter
     //private var interactor: HouseholdContract.View? = null
 
+    private var householdItem : HouseholdItem? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,13 +92,17 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
     override fun initView() {
 
         if (arguments != null) {
-            val householdItem = arguments?.getSerializable(Bk.KEY_ITEM) as HouseholdItem
+            householdItem = arguments?.getSerializable(Bk.KEY_ITEM) as HouseholdItem
             onGetCompleteData(householdItem)
         }
     }
 
     override fun initObserver() {
 
+        binding.tvPage.setOnLongClickListener {
+            JvActivity.open(requireContext(), null, householdItem?.data)
+            return@setOnLongClickListener true
+        }
 
     }
 
@@ -130,6 +138,7 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         addReportForm4(form.form4)
         addReportForm5(form.form5)
         addReportForm6(form.form6)
+        addReportAlternate(form)
     }
 
     private fun addReportForm1(form: HhForm1?) {
@@ -182,35 +191,19 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         }
     }
 
+    private fun addReportAlternate(form: HouseholdForm?) {
+        if (form == null) return
+        val rows = form.getReportRowsAltSummary()
+        for (item in rows) {
+            val view = getRowView(item)
+            binding.viewPreview.blockAlternate.addView(view)
+        }
+    }
+
 
     private fun getRowView(item: ReportRow?): View {
         Log.d(TAG, "getRowView() called with: item = $item")
         return ReportViewUtils.getRowView(requireContext(), layoutInflater, item)
-
-//        val rowView: View = layoutInflater.inflate(R.layout.row_report_item, null, false)
-//
-//        if (item == null) return rowView
-//
-//        val tvTitle: TextView = rowView.findViewById(R.id.tvTitle)
-//        val tvValue: TextView = rowView.findViewById(R.id.tvValue)
-//        val tvTitle2: TextView = rowView.findViewById(R.id.tvTitle2)
-//        val tvValue2: TextView = rowView.findViewById(R.id.tvValue2)
-//        val llCol2: View = rowView.findViewById(R.id.llCol2)
-//
-//        tvTitle.text = item.title
-//        tvValue.text = item.value
-//
-//        if (item.title2 == null) {
-//            //llCol2.gone()
-//            //tvValue2.gone()
-//            return rowView
-//        }
-//
-//        tvTitle2.text = item.title2
-//        tvValue2.text = item.value2
-//
-//        return rowView
-
     }
 
 

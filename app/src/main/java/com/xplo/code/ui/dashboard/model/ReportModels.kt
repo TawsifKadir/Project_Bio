@@ -10,6 +10,17 @@ data class ReportRow(
     var value2: String? = null
 )
 
+fun HouseholdForm?.getReportRowsAltSummary(): List<ReportRow> {
+    if (this == null) return listOf()
+
+    val items = arrayListOf<ReportRow>()
+    val form = this
+
+    items.add(ReportRow("Alternate Added:", form.alternates.size.toString(), null, null))
+    items.add(ReportRow("Click to see in details", "", null, null))
+
+    return items
+}
 
 fun HhForm1?.getReportRows(): List<ReportRow> {
     if (this == null) return listOf()

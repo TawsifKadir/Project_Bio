@@ -112,6 +112,22 @@
 
     </LinearLayout>
 
+    <LinearLayout style="@style/AppLinearLayoutReportBox">
+
+        <TextView
+            style="@style/AppTextView.Report.Header"
+            android:text="@string/alternate" />
+
+
+        <LinearLayout
+            android:id="@+id/blockAlternate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </LinearLayout>
+
+
 </LinearLayout>
 
 

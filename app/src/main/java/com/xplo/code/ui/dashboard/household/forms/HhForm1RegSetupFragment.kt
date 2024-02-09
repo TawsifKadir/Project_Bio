@@ -241,7 +241,7 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
 
         onLongClickDataGeneration()
         if (TestConfig.isAutoDGEnabled) {
-            onGenerateDummyInput()
+            //onGenerateDummyInput()
         }
 
     }

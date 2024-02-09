@@ -69,9 +69,10 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
 
             binding.tvId.text = "id: " + item.id.toString()
             binding.tvName.text = form.form2.getFullName()
-            binding.tvGender.text = form.form2?.gender
+            binding.tvGender.text = "Gender: " + form.form2?.gender
             binding.tvAge.text = "age: " + form.form2?.age
-            binding.tvNominee.text = "Nominee Added: " + form.form6?.nominees?.size ?:  "0"
+            binding.tvNominee.text = "Nominee: " + (form.form6?.nominees?.size)
+            binding.tvAlternate.text = "Alternate: " + form.alternates.size
 //            if (item.isSynced) {
 //                binding.tvStatus.text = "Synced"
 //            } else {
