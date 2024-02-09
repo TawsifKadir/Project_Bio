@@ -4,6 +4,7 @@
     <dimen name="text_size_normal">20sp</dimen>
     <dimen name="text_size_list_title">22sp</dimen>
     <dimen name="text_size_input_header">16sp</dimen>
+    <dimen name="text_size_report_header">18sp</dimen>
     <dimen name="text_size_table_header">12sp</dimen>
 
     <dimen name="grid_cell_size">220dp</dimen>
