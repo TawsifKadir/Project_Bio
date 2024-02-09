@@ -22,11 +22,11 @@
 
             <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/ivAvatar"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 android:layout_width="@dimen/list_avatar_size"
                 android:layout_height="@dimen/list_avatar_size"
                 android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_avatar_3"
                 app:civ_border="false"
                 app:civ_shadow="false" />
@@ -45,18 +45,30 @@
                     android:textStyle="bold"
                     tools:text="@string/name_full" />
 
-                <TextView
-                    android:id="@+id/tvGender"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="Female" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvGender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Female" />
+
+                    <TextView
+                        android:id="@+id/tvAge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        tools:text="Age: 22" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tvAge"
+                    android:id="@+id/tvNominee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Age: 22" />
-
+                    tools:text="Nominee total: 22" />
 
                 <TextView
                     android:id="@+id/tvId"
