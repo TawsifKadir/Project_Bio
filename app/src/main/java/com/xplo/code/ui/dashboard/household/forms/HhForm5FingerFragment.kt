@@ -29,6 +29,8 @@ import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.model.Finger
+import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.HhForm5
 import com.xplo.code.utils.FormAppUtils
 import com.xplo.data.BuildConfig
@@ -139,6 +141,15 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form6View {
     }
 
     override fun onValidated(form: HhForm5?) {
+        Log.d(HhForm5FingerFragment.TAG, "onValidated() called with: form = $form")
+        //showToast(form.toString())
+
+        val rootForm = interactor?.getRootForm()
+        rootForm?.form5 = form
+        interactor?.setRootForm(rootForm)
+
+        Log.d(HhForm5FingerFragment.TAG, "onValidated: $rootForm")
+
         Log.d(TAG, "onValidated() called with: form = $form")
     }
 
@@ -272,28 +283,41 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form6View {
                 }
                 //binding.llDataShow.visibility = View.VISIBLE
 
+                val form = HhForm5()
+                form.finger = Finger()
                 for (item in fpList){
                     if (item.fingerprintId.name == FingerprintID.RIGHT_THUMB.name){
+                        form.finger?.fingerRT = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgRT)
                     }else if (item.fingerprintId.name == FingerprintID.RIGHT_INDEX.name){
+                        form.finger?.fingerRI = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgRI)
                     }else if (item.fingerprintId.name == FingerprintID.RIGHT_MIDDLE.name){
+                        form.finger?.fingerRM = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgRM)
                     }else if (item.fingerprintId.name == FingerprintID.RIGHT_RING.name){
+                        form.finger?.fingerRR = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgRR)
                     }else if (item.fingerprintId.name == FingerprintID.RIGHT_SMALL.name){
+                        form.finger?.fingerRL = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgRL)
                     }else if (item.fingerprintId.name == FingerprintID.LEFT_THUMB.name){
+                        form.finger?.fingerLT = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgLT)
                     }else if (item.fingerprintId.name == FingerprintID.LEFT_INDEX.name){
+                        form.finger?.fingerLI = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgLI)
                     }else if (item.fingerprintId.name == FingerprintID.LEFT_MIDDLE.name){
+                        form.finger?.fingerLM = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgLM)
                     }else if (item.fingerprintId.name == FingerprintID.LEFT_RING.name){
+                        form.finger?.fingerLR = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgLR)
                     }else if (item.fingerprintId.name == FingerprintID.LEFT_SMALL.name){
+                        form.finger?.fingerLL = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgLL)
                     }
+                    onValidated(form)
                     Toast.makeText(activity, "Received Positive Result From Fingerprint Capture", Toast.LENGTH_LONG).show()
                 }
 

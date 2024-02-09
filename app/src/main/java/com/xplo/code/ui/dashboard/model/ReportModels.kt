@@ -86,6 +86,8 @@ fun HhForm3?.getReportRows(): List<ReportRow> {
         )
     )
     items.add(ReportRow("Total Input:", form.getTotalTable().toString(), null, null))
+    items.add(ReportRow("Do You Read and Write :", form.isReadWrite, null, null))
+    items.add(ReportRow("How Many others member can read and write :", form.readWriteNumber.toString(), null, null))
 
     return items
 }
@@ -94,36 +96,62 @@ fun HhForm5?.getReportRows(): List<ReportRow> {
     if (this == null) return listOf()
 
     val items = arrayListOf<ReportRow>()
-    val form = this
-    val finger = this.finger
+    //val form = this
+    val finger = this!!.finger
 
-    if (finger == null) return items
+    //if (finger == null) return items
 
     items.add(
         ReportRow(
             "Left Thumb:",
-            finger.isAFingerStatus(finger.fingerLT),
+            finger.isAFingerStatus(finger!!.fingerLT),
             "Right Thumb: ",
-            finger.isAFingerStatus(finger.fingerRT)
+            finger.isAFingerStatus(finger!!.fingerRT)
         )
     )
 
     items.add(
         ReportRow(
             "Left Index:",
-            finger.isAFingerStatus(finger.fingerLI),
+            finger.isAFingerStatus(finger!!.fingerLI),
             "Right Index: ",
-            finger.isAFingerStatus(finger.fingerRI)
+            finger.isAFingerStatus(finger!!.fingerRI)
+        )
+    )
+    items.add(
+        ReportRow(
+            "Left Middle:",
+            finger.isAFingerStatus(finger!!.fingerLM),
+            "Right Middle: ",
+            finger.isAFingerStatus(finger!!.fingerRM)
         )
     )
 
+    items.add(
+        ReportRow(
+            "Left Ring:",
+            finger.isAFingerStatus(finger!!.fingerLR),
+            "Right Ring: ",
+            finger.isAFingerStatus(finger!!.fingerRR)
+        )
+    )
+    items.add(
+        ReportRow(
+            "Left Little:",
+            finger.isAFingerStatus(finger!!.fingerLL),
+            "Right little: ",
+            finger.isAFingerStatus(finger!!.fingerRL)
+        )
+    )
 
     return items
 }
 
 fun Finger?.isAFingerStatus(finger: String?): String {
-    if (this == null) return false.toString()
-    return this.isAFingerCaptured(finger).toString()
+    if (finger == null) return "False"
+    return "True"
+//    if (this == null) return false.toString()
+//    return this.isAFingerCaptured(finger).toString()
 }
 
 fun Finger?.isAFingerCaptured(finger: String?): Boolean {
@@ -159,6 +187,9 @@ fun Nominee?.getNomineeItemRows(): List<ReportRow> {
 
     items.add(ReportRow("Name:", form.getFullName(), null, null))
     items.add(ReportRow("Age:", form.age.toString(), "Gender: ", form.gender))
+    items.add(ReportRow("Relation:", form.relation.toString(), "Age: ", form.age.toString()))
+    items.add(ReportRow("Gender:", form.gender.toString(), "Occupation: ", form.occupation))
+    items.add(ReportRow("isReadWrite:", form.isReadWrite))
 
     return items
 }
