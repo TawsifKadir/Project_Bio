@@ -6,15 +6,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.viewModels
-import com.xplo.code.R
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.core.ext.loadAvatar
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.databinding.FragmentFormDetailsBinding
+import com.xplo.code.ui.components.ReportViewUtils
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.HhForm1
@@ -23,6 +22,7 @@ import com.xplo.code.ui.dashboard.model.HhForm3
 import com.xplo.code.ui.dashboard.model.HhForm4
 import com.xplo.code.ui.dashboard.model.HhForm5
 import com.xplo.code.ui.dashboard.model.HhForm6
+import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.ReportRow
 import com.xplo.code.ui.dashboard.model.getReportRows
 import dagger.hilt.android.AndroidEntryPoint
@@ -116,16 +116,20 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         //binding.tvDetails.text = item.toString()
 
         val form = item?.toHouseholdForm()
-        if (form == null) return
 
+        generateReport(form)
+
+    }
+
+    private fun generateReport(form: HouseholdForm?) {
+        Log.d(TAG, "generateReport() called with: form = $form")
+        if (form == null) return
         addReportForm1(form.form1)
         addReportForm2(form.form2)
         addReportForm3(form.form3)
         addReportForm4(form.form4)
         addReportForm5(form.form5)
         addReportForm6(form.form6)
-
-
     }
 
     private fun addReportForm1(form: HhForm1?) {
@@ -181,31 +185,31 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
 
     private fun getRowView(item: ReportRow?): View {
         Log.d(TAG, "getRowView() called with: item = $item")
+        return ReportViewUtils.getRowView(requireContext(), layoutInflater, item)
 
-
-        val rowView: View = layoutInflater.inflate(R.layout.row_report_item, null, false)
-
-        if (item == null) return rowView
-
-        val tvTitle: TextView = rowView.findViewById(R.id.tvTitle)
-        val tvValue: TextView = rowView.findViewById(R.id.tvValue)
-        val tvTitle2: TextView = rowView.findViewById(R.id.tvTitle2)
-        val tvValue2: TextView = rowView.findViewById(R.id.tvValue2)
-        val llCol2: View = rowView.findViewById(R.id.llCol2)
-
-        tvTitle.text = item.title
-        tvValue.text = item.value
-
-        if (item.title2 == null) {
-            //llCol2.gone()
-            //tvValue2.gone()
-            return rowView
-        }
-
-        tvTitle2.text = item.title2
-        tvValue2.text = item.value2
-
-        return rowView
+//        val rowView: View = layoutInflater.inflate(R.layout.row_report_item, null, false)
+//
+//        if (item == null) return rowView
+//
+//        val tvTitle: TextView = rowView.findViewById(R.id.tvTitle)
+//        val tvValue: TextView = rowView.findViewById(R.id.tvValue)
+//        val tvTitle2: TextView = rowView.findViewById(R.id.tvTitle2)
+//        val tvValue2: TextView = rowView.findViewById(R.id.tvValue2)
+//        val llCol2: View = rowView.findViewById(R.id.llCol2)
+//
+//        tvTitle.text = item.title
+//        tvValue.text = item.value
+//
+//        if (item.title2 == null) {
+//            //llCol2.gone()
+//            //tvValue2.gone()
+//            return rowView
+//        }
+//
+//        tvTitle2.text = item.title2
+//        tvValue2.text = item.value2
+//
+//        return rowView
 
     }
 
