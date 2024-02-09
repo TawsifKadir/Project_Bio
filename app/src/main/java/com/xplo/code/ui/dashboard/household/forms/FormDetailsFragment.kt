@@ -1,23 +1,32 @@
 package com.xplo.code.ui.dashboard.household.forms
 
+
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import android.widget.TextView
 import androidx.fragment.app.viewModels
-import com.bumptech.glide.Glide
+import com.xplo.code.R
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
+import com.xplo.code.core.ext.loadAvatar
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.databinding.FragmentFormDetailsBinding
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
-import com.xplo.code.ui.dashboard.model.getFullName
+import com.xplo.code.ui.dashboard.model.HhForm1
+import com.xplo.code.ui.dashboard.model.HhForm2
+import com.xplo.code.ui.dashboard.model.HhForm3
+import com.xplo.code.ui.dashboard.model.HhForm4
+import com.xplo.code.ui.dashboard.model.HhForm5
+import com.xplo.code.ui.dashboard.model.HhForm6
+import com.xplo.code.ui.dashboard.model.ReportRow
+import com.xplo.code.ui.dashboard.model.getReportRows
 import dagger.hilt.android.AndroidEntryPoint
+
 
 /**
  * Copyright 2022 (C) xplo
@@ -72,23 +81,10 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
 
 
     override fun initInitial() {
-        binding.tvDetails.movementMethod = ScrollingMovementMethod()
+        //binding.tvDetails.movementMethod = ScrollingMovementMethod()
 
     }
 
-    private fun loadImage(url: String) {
-        if (url != "") {
-            Glide.with(this).load(url)
-                .into(this!!.binding.imgPhoto!!)
-            binding.imgPhoto!!.setColorFilter(
-                ContextCompat.getColor(
-                    requireContext(),
-                    android.R.color.transparent
-                )
-            )
-        }
-
-    }
     override fun initView() {
 
         if (arguments != null) {
@@ -117,30 +113,100 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
     override fun onGetCompleteData(item: HouseholdItem?) {
         Log.d(TAG, "onGetCompleteData() called with: item = $item")
 
-        binding.tvDetails.text = item.toString()
+        //binding.tvDetails.text = item.toString()
+
+        val form = item?.toHouseholdForm()
+        if (form == null) return
+
+        addReportForm1(form.form1)
+        addReportForm2(form.form2)
+        addReportForm3(form.form3)
+        addReportForm4(form.form4)
+        addReportForm5(form.form5)
+        addReportForm6(form.form6)
 
 
-        //info
-        var name =  item?.toHouseholdForm()?.form2.getFullName()
-        binding.txtHouseHoldName.text = name
-        binding.txtAge.text = item?.toHouseholdForm()?.form2?.age
-        binding.txtIdNo.text = item?.toHouseholdForm()?.form2?.idNumber
-        binding.txtPhoneNo.text = item?.toHouseholdForm()?.form2?.phoneNumber
-        binding.txtGender.text = item?.toHouseholdForm()?.form2?.gender
+    }
 
-        binding.txtRT.text = "true"
-        binding.txtRI.text = "true"
-        binding.txtRM.text = "true"
-        binding.txtRR.text = "true"
-        binding.txtRL.text = "true"
+    private fun addReportForm1(form: HhForm1?) {
+        if (form == null) return
+        val rows = form.getReportRows()
+        for (item in rows) {
+            val view = getRowView(item)
+            binding.blockLocation.addView(view)
+        }
+    }
 
-        binding.txtLT.text = "true"
-        binding.txtLI.text = "true"
-        binding.txtLM.text = "true"
-        binding.txtLR.text = "true"
-        binding.txtLL.text = "true"
+    private fun addReportForm2(form: HhForm2?) {
+        if (form == null) return
+        val rows = form.getReportRows()
+        for (item in rows) {
+            val view = getRowView(item)
+            binding.blockPerInfo.addView(view)
+        }
+    }
 
-        loadImage(item?.toHouseholdForm()?.form4?.img ?: "")
+    private fun addReportForm3(form: HhForm3?) {
+        if (form == null) return
+        val rows = form.getReportRows()
+        for (item in rows) {
+            val view = getRowView(item)
+            binding.blockHouseholdBreakdown.addView(view)
+        }
+    }
+
+    private fun addReportForm4(form: HhForm4?) {
+        if (form == null) return
+        binding.ivAvatar.loadAvatar(form.img)
+    }
+
+    private fun addReportForm5(form: HhForm5?) {
+        if (form == null) return
+        val rows = form.getReportRows()
+        for (item in rows) {
+            val view = getRowView(item)
+            binding.blockFinger.addView(view)
+        }
+    }
+
+    private fun addReportForm6(form: HhForm6?) {
+        if (form == null) return
+        val rows = form.getReportRows()
+        for (item in rows) {
+            val view = getRowView(item)
+            binding.blockNominee.addView(view)
+        }
+    }
+
+
+    private fun getRowView(item: ReportRow?): View {
+        Log.d(TAG, "getRowView() called with: item = $item")
+
+
+        val rowView: View = layoutInflater.inflate(R.layout.row_report_item, null, false)
+
+        if (item == null) return rowView
+
+        val tvTitle: TextView = rowView.findViewById(R.id.tvTitle)
+        val tvValue: TextView = rowView.findViewById(R.id.tvValue)
+        val tvTitle2: TextView = rowView.findViewById(R.id.tvTitle2)
+        val tvValue2: TextView = rowView.findViewById(R.id.tvValue2)
+        val llCol2: View = rowView.findViewById(R.id.llCol2)
+
+        tvTitle.text = item.title
+        tvValue.text = item.value
+
+        if (item.title2 == null) {
+            //llCol2.gone()
+            //tvValue2.gone()
+            return rowView
+        }
+
+        tvTitle2.text = item.title2
+        tvValue2.text = item.value2
+
+        return rowView
+
     }
 
 

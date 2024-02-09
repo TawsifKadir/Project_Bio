@@ -105,7 +105,6 @@ data class HhForm3(
 
 )
 
-
 data class HhForm4(
     var img: String? = null
 )
@@ -138,6 +137,17 @@ data class Nominee(
     var isReadWrite: String? = null
 )
 
+fun Nominee?.getNomineeHeader(number: Int): String {
+    when (number) {
+        1 -> return "First Nominee"
+        2 -> return "Second Nominee"
+        3 -> return "Third Nominee"
+        4 -> return "Fourth Nominee"
+        5 -> return "Fifth Nominee"
+    }
+    return "First Nominee"
+}
+
 fun Nominee?.toSummary(): String? {
     if (this == null) return null
 
@@ -156,7 +166,7 @@ fun Nominee?.toSummary(): String? {
 
 
 data class HhForm5(
-    var finger: String? = null
+    var finger: Finger? = null
 )
 
 data class AlForm1(
@@ -181,6 +191,10 @@ data class AlForm2(
 )
 
 data class AlForm3(
+    var finger: Finger? = null
+)
+
+data class Finger(
     var fingerRT: String? = null,
     var fingerRI: String? = null,
     var fingerRM: String? = null,
@@ -190,5 +204,6 @@ data class AlForm3(
     var fingerLI: String? = null,
     var fingerLM: String? = null,
     var fingerLR: String? = null,
-    var fingerLL: String? = null,
+    var fingerLL: String? = null
 )
+

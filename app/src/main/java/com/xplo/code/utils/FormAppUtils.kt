@@ -20,7 +20,7 @@ object FormAppUtils {
     fun canNomineeAdd(form: HouseholdForm?): Boolean {
         if (form == null) return false
 
-        //if (BuildConfig.DEBUG) return true
+        if (BuildConfig.DEBUG) return true
 
         if (form.form1?.countryName.equals("JUBA", ignoreCase = true)) return true
         return false

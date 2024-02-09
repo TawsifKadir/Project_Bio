@@ -1,9 +1,12 @@
 package com.xplo.code.core.ext
 
+import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.xplo.code.R
 
 /**
  * Copyright 2022 (C) xplo
@@ -71,4 +74,20 @@ fun RadioGroup?.checkRbOpAB(rbA: RadioButton, rbB: RadioButton, item: String?) {
 fun TextView?.setValue(value: Int?) {
     if (this == null) return
     this.text = value.toString()
+}
+
+
+fun ImageView?.loadImage(url: String?, phId: Int = R.drawable.ph_content_portrait) {
+    if (this == null) return
+    if (url == null) return
+    Glide.with(this.context)
+        .load(url)
+        .placeholder(phId)
+        .into(this)
+}
+
+fun ImageView?.loadAvatar(url: String?) {
+    if (this == null) return
+    if (url == null) return
+    this.loadImage(url, R.drawable.ic_avatar_3)
 }

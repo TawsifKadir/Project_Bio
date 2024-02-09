@@ -1,14 +1,28 @@
 
-middle name?
-page navigation kono problem ase?
-location info disabled or optional?
+page navigation for nominee fixed as old flow
+made optional some field- all middle name, location info etc
+read some missing field
+household name lock for alternate
+location field lock
+re design alternate fingerprint ui to fix scroll issue
+alternate fingerprint functionality added [have to work with fingerprint data state]
 
-house size calculation, 36 field, default value 0
+ignore
+house hold size calculation
+
+have to work with
+fingerprint data state
+preview page
+feedback
+
+
+
+ignore
+house hold size calculation, 36 field, default value 0
 hh size enable or disable
 
 
-hh name disabled
-alternate finger
+
 
 
 
