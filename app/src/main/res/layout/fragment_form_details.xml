@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="start"
         android:padding="8dp"
-        android:text="Preview"
+        android:text="@string/preview"
         android:textAlignment="textStart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
 
                 <TextView
                     style="@style/AppTextView.Report.Header"
-                    android:text="Location" />
+                    android:text="@string/location" />
 
 
                 <LinearLayout
@@ -51,7 +51,7 @@
 
                 <TextView
                     style="@style/AppTextView.Report.Header"
-                    android:text="Personal Info" />
+                    android:text="@string/personal_info" />
 
 
                 <LinearLayout
@@ -67,7 +67,7 @@
 
                 <TextView
                     style="@style/AppTextView.Report.Header"
-                    android:text="Household Breakdown" />
+                    android:text="@string/household_breakdown" />
 
 
                 <LinearLayout
@@ -83,7 +83,7 @@
 
                 <TextView
                     style="@style/AppTextView.Report.Header"
-                    android:text="Photo" />
+                    android:text="@string/photo" />
 
 
                 <LinearLayout
@@ -110,7 +110,7 @@
 
                 <TextView
                     style="@style/AppTextView.Report.Header"
-                    android:text="Finger" />
+                    android:text="@string/finger" />
 
 
                 <LinearLayout
@@ -126,7 +126,7 @@
 
                 <TextView
                     style="@style/AppTextView.Report.Header"
-                    android:text="Nominee" />
+                    android:text="@string/nominee" />
 
 
                 <LinearLayout
