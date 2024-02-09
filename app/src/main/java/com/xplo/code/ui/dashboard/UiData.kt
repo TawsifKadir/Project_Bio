@@ -3,6 +3,7 @@ package com.xplo.code.ui.dashboard
 import android.content.res.Resources
 import com.xplo.code.R
 import com.xplo.code.core.Contextor
+import com.xplo.code.ui.dashboard.model.CheckboxItem
 
 /**
  * Copyright 2020 (C) Xplo
@@ -37,6 +38,14 @@ object UiData {
     val idType = getStringArray(R.array.id_type)
     val nomineeOccupation = getStringArray(R.array.what_does_currently_do_for_a_living_array)
 
+    fun getReason(): List<CheckboxItem> {
+        var array = whyNot
+        var items = arrayListOf<CheckboxItem>()
+        for (i in array.indices) {
+            items.add(CheckboxItem(i, array[i], false))
+        }
+        return items
+    }
 
     private fun getString(resId: Int): String {
         return Contextor.getInstance().context.getString(resId)
