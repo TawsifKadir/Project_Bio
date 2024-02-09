@@ -30,6 +30,7 @@ fun HhForm1?.getReportRows(): List<ReportRow> {
 
     items.add(ReportRow("State:", form.stateName, "County: ", form.countryName))
     items.add(ReportRow("Payam:", form.payamName, "Boma: ", form.bomaName))
+    items.add(ReportRow("Lat:", form.lat.toString(), "Lon: ", form.lon.toString()))
 
     return items
 }
@@ -40,9 +41,15 @@ fun HhForm2?.getReportRows(): List<ReportRow> {
     val items = arrayListOf<ReportRow>()
     val form = this
 
-    items.add(ReportRow("Name:", form.getFullName(), null, null))
-    items.add(ReportRow("Age:", form.age, "Gender: ", form.gender))
-    items.add(ReportRow("Id:", form.idNumber, "Phone: ", form.phoneNumber))
+    items.add(ReportRow("Name:", form.getFullName(), "Gender: ", form.gender))
+    items.add(ReportRow("Age:", form.age,"Phone: ", form.phoneNumber))
+    items.add(ReportRow("Id No:", form.idNumber, "Id Type: ", form.idNumberType))
+    items.add(ReportRow("Phone Number", form.phoneNumber, "Marital Status", form.maritalStatus))
+    items.add(ReportRow("Spouse Name", form.getSpouseFullName(), null, null))
+    items.add(ReportRow("legal Status", form.legalStatus, null, null))
+    items.add(ReportRow("Respondent Relation", form.respondentRlt, "Selection Reason", form.selectionReason))
+    items.add(ReportRow("Selection Criteria", form.selectionCriteria, "Main Source Of Income", form.mainSourceOfIncome))
+    items.add(ReportRow("Monthly Average Income", form.monthlyAverageIncome, "Currency", form.currency))
 
     return items
 }

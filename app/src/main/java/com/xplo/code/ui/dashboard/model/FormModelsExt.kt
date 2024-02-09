@@ -11,6 +11,13 @@ fun HhForm2?.getFullName(): String? {
     return name.replace(" null ", " ")
 }
 
+fun HhForm2?.getSpouseFullName(): String? {
+    if (this!!.spouseFirstName == null) return null
+    return "${spouseFirstName?.replace("null ", " ")}" +
+            " ${spouseMiddleName?.replace("null ", " ")} " +
+            "${spouseLastName?.replace("null ", " ")}"
+}
+
 fun Nominee?.getFullName(): String? {
     if (this == null) return null
     var name = "${this.firstName} ${this.middleName} ${this.lastName}"
