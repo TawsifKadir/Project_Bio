@@ -79,6 +79,6 @@
     <string name="comment_history_loading">Comment history is loading..</string>
     <string name="user_vote_up">Up</string>
     <string name="user_vote_down">Down</string>
-    <string name="add_fingerprints">Add Fingerprints</string>
+
 
 </resources>
