@@ -6,20 +6,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.bumptech.glide.Glide
 import com.xplo.code.R
 import com.xplo.code.core.Bk
+import com.xplo.code.core.ext.loadAvatar
 import com.xplo.code.core.ext.visible
 import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.databinding.FragmentAlPreviewBinding
+import com.xplo.code.ui.components.ReportViewUtils
 import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.model.AlForm1
+import com.xplo.code.ui.dashboard.model.AlForm2
+import com.xplo.code.ui.dashboard.model.AlForm3
 import com.xplo.code.ui.dashboard.model.AlternateForm
+import com.xplo.code.ui.dashboard.model.ReportRow
+import com.xplo.code.ui.dashboard.model.getReportRows
 import com.xplo.code.ui.dashboard.model.toJson
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -92,44 +97,9 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
     override fun initView() {
         val rootForm = interactor?.getRootForm()
 
-        //info
-        binding.txtHouseHoldName.text = rootForm?.form1?.householdName ?: ""
-        binding.txtAltName.text = rootForm?.form1?.alternateName ?: ""
-        binding.txtAge.text = rootForm?.form1?.age ?: ""
-        binding.txtIdNo.text = rootForm?.form1?.idNumber ?: ""
-        binding.txtPhoneNo.text = rootForm?.form1?.phoneNumber ?: ""
-        binding.txtAltRelation.text = rootForm?.form1?.selectAlternateRlt ?: ""
-        binding.txtGender.text = rootForm?.form1?.gender ?: ""
-
-        binding.txtRT.text = "true"
-        binding.txtRI.text = "true"
-        binding.txtRM.text = "true"
-        binding.txtRR.text = "true"
-        binding.txtRL.text = "true"
-
-        binding.txtLT.text = "true"
-        binding.txtLI.text = "true"
-        binding.txtLM.text = "true"
-        binding.txtLR.text = "true"
-        binding.txtLL.text = "true"
-
-        loadImage(rootForm?.form2?.img ?: "")
-
+        generateReport(rootForm)
     }
 
-    private fun loadImage(url: String) {
-        if (url != "") {
-            Glide.with(this).load(url)
-                .into(this!!.binding.imgPhoto!!)
-            binding.imgPhoto!!.setColorFilter(
-                ContextCompat.getColor(
-                    requireContext(),
-                    android.R.color.transparent
-                )
-            )
-        }
-
-    }
 
     override fun initObserver() {
 
@@ -265,6 +235,43 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
 
     override fun onPopulateView() {
 
+    }
+
+
+    private fun generateReport(form: AlternateForm?) {
+        Log.d(TAG, "generateReport() called with: form = $form")
+        if (form == null) return
+        addReportForm1(form.form1)
+        addReportForm2(form.form2)
+        addReportForm3(form.form3)
+    }
+
+    private fun addReportForm1(form: AlForm1?) {
+        if (form == null) return
+        val rows = form.getReportRows()
+        for (item in rows) {
+            val view = getRowView(item)
+            binding.viewPreview.blockPerInfo.addView(view)
+        }
+    }
+
+    private fun addReportForm2(form: AlForm2?) {
+        if (form == null) return
+        binding.viewPreview.ivAvatar.loadAvatar(form.img)
+    }
+
+    private fun addReportForm3(form: AlForm3?) {
+        if (form == null) return
+        val rows = form.getReportRows()
+        for (item in rows) {
+            val view = getRowView(item)
+            binding.viewPreview.blockFinger.addView(view)
+        }
+    }
+
+    private fun getRowView(item: ReportRow?): View {
+        Log.d(TAG, "getRowView() called with: item = $item")
+        return ReportViewUtils.getRowView(requireContext(), layoutInflater, item)
     }
 
 

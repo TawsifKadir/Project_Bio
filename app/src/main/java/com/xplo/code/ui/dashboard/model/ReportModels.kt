@@ -155,3 +155,48 @@ fun Nominee?.getNomineeItemRows(): List<ReportRow> {
 
     return items
 }
+
+
+fun AlForm1?.getReportRows(): List<ReportRow> {
+    if (this == null) return listOf()
+
+    val items = arrayListOf<ReportRow>()
+    val form = this
+
+    items.add(ReportRow("Name:", form.getFullName(), null, null))
+    items.add(ReportRow("Age:", form.age, "Gender: ", form.gender))
+    items.add(ReportRow("Id:", form.idNumber, "Phone: ", form.phoneNumber))
+
+    return items
+}
+
+fun AlForm3?.getReportRows(): List<ReportRow> {
+    if (this == null) return listOf()
+
+    val items = arrayListOf<ReportRow>()
+    val form = this
+    val finger = this.finger
+
+    if (finger == null) return items
+
+    items.add(
+        ReportRow(
+            "Left Thumb:",
+            finger.isAFingerStatus(finger.fingerLT),
+            "Right Thumb: ",
+            finger.isAFingerStatus(finger.fingerRT)
+        )
+    )
+
+    items.add(
+        ReportRow(
+            "Left Index:",
+            finger.isAFingerStatus(finger.fingerLI),
+            "Right Index: ",
+            finger.isAFingerStatus(finger.fingerRI)
+        )
+    )
+
+
+    return items
+}
