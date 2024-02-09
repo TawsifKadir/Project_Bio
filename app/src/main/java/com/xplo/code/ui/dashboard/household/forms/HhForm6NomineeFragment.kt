@@ -146,6 +146,11 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
             onClickAddNominee()
         }
 
+        onLongClickDataGeneration()
+        if (TestConfig.isAutoDGEnabled) {
+            onGenerateDummyInput()
+        }
+
     }
 
     override fun onResume() {
@@ -407,6 +412,8 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
         Log.d(TAG, "onGenerateDummyInput() called")
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
+
+
     }
 
     private fun onGenerateDummyInputNomineeView(

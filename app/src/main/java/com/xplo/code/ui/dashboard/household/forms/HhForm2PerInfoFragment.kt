@@ -169,15 +169,11 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         }
 
 
-//        if (BuildConfig.DEBUG) {
-//            binding.viewButtonBackNext.btNext.setOnLongClickListener {
-//                onGenerateDummyInput()
-//                return@setOnLongClickListener true
-//            }
-//        }
-
         onLongClickDataGeneration()
-        //onGenerateDummyInput()
+        if (TestConfig.isAutoDGEnabled) {
+            onGenerateDummyInput()
+        }
+
 
         spMaritalStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(

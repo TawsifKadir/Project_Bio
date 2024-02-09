@@ -182,7 +182,9 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         }
 
         onLongClickDataGeneration()
-        onGenerateDummyInput()
+        if (TestConfig.isAutoDGEnabled) {
+            onGenerateDummyInput()
+        }
 
     }
 

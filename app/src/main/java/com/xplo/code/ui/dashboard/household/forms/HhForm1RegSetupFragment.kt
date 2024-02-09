@@ -239,17 +239,10 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
         spPayamName.onItemSelectedListener = this
         spBomaName.onItemSelectedListener = this
 
-
-//        if (BuildConfig.DEBUG) {
-//            binding.viewButtonBackNext.btNext.setOnLongClickListener {
-//                onGenerateDummyInput()
-//                return@setOnLongClickListener true
-//            }
-//        }
-
         onLongClickDataGeneration()
-
-        //onGenerateDummyInput()
+        if (TestConfig.isAutoDGEnabled) {
+            //onGenerateDummyInput()
+        }
 
     }
 

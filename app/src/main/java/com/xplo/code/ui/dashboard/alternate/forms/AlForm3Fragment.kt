@@ -105,11 +105,15 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
             onClickNextButton()
         }
 
-        onLongClickDataGeneration()
-        onGenerateDummyInput()
         binding.llCapture.setOnClickListener {
             onStartFingerprintCapture()
         }
+
+        onLongClickDataGeneration()
+        if (TestConfig.isAutoDGEnabled) {
+            onGenerateDummyInput()
+        }
+
     }
 
     override fun onResume() {

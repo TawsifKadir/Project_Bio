@@ -188,7 +188,9 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         }
 
         onLongClickDataGeneration()
-        //onGenerateDummyInput()
+        if (TestConfig.isAutoDGEnabled) {
+            onGenerateDummyInput()
+        }
 
 
         binding.rgId.setOnCheckedChangeListener { group, checkedId ->

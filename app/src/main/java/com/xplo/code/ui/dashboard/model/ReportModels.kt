@@ -10,6 +10,17 @@ data class ReportRow(
     var value2: String? = null
 )
 
+fun HouseholdForm?.getReportRowsAltSummary(): List<ReportRow> {
+    if (this == null) return listOf()
+
+    val items = arrayListOf<ReportRow>()
+    val form = this
+
+    items.add(ReportRow("Alternate Added:", form.alternates.size.toString(), null, null))
+    //items.add(ReportRow("Click to see in details", "", null, null))
+
+    return items
+}
 
 fun HhForm1?.getReportRows(): List<ReportRow> {
     if (this == null) return listOf()
@@ -141,6 +152,51 @@ fun Nominee?.getNomineeItemRows(): List<ReportRow> {
 
     items.add(ReportRow("Name:", form.getFullName(), null, null))
     items.add(ReportRow("Age:", form.age.toString(), "Gender: ", form.gender))
+
+    return items
+}
+
+
+fun AlForm1?.getReportRows(): List<ReportRow> {
+    if (this == null) return listOf()
+
+    val items = arrayListOf<ReportRow>()
+    val form = this
+
+    items.add(ReportRow("Name:", form.getFullName(), null, null))
+    items.add(ReportRow("Age:", form.age, "Gender: ", form.gender))
+    items.add(ReportRow("Id:", form.idNumber, "Phone: ", form.phoneNumber))
+
+    return items
+}
+
+fun AlForm3?.getReportRows(): List<ReportRow> {
+    if (this == null) return listOf()
+
+    val items = arrayListOf<ReportRow>()
+    val form = this
+    val finger = this.finger
+
+    if (finger == null) return items
+
+    items.add(
+        ReportRow(
+            "Left Thumb:",
+            finger.isAFingerStatus(finger.fingerLT),
+            "Right Thumb: ",
+            finger.isAFingerStatus(finger.fingerRT)
+        )
+    )
+
+    items.add(
+        ReportRow(
+            "Left Index:",
+            finger.isAFingerStatus(finger.fingerLI),
+            "Right Index: ",
+            finger.isAFingerStatus(finger.fingerRI)
+        )
+    )
+
 
     return items
 }

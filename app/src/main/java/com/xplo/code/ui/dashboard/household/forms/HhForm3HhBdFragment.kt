@@ -204,16 +204,10 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
             onClickNextButton()
         }
 
-
-//        if (BuildConfig.DEBUG) {
-//            binding.viewButtonBackNext.btNext.setOnLongClickListener {
-//                onGenerateDummyInput()
-//                return@setOnLongClickListener true
-//            }
-//        }
-
         onLongClickDataGeneration()
-        //onGenerateDummyInput()
+        if (TestConfig.isAutoDGEnabled) {
+            onGenerateDummyInput()
+        }
     }
 
     override fun onResume() {
@@ -301,11 +295,6 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
 
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
-        //interactor?.navigateToForm4()
-//        if (!TestConfig.isValidationEnabled) {
-//            interactor?.navigateToForm4()
-//            return
-//        }
         onReadInput()
     }
 

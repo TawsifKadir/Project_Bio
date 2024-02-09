@@ -126,6 +126,11 @@
             android:configChanges="locale"
             android:screenOrientation="landscape" />
 
+        <activity
+            android:name=".ui.testing_lab.JvActivity"
+            android:configChanges="locale"
+            android:screenOrientation="landscape" />
+
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"

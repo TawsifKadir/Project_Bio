@@ -8,7 +8,7 @@ import android.widget.Button
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.xplo.code.R
 
-class ConsentSheet(private val callback: (Boolean) -> Unit) : BottomSheetDialogFragment() {
+class AlternateSheet(private val callback: (Boolean) -> Unit) : BottomSheetDialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

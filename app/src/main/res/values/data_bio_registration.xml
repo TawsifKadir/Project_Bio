@@ -273,4 +273,13 @@
     <string name="_36_64_yrs_old">36-64Y old</string>
     <string name="_65_yrs_and_above">65Y and above</string>
 
+    <string name="add_fingerprints">Add Fingerprints</string>
+    <string name="location">Location</string>
+    <string name="personal_info">Personal Info</string>
+    <string name="household_breakdown">Household Breakdown</string>
+    <string name="photo">Photo</string>
+    <string name="finger">Finger</string>
+    <string name="nominee">Nominee</string>
+    <string name="preview">Preview</string>
+
 </resources>
