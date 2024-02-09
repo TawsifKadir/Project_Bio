@@ -16,6 +16,7 @@ import com.xplo.code.databinding.FragmentFormDetailsBinding
 import com.xplo.code.ui.components.ReportViewUtils
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.model.AlternateForm
 import com.xplo.code.ui.dashboard.model.HhForm1
 import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.HhForm3
@@ -194,16 +195,28 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
     private fun addReportAlternate(form: HouseholdForm?) {
         if (form == null) return
         val rows = form.getReportRowsAltSummary()
+
         for (item in rows) {
             val view = getRowView(item)
             binding.viewPreview.blockAlternate.addView(view)
         }
+
+        for (item in form.alternates){
+            val view = getAltRowView(item)
+            binding.viewPreview.blockAlternate.addView(view)
+        }
+
     }
 
 
     private fun getRowView(item: ReportRow?): View {
         Log.d(TAG, "getRowView() called with: item = $item")
         return ReportViewUtils.getRowView(requireContext(), layoutInflater, item)
+    }
+
+    private fun getAltRowView(item: AlternateForm?): View {
+        Log.d(TAG, "getAltRowView() called with: item = $item")
+        return ReportViewUtils.getAltFormView(requireContext(), layoutInflater, item)
     }
 
 

@@ -17,7 +17,7 @@ fun HouseholdForm?.getReportRowsAltSummary(): List<ReportRow> {
     val form = this
 
     items.add(ReportRow("Alternate Added:", form.alternates.size.toString(), null, null))
-    items.add(ReportRow("Click to see in details", "", null, null))
+    //items.add(ReportRow("Click to see in details", "", null, null))
 
     return items
 }

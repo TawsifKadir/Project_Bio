@@ -226,3 +226,16 @@ fun HouseholdForm?.toSummary(): String? {
     var txt = sb.toString()
     return txt
 }
+
+fun AlternateForm?.toSummary(): String? {
+    if (this == null) return null
+
+    var sb = StringBuilder()
+        .append("Name: " + this.form1.getFullName())
+        .append("\nGender: " + this.form1?.gender)
+        .append("\nAge: " + this.form1?.age)
+
+
+    var txt = sb.toString()
+    return txt
+}

@@ -7,7 +7,10 @@ import android.view.View
 import android.widget.TextView
 import com.xplo.code.R
 import com.xplo.code.ui.dashboard.household.forms.FormDetailsFragment
+import com.xplo.code.ui.dashboard.model.AlternateForm
 import com.xplo.code.ui.dashboard.model.ReportRow
+import com.xplo.code.ui.dashboard.model.getFullName
+import com.xplo.code.ui.dashboard.model.toSummary
 
 /**
  * Copyright 2022 (C) xplo
@@ -48,5 +51,25 @@ object ReportViewUtils {
         return rowView
 
     }
+
+    fun getAltFormView(context: Context, layoutInflater: LayoutInflater, item: AlternateForm?): View {
+        Log.d(FormDetailsFragment.TAG, "getRowView() called with: item = $item")
+
+
+        val rowView: View = layoutInflater.inflate(R.layout.row_alternate_report_item, null, false)
+
+        if (item == null) return rowView
+
+        val tvTitle: TextView = rowView.findViewById(R.id.tvTitle)
+        val tvData: TextView = rowView.findViewById(R.id.tvData)
+
+
+        tvTitle.text = item.form1.getFullName()
+        tvData.text = item.toSummary()
+
+        return rowView
+
+    }
+
 
 }
