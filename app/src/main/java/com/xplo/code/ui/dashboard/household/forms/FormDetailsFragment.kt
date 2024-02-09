@@ -137,7 +137,7 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         val rows = form.getReportRows()
         for (item in rows) {
             val view = getRowView(item)
-            binding.blockLocation.addView(view)
+            binding.viewPreview.blockLocation.addView(view)
         }
     }
 
@@ -146,7 +146,7 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         val rows = form.getReportRows()
         for (item in rows) {
             val view = getRowView(item)
-            binding.blockPerInfo.addView(view)
+            binding.viewPreview.blockPerInfo.addView(view)
         }
     }
 
@@ -155,13 +155,13 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         val rows = form.getReportRows()
         for (item in rows) {
             val view = getRowView(item)
-            binding.blockHouseholdBreakdown.addView(view)
+            binding.viewPreview.blockHouseholdBreakdown.addView(view)
         }
     }
 
     private fun addReportForm4(form: HhForm4?) {
         if (form == null) return
-        binding.ivAvatar.loadAvatar(form.img)
+        binding.viewPreview.ivAvatar.loadAvatar(form.img)
     }
 
     private fun addReportForm5(form: HhForm5?) {
@@ -169,7 +169,7 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         val rows = form.getReportRows()
         for (item in rows) {
             val view = getRowView(item)
-            binding.blockFinger.addView(view)
+            binding.viewPreview.blockFinger.addView(view)
         }
     }
 
@@ -178,7 +178,7 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         val rows = form.getReportRows()
         for (item in rows) {
             val view = getRowView(item)
-            binding.blockNominee.addView(view)
+            binding.viewPreview.blockNominee.addView(view)
         }
     }
 
