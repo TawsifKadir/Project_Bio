@@ -20,7 +20,7 @@
     <string name="boma_name">Boma Name</string>
 
     <string name="respondent_phone_number_max_10_digit">Respondent Phone Number (max 10 digit)</string>
-    <string name="household_monthly_average_income">Household Monthly Average Income (in Sudanese Pound)</string>
+    <string name="household_monthly_average_income">Household Monthly Average Income (in Sudanese Pounds)</string>
     <!--    <string name="respondent_gender">Respondent Gender</string>-->
     <string name="respondent_legal_status">Respondent Legal Status</string>
     <!--    <string name="respondent_marital_status">Respondent Marital Status</string>-->

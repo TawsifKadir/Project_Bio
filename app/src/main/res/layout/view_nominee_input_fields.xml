@@ -137,7 +137,7 @@
 
             <TextView
                 style="@style/AppTextView.Input.Header"
-                android:text="Do you read and write?" />
+                android:text="Does the nominee read and write?" />
 
 
             <RadioGroup

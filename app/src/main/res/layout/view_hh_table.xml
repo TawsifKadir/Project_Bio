@@ -47,7 +47,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/border_table_cell"
-                        android:text="@string/normal" />
+                        android:text="Without disabilities or illnesses" />
 
                     <TextView
                         style="@style/AppTextView.Table.Header"
@@ -95,7 +95,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/border_table_cell"
-                        android:text="@string/normal" />
+                        android:text="Without disabilities or illnesses" />
 
                     <TextView
                         style="@style/AppTextView.Table.Header"
