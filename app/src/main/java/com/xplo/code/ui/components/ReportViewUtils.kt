@@ -4,8 +4,10 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.xplo.code.R
+import com.xplo.code.core.ext.loadImage
 import com.xplo.code.ui.dashboard.household.forms.FormDetailsFragment
 import com.xplo.code.ui.dashboard.model.AlternateForm
 import com.xplo.code.ui.dashboard.model.ReportRow
@@ -62,8 +64,10 @@ object ReportViewUtils {
 
         val tvTitle: TextView = rowView.findViewById(R.id.tvTitle)
         val tvData: TextView = rowView.findViewById(R.id.tvData)
+        val img: ImageView = rowView.findViewById(R.id.ivAvatar)
 
 
+        img.loadImage(item.form2?.img)
         tvTitle.text = item.form1.getFullName()
         tvData.text = item.toSummary()
 

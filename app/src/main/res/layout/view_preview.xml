@@ -97,7 +97,7 @@
     </LinearLayout>
 
 
-    <LinearLayout style="@style/AppLinearLayoutReportBox">
+    <LinearLayout android:id="@+id/llNominee" style="@style/AppLinearLayoutReportBox">
 
         <TextView
             style="@style/AppTextView.Report.Header"
@@ -112,7 +112,7 @@
 
     </LinearLayout>
 
-    <LinearLayout style="@style/AppLinearLayoutReportBox">
+    <LinearLayout android:id="@+id/llAlternate" style="@style/AppLinearLayoutReportBox">
 
         <TextView
             style="@style/AppTextView.Report.Header"
