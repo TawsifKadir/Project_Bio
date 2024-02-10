@@ -520,7 +520,7 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
         Log.d(TAG, "onLocationChanged() called with: location = $location")
 
         etLat.setText(location.latitude.toString())
-        etLon.setText(location.latitude.toString())
+        etLon.setText(location.longitude.toString())
 
     }
 

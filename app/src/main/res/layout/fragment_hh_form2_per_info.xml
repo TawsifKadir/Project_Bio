@@ -487,7 +487,7 @@
                     <RadioButton
                         android:id="@+id/rbA"
                         style="@style/AppRadioButton.Form"
-                        android:checked="true"
+                        android:checked="false"
                         android:text="Public Works" />
 
                     <RadioButton
@@ -513,7 +513,17 @@
 
             <!--            </LinearLayout>-->
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/publicRecycler"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="wrap_content" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/directRecycler"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
 

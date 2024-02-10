@@ -40,6 +40,7 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         }
         return txt
     }
+
     override fun chkEditText3Char(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {
@@ -50,13 +51,14 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         }
         return txt
     }
+
     override fun chkEditTextMax3Digit(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {
             if (txt.isEmpty() || txt == "") {
                 editText.error = error
                 return null
-            }else if(txt.toInt()>999){
+            } else if (txt.toInt() > 999) {
                 editText.error = error
             }
         }

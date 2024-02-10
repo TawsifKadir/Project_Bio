@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -346,6 +347,52 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
 
         form.readWriteNumber = getEditTextInt(etReadWriteNumber)
         form.isReadWrite = chkRadioGroup(rgReadWrite, UiData.ER_RB_DF)
+
+        val myIntList = listOf(
+            form.mem0NormalMale,
+            form.mem0DisableMale,
+            form.mem0IllMale,
+            form.mem3NormalMale,
+            form.mem3DisableMale,
+            form.mem3IllMale,
+            form.mem6NormalMale,
+            form.mem6DisableMale,
+            form.mem6IllMale,
+            form.mem18NormalMale,
+            form.mem18DisableMale,
+            form.mem18IllMale,
+            form.mem36NormalMale,
+            form.mem36DisableMale,
+            form.mem36IllMale,
+            form.mem65NormalMale,
+            form.mem65DisableMale,
+            form.mem65IllMale,
+            form.mem0NormalFemale,
+            form.mem0DisableFemale,
+            form.mem0IllFemale,
+            form.mem3NormalFemale,
+            form.mem3DisableFemale,
+            form.mem3IllFemale,
+            form.mem6NormalFemale,
+            form.mem6DisableFemale,
+            form.mem6IllFemale,
+            form.mem18NormalFemale,
+            form.mem18DisableFemale,
+            form.mem18IllFemale,
+            form.mem36NormalFemale,
+            form.mem36DisableFemale,
+            form.mem36IllFemale,
+            form.mem65NormalFemale,
+            form.mem65DisableFemale,
+            form.mem65IllFemale,
+        )
+        val sum = myIntList.sum() // = 9
+
+        if (form.householdSize != sum) {
+            etHouseholdSize.error = "Household Size not matched"
+            etHouseholdSize.requestFocus()
+            return
+        }
 
         if (!form.isOk()) {
             return

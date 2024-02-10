@@ -2,6 +2,7 @@ package com.xplo.code.ui.dashboard.household.forms
 
 import android.content.Context
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +11,10 @@ import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -82,6 +85,8 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
     private lateinit var etSpouseLastName: EditText
     private lateinit var rgSelectionCriteria: RadioGroup
     private lateinit var rgId: RadioGroup
+    private lateinit var directRecycler: RecyclerView
+    private lateinit var publicRecycler: RecyclerView
 
 
     override fun onAttach(context: Context) {
@@ -144,6 +149,9 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         //etSpouseName = binding.etSpouseName
         rgSelectionCriteria = binding.rgSelectionCriteria
         rgId = binding.rgId
+
+        publicRecycler = binding.publicRecycler
+        directRecycler = binding.directRecycler
     }
 
     override fun initView() {
@@ -156,6 +164,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         bindSpinnerData(spLegalStatus, UiData.legalStatusOptions)
         bindSpinnerData(spSelectionReason, UiData.selectionReason)
         bindSpinnerData(spIdType, UiData.idType)
+
 
     }
 
@@ -173,6 +182,9 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         if (TestConfig.isAutoDGEnabled) {
             onGenerateDummyInput()
         }
+
+
+
 
 
         spMaritalStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -197,6 +209,26 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
             }
         }
 
+        spIdType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                if (selectedItem.equals(UiData.idType[1], ignoreCase = true)) {
+                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
+                } else {
+                    etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Another interface callback
+            }
+        }
+
         binding.rgId.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.rbYes -> doSomethingForYes()
@@ -204,6 +236,24 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
                 else -> {}
             }
         }
+
+        binding.rgSelectionCriteria.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.rbA -> doSomethingForRbA()
+                R.id.rbB -> doSomethingForRbB()
+                else -> {}
+            }
+        }
+    }
+
+    fun doSomethingForRbA() {
+        binding.publicRecycler.isVisible = true
+        binding.directRecycler.isVisible = false
+    }
+
+    fun doSomethingForRbB() {
+        binding.publicRecycler.isVisible = false
+        binding.directRecycler.isVisible = true
     }
 
     fun doSomethingForYes() {
@@ -261,6 +311,8 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
 
         rgSelectionCriteria.checkRbOpAB(binding.rbA, binding.rbB, form.selectionCriteria)
         rgId.checkRbOpAB(binding.rbYes, binding.rbNo, form.idIsOrNot)
+
+
 
         etFirstName.setText(form.firstName)
         etMiddleName.setText(form.middleName)
@@ -321,6 +373,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
             form.idNumberType = null
         }
 
+        //Toast.makeText(requireContext(), form.idNumberType, Toast.LENGTH_SHORT).show()
         form.firstName = chkEditText3Char(etFirstName, UiData.ER_ET_DF)
         form.middleName = getEditText(etMiddleName)
         form.lastName = chkEditText3Char(etLastName, UiData.ER_ET_DF)

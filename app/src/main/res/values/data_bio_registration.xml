@@ -13,19 +13,19 @@
     <string name="respondent_id_number">Respondent Id Number</string>
 
     <string name="selection_criteria">Selection Criteria</string>
-<!--    <string name="household_main_source_of_income">Household Main Source of Income</string>-->
-<!--    <string name="country_name">County Name</string>-->
+    <!--    <string name="household_main_source_of_income">Household Main Source of Income</string>-->
+    <!--    <string name="country_name">County Name</string>-->
 
     <string name="payam_name">Payam Name</string>
     <string name="boma_name">Boma Name</string>
 
     <string name="respondent_phone_number_max_10_digit">Respondent Phone Number (max 10 digit)</string>
     <string name="household_monthly_average_income">Household Monthly Average Income (in Sudanese Pound)</string>
-<!--    <string name="respondent_gender">Respondent Gender</string>-->
+    <!--    <string name="respondent_gender">Respondent Gender</string>-->
     <string name="respondent_legal_status">Respondent Legal Status</string>
-<!--    <string name="respondent_marital_status">Respondent Marital Status</string>-->
+    <!--    <string name="respondent_marital_status">Respondent Marital Status</string>-->
     <string name="selection_reason">Selection Reason</string>
-<!--    <string name="respondent_relationship_to_the_household_head">Respondent relationship to the household head</string>-->
+    <!--    <string name="respondent_relationship_to_the_household_head">Respondent relationship to the household head</string>-->
     <string name="gps_coordinates_lat">GPS Coordinates (Lat)</string>
     <string name="gps_coordinates_long">GPS Coordinates (Long)</string>
 
@@ -69,7 +69,7 @@
     </string-array>
 
 
-<string name="respondent_marital_status_label">Respondent Marital Status</string>
+    <string name="respondent_marital_status_label">Respondent Marital Status</string>
     <string-array name="respondent_marital_status_array">
         <item>Select Respondent Marital Status</item>
         <item>Single</item>
@@ -79,7 +79,7 @@
         <item>Divorce</item>
     </string-array>
 
-<string name="respondent_legal_status_label">Respondent Legal Status</string>
+    <string name="respondent_legal_status_label">Respondent Legal Status</string>
     <string-array name="respondent_legal_status_array">
         <item>Select Respondent Legal Status</item>
         <item>Host</item>
@@ -88,7 +88,7 @@
         <item>IDP</item>
     </string-array>
 
-<string name="household_main_source_of_income_label">Household Main Source of Income</string>
+    <string name="household_main_source_of_income_label">Household Main Source of Income</string>
     <string-array name="household_main_source_of_income_array">
         <item>Select Household Main Source of Income</item>
         <item>None</item>
@@ -104,7 +104,7 @@
         <item>Other (specify)</item>
     </string-array>
 
-<string name="country_name_label">County Name</string>
+    <string name="country_name_label">County Name</string>
     <string-array name="country_nam_array">
         <item>County Name</item>
         <item>County 1</item>
@@ -121,7 +121,7 @@
     <string-array name="selection_reason_array">
         <item>Selection Reason</item>
         <item>Poor household with no sufficient income to sustain the household</item>
-        <item>Household contain able bodied youth member (18-35)</item>
+        <item>Household contain able bodied youth member (18–35)</item>
         <item>Household headed by young men and women between the ages of 18 and 35</item>
         <item>Many members who are dependents (HH with dependants greater than 3)</item>
         <item>Poor household which have persons with severe disabilities</item>
@@ -144,7 +144,7 @@
         <item>Other</item>
     </string-array>
 
-<string name="state_name_label">State Name</string>
+    <string name="state_name_label">State Name</string>
     <string-array name="state_name_array">
         <item>State Name</item>
         <item>State 1</item>
@@ -163,7 +163,7 @@
         <item>Boma 2</item>
     </string-array>
 
-<string name="respondent_relationship_to_the_household_head1_label">Respondent relationship to the household head</string>
+    <string name="respondent_relationship_to_the_household_head1_label">Respondent relationship to the household head</string>
     <string-array name="respondent_relationship_to_the_household_head1_array">
         <item>Select Relationship with Respondent</item>
         <item>Household Head</item>
@@ -180,14 +180,30 @@
         <item>Does not know</item>
     </string-array>
 
-<string name="select_nominee_gender_label">Select Nominee Gender</string>
+    <string-array name="support_type_public_work_array">
+        <item>Poor household with no sufficient income to sustain the household</item>
+        <item>Household contain able bodied youth member (18–35</item>
+        <item>Household headed by young men and women between the ages of 18 and 35</item>
+        <item>Household has three or more dependents (children 0–14, eligible vulnerable HH selected UNOPS, Payam and Boma development committees, and selection committees etc. disabled and elderly 65+)</item>
+        <item>Poor household which have persons with severe disabilities</item>
+    </string-array>
+
+    <string-array name="support_type_direct_income_array">
+        <item>Child headed households with no alternate income support</item>
+        <item>Elderly headed household lacking alternate income support and able bodied member</item>
+        <item>Persons with disability headed household lacking alternate income support and able bodied member</item>
+        <item>Chronically ill headed household lacking alternate income and able bodied member</item>
+        <item>Female headed household lacking alternate income support and able-bodied member</item>
+    </string-array>
+
+    <string name="select_nominee_gender_label">Select Nominee Gender</string>
     <string-array name="select_nominee_gender_array">
         <item>Select Nominee Gender</item>
         <item>Male</item>
         <item>Female</item>
     </string-array>
 
-<string name="what_does_currently_do_for_a_living_label">What does currently do for a living?</string>
+    <string name="what_does_currently_do_for_a_living_label">What does currently do for a living?</string>
     <string-array name="what_does_currently_do_for_a_living_array">
         <item>Select Nominee Occupation</item>
         <item>Employed in a formal job</item>
@@ -202,7 +218,7 @@
         <item>Other (specify)</item>
     </string-array>
 
-<string name="what_were_the_main_reasons_for_nominating_first_nominee_label">What were the main reasons for nominating First Nominee</string>
+    <string name="what_were_the_main_reasons_for_nominating_first_nominee_label">What were the main reasons for nominating First Nominee</string>
     <string-array name="what_were_the_main_reasons_for_nominating_first_nominee_array">
         <item>Select Nominee Priority Reason</item>
         <item>has more available time for participation.</item>
@@ -217,7 +233,7 @@
         <item>Other (specify)</item>
     </string-array>
 
-<string name="payee_gender_label">Payee Gender</string>
+    <string name="payee_gender_label">Payee Gender</string>
     <string-array name="payee_gender_array">
         <item>Select Payee Gender</item>
         <item>Male</item>
