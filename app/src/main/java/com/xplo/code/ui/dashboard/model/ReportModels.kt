@@ -93,7 +93,16 @@ fun HhForm3?.getReportRows(): List<ReportRow> {
 }
 
 fun HhForm5?.getReportRows(): List<ReportRow> {
-    if (this == null) return listOf()
+    if (this == null) {
+        val items = arrayListOf<ReportRow>()
+            items.add(ReportRow("Left Thumb:", "False", "Right Thumb: ", "False"))
+            items.add(ReportRow("Left Index:","False", "Right Index: ", "False"))
+            items.add(ReportRow("Left Middle:", "False", "Right Middle: ", "False"))
+            items.add(ReportRow("Left Ring:","False", "Right Ring: ", "False"))
+            items.add(ReportRow("Left Little:","False", "Right little: ", "False"))
+
+        return items
+    }
 
     val items = arrayListOf<ReportRow>()
     //val form = this

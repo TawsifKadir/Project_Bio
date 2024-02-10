@@ -175,7 +175,6 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
     }
 
     private fun addReportForm5(form: HhForm5?) {
-        if (form == null) return
         val rows = form.getReportRows()
         for (item in rows) {
             val view = getRowView(item)
