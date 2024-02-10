@@ -261,7 +261,6 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
     }
 
     private fun addReportForm3(form: AlForm3?) {
-        if (form == null) return
         val rows = form.getReportRows()
         for (item in rows) {
             val view = getRowView(item)
