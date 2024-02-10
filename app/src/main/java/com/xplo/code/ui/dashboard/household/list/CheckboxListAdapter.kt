@@ -135,6 +135,9 @@ class CheckboxListAdapter : RecyclerView.Adapter<CheckboxListAdapter.ViewHolder>
         }
         return items
     }
+    fun getAllItems(): List<CheckboxItem> {
+        return dataset
+    }
 
     fun setItemChecked(position: Int, isChecked: Boolean) {
         dataset[position].isChecked = isChecked
