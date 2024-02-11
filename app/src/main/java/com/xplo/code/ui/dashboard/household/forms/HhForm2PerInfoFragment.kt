@@ -30,6 +30,7 @@ import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.list.CheckboxListAdapter
 import com.xplo.code.ui.dashboard.model.CheckboxItem
 import com.xplo.code.ui.dashboard.model.HhForm2
+import com.xplo.code.ui.dashboard.model.checkExtraCases
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.code.ui.dashboard.payment.forms.PaymentForm1Fragment
 import com.xplo.code.utils.MaritalStatus
@@ -328,6 +329,11 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         rgId.checkRbOpABforIDcard(binding.rbYes, binding.rbNo, form.idIsOrNot)
 
 
+        if(binding.rbA.isChecked){
+            form.itemsSupportType?.let { doSomethingForRbA(it) }
+        }else{
+            form.itemsSupportType?.let { doSomethingForRbB(it) }
+        }
 
         etFirstName.setText(form.firstName)
         etMiddleName.setText(form.middleName)
@@ -339,7 +345,27 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         //etSpouseName.setText(form.spouseName)
 
     }
+    fun doSomethingForRbA(checkedItem: List<CheckboxItem>) {
+        var list = UiData.getPublicWorks()
+        for (item in list) {
+            // Check if the current item's id matches any of the ids in checkedItem
+            if (checkedItem.any { checkedItem -> checkedItem.id == item.id }) {
+                item.isChecked = true
+            }
+        }
+        adapter?.addAll(list)
+    }
 
+    fun doSomethingForRbB(checkedItem: List<CheckboxItem>) {
+        var list = UiData.getDirectIncomeSupport()
+        for (item in list) {
+            // Check if the current item's id matches any of the ids in checkedItem
+            if (checkedItem.any { checkedItem -> checkedItem.id == item.id }) {
+                item.isChecked = true
+            }
+        }
+        adapter?.addAll(list)
+    }
     override fun onClickBackButton() {
         Log.d(TAG, "onClickBackButton() called")
         interactor?.onBackButton()
@@ -354,7 +380,6 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
 //            return
 //        }
 
-        var txt = adapter?.getCheckedItems().toString()
         onReadInput()
     }
 
@@ -401,8 +426,14 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         form.selectionCriteria = chkRadioGroup(rgSelectionCriteria, UiData.ER_RB_DF)
         form.idIsOrNot = chkRadioGroup(rgId, UiData.ER_RB_DF)
 
+        form.itemsSupportType = adapter?.getCheckedItems()
 
         if (!form.isOk()) {
+            val checkExtraCases = form.checkExtraCases()
+            if (checkExtraCases != null) {
+                showAlerter(checkExtraCases, null)
+                return
+            }
             return
         }
 
