@@ -80,6 +80,7 @@
     <string name="user_vote_up">Up</string>
     <string name="user_vote_down">Down</string>
     <string name="alternate">Alternate</string>
+    <string name="alternate_add_hint">Maximum 5 alternate allowed</string>
 
 
 </resources>

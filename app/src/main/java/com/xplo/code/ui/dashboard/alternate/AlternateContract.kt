@@ -47,6 +47,9 @@ interface AlternateContract {
         fun getHouseholdItem(): HouseholdItem?
         fun setHouseholdItem(item: HouseholdItem?)
 
+        fun getRequestCode(): Int
+        fun isCallForResult(): Boolean
+
     }
 
     interface Presenter : BaseContract.Presenter<View> {
@@ -111,6 +114,7 @@ interface AlternateContract {
     interface PreviewView : BaseContract.View, CommonView {
 
         fun onValidated(form: AlternateForm)
+        fun onPublishResult()
 
         fun onUpdateSuccess(id: String?)
         fun onUpdateFailure(msg: String?)

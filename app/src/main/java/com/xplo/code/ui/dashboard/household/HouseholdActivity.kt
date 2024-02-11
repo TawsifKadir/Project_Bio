@@ -22,6 +22,7 @@ import com.xplo.code.ui.dashboard.household.forms.HhForm3HhBdFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm4CapPhotoFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm6NomineeFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm5FingerFragment
+import com.xplo.code.ui.dashboard.household.forms.HhFormAlternateFragment
 import com.xplo.code.ui.dashboard.household.forms.HhPreviewFragment
 import com.xplo.code.ui.dashboard.household.forms.HouseholdHomeFragment
 import com.xplo.code.ui.dashboard.model.HhForm1
@@ -232,6 +233,16 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         doFragmentTransaction(
             HhForm6NomineeFragment.newInstance(null),
             HhForm6NomineeFragment.TAG,
+            true,
+            false
+        )
+    }
+
+    override fun navigateToAlternateAddForm() {
+        Log.d(TAG, "navigateToAlternateAddForm() called")
+        doFragmentTransaction(
+            HhFormAlternateFragment.newInstance(null),
+            HhFormAlternateFragment.TAG,
             true,
             false
         )

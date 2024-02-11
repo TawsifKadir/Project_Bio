@@ -1,6 +1,8 @@
 package com.xplo.code.ui.dashboard.alternate.forms
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.ext.loadAvatar
+import com.xplo.code.core.ext.toBool
 import com.xplo.code.core.ext.visible
 import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.databinding.FragmentAlPreviewBinding
@@ -27,6 +30,7 @@ import com.xplo.code.ui.dashboard.model.ReportRow
 import com.xplo.code.ui.dashboard.model.getReportRows
 import com.xplo.code.ui.dashboard.model.toJson
 import dagger.hilt.android.AndroidEntryPoint
+
 
 /**
  * Copyright 2020 (C) xplo
@@ -145,7 +149,11 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
 
         binding.viewButtonBackNext.btBack.visible()
         binding.viewButtonBackNext.btNext.visible()
-        binding.viewButtonBackNext.btNext.text = "Submit"
+        binding.viewButtonBackNext.btNext.text = "Save"
+
+        if (interactor?.isCallForResult().toBool()) {
+            binding.viewButtonBackNext.btNext.text = "Add this"
+        }
     }
 
     override fun onDestroy() {
@@ -156,6 +164,21 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
 
     override fun onValidated(form: AlternateForm) {
         Log.d(TAG, "onValidated() called with: form = $form")
+
+    }
+
+    override fun onPublishResult() {
+        Log.d(TAG, "onPublishResult() called")
+
+        val rootForm = interactor?.getRootForm()
+
+        val resultIntent = Intent()
+        //resultIntent.putExtra("result", "result")
+        val bundle = Bundle()
+        bundle.putSerializable(Bk.KEY_ITEM, rootForm)
+        resultIntent.putExtras(bundle)
+        requireActivity().setResult(RESULT_OK, resultIntent)
+        requireActivity().finish()
 
     }
 
@@ -202,6 +225,10 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
 
+        if (interactor?.isCallForResult().toBool()){
+            onPublishResult()
+            return
+        }
 
         val rootForm = interactor?.getRootForm()
         if (rootForm == null) {
