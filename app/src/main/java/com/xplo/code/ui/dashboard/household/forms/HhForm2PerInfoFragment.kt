@@ -14,6 +14,8 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xplo.code.R
 import com.xplo.code.core.Bk
@@ -24,8 +26,11 @@ import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.household.list.CheckboxListAdapter
+import com.xplo.code.ui.dashboard.model.CheckboxItem
 import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.isOk
+import com.xplo.code.ui.dashboard.payment.forms.PaymentForm1Fragment
 import com.xplo.code.utils.MaritalStatus
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,7 +45,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View {
+class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View , CheckboxListAdapter.OnItemClickListener{
 
     companion object {
         const val TAG = "HhForm2PerInfoFragment"
@@ -88,6 +93,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
     private lateinit var directRecycler: RecyclerView
     private lateinit var publicRecycler: RecyclerView
 
+    private var adapter: CheckboxListAdapter? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -150,8 +156,18 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         rgSelectionCriteria = binding.rgSelectionCriteria
         rgId = binding.rgId
 
-        publicRecycler = binding.publicRecycler
-        directRecycler = binding.directRecycler
+        publicRecycler = binding.recycler
+        directRecycler = binding.recycler
+
+        binding.recycler.setHasFixedSize(true)
+        binding.recycler.layoutManager = LinearLayoutManager(requireContext())
+        binding.recycler.itemAnimator = DefaultItemAnimator()
+
+        adapter = CheckboxListAdapter()
+        adapter?.setOnItemClickListener(this)
+        binding.recycler.adapter = adapter
+
+        adapter?.addAll(UiData.getPublicWorks())
     }
 
     override fun initView() {
@@ -247,13 +263,11 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
     }
 
     fun doSomethingForRbA() {
-        binding.publicRecycler.isVisible = true
-        binding.directRecycler.isVisible = false
+        adapter?.addAll(UiData.getPublicWorks()) 
     }
 
     fun doSomethingForRbB() {
-        binding.publicRecycler.isVisible = false
-        binding.directRecycler.isVisible = true
+        adapter?.addAll(UiData.getDirectIncomeSupport())
     }
 
     fun doSomethingForYes() {
@@ -339,6 +353,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
 //            return
 //        }
 
+        var txt = adapter?.getCheckedItems().toString()
         onReadInput()
     }
 
@@ -432,6 +447,13 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
     override fun onPopulateView() {
         Log.d(TAG, "onPopulateView() called")
 
+    }
+
+    override fun onStatusChangeCheckboxItem(item: CheckboxItem, pos: Int, isChecked: Boolean) {
+        Log.d(
+            HhForm2PerInfoFragment.TAG,
+            "onStatusChangeCheckboxItem() called with: item = $item, pos = $pos, isChecked = $isChecked"
+        )
     }
 
 
