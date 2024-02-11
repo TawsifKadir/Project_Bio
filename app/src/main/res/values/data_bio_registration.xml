@@ -24,7 +24,7 @@
     <!--    <string name="respondent_gender">Respondent Gender</string>-->
     <string name="respondent_legal_status">Respondent Legal Status</string>
     <!--    <string name="respondent_marital_status">Respondent Marital Status</string>-->
-    <string name="selection_reason">Selection Reason</string>
+    <string name="selection_reason">Select Reason</string>
     <!--    <string name="respondent_relationship_to_the_household_head">Respondent relationship to the household head</string>-->
     <string name="gps_coordinates_lat">GPS Coordinates (Lat)</string>
     <string name="gps_coordinates_long">GPS Coordinates (Long)</string>
