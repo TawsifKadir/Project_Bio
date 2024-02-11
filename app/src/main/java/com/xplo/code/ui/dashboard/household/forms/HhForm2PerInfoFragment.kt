@@ -395,7 +395,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
 
         form.age = chkEditTextMax3Digit(etAge, UiData.ER_ET_DF)
         form.phoneNumber = chkEditText(etPhoneNumber, UiData.ER_ET_DF)
-        form.monthlyAverageIncome = chkEditText(etMonthlyAverageIncome, UiData.ER_ET_DF)
+        form.monthlyAverageIncome = chkEditTextMonthlyAvgIncome(etMonthlyAverageIncome, UiData.ER_ET_DF)
         //form.spouseName = chkEditText(etSpouseName, UiData.ER_ET_DF)
         form.selectionCriteria = chkRadioGroup(rgSelectionCriteria, UiData.ER_RB_DF)
         form.idIsOrNot = chkRadioGroup(rgId, UiData.ER_RB_DF)
