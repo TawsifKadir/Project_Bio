@@ -114,6 +114,7 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
         adapter = AlternateSumListAdapter()
         adapter?.setOnItemClickListener(this)
         binding.recyclerView.adapter = adapter
+        onReinstateData(interactor?.getRootForm()?.alternates)
     }
 
     override fun initObserver() {
@@ -146,7 +147,7 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
 //        binding.viewButtonBackNext.btBack.visible()
 //        binding.viewButtonBackNext.btNext.visible()
 
-        onReinstateData(interactor?.getRootForm()?.alternates)
+        //onReinstateData(interactor?.getRootForm()?.alternates)
 
     }
 
