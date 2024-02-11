@@ -21,6 +21,7 @@ import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.checkRbOpAB
+import com.xplo.code.core.ext.checkRbOpABforIDcard
 import com.xplo.code.databinding.FragmentHhForm2PerInfoBinding
 import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
@@ -324,7 +325,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         setSpinnerItem(spSelectionReason, UiData.selectionReason, form.selectionReason)
 
         rgSelectionCriteria.checkRbOpAB(binding.rbA, binding.rbB, form.selectionCriteria)
-        rgId.checkRbOpAB(binding.rbYes, binding.rbNo, form.idIsOrNot)
+        rgId.checkRbOpABforIDcard(binding.rbYes, binding.rbNo, form.idIsOrNot)
 
 
 
