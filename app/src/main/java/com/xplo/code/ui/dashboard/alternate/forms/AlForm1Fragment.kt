@@ -18,6 +18,7 @@ import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.checkRbOpAB
 import com.xplo.code.core.ext.gone
+import com.xplo.code.core.ext.toBool
 import com.xplo.code.core.ext.visible
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
@@ -145,10 +146,17 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
         bindSpinnerData(spGender, UiData.genderOptions)
         bindSpinnerData(spAlternateRelation, UiData.relationshipOptions)
+        bindSpinnerData(spIdType, UiData.idType)
+
+        // has no id, passed name instead of id
+        if (interactor?.isCallForResult().toBool()) {
+            binding.etHouseholdName.setText(id)
+            return
+        }
 
         viewModel.getHouseholdItem(id)
 
-        bindSpinnerData(spIdType, UiData.idType)
+
     }
 
     override fun initObserver() {

@@ -167,6 +167,11 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form6View {
         Log.d(TAG, "onClickNextButton() called")
         //interactor?.navigateToPreview()
 
+        if (TestConfig.isAlternateAddInHouseholdFlow) {
+            interactor?.navigateToAlternateAddForm()
+            return
+        }
+
         if (FormAppUtils.canNomineeAdd(interactor?.getRootForm())) {
             askForConsent()
         } else {
@@ -248,7 +253,7 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form6View {
 
 
     fun onStartFingerprintCapture() {
-        Log.d(HhForm6NomineeFragment.TAG, "onStartFingerprintCapture() called")
+        Log.d(TAG, "onStartFingerprintCapture() called")
 
         val intent = Intent(context, FingerprintCaptureActivity::class.java)
         getResult.launch(intent)

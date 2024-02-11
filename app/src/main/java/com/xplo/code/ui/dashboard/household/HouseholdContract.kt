@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import com.xplo.code.base.BaseContract
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.offline.OptionItem
+import com.xplo.code.ui.dashboard.model.AlternateForm
 import com.xplo.code.ui.dashboard.model.HhForm1
 import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.HhForm3
@@ -34,6 +35,7 @@ interface HouseholdContract {
         fun navigateToForm4()
         fun navigateToForm5()
         fun navigateToForm6()
+        fun navigateToAlternateAddForm()
         fun navigateToPreview()
         fun navigateToFormDetails(item: HouseholdItem?)
 
@@ -140,6 +142,17 @@ interface HouseholdContract {
         fun onGetANomineeFromPopup(nominee: Nominee?)
 
     }
+
+
+    interface FormAlternateView : BaseContract.View, CommonView {
+        fun onValidated(forms: ArrayList<AlternateForm>?)
+        fun onReinstateData(forms: ArrayList<AlternateForm>?)
+
+        fun onClickAddAlternate()
+        fun onGetAnAlternate(form: AlternateForm?)
+
+    }
+
 
     interface PreviewView : BaseContract.View, CommonView {
         fun onGetCompleteData(data: HouseholdForm?)

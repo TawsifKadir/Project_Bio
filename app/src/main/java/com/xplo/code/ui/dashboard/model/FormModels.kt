@@ -1,5 +1,7 @@
 package com.xplo.code.ui.dashboard.model
 
+import java.io.Serializable
+
 
 data class HouseholdForm(
 
@@ -24,7 +26,7 @@ data class AlternateForm(
     var form1: AlForm1? = null,
     var form2: AlForm2? = null,
     var form3: AlForm3? = null
-)
+): Serializable
 
 data class HhForm1(
     var stateName: String? = null,
@@ -185,15 +187,15 @@ data class AlForm1(
     var phoneNumber: String? = null,
     var selectAlternateRlt: String? = null,
     var gender: String? = null
-)
+): Serializable
 
 data class AlForm2(
     var img: String? = null
-)
+): Serializable
 
 data class AlForm3(
     var finger: Finger? = null
-)
+): Serializable
 
 data class Finger(
     var fingerRT: String? = null,
@@ -206,5 +208,5 @@ data class Finger(
     var fingerLM: String? = null,
     var fingerLR: String? = null,
     var fingerLL: String? = null
-)
+): Serializable
 

@@ -249,12 +249,14 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         addReportForm3(form.form3)
         addReportForm4(form.form4)
         addReportForm5(form.form5)
-        binding.viewPreview.llAlternate.visibility = View.GONE
-        if((form.form6?.nominees?.size ?: 0) != 0){
-            addReportForm6(form.form6)
-        }else{
-            binding.viewPreview.llNominee.visibility = View.GONE
-        }
+        addReportForm6(form.form6)
+        addReportAlternate(form)
+//        binding.viewPreview.llAlternate.visibility = View.GONE
+//        if((form.form6?.nominees?.size ?: 0) != 0){
+//            addReportForm6(form.form6)
+//        }else{
+//            binding.viewPreview.llNominee.visibility = View.GONE
+//        }
     }
 
     private fun addReportForm1(form: HhForm1?) {

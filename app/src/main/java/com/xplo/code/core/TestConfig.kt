@@ -9,4 +9,5 @@ object TestConfig {
     val isAutoDGEnabled = true
 
     val isNomineeAlwaysEnabled = true   // default false
+    val isAlternateAddInHouseholdFlow = true   // default false
 }

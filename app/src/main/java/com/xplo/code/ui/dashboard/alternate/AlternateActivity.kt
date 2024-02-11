@@ -1,10 +1,12 @@
 package com.xplo.code.ui.dashboard.alternate
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -51,6 +53,36 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
             context.startActivity(intent)
         }
 
+        @JvmStatic
+        fun openForResultLegacy(context: Activity, parent: String?, id: String?, rqCode: Int) {
+            Log.d(
+                TAG,
+                "openForResultLegacy() called with: context = $context, parent = $parent, id = $id, rqCode = $rqCode"
+            )
+            val bundle = Bundle()
+            bundle.putString(Bk.KEY_PARENT, parent)
+            bundle.putString(Bk.KEY_ID, id)
+            bundle.putInt(Bk.KEY_REQUEST_CODE, rqCode)
+            val intent = Intent(context, AlternateActivity::class.java)
+            intent.putExtras(bundle)
+            context.startActivityForResult(intent, rqCode)
+        }
+
+        @JvmStatic
+        fun openForResult(context: Activity, parent: String?, id: String?, activityResultLauncher: ActivityResultLauncher<Intent>) {
+            Log.d(
+                TAG,
+                "openForResult() called with: context = $context, parent = $parent, id = $id, activityResultLauncher = $activityResultLauncher"
+            )
+            val bundle = Bundle()
+            bundle.putString(Bk.KEY_PARENT, parent)
+            bundle.putString(Bk.KEY_ID, id)
+            bundle.putInt(Bk.KEY_REQUEST_CODE, 100)     // just to check will activity open for a result
+            val intent = Intent(context, AlternateActivity::class.java)
+            intent.putExtras(bundle)
+            activityResultLauncher.launch(intent)
+        }
+
         var STEP = 0
 
     }
@@ -61,6 +93,9 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
 
     private var householdItem: HouseholdItem? = HouseholdItem()
     private var rootForm: AlternateForm? = AlternateForm()
+
+    //private var callForResult = false
+    private var REQUEST_CODE: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,6 +118,7 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
 
         val parent = intent.getStringExtra(Bk.KEY_PARENT)
         val id = intent.getStringExtra(Bk.KEY_ID)
+        REQUEST_CODE = intent.getIntExtra(Bk.KEY_REQUEST_CODE, -1)
         Log.d(TAG, "initView: parent: $parent")
 
 //        if (!isNetworkIsConnected) {
@@ -287,5 +323,13 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
 
     override fun setHouseholdItem(item: HouseholdItem?) {
         this.householdItem = item
+    }
+
+    override fun getRequestCode(): Int {
+        return this.REQUEST_CODE
+    }
+
+    override fun isCallForResult(): Boolean {
+        return this.REQUEST_CODE > 0
     }
 }
