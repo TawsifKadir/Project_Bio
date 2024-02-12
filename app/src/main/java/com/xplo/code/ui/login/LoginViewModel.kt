@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xplo.code.core.TestConfig
 import com.xplo.code.ui.login.model.LoginCredentials
-import com.xplo.data.model.user.LoginRqb
-import com.xplo.data.repo.UserRepo
 import com.xplo.data.core.DispatcherProvider
 import com.xplo.data.core.Resource
 import com.xplo.data.fake.Fake
+import com.xplo.data.model.user.LoginRqb
+import com.xplo.data.repo.UserRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -31,7 +31,7 @@ class LoginViewModel @Inject constructor(
         object Loading : Event()
         object Empty : Event()
 
-        class LoginSuccess(val token: String?, val id: String?) : Event()
+        class LoginSuccess(val token: String, val id: String?) : Event()
         class LoginFailure(val msg: String?) : Event()
 
     }
@@ -61,7 +61,12 @@ class LoginViewModel @Inject constructor(
                 }
 
                 is Resource.Success -> {
-                    _event.value = Event.LoginSuccess(response.data?.token, null)
+                    val token = response.data?.token
+                    if (token.isNullOrEmpty()) {
+                        _event.value = Event.LoginFailure(response.callInfo?.msg)
+                    } else {
+                        _event.value = Event.LoginSuccess(token, null)
+                    }
                 }
 
                 else -> {}

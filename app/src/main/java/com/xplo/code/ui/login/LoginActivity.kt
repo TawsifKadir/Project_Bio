@@ -161,13 +161,15 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     private fun taskDev() {
         if (!isDebugBuild()) return
 
-        if (TestConfig.isTestLoginEnabled) {
-            binding.etUserId.setText(Constants.TEST_USER_ID)
-            binding.etPassword.setText(Constants.TEST_PASSWORD)
-        }
+//        if (TestConfig.isTestLoginEnabled) {
+//            binding.etUserId.setText(Constants.TEST_USER_ID)
+//            binding.etPassword.setText(Constants.TEST_PASSWORD)
+//        }
 
         binding.ivBannar.setOnLongClickListener {
-            openActivity(LabActivity::class.java, null)
+            //openActivity(LabActivity::class.java, null)
+            binding.etUserId.setText(Constants.TEST_USER_ID)
+            binding.etPassword.setText(Constants.TEST_PASSWORD)
             return@setOnLongClickListener true
         }
 
