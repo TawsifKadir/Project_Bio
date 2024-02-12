@@ -14,18 +14,25 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.checkRbOpAB
+import com.xplo.code.core.ext.checkRbOpABforIDcard
 import com.xplo.code.databinding.FragmentHhForm2PerInfoBinding
 import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.household.list.CheckboxListAdapter
+import com.xplo.code.ui.dashboard.model.CheckboxItem
 import com.xplo.code.ui.dashboard.model.HhForm2
+import com.xplo.code.ui.dashboard.model.checkExtraCases
 import com.xplo.code.ui.dashboard.model.isOk
+import com.xplo.code.ui.dashboard.payment.forms.PaymentForm1Fragment
 import com.xplo.code.utils.MaritalStatus
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,7 +47,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View {
+class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View , CheckboxListAdapter.OnItemClickListener{
 
     companion object {
         const val TAG = "HhForm2PerInfoFragment"
@@ -88,6 +95,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
     private lateinit var directRecycler: RecyclerView
     private lateinit var publicRecycler: RecyclerView
 
+    private var adapter: CheckboxListAdapter? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -150,8 +158,18 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         rgSelectionCriteria = binding.rgSelectionCriteria
         rgId = binding.rgId
 
-        publicRecycler = binding.publicRecycler
-        directRecycler = binding.directRecycler
+        publicRecycler = binding.recycler
+        directRecycler = binding.recycler
+
+        binding.recycler.setHasFixedSize(true)
+        binding.recycler.layoutManager = LinearLayoutManager(requireContext())
+        binding.recycler.itemAnimator = DefaultItemAnimator()
+
+        adapter = CheckboxListAdapter()
+        adapter?.setOnItemClickListener(this)
+        binding.recycler.adapter = adapter
+
+        adapter?.addAll(UiData.getPublicWorks())
     }
 
     override fun initView() {
@@ -247,13 +265,11 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
     }
 
     fun doSomethingForRbA() {
-        binding.publicRecycler.isVisible = true
-        binding.directRecycler.isVisible = false
+        adapter?.addAll(UiData.getPublicWorks()) 
     }
 
     fun doSomethingForRbB() {
-        binding.publicRecycler.isVisible = false
-        binding.directRecycler.isVisible = true
+        adapter?.addAll(UiData.getDirectIncomeSupport())
     }
 
     fun doSomethingForYes() {
@@ -310,9 +326,14 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         setSpinnerItem(spSelectionReason, UiData.selectionReason, form.selectionReason)
 
         rgSelectionCriteria.checkRbOpAB(binding.rbA, binding.rbB, form.selectionCriteria)
-        rgId.checkRbOpAB(binding.rbYes, binding.rbNo, form.idIsOrNot)
+        rgId.checkRbOpABforIDcard(binding.rbYes, binding.rbNo, form.idIsOrNot)
 
 
+        if(binding.rbA.isChecked){
+            form.itemsSupportType?.let { doSomethingForRbA(it) }
+        }else{
+            form.itemsSupportType?.let { doSomethingForRbB(it) }
+        }
 
         etFirstName.setText(form.firstName)
         etMiddleName.setText(form.middleName)
@@ -324,7 +345,27 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         //etSpouseName.setText(form.spouseName)
 
     }
+    fun doSomethingForRbA(checkedItem: List<CheckboxItem>) {
+        var list = UiData.getPublicWorks()
+        for (item in list) {
+            // Check if the current item's id matches any of the ids in checkedItem
+            if (checkedItem.any { checkedItem -> checkedItem.id == item.id }) {
+                item.isChecked = true
+            }
+        }
+        adapter?.addAll(list)
+    }
 
+    fun doSomethingForRbB(checkedItem: List<CheckboxItem>) {
+        var list = UiData.getDirectIncomeSupport()
+        for (item in list) {
+            // Check if the current item's id matches any of the ids in checkedItem
+            if (checkedItem.any { checkedItem -> checkedItem.id == item.id }) {
+                item.isChecked = true
+            }
+        }
+        adapter?.addAll(list)
+    }
     override fun onClickBackButton() {
         Log.d(TAG, "onClickBackButton() called")
         interactor?.onBackButton()
@@ -380,13 +421,19 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
 
         form.age = chkEditTextMax3Digit(etAge, UiData.ER_ET_DF)?.toInt()
         form.phoneNumber = chkEditText(etPhoneNumber, UiData.ER_ET_DF)
-        form.monthlyAverageIncome = chkEditText(etMonthlyAverageIncome, UiData.ER_ET_DF)
+        form.monthlyAverageIncome = chkEditTextMonthlyAvgIncome(etMonthlyAverageIncome, UiData.ER_ET_DF)
         //form.spouseName = chkEditText(etSpouseName, UiData.ER_ET_DF)
         form.selectionCriteria = chkRadioGroup(rgSelectionCriteria, UiData.ER_RB_DF)
         form.idIsOrNot = chkRadioGroup(rgId, UiData.ER_RB_DF)
 
+        form.itemsSupportType = adapter?.getCheckedItems()
 
         if (!form.isOk()) {
+            val checkExtraCases = form.checkExtraCases()
+            if (checkExtraCases != null) {
+                showAlerter(checkExtraCases, null)
+                return
+            }
             return
         }
 
@@ -432,6 +479,13 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
     override fun onPopulateView() {
         Log.d(TAG, "onPopulateView() called")
 
+    }
+
+    override fun onStatusChangeCheckboxItem(item: CheckboxItem, pos: Int, isChecked: Boolean) {
+        Log.d(
+            HhForm2PerInfoFragment.TAG,
+            "onStatusChangeCheckboxItem() called with: item = $item, pos = $pos, isChecked = $isChecked"
+        )
     }
 
 

@@ -498,6 +498,10 @@
 
                 </RadioGroup>
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <!--            <LinearLayout style="@style/AppLinearLayoutInputBox">-->
@@ -513,17 +517,7 @@
 
             <!--            </LinearLayout>-->
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/publicRecycler"
-                android:layout_width="match_parent"
-                android:visibility="gone"
-                android:layout_height="wrap_content" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/directRecycler"
-                android:layout_width="match_parent"
-                android:visibility="gone"
-                android:layout_height="wrap_content" />
         </LinearLayout>
 
 

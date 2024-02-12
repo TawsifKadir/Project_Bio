@@ -12,6 +12,7 @@ interface BasicFormView {
     fun getEditTextInt(editText: EditText): Int
     fun getEditText(editText: EditText): String?
     fun chkEditText(editText: EditText, error: String?): String?
+    fun chkEditTextMonthlyAvgIncome(editText: EditText, error: String?): String?
     fun chkEditText3Char(editText: EditText, error: String?): String?
     fun chkEditTextMax3Digit(editText: EditText, error: String?): String?
 

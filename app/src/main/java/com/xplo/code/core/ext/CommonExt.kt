@@ -59,6 +59,17 @@ fun RadioGroup?.checkRbPosNeg(rbPos: RadioButton, rbNeg: RadioButton, item: Stri
 
 }
 
+fun RadioGroup?.checkRbOpABforIDcard(rbA: RadioButton, rbB: RadioButton, item: String?) {
+    if (this == null) return
+    if (item.isNullOrEmpty()) return
+
+    if (item.equals("Yes", ignoreCase = true)) {
+        rbA.isChecked = true
+    } else {
+        rbB.isChecked = true
+    }
+
+}
 fun RadioGroup?.checkRbOpAB(rbA: RadioButton, rbB: RadioButton, item: String?) {
     if (this == null) return
     if (item.isNullOrEmpty()) return

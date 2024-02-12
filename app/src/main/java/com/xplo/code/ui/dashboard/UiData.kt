@@ -37,9 +37,28 @@ object UiData {
     val whyNot = getStringArray(R.array.why_not)
     val idType = getStringArray(R.array.id_type)
     val nomineeOccupation = getStringArray(R.array.what_does_currently_do_for_a_living_array)
+    val publicWorks = getStringArray(R.array.support_type_public_work_array)
+    val directIncomeSupport = getStringArray(R.array.support_type_direct_income_array)
 
     fun getReason(): List<CheckboxItem> {
         var array = whyNot
+        var items = arrayListOf<CheckboxItem>()
+        for (i in array.indices) {
+            items.add(CheckboxItem(i, array[i], false))
+        }
+        return items
+    }
+
+    fun getPublicWorks(): List<CheckboxItem> {
+        var array = publicWorks
+        var items = arrayListOf<CheckboxItem>()
+        for (i in array.indices) {
+            items.add(CheckboxItem(i, array[i], false))
+        }
+        return items
+    }
+    fun getDirectIncomeSupport(): List<CheckboxItem> {
+        var array = directIncomeSupport
         var items = arrayListOf<CheckboxItem>()
         for (i in array.indices) {
             items.add(CheckboxItem(i, array[i], false))

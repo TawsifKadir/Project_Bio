@@ -43,6 +43,15 @@
 
             </LinearLayout>
 
+            <TextView
+                android:text="What is the number of household members in your household, including yourself, for each category"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TextView>
             <include
                 android:id="@+id/view_hh_table"
                 layout="@layout/view_hh_table" />

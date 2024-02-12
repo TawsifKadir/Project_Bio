@@ -71,8 +71,9 @@ data class HhForm2(
     var legalStatus: String? = null,
     var spouseName: String? = null,
     var selectionReason: String? = null,
+    var idIsOrNot: String? = null,
     var selectionCriteria: String? = null,
-    var idIsOrNot: String? = null
+    var itemsSupportType : List<CheckboxItem>? = null
 )
 
 data class HhForm3(

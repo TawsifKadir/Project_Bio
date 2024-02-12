@@ -40,6 +40,19 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         }
         return txt
     }
+    override fun chkEditTextMonthlyAvgIncome(editText: EditText, error: String?): String? {
+        val txt = editText.text.toString()
+        if (isValidationEnabled()) {
+            if (txt.isEmpty() || txt == "") {
+                editText.error = error
+                return null
+            }else if(txt.toInt()>10000){
+                editText.error = "Income must be less than 10000"
+                return null
+            }
+        }
+        return txt
+    }
 
     override fun chkEditText3Char(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
