@@ -404,10 +404,10 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
         val form = HhForm1()
 
 
-        form.stateName = chkSpinner(spStateName, UiData.ER_SP_DF)
-        form.countryName = chkSpinner(spCountryName, UiData.ER_SP_DF)
-        form.payamName = chkSpinner(spPayamName, UiData.ER_SP_DF)
-        form.bomaName = chkSpinner(spBomaName, UiData.ER_SP_DF)
+        form.state?.name = chkSpinner(spStateName, UiData.ER_SP_DF)
+        form.county?.name = chkSpinner(spCountryName, UiData.ER_SP_DF)
+        form.payam?.name = chkSpinner(spPayamName, UiData.ER_SP_DF)
+        form.boma?.name = chkSpinner(spBomaName, UiData.ER_SP_DF)
 
         form.lat = getEditText(etLat)?.toDouble()
         form.lon = getEditText(etLon)?.toDouble()
@@ -469,10 +469,10 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
         val form = interactor?.getRootForm()?.form1
         if (form == null) return
 
-        setSpinnerItem(spStateName, UiData.stateNameOptions, form.stateName)
-        setSpinnerItem(spCountryName, UiData.countryNameOptions, form.countryName)
-        setSpinnerItem(spPayamName, UiData.stateNameOptions, form.stateName)
-        setSpinnerItem(spBomaName, UiData.stateNameOptions, form.stateName)
+        setSpinnerItem(spStateName, UiData.stateNameOptions, form.state?.name)
+        setSpinnerItem(spCountryName, UiData.countryNameOptions, form.county?.name)
+        setSpinnerItem(spPayamName, UiData.stateNameOptions, form.state?.name)
+        setSpinnerItem(spBomaName, UiData.stateNameOptions, form.state?.name)
 
     }
 

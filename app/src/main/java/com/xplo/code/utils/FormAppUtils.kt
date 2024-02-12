@@ -24,7 +24,7 @@ object FormAppUtils {
 
         if (TestConfig.isNomineeAlwaysEnabled) return true
 
-        if (form.form1?.countryName.equals("JUBA", ignoreCase = true)) return true
+        if (form.form1?.county?.name.equals("JUBA", ignoreCase = true)) return true
         return false
     }
 

@@ -11,10 +11,10 @@ import retrofit2.http.POST
 interface ContentApi {
 
     @POST("/afis/api/register")
-    suspend fun saveForm(@Body body: FormRqb): Response<FormRsp>
+    suspend fun submitForm(@Body body: FormRqb?): Response<FormRsp>
 
     @POST("/afis/api/beneficiary/register/batch")
-    suspend fun saveForms(@Body body: FormsRqb): Response<FormsRsp>
+    suspend fun submitForms(@Body body: FormsRqb?): Response<FormsRsp>
 
 
 }

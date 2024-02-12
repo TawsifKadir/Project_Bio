@@ -2,10 +2,19 @@ package com.xplo.code.ui.dashboard.model
 
 import java.io.Serializable
 
+/**
+ * Copyright 2022 (C) xplo
+ *
+ * Created  : 22/06/28
+ * Author   : xplo
+ * Desc     :
+ * Comment  :
+ */
 
 data class HouseholdForm(
 
     var id: Long = -1L,     // optional, use at some specific case
+    var uuid: String? = null,
 
     var form1: HhForm1? = null,
     var form2: HhForm2? = null,
@@ -26,15 +35,20 @@ data class AlternateForm(
     var form1: AlForm1? = null,
     var form2: AlForm2? = null,
     var form3: AlForm3? = null
-): Serializable
+) : Serializable
 
 data class HhForm1(
-    var stateName: String? = null,
-    var countryName: String? = null,
-    var payamName: String? = null,
-    var bomaName: String? = null,
+    var state: Area? = Area(),
+    var county: Area? = Area(),
+    var payam: Area? = Area(),
+    var boma: Area? = Area(),
     var lat: Double? = null,
     var lon: Double? = null
+)
+
+data class Area(
+    var id: Int? = null,
+    var name: String? = null
 )
 
 data class HhForm2(
@@ -186,15 +200,15 @@ data class AlForm1(
     var phoneNumber: String? = null,
     var selectAlternateRlt: String? = null,
     var gender: String? = null
-): Serializable
+) : Serializable
 
 data class AlForm2(
     var img: String? = null
-): Serializable
+) : Serializable
 
 data class AlForm3(
     var finger: Finger? = null
-): Serializable
+) : Serializable
 
 data class Finger(
     var fingerRT: String? = null,
@@ -207,5 +221,5 @@ data class Finger(
     var fingerLM: String? = null,
     var fingerLR: String? = null,
     var fingerLL: String? = null
-): Serializable
+) : Serializable
 

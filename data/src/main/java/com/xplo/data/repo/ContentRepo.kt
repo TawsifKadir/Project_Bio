@@ -17,8 +17,8 @@ import com.xplo.data.core.Resource
  */
 interface ContentRepo {
 
-    suspend fun saveForm(body: FormRqb): Resource<FormRsp>
-    suspend fun saveForms(body: FormsRqb): Resource<FormsRsp>
+    suspend fun submitForm(body: FormRqb?): Resource<FormRsp>
+    suspend fun submitForms(body: FormsRqb?): Resource<FormsRsp>
 
 
 }

@@ -33,7 +33,10 @@ fun HouseholdItem?.toJson(): String? {
 }
 
 fun HouseholdItem?.toHouseholdForm(): HouseholdForm? {
-    return Gson().fromJson(this?.data, HouseholdForm::class.java)
+    if (this == null) return null
+    val form = Gson().fromJson(this?.data, HouseholdForm::class.java)
+    form.uuid = this.uuid
+    return form
 }
 
 fun HouseholdItem?.toSummary(): String? {

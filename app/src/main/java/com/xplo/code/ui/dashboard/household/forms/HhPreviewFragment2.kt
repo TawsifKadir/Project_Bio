@@ -106,8 +106,8 @@ class HhPreviewFragment2 : BaseFragment(), HouseholdContract.PreviewView {
         var txt = StringBuilder()
         if (form == null) return txt.toString()
 
-        txt.append(getFormattedText("State:", form.stateName, "County: ", form.countryName))
-            .append("\n" + getFormattedText("Payam:", form.stateName, "Boma: ", form.countryName))
+        txt.append(getFormattedText("State:", form.state?.name, "County: ", form.county?.name))
+            .append("\n" + getFormattedText("Payam:", form.state?.name, "Boma: ", form.county?.name))
 
         return txt.toString()
 

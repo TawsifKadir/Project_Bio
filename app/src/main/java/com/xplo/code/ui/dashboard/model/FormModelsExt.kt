@@ -34,10 +34,10 @@ fun AlForm1?.getFullName(): String? {
 fun HhForm1.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
 
-    if (this.countryName.isNullOrBlank()) return false
-    if (this.stateName.isNullOrBlank()) return false
-    if (this.payamName.isNullOrBlank()) return false
-    if (this.bomaName.isNullOrBlank()) return false
+    if (this.county?.name.isNullOrBlank()) return false
+    if (this.state?.name.isNullOrBlank()) return false
+    if (this.payam?.name.isNullOrBlank()) return false
+    if (this.boma?.name.isNullOrBlank()) return false
     //if (this.lat == null) return false
     //if (this.lon == null) return false
 

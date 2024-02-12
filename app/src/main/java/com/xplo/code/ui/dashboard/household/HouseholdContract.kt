@@ -82,6 +82,8 @@ interface HouseholdContract {
         fun onGetHouseholdList(items: List<HouseholdItem>?)
         fun onGetHouseholdListFailure(msg: String?)
 
+        fun onSubmitFormSuccess(id: String?, pos: Int)
+        fun onSubmitFormFailure(msg: String?)
 
     }
 
@@ -131,6 +133,7 @@ interface HouseholdContract {
         fun onReinstateData(form: HhForm5?)
 
     }
+
     interface Form5View : BaseContract.View, CommonView {
         fun onValidated(form: HhForm6?)
         fun onReinstateData(form: HhForm6?)

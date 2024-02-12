@@ -14,7 +14,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -29,6 +28,7 @@ import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.core.ext.toBool
 import com.xplo.code.data.db.models.HouseholdItem
+import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.databinding.FragmentHouseholdHomeBinding
 import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.household.HouseholdContract
@@ -141,6 +141,18 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                         viewModel.clearEvent()
                     }
 
+                    is HouseholdViewModel.Event.SubmitHouseholdFormSuccess -> {
+                        hideLoading()
+                        onSubmitFormSuccess(event.id, event.pos)
+                        viewModel.clearEvent()
+                    }
+
+                    is HouseholdViewModel.Event.SubmitHouseholdFormFailure -> {
+                        hideLoading()
+                        onSubmitFormFailure(event.msg)
+                        viewModel.clearEvent()
+                    }
+
                     else -> Unit
                 }
             }
@@ -173,15 +185,15 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
     override fun onGetHouseholdList(items: List<HouseholdItem>?) {
         Log.d(TAG, "onGetHouseholdList() called with: items = ${items?.size}")
-        if (items == null){
+        if (items == null) {
             binding.llNoContentText.visibility = View.VISIBLE
             binding.llBody.visibility = View.GONE
             return
-        }else if (items.isEmpty()){
+        } else if (items.isEmpty()) {
             binding.llNoContentText.visibility = View.VISIBLE
             binding.llBody.visibility = View.GONE
             return
-        }else{
+        } else {
             binding.llNoContentText.visibility = View.GONE
             binding.llBody.visibility = View.VISIBLE
         }
@@ -190,10 +202,20 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     }
 
     override fun onGetHouseholdListFailure(msg: String?) {
-            binding.llNoContentText.visibility = View.VISIBLE
-            binding.llBody.visibility = View.GONE
+        binding.llNoContentText.visibility = View.VISIBLE
+        binding.llBody.visibility = View.GONE
         Log.d(TAG, "onGetHouseholdListFailure() called with: msg = $msg")
         //showMessage(msg)
+    }
+
+    override fun onSubmitFormSuccess(id: String?, pos: Int) {
+        Log.d(TAG, "onSubmitFormSuccess() called with: item = $id, pos = $pos")
+
+    }
+
+    override fun onSubmitFormFailure(msg: String?) {
+        Log.d(TAG, "onSubmitFormFailure() called with: msg = $msg")
+        showToast(msg ?: "")
     }
 
     override fun onClickHouseholdItem(item: HouseholdItem, pos: Int) {
@@ -210,7 +232,9 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
     override fun onClickHouseholdItemSend(item: HouseholdItem, pos: Int) {
         Log.d(TAG, "onClickHouseholdItemSend() called with: item = $item, pos = $pos")
-        showToast("Feature not implemented yet")
+        //showToast("Feature not implemented yet")
+
+        viewModel.submitHouseholdForm(item.toHouseholdForm(), pos)
     }
 
     override fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int) {
@@ -311,13 +335,14 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
             .show()
     }
 
-    fun isConsentGiven() : Boolean{
+    fun isConsentGiven(): Boolean {
         return interactor?.getRootForm()?.consentStatus?.isConsentGivenHhHome.toBool()
     }
 
     fun isGpsAvailable(context: Context): Boolean {
         return context.packageManager.hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)
     }
+
     private fun onGetConsent() {
         getPrefHelper().setHouseholdConsentAcceptStatus(true)
         interactor?.getRootForm()?.consentStatus?.isConsentGivenHhHome = true

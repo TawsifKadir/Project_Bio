@@ -22,9 +22,9 @@ class ContentRepoImpl @Inject constructor(
     private val api: ContentApi
 ) : ContentRepo {
 
-    override suspend fun saveForm(body: FormRqb): Resource<FormRsp> {
+    override suspend fun submitForm(body: FormRqb?): Resource<FormRsp> {
         return try {
-            val response = api.saveForm(body)
+            val response = api.submitForm(body)
             val result = response.body()
             val callInfo = CallInfo(response.code(), response.message())
             if (response.isSuccessful && result != null) {
@@ -37,9 +37,9 @@ class ContentRepoImpl @Inject constructor(
         }
     }
 
-    override suspend fun saveForms(body: FormsRqb): Resource<FormsRsp> {
+    override suspend fun submitForms(body: FormsRqb?): Resource<FormsRsp> {
         return try {
-            val response = api.saveForms(body)
+            val response = api.submitForms(body)
             val result = response.body()
             val callInfo = CallInfo(response.code(), response.message())
             if (response.isSuccessful && result != null) {

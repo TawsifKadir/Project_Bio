@@ -28,8 +28,8 @@ fun HhForm1?.getReportRows(): List<ReportRow> {
     val items = arrayListOf<ReportRow>()
     val form = this
 
-    items.add(ReportRow("State:", form.stateName, "County: ", form.countryName))
-    items.add(ReportRow("Payam:", form.payamName, "Boma: ", form.bomaName))
+    items.add(ReportRow("State:", form.state?.name, "County: ", form.county?.name))
+    items.add(ReportRow("Payam:", form.payam?.name, "Boma: ", form.boma?.name))
     items.add(ReportRow("Lat:", form.lat.toString(), "Lon: ", form.lon.toString()))
 
     return items

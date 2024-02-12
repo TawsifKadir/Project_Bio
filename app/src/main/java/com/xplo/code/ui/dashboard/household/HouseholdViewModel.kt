@@ -7,11 +7,13 @@ import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.offline.Column
 import com.xplo.code.data.db.offline.OptionItem
 import com.xplo.code.data.db.repo.DbRepo
+import com.xplo.code.data.mapper.FormMapper
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.toJson
 import com.xplo.data.repo.UserRepo
 import com.xplo.data.core.DispatcherProvider
 import com.xplo.data.core.Resource
+import com.xplo.data.repo.ContentRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,6 +25,7 @@ import javax.inject.Inject
 class HouseholdViewModel @Inject constructor(
     private val userRepo: UserRepo,
     private val dbRepo: DbRepo,
+    private val contentRepo: ContentRepo,
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
@@ -43,6 +46,10 @@ class HouseholdViewModel @Inject constructor(
 
         class SaveHouseholdFormSuccess(val id: String) : Event()
         class SaveHouseholdFormFailure(val msg: String?) : Event()
+
+        class SubmitHouseholdFormSuccess(val id: String, val pos: Int) : Event()
+        class SubmitHouseholdFormFailure(val msg: String?) : Event()
+
 
         class UpdateHouseholdFormSuccess(val id: String) : Event()
         class UpdateHouseholdFormFailure(val msg: String?) : Event()
@@ -153,6 +160,31 @@ class HouseholdViewModel @Inject constructor(
 
                 is Resource.Failure -> {
                     _event.value = Event.SaveHouseholdFormFailure(response.callInfo?.msg)
+                }
+
+                else -> {}
+            }
+        }
+    }
+
+    fun submitHouseholdForm(form: HouseholdForm?, pos: Int) {
+        Log.d(TAG, "saveHouseholdForm() called with: form = $form")
+        if (form == null) return
+
+        var item = FormMapper.toFormRqb(form)
+        if (item == null) return
+
+        viewModelScope.launch(dispatchers.io) {
+            _event.value = Event.Loading
+            when (val response = contentRepo.submitForm(item)) {
+
+                is Resource.Success -> {
+
+                    _event.value = Event.SubmitHouseholdFormSuccess(item.applicationId!!, pos)
+                }
+
+                is Resource.Failure -> {
+                    _event.value = Event.SubmitHouseholdFormFailure(response.callInfo?.msg)
                 }
 
                 else -> {}
