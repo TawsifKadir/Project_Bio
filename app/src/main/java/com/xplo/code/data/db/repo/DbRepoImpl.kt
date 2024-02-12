@@ -5,8 +5,8 @@ import com.xplo.code.data.db.dao.PostDao
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.offline.DbCallImpl
 import com.xplo.code.data.db.offline.OptionItem
-import com.xplo.data.utils.CallInfo
-import com.xplo.data.utils.Resource
+import com.xplo.data.core.CallInfo
+import com.xplo.data.core.Resource
 import javax.inject.Inject
 
 /**

@@ -9,10 +9,3 @@ data class ContentItem(
     val id: String? = null
 
 )
-
-data class Form(
-
-    @SerializedName("id")
-    val id: String? = null
-
-)

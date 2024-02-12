@@ -5,12 +5,12 @@ import com.xplo.data.model.user.LoginRqb
 import com.xplo.data.model.user.ProfileInfo
 import com.xplo.data.model.user.ProfileUpdateRqb
 import com.xplo.data.model.user.TokenRsp
-import com.xplo.data.utils.Resource
+import com.xplo.data.core.Resource
 import okhttp3.MediaType
 
 interface UserRepo {
 
-    suspend fun passwordLogin(credentials: LoginRqb): Resource<TokenRsp>
+    suspend fun passwordLogin(body: LoginRqb): Resource<TokenRsp>
 
     suspend fun getProfileData(): Resource<ProfileInfo>
 

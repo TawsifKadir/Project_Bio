@@ -2,7 +2,7 @@ package com.xplo.code.data.db.repo
 
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.offline.OptionItem
-import com.xplo.data.utils.Resource
+import com.xplo.data.core.Resource
 
 /**
  * Copyright 2020 (C) xplo

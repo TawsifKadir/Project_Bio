@@ -1,4 +1,4 @@
-package com.xplo.data.utils
+package com.xplo.data.core
 
 import kotlinx.coroutines.CoroutineDispatcher
 

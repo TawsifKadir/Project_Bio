@@ -18,9 +18,9 @@ object Config {
 //    var IF_DEBUG = true
 
 
-    private var BASE_URL = "https://api.xdb-solutions.com/"
+    private var BASE_URL = "http://5.189.145.248:8090/"
     //var BASE_URL_LEGACY = "https://api.xdb-solutions.com/"
-    private var BASE_URL_STAGE = "http://stageapi.xdbbd.com/"
+    private var BASE_URL_STAGE = "http://5.189.145.248:8090/"
 
     var LOCALE = "bn"
     var PLATFORM_NAME = "universal"

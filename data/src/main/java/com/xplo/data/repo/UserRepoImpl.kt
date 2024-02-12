@@ -1,5 +1,6 @@
 package com.xplo.data.repo
 
+import com.xplo.data.core.CallInfo
 import com.xplo.data.core.Config
 import com.xplo.data.model.user.ImageUploadRsp
 import com.xplo.data.model.user.LoginRqb
@@ -7,9 +8,8 @@ import com.xplo.data.model.user.ProfileInfo
 import com.xplo.data.model.user.ProfileUpdateRqb
 import com.xplo.data.model.user.TokenRsp
 import com.xplo.data.network.api.UserApi
-import com.xplo.data.utils.CallInfo
 import com.xplo.data.utils.FileUtils
-import com.xplo.data.utils.Resource
+import com.xplo.data.core.Resource
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -22,8 +22,21 @@ class UserRepoImpl @Inject constructor(
 
     private val TAG = "UserRepoImpl"
 
-    override suspend fun passwordLogin(credentials: LoginRqb): Resource<TokenRsp> {
-        return Resource.Success(TokenRsp("test-token"), CallInfo(0, null))
+    override suspend fun passwordLogin(body: LoginRqb): Resource<TokenRsp> {
+        //return Resource.Success(TokenRsp("test-token"), CallInfo(0, null))
+
+        return try {
+            val response = api.generateToken(body)
+            val result = response.body()
+            val callInfo = CallInfo(response.code(), response.message())
+            if (response.isSuccessful && result != null) {
+                Resource.Success(result, callInfo)
+            } else {
+                Resource.Failure(callInfo)
+            }
+        } catch (e: Exception) {
+            Resource.Failure(CallInfo(-1, e.message))
+        }
     }
 
     override suspend fun getProfileData(): Resource<ProfileInfo> {

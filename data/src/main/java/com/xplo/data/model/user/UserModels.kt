@@ -16,7 +16,7 @@ data class TokenRsp(
 )
 
 data class LoginRqb(
-    @SerializedName("id")
+    @SerializedName("userName")
     var id: String? = null,
     @SerializedName("password")
     var password: String? = null,

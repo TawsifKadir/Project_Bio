@@ -11,7 +11,9 @@ import retrofit2.http.*
 
 interface UserApi {
 
-    @POST("/auth/api/login_check")
+    //http://5.189.145.248:8090/afis/api/register
+
+    @POST("/afis/api/auth/login")
     suspend fun generateToken(@Body body: LoginRqb): Response<TokenRsp>
 
     @GET("/auth/api/{language}/profile/me")

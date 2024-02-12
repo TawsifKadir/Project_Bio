@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.xplo.code.base.BaseActivity
 import com.xplo.code.core.Bk
+import com.xplo.code.core.TestConfig
 import com.xplo.code.data.Constants
 import com.xplo.code.databinding.ActivityLoginBinding
 import com.xplo.code.ui.login.model.LoginCredentials
@@ -106,18 +107,8 @@ class LoginActivity : BaseActivity(), LoginContract.View {
             }
         }
 
+        taskDev()
 
-        if (isDebugBuild()) {
-            binding.etUserId.setText(Constants.TEST_USER_ID)
-            binding.etPassword.setText(Constants.TEST_PASSWORD)
-        }
-
-        if (isDebugBuild()) {
-            binding.ivBannar.setOnLongClickListener {
-                openActivity(LabActivity::class.java, null)
-                return@setOnLongClickListener true
-            }
-        }
 
     }
 
@@ -164,6 +155,21 @@ class LoginActivity : BaseActivity(), LoginContract.View {
             TAG,
             "onActivityResult() called with: requestCode = $requestCode, resultCode = $resultCode, data = $data"
         )
+
+    }
+
+    private fun taskDev() {
+        if (!isDebugBuild()) return
+
+        if (TestConfig.isTestLoginEnabled) {
+            binding.etUserId.setText(Constants.TEST_USER_ID)
+            binding.etPassword.setText(Constants.TEST_PASSWORD)
+        }
+
+        binding.ivBannar.setOnLongClickListener {
+            openActivity(LabActivity::class.java, null)
+            return@setOnLongClickListener true
+        }
 
     }
 }

@@ -9,4 +9,4 @@ package com.xplo.data.core
  * Desc     :
  * Comment  :
  */
-data class CallInfo(val code: Int, val msg: String)
+data class CallInfo(val code: Int, val msg: String?)

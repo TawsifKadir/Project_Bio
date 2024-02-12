@@ -12,7 +12,7 @@ import com.xplo.data.repo.ContentRepo
 import com.xplo.data.repo.ContentRepoImpl
 import com.xplo.data.repo.UserRepo
 import com.xplo.data.repo.UserRepoImpl
-import com.xplo.data.utils.DispatcherProvider
+import com.xplo.data.core.DispatcherProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

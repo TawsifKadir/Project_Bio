@@ -16,7 +16,10 @@ object Constants {
     val THEME_PINK = "Pink"
     val THEME_GREEN = "Green"
 
-    val TEST_USER_ID = "admin"
-    val TEST_PASSWORD = "admin"
+//    val TEST_USER_ID = "admin"
+//    val TEST_PASSWORD = "admin"
+
+    val TEST_USER_ID = "user1"
+    val TEST_PASSWORD = "Abc@1234."
 
 }
