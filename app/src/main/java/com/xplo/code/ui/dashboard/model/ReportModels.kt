@@ -42,7 +42,7 @@ fun HhForm2?.getReportRows(): List<ReportRow> {
     val form = this
 
     items.add(ReportRow("Name:", form.getFullName(), "Gender: ", form.gender))
-    items.add(ReportRow("Age:", form.age,"Phone: ", form.phoneNumber))
+    items.add(ReportRow("Age:", form.age.toString(),"Phone: ", form.phoneNumber))
     items.add(ReportRow("Id No:", form.idNumber, "Id Type: ", form.idNumberType))
     items.add(ReportRow("Phone Number", form.phoneNumber, "Marital Status", form.maritalStatus))
     items.add(ReportRow("Spouse Name", form.getSpouseFullName(), null, null))
@@ -221,7 +221,7 @@ fun AlForm1?.getReportRows(): List<ReportRow> {
     val form = this
 
     items.add(ReportRow("Name:", form.getFullName(), null, null))
-    items.add(ReportRow("Age:", form.age, "Gender: ", form.gender))
+    items.add(ReportRow("Age:", form.age.toString(), "Gender: ", form.gender))
     items.add(ReportRow("Id:", form.idNumber, "Id Number Type: ", form.idNumberType))
     items.add(ReportRow("Phone Number:", form.phoneNumber, "Gender: ", form.gender))
     items.add(ReportRow("Select Alternate Relation:", form.selectAlternateRlt))

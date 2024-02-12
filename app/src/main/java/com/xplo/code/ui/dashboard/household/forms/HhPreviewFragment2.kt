@@ -119,7 +119,7 @@ class HhPreviewFragment2 : BaseFragment(), HouseholdContract.PreviewView {
         if (form == null) return txt.toString()
 
         txt.append(getFormattedText("Name:", form.getFullName(), "Gender: ", form.gender))
-            .append("\n" + getFormattedText("Gender:", form.gender, "Age: ", form.age))
+            .append("\n" + getFormattedText("Gender:", form.gender, "Age: ", form.age.toString()))
 
         return txt.toString()
 

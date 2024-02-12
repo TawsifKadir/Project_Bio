@@ -199,7 +199,7 @@ fun AlForm1.isOk(): Boolean {
     if (this.householdName.isNullOrBlank()) return false
     if (this.alternateFirstName.isNullOrBlank()) return false
     if (this.alternateLastName.isNullOrBlank()) return false
-    if (this.age.isNullOrBlank()) return false
+    if (this.age == null) return false
     if (this.phoneNumber.isNullOrBlank()) return false
     if (this.selectAlternateRlt == null) return false
     if (this.gender == null) return false

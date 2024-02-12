@@ -270,7 +270,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
         val form = AlForm1()
 
-        form.age = chkEditText(etAge, UiData.ER_ET_DF)
+        form.age = chkEditText(etAge, UiData.ER_ET_DF)?.toInt() ?: 0
         form.idNumber = chkEditText(etIdNumber, UiData.ER_ET_DF)
         form.phoneNumber = chkEditText(etPhoneNo, UiData.ER_ET_DF)
         form.selectAlternateRlt = chkSpinner(spAlternateRelation, UiData.ER_SP_DF)
