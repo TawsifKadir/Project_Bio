@@ -61,7 +61,7 @@ object DataModule {
     @Provides
     fun provideOkhttpProfilerInterceptor() = OkHttpProfilerInterceptor()
 
-//    @Provides
+    //    @Provides
 //    fun provideNetworkFlipperPlugin() = NetworkFlipperPlugin()
 //
 //    @Provides
@@ -70,15 +70,18 @@ object DataModule {
 //
 //
     @Provides
-    fun provideChuckerCollector(context: Context): ChuckerCollector {
+    fun provideChuckerCollector(context: Context?): ChuckerCollector? {
+        if (context == null) return null
         return ChuckerCollector(context, showNotification = true)
     }
 
     @Provides
     fun provideChuckerInterceptor(
-        context: Context,
-        collector: ChuckerCollector
-    ): ChuckerInterceptor {
+        context: Context?,
+        collector: ChuckerCollector?
+    ): ChuckerInterceptor? {
+        if (context == null) return null
+        if (collector == null) return null
         return ChuckerInterceptor.Builder(context)
             .collector(collector)
             // Controls Android shortcut creation.
@@ -87,7 +90,9 @@ object DataModule {
     }
 
     @Provides
-    fun provideContext() = Contextor.context
+    fun provideContext(): Context? {
+        return Contextor.context
+    }
 
 
     @Provides
@@ -101,17 +106,32 @@ object DataModule {
         okHttpProfilerInterceptor: OkHttpProfilerInterceptor,
         headerInterceptor: HeaderInterceptor,
         //flipperInterceptor: FlipperOkhttpInterceptor,
-        chuckerInterceptor: ChuckerInterceptor
+        chuckerInterceptor: ChuckerInterceptor?
     ): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .addInterceptor(headerInterceptor)
-            .addInterceptor(curlInterceptor)
-            //.addInterceptor(flipperInterceptor)
-            .addInterceptor(chuckerInterceptor)
-            .callTimeout(25, TimeUnit.SECONDS)
-            .addInterceptor(okHttpProfilerInterceptor)
-            .build()
+
+        val builder = OkHttpClient.Builder()
+
+        builder.addInterceptor(loggingInterceptor)
+        builder.addInterceptor(headerInterceptor)
+        builder.addInterceptor(curlInterceptor)
+        //builder.addInterceptor(flipperInterceptor)
+        if (chuckerInterceptor != null) {
+            builder.addInterceptor(chuckerInterceptor)
+        }
+        builder.callTimeout(25, TimeUnit.SECONDS)
+        builder.addInterceptor(okHttpProfilerInterceptor)
+
+        return builder.build()
+
+//        return OkHttpClient.Builder()
+//            .addInterceptor(loggingInterceptor)
+//            .addInterceptor(headerInterceptor)
+//            .addInterceptor(curlInterceptor)
+//            //.addInterceptor(flipperInterceptor)
+//            //.addInterceptor(chuckerInterceptor)
+//            .callTimeout(25, TimeUnit.SECONDS)
+//            .addInterceptor(okHttpProfilerInterceptor)
+//            .build()
     }
 
 

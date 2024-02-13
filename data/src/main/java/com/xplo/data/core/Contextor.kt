@@ -3,5 +3,5 @@ package com.xplo.data.core
 import android.content.Context
 
 object Contextor {
-    lateinit var context: Context
+    var context: Context? = null
 }
