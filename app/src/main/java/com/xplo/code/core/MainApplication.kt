@@ -1,14 +1,15 @@
 package com.xplo.code.core
 
 import android.app.Application
-//import com.facebook.flipper.android.AndroidFlipperClient
-//import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
-//import com.facebook.soloader.SoLoader
+import com.facebook.flipper.android.AndroidFlipperClient
+import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
+import com.facebook.soloader.SoLoader
 import com.facebook.stetho.Stetho
 import com.xplo.code.data.RMemory
 import com.xplo.code.data.pref.PrefHelperImpl
 import com.xplo.code.utils.Utils
 import com.xplo.data.core.Config
+import com.xplo.data.core.LRMemory
 import dagger.hilt.android.HiltAndroidApp
 
 /**
@@ -54,12 +55,14 @@ class MainApplication : Application() {
 
         Stetho.initializeWithDefaults(this)
 
-//        // flipper
-//        SoLoader.init(this, SoLoader.SOLOADER_ALLOW_ASYNC_INIT)
-//        AndroidFlipperClient.getInstance(this).apply {
-//            addPlugin(NetworkFlipperPlugin())
-//            start()
-//        }
+        // flipper
+        val flipperPlugin = NetworkFlipperPlugin()
+        LRMemory.flipperPlugin = flipperPlugin
+        SoLoader.init(this, SoLoader.SOLOADER_ALLOW_ASYNC_INIT)
+        AndroidFlipperClient.getInstance(this).apply {
+            addPlugin(flipperPlugin)
+            start()
+        }
 
 
     }

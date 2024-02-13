@@ -118,7 +118,9 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
     //testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0'
+    //implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0'
+    runtimeOnly 'org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.2'
+
 
 
     // androidx basic
@@ -185,11 +187,11 @@ dependencies {
     implementation 'com.facebook.stetho:stetho-okhttp3:1.6.0'
     implementation 'com.localebro:okhttpprofiler:1.0.8'
 
-//    def flipper_version = "0.243.0"
-//    debugImplementation "com.facebook.flipper:flipper:$flipper_version"
-//    debugImplementation "com.facebook.soloader:soloader:0.10.5"
-//    debugImplementation "com.facebook.flipper:flipper-network-plugin:$flipper_version"
-//    releaseImplementation "com.facebook.flipper:flipper-noop:$flipper_version"
+    def flipper_version = "0.243.0"
+    debugImplementation "com.facebook.flipper:flipper:$flipper_version"
+    debugImplementation "com.facebook.soloader:soloader:0.10.5"
+    debugImplementation "com.facebook.flipper:flipper-network-plugin:$flipper_version"
+    releaseImplementation "com.facebook.flipper:flipper-noop:$flipper_version"
 
     debugImplementation "com.github.chuckerteam.chucker:library:4.0.0"
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:4.0.0"
