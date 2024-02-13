@@ -9,6 +9,7 @@ import com.xplo.code.data.RMemory
 import com.xplo.code.data.pref.PrefHelperImpl
 import com.xplo.code.utils.Utils
 import com.xplo.data.core.Config
+import com.xplo.data.core.InterceptorUtils
 import com.xplo.data.core.LRMemory
 import dagger.hilt.android.HiltAndroidApp
 
@@ -53,16 +54,18 @@ class MainApplication : Application() {
 
     private fun initInterceptor() {
 
-        Stetho.initializeWithDefaults(this)
+//        Stetho.initializeWithDefaults(this)
+//
+//        // flipper
+//        val flipperPlugin = NetworkFlipperPlugin()
+//        InterceptorUtils.flipperPlugin = flipperPlugin
+//        SoLoader.init(this, SoLoader.SOLOADER_ALLOW_ASYNC_INIT)
+//        AndroidFlipperClient.getInstance(this).apply {
+//            addPlugin(flipperPlugin)
+//            start()
+//        }
 
-        // flipper
-        val flipperPlugin = NetworkFlipperPlugin()
-        LRMemory.flipperPlugin = flipperPlugin
-        SoLoader.init(this, SoLoader.SOLOADER_ALLOW_ASYNC_INIT)
-        AndroidFlipperClient.getInstance(this).apply {
-            addPlugin(flipperPlugin)
-            start()
-        }
+        InterceptorUtils.init(this)
 
 
     }

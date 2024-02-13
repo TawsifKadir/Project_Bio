@@ -11,6 +11,7 @@ import com.google.gson.Gson
 import com.localebro.okhttpprofiler.OkHttpProfilerInterceptor
 import com.xplo.data.core.Config
 import com.xplo.data.core.Contextor
+import com.xplo.data.core.InterceptorUtils
 import com.xplo.data.core.LRMemory
 import com.xplo.data.network.api.ContentApi
 import com.xplo.data.network.api.UserApi
@@ -65,7 +66,7 @@ object DataModule {
 
     @Provides
     fun provideNetworkFlipperPlugin(): NetworkFlipperPlugin? {
-        return LRMemory.flipperPlugin
+        return InterceptorUtils.flipperPlugin
     }
 
     @Provides
