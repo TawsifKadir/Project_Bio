@@ -85,9 +85,9 @@ dependencies {
 //    debugImplementation "com.facebook.soloader:soloader:0.10.5"
 //    debugImplementation "com.facebook.flipper:flipper-network-plugin:$flipper_version"
 //    releaseImplementation "com.facebook.flipper:flipper-noop:$flipper_version"
-//
-//    debugImplementation "com.github.chuckerteam.chucker:library:4.0.0"
-//    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:4.0.0"
+
+    debugImplementation "com.github.chuckerteam.chucker:library:4.0.0"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:4.0.0"
 
 
 

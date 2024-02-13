@@ -2,8 +2,8 @@ package com.xplo.data.di
 
 import android.content.Context
 import android.util.Log
-//import com.chuckerteam.chucker.api.ChuckerCollector
-//import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 //import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 //import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.google.gson.Gson
@@ -69,24 +69,25 @@ object DataModule {
 //        FlipperOkhttpInterceptor(plugin)
 //
 //
-//    @Provides
-//    fun provideChuckerCollector(context: Context): ChuckerCollector {
-//        return ChuckerCollector(context, showNotification = true)
-//    }
-//
-//    @Provides
-//    fun provideChuckerInterceptor(
-//        context: Context,
-//        collector: ChuckerCollector
-//    ): ChuckerInterceptor {
-//        return ChuckerInterceptor.Builder(context)
-//            .collector(collector)
-//            // Controls Android shortcut creation.
-//            .createShortcut(true)
-//            .build()
-//    }
-//
-//    fun provideContext() = Contextor.context
+    @Provides
+    fun provideChuckerCollector(context: Context): ChuckerCollector {
+        return ChuckerCollector(context, showNotification = true)
+    }
+
+    @Provides
+    fun provideChuckerInterceptor(
+        context: Context,
+        collector: ChuckerCollector
+    ): ChuckerInterceptor {
+        return ChuckerInterceptor.Builder(context)
+            .collector(collector)
+            // Controls Android shortcut creation.
+            .createShortcut(true)
+            .build()
+    }
+
+    @Provides
+    fun provideContext() = Contextor.context
 
 
     @Provides
@@ -98,16 +99,16 @@ object DataModule {
         loggingInterceptor: HttpLoggingInterceptor,
         curlInterceptor: CurlInterceptor,
         okHttpProfilerInterceptor: OkHttpProfilerInterceptor,
-        headerInterceptor: HeaderInterceptor
+        headerInterceptor: HeaderInterceptor,
         //flipperInterceptor: FlipperOkhttpInterceptor,
-        //chuckerInterceptor: ChuckerInterceptor
+        chuckerInterceptor: ChuckerInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor(headerInterceptor)
             .addInterceptor(curlInterceptor)
             //.addInterceptor(flipperInterceptor)
-            //.addInterceptor(chuckerInterceptor)
+            .addInterceptor(chuckerInterceptor)
             .callTimeout(25, TimeUnit.SECONDS)
             .addInterceptor(okHttpProfilerInterceptor)
             .build()
