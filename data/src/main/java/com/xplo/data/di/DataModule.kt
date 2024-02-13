@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.chuckerteam.chucker.api.RetentionManager
 //import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 //import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.google.gson.Gson
@@ -72,7 +73,11 @@ object DataModule {
     @Provides
     fun provideChuckerCollector(context: Context?): ChuckerCollector? {
         if (context == null) return null
-        return ChuckerCollector(context, showNotification = true)
+        return ChuckerCollector(
+            context = context,
+            showNotification = true,
+            retentionPeriod = RetentionManager.Period.ONE_HOUR
+        )
     }
 
     @Provides
@@ -84,7 +89,9 @@ object DataModule {
         if (collector == null) return null
         return ChuckerInterceptor.Builder(context)
             .collector(collector)
-            // Controls Android shortcut creation.
+            // List of headers to replace with ** in the Chucker UI
+            .redactHeaders("Authorization", "Auth-Token", "Bearer")
+            .alwaysReadResponseBody(true)
             .createShortcut(true)
             .build()
     }
