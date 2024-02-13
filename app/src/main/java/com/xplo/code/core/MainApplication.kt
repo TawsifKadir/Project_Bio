@@ -1,6 +1,9 @@
 package com.xplo.code.core
 
 import android.app.Application
+//import com.facebook.flipper.android.AndroidFlipperClient
+//import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
+//import com.facebook.soloader.SoLoader
 import com.facebook.stetho.Stetho
 import com.xplo.code.data.RMemory
 import com.xplo.code.data.pref.PrefHelperImpl
@@ -26,13 +29,17 @@ class MainApplication : Application() {
         //com.xlib.limeutils.core.Contextor.getInstance().init(applicationContext)
 
         //FirebaseApp.initializeApp(this)
-        Stetho.initializeWithDefaults(this)
+
 
         initDataModule()
 
+        initInterceptor()
+
     }
 
+
     private fun initDataModule() {
+        com.xplo.data.core.Contextor.context = this
 
         //setting config for data module
         Config.PLATFORM_ID = "abfea462-f64d-491e-9cd9-75ee001f45b0"
@@ -42,5 +49,19 @@ class MainApplication : Application() {
         //Config.BASE_URL = BuildConfig.BASE_URL
     }
 
+
+    private fun initInterceptor() {
+
+        Stetho.initializeWithDefaults(this)
+
+//        // flipper
+//        SoLoader.init(this, SoLoader.SOLOADER_ALLOW_ASYNC_INIT)
+//        AndroidFlipperClient.getInstance(this).apply {
+//            addPlugin(NetworkFlipperPlugin())
+//            start()
+//        }
+
+
+    }
 
 }

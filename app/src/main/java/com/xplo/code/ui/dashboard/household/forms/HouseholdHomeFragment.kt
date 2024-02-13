@@ -232,9 +232,9 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
     override fun onClickHouseholdItemSend(item: HouseholdItem, pos: Int) {
         Log.d(TAG, "onClickHouseholdItemSend() called with: item = $item, pos = $pos")
-        showToast("Feature not implemented yet")
+        //showToast("Feature not implemented yet")
 
-        //viewModel.submitHouseholdForm(item.toHouseholdForm(), pos)
+        viewModel.submitHouseholdForm(item.toHouseholdForm(), pos)
     }
 
     override fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int) {
