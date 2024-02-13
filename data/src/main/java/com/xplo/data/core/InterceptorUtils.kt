@@ -20,6 +20,12 @@ object InterceptorUtils {
 
     //var context: Context? = null
 
+    val isStethoEnabled = true
+    val isFlipperEnabled = true
+    //val isOkHttpProfilerEnabled = true
+    val isChuckerEnabled = true
+
+
     var flipperPlugin: NetworkFlipperPlugin? = null
 
     fun init(context: Context) {
@@ -29,10 +35,12 @@ object InterceptorUtils {
     }
 
     fun initStetho(context: Context) {
+        if (!isStethoEnabled) return
         Stetho.initializeWithDefaults(context)
     }
 
     fun initFlipper(context: Context) {
+        if (!isFlipperEnabled) return
         val flipperPlugin = NetworkFlipperPlugin()
         this.flipperPlugin = flipperPlugin
         SoLoader.init(context, SoLoader.SOLOADER_ALLOW_ASYNC_INIT)

@@ -12,7 +12,6 @@ import com.localebro.okhttpprofiler.OkHttpProfilerInterceptor
 import com.xplo.data.core.Config
 import com.xplo.data.core.Contextor
 import com.xplo.data.core.InterceptorUtils
-import com.xplo.data.core.LRMemory
 import com.xplo.data.network.api.ContentApi
 import com.xplo.data.network.api.UserApi
 import com.xplo.data.network.interceptor.CurlInterceptor
@@ -127,10 +126,10 @@ object DataModule {
         builder.addInterceptor(loggingInterceptor)
         builder.addInterceptor(headerInterceptor)
         builder.addInterceptor(curlInterceptor)
-        if (flipperInterceptor != null){
+        if (flipperInterceptor != null && InterceptorUtils.isFlipperEnabled) {
             builder.addInterceptor(flipperInterceptor)
         }
-        if (chuckerInterceptor != null) {
+        if (chuckerInterceptor != null && InterceptorUtils.isChuckerEnabled) {
             builder.addInterceptor(chuckerInterceptor)
         }
         builder.callTimeout(25, TimeUnit.SECONDS)

@@ -1,16 +1,11 @@
 package com.xplo.code.core
 
 import android.app.Application
-import com.facebook.flipper.android.AndroidFlipperClient
-import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
-import com.facebook.soloader.SoLoader
-import com.facebook.stetho.Stetho
 import com.xplo.code.data.RMemory
 import com.xplo.code.data.pref.PrefHelperImpl
 import com.xplo.code.utils.Utils
 import com.xplo.data.core.Config
 import com.xplo.data.core.InterceptorUtils
-import com.xplo.data.core.LRMemory
 import dagger.hilt.android.HiltAndroidApp
 
 /**
