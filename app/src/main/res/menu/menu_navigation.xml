@@ -28,6 +28,7 @@
 
 
         <item
+            android:visible="false"
             android:id="@+id/mContentList"
             android:icon="@drawable/ic_baseline_format_list_bulleted_24"
             android:title="Contents" />
