@@ -282,6 +282,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
                 .listener(this)
                 .parent(null)
                 .no(getNomineeNo())
+                .gender(null)
                 .build()
                 .show()
 

@@ -20,6 +20,7 @@ import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.Nominee
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.data.BuildConfig
+import com.xplo.data.core.ext.toBool
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -40,13 +41,15 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         @JvmStatic
         fun newInstance(
             parent: String?,
-            no: Int
+            no: Int,
+            gender: String?
         ): NomineeInputFragment {
-            Log.d(TAG, "newInstance() called with: parent = $parent")
+            Log.d(TAG, "newInstance() called with: parent = $parent, no = $no, gender = $gender")
             val fragment = NomineeInputFragment()
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
             bundle.putInt(Bk.KEY_NO, no)
+            bundle.putString(Bk.KEY_GENDER, gender)
             fragment.arguments = bundle
             return fragment
         }
@@ -71,6 +74,7 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
     private lateinit var rbReadWriteNo: RadioButton
 
     private var nomineeNo = 0
+    private var gender: String? = null
 
 
     override fun onAttach(context: Context) {
@@ -104,6 +108,7 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
 
         arguments?.let {
             nomineeNo = it.getInt(Bk.KEY_NO)
+            gender = it.getString(Bk.KEY_GENDER)
         }
 
         etFirstName = binding.include.etFirstName
@@ -126,6 +131,8 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         bindSpinnerData(spGender, UiData.genderOptions)
         bindSpinnerData(spOccupation, UiData.nomineeOccupation)
 
+
+
     }
 
     override fun initObserver() {
@@ -135,6 +142,11 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
 
         onLongClickDataGeneration()
         onGenerateDummyInput()
+
+        if (gender?.isNotBlank().toBool()) {
+            setSpinnerItem(spGender, UiData.genderOptions, gender)
+            spGender.isEnabled = false
+        }
     }
 
     override fun onResume() {
