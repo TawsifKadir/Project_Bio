@@ -30,19 +30,18 @@
         android:theme="@style/AppTheme.Light"
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,LockedOrientationActivity"
-        tools:replace="android:theme"
-        >
+        tools:replace="android:theme">
 
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".ui.photo.ImagePickerActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".ui.splash.SplashActivity"
             android:exported="true"
             android:screenOrientation="landscape"
-            android:theme="@style/SplashActivityTheme.Light">
+            android:theme="@style/SplashActivityTheme.Light"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -79,77 +78,77 @@
         <!--        </activity>-->
 
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".ui.main_act.MainActivity"
             android:configChanges="locale"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".ui.login.LoginActivity"
             android:configChanges="locale"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".ui.user_profile.ProfileActivity"
             android:configChanges="locale"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".ui.favorite.FavoriteActivity"
             android:configChanges="locale"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".ui.settings.SettingsActivity"
             android:configChanges="locale"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".ui.dashboard.household.HouseholdActivity"
             android:configChanges="locale"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".ui.dashboard.alternate.AlternateActivity"
             android:configChanges="locale"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".ui.dashboard.report.ReportActivity"
             android:configChanges="locale"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".ui.dashboard.payment.PaymentActivity"
             android:configChanges="locale"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".ui.testing_lab.LabActivity"
             android:configChanges="locale"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".ui.testing_lab.JvActivity"
             android:configChanges="locale"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
 
 
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name="com.yalantis.ucrop.UCropActivity"
             android:configChanges="locale"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
         <!-- cache directory file provider paths -->
         <provider
             android:name="androidx.core.content.FileProvider"
