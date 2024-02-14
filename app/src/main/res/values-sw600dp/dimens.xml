@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="text_size_normal">20sp</dimen>
-    <dimen name="text_size_list_title">22sp</dimen>
+    <dimen name="text_size_normal">18sp</dimen>
+    <dimen name="text_size_list_title">20sp</dimen>
     <dimen name="text_size_input_header">16sp</dimen>
     <dimen name="text_size_report_header">18sp</dimen>
+    <dimen name="text_size_report_body">14sp</dimen>
     <dimen name="text_size_table_header">12sp</dimen>
 
     <dimen name="grid_cell_size">220dp</dimen>
@@ -24,8 +25,8 @@
     <dimen name="finger_margin">16dp</dimen>
 
     <dimen name="list_avatar_size">90dp</dimen>
-    <dimen name="consent_body_max_height">300dp</dimen>
-    <dimen name="dialog_min_width">700dp</dimen>
+    <dimen name="consent_body_max_height">500dp</dimen>
+    <dimen name="dialog_min_width">600dp</dimen>
 
 
 </resources>

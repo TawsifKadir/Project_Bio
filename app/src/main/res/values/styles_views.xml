@@ -266,7 +266,7 @@
 
     <style name="AlertTextAppr">
         <item name="android:textColor">?attr/colorOnBrand</item>
-        <item name="android:textSize">@dimen/alerter_text_small</item>
+<!--        <item name="android:textSize">@dimen/alerter_text_small</item>-->
     </style>
 
     <style name="AlertTextAppr.Text" parent="AlertTextAppr">
@@ -274,7 +274,7 @@
     </style>
 
     <style name="AlertTextAppr.Title" parent="AlertTextAppr">
-        <item name="android:textSize">@dimen/alerter_text_medium</item>
+<!--        <item name="android:textSize">@dimen/alerter_text_medium</item>-->
         <item name="android:textStyle">bold</item>
     </style>
 

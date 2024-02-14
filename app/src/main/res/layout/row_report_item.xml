@@ -20,19 +20,15 @@
 
             <TextView
                 android:id="@+id/tvTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/AppTextView.Report.Body"
                 android:layout_weight="2"
-                android:padding="8dp"
                 android:textStyle="bold"
                 tools:text="title" />
 
             <TextView
                 android:id="@+id/tvValue"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/AppTextView.Report.Body"
                 android:layout_weight="1"
-                android:padding="8dp"
                 tools:text="value" />
 
 
@@ -47,19 +43,15 @@
 
             <TextView
                 android:id="@+id/tvTitle2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/AppTextView.Report.Body"
                 android:layout_weight="2"
-                android:padding="8dp"
                 android:textStyle="bold"
                 tools:text="title" />
 
             <TextView
                 android:id="@+id/tvValue2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/AppTextView.Report.Body"
                 android:layout_weight="1"
-                android:padding="8dp"
                 tools:text="value" />
 
 
