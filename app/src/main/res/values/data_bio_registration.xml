@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
+    <string name="first_name">First Name</string>
+    <string name="middle_name">Middle Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="age">Age</string>
+    <string name="gender">Gender</string>
+    <string name="relationship">Relationship</string>
+    <string name="occupation">Occupation</string>
+
     <string name="respondent_first_name_min_3_letters">Respondent First Name</string>
     <string name="respondent_middle_name_min_3_letters">Respondent Middle Name</string>
     <string name="respondent_last_name_min_3_letters">Respondent Last Name</string>
@@ -265,6 +273,7 @@
     <string name="nominee_middle_name">Nominee Middle Name</string>
     <string name="nominee_last_name_min_3_letters">Nominee Last Nam</string>
     <string name="respondent_relationship_to_the_household_head">Respondent Relationship to the household head</string>
+    <string name="nominee_relationship_to_the_household_head">Relationship to the household head</string>
     <string name="nominee_age">Nominee Age</string>
     <string name="nominee_gender">Nominee Gender</string>
     <string name="can_read_and_write">Can read and write ?</string>

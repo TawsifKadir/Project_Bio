@@ -17,7 +17,7 @@
 
             <TextView
                 style="@style/AppTextView.Input.Header"
-                android:text="@string/nominee_first_name_min_3_letters" />
+                android:text="@string/first_name" />
 
             <EditText
                 android:id="@+id/etFirstName"
@@ -33,7 +33,7 @@
 
             <TextView
                 style="@style/AppTextView.Input.Header"
-                android:text="@string/nominee_middle_name" />
+                android:text="@string/middle_name" />
 
             <EditText
                 android:id="@+id/etMiddleName"
@@ -50,7 +50,7 @@
 
             <TextView
                 style="@style/AppTextView.Input.Header"
-                android:text="@string/nominee_last_name_min_3_letters" />
+                android:text="@string/last_name" />
 
             <EditText
                 android:id="@+id/etLastName"
@@ -73,7 +73,7 @@
 
             <TextView
                 style="@style/AppTextView.Input.Header"
-                android:text="@string/respondent_relationship_to_the_household_head" />
+                android:text="@string/nominee_relationship_to_the_household_head" />
 
 
             <Spinner
@@ -96,7 +96,7 @@
 
             <TextView
                 style="@style/AppTextView.Input.Header"
-                android:text="@string/nominee_age" />
+                android:text="@string/age" />
 
 
             <EditText
@@ -115,7 +115,7 @@
 
             <TextView
                 style="@style/AppTextView.Input.Header"
-                android:text="@string/nominee_gender" />
+                android:text="@string/gender" />
 
 
             <Spinner

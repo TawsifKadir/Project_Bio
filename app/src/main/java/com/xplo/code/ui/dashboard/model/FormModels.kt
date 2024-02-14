@@ -171,6 +171,22 @@ fun Nominee?.toSummary(): String? {
     var sb = StringBuilder()
         .append("Name: " + this.getFullName())
         .append("\nRelation: " + this.relation)
+//        .append("\nAge: " + this.age)
+        .append("\nGender: " + this.gender)
+//        .append("\nOccupation: " + this.occupation)
+//        .append("\nCan read write: " + this.isReadWrite)
+
+
+    var txt = sb.toString()
+    return txt
+}
+
+fun Nominee?.toDetails(): String? {
+    if (this == null) return null
+
+    var sb = StringBuilder()
+        .append("Name: " + this.getFullName())
+        .append("\nRelation: " + this.relation)
         .append("\nAge: " + this.age)
         .append("\nGender: " + this.gender)
         .append("\nOccupation: " + this.occupation)

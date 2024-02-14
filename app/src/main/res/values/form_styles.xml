@@ -121,7 +121,7 @@
     </style>
 
     <style name="AppEditText.Form.Text.Min3" parent="AppEditText.Form.Text">
-        <item name="android:hint">Minimum 3 char</item>
+        <item name="android:hint">Min 3 char</item>
     </style>
 
     <style name="AppEditText.Form.Number" parent="AppEditText.Form">
