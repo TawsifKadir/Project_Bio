@@ -115,7 +115,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         adapter?.setOnItemClickListener(this)
         binding.recyclerView.adapter = adapter
 
-        viewModel.getHouseholdItems()
+        //viewModel.getHouseholdItems()
 
 
     }
@@ -170,6 +170,8 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         setToolbarTitle("Household")
 
         interactor?.resetRootForm()
+
+        viewModel.getHouseholdItems()
 
     }
 
@@ -240,7 +242,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
     override fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int) {
         Log.d(TAG, "onClickHouseholdItemAddAlternate() called with: item = $item, pos = $pos")
-
+        navigateToAlternate(item.uuid)
     }
 
 
