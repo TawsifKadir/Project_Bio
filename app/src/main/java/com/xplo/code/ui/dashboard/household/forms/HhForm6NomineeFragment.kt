@@ -222,8 +222,13 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
     override fun onChangeRGNomineeAdd(id: Int) {
         Log.d(TAG, "onChangeRGNomineeAdd() called with: id = $id")
         when (id) {
-            R.id.rbYes -> onEnableDisableNominee(true)
-            R.id.rbNo -> onEnableDisableNominee(false)
+            R.id.rbYes -> {
+                onEnableDisableNominee(true)
+                onClickAddNominee()
+            }
+            R.id.rbNo -> {
+                onEnableDisableNominee(false)
+            }
         }
     }
 
@@ -262,6 +267,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
         if (nominee == null) return
 
         adapter?.addItem(nominee)
+        onRefreshViewWhenListUpdated()
 
     }
 
@@ -288,7 +294,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
     override fun onSelectNoNomineeItems(item: String?) {
         Log.d(TAG, "onSelectNoNomineeItems() called with: item = $item")
         if (item.isNullOrEmpty()) return
-        llParentOtherReason.invisible()
+        llParentOtherReason.gone()
         if (isOtherSpecify(item)) {
             llParentOtherReason.visible()
         }

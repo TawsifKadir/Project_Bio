@@ -38,7 +38,7 @@
             android:id="@+id/llParentOtherReason"
             style="@style/AppLinearLayoutInputBox"
             android:layout_weight="1"
-            android:visibility="invisible"
+            android:visibility="gone"
             tools:visibility="visible">
 
             <TextView
