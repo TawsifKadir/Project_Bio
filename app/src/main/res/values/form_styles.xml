@@ -208,7 +208,7 @@
     <style name="AppRadioButton.Form" parent="android:Widget.CompoundButton.RadioButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:layout_marginStart">4dp</item>
         <item name="android:layout_marginEnd">8dp</item>
         <item name="android:layout_marginTop">0dp</item>
         <item name="android:layout_gravity">center_vertical</item>
@@ -231,10 +231,10 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">0dp</item>
-        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginTop">4dp</item>
         <item name="android:background">@drawable/bg_round_box</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:padding">8dp</item>
+        <item name="android:padding">4dp</item>
     </style>
 
     <style name="AppLinearLayoutReportBox" parent="AppLinearLayoutInputBox">

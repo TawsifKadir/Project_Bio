@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,7 +67,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
 
     private var adapter: NomineeListAdapter? = null
 
-    private lateinit var layoutList: LinearLayout
+    //private lateinit var layoutList: LinearLayout
 
 
     override fun onAttach(context: Context) {
@@ -99,7 +98,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
 
     override fun initInitial() {
 
-        layoutList = binding.viewNominee
+
     }
 
     override fun initView() {
@@ -181,7 +180,6 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
 
             binding.rgNomineeAdd.check(binding.rbYes.id)
             onEnableDisableNominee(true)
-            //addAllNomineeViews(form.nominees)
             adapter?.addAll(form.nominees)
 
         } else {
@@ -201,15 +199,11 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
         Log.d(TAG, "onEnableDisableNominee() called with: isNomineeAdd = $isNomineeAdd")
 
         if (isNomineeAdd) {
-            binding.recyclerView.visible()
-            binding.btAdd.visible()
-            binding.tvNomineeHint.visible()
-            binding.viewReasonNoNominee.gone()
+            binding.viewNomineeAdd.visible()
+            binding.viewNomineeNotAdd.gone()
         } else {
-            binding.recyclerView.gone()
-            binding.btAdd.gone()
-            binding.tvNomineeHint.gone()
-            binding.viewReasonNoNominee.visible()
+            binding.viewNomineeAdd.gone()
+            binding.viewNomineeNotAdd.visible()
         }
     }
 
