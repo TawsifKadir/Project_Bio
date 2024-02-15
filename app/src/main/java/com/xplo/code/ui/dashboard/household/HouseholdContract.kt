@@ -140,8 +140,12 @@ interface HouseholdContract {
 
         fun onChangeRGNomineeAdd(id: Int)
 
+        fun onChooseNomineeAdd(gender: String?)
+        fun onChooseNomineeNotAdd()
+
         fun onEnableDisableNominee(isNomineeAdd: Boolean)
         fun onClickAddNominee()
+        fun onAddNominee(gender: String?)
         fun onGetANomineeFromPopup(nominee: Nominee?)
         fun onRefreshViewWhenListUpdated()
         fun onListHasData()

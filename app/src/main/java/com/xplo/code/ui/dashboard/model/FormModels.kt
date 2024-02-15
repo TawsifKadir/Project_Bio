@@ -76,6 +76,13 @@ data class HhForm2(
     var itemsSupportType : List<CheckboxItem>? = null
 )
 
+fun HhForm2?.getOppositeGender(): String? {
+    if (this == null) return "Female"   // test purpose
+    if (this == null) return null
+    if (this.gender.equals("Male", true)) return "Female"
+    return "Male"
+}
+
 data class HhForm3(
     var householdSize: Int? = null,
 
@@ -154,6 +161,12 @@ data class Nominee(
     var occupation: String? = null,
     var isReadWrite: String? = null
 )
+
+fun Nominee?.getOppositeGender(): String? {
+    if (this == null) return null
+    if (this.gender.equals("Male", true)) return "Female"
+    return "Male"
+}
 
 fun Nominee?.getNomineeHeader(number: Int): String {
     when (number) {
