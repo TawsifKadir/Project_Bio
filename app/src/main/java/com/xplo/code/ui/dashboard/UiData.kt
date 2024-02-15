@@ -57,6 +57,20 @@ object UiData {
         }
         return items
     }
+
+    fun getPublicWorksDummy(): List<CheckboxItem> {
+        var array = publicWorks
+        var items = arrayListOf<CheckboxItem>()
+        for (i in array.indices) {
+            if (i ==1){
+                items.add(CheckboxItem(i, array[i], true))
+                continue
+            }
+            items.add(CheckboxItem(i, array[i], false))
+        }
+        return items
+    }
+
     fun getDirectIncomeSupport(): List<CheckboxItem> {
         var array = directIncomeSupport
         var items = arrayListOf<CheckboxItem>()

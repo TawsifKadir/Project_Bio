@@ -87,22 +87,25 @@ fun HhForm2.isOk(): Boolean {
     if (this.age == null) return false
     if (this.monthlyAverageIncome == null) return false
 
-    if((this.itemsSupportType?.count() ?: 0) == 0) return false
+    if ((this.itemsSupportType?.count() ?: 0) == 0) return false
 
     return true
 }
 
 fun HhForm2.checkExtraCases(): String? {
     if (!TestConfig.isValidationEnabled) return null
-    if (!this.isOkCaseSizeMin()) return "Please Select at least one Support Type "
+    //if (this == null) return null
+    if (!this.isOkCaseSizeMinSupportType()) return "Please Select at least one Support Type"
     return null
 }
-fun HhForm2.isOkCaseSizeMin(): Boolean {
-    if (!TestConfig.isValidationEnabled) return true
-    if ((this.itemsSupportType?.size ?: 0) == 0) return false
-    //if (this.nominees.size > 5) return false
+
+fun HhForm2.isOkCaseSizeMinSupportType(): Boolean {
+    //if (!TestConfig.isValidationEnabled) return true
+    //if (this == null) return false
+    if (this.itemsSupportType.isNullOrEmpty()) return false
     return true
 }
+
 fun HhForm3.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
 

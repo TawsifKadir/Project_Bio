@@ -472,6 +472,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         //etSpouseName.setText("Yesmin")
 
         rgSelectionCriteria.check(R.id.rbA)
+        adapterSupportType?.addAll(UiData.getPublicWorksDummy())
     }
 
     override fun onPopulateView() {
