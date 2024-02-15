@@ -57,102 +57,13 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/viewNomineeNotAdd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
+            <include
+                android:id="@+id/view_nominee_no_nominee"
+                layout="@layout/view_nominee_no_nominee" />
 
-                <LinearLayout
-                    style="@style/AppLinearLayoutInputBox"
-                    android:layout_weight="1"
-                    tools:visibility="visible">
-
-                    <TextView
-                        style="@style/AppTextView.Input.Header"
-                        android:text="@string/select_reason_why_not" />
-
-
-                    <Spinner
-                        android:id="@+id/spReasonNoNominee"
-                        style="@style/AppSpinnerForm" />
-
-                </LinearLayout>
-                <include layout="@layout/view_margin_space" />
-                <LinearLayout
-                    style="@style/AppLinearLayoutInputBox"
-                    android:layout_weight="1"
-                    tools:visibility="visible">
-
-                    <TextView
-                        style="@style/AppTextView.Input.Header"
-                        android:text="Other Reason" />
-
-
-                    <EditText
-                        android:id="@+id/etOtherReason"
-                        style="@style/AppEditText.Form.Text" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/viewNomineeAdd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="visible">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btAdd"
-                    style="@style/AppButton.TextButton.Secondary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:text="Add nominee"
-                    android:textAlignment="viewEnd"
-                    app:icon="@drawable/ic_add_black_24dp"
-                    tools:visibility="visible" />
-
-                <TextView
-                    android:id="@+id/tvNomineeHint"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/minimum_2_maximum_5_and_1_female_nominee_required"
-                    android:textAlignment="textEnd"
-                    android:textColor="?attr/colorBrandLight"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:overScrollMode="never"
-                    tools:itemCount="4"
-                    tools:listitem="@layout/row_nominee_item"
-                    tools:visibility="visible" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btAddAnother"
-                    style="@style/AppButton.TextButton.Secondary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:text="Add another nominee?"
-                    android:textAlignment="viewEnd"
-                    tools:visibility="visible" />
-
-            </LinearLayout>
-
-
-            <!--            <LinearLayout-->
-            <!--                android:id="@+id/viewNominee"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:orientation="vertical" />-->
+            <include
+                android:id="@+id/view_nominee_add_nominee"
+                layout="@layout/view_nominee_add_nominee" />
 
 
         </LinearLayout>

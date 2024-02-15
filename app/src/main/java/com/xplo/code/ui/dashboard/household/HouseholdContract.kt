@@ -139,10 +139,12 @@ interface HouseholdContract {
         fun onReinstateData(form: HhForm6?)
 
         fun onEnableDisableNominee(isNomineeAdd: Boolean)
-
         fun onClickAddNominee()
-
         fun onGetANomineeFromPopup(nominee: Nominee?)
+        fun onRefreshViewWhenListUpdated()
+        fun onListHasData()
+        fun onListEmpty()
+        fun onSelectNoNomineeItems(item: String?)
 
     }
 

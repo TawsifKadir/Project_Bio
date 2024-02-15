@@ -128,19 +128,20 @@ data class HhForm4(
 
 data class HhForm6(
 
-    var isNomineeAdd: String? = null,
-    var noNomineeReason: String? = null,
-//    var nominee1: Nominee? = null,
-//    var nominee2: Nominee? = null,
-//    var nominee3: Nominee? = null,
-//    var nominee4: Nominee? = null,
-//    var nominee5: Nominee? = null
-    var nominees: ArrayList<Nominee> = arrayListOf()
+    var isNomineeAdd: String? = null,       // nominee add or not
+    var noNomineeReason: String? = null,    // spinner
+    var noNomineeReasonOther: String? = null,    // others box
+    var nominees: ArrayList<Nominee> = arrayListOf(),
+
+    // under list
+    var extraNomineeNoReason: String? = null,
+    var extraNomineeNoReasonOther: String? = null,
+
 )
 
 fun HhForm6?.getNomineeNumber(): Int {
     if (this == null) return 1
-    return this.nominees.size.plus(1) ?: 1
+    return this.nominees.size.plus(1)
 }
 
 data class Nominee(
@@ -161,8 +162,8 @@ fun Nominee?.getNomineeHeader(number: Int): String {
         3 -> return "Third Nominee"
         4 -> return "Fourth Nominee"
         5 -> return "Fifth Nominee"
+        else -> return "Nominee $number"
     }
-    return "First Nominee"
 }
 
 fun Nominee?.toSummary(): String? {
@@ -204,12 +205,11 @@ data class HhForm5(
 
 data class AlForm1(
     var householdName: String? = null,
-//    var householdMiddleName: String? = null,
-//    var householdLastName: String? = null,
+
     var alternateFirstName: String? = null,
     var alternateMiddleName: String? = null,
     var alternateLastName: String? = null,
-    var alternateName: String? = null,
+
     var age: Int? = null,
     var idNumber: String? = null,
     var idNumberType: String? = null,

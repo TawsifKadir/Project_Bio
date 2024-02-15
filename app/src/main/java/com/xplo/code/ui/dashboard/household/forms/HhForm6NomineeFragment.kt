@@ -6,16 +6,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Spinner
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.gone
+import com.xplo.code.core.ext.invisible
 import com.xplo.code.core.ext.isNo
 import com.xplo.code.core.ext.isYes
 import com.xplo.code.core.ext.plusOne
+import com.xplo.code.core.ext.toBool
 import com.xplo.code.core.ext.visible
 import com.xplo.code.databinding.FragmentHhForm6NomineeBinding
 import com.xplo.code.ui.dashboard.UiData
@@ -41,6 +48,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
+    AdapterView.OnItemSelectedListener,
     NomineeListAdapter.OnItemClickListener {
 
     companion object {
@@ -67,7 +75,13 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
 
     private var adapter: NomineeListAdapter? = null
 
-    //private lateinit var layoutList: LinearLayout
+    private lateinit var spReasonNoNominee: Spinner
+    private lateinit var llParentOtherReason: View
+    private lateinit var etOtherReason: EditText
+
+    private lateinit var btAdd: Button
+    private lateinit var btAddAnother: Button
+    private lateinit var recyclerView: RecyclerView
 
 
     override fun onAttach(context: Context) {
@@ -97,19 +111,26 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
     }
 
     override fun initInitial() {
+        spReasonNoNominee = binding.viewNomineeNoNominee.spReasonNoNominee
+        llParentOtherReason = binding.viewNomineeNoNominee.llParentOtherReason
+        etOtherReason = binding.viewNomineeNoNominee.etOtherReason
+
+        btAdd = binding.viewNomineeAddNominee.btAdd
+        btAddAnother = binding.viewNomineeAddNominee.btAddAnother
+        recyclerView = binding.viewNomineeAddNominee.recyclerView
 
 
     }
 
     override fun initView() {
 
-        bindSpinnerData(binding.spReasonNoNominee, UiData.whyNot)
+        bindSpinnerData(spReasonNoNominee, UiData.whyNot)
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.itemAnimator = DefaultItemAnimator()
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.itemAnimator = DefaultItemAnimator()
         adapter = NomineeListAdapter()
         adapter?.setOnItemClickListener(this)
-        binding.recyclerView.adapter = adapter
+        recyclerView.adapter = adapter
 
 
     }
@@ -132,7 +153,13 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
             }
         }
 
-        binding.btAdd.setOnClickListener {
+        spReasonNoNominee.onItemSelectedListener = this
+
+        btAdd.setOnClickListener {
+            onClickAddNominee()
+        }
+
+        btAddAnother.setOnClickListener {
             onClickAddNominee()
         }
 
@@ -186,7 +213,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
             binding.rgNomineeAdd.check(binding.rbNo.id)
             onEnableDisableNominee(false)
             setSpinnerItem(
-                binding.spReasonNoNominee,
+                binding.viewNomineeNoNominee.spReasonNoNominee,
                 UiData.stateNameOptions,
                 form.noNomineeReason
             )
@@ -199,11 +226,11 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
         Log.d(TAG, "onEnableDisableNominee() called with: isNomineeAdd = $isNomineeAdd")
 
         if (isNomineeAdd) {
-            binding.viewNomineeAdd.visible()
-            binding.viewNomineeNotAdd.gone()
+            binding.viewNomineeAddNominee.viewNomineeAddNominee.visible()
+            binding.viewNomineeNoNominee.viewNomineeNoNominee.gone()
         } else {
-            binding.viewNomineeAdd.gone()
-            binding.viewNomineeNotAdd.visible()
+            binding.viewNomineeAddNominee.viewNomineeAddNominee.gone()
+            binding.viewNomineeNoNominee.viewNomineeNoNominee.visible()
         }
     }
 
@@ -233,6 +260,35 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
 
     }
 
+    override fun onRefreshViewWhenListUpdated() {
+        Log.d(TAG, "onRefreshViewWhenListUpdated() called")
+        if (adapter?.getDataset()?.isNotEmpty().toBool()) {
+            onListHasData()
+        } else {
+            onListEmpty()
+        }
+    }
+
+    override fun onListHasData() {
+        Log.d(TAG, "onListHasData() called")
+        btAdd.gone()
+        btAddAnother.visible()
+    }
+
+    override fun onListEmpty() {
+        btAdd.visible()
+        btAddAnother.gone()
+    }
+
+    override fun onSelectNoNomineeItems(item: String?) {
+        Log.d(TAG, "onSelectNoNomineeItems() called with: item = $item")
+        if (item.isNullOrEmpty()) return
+        llParentOtherReason.invisible()
+        if (item.contains("other (specify)", true)) {
+            llParentOtherReason.visible()
+        }
+    }
+
     override fun onClickBackButton() {
         Log.d(TAG, "onClickBackButton() called")
         interactor?.onBackButton()
@@ -250,7 +306,10 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
         form.isNomineeAdd = chkRadioGroup(binding.rgNomineeAdd, UiData.ER_ET_DF)
 
         if (form.isNomineeAdd.isNo()) {
-            form.noNomineeReason = chkSpinner(binding.spReasonNoNominee, UiData.ER_SP_DF)
+
+            form.noNomineeReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
+            form.noNomineeReasonOther = chkEditText(etOtherReason, UiData.ER_ET_DF)
+
             if (form.isOk()) {
                 onValidated(form)
                 return
@@ -312,4 +371,30 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
         super.onNomineeModalNomineeInputSuccess(item)
         onGetANomineeFromPopup(item)
     }
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        Log.d(TAG, "onItemSelected() called with: p0 = $p0, p1 = $p1, p2 = $p2, p3 = $p3")
+        onSelectSpinnerItem(p0, p1, p2)
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        Log.d(TAG, "onNothingSelected() called with: p0 = $p0")
+
+    }
+
+    override fun onSelectSpinnerItem(parent: AdapterView<*>?, view: View?, position: Int) {
+        super.onSelectSpinnerItem(parent, view, position)
+        Log.d(TAG, "onSelectSpinnerItem() called with: view = , position = $position")
+        if (position == 0) return
+
+        when (parent?.id) {
+            R.id.spReasonNoNominee -> {
+                val txt = spReasonNoNominee.selectedItem.toString()
+                onSelectNoNomineeItems(txt)
+            }
+
+
+        }
+    }
+
 }

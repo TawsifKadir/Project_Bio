@@ -23,6 +23,8 @@ object UiData {
     val ER_SP_DF = "Please select an item"
     val ER_RB_DF = "Please select an item"
 
+    val otherSpecify = "other (specify)"
+
     val relationshipOptions = getStringArray(R.array.respondent_relationship_to_the_household_head_array)
     val genderOptions = getStringArray(R.array.respondent_gender_array)
     val maritalStatusOptions = getStringArray(R.array.respondent_marital_status_array)
