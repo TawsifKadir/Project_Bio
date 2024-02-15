@@ -26,6 +26,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.xplo.code.R
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
+import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.toBool
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
@@ -336,6 +337,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     }
 
     fun isConsentGiven(): Boolean {
+        if (!TestConfig.isConsentEnabled) return true
         return interactor?.getRootForm()?.consentStatus?.isConsentGivenHhHome.toBool()
     }
 

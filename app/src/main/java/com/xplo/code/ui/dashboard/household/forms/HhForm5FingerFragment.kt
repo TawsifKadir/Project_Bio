@@ -248,6 +248,7 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form6View {
     }
 
     fun isConsentGiven(): Boolean {
+        if (!TestConfig.isConsentEnabled) return true
         return interactor?.getRootForm()?.consentStatus?.isConsentGivenNominee.toBool()
     }
 

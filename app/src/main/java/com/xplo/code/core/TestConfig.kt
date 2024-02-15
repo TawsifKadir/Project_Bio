@@ -8,9 +8,14 @@ object TestConfig {
     val isLongClickDGEnabled = true
     val isAutoDGEnabled = true
 
+    val isConsentEnabled = false   // default true
+
     val isNomineeAlwaysEnabled = true   // default false
     val isAlternateAddInHouseholdFlow = true   // default false
 
     val isFakeLoginEnabled = true   // default false
     //val isTestLoginEnabled = false   // default false
+
+    // only for nasif, for a temp purpose, will removed later
+    val isNavHackEnabled = true
 }
