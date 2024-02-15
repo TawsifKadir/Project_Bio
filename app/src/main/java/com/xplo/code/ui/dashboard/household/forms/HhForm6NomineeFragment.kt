@@ -6,13 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.LinearLayout
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.Spinner
-import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,7 +28,6 @@ import com.xplo.code.ui.dashboard.household.forms.nominee.NomineeModal
 import com.xplo.code.ui.dashboard.model.HhForm6
 import com.xplo.code.ui.dashboard.model.Nominee
 import com.xplo.code.ui.dashboard.model.checkExtraCases
-import com.xplo.code.ui.dashboard.model.getNomineeNumber
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
@@ -76,8 +69,6 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
     private var adapter: NomineeListAdapter? = null
 
     private lateinit var layoutList: LinearLayout
-
-    private var isUsePopupInput = true
 
 
     override fun onAttach(context: Context) {
@@ -163,13 +154,6 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
 
         onReinstateData(interactor?.getRootForm()?.form6)
 
-//        binding.rgNomineeAdd.setOnCheckedChangeListener { radioGroup, id ->
-//            Log.d(TAG, "initObserver() called with: radioGroup = $radioGroup, id = $id")
-//            when (id) {
-//                R.id.rbYes -> onEnableDisableNominee(true)
-//                R.id.rbNo -> onEnableDisableNominee(false)
-//            }
-//        }
     }
 
     override fun onDestroy() {
@@ -193,103 +177,53 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
         Log.d(TAG, "onReinstateData() called with: form = $form")
         if (form == null) return
 
-        if (isUsePopupInput) {
-            if (form.isNomineeAdd.isYes()) {
-
-                binding.rgNomineeAdd.check(binding.rbYes.id)
-                onEnableDisableNominee(true)
-                //addAllNomineeViews(form.nominees)
-                adapter?.addAll(form.nominees)
-
-            } else {
-                binding.rgNomineeAdd.check(binding.rbNo.id)
-                onEnableDisableNominee(false)
-                setSpinnerItem(
-                    binding.spReasonNoNominee,
-                    UiData.stateNameOptions,
-                    form.noNomineeReason
-                )
-            }
-            return
-        }
-
-        // dynamic view
         if (form.isNomineeAdd.isYes()) {
 
             binding.rgNomineeAdd.check(binding.rbYes.id)
             onEnableDisableNominee(true)
-            addAllNomineeViews(form.nominees)
+            //addAllNomineeViews(form.nominees)
+            adapter?.addAll(form.nominees)
 
         } else {
             binding.rgNomineeAdd.check(binding.rbNo.id)
             onEnableDisableNominee(false)
-            setSpinnerItem(binding.spReasonNoNominee, UiData.stateNameOptions, form.noNomineeReason)
+            setSpinnerItem(
+                binding.spReasonNoNominee,
+                UiData.stateNameOptions,
+                form.noNomineeReason
+            )
         }
 
 
-    }
-
-    private fun addAllNomineeViews(nominees: ArrayList<Nominee>?) {
-        Log.d(TAG, "addAllNomineeViews() called with: nominees = ${nominees?.size}")
-        if (nominees.isNullOrEmpty()) return
-        for ((i, item) in nominees.withIndex()) {
-            addNomineeView(i + 1, item)
-        }
     }
 
     override fun onEnableDisableNominee(isNomineeAdd: Boolean) {
         Log.d(TAG, "onEnableDisableNominee() called with: isNomineeAdd = $isNomineeAdd")
 
-        if (isUsePopupInput) {
-
-            if (isNomineeAdd) {
-                binding.recyclerView.visible()
-                binding.btAdd.visible()
-                binding.tvNomineeHint.visible()
-                binding.viewReasonNoNominee.gone()
-            } else {
-                binding.recyclerView.gone()
-                binding.btAdd.gone()
-                binding.tvNomineeHint.gone()
-                binding.viewReasonNoNominee.visible()
-            }
-
-            return
-        }
-
         if (isNomineeAdd) {
-            binding.viewNominee.visible()
+            binding.recyclerView.visible()
             binding.btAdd.visible()
             binding.tvNomineeHint.visible()
             binding.viewReasonNoNominee.gone()
         } else {
-            binding.viewNominee.gone()
+            binding.recyclerView.gone()
             binding.btAdd.gone()
             binding.tvNomineeHint.gone()
             binding.viewReasonNoNominee.visible()
         }
-
     }
 
     override fun onClickAddNominee() {
         val rootForm = interactor?.getRootForm()
         if (rootForm == null) return
 
-        if (isUsePopupInput) {
-            //onGetANomineeFromPopup(Nominee(firstName = "hamid"))
-
-            NomineeModal.Builder(requireActivity().supportFragmentManager)
-                .listener(this)
-                .parent(null)
-                .no(getNomineeNo())
-                .gender(null)
-                .build()
-                .show()
-
-            return
-        }
-
-        addNomineeView(rootForm.form6.getNomineeNumber(), null)
+        NomineeModal.Builder(requireActivity().supportFragmentManager)
+            .listener(this)
+            .parent(null)
+            .no(getNomineeNo())
+            .gender(null)
+            .build()
+            .show()
 
     }
 
@@ -312,7 +246,6 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
 
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
-        //interactor?.navigateToPreview()
         onReadInput()
     }
 
@@ -330,11 +263,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
             }
         }
 
-        if (isUsePopupInput) {
-            form.nominees = readNomineeInputsFromList()
-        } else {
-            form.nominees = readNomineeInputsFromDynamicView()
-        }
+        form.nominees = readNomineeInputsFromList()
 
         if (form.isOk()) {
             val checkExtraCases = form.checkExtraCases()
@@ -351,52 +280,6 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
     private fun readNomineeInputsFromList(): ArrayList<Nominee> {
         var nominees = adapter?.getDataset()
         return nominees ?: arrayListOf()
-    }
-
-    private fun readNomineeInputsFromDynamicView(): ArrayList<Nominee> {
-        var nominees = arrayListOf<Nominee>()
-
-        for (i in 0 until layoutList.childCount) {
-            Log.d(TAG, "onReadInput: i: $i")
-
-            val rowView = layoutList.getChildAt(i)
-
-            val etFirstName: EditText = rowView.findViewById(R.id.etFirstName)
-            val etMiddleName: EditText = rowView.findViewById(R.id.etMiddleName)
-            val etLastName: EditText = rowView.findViewById(R.id.etLastName)
-            val etAge: EditText = rowView.findViewById(R.id.etAge)
-
-            val spRelation: Spinner = rowView.findViewById(R.id.spRelation)
-            val spGender: Spinner = rowView.findViewById(R.id.spGender)
-            val spOccupation: Spinner = rowView.findViewById(R.id.spOccupation)
-
-            val rgReadWrite: RadioGroup = rowView.findViewById(R.id.rgReadWrite)
-            val rbReadWriteYes: RadioButton = rowView.findViewById(R.id.rbReadWriteYes)
-            val rbReadWriteNo: RadioButton = rowView.findViewById(R.id.rbReadWriteNo)
-
-            //val firstName = etFirstName.text.toString()
-
-            var nominee = Nominee()
-
-            nominee.firstName = chkEditText(etFirstName, UiData.ER_ET_DF)
-            //nominee.middleName = chkEditText(etMiddleName, UiData.ER_ET_DF)
-            nominee.lastName = chkEditText(etLastName, UiData.ER_ET_DF)
-            nominee.age = chkEditText(etAge, UiData.ER_ET_DF)?.toInt()
-
-            nominee.relation = chkSpinner(spRelation, UiData.ER_SP_DF)
-            nominee.gender = chkSpinner(spGender, UiData.ER_SP_DF)
-            nominee.occupation = chkSpinner(spOccupation, UiData.ER_SP_DF)
-
-            nominee.isReadWrite = chkRadioGroup(rgReadWrite, UiData.ER_RB_DF)
-
-            if (nominee.isOk()) {
-                nominees.add(nominee)
-            }
-
-
-        }
-        return nominees
-
     }
 
     override fun onLongClickDataGeneration() {
@@ -417,140 +300,8 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
 
     }
 
-    private fun onGenerateDummyInputNomineeView(
-        etFirstName: EditText,
-        etMiddleName: EditText,
-        etLastName: EditText,
-        etAge: EditText,
-        spRelation: Spinner,
-        spGender: Spinner,
-        spOccupation: Spinner,
-        rgReadWrite: RadioGroup,
-        rbReadWriteYes: RadioButton,
-        rbReadWriteNo: RadioButton
-    ) {
-        Log.d(TAG, "onGenerateDummyInputNomineeView() called")
-        if (!TestConfig.isDummyDataEnabled) return
-
-        etFirstName.setText("first")
-        etMiddleName.setText("middle")
-        etLastName.setText("last")
-        etAge.setText("12")
-        spRelation.setSelection(2)
-        spGender.setSelection(2)
-        spOccupation.setSelection(2)
-        rgReadWrite.check(rbReadWriteNo.id)
-
-    }
-
     override fun onPopulateView() {
         Log.d(TAG, "onPopulateView() called")
-    }
-
-
-    private fun addNomineeView(number: Int, nominee: Nominee?) {
-
-        val rowView: View = layoutInflater.inflate(R.layout.row_nominee_add, null, false)
-
-        val btRemove: ImageButton = rowView.findViewById(R.id.btRemove)
-        val tvHeader: TextView = rowView.findViewById(R.id.tvHeader)
-
-        val etFirstName: EditText = rowView.findViewById(R.id.etFirstName)
-        val etMiddleName: EditText = rowView.findViewById(R.id.etMiddleName)
-        val etLastName: EditText = rowView.findViewById(R.id.etLastName)
-        val etAge: EditText = rowView.findViewById(R.id.etAge)
-
-        val spRelation: Spinner = rowView.findViewById(R.id.spRelation)
-        val spGender: Spinner = rowView.findViewById(R.id.spGender)
-        val spOccupation: Spinner = rowView.findViewById(R.id.spOccupation)
-
-        val rgReadWrite: RadioGroup = rowView.findViewById(R.id.rgReadWrite)
-        val rbReadWriteYes: RadioButton = rowView.findViewById(R.id.rbReadWriteYes)
-        val rbReadWriteNo: RadioButton = rowView.findViewById(R.id.rbReadWriteNo)
-
-        bindSpinnerData(spRelation, UiData.relationshipOptions)
-        bindSpinnerData(spGender, UiData.genderOptions)
-        bindSpinnerData(spOccupation, UiData.genderOptions)
-
-        btRemove.setOnClickListener {
-            removeNomineeView(rowView)
-        }
-
-        when (number) {
-            1 -> {
-                tvHeader.text = "First Nominee"
-            }
-
-            2 -> tvHeader.text = "Second Nominee"
-            3 -> tvHeader.text = "Third Nominee"
-            4 -> tvHeader.text = "Fourth Nominee"
-            5 -> tvHeader.text = "Fifth Nominee"
-            6 -> tvHeader.text = "Sixth Nominee"
-            7 -> tvHeader.text = "Seven Nominee"
-        }
-
-        onGenerateDummyInputNomineeView(
-            etFirstName,
-            etMiddleName,
-            etLastName,
-            etAge,
-            spRelation,
-            spGender,
-            spOccupation,
-            rgReadWrite,
-            rbReadWriteYes,
-            rbReadWriteNo
-        )
-
-        updateNomineeView(
-            nominee,
-            etFirstName,
-            etMiddleName,
-            etLastName,
-            etAge,
-            spRelation,
-            spGender,
-            spOccupation,
-            rgReadWrite,
-            rbReadWriteYes,
-            rbReadWriteNo
-        )
-        layoutList.addView(rowView)
-    }
-
-    private fun removeNomineeView(view: View) {
-        layoutList.removeView(view)
-    }
-
-    private fun updateNomineeView(
-        nominee: Nominee?,
-        etFirstName: EditText,
-        etMiddleName: EditText,
-        etLastName: EditText,
-        etAge: EditText,
-        spRelation: Spinner,
-        spGender: Spinner,
-        spOccupation: Spinner,
-        rgReadWrite: RadioGroup,
-        rbReadWriteYes: RadioButton,
-        rbReadWriteNo: RadioButton
-    ) {
-        Log.d(
-            TAG,
-            "updateNomineeView() called with: nominee = $nominee, etFirstName = $etFirstName, etMiddleName = $etMiddleName, etLastName = $etLastName, etAge = $etAge, spRelation = $spRelation, spGender = $spGender, spOccupation = $spOccupation, rgReadWrite = $rgReadWrite, rbReadWriteYes = $rbReadWriteYes, rbReadWriteNo = $rbReadWriteNo"
-        )
-        if (nominee == null) return
-
-        etFirstName.setText(nominee.firstName)
-        etMiddleName.setText(nominee.middleName)
-        etLastName.setText(nominee.lastName)
-        etAge.setText(nominee.age.toString())
-
-        setSpinnerItem(spRelation, UiData.relationshipOptions, nominee.relation)
-        setSpinnerItem(spGender, UiData.genderOptions, nominee.gender)
-        setSpinnerItem(spOccupation, UiData.genderOptions, nominee.occupation)
-
-        checkRbPosNeg(rgReadWrite, rbReadWriteYes, rbReadWriteNo, nominee.isReadWrite)
     }
 
     override fun onClickNomineeItem(item: Nominee, pos: Int) {
