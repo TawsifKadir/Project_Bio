@@ -1,5 +1,6 @@
 package com.xplo.code.ui.dashboard.model
 
+import com.xplo.code.core.TestConfig
 import java.io.Serializable
 
 /**
@@ -73,11 +74,13 @@ data class HhForm2(
     var selectionReason: String? = null,
     var idIsOrNot: String? = null,
     var selectionCriteria: String? = null,
-    var itemsSupportType : List<CheckboxItem>? = null
+    var itemsSupportType: List<CheckboxItem>? = null
 )
 
 fun HhForm2?.getOppositeGender(): String? {
-    if (this == null) return "Female"   // test purpose
+    if (TestConfig.isNavHackEnabled) {
+        return "Female" // test purpose
+    }
     if (this == null) return null
     if (this.gender.equals("Male", true)) return "Female"
     return "Male"
@@ -144,7 +147,7 @@ data class HhForm6(
     var extraNomineeNoReason: String? = null,
     var extraNomineeNoReasonOther: String? = null,
 
-)
+    )
 
 fun HhForm6?.getNomineeNumber(): Int {
     if (this == null) return 1
