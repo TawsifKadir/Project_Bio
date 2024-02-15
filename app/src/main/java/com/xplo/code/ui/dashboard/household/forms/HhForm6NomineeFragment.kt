@@ -133,6 +133,9 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
         recyclerView.adapter = adapter
 
 
+        onReinstateData(interactor?.getRootForm()?.form6)
+
+
     }
 
     override fun initObserver() {
@@ -170,12 +173,6 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
         super.onResume()
         Log.d(TAG, "onResume() called")
         setToolbarTitle("Nominee")
-
-//        binding.viewButtonBackNext.btBack.visible()
-//        binding.viewButtonBackNext.btNext.visible()
-
-        onReinstateData(interactor?.getRootForm()?.form6)
-
     }
 
     override fun onDestroy() {
