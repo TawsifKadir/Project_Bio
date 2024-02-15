@@ -146,11 +146,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
         }
 
         binding.rgNomineeAdd.setOnCheckedChangeListener { radioGroup, id ->
-            Log.d(TAG, "initObserver() called with: radioGroup = $radioGroup, id = $id")
-            when (id) {
-                R.id.rbYes -> onEnableDisableNominee(true)
-                R.id.rbNo -> onEnableDisableNominee(false)
-            }
+            onChangeRGNomineeAdd(id)
         }
 
         spReasonNoNominee.onItemSelectedListener = this
@@ -205,21 +201,33 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
 
         if (form.isNomineeAdd.isYes()) {
 
-            binding.rgNomineeAdd.check(binding.rbYes.id)
+            //binding.rgNomineeAdd.check(binding.rbYes.id)
+            checkRbYes(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
+
             onEnableDisableNominee(true)
             adapter?.addAll(form.nominees)
 
         } else {
-            binding.rgNomineeAdd.check(binding.rbNo.id)
+            //binding.rgNomineeAdd.check(binding.rbNo.id)
+            checkRbNo(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
+
             onEnableDisableNominee(false)
-            setSpinnerItem(
-                binding.viewNomineeNoNominee.spReasonNoNominee,
-                UiData.stateNameOptions,
-                form.noNomineeReason
-            )
+            setSpinnerItem(spReasonNoNominee, UiData.stateNameOptions, form.noNomineeReason)
+            if (isOtherSpecify(form.noNomineeReason)) {
+                llParentOtherReason.visible()
+                etOtherReason.setText(form.noNomineeReasonOther)
+            }
         }
 
 
+    }
+
+    override fun onChangeRGNomineeAdd(id: Int) {
+        Log.d(TAG, "onChangeRGNomineeAdd() called with: id = $id")
+        when (id) {
+            R.id.rbYes -> onEnableDisableNominee(true)
+            R.id.rbNo -> onEnableDisableNominee(false)
+        }
     }
 
     override fun onEnableDisableNominee(isNomineeAdd: Boolean) {
@@ -284,7 +292,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
         Log.d(TAG, "onSelectNoNomineeItems() called with: item = $item")
         if (item.isNullOrEmpty()) return
         llParentOtherReason.invisible()
-        if (item.contains("other (specify)", true)) {
+        if (isOtherSpecify(item)) {
             llParentOtherReason.visible()
         }
     }
@@ -308,7 +316,10 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
         if (form.isNomineeAdd.isNo()) {
 
             form.noNomineeReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
-            form.noNomineeReasonOther = chkEditText(etOtherReason, UiData.ER_ET_DF)
+
+            if (isOtherSpecify(form.noNomineeReason)) {
+                form.noNomineeReasonOther = chkEditText(etOtherReason, UiData.ER_ET_DF)
+            }
 
             if (form.isOk()) {
                 onValidated(form)
@@ -395,6 +406,10 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
 
 
         }
+    }
+
+    private fun isOtherSpecify(txt: String?): Boolean {
+        return txt?.contains(UiData.otherSpecify, true).toBool()
     }
 
 }

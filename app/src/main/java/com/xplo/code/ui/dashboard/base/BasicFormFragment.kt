@@ -125,6 +125,14 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         radioGroup.checkRbPosNeg(rbPos, rbNeg, item)
     }
 
+    override fun checkRbYes(radioGroup: RadioGroup, rbPos: RadioButton, rbNeg: RadioButton) {
+        radioGroup.checkRbPosNeg(rbPos, rbNeg, "yes")
+    }
+
+    override fun checkRbNo(radioGroup: RadioGroup, rbPos: RadioButton, rbNeg: RadioButton) {
+        radioGroup.checkRbPosNeg(rbPos, rbNeg, "no")
+    }
+
     override fun setSpinnerItem(spinner: Spinner, items: Array<String>, item: String?) {
         //spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(item));
         spinner.setItem(items, item)

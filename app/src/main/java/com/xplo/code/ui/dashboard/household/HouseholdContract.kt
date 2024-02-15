@@ -138,6 +138,8 @@ interface HouseholdContract {
         fun onValidated(form: HhForm6?)
         fun onReinstateData(form: HhForm6?)
 
+        fun onChangeRGNomineeAdd(id: Int)
+
         fun onEnableDisableNominee(isNomineeAdd: Boolean)
         fun onClickAddNominee()
         fun onGetANomineeFromPopup(nominee: Nominee?)

@@ -346,6 +346,7 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
 
     override fun resetRootForm() {
         Log.d(TAG, "resetRootForm() called")
+        if (TestConfig.isNavHackEnabled) return
         this.rootForm = null
         this.rootForm = HouseholdForm()
         Log.d(TAG, "resetRootForm: rootForm: $rootForm")

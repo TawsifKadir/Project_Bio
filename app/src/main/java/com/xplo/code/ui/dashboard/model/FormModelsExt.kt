@@ -3,6 +3,7 @@ package com.xplo.code.ui.dashboard.model
 import com.google.gson.GsonBuilder
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.toBool
+import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.utils.MaritalStatus
 
 
@@ -181,7 +182,7 @@ fun HhForm6.isOkNoNominee(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
     if (this.isNomineeAdd.isNullOrEmpty()) return false
     if (this.noNomineeReason.isNullOrEmpty()) return false
-    if (this.noNomineeReason?.contains("other (specify)", true).toBool()) {
+    if (this.noNomineeReason?.contains(UiData.otherSpecify, true).toBool()) {
         if (this.noNomineeReasonOther.isNullOrEmpty()) return false
     }
     return true

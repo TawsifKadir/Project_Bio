@@ -22,6 +22,8 @@ interface BasicFormView {
     fun chkRadioGroup(radioGroup: RadioGroup, error: String?): String?
 
     fun checkRbPosNeg(radioGroup: RadioGroup, rbPos: RadioButton, rbNeg: RadioButton, item: String?)
+    fun checkRbYes(radioGroup: RadioGroup, rbPos: RadioButton, rbNeg: RadioButton)
+    fun checkRbNo(radioGroup: RadioGroup, rbPos: RadioButton, rbNeg: RadioButton)
 
     fun setSpinnerItem(spinner: Spinner, items: Array<String>, item: String?)
 
