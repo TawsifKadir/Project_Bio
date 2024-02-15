@@ -11,7 +11,6 @@ import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -32,7 +31,6 @@ import com.xplo.code.ui.dashboard.model.CheckboxItem
 import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.checkExtraCases
 import com.xplo.code.ui.dashboard.model.isOk
-import com.xplo.code.ui.dashboard.payment.forms.PaymentForm1Fragment
 import com.xplo.code.utils.MaritalStatus
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
@@ -92,10 +90,10 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
     private lateinit var etSpouseLastName: EditText
     private lateinit var rgSelectionCriteria: RadioGroup
     private lateinit var rgId: RadioGroup
-    private lateinit var directRecycler: RecyclerView
-    private lateinit var publicRecycler: RecyclerView
+    //private lateinit var directRecycler: RecyclerView
+    //private lateinit var publicRecycler: RecyclerView
 
-    private var adapter: CheckboxListAdapter? = null
+    private var adapterSupportType: CheckboxListAdapter? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -158,18 +156,18 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         rgSelectionCriteria = binding.rgSelectionCriteria
         rgId = binding.rgId
 
-        publicRecycler = binding.recycler
-        directRecycler = binding.recycler
+        //publicRecycler = binding.recycler
+        //directRecycler = binding.recycler
 
-        binding.recycler.setHasFixedSize(true)
-        binding.recycler.layoutManager = LinearLayoutManager(requireContext())
-        binding.recycler.itemAnimator = DefaultItemAnimator()
+        binding.rvSupportType.setHasFixedSize(true)
+        binding.rvSupportType.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvSupportType.itemAnimator = DefaultItemAnimator()
 
-        adapter = CheckboxListAdapter()
-        adapter?.setOnItemClickListener(this)
-        binding.recycler.adapter = adapter
+        adapterSupportType = CheckboxListAdapter()
+        adapterSupportType?.setOnItemClickListener(this)
+        binding.rvSupportType.adapter = adapterSupportType
 
-        adapter?.addAll(UiData.getPublicWorks())
+        adapterSupportType?.addAll(UiData.getPublicWorks())
     }
 
     override fun initView() {
@@ -265,11 +263,11 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
     }
 
     fun doSomethingForRbA() {
-        adapter?.addAll(UiData.getPublicWorks()) 
+        adapterSupportType?.addAll(UiData.getPublicWorks())
     }
 
     fun doSomethingForRbB() {
-        adapter?.addAll(UiData.getDirectIncomeSupport())
+        adapterSupportType?.addAll(UiData.getDirectIncomeSupport())
     }
 
     fun doSomethingForYes() {
@@ -345,26 +343,26 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         //etSpouseName.setText(form.spouseName)
 
     }
-    fun doSomethingForRbA(checkedItem: List<CheckboxItem>) {
+    fun doSomethingForRbA(items: List<CheckboxItem>) {
         var list = UiData.getPublicWorks()
         for (item in list) {
             // Check if the current item's id matches any of the ids in checkedItem
-            if (checkedItem.any { checkedItem -> checkedItem.id == item.id }) {
+            if (items.any { checkedItem -> checkedItem.id == item.id }) {
                 item.isChecked = true
             }
         }
-        adapter?.addAll(list)
+        adapterSupportType?.addAll(list)
     }
 
-    fun doSomethingForRbB(checkedItem: List<CheckboxItem>) {
+    fun doSomethingForRbB(items: List<CheckboxItem>) {
         var list = UiData.getDirectIncomeSupport()
         for (item in list) {
             // Check if the current item's id matches any of the ids in checkedItem
-            if (checkedItem.any { checkedItem -> checkedItem.id == item.id }) {
+            if (items.any { checkedItem -> checkedItem.id == item.id }) {
                 item.isChecked = true
             }
         }
-        adapter?.addAll(list)
+        adapterSupportType?.addAll(list)
     }
     override fun onClickBackButton() {
         Log.d(TAG, "onClickBackButton() called")
@@ -426,7 +424,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         form.selectionCriteria = chkRadioGroup(rgSelectionCriteria, UiData.ER_RB_DF)
         form.idIsOrNot = chkRadioGroup(rgId, UiData.ER_RB_DF)
 
-        form.itemsSupportType = adapter?.getCheckedItems()
+        form.itemsSupportType = adapterSupportType?.getCheckedItems()
 
         if (!form.isOk()) {
             val checkExtraCases = form.checkExtraCases()
