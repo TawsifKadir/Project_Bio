@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.xplo.code.R
@@ -153,7 +152,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
 
         binding.viewButtonBackNext.btBack.visible()
         binding.viewButtonBackNext.btNext.visible()
-        binding.viewButtonBackNext.btNext.text = "Submit"
+        binding.viewButtonBackNext.btNext.text = "Save"
     }
 
     override fun onDestroy() {
@@ -170,17 +169,15 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
 
         XDialog.Builder(requireActivity().supportFragmentManager)
             .setLayoutId(R.layout.custom_dialog_pnn)
-            .setTitle(getString(R.string.review_complete_reg))
-            .setMessage(getString(R.string.review_complete_reg_msg))
-            .setPosButtonText("Alternate Registration")
+            .setTitle("Data Saved")
+            .setMessage("Household successfully saved. Do you want register another household?")
+            .setPosButtonText("Another Household")
             .setNegButtonText(getString(R.string.home))
-            .setNeuButtonText("Household Registration")
             .setThumbId(R.drawable.ic_logo_photo)
             .setCancelable(false)
             .setListener(object : XDialog.DialogListener {
                 override fun onClickPositiveButton() {
-                    requireActivity().finish()
-                    interactor?.navigateToAlternate(id)
+                    interactor?.navigateToAnotherHousehold(interactor?.getRootForm()?.form1)
                 }
 
                 override fun onClickNegativeButton() {
@@ -189,12 +186,39 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                 }
 
                 override fun onClickNeutralButton() {
-                    //interactor?.navigateToHousehold()
-                    interactor?.navigateToAnotherHousehold(interactor?.getRootForm()?.form1)
+
                 }
             })
             .build()
             .show()
+
+//        XDialog.Builder(requireActivity().supportFragmentManager)
+//            .setLayoutId(R.layout.custom_dialog_pnn)
+//            .setTitle(getString(R.string.review_complete_reg))
+//            .setMessage(getString(R.string.review_complete_reg_msg))
+//            .setPosButtonText("Alternate Registration")
+//            .setNegButtonText(getString(R.string.home))
+//            .setNeuButtonText("Household Registration")
+//            .setThumbId(R.drawable.ic_logo_photo)
+//            .setCancelable(false)
+//            .setListener(object : XDialog.DialogListener {
+//                override fun onClickPositiveButton() {
+//                    requireActivity().finish()
+//                    interactor?.navigateToAlternate(id)
+//                }
+//
+//                override fun onClickNegativeButton() {
+//                    requireActivity().finish()
+//
+//                }
+//
+//                override fun onClickNeutralButton() {
+//                    //interactor?.navigateToHousehold()
+//                    interactor?.navigateToAnotherHousehold(interactor?.getRootForm()?.form1)
+//                }
+//            })
+//            .build()
+//            .show()
     }
 
     override fun onSaveFailure(msg: String?) {
@@ -210,9 +234,31 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         Log.d(TAG, "onClickNextButton() called")
         //interactor?.navigateToPreview()
 
-        val rootForm = interactor?.getRootForm()
 
-        viewModel.saveHouseholdForm(rootForm)
+        XDialog.Builder(requireActivity().supportFragmentManager)
+            .setLayoutId(R.layout.custom_dialog_pnn)
+            .setTitle(getString(R.string.review_complete_reg))
+            .setMessage(getString(R.string.review_complete_reg_msg))
+            .setPosButtonText("Save")
+            .setNegButtonText(getString(R.string.cancel))
+            .setThumbId(R.drawable.ic_logo_photo)
+            .setCancelable(true)
+            .setListener(object : XDialog.DialogListener {
+                override fun onClickPositiveButton() {
+                    val rootForm = interactor?.getRootForm()
+                    viewModel.saveHouseholdForm(rootForm)
+                }
+
+                override fun onClickNegativeButton() {
+
+                }
+
+                override fun onClickNeutralButton() {
+
+                }
+            })
+            .build()
+            .show()
 
 
     }
