@@ -84,19 +84,22 @@ data class FormRqb(
     var householdMember65: HouseholdMember? = null,
 
 
-    @SerializedName("isOtherMemberPerticipating")
-    var isOtherMemberPerticipating: Boolean = false,
+
     @SerializedName("isReadWrite")
     var isReadWrite: Boolean = false,
     @SerializedName("memberReadWrite")
     var memberReadWrite: Int = 0,
 
-    @SerializedName("nominees")
-    var nominees: List<Nominee>? = listOf(),
-    @SerializedName("notPerticipationOtherReason")
-    var notPerticipationOtherReason: String? = null,
+
+    @SerializedName("isOtherMemberPerticipating")
+    var isOtherMemberPerticipating: Boolean = false,
     @SerializedName("notPerticipationReason")
     var notPerticipationReason: String? = null,
+    @SerializedName("notPerticipationOtherReason")
+    var notPerticipationOtherReason: String? = null,
+    @SerializedName("nominees")
+    var nominees: List<Nominee>? = listOf(),
+
     @SerializedName("relationshipWithHouseholdHead")
     var relationshipWithHouseholdHead: String? = null
 
