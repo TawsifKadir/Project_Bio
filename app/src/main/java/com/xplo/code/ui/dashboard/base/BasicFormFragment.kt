@@ -40,6 +40,32 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         }
         return txt
     }
+    override fun chkEditTextOnlyNumberAndChar(editText: EditText, error: String?): String? {
+        val txt = editText.text.toString()
+        if (isValidationEnabled()) {
+            if (txt.isEmpty() || txt == "" || txt.length < 10) {
+                editText.error = "Minimum 10 character"
+                return null
+            } else if (!isOnlyNumberAndChar(txt)){
+                editText.error = "No Special Character Allow"
+                return null
+            }
+        }
+        return txt
+    }
+    override fun chkEditTextOnlyNumber(editText: EditText, error: String?): String? {
+        val txt = editText.text.toString()
+        if (isValidationEnabled()) {
+            if (txt.isEmpty() || txt == "" || txt.length < 10) {
+                editText.error = "Minimum 10 character"
+                return null
+            } else if (!isOnlyNumber(txt)){
+                editText.error = "No Character Allow"
+                return null
+            }
+        }
+        return txt
+    }
     override fun chkEditTextMonthlyAvgIncome(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {
@@ -61,7 +87,7 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
                 editText.error = "Minimum 3 character"
                 return null
             } else if (!isOnlyLetters(txt)){
-                editText.error = "Only Letter Allow"
+                editText.error = "Only Character Allow"
             return null
             }
         }
@@ -69,6 +95,14 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
     }
     private fun isOnlyLetters(input: String): Boolean {
         val pattern = "^[a-zA-Z]+$".toRegex()
+        return input.matches(pattern)
+    }
+    private fun isOnlyNumberAndChar(input: String): Boolean {
+        val pattern = "^[a-zA-Z0-9]+$".toRegex()
+        return input.matches(pattern)
+    }
+    private fun isOnlyNumber(input: String): Boolean {
+        val pattern = "^[0-9]+$".toRegex()
         return input.matches(pattern)
     }
 

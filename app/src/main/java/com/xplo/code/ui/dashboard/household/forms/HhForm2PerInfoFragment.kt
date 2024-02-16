@@ -405,8 +405,12 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         }
 
         if (binding.llIdTypeInput.isVisible && binding.llIdType.isVisible) {
-            form.idNumber = chkEditText(etIdNumber, UiData.ER_ET_DF)
             form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
+            if(form.idNumberType?.equals("Passport") == true){
+                form.idNumber = chkEditTextOnlyNumberAndChar(etIdNumber, UiData.ER_ET_DF)
+            }else{
+                form.idNumber = chkEditTextOnlyNumber(etIdNumber, UiData.ER_ET_DF)
+            }
         } else {
             form.idNumber = null
             form.idNumberType = null
