@@ -394,6 +394,22 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
             return
         }
 
+        val myIntListFor18to35 = listOf(
+            form.mem18NormalMale,
+            form.mem18DisableMale,
+            form.mem18IllMale,
+            form.mem18NormalFemale,
+            form.mem18DisableFemale,
+            form.mem18IllFemale,
+        )
+        val sum18to35 = myIntListFor18to35.sum() // = 9
+
+        if (form.readWriteNumber != sum18to35) {
+            etReadWriteNumber.error = "Member Size not matched"
+            etReadWriteNumber.requestFocus()
+            return
+        }
+
         if (!form.isOk()) {
             return
         }
