@@ -1,5 +1,6 @@
 package com.xplo.code.ui.dashboard.household
 
+import android.net.Uri
 import androidx.fragment.app.Fragment
 import com.xplo.code.base.BaseContract
 import com.xplo.code.data.db.models.HouseholdItem
@@ -126,6 +127,7 @@ interface HouseholdContract {
         fun onValidated(form: HhForm4?)
         fun onReinstateData(form: HhForm4?)
 
+        fun onGetImageUri(uri: Uri?)
     }
 
     interface Form5View : BaseContract.View, CommonView {

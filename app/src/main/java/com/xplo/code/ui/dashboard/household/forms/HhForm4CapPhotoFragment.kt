@@ -210,6 +210,21 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
 
     }
 
+    override fun onGetImageUri(uri: Uri?) {
+        Log.d(TAG, "onGetImageUri() called with: uri = $uri")
+        file = uri!!.path?.let { File(it) }
+        fileName = uri.lastPathSegment
+        try {
+            val bitmap =
+                MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
+            newPhotoBase64 = ImageUtil.convert(bitmap)
+            setToModel(uri.toString())
+            loadProfile(uri.toString())
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
     override fun onClickBackButton() {
         Log.d(TAG, "onClickBackButton() called")
         interactor?.onBackButton()
@@ -322,17 +337,7 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
         if (requestCode == REQUEST_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 val uri = data!!.getParcelableExtra<Uri>("path")
-                file = uri!!.path?.let { File(it) }
-                fileName = uri.lastPathSegment
-                try {
-                    val bitmap =
-                        MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
-                    newPhotoBase64 = ImageUtil.convert(bitmap)
-                    setToModel(uri.toString())
-                    loadProfile(uri.toString())
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
+                onGetImageUri(uri)
             }
         }
     }
