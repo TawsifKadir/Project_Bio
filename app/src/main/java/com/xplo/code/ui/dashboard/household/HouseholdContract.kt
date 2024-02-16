@@ -128,13 +128,13 @@ interface HouseholdContract {
 
     }
 
-    interface Form6View : BaseContract.View, CommonView {
+    interface Form5View : BaseContract.View, CommonView {
         fun onValidated(form: HhForm5?)
         fun onReinstateData(form: HhForm5?)
 
     }
 
-    interface Form5View : BaseContract.View, CommonView {
+    interface Form66View : BaseContract.View, CommonView {
         fun onValidated(form: HhForm6?)
         fun onReinstateData(form: HhForm6?)
 

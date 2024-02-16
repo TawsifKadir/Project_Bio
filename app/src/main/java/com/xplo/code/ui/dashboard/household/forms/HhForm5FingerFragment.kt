@@ -30,7 +30,6 @@ import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.Finger
-import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.HhForm5
 import com.xplo.code.utils.FormAppUtils
 import com.xplo.data.BuildConfig
@@ -46,7 +45,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form6View {
+class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
 
     companion object {
         const val TAG = "HhForm5FingerFragment"

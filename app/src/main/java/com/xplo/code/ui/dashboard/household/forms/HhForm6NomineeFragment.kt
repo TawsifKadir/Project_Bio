@@ -48,7 +48,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * Comment  :
  */
 @AndroidEntryPoint
-class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
+class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form66View,
     AdapterView.OnItemSelectedListener,
     NomineeListAdapter.OnItemClickListener {
 
