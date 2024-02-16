@@ -32,6 +32,8 @@ import com.faisal.fingerprintcapture.FingerprintCaptureActivity
 import com.faisal.fingerprintcapture.model.FingerprintData
 import com.faisal.fingerprintcapture.model.FingerprintID
 import com.faisal.fingerprintcapture.utils.ImageProc
+import com.xplo.code.ui.dashboard.model.Finger
+import com.xplo.code.ui.dashboard.model.HhForm5
 
 
 @AndroidEntryPoint
@@ -58,7 +60,7 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
 
     //private lateinit var presenter: RegistrationContract.Presenter
     private var interactor: AlternateContract.View? = null
-
+    private var fingerprintTotalEnroll = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -92,7 +94,7 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
     }
 
     override fun initView() {
-
+        onReinstateData(interactor?.getRootForm()?.form3)
     }
 
     override fun initObserver() {
@@ -135,12 +137,37 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
 
     override fun onValidated(form: AlForm3?) {
         Log.d(TAG, "onValidated() called with: form = $form")
-
+        val rootForm = interactor?.getRootForm()
+        rootForm?.form3 = form
+        interactor?.setRootForm(rootForm)
     }
 
     override fun onReinstateData(form: AlForm3?) {
         Log.d(TAG, "onReinstateData() called with: form = $form")
-
+        if (form != null) {
+            if (form.finger?.fingerRT != null || form.finger?.fingerRT == ""){
+                addFingerDrawable(binding.imgRT)
+            }else if(form.finger?.fingerRI != null || form.finger?.fingerRI == "") {
+                addFingerDrawable(binding.imgRI)
+            }else if(form.finger?.fingerRM != null || form.finger?.fingerRM == "") {
+                addFingerDrawable(binding.imgRM)
+            }else if(form.finger?.fingerRR != null || form.finger?.fingerRR == "") {
+                addFingerDrawable(binding.imgRR)
+            }else if(form.finger?.fingerRL != null || form.finger?.fingerRL == "") {
+                addFingerDrawable(binding.imgRL)
+            }else if (form.finger?.fingerLT != null || form.finger?.fingerLT == ""){
+                addFingerDrawable(binding.imgLT)
+            }else if(form.finger?.fingerLI != null || form.finger?.fingerLI == "") {
+                addFingerDrawable(binding.imgLI)
+            }else if(form.finger?.fingerLM != null || form.finger?.fingerLM == "") {
+                addFingerDrawable(binding.imgLM)
+            }else if(form.finger?.fingerLR != null || form.finger?.fingerLR == "") {
+                addFingerDrawable(binding.imgLR)
+            }else if(form.finger?.fingerLL != null || form.finger?.fingerLL == "") {
+                addFingerDrawable(binding.imgLL)
+            }
+        }
+        //Toast.makeText(activity, "Received Positive Result From Fingerprint Capture", Toast.LENGTH_LONG).show()
     }
 
     override fun onClickBackButton() {
@@ -150,6 +177,12 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
 
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
+        if(TestConfig.isFingerPrintRequired){
+            if(fingerprintTotalEnroll == 0){
+                showAlerter("Warning", "Please Add Fingerprint")
+                return
+            }
+        }
         interactor?.navigateToPreview()
     }
 
@@ -191,40 +224,20 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
                 val fpList = ArrayList<FingerprintData>()
-                val names = arrayOf(
-                    "right_thumb",
-                    "right_index",
-                    "right_middle",
-                    "right_ring",
-                    "right_small",
-                    "left_thumb",
-                    "left_index",
-                    "left_middle",
-                    "left_ring",
-                    "left_small"
-                )
-                val ids = arrayOf(
-                    com.xplo.code.R.id.right_thumb,
-                    com.xplo.code.R.id.right_index,
-                    com.xplo.code.R.id.right_middle,
-                    com.xplo.code.R.id.right_ring,
-                    com.xplo.code.R.id.right_small,
-                    com.xplo.code.R.id.left_thumb,
-                    com.xplo.code.R.id.left_index,
-                    com.xplo.code.R.id.left_middle,
-                    com.xplo.code.R.id.left_ring,
-                    com.xplo.code.R.id.left_small
-                )
+                val names =  arrayOf("right_thumb", "right_index","right_middle", "right_ring", "right_small", "left_thumb", "left_index","left_middle", "left_ring", "left_small")
+                val ids = arrayOf(com.xplo.code.R.id.right_thumb, com.xplo.code.R.id.right_index,com.xplo.code.R.id.right_middle, com.xplo.code.R.id.right_ring,
+                    com.xplo.code.R.id.right_small, com.xplo.code.R.id.left_thumb, com.xplo.code.R.id.left_index,
+                    com.xplo.code.R.id.left_middle, com.xplo.code.R.id.left_ring, com.xplo.code.R.id.left_small)
 
                 val data: Intent? = it.data
 
-                for (i in 0 until names.size) {
+                for (i in 0 until names.size){
                     val nowName = names[i]
                     val nowID = ids[i]
 
                     val nowFPData = data?.getParcelableExtra(nowName) as FingerprintData?
                     if (nowFPData != null && nowFPData.fingerprintData != null) {
-                        drawWSQ(nowID, nowFPData)
+                        drawWSQ(nowID,nowFPData)
                         Log.d("HouseHold Fingerprint", ">>>>>> $nowName is not null >>>>>>")
                     }
                     if (nowFPData != null) {
@@ -233,45 +246,52 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
                 }
                 //binding.llDataShow.visibility = View.VISIBLE
 
-                for (item in fpList) {
-                    if (item.fingerprintId.name == FingerprintID.RIGHT_THUMB.name) {
+                fingerprintTotalEnroll = fpList.size
+                val form = AlForm3()
+                form.finger = Finger()
+                for (item in fpList){
+                    if (item.fingerprintId.name == FingerprintID.RIGHT_THUMB.name){
+                        form.finger?.fingerRT = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgRT)
-                    } else if (item.fingerprintId.name == FingerprintID.RIGHT_INDEX.name) {
+                    }else if (item.fingerprintId.name == FingerprintID.RIGHT_INDEX.name){
+                        form.finger?.fingerRI = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgRI)
-                    } else if (item.fingerprintId.name == FingerprintID.RIGHT_MIDDLE.name) {
+                    }else if (item.fingerprintId.name == FingerprintID.RIGHT_MIDDLE.name){
+                        form.finger?.fingerRM = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgRM)
-                    } else if (item.fingerprintId.name == FingerprintID.RIGHT_RING.name) {
+                    }else if (item.fingerprintId.name == FingerprintID.RIGHT_RING.name){
+                        form.finger?.fingerRR = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgRR)
-                    } else if (item.fingerprintId.name == FingerprintID.RIGHT_SMALL.name) {
+                    }else if (item.fingerprintId.name == FingerprintID.RIGHT_SMALL.name){
+                        form.finger?.fingerRL = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgRL)
-                    } else if (item.fingerprintId.name == FingerprintID.LEFT_THUMB.name) {
+                    }else if (item.fingerprintId.name == FingerprintID.LEFT_THUMB.name){
+                        form.finger?.fingerLT = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgLT)
-                    } else if (item.fingerprintId.name == FingerprintID.LEFT_INDEX.name) {
+                    }else if (item.fingerprintId.name == FingerprintID.LEFT_INDEX.name){
+                        form.finger?.fingerLI = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgLI)
-                    } else if (item.fingerprintId.name == FingerprintID.LEFT_MIDDLE.name) {
+                    }else if (item.fingerprintId.name == FingerprintID.LEFT_MIDDLE.name){
+                        form.finger?.fingerLM = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgLM)
-                    } else if (item.fingerprintId.name == FingerprintID.LEFT_RING.name) {
+                    }else if (item.fingerprintId.name == FingerprintID.LEFT_RING.name){
+                        form.finger?.fingerLR = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgLR)
-                    } else if (item.fingerprintId.name == FingerprintID.LEFT_SMALL.name) {
+                    }else if (item.fingerprintId.name == FingerprintID.LEFT_SMALL.name){
+                        form.finger?.fingerLL = item.fingerprintData.toString()
                         addFingerDrawable(binding.imgLL)
                     }
-                    Toast.makeText(
-                        activity,
-                        "Received Positive Result From Fingerprint Capture",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    onValidated(form)
+                    //Toast.makeText(activity, "Received Positive Result From Fingerprint Capture", Toast.LENGTH_LONG).show()
                 }
 
-            } else {
-                Toast.makeText(
-                    activity,
-                    "Received Negative Result From Fingerprint Capture",
-                    Toast.LENGTH_LONG
-                ).show()
+            }else{
+                //Toast.makeText(activity, "Received Negative Result From Fingerprint Capture", Toast.LENGTH_LONG).show()
             }
         }
 
     private fun addFingerDrawable(img: ImageView) {
+        fingerprintTotalEnroll += 1
         img.setImageResource(R.drawable.ic_finger_add)
         val color = ContextCompat.getColor(requireContext(), R.color.green) // Your color resource
         ImageViewCompat.setImageTintList(img, ColorStateList.valueOf(color))
