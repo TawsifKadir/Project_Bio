@@ -3,6 +3,7 @@ package com.xplo.code.core.ext
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.RadioGroup.OnCheckedChangeListener
 import android.widget.Spinner
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -59,6 +60,18 @@ fun RadioGroup?.checkRbPosNeg(rbPos: RadioButton, rbNeg: RadioButton, item: Stri
 
 }
 
+fun RadioGroup?.clearStatus(listener: OnCheckedChangeListener) {
+    //this?.check(-1)
+    if (this == null) return
+    this.setOnCheckedChangeListener(null)
+    this.clearCheck()
+    this.setOnCheckedChangeListener(listener)
+}
+
+//fun RadioGroup?.neutral() {
+//    this?.check(R.id.rbNeutral)
+//}
+
 fun RadioGroup?.checkRbOpABforIDcard(rbA: RadioButton, rbB: RadioButton, item: String?) {
     if (this == null) return
     if (item.isNullOrEmpty()) return
@@ -70,6 +83,7 @@ fun RadioGroup?.checkRbOpABforIDcard(rbA: RadioButton, rbB: RadioButton, item: S
     }
 
 }
+
 fun RadioGroup?.checkRbOpAB(rbA: RadioButton, rbB: RadioButton, item: String?) {
     if (this == null) return
     if (item.isNullOrEmpty()) return

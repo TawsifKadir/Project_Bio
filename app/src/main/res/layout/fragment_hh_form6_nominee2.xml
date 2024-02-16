@@ -62,6 +62,12 @@
                         style="@style/AppRadioButton.Form"
                         android:text="@string/no" />
 
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/rbNeutral"-->
+<!--                        android:visibility="visible"-->
+<!--                        style="@style/AppRadioButton.Form"-->
+<!--                        android:text="Neutral" />-->
+
                 </RadioGroup>
 
             </LinearLayout>

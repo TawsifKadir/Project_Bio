@@ -140,18 +140,29 @@ interface HouseholdContract {
         fun onValidated(form: HhForm6?)
         fun onReinstateData(form: HhForm6?)
 
+        /**
+         * nominee radio buttons
+         */
         fun onChangeRGNomineeAdd(id: Int)
+        fun onRGNomineeAddYes()
+        fun onRGNomineeAddNo()
+        fun onRGNomineeAddStatusClear()
 
+        /**
+         * Decision finalised, refresh view and start flow
+         */
         fun onChooseNomineeAdd(gender: String?)
         fun onChooseNomineeNotAdd()
 
         fun onEnableDisableNominee(isNomineeAdd: Boolean)
         fun onClickAddNominee()
         fun onAddNominee(gender: String?)
+
         fun onGetANomineeFromPopup(nominee: Nominee?)
         fun onRefreshViewWhenListUpdated()
         fun onListHasData()
         fun onListEmpty()
+
         fun onSelectNoNomineeReason(item: String?)
 
     }

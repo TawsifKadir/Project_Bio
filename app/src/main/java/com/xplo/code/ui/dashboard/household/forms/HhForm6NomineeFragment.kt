@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Button
 import android.widget.EditText
+import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
+import com.xplo.code.core.ext.clearStatus
 import com.xplo.code.core.ext.gone
 import com.xplo.code.core.ext.isNo
 import com.xplo.code.core.ext.isYes
@@ -50,6 +52,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
     AdapterView.OnItemSelectedListener,
+    RadioGroup.OnCheckedChangeListener,
     NomineeListAdapter.OnItemClickListener {
 
     companion object {
@@ -224,28 +227,43 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
         Log.d(TAG, "onChangeRGNomineeAdd() called with: id = $id")
         when (id) {
             R.id.rbYes -> {
-                //onChooseNomineeAdd(null)
-
-                val targetGender = getTargetGender()
-                val txt = getString(R.string.nominee_objective, targetGender)
-
-                AlertDialog.Builder(requireContext())
-                    .setMessage(txt)
-                    .setCancelable(false)
-                    .setPositiveButton("Yes") { dialog, which ->
-                        onChooseNomineeAdd(targetGender)
-                    }
-                    .setNegativeButton("No") { dialog, which ->
-                        onChooseNomineeAdd(null)
-                    }
-                    .create()
-                    .show()
+                onRGNomineeAddYes()
             }
 
             R.id.rbNo -> {
-                onChooseNomineeNotAdd()
+                onRGNomineeAddNo()
             }
         }
+    }
+
+    override fun onRGNomineeAddYes() {
+        Log.d(TAG, "onRGNomineeAddYes() called")
+        //onChooseNomineeAdd(null)
+
+        val targetGender = getTargetGender()
+        val txt = getString(R.string.nominee_objective, targetGender)
+
+        AlertDialog.Builder(requireContext())
+            .setMessage(txt)
+            .setCancelable(false)
+            .setPositiveButton("Yes") { dialog, which ->
+                onChooseNomineeAdd(targetGender)
+            }
+            .setNegativeButton("No") { dialog, which ->
+                onChooseNomineeAdd(null)
+            }
+            .create()
+            .show()
+    }
+
+    override fun onRGNomineeAddNo() {
+        Log.d(TAG, "onRGNomineeAddNo() called")
+        onChooseNomineeNotAdd()
+    }
+
+    override fun onRGNomineeAddStatusClear() {
+        Log.d(TAG, "onRGNomineeAddStatusClear() called")
+        binding.rgNomineeAdd.clearStatus(this)
     }
 
     override fun onChooseNomineeAdd(gender: String?) {
@@ -417,6 +435,16 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
     override fun onNomineeModalNomineeInputSuccess(item: Nominee?) {
         super.onNomineeModalNomineeInputSuccess(item)
         onGetANomineeFromPopup(item)
+    }
+
+    override fun onCheckedChanged(radioGroup: RadioGroup?, checkedId: Int) {
+        Log.d(
+            TAG,
+            "onCheckedChanged() called with: radioGroup = $radioGroup, checkedId = $checkedId"
+        )
+
+        onChangeRGNomineeAdd(checkedId)
+
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {

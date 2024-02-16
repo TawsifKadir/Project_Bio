@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.EditText
+import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
+import com.xplo.code.core.ext.clearStatus
 import com.xplo.code.core.ext.gone
 import com.xplo.code.core.ext.isNo
 import com.xplo.code.core.ext.isYes
@@ -49,6 +51,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62View,
     AdapterView.OnItemSelectedListener,
+    RadioGroup.OnCheckedChangeListener,
     NomineeListAdapter.OnItemClickListener {
 
     companion object {
@@ -148,10 +151,6 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
             onClickNextButton()
         }
 
-        binding.rgNomineeAdd.setOnCheckedChangeListener { radioGroup, id ->
-            onChangeRGNomineeAdd(id)
-        }
-
         spReasonNoNominee.onItemSelectedListener = this
 
 //        btAdd.setOnClickListener {
@@ -173,6 +172,14 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         super.onResume()
         Log.d(TAG, "onResume() called")
         setToolbarTitle("Nominee")
+
+        binding.rgNomineeAdd.setOnCheckedChangeListener(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause() called")
+        binding.rgNomineeAdd.setOnCheckedChangeListener(null)
     }
 
     override fun onDestroy() {
@@ -223,28 +230,45 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         Log.d(TAG, "onChangeRGNomineeAdd() called with: id = $id")
         when (id) {
             R.id.rbYes -> {
-                //onChooseNomineeAdd(null)
-
-                val targetGender = getTargetGender()
-                val txt = getString(R.string.nominee_objective, targetGender)
-
-                AlertDialog.Builder(requireContext())
-                    .setMessage(txt)
-                    .setCancelable(false)
-                    .setPositiveButton("Yes") { dialog, which ->
-                        onChooseNomineeAdd(targetGender)
-                    }
-                    .setNegativeButton("No") { dialog, which ->
-                        onChooseNomineeAdd(null)
-                    }
-                    .create()
-                    .show()
+                onRGNomineeAddYes()
             }
 
             R.id.rbNo -> {
-                onChooseNomineeNotAdd()
+                onRGNomineeAddNo()
             }
         }
+    }
+
+    override fun onRGNomineeAddYes() {
+        Log.d(TAG, "onRGNomineeAddYes() called")
+        //onChooseNomineeAdd(null)
+
+        val targetGender = getTargetGender()
+        val txt = getString(R.string.nominee_objective, targetGender)
+
+        AlertDialog.Builder(requireContext())
+            .setMessage(txt)
+            .setCancelable(false)
+            .setPositiveButton("Yes") { dialog, which ->
+                onChooseNomineeAdd(targetGender)
+            }
+            .setNegativeButton("No") { dialog, which ->
+                onChooseNomineeAdd(null)
+            }
+            .create()
+            .show()
+    }
+
+    override fun onRGNomineeAddNo() {
+        Log.d(TAG, "onRGNomineeAddNo() called")
+        onChooseNomineeNotAdd()
+    }
+
+    override fun onRGNomineeAddStatusClear() {
+        //        binding.rgNomineeAdd.setOnCheckedChangeListener(null)
+//        binding.rgNomineeAdd.clearCheck()
+//        binding.rgNomineeAdd.setOnCheckedChangeListener(this)
+        binding.rgNomineeAdd.clearStatus(this)
     }
 
     override fun onChooseNomineeAdd(gender: String?) {
@@ -416,20 +440,25 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
     override fun onNomineeModalCancel() {
         super.onNomineeModalCancel()
         Log.d(TAG, "onNomineeModalCancel() called")
-        binding.rgNomineeAdd.clearCheck()
+        onRGNomineeAddStatusClear()
+
     }
 
     override fun onNomineeModalNomineeInputSuccess(item: Nominee?) {
         super.onNomineeModalNomineeInputSuccess(item)
         Log.d(TAG, "onNomineeModalNomineeInputSuccess() called with: item = $item")
         onGetANomineeFromPopup(item)
-        binding.rgNomineeAdd.clearCheck()
+        onRGNomineeAddStatusClear()
     }
 
-    override fun onNomineeModalNomineeInputFailure(msg: String?) {
-        super.onNomineeModalNomineeInputFailure(msg)
-        Log.d(TAG, "onNomineeModalNomineeInputFailure() called with: msg = $msg")
-        binding.rgNomineeAdd.clearCheck()
+    override fun onCheckedChanged(radioGroup: RadioGroup?, checkedId: Int) {
+        Log.d(
+            TAG,
+            "onCheckedChanged() called with: radioGroup = $radioGroup, checkedId = $checkedId"
+        )
+
+        onChangeRGNomineeAdd(checkedId)
+
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -475,5 +504,6 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
         return null
     }
+
 
 }
