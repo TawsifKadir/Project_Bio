@@ -78,7 +78,7 @@ class PaymentActivity : BaseActivity(), PaymentContract.View {
 //            return
 //        }
 
-        navigateToForm1()
+        //navigateToForm1()
 
     }
 
