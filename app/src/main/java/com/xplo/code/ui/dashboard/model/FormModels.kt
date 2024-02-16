@@ -244,7 +244,13 @@ data class AlForm1(
 data class AlForm2(
     var img: String? = null
 ) : Serializable
+fun AlForm2.isOk(): Boolean {
+    if (!TestConfig.isValidationEnabled) return true
+    if (this.img == null) return false
+    if (this.img.isNullOrEmpty()) return false
 
+    return true
+}
 data class AlForm3(
     var finger: Finger? = null
 ) : Serializable

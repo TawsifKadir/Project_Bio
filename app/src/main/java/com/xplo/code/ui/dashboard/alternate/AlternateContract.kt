@@ -1,5 +1,6 @@
 package com.xplo.code.ui.dashboard.alternate
 
+import android.net.Uri
 import androidx.fragment.app.Fragment
 import com.xplo.code.base.BaseContract
 import com.xplo.code.data.db.models.HouseholdItem
@@ -91,6 +92,7 @@ interface AlternateContract {
         fun onReinstateData(form: AlForm2?)
 
 
+        fun onGetImageUri(uri: Uri?)
 
     }
 
