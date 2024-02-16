@@ -1,5 +1,6 @@
 package com.xplo.code.ui.dashboard.household.list
 
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -68,6 +69,10 @@ class AlternateListAdapter : RecyclerView.Adapter<AlternateListAdapter.ViewHolde
             binding.tvAge.text = "age: " + form.form2?.age
             binding.tvAlternate.text = "Alternate added: " + form.alternates.size
 
+            if(form.alternates.size >= 5){
+                binding.root.isClickable = false
+                binding.tvAlternate.setTypeface(null, Typeface.BOLD)
+            }
             loadImage(form.form4?.img)
 
         }

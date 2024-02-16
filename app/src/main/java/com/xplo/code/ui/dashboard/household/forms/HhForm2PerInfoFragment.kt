@@ -396,7 +396,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
 
         if (binding.llspouse1.isVisible && binding.llspouse2.isVisible) {
             form.spouseFirstName = chkEditText3Char(etSpouseFirstName, UiData.ER_SP_DF)
-            form.spouseMiddleName = getEditText(etSpouseMiddleName)
+            form.spouseMiddleName = chkEditText3Char(etSpouseMiddleName, UiData.ER_SP_DF)
             form.spouseLastName = chkEditText3Char(etSpouseLastName, UiData.ER_SP_DF)
         } else {
             form.spouseFirstName = null

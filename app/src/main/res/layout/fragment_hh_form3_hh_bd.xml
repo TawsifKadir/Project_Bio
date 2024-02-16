@@ -38,6 +38,7 @@
                     android:text="@string/household_size" />
 
                 <EditText
+                    android:maxLength="2"
                     android:id="@+id/etHouseholdSize"
                     style="@style/AppEditText.Form.Number" />
 
@@ -98,6 +99,7 @@
                         android:text="@string/not_including_yourself_how_many_other_members_of_your_household_are_between_18_and_35_and_can_read_and_write" />
 
                     <EditText
+                        android:maxLength="2"
                         android:id="@+id/etReadWriteNumber"
                         style="@style/AppEditText.Form.Number" />
 

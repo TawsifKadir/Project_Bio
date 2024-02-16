@@ -32,7 +32,10 @@ import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.household.forms.HhForm4CapPhotoFragment
 import com.xplo.code.ui.dashboard.model.AlForm2
+import com.xplo.code.ui.dashboard.model.HhForm4
+import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.code.ui.photo.ImagePickerActivity
 import com.xplo.code.ui.photo.ImageUtil
 import com.xplo.data.BuildConfig
@@ -79,6 +82,7 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
     var file: File? = null
     var newPhotoBase64 = ""
 
+    var form = AlForm2()
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -165,6 +169,7 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
 
     override fun initView() {
 
+        onReinstateData(interactor?.getRootForm()?.form2)
 
 //        bindSpinnerData(binding.spCountryName, UiData.countryNameOptions)
 
@@ -217,6 +222,45 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
     override fun onReinstateData(form: AlForm2?) {
         Log.d(TAG, "onReinstateData() called with: form = $form")
 
+        if (form != null) {
+            form.img?.let { loadProfile(it) }
+            this.form = form
+        }
+    }
+    override fun onGetImageUri(uri: Uri?) {
+        Log.d(AlForm2Fragment.TAG, "onGetImageUri() called with: uri = $uri")
+        file = uri!!.path?.let { File(it) }
+        fileName = uri.lastPathSegment
+        try {
+            val bitmap =
+                MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
+            newPhotoBase64 = ImageUtil.convert(bitmap)
+            setToModel(uri.toString())
+            loadProfile(uri.toString())
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+    private fun isEmulator(): Boolean {
+        return (Build.FINGERPRINT.startsWith("google/sdk_gphone_")
+                || Build.FINGERPRINT.startsWith("unknown")
+                || Build.MODEL.contains("google_sdk")
+                || Build.MODEL.contains("Emulator")
+                || Build.MODEL.contains("Android SDK built for x86")
+                || Build.MANUFACTURER.contains("Genymotion")
+                || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
+                || "google_sdk" == Build.PRODUCT
+                // Additional checks for Android Studio Emulator
+                || Build.FINGERPRINT.contains("sdk_gphone_x86")
+                || Build.FINGERPRINT.contains("sdk_google_phone_x86")
+                || Build.MANUFACTURER.contains("Google") // Emulator manufacturer is often Google
+                || Build.BRAND.contains("google") // Brand for emulators can also be google
+                || Build.DEVICE.contains("generic_x86") // Device for x86 architecture
+                || Build.PRODUCT.contains("sdk_google") // Product name for Google's emulator images
+                || Build.HARDWARE.contains("goldfish") // Hardware name for older emulators
+                || Build.HARDWARE.contains("ranchu") // Hardware name for newer emulators
+                || Build.HARDWARE.contains("goldfish_x86") // Specific hardware name for x86 emulators
+                || Build.HARDWARE.contains("ranchu_x86")) // Specific hardware name for x86 emulators
     }
 
 
@@ -241,35 +285,42 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
 
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
-
-        XDialog.Builder(requireActivity().supportFragmentManager)
-            .setLayoutId(R.layout.custom_dialog_pnn)
-            .setTitle(getString(R.string.alternate_reg))
-            .setMessage(getString(R.string.alternate_details))
-            .setPosButtonText(getString(R.string.ok))
-            .setNegButtonText(getString(R.string.cancel))
-            .setThumbId(R.drawable.ic_logo_photo)
-            .setCancelable(false)
-            .setListener(object : XDialog.DialogListener {
-                override fun onClickPositiveButton() {
-                    interactor?.navigateToForm3()
-                }
-
-                override fun onClickNegativeButton() {
-
-                }
-
-                override fun onClickNeutralButton() {
-                }
-            })
-            .build()
-            .show()
+        onReadInput()
+//        XDialog.Builder(requireActivity().supportFragmentManager)
+//            .setLayoutId(R.layout.custom_dialog_pnn)
+//            .setTitle(getString(R.string.alternate_reg))
+//            .setMessage(getString(R.string.alternate_details))
+//            .setPosButtonText(getString(R.string.ok))
+//            .setNegButtonText(getString(R.string.cancel))
+//            .setThumbId(R.drawable.ic_logo_photo)
+//            .setCancelable(false)
+//            .setListener(object : XDialog.DialogListener {
+//                override fun onClickPositiveButton() {
+//
+//                }
+//
+//                override fun onClickNegativeButton() {
+//
+//                }
+//
+//                override fun onClickNeutralButton() {
+//                }
+//            })
+//            .build()
+//            .show()
 
     }
 
     override fun onReadInput() {
         Log.d(TAG, "onReadInput() called")
 
+        if(!isEmulator()){
+            if (!form.isOk()) {
+                showAlerter("Warning", "Please Add Photo")
+                return
+            }
+        }
+        interactor?.navigateToForm3()
     }
 
     override fun onLongClickDataGeneration() {
@@ -336,23 +387,12 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         if (requestCode == REQUEST_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 val uri = data!!.getParcelableExtra<Uri>("path")
-                file = uri!!.path?.let { File(it) }
-                fileName = uri.lastPathSegment
-                try {
-                    val bitmap =
-                        MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
-                    newPhotoBase64 = ImageUtil.convert(bitmap)
-                    setToModel(uri.toString())
-                    loadProfile(uri.toString())
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
+                onGetImageUri(uri)
             }
         }
     }
 
-    private fun setToModel(newPhotoBase64: String?) {
-        val form = AlForm2()
+    private fun setToModel(newPhotoBase64: String?) { 
         form.img = newPhotoBase64
         val rootForm = interactor?.getRootForm()
         rootForm?.form2 = form

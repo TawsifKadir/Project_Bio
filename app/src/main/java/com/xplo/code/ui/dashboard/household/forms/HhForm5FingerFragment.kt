@@ -106,6 +106,7 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
 
         val rootForm = interactor?.getRootForm()
         Log.d(TAG, "initView: $rootForm")
+        onReinstateData(interactor?.getRootForm()?.form5)
     }
 
     override fun initObserver() {
@@ -132,7 +133,6 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
 //        binding.viewButtonBackNext.btBack.visible()
 //        binding.viewButtonBackNext.btNext.visible()
 
-        onReinstateData(interactor?.getRootForm()?.form5)
     }
 
     override fun onDestroy() {
@@ -156,7 +156,40 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
     override fun onReinstateData(form: HhForm5?) {
         Log.d(TAG, "onReinstateData() called with: form = $form")
 
-    }
+        if (form != null) {
+            if (form.finger?.fingerRT != null || form.finger?.fingerRT == ""){
+                addFingerDrawable(binding.imgRT)
+            }
+            if(form.finger?.fingerRI != null || form.finger?.fingerRI == "") {
+                addFingerDrawable(binding.imgRI)
+            }
+            if(form.finger?.fingerRM != null || form.finger?.fingerRM == "") {
+                addFingerDrawable(binding.imgRM)
+            }
+            if(form.finger?.fingerRR != null || form.finger?.fingerRR == "") {
+                addFingerDrawable(binding.imgRR)
+            }
+            if(form.finger?.fingerRL != null || form.finger?.fingerRL == "") {
+                addFingerDrawable(binding.imgRL)
+            }
+            if (form.finger?.fingerLT != null || form.finger?.fingerLT == ""){
+                addFingerDrawable(binding.imgLT)
+            }
+            if(form.finger?.fingerLI != null || form.finger?.fingerLI == "") {
+                addFingerDrawable(binding.imgLI)
+            }
+            if(form.finger?.fingerLM != null || form.finger?.fingerLM == "") {
+                addFingerDrawable(binding.imgLM)
+            }
+            if(form.finger?.fingerLR != null || form.finger?.fingerLR == "") {
+                addFingerDrawable(binding.imgLR)
+            }
+            if(form.finger?.fingerLL != null || form.finger?.fingerLL == "") {
+                addFingerDrawable(binding.imgLL)
+            }
+        }
+            //Toast.makeText(activity, "Received Positive Result From Fingerprint Capture", Toast.LENGTH_LONG).show()
+        }
 
     override fun onClickBackButton() {
         Log.d(TAG, "onClickBackButton() called")
@@ -341,6 +374,7 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
         }
 
     private fun addFingerDrawable(img: ImageView) {
+        fingerprintTotalEnroll += 1
         img.setImageResource(R.drawable.ic_finger_add)
         val color = ContextCompat.getColor(requireContext(), R.color.green) // Your color resource
         ImageViewCompat.setImageTintList(img, ColorStateList.valueOf(color))

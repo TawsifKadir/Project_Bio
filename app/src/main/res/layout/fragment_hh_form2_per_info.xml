@@ -247,7 +247,7 @@
 
                     <EditText
                         android:id="@+id/etIdNumber"
-                        android:maxLines="10"
+                        android:maxLength="10"
                         style="@style/AppEditText.Form.Number" />
 
                 </LinearLayout>
@@ -313,6 +313,7 @@
                         android:text="@string/household_monthly_average_income" />
 
                     <EditText
+                        android:maxLength="6"
                         android:id="@+id/etMonthlyAverageIncome"
                         style="@style/AppEditText.Form.Number" />
 

@@ -211,10 +211,13 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
 
         val dataset = adapter?.getDataset()
 
-//        if (dataset.isNullOrEmpty()) {
-//            showAlerter(null, "Minimum 1 alternet needed")
-//            return
-//        }
+        if (dataset.isNullOrEmpty()) {
+            showAlerter(null, "Minimum 1 alternet needed")
+            return
+        }else if (dataset.size>5) {
+            showAlerter(null, "Maximum 5 Alternet can be added")
+            return
+        }
 
         onValidated(dataset)
     }
