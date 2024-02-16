@@ -27,10 +27,14 @@ import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.databinding.FragmentHhForm4CapPhotoBinding
+import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.model.HhForm3
 import com.xplo.code.ui.dashboard.model.HhForm4
+import com.xplo.code.ui.dashboard.model.HhForm5
+import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.code.ui.photo.ImagePickerActivity
 import com.xplo.code.ui.photo.ImageUtil
 import com.xplo.code.utils.FormAppUtils
@@ -207,15 +211,46 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
 
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
-        interactor?.navigateToForm5()
+        onReadInput()
         //askForConsent()
     }
+    private fun isEmulator(): Boolean {
+        return (Build.FINGERPRINT.startsWith("google/sdk_gphone_")
+                || Build.FINGERPRINT.startsWith("unknown")
+                || Build.MODEL.contains("google_sdk")
+                || Build.MODEL.contains("Emulator")
+                || Build.MODEL.contains("Android SDK built for x86")
+                || Build.MANUFACTURER.contains("Genymotion")
+                || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
+                || "google_sdk" == Build.PRODUCT
+                // Additional checks for Android Studio Emulator
+                || Build.FINGERPRINT.contains("sdk_gphone_x86")
+                || Build.FINGERPRINT.contains("sdk_google_phone_x86")
+                || Build.MANUFACTURER.contains("Google") // Emulator manufacturer is often Google
+                || Build.BRAND.contains("google") // Brand for emulators can also be google
+                || Build.DEVICE.contains("generic_x86") // Device for x86 architecture
+                || Build.PRODUCT.contains("sdk_google") // Product name for Google's emulator images
+                || Build.HARDWARE.contains("goldfish") // Hardware name for older emulators
+                || Build.HARDWARE.contains("ranchu") // Hardware name for newer emulators
+                || Build.HARDWARE.contains("goldfish_x86") // Specific hardware name for x86 emulators
+                || Build.HARDWARE.contains("ranchu_x86")) // Specific hardware name for x86 emulators
+    }
+
 
     private fun shouldAskForConsent(): Boolean {
         return FormAppUtils.canNomineeAdd(interactor?.getRootForm())
     }
 
     override fun onReadInput() {
+        val form = HhForm4()
+        form.img = newPhotoBase64
+        if(!isEmulator()){
+            if (form.img == null || form.img == "") {
+                showAlerter("Warning", "Please Add Photo")
+                return
+            }
+        }
+        interactor?.navigateToForm5()
         Log.d(TAG, "onReadInput() called")
     }
 

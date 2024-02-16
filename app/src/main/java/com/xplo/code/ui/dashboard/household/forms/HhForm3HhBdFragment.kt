@@ -438,7 +438,7 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
         etMem0NormalMale.setText("3")
         etMem0NormalFemale.setText("3")
 
-        etReadWriteNumber.setText("2")
+        etReadWriteNumber.setText("0")
 
         rgReadWrite.check(binding.rbNo.id)
     }
