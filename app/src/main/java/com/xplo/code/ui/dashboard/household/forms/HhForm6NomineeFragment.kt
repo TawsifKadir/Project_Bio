@@ -324,7 +324,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
 
     override fun onRefreshViewWhenListUpdated() {
         Log.d(TAG, "onRefreshViewWhenListUpdated() called")
-        if (adapter?.getDataset()?.isNotEmpty().toBool()) {
+        if (isListContainsData()) {
             onListHasData()
         } else {
             onListEmpty()
@@ -340,6 +340,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
     override fun onListEmpty() {
         btAdd.visible()
         btAddAnother.gone()
+        //binding.rgNomineeAdd.clearStatus(this)
     }
 
     override fun onSelectNoNomineeReason(item: String?) {
@@ -432,8 +433,20 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
         adapter?.remove(pos)
     }
 
+    override fun onNomineeModalCancel() {
+        super.onNomineeModalCancel()
+        Log.d(TAG, "onNomineeModalCancel() called")
+        //onRefreshViewWhenListUpdated()
+
+//        if (!isListContainsData()) {
+//            binding.rgNomineeAdd.clearStatus(this)
+//        }
+
+    }
+
     override fun onNomineeModalNomineeInputSuccess(item: Nominee?) {
         super.onNomineeModalNomineeInputSuccess(item)
+        Log.d(TAG, "onNomineeModalNomineeInputSuccess() called with: item = $item")
         onGetANomineeFromPopup(item)
     }
 
@@ -470,6 +483,11 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
 
 
         }
+    }
+
+    private fun isListContainsData(): Boolean {
+        if (adapter == null) return false
+        return adapter!!.itemCount > 0
     }
 
     private fun isOtherSpecify(txt: String?): Boolean {

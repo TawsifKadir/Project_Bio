@@ -486,6 +486,11 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         }
     }
 
+    private fun isListContainsData(): Boolean {
+        if (adapter == null) return false
+        return adapter!!.itemCount > 0
+    }
+
     private fun isOtherSpecify(txt: String?): Boolean {
         return txt?.contains(UiData.otherSpecify, true).toBool()
     }
