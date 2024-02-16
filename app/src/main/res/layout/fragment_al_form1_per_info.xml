@@ -215,6 +215,7 @@
 
                     <EditText
                         android:id="@+id/etIdNumber"
+                        android:maxLength="10"
                         style="@style/AppEditText.Form.Number" />
 
                 </LinearLayout>
@@ -235,6 +236,7 @@
                         android:text="@string/alternate_phone" />
 
                     <EditText
+                        android:maxLength="10"
                         android:id="@+id/etPhoneNo"
                         style="@style/AppEditText.Form.Number" />
 
