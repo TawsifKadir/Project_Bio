@@ -309,7 +309,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         }
         form.idIsOrNot = chkRadioGroup(rgId, UiData.ER_RB_DF)
 
-        //form.householdName = chkEditText3Char(etHouseholdName, UiData.ER_ET_DF)
+        form.householdName = etHouseholdName.text.toString()
 
         form.alternateFirstName = chkEditText3Char(etAlternateFirstName, UiData.ER_ET_DF)
         form.alternateMiddleName =  chkEditText3Char(etAlternateMiddleName, UiData.ER_ET_DF)
@@ -349,7 +349,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
         //etHouseholdName.setText("Mohd")
 
         etAlternateFirstName.setText("Mohd")
-        //etAlternateMiddleName.setText("Moniruzzaman")
+        etAlternateMiddleName.setText("Moniruzzaman")
         etAlternateLastName.setText("Shadhin")
 
     }
