@@ -223,7 +223,7 @@ fun AlForm1?.getReportRows(): List<ReportRow> {
     items.add(ReportRow("Name:", form.getFullName(), null, null))
     items.add(ReportRow("Age:", form.age.toString(), "Gender: ", form.gender))
     items.add(ReportRow("Id:", form.idNumber, "Id Number Type: ", form.idNumberType))
-    items.add(ReportRow("Phone Number:", form.phoneNumber, "Gender: ", form.gender))
+    items.add(ReportRow("Phone Number:", form.phoneNumber))
     items.add(ReportRow("Select Alternate Relation:", form.selectAlternateRlt))
 
     return items
