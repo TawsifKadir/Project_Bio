@@ -58,11 +58,18 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {
             if (txt.isEmpty() || txt == "" || txt.length < 3) {
-                editText.error = error
+                editText.error = "Minimum 3 character"
                 return null
+            } else if (!isOnlyLetters(txt)){
+                editText.error = "Only Letter Allow"
+            return null
             }
         }
         return txt
+    }
+    private fun isOnlyLetters(input: String): Boolean {
+        val pattern = "^[a-zA-Z]+$".toRegex()
+        return input.matches(pattern)
     }
 
     override fun chkEditTextMax3Digit(editText: EditText, error: String?): String? {
