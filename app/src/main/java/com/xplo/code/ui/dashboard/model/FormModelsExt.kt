@@ -153,7 +153,7 @@ fun HhForm6.isExtraNomineeOk(): Boolean {
     if (this.xIsNomineeAdd.isNo()){
         if (this.xNoNomineeReason.isNullOrEmpty()) return false
         if (this.xNoNomineeReason?.contains(UiData.otherSpecify, true).toBool()){
-            if (this.xNoNomineeReasonOther.isNullOrEmpty()) return false
+            if (this.xOtherReason.isNullOrEmpty()) return false
         }
     }
 
@@ -226,7 +226,7 @@ fun HhForm6.isOkNoNominee(): Boolean {
     if (this.isNomineeAdd.isNullOrEmpty()) return false
     if (this.noNomineeReason.isNullOrEmpty()) return false
     if (this.noNomineeReason?.contains(UiData.otherSpecify, true).toBool()) {
-        if (this.noNomineeReasonOther.isNullOrEmpty()) return false
+        if (this.otherReason.isNullOrEmpty()) return false
     }
     return true
 }

@@ -238,7 +238,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
                 setSpinnerItem(spReasonNoNominee, UiData.whyNot, form.xNoNomineeReason)
                 if (isOtherSpecify(form.xNoNomineeReason)) {
                     llParentOtherReason.visible()
-                    etOtherReason.setText(form.xNoNomineeReasonOther)
+                    etOtherReason.setText(form.xOtherReason)
                 }
             }
 
@@ -252,7 +252,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
             setSpinnerItem(spReasonNoNominee, UiData.whyNot, form.noNomineeReason)
             if (isOtherSpecify(form.noNomineeReason)) {
                 llParentOtherReason.visible()
-                etOtherReason.setText(form.noNomineeReasonOther)
+                etOtherReason.setText(form.otherReason)
             }
         }
 
@@ -441,13 +441,13 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
             form.isNomineeAdd = "Yes"
             form.noNomineeReason = null
-            form.noNomineeReasonOther = null
+            form.otherReason = null
 
             form.xIsNomineeAdd = getRadioGroup(binding.rgNomineeAdd)
             if (form.xIsNomineeAdd.isNo()) {
                 form.xNoNomineeReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
                 if (isOtherSpecify(form.xNoNomineeReason)) {
-                    form.xNoNomineeReasonOther = chkEditText(etOtherReason, UiData.ER_ET_DF)
+                    form.xOtherReason = chkEditText(etOtherReason, UiData.ER_ET_DF)
                 }
             }
 
@@ -458,7 +458,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
             if (form.isNomineeAdd.isNo()) {
                 form.noNomineeReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
                 if (isOtherSpecify(form.noNomineeReason)) {
-                    form.noNomineeReasonOther = chkEditText(etOtherReason, UiData.ER_ET_DF)
+                    form.otherReason = chkEditText(etOtherReason, UiData.ER_ET_DF)
                 }
             } else {
                 // yes

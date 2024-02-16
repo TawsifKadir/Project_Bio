@@ -146,13 +146,13 @@ data class HhForm6(
 
     var isNomineeAdd: String? = null,       // nominee add or not
     var noNomineeReason: String? = null,    // spinner
-    var noNomineeReasonOther: String? = null,    // others box
+    var otherReason: String? = null,    // others box
     var nominees: ArrayList<Nominee> = arrayListOf(),
 
     // under list
     var xIsNomineeAdd: String? = null,
     var xNoNomineeReason: String? = null,
-    var xNoNomineeReasonOther: String? = null,
+    var xOtherReason: String? = null,
 
     )
 

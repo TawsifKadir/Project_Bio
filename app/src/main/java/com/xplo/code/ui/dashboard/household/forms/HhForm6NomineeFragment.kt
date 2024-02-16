@@ -216,7 +216,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
             setSpinnerItem(spReasonNoNominee, UiData.whyNot, form.noNomineeReason)
             if (isOtherSpecify(form.noNomineeReason)) {
                 llParentOtherReason.visible()
-                etOtherReason.setText(form.noNomineeReasonOther)
+                etOtherReason.setText(form.otherReason)
             }
         }
 
@@ -373,7 +373,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
             form.noNomineeReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
 
             if (isOtherSpecify(form.noNomineeReason)) {
-                form.noNomineeReasonOther = chkEditText(etOtherReason, UiData.ER_ET_DF)
+                form.otherReason = chkEditText(etOtherReason, UiData.ER_ET_DF)
             }
 
             if (form.isOk()) {
