@@ -147,23 +147,32 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
         if (form != null) {
             if (form.finger?.fingerRT != null || form.finger?.fingerRT == ""){
                 addFingerDrawable(binding.imgRT)
-            }else if(form.finger?.fingerRI != null || form.finger?.fingerRI == "") {
+            }
+            if(form.finger?.fingerRI != null || form.finger?.fingerRI == "") {
                 addFingerDrawable(binding.imgRI)
-            }else if(form.finger?.fingerRM != null || form.finger?.fingerRM == "") {
+            }
+            if(form.finger?.fingerRM != null || form.finger?.fingerRM == "") {
                 addFingerDrawable(binding.imgRM)
-            }else if(form.finger?.fingerRR != null || form.finger?.fingerRR == "") {
+            }
+            if(form.finger?.fingerRR != null || form.finger?.fingerRR == "") {
                 addFingerDrawable(binding.imgRR)
-            }else if(form.finger?.fingerRL != null || form.finger?.fingerRL == "") {
+            }
+            if(form.finger?.fingerRL != null || form.finger?.fingerRL == "") {
                 addFingerDrawable(binding.imgRL)
-            }else if (form.finger?.fingerLT != null || form.finger?.fingerLT == ""){
+            }
+            if (form.finger?.fingerLT != null || form.finger?.fingerLT == ""){
                 addFingerDrawable(binding.imgLT)
-            }else if(form.finger?.fingerLI != null || form.finger?.fingerLI == "") {
+            }
+            if(form.finger?.fingerLI != null || form.finger?.fingerLI == "") {
                 addFingerDrawable(binding.imgLI)
-            }else if(form.finger?.fingerLM != null || form.finger?.fingerLM == "") {
+            }
+            if(form.finger?.fingerLM != null || form.finger?.fingerLM == "") {
                 addFingerDrawable(binding.imgLM)
-            }else if(form.finger?.fingerLR != null || form.finger?.fingerLR == "") {
+            }
+            if(form.finger?.fingerLR != null || form.finger?.fingerLR == "") {
                 addFingerDrawable(binding.imgLR)
-            }else if(form.finger?.fingerLL != null || form.finger?.fingerLL == "") {
+            }
+            if(form.finger?.fingerLL != null || form.finger?.fingerLL == "") {
                 addFingerDrawable(binding.imgLL)
             }
         }
