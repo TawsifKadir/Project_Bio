@@ -463,7 +463,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         //spCurrency.setSelection(1)
 
         etFirstName.setText("Mohd")
-        //etMiddleName.setText("Moniruzzaman")
+        etMiddleName.setText("Moniruzzaman")
         etLastName.setText("Shadhin")
         etAge.setText("33")
         etIdNumber.setText("12")
