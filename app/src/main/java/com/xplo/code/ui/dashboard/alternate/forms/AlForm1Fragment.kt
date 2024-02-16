@@ -29,7 +29,9 @@ import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.household.list.CheckboxListAdapter
 import com.xplo.code.ui.dashboard.model.AlForm1
+import com.xplo.code.ui.dashboard.model.CheckboxItem
 import com.xplo.code.ui.dashboard.model.getFullName
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.data.BuildConfig
@@ -46,7 +48,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
+class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , CheckboxListAdapter.OnItemClickListener{
 
     companion object {
         const val TAG = "AlForm1Fragment"
@@ -158,25 +160,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
         viewModel.getHouseholdItem(id)
 
-        spIdType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                val selectedItem = parent.getItemAtPosition(position).toString()
-                if (selectedItem.equals(UiData.idType[1], ignoreCase = true)) {
-                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
-                } else {
-                    etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
-                }
-            }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Another interface callback
-            }
-        }
     }
 
     override fun initObserver() {
@@ -228,7 +212,25 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
                 else -> {}
             }
         }
+        spIdType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                if (selectedItem.equals(UiData.idType[1], ignoreCase = true)) {
+                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
+                } else {
+                    etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
+                }
+            }
 
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Another interface callback
+            }
+        }
     }
     fun doSomethingForYes() {
         binding.llIdType.isVisible = true
@@ -401,6 +403,10 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View {
 
     override fun onGetHouseholdItemFailure(msg: String?) {
         Log.d(TAG, "onGetHouseholdItemFailure() called with: msg = $msg")
+    }
+
+    override fun onStatusChangeCheckboxItem(item: CheckboxItem, pos: Int, isChecked: Boolean) {
+        TODO("Not yet implemented")
     }
 
 }
