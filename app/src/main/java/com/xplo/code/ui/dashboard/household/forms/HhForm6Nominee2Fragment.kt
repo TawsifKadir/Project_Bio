@@ -10,7 +10,6 @@ import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.Spinner
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +35,7 @@ import com.xplo.code.ui.dashboard.model.HhForm6
 import com.xplo.code.ui.dashboard.model.Nominee
 import com.xplo.code.ui.dashboard.model.checkExtraCases
 import com.xplo.code.ui.dashboard.model.getOppositeGender
+import com.xplo.code.ui.dashboard.model.isExtraNomineeOk
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
@@ -203,20 +203,53 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         Log.d(TAG, "onReinstateData() called with: form = $form")
         if (form == null) return
 
+//        if (form.isNomineeAdd.isYes()) {
+//
+//            //binding.rgNomineeAdd.check(binding.rbYes.id)
+//            checkRbYes(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
+//
+//            onEnableDisableNominee(true)
+//            adapter?.addAll(form.nominees)
+//
+//        } else {
+//            //binding.rgNomineeAdd.check(binding.rbNo.id)
+//            checkRbNo(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
+//
+//            onEnableDisableNominee(false)
+//            setSpinnerItem(spReasonNoNominee, UiData.stateNameOptions, form.noNomineeReason)
+//            if (isOtherSpecify(form.noNomineeReason)) {
+//                llParentOtherReason.visible()
+//                etOtherReason.setText(form.noNomineeReasonOther)
+//            }
+//        }
+
         if (form.isNomineeAdd.isYes()) {
 
             //binding.rgNomineeAdd.check(binding.rbYes.id)
-            checkRbYes(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
+            //checkRbYes(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
 
-            onEnableDisableNominee(true)
+            //onEnableDisableNominee(true)
             adapter?.addAll(form.nominees)
 
+            if (form.extraNomineeIsAdd.isNo()) {
+                checkRbNo(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
+                onEnableDisableNominee(false)
+
+                setSpinnerItem(spReasonNoNominee, UiData.whyNot, form.extraNomineeNoReason)
+                if (isOtherSpecify(form.extraNomineeNoReason)) {
+                    llParentOtherReason.visible()
+                    etOtherReason.setText(form.extraNomineeNoReasonOther)
+                }
+            }
+
         } else {
+            // no
+
             //binding.rgNomineeAdd.check(binding.rbNo.id)
             checkRbNo(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
 
             onEnableDisableNominee(false)
-            setSpinnerItem(spReasonNoNominee, UiData.stateNameOptions, form.noNomineeReason)
+            setSpinnerItem(spReasonNoNominee, UiData.whyNot, form.noNomineeReason)
             if (isOtherSpecify(form.noNomineeReason)) {
                 llParentOtherReason.visible()
                 etOtherReason.setText(form.noNomineeReasonOther)
@@ -244,19 +277,22 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         //onChooseNomineeAdd(null)
 
         val targetGender = getTargetGender()
-        val txt = getString(R.string.nominee_objective, targetGender)
+        val targetGenderTitle = if (targetGender.equals("Male", true)) "Man" else "Woman"
+        val txt = getString(R.string.nominee_objective, targetGenderTitle)
 
-        AlertDialog.Builder(requireContext())
-            .setMessage(txt)
-            .setCancelable(false)
-            .setPositiveButton("Yes") { dialog, which ->
-                onChooseNomineeAdd(targetGender)
-            }
-            .setNegativeButton("No") { dialog, which ->
-                onChooseNomineeAdd(null)
-            }
-            .create()
-            .show()
+        onChooseNomineeAdd(targetGender)
+
+//        AlertDialog.Builder(requireContext())
+//            .setMessage(txt)
+//            .setCancelable(false)
+//            .setPositiveButton("Yes") { dialog, which ->
+//                onChooseNomineeAdd(targetGender)
+//            }
+//            .setNegativeButton("No") { dialog, which ->
+//                onChooseNomineeAdd(null)
+//            }
+//            .create()
+//            .show()
     }
 
     override fun onRGNomineeAddNo() {
@@ -369,24 +405,69 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
     override fun onReadInput() {
         Log.d(TAG, "onReadInput() called")
 
+//        val form = HhForm6()
+//        form.isNomineeAdd = chkRadioGroup(binding.rgNomineeAdd, UiData.ER_ET_DF)
+//
+//        if (form.isNomineeAdd.isNo()) {
+//
+//            form.noNomineeReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
+//
+//            if (isOtherSpecify(form.noNomineeReason)) {
+//                form.noNomineeReasonOther = chkEditText(etOtherReason, UiData.ER_ET_DF)
+//            }
+//
+//            if (form.isOk()) {
+//                onValidated(form)
+//                return
+//            }
+//        }
+//
+//        form.nominees = readNomineeInputsFromList()
+//
+//        if (form.isOk()) {
+//            val checkExtraCases = form.checkExtraCases()
+//            if (checkExtraCases != null) {
+//                showAlerter(checkExtraCases, null)
+//                return
+//            }
+//            onValidated(form)
+//        }
+
+
         val form = HhForm6()
-        form.isNomineeAdd = chkRadioGroup(binding.rgNomineeAdd, UiData.ER_ET_DF)
+        form.nominees = readNomineeInputsFromList()
 
-        if (form.isNomineeAdd.isNo()) {
+        if (form.nominees.isNotEmpty()) {
 
-            form.noNomineeReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
+            form.isNomineeAdd = "Yes"
+            form.noNomineeReason = null
+            form.noNomineeReasonOther = null
 
-            if (isOtherSpecify(form.noNomineeReason)) {
-                form.noNomineeReasonOther = chkEditText(etOtherReason, UiData.ER_ET_DF)
+            form.extraNomineeIsAdd = getRadioGroup(binding.rgNomineeAdd)
+            if (form.extraNomineeIsAdd.isNo()) {
+                form.extraNomineeNoReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
+                if (isOtherSpecify(form.extraNomineeNoReason)) {
+                    form.extraNomineeNoReasonOther = chkEditText(etOtherReason, UiData.ER_ET_DF)
+                }
             }
 
-            if (form.isOk()) {
-                onValidated(form)
-                return
+        } else {
+            // empty
+            form.isNomineeAdd = chkRadioGroup(binding.rgNomineeAdd, UiData.ER_ET_DF)
+
+            if (form.isNomineeAdd.isNo()) {
+                form.noNomineeReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
+                if (isOtherSpecify(form.noNomineeReason)) {
+                    form.noNomineeReasonOther = chkEditText(etOtherReason, UiData.ER_ET_DF)
+                }
+            } else {
+                // yes
+                // already covered
             }
+
         }
 
-        form.nominees = readNomineeInputsFromList()
+        if (!form.isExtraNomineeOk()) return
 
         if (form.isOk()) {
             val checkExtraCases = form.checkExtraCases()

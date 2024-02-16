@@ -2,6 +2,8 @@ package com.xplo.code.ui.dashboard.model
 
 import com.google.gson.GsonBuilder
 import com.xplo.code.core.TestConfig
+import com.xplo.code.core.ext.isNo
+import com.xplo.code.core.ext.isYes
 import com.xplo.code.core.ext.toBool
 import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.utils.MaritalStatus
@@ -147,8 +149,48 @@ fun HhForm6.isOk(): Boolean {
     return true
 }
 
+fun HhForm6.isExtraNomineeOk(): Boolean {
+
+    if (this.extraNomineeIsAdd.isNo()){
+        if (this.extraNomineeNoReason.isNullOrEmpty()) return false
+        if (this.extraNomineeNoReason?.contains(UiData.otherSpecify, true).toBool()){
+            if (this.extraNomineeNoReasonOther.isNullOrEmpty()) return false
+        }
+    }
+
+    return true
+}
+
+
+fun HhForm6.isOk2(): Boolean {
+    if (!TestConfig.isValidationEnabled) return true
+    if (this.isNomineeAdd.isNullOrEmpty()) return false
+
+    if (this.isNomineeAdd.equals("no", true)) {
+        return this.isOkNoNominee()
+    }
+
+//    if (this.nominees.size < 2) return false
+//    if (this.nominees.size > 5) return false
+//
+//    var isFemaleExist = false
+//    for (nominee in this.nominees){
+//         if(nominee.gender == "Female"){
+//             isFemaleExist = true
+//         }
+//     }
+//
+//    if(isFemaleExist == false){
+//        return false
+//    }
+
+    if (!this.nominees.isOk()) return false
+    return true
+}
+
 fun HhForm6.checkExtraCases(): String? {
     if (!TestConfig.isValidationEnabled) return null
+    if (this.isNomineeAdd.isNo()) return null  // no extra case for no nominee selection
     if (!this.isOkCaseSizeMin()) return "Minimum 2 nominee required"
     if (!this.isOkCaseSizeMax()) return "Maximum 5 nominee allowed"
     if (!this.isOkCaseMaleFemale()) return "1 female nominee required"

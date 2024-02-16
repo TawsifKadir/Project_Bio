@@ -213,7 +213,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
             checkRbNo(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
 
             onEnableDisableNominee(false)
-            setSpinnerItem(spReasonNoNominee, UiData.stateNameOptions, form.noNomineeReason)
+            setSpinnerItem(spReasonNoNominee, UiData.whyNot, form.noNomineeReason)
             if (isOtherSpecify(form.noNomineeReason)) {
                 llParentOtherReason.visible()
                 etOtherReason.setText(form.noNomineeReasonOther)

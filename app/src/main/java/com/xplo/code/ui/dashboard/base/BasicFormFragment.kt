@@ -40,39 +40,42 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         }
         return txt
     }
+
     override fun chkEditTextOnlyNumberAndChar(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {
             if (txt.isEmpty() || txt == "" || txt.length < 10) {
                 editText.error = "Minimum 10 character"
                 return null
-            } else if (!isOnlyNumberAndChar(txt)){
+            } else if (!isOnlyNumberAndChar(txt)) {
                 editText.error = "No Special Character Allow"
                 return null
             }
         }
         return txt
     }
+
     override fun chkEditTextOnlyNumber(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {
             if (txt.isEmpty() || txt == "" || txt.length < 10) {
                 editText.error = "Minimum 10 character"
                 return null
-            } else if (!isOnlyNumber(txt)){
+            } else if (!isOnlyNumber(txt)) {
                 editText.error = "No Character Allow"
                 return null
             }
         }
         return txt
     }
+
     override fun chkEditTextMonthlyAvgIncome(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {
             if (txt.isEmpty() || txt == "") {
                 editText.error = error
                 return null
-            }else if(txt.toInt()>10000){
+            } else if (txt.toInt() > 10000) {
                 editText.error = "Income must be less than 10000"
                 return null
             }
@@ -86,21 +89,24 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
             if (txt.isEmpty() || txt == "" || txt.length < 3) {
                 editText.error = "Minimum 3 character"
                 return null
-            } else if (!isOnlyLetters(txt)){
+            } else if (!isOnlyLetters(txt)) {
                 editText.error = "Only Character Allow"
-            return null
+                return null
             }
         }
         return txt
     }
+
     private fun isOnlyLetters(input: String): Boolean {
         val pattern = "^[a-zA-Z]+$".toRegex()
         return input.matches(pattern)
     }
+
     private fun isOnlyNumberAndChar(input: String): Boolean {
         val pattern = "^[a-zA-Z0-9]+$".toRegex()
         return input.matches(pattern)
     }
+
     private fun isOnlyNumber(input: String): Boolean {
         val pattern = "^[0-9]+$".toRegex()
         return input.matches(pattern)
@@ -155,6 +161,19 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         }
 
         return null
+    }
+
+    override fun getRadioGroup(radioGroup: RadioGroup): String? {
+
+        val id = radioGroup.checkedRadioButtonId
+
+        if (id != -1) {
+            val rb = radioGroup.findViewById(id) as RadioButton
+            return rb.text.toString()
+        }
+
+        return null
+
     }
 
     override fun checkRbPosNeg(

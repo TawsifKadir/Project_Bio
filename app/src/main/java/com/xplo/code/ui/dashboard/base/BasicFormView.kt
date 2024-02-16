@@ -22,6 +22,7 @@ interface BasicFormView {
 //    fun getOrAssertEditTextDouble(view: EditText, error: String?): Double?
     fun chkSpinner(spinner: Spinner, error: String?): String?
     fun chkRadioGroup(radioGroup: RadioGroup, error: String?): String?
+    fun getRadioGroup(radioGroup: RadioGroup): String?
 
     fun checkRbPosNeg(radioGroup: RadioGroup, rbPos: RadioButton, rbNeg: RadioButton, item: String?)
     fun checkRbYes(radioGroup: RadioGroup, rbPos: RadioButton, rbNeg: RadioButton)
