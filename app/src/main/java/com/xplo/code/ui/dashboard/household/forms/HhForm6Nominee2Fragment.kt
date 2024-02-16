@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.Spinner
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -274,30 +275,29 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
     override fun onRGNomineeAddYes() {
         Log.d(TAG, "onRGNomineeAddYes() called")
-        //onChooseNomineeAdd(null)
+        onChooseNomineeAdd(null)
+    }
+
+    override fun onRGNomineeAddNo() {
+        Log.d(TAG, "onRGNomineeAddNo() called")
+        //onChooseNomineeNotAdd()
 
         val targetGender = getTargetGender()
         val targetGenderTitle = if (targetGender.equals("Male", true)) "Man" else "Woman"
         val txt = getString(R.string.nominee_objective, targetGenderTitle)
 
-        onChooseNomineeAdd(targetGender)
+        AlertDialog.Builder(requireContext())
+            .setMessage(txt)
+            .setCancelable(false)
+            .setPositiveButton("Yes") { dialog, which ->
+                onChooseNomineeAdd(targetGender)
+            }
+            .setNegativeButton("No") { dialog, which ->
+                onChooseNomineeNotAdd()
+            }
+            .create()
+            .show()
 
-//        AlertDialog.Builder(requireContext())
-//            .setMessage(txt)
-//            .setCancelable(false)
-//            .setPositiveButton("Yes") { dialog, which ->
-//                onChooseNomineeAdd(targetGender)
-//            }
-//            .setNegativeButton("No") { dialog, which ->
-//                onChooseNomineeAdd(null)
-//            }
-//            .create()
-//            .show()
-    }
-
-    override fun onRGNomineeAddNo() {
-        Log.d(TAG, "onRGNomineeAddNo() called")
-        onChooseNomineeNotAdd()
     }
 
     override fun onRGNomineeAddStatusClear() {
