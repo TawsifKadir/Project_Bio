@@ -150,7 +150,7 @@ interface HouseholdContract {
         fun onRefreshViewWhenListUpdated()
         fun onListHasData()
         fun onListEmpty()
-        fun onSelectNoNomineeItems(item: String?)
+        fun onSelectNoNomineeReason(item: String?)
 
     }
 

@@ -324,7 +324,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
         btAddAnother.gone()
     }
 
-    override fun onSelectNoNomineeItems(item: String?) {
+    override fun onSelectNoNomineeReason(item: String?) {
         Log.d(TAG, "onSelectNoNomineeItems() called with: item = $item")
         if (item.isNullOrEmpty()) return
         llParentOtherReason.gone()
@@ -437,7 +437,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
         when (parent?.id) {
             R.id.spReasonNoNominee -> {
                 val txt = spReasonNoNominee.selectedItem.toString()
-                onSelectNoNomineeItems(txt)
+                onSelectNoNomineeReason(txt)
             }
 
 
