@@ -150,9 +150,9 @@ data class HhForm6(
     var nominees: ArrayList<Nominee> = arrayListOf(),
 
     // under list
-    var extraNomineeIsAdd: String? = null,
-    var extraNomineeNoReason: String? = null,
-    var extraNomineeNoReasonOther: String? = null,
+    var xIsNomineeAdd: String? = null,
+    var xNoNomineeReason: String? = null,
+    var xNoNomineeReasonOther: String? = null,
 
     )
 

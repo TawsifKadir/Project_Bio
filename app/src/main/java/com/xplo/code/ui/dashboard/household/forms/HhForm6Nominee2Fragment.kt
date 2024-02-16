@@ -231,14 +231,14 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
             //onEnableDisableNominee(true)
             adapter?.addAll(form.nominees)
 
-            if (form.extraNomineeIsAdd.isNo()) {
+            if (form.xIsNomineeAdd.isNo()) {
                 checkRbNo(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
                 onEnableDisableNominee(false)
 
-                setSpinnerItem(spReasonNoNominee, UiData.whyNot, form.extraNomineeNoReason)
-                if (isOtherSpecify(form.extraNomineeNoReason)) {
+                setSpinnerItem(spReasonNoNominee, UiData.whyNot, form.xNoNomineeReason)
+                if (isOtherSpecify(form.xNoNomineeReason)) {
                     llParentOtherReason.visible()
-                    etOtherReason.setText(form.extraNomineeNoReasonOther)
+                    etOtherReason.setText(form.xNoNomineeReasonOther)
                 }
             }
 
@@ -443,11 +443,11 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
             form.noNomineeReason = null
             form.noNomineeReasonOther = null
 
-            form.extraNomineeIsAdd = getRadioGroup(binding.rgNomineeAdd)
-            if (form.extraNomineeIsAdd.isNo()) {
-                form.extraNomineeNoReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
-                if (isOtherSpecify(form.extraNomineeNoReason)) {
-                    form.extraNomineeNoReasonOther = chkEditText(etOtherReason, UiData.ER_ET_DF)
+            form.xIsNomineeAdd = getRadioGroup(binding.rgNomineeAdd)
+            if (form.xIsNomineeAdd.isNo()) {
+                form.xNoNomineeReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
+                if (isOtherSpecify(form.xNoNomineeReason)) {
+                    form.xNoNomineeReasonOther = chkEditText(etOtherReason, UiData.ER_ET_DF)
                 }
             }
 

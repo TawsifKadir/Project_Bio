@@ -3,7 +3,6 @@ package com.xplo.code.ui.dashboard.model
 import com.google.gson.GsonBuilder
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.isNo
-import com.xplo.code.core.ext.isYes
 import com.xplo.code.core.ext.toBool
 import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.utils.MaritalStatus
@@ -151,10 +150,10 @@ fun HhForm6.isOk(): Boolean {
 
 fun HhForm6.isExtraNomineeOk(): Boolean {
 
-    if (this.extraNomineeIsAdd.isNo()){
-        if (this.extraNomineeNoReason.isNullOrEmpty()) return false
-        if (this.extraNomineeNoReason?.contains(UiData.otherSpecify, true).toBool()){
-            if (this.extraNomineeNoReasonOther.isNullOrEmpty()) return false
+    if (this.xIsNomineeAdd.isNo()){
+        if (this.xNoNomineeReason.isNullOrEmpty()) return false
+        if (this.xNoNomineeReason?.contains(UiData.otherSpecify, true).toBool()){
+            if (this.xNoNomineeReasonOther.isNullOrEmpty()) return false
         }
     }
 
