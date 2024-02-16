@@ -74,8 +74,17 @@ data class HhForm2(
     var selectionReason: String? = null,
     var idIsOrNot: String? = null,
     var selectionCriteria: String? = null,
-    var itemsSupportType : List<CheckboxItem>? = null
+    var itemsSupportType: List<CheckboxItem>? = null
 )
+
+fun HhForm2?.getOppositeGender(): String? {
+    if (TestConfig.isNavHackEnabled) {
+        return "Female" // test purpose
+    }
+    if (this == null) return null
+    if (this.gender.equals("Male", true)) return "Female"
+    return "Male"
+}
 
 data class HhForm3(
     var householdSize: Int? = null,
@@ -144,7 +153,7 @@ data class HhForm6(
     var extraNomineeNoReason: String? = null,
     var extraNomineeNoReasonOther: String? = null,
 
-)
+    )
 
 fun HhForm6?.getNomineeNumber(): Int {
     if (this == null) return 1
@@ -161,6 +170,12 @@ data class Nominee(
     var occupation: String? = null,
     var isReadWrite: String? = null
 )
+
+fun Nominee?.getOppositeGender(): String? {
+    if (this == null) return null
+    if (this.gender.equals("Male", true)) return "Female"
+    return "Male"
+}
 
 fun Nominee?.getNomineeHeader(number: Int): String {
     when (number) {

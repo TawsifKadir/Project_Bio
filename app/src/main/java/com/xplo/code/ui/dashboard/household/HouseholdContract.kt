@@ -128,25 +128,29 @@ interface HouseholdContract {
 
     }
 
-    interface Form6View : BaseContract.View, CommonView {
+    interface Form5View : BaseContract.View, CommonView {
         fun onValidated(form: HhForm5?)
         fun onReinstateData(form: HhForm5?)
 
     }
 
-    interface Form5View : BaseContract.View, CommonView {
+    interface Form6View : BaseContract.View, CommonView {
         fun onValidated(form: HhForm6?)
         fun onReinstateData(form: HhForm6?)
 
         fun onChangeRGNomineeAdd(id: Int)
 
+        fun onChooseNomineeAdd(gender: String?)
+        fun onChooseNomineeNotAdd()
+
         fun onEnableDisableNominee(isNomineeAdd: Boolean)
         fun onClickAddNominee()
+        fun onAddNominee(gender: String?)
         fun onGetANomineeFromPopup(nominee: Nominee?)
         fun onRefreshViewWhenListUpdated()
         fun onListHasData()
         fun onListEmpty()
-        fun onSelectNoNomineeItems(item: String?)
+        fun onSelectNoNomineeReason(item: String?)
 
     }
 

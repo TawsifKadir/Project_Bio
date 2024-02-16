@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,7 +19,6 @@ import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.gone
-import com.xplo.code.core.ext.invisible
 import com.xplo.code.core.ext.isNo
 import com.xplo.code.core.ext.isYes
 import com.xplo.code.core.ext.plusOne
@@ -34,6 +34,7 @@ import com.xplo.code.ui.dashboard.household.forms.nominee.NomineeModal
 import com.xplo.code.ui.dashboard.model.HhForm6
 import com.xplo.code.ui.dashboard.model.Nominee
 import com.xplo.code.ui.dashboard.model.checkExtraCases
+import com.xplo.code.ui.dashboard.model.getOppositeGender
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,7 +48,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * Comment  :
  */
 @AndroidEntryPoint
-class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
+class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
     AdapterView.OnItemSelectedListener,
     NomineeListAdapter.OnItemClickListener {
 
@@ -223,13 +224,39 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
         Log.d(TAG, "onChangeRGNomineeAdd() called with: id = $id")
         when (id) {
             R.id.rbYes -> {
-                onEnableDisableNominee(true)
-                onClickAddNominee()
+                //onChooseNomineeAdd(null)
+
+                val targetGender = getTargetGender()
+                val txt = getString(R.string.nominee_objective, targetGender)
+
+                AlertDialog.Builder(requireContext())
+                    .setMessage(txt)
+                    .setCancelable(false)
+                    .setPositiveButton("Yes") { dialog, which ->
+                        onChooseNomineeAdd(targetGender)
+                    }
+                    .setNegativeButton("No") { dialog, which ->
+                        onChooseNomineeAdd(null)
+                    }
+                    .create()
+                    .show()
             }
+
             R.id.rbNo -> {
-                onEnableDisableNominee(false)
+                onChooseNomineeNotAdd()
             }
         }
+    }
+
+    override fun onChooseNomineeAdd(gender: String?) {
+        Log.d(TAG, "onChooseNomineeAdd() called")
+        onEnableDisableNominee(true)
+        onAddNominee(gender)
+    }
+
+    override fun onChooseNomineeNotAdd() {
+        Log.d(TAG, "onChooseNomineeNotAdd() called")
+        onEnableDisableNominee(false)
     }
 
     override fun onEnableDisableNominee(isNomineeAdd: Boolean) {
@@ -245,6 +272,13 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
     }
 
     override fun onClickAddNominee() {
+        Log.d(TAG, "onClickAddNominee() called")
+        val targetGender = getTargetGender()
+        onAddNominee(targetGender)
+    }
+
+    override fun onAddNominee(gender: String?) {
+        Log.d(TAG, "onAddNominee() called with: gender = $gender")
         val rootForm = interactor?.getRootForm()
         if (rootForm == null) return
 
@@ -252,10 +286,9 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
             .listener(this)
             .parent(null)
             .no(getNomineeNo())
-            .gender(null)
+            .gender(gender)
             .build()
             .show()
-
     }
 
     private fun getNomineeNo(): Int {
@@ -291,7 +324,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
         btAddAnother.gone()
     }
 
-    override fun onSelectNoNomineeItems(item: String?) {
+    override fun onSelectNoNomineeReason(item: String?) {
         Log.d(TAG, "onSelectNoNomineeItems() called with: item = $item")
         if (item.isNullOrEmpty()) return
         llParentOtherReason.gone()
@@ -404,7 +437,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
         when (parent?.id) {
             R.id.spReasonNoNominee -> {
                 val txt = spReasonNoNominee.selectedItem.toString()
-                onSelectNoNomineeItems(txt)
+                onSelectNoNomineeReason(txt)
             }
 
 
@@ -413,6 +446,21 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form5View,
 
     private fun isOtherSpecify(txt: String?): Boolean {
         return txt?.contains(UiData.otherSpecify, true).toBool()
+    }
+
+    private fun getTargetGender(): String? {
+
+        if ((adapter?.itemCount ?: 0) == 0) {
+            val form2 = interactor?.getRootForm()?.form2
+            return form2.getOppositeGender()
+        }
+
+        if ((adapter?.itemCount ?: 0) == 1) {
+            val nominee = adapter?.getDataset()?.get(0)
+            return nominee?.getOppositeGender()
+        }
+
+        return null
     }
 
 }

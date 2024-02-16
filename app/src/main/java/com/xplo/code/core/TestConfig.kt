@@ -8,7 +8,7 @@ object TestConfig {
     val isLongClickDGEnabled = true
     val isAutoDGEnabled = true
 
-    val isConsentEnabled = true   // default true
+    val isConsentEnabled = false   // default true
 
     val isNomineeAlwaysEnabled = true   // default false
     val isAlternateAddInHouseholdFlow = true   // default false
