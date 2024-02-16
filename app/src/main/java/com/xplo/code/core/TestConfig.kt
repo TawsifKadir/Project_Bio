@@ -18,4 +18,6 @@ object TestConfig {
 
     // only for nasif, for a temp purpose, will removed later
     val isNavHackEnabled = false
+
+    val isFingerPrintRequired = true
 }

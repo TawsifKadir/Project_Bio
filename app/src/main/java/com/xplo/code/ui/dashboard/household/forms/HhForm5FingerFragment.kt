@@ -70,6 +70,7 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form6View {
     //private lateinit var presenter: RegistrationContract.Presenter
     private var interactor: HouseholdContract.View? = null
 
+    private var fingerprintTotalEnroll = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -166,6 +167,13 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form6View {
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
         //interactor?.navigateToPreview()
+
+        if(TestConfig.isFingerPrintRequired){
+            if(fingerprintTotalEnroll == 0){
+                showAlerter("Warning", "Please Add Fingerprint")
+                return
+            }
+        }
 
         if (TestConfig.isAlternateAddInHouseholdFlow) {
             interactor?.navigateToAlternateAddForm()
@@ -289,6 +297,7 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form6View {
                 }
                 //binding.llDataShow.visibility = View.VISIBLE
 
+                fingerprintTotalEnroll = fpList.size
                 val form = HhForm5()
                 form.finger = Finger()
                 for (item in fpList){
@@ -324,11 +333,11 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form6View {
                         addFingerDrawable(binding.imgLL)
                     }
                     onValidated(form)
-                    Toast.makeText(activity, "Received Positive Result From Fingerprint Capture", Toast.LENGTH_LONG).show()
+                    //Toast.makeText(activity, "Received Positive Result From Fingerprint Capture", Toast.LENGTH_LONG).show()
                 }
 
             }else{
-                Toast.makeText(activity, "Received Negative Result From Fingerprint Capture", Toast.LENGTH_LONG).show()
+                //Toast.makeText(activity, "Received Negative Result From Fingerprint Capture", Toast.LENGTH_LONG).show()
             }
         }
 
