@@ -253,6 +253,11 @@ abstract class BaseFragment : Fragment(), BaseContract.View, NomineeModal.Listen
 
     }
 
+    override fun onNomineeModalCancel() {
+        Log.d(TAG, "onNomineeModalCancel() called")
+
+    }
+
     override fun onNomineeModalNomineeInputSuccess(item: Nominee?) {
         Log.d(TAG, "onNomineeModalNomineeInputSuccess() called with: item = $item")
 

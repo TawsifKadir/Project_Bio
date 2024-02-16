@@ -413,9 +413,23 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         adapter?.remove(pos)
     }
 
+    override fun onNomineeModalCancel() {
+        super.onNomineeModalCancel()
+        Log.d(TAG, "onNomineeModalCancel() called")
+        binding.rgNomineeAdd.clearCheck()
+    }
+
     override fun onNomineeModalNomineeInputSuccess(item: Nominee?) {
         super.onNomineeModalNomineeInputSuccess(item)
+        Log.d(TAG, "onNomineeModalNomineeInputSuccess() called with: item = $item")
         onGetANomineeFromPopup(item)
+        binding.rgNomineeAdd.clearCheck()
+    }
+
+    override fun onNomineeModalNomineeInputFailure(msg: String?) {
+        super.onNomineeModalNomineeInputFailure(msg)
+        Log.d(TAG, "onNomineeModalNomineeInputFailure() called with: msg = $msg")
+        binding.rgNomineeAdd.clearCheck()
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {

@@ -237,6 +237,7 @@ class NomineeModal(builder: Builder) : BottomSheetDialogFragment(), NomineeModal
         Log.d(TAG, "onBackButton: $entryCount")
 
         if (entryCount <= 1) {
+            listener?.onNomineeModalCancel()
             onCloseDialog()
             return
         }
@@ -245,6 +246,7 @@ class NomineeModal(builder: Builder) : BottomSheetDialogFragment(), NomineeModal
     }
 
     override fun onCrossButton() {
+        listener?.onNomineeModalCancel()
         onCloseDialog()
     }
 
@@ -309,7 +311,12 @@ class NomineeModal(builder: Builder) : BottomSheetDialogFragment(), NomineeModal
 
     override fun onCompleteModal(item: Nominee?) {
         Log.d(TAG, "onCompleteModal() called with: item = $item")
-        listener?.onNomineeModalNomineeInputSuccess(item)
+        if (item != null) {
+            listener?.onNomineeModalNomineeInputSuccess(item)
+        } else {
+            listener?.onNomineeModalNomineeInputFailure("no nominee")
+        }
+
         onCloseDialog()
     }
 
@@ -331,6 +338,7 @@ class NomineeModal(builder: Builder) : BottomSheetDialogFragment(), NomineeModal
     interface Listener {
         fun onNomineeModalOpen()
         fun onNomineeModalClose()
+        fun onNomineeModalCancel()
         fun onNomineeModalNomineeInputSuccess(item: Nominee?)
         fun onNomineeModalNomineeInputFailure(msg: String?)
     }

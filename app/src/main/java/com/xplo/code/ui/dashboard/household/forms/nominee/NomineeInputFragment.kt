@@ -167,7 +167,7 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
 
     override fun onGetNomineeFailure(msg: String?) {
         Log.d(TAG, "onGetNomineeFailure() called with: msg = $msg")
-
+        interactor?.onCompleteModal(null)
     }
 
     override fun onReadInput() {
