@@ -23,6 +23,7 @@ import com.xplo.code.ui.dashboard.household.forms.HhForm3HhBdFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm4CapPhotoFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm6NomineeFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm5FingerFragment
+import com.xplo.code.ui.dashboard.household.forms.HhForm6Nominee2Fragment
 import com.xplo.code.ui.dashboard.household.forms.HhFormAlternateFragment
 import com.xplo.code.ui.dashboard.household.forms.HhPreviewFragment
 import com.xplo.code.ui.dashboard.household.forms.HouseholdHomeFragment
@@ -236,6 +237,18 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
 
     override fun navigateToForm6() {
         Log.d(TAG, "navigateToForm6() called")
+
+        if (TestConfig.isNomineeFlow2Enabled) {
+            STEP = 6
+            doFragmentTransaction(
+                HhForm6Nominee2Fragment.newInstance(null),
+                HhForm6Nominee2Fragment.TAG,
+                true,
+                false
+            )
+            return
+        }
+
         STEP = 6
         doFragmentTransaction(
             HhForm6NomineeFragment.newInstance(null),

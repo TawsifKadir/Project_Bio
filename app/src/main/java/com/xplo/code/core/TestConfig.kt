@@ -17,7 +17,8 @@ object TestConfig {
     //val isTestLoginEnabled = false   // default false
 
     // only for nasif, for a temp purpose, will removed later
-    val isNavHackEnabled = false
+    val isNavHackEnabled = true
+    val isNomineeFlow2Enabled = true
 
-    val isFingerPrintRequired = true
+    val isFingerPrintRequired = false
 }

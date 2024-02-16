@@ -156,6 +156,10 @@ interface HouseholdContract {
 
     }
 
+    interface Form62View : Form6View {
+
+    }
+
 
     interface FormAlternateView : BaseContract.View, CommonView {
         fun onValidated(forms: ArrayList<AlternateForm>?)
