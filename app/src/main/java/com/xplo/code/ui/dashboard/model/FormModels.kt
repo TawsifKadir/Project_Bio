@@ -1,5 +1,6 @@
 package com.xplo.code.ui.dashboard.model
 
+import com.xplo.code.core.TestConfig
 import java.io.Serializable
 
 /**
@@ -125,7 +126,13 @@ data class HhForm3(
 data class HhForm4(
     var img: String? = null
 )
+fun HhForm4.isOk(): Boolean {
+    if (!TestConfig.isValidationEnabled) return true
+    if (this.img == null) return false
+    if (this.img.isNullOrEmpty()) return false
 
+    return true
+}
 data class HhForm6(
 
     var isNomineeAdd: String? = null,       // nominee add or not

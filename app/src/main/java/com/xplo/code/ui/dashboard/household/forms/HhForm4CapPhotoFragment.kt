@@ -81,6 +81,7 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
     val REQUEST_IMAGE = 100
     private var fileName: String? = null
     var file: File? = null
+    var form = HhForm4()
     var newPhotoBase64 = ""
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -168,6 +169,7 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
 
     override fun initView() {
 
+        onReinstateData(interactor?.getRootForm()?.form4)
     }
 
     override fun initObserver() {
@@ -187,7 +189,6 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
 
 //        binding.viewButtonBackNext.btBack.visible()
 //        binding.viewButtonBackNext.btNext.visible()
-        onReinstateData(interactor?.getRootForm()?.form4)
     }
 
     override fun onDestroy() {
@@ -201,6 +202,11 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
 
     override fun onReinstateData(form: HhForm4?) {
         Log.d(TAG, "onReinstateData() called with: form = $form")
+        if (form != null) {
+            form.img?.let { loadProfile(it) }
+            this.form = form
+        }
+
 
     }
 
@@ -242,10 +248,8 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
     }
 
     override fun onReadInput() {
-        val form = HhForm4()
-        form.img = newPhotoBase64
         if(!isEmulator()){
-            if (form.img == null || form.img == "") {
+            if (!form.isOk()) {
                 showAlerter("Warning", "Please Add Photo")
                 return
             }
@@ -334,7 +338,7 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
     }
 
     private fun setToModel(newPhotoBase64: String?) {
-        val form = HhForm4()
+        Log.d(TAG, "setToModel() called with: newPhotoBase64 = $newPhotoBase64")
         form.img = newPhotoBase64
         val rootForm = interactor?.getRootForm()
         rootForm?.form4 = form
