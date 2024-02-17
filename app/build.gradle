@@ -110,8 +110,12 @@ android {
 
 dependencies {
 
-    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+    //implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":data")
+
+    debugImplementation files('libs/finger_morpho_debug.aar')
+    //releaseImplementation files('libs/finger_morpho.aar')
 
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
