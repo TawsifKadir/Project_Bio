@@ -4,9 +4,9 @@ import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
-import com.facebook.flipper.android.AndroidFlipperClient
-import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
-import com.facebook.soloader.SoLoader
+//import com.facebook.flipper.android.AndroidFlipperClient
+//import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
+//import com.facebook.soloader.SoLoader
 import com.facebook.stetho.Stetho
 
 /**
@@ -27,14 +27,14 @@ object InterceptorHelper {
     val isChuckerEnabled = true
 
 
-    var flipperPlugin: NetworkFlipperPlugin? = null
+    //var flipperPlugin: NetworkFlipperPlugin? = null
 
     var chuckerCollector: ChuckerCollector? = null
     var chuckerInterceptor: ChuckerInterceptor? = null
 
     fun init(context: Context) {
         initStetho(context)
-        initFlipper(context)
+        //initFlipper(context)
         // okhttp, curl doesn't need init
     }
 
@@ -43,16 +43,16 @@ object InterceptorHelper {
         Stetho.initializeWithDefaults(context)
     }
 
-    fun initFlipper(context: Context) {
-        if (!isFlipperEnabled) return
-        val flipperPlugin = NetworkFlipperPlugin()
-        this.flipperPlugin = flipperPlugin
-        SoLoader.init(context, SoLoader.SOLOADER_ALLOW_ASYNC_INIT)
-        AndroidFlipperClient.getInstance(context).apply {
-            addPlugin(flipperPlugin)
-            start()
-        }
-    }
+//    fun initFlipper(context: Context) {
+//        if (!isFlipperEnabled) return
+//        val flipperPlugin = NetworkFlipperPlugin()
+//        this.flipperPlugin = flipperPlugin
+//        SoLoader.init(context, SoLoader.SOLOADER_ALLOW_ASYNC_INIT)
+//        AndroidFlipperClient.getInstance(context).apply {
+//            addPlugin(flipperPlugin)
+//            start()
+//        }
+//    }
 
     fun initChucker(context: Context) {
         if (!isChuckerEnabled) return

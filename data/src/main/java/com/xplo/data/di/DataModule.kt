@@ -5,8 +5,8 @@ import android.util.Log
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
-import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
-import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
+//import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
+//import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.google.gson.Gson
 import com.localebro.okhttpprofiler.OkHttpProfilerInterceptor
 import com.xplo.data.core.Config
@@ -63,16 +63,16 @@ object DataModule {
     @Provides
     fun provideOkhttpProfilerInterceptor() = OkHttpProfilerInterceptor()
 
-    @Provides
-    fun provideNetworkFlipperPlugin(): NetworkFlipperPlugin? {
-        return InterceptorHelper.flipperPlugin
-    }
-
-    @Provides
-    fun provideFlipperOkhttpInterceptor(plugin: NetworkFlipperPlugin?): FlipperOkhttpInterceptor? {
-        if (plugin == null) return null
-        return FlipperOkhttpInterceptor(plugin)
-    }
+//    @Provides
+//    fun provideNetworkFlipperPlugin(): NetworkFlipperPlugin? {
+//        return InterceptorHelper.flipperPlugin
+//    }
+//
+//    @Provides
+//    fun provideFlipperOkhttpInterceptor(plugin: NetworkFlipperPlugin?): FlipperOkhttpInterceptor? {
+//        if (plugin == null) return null
+//        return FlipperOkhttpInterceptor(plugin)
+//    }
 
 
     @Provides
@@ -117,7 +117,7 @@ object DataModule {
         curlInterceptor: CurlInterceptor,
         okHttpProfilerInterceptor: OkHttpProfilerInterceptor,
         headerInterceptor: HeaderInterceptor,
-        flipperInterceptor: FlipperOkhttpInterceptor?,
+        //flipperInterceptor: FlipperOkhttpInterceptor?,
         chuckerInterceptor: ChuckerInterceptor?
     ): OkHttpClient {
 
@@ -126,9 +126,9 @@ object DataModule {
         builder.addInterceptor(loggingInterceptor)
         builder.addInterceptor(headerInterceptor)
         builder.addInterceptor(curlInterceptor)
-        if (flipperInterceptor != null && InterceptorHelper.isFlipperEnabled) {
-            builder.addInterceptor(flipperInterceptor)
-        }
+//        if (flipperInterceptor != null && InterceptorHelper.isFlipperEnabled) {
+//            builder.addInterceptor(flipperInterceptor)
+//        }
         if (chuckerInterceptor != null && InterceptorHelper.isChuckerEnabled) {
             builder.addInterceptor(chuckerInterceptor)
         }
