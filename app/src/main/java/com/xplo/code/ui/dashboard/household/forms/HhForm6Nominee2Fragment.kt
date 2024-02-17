@@ -282,6 +282,11 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         Log.d(TAG, "onRGNomineeAddNo() called")
         //onChooseNomineeNotAdd()
 
+        if (isCrossGenderExist()){
+            onChooseNomineeNotAdd()
+            return
+        }
+
         val targetGender = getTargetGender()
         val targetGenderTitle = if (targetGender.equals("Male", true)) "Man" else "Woman"
         val txt = getString(R.string.nominee_objective, targetGenderTitle)
@@ -470,11 +475,19 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         if (!form.isExtraNomineeOk()) return
 
         if (form.isOk()) {
+
             val checkExtraCases = form.checkExtraCases()
             if (checkExtraCases != null) {
                 showAlerter(checkExtraCases, null)
                 return
             }
+
+            if (!isCrossGenderExist()) {
+                val crossGender = getGenderForCross()
+                showAlerter("Need a $crossGender nominee", null)
+                return
+            }
+
             onValidated(form)
         }
 
@@ -583,12 +596,42 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
             return form2.getOppositeGender()
         }
 
-        if ((adapter?.itemCount ?: 0) == 1) {
-            val nominee = adapter?.getDataset()?.get(0)
-            return nominee?.getOppositeGender()
-        }
+//        if ((adapter?.itemCount ?: 0) == 1) {
+//            val nominee = adapter?.getDataset()?.get(0)
+//            return nominee?.getOppositeGender()
+//        }
 
         return null
+    }
+
+    private fun isCrossGenderExist(): Boolean {
+        //val beneficiaryGender = interactor?.getRootForm()?.form2?.gender
+        val listItems = adapter?.getDataset()
+        if (listItems.isNullOrEmpty()) return false
+
+//        if (beneficiaryGender.equals("Male", true)) {
+//            for (item in listItems) {
+//                if (item.gender.equals("Female", true)) return true
+//            }
+//        }
+//
+//        if (beneficiaryGender.equals("Female", true)) {
+//            for (item in listItems) {
+//                if (item.gender.equals("Male", true)) return true
+//            }
+//        }
+//        return false
+
+        val oppositeGender = interactor?.getRootForm()?.form2?.getOppositeGender()
+
+        for (item in listItems) {
+            if (item.gender.equals(oppositeGender, true)) return true
+        }
+        return false
+    }
+
+    private fun getGenderForCross(): String? {
+        return interactor?.getRootForm()?.form2.getOppositeGender()
     }
 
 

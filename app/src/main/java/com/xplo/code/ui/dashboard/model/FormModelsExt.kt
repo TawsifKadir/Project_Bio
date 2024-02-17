@@ -190,15 +190,15 @@ fun HhForm6.isOk2(): Boolean {
 fun HhForm6.checkExtraCases(): String? {
     if (!TestConfig.isValidationEnabled) return null
     if (this.isNomineeAdd.isNo()) return null  // no extra case for no nominee selection
-    if (!this.isOkCaseSizeMin()) return "Minimum 2 nominee required"
+    if (!this.isOkCaseSizeMin()) return "Minimum 1 nominee required"
     if (!this.isOkCaseSizeMax()) return "Maximum 5 nominee allowed"
-    if (!this.isOkCaseMaleFemale()) return "1 female nominee required"
+    //if (!this.isOkCaseMaleFemale()) return "1 female nominee required"
     return null
 }
 
 fun HhForm6.isOkCaseSizeMin(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
-    if (this.nominees.size < 2) return false
+    if (this.nominees.size < 1) return false
     //if (this.nominees.size > 5) return false
     return true
 }

@@ -213,7 +213,7 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         etLastName.setText("Dias")
         etAge.setText("12")
         spRelation.setSelection(2)
-        spGender.setSelection(2)
+//        spGender.setSelection(2)
         spOccupation.setSelection(2)
         rgReadWrite.check(rbReadWriteNo.id)
     }
@@ -229,7 +229,7 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
             3 -> return "Third Nominee"
             4 -> return "Fourth Nominee"
             5 -> return "Fifth Nominee"
+            else -> return "Nominee $number"
         }
-        return "First Nominee"
     }
 }
