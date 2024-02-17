@@ -1,7 +1,9 @@
 package com.xplo.data.core
 
-import android.annotation.SuppressLint
 import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.chuckerteam.chucker.api.RetentionManager
 import com.facebook.flipper.android.AndroidFlipperClient
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.facebook.soloader.SoLoader
@@ -15,18 +17,20 @@ import com.facebook.stetho.Stetho
  * Desc     :
  * Comment  :
  */
-@SuppressLint("StaticFieldLeak")
-object InterceptorHelper {
 
-    //var context: Context? = null
+object InterceptorHelper {
 
     val isStethoEnabled = true
     val isFlipperEnabled = true
+
     //val isOkHttpProfilerEnabled = true
     val isChuckerEnabled = true
 
 
     var flipperPlugin: NetworkFlipperPlugin? = null
+
+    var chuckerCollector: ChuckerCollector? = null
+    var chuckerInterceptor: ChuckerInterceptor? = null
 
     fun init(context: Context) {
         initStetho(context)
@@ -48,6 +52,32 @@ object InterceptorHelper {
             addPlugin(flipperPlugin)
             start()
         }
+    }
+
+    fun initChucker(context: Context) {
+        if (!isChuckerEnabled) return
+        chuckerCollector = ChuckerCollector(
+            context = context,
+            showNotification = true,
+            retentionPeriod = RetentionManager.Period.ONE_HOUR
+        )
+
+        chuckerInterceptor = createChuckerInterceptor(context, chuckerCollector)
+    }
+
+    fun createChuckerInterceptor(
+        context: Context?,
+        collector: ChuckerCollector?
+    ): ChuckerInterceptor? {
+        if (context == null) return null
+        if (collector == null) return null
+        return ChuckerInterceptor.Builder(context)
+            .collector(collector)
+            // List of headers to replace with ** in the Chucker UI
+            .redactHeaders("Authorization", "Auth-Token", "Bearer")
+            .alwaysReadResponseBody(true)
+            .createShortcut(true)
+            .build()
     }
 
 }
