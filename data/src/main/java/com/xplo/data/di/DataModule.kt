@@ -11,7 +11,7 @@ import com.google.gson.Gson
 import com.localebro.okhttpprofiler.OkHttpProfilerInterceptor
 import com.xplo.data.core.Config
 import com.xplo.data.core.Contextor
-import com.xplo.data.core.InterceptorUtils
+import com.xplo.data.core.InterceptorHelper
 import com.xplo.data.network.api.ContentApi
 import com.xplo.data.network.api.UserApi
 import com.xplo.data.network.interceptor.CurlInterceptor
@@ -65,7 +65,7 @@ object DataModule {
 
     @Provides
     fun provideNetworkFlipperPlugin(): NetworkFlipperPlugin? {
-        return InterceptorUtils.flipperPlugin
+        return InterceptorHelper.flipperPlugin
     }
 
     @Provides
@@ -126,10 +126,10 @@ object DataModule {
         builder.addInterceptor(loggingInterceptor)
         builder.addInterceptor(headerInterceptor)
         builder.addInterceptor(curlInterceptor)
-        if (flipperInterceptor != null && InterceptorUtils.isFlipperEnabled) {
+        if (flipperInterceptor != null && InterceptorHelper.isFlipperEnabled) {
             builder.addInterceptor(flipperInterceptor)
         }
-        if (chuckerInterceptor != null && InterceptorUtils.isChuckerEnabled) {
+        if (chuckerInterceptor != null && InterceptorHelper.isChuckerEnabled) {
             builder.addInterceptor(chuckerInterceptor)
         }
         builder.callTimeout(25, TimeUnit.SECONDS)

@@ -5,7 +5,7 @@ import com.xplo.code.data.RMemory
 import com.xplo.code.data.pref.PrefHelperImpl
 import com.xplo.code.utils.Utils
 import com.xplo.data.core.Config
-import com.xplo.data.core.InterceptorUtils
+import com.xplo.data.core.InterceptorHelper
 import dagger.hilt.android.HiltAndroidApp
 
 /**
@@ -60,7 +60,7 @@ class MainApplication : Application() {
 //            start()
 //        }
 
-        InterceptorUtils.init(this)
+        InterceptorHelper.init(this)
 
 
     }

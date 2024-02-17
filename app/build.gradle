@@ -21,7 +21,7 @@ android {
     compileSdk 34
     defaultConfig {
         applicationId "com.xplo.skl"
-        minSdk 23
+        minSdk 29
         targetSdk 34
         versionCode genVersionCode(versionMajor, versionMinor, versionPatch)
         versionName genVersionName(versionMajor, versionMinor, versionPatch)
@@ -114,8 +114,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":data")
 
+    releaseImplementation files('libs/finger_morpho.aar')
     debugImplementation files('libs/finger_morpho_debug.aar')
-    //releaseImplementation files('libs/finger_morpho.aar')
+
 
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -191,7 +192,7 @@ dependencies {
     implementation 'com.facebook.stetho:stetho-okhttp3:1.6.0'
     implementation 'com.localebro:okhttpprofiler:1.0.8'
 
-    def flipper_version = "0.243.0"
+    def flipper_version = "0.247.0"
     debugImplementation "com.facebook.flipper:flipper:$flipper_version"
     debugImplementation "com.facebook.soloader:soloader:0.10.5"
     debugImplementation "com.facebook.flipper:flipper-network-plugin:$flipper_version"
