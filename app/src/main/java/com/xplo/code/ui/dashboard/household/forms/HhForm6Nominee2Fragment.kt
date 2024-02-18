@@ -537,7 +537,8 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
                 return
             }
 
-            if (!isCrossGenderExist() && !form.xIsNomineeAdd.isNo()) {
+
+            if (shouldShowCrossGenderAlerter(form)) {
                 val crossGender = getGenderForCross()
 
 //                var title = "Need a $crossGender nominee. You can choose no if you don't want add more"
@@ -550,11 +551,6 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         }
 
 
-    }
-
-    private fun readNomineeInputsFromList(): ArrayList<Nominee> {
-        var nominees = adapter?.getDataset()
-        return nominees ?: arrayListOf()
     }
 
     override fun onLongClickDataGeneration() {
@@ -641,6 +637,18 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
     private fun isListContainsData(): Boolean {
         if (adapter == null) return false
         return adapter!!.itemCount > 0
+    }
+
+    private fun shouldShowCrossGenderAlerter(form: HhForm6): Boolean {
+        if (isCrossGenderExist()) return false
+        if (form.isNomineeAdd.isNo()) return false
+        if (form.xIsNomineeAdd.isNo()) return false
+        return true
+    }
+
+    private fun readNomineeInputsFromList(): ArrayList<Nominee> {
+        var nominees = adapter?.getDataset()
+        return nominees ?: arrayListOf()
     }
 
     private fun isOtherSpecify(txt: String?): Boolean {
