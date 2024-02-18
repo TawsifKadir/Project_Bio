@@ -254,6 +254,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
             .setTitle(title ?: "")
             .setText(msg ?: "")
             .enableSwipeToDismiss()
+            //.setDuration(3000)      // 3s default
             .setBackgroundColorInt(
                 AttrUtils.getAttrColor(
                     this,

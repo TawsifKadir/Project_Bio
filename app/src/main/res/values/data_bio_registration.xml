@@ -308,5 +308,6 @@
     <string name="preview">Preview</string>
 
     <string name="nominee_objective">The project’s objective is to achieve a 50–50 percent distribution between male and female youth in the program. Consequently, there might be situations where nominating household members from both genders could enhance the likelihood of selection into the program. Would you like to nominate a %s for the program?</string>
+    <string name="nominee_objective_alerter_msg">The project’s objective is to achieve a 50–50 percent distribution between male and female youth in the program. To ensure this, we kindly request your consent to nominate a participant of the opposite gender. If you prefer not to nominate, please select NO and provide your reason.</string>
 
 </resources>

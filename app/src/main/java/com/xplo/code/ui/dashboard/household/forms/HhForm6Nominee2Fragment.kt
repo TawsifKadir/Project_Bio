@@ -15,6 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.tapadoo.alerter.Alerter
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -25,6 +26,7 @@ import com.xplo.code.core.ext.isYes
 import com.xplo.code.core.ext.plusOne
 import com.xplo.code.core.ext.toBool
 import com.xplo.code.core.ext.visible
+import com.xplo.code.core.utils.AttrUtils
 import com.xplo.code.databinding.FragmentHhForm6Nominee2Binding
 import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
@@ -537,7 +539,10 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
             if (!isCrossGenderExist() && !form.xIsNomineeAdd.isNo()) {
                 val crossGender = getGenderForCross()
-                showAlerter("Need a $crossGender nominee. You can choose no if you don't want add more", null)
+
+//                var title = "Need a $crossGender nominee. You can choose no if you don't want add more"
+                var title = getString(R.string.nominee_objective_alerter_msg)
+                showAlerterLong(title, null)
                 return
             }
 
@@ -685,6 +690,24 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
     private fun getGenderForCross(): String? {
         return interactor?.getRootForm()?.form2.getOppositeGender()
+    }
+
+
+    private fun showAlerterLong(title: String?, msg: String?) {
+        Alerter.create(requireActivity())
+            .setTitle(title ?: "")
+            .setText(msg ?: "")
+            .enableSwipeToDismiss()
+            .setDuration(6000)      // 3s default
+            .setBackgroundColorInt(
+                AttrUtils.getAttrColor(
+                    requireContext(),
+                    R.attr.colorWarning
+                )
+            ) // or setBackgroundColorInt(Color.CYAN)
+            .setTextAppearance(R.style.AlertTextAppr_Text)
+            .setTitleAppearance(R.style.AlertTextAppr_Title)
+            .show()
     }
 
 
