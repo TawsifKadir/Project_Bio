@@ -439,6 +439,59 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 //        }
 
 
+//        val form = HhForm6()
+//        form.nominees = readNomineeInputsFromList()
+//
+//        if (form.nominees.isNotEmpty()) {
+//
+//            form.isNomineeAdd = "Yes"
+//            form.noNomineeReason = null
+//            form.otherReason = null
+//
+//            form.xIsNomineeAdd = getRadioGroup(binding.rgNomineeAdd)
+//            if (form.xIsNomineeAdd.isNo()) {
+//                form.xNoNomineeReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
+//                if (isOtherSpecify(form.xNoNomineeReason)) {
+//                    form.xOtherReason = chkEditText(etOtherReason, UiData.ER_ET_DF)
+//                }
+//            }
+//
+//        } else {
+//            // empty
+//            form.isNomineeAdd = chkRadioGroup(binding.rgNomineeAdd, UiData.ER_ET_DF)
+//
+//            if (form.isNomineeAdd.isNo()) {
+//                form.noNomineeReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
+//                if (isOtherSpecify(form.noNomineeReason)) {
+//                    form.otherReason = chkEditText(etOtherReason, UiData.ER_ET_DF)
+//                }
+//            } else {
+//                // yes
+//                // already covered
+//            }
+//
+//        }
+//
+//        if (!form.isExtraNomineeOk()) return
+//
+//        if (form.isOk()) {
+//
+//            val checkExtraCases = form.checkExtraCases()
+//            if (checkExtraCases != null) {
+//                showAlerter(checkExtraCases, null)
+//                return
+//            }
+//
+//            if (!isCrossGenderExist()) {
+//                val crossGender = getGenderForCross()
+//                showAlerter("Need a $crossGender nominee. You can choose no if you don't want add.", null)
+//                return
+//            }
+//
+//            onValidated(form)
+//        }
+
+
         val form = HhForm6()
         form.nominees = readNomineeInputsFromList()
 
@@ -482,9 +535,9 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
                 return
             }
 
-            if (!isCrossGenderExist()) {
+            if (!isCrossGenderExist() && !form.xIsNomineeAdd.isNo()) {
                 val crossGender = getGenderForCross()
-                showAlerter("Need a $crossGender nominee. You can choose no if you don't want add.", null)
+                showAlerter("Need a $crossGender nominee. You can choose no if you don't want add more", null)
                 return
             }
 
