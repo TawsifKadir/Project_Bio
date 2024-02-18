@@ -290,7 +290,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         }
 
         val targetGender = getTargetGender()
-        val targetGenderTitle = if (targetGender.equals("Male", true)) "Man" else "Woman"
+        val targetGenderTitle = getTargetGenderTitle(targetGender)
         val txt = getString(R.string.nominee_objective, targetGenderTitle)
 
         AlertDialog.Builder(requireContext())
@@ -656,37 +656,29 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
     }
 
     private fun getTargetGender(): String? {
+        if (isCrossGenderExist()) return null
 
-        if ((adapter?.itemCount ?: 0) == 0) {
-            val form2 = interactor?.getRootForm()?.form2
-            return form2.getOppositeGender()
-        }
+//        if ((adapter?.itemCount ?: 0) == 0) {
+//            val form2 = interactor?.getRootForm()?.form2
+//            return form2.getOppositeGender()
+//        }
 
 //        if ((adapter?.itemCount ?: 0) == 1) {
 //            val nominee = adapter?.getDataset()?.get(0)
 //            return nominee?.getOppositeGender()
 //        }
 
-        return null
+        return interactor?.getRootForm()?.form2.getOppositeGender()
+    }
+
+    private fun getTargetGenderTitle(targetGender: String?): String {
+        return if (targetGender.equals("Male", true)) "man" else "woman"
     }
 
     private fun isCrossGenderExist(): Boolean {
         //val beneficiaryGender = interactor?.getRootForm()?.form2?.gender
         val listItems = adapter?.getDataset()
         if (listItems.isNullOrEmpty()) return false
-
-//        if (beneficiaryGender.equals("Male", true)) {
-//            for (item in listItems) {
-//                if (item.gender.equals("Female", true)) return true
-//            }
-//        }
-//
-//        if (beneficiaryGender.equals("Female", true)) {
-//            for (item in listItems) {
-//                if (item.gender.equals("Male", true)) return true
-//            }
-//        }
-//        return false
 
         val oppositeGender = interactor?.getRootForm()?.form2?.getOppositeGender()
 
