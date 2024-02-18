@@ -78,9 +78,9 @@ data class HhForm2(
 )
 
 fun HhForm2?.getOppositeGender(): String? {
-    if (TestConfig.isNavHackEnabled) {
-        return "Female" // test purpose
-    }
+//    if (TestConfig.isNavHackEnabled) {
+//        return "Female" // test purpose
+//    }
     if (this == null) return null
     if (this.gender.equals("Male", true)) return "Female"
     return "Male"

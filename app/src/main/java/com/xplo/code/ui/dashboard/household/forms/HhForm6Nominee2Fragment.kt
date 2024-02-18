@@ -484,7 +484,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
             if (!isCrossGenderExist()) {
                 val crossGender = getGenderForCross()
-                showAlerter("Need a $crossGender nominee", null)
+                showAlerter("Need a $crossGender nominee. You can choose no if you don't want add.", null)
                 return
             }
 
