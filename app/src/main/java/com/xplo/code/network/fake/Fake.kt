@@ -1,6 +1,7 @@
 package com.xplo.code.network.fake
 
 import android.annotation.SuppressLint
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 //import com.fasterxml.jackson.databind.ObjectMapper
 import com.kit.integrationmanager.model.Beneficiary
@@ -117,17 +118,19 @@ object Fake {
 
     fun getABenificiary(): Beneficiary? {
 
-//        val inputStream: InputStream = context.resources.openRawResource(R.raw.single_reg)
-//        val br = BufferedReader(InputStreamReader(inputStream, "UTF-8"))
-//        val mapper = ObjectMapper()
-//        val beneficiary: Beneficiary = mapper.readValue(br, Beneficiary::class.java)
-//        return beneficiary
+        val inputStream: InputStream = context.resources.openRawResource(R.raw.single_reg)
+        val br = BufferedReader(InputStreamReader(inputStream, "UTF-8"))
+        val mapper = ObjectMapper()
+        val beneficiary: Beneficiary = mapper.readValue(br, Beneficiary::class.java)
+        return beneficiary
 
-        val txt = context.resources.openRawResource(R.raw.single_reg_mod)
-            .bufferedReader().use { it.readText() }
-
-        val beneficiary: Beneficiary = Gson().fromJson(txt, Beneficiary::class.java)
-        return null
+//        val txt = context.resources.openRawResource(R.raw.single_reg_mod)
+//            .bufferedReader().use { it.readText() }
+//
+//        val beneficiary: Beneficiary = Gson().fromJson(txt, Beneficiary::class.java)
+//
+//
+//        return null
     }
 
 
