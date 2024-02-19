@@ -6,12 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.kit.integrationmanager.model.ServerInfo
+import com.kit.integrationmanager.model.SyncResult
+import com.kit.integrationmanager.model.SyncStatus
+import com.kit.integrationmanager.service.OnlineIntegrationManager
 import com.xplo.code.R
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.databinding.FragmentDashboardBinding
+import com.xplo.code.network.fake.Fake
 import com.xplo.code.ui.components.XDialog
+import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Observable
+import java.util.Observer
 
 /**
  * Copyright 2020 (C) xplo
@@ -24,7 +32,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class DashboardFragment : BaseFragment(), DashboardContract.View {
+class DashboardFragment : BaseFragment(), DashboardContract.View, Observer {
 
     companion object {
         private const val TAG = "DashboardFragment"
@@ -85,8 +93,8 @@ class DashboardFragment : BaseFragment(), DashboardContract.View {
             showAlerter("warning", "Not implemented yet")
         }
         binding.viewPayment.setOnClickListener {
-            navigateToPayment()
-            //binding.btTest.callOnClick()
+            //navigateToPayment()
+            binding.btTest.callOnClick()
         }
 
         binding.btTest.setOnClickListener {
@@ -102,54 +110,14 @@ class DashboardFragment : BaseFragment(), DashboardContract.View {
 //                .create()
 //                .show()
 
-//            XDialog.Builder(requireActivity().supportFragmentManager)
-//                .setLayoutId(R.layout.custom_dialog_pnn)
-//                .setTitle(getString(R.string.dummy_text_small))
-//                .setMessage(getString(R.string.dummy_text_big))
-//                .setPosButtonText(getString(R.string.confirm))
-//                .setNegButtonText(getString(R.string.cancel))
-//                .setNeuButtonText(getString(R.string.day))
-//                .setCancelable(false)
-//                .setListener(object : XDialog.DialogListener {
-//                    override fun onClickPositiveButton() {
-//
-//                    }
-//
-//                    override fun onClickNegativeButton() {
-//
-//                    }
-//
-//                    override fun onClickNeutralButton() {
-//
-//                    }
-//                })
-//                .build()
-//                .show()
+            val serverInfo = ServerInfo()
+            serverInfo.port = 8090
+            serverInfo.protocol = "http"
+            serverInfo.host_name = "snsopafis.karoothitbd.com"
+            val integrationManager = OnlineIntegrationManager(this, serverInfo)
 
-            XDialog.Builder(requireActivity().supportFragmentManager)
-                .setLayoutId(R.layout.custom_dialog_pnn)
-                .setTitle(getString(R.string.review_complete_reg))
-                .setMessage(getString(R.string.review_complete_reg_msg))
-                .setPosButtonText("Alternate Registration")
-                .setNegButtonText(getString(R.string.home))
-                .setNeuButtonText("Household Registration")
-                .setThumbId(R.drawable.ic_logo_photo)
-                .setCancelable(false)
-                .setListener(object : XDialog.DialogListener {
-                    override fun onClickPositiveButton() {
-
-                    }
-
-                    override fun onClickNegativeButton() {
-
-                    }
-
-                    override fun onClickNeutralButton() {
-
-                    }
-                })
-                .build()
-                .show()
+            val beneficiary = Fake.getABenificiary()
+            integrationManager.syncRecord(beneficiary)
 
         }
     }
@@ -164,5 +132,26 @@ class DashboardFragment : BaseFragment(), DashboardContract.View {
         super.onDestroy()
     }
 
+    override fun update(observable: Observable?, arg: Any?) {
+        Log.d(TAG, "update() called with: observable = $observable, arg = $arg")
+        if (arg == null) return
+
+        val syncResult = arg as SyncResult?
+        onGetSyncResult(syncResult)
+
+
+    }
+
+    private fun onGetSyncResult(syncResult: SyncResult?) {
+        Log.d(TAG, "onGetSyncResult() called with: syncResult = ${syncResult?.syncStatus}")
+        if (syncResult == null) return
+        //showToast(syncResult.syncStatus.toString())
+//        when (syncResult.syncStatus) {
+//            SyncStatus.SUCCESS -> onSyncSuccess(syncResult)
+//            else -> onSyncFailure(syncResult)
+//        }
+
+
+    }
 
 }
