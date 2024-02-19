@@ -1,0 +1,232 @@
+{
+    "address": {
+        "boma": 1,
+        "countyId": 1,
+        "payam": 1,
+        "stateId": 1
+    },
+    "alternatePayee1": {
+        "biometrics": [
+            {
+                "applicationId": "app-170224008",
+                "biometricType": "PHOTO",
+                
+                "biometricUserType": "ALTERNATE",
+                "noFingerPrint": false,
+                "noFingerprintReason": "NoFingerprintImpression"
+            },
+            {
+                "applicationId": "app-170224008",
+                "biometricType": "RT",
+                
+                "biometricUserType": "ALTERNATE",
+                "noFingerPrint": false,
+                "noFingerprintReason": "NoFingerprintImpression"
+            }
+        ],
+        "nationalId": "1234567890",
+        "payeeAge": 30,
+        "payeeFirstName": "FirstName",
+        "payeeGender": "MALE",
+        "payeeLastName": "LastName",
+        "payeeMiddleName": "MiddleName",
+        "payeeNickName": "FourthName",
+        "payeePhoneNo": "0234578040"
+    },
+    "alternatePayee2": {
+        "biometrics": [
+            {
+                "applicationId": "app-170224008",
+                "biometricType": "PHOTO",
+                
+                "biometricUserType": "ALTERNATE",
+                "noFingerPrint": false,
+                "noFingerprintReason": "NoFingerprintImpression"
+            },
+            {
+                "applicationId": "app-170224008",
+                "biometricType": "RT",
+                
+                "biometricUserType": "ALTERNATE",
+                "noFingerPrint": false,
+                "noFingerprintReason": "NoFingerprintImpression"
+            }
+        ],
+        "nationalId": "1234567890",
+        "payeeAge": 30,
+        "payeeFirstName": "FirstName",
+        "payeeGender": "MALE",
+        "payeeLastName": "LastName",
+        "payeeMiddleName": "MiddleName",
+        "payeeNickName": "FourthName",
+        "payeePhoneNo": "0234578040"
+    },
+    "applicationId": "app-170224008",
+    "biometrics": [
+        {
+            "applicationId": "app-170224008",
+            "biometricType": "PHOTO",
+            
+            "biometricUserType": "BENEFICIARY",
+            "noFingerPrint": false,
+            "noFingerprintReason": "NoFingerprintImpression"
+        },
+        {
+            "applicationId": "app-170224008",
+            "biometricType": "RT",
+            
+            "biometricUserType": "BENEFICIARY",
+            "noFingerPrint": false,
+            "noFingerprintReason": "NoFingerprintImpression"
+        }
+    ],
+    "createdBy": 0,
+    "currency": "SUDANESE_POUND",
+    "householdIncomeSource": "NONE",
+    "householdMember17": {
+        "applicationId": "app-170224008",
+        "femaleChronicalIll": 0,
+        "femaleDisable": 0,
+        "femaleNormal": 0,
+        "maleChronicalIll": 0,
+        "maleDisable": 0,
+        "maleNormal": 0
+    },
+    "householdMember2": {
+        "applicationId": "app-170224008",
+        "femaleChronicalIll": 0,
+        "femaleDisable": 0,
+        "femaleNormal": 0,
+        "maleChronicalIll": 0,
+        "maleDisable": 0,
+        "maleNormal": 0
+    },
+    "householdMember35": {
+        "applicationId": "app-170224008",
+        "femaleChronicalIll": 0,
+        "femaleDisable": 0,
+        "femaleNormal": 0,
+        "maleChronicalIll": 0,
+        "maleDisable": 0,
+        "maleNormal": 0
+    },
+    "householdMember5": {
+        "applicationId": "app-170224008",
+        "femaleChronicalIll": 0,
+        "femaleDisable": 0,
+        "femaleNormal": 0,
+        "maleChronicalIll": 0,
+        "maleDisable": 0,
+        "maleNormal": 0
+    },
+    "householdMember64": {
+        "applicationId": "app-170224008",
+        "femaleChronicalIll": 0,
+        "femaleDisable": 0,
+        "femaleNormal": 0,
+        "maleChronicalIll": 0,
+        "maleDisable": 0,
+        "maleNormal": 0
+    },
+    "householdMember65": {
+        "applicationId": "app-170224008",
+        "femaleChronicalIll": 0,
+        "femaleDisable": 0,
+        "femaleNormal": 0,
+        "maleChronicalIll": 0,
+        "maleDisable": 0,
+        "maleNormal": 0
+    },
+    "householdMonthlyAvgIncome": 1000,
+    "householdSize": 10,
+    "isOtherMemberPerticipating": true,
+    "isReadWrite": true,
+    "location": {
+        "lat": 0,
+        "lon": 0
+    },
+    "memberReadWrite": 0,
+    "nominees": [
+        {
+            "applicationId": "app-170224008",
+            "biometrics": [
+                {
+                    "applicationId": "app-170224008",
+                    "biometricType": "PHOTO",
+                    
+                    "biometricUserType": "NOMINEE",
+                    "noFingerPrint": false,
+                    "noFingerprintReason": "NoFingerprintImpression"
+                },
+                {
+                    "applicationId": "app-170224008",
+                    "biometricType": "RT",
+                    
+                    "biometricUserType": "NOMINEE",
+                    "noFingerPrint": false,
+                    "noFingerprintReason": "NoFingerprintImpression"
+                }
+            ],
+            "isReadWrite": true,
+            "nomineeAge": 18,
+            "nomineeFirstName": "NomineeFirstName",
+            "nomineeGender": "MALE",
+            "nomineeLastName": "NomineeLastName",
+            "nomineeMiddleName": "NomineeMiddleName",
+            "nomineeNickName": "Nickname",
+            "nomineeOccupation": "FORMAL_JOB",
+            "otherOccupation": "string",
+            "relationshipWithHouseholdHead": "HOUSEHOLD_HEAD"
+        },
+        {
+            "applicationId": "app-170224008",
+            "biometrics": [
+                {
+                    "applicationId": "app-170224008",
+                    "biometricType": "PHOTO",
+                    
+                    "biometricUserType": "NOMINEE",
+                    "noFingerPrint": false,
+                    "noFingerprintReason": "NoFingerprintImpression"
+                },
+                {
+                    "applicationId": "app-170224008",
+                    "biometricType": "RT",
+                    
+                    "biometricUserType": "NOMINEE",
+                    "noFingerPrint": false,
+                    "noFingerprintReason": "NoFingerprintImpression"
+                }
+            ],
+            "isReadWrite": true,
+            "nomineeAge": 18,
+            "nomineeFirstName": "NomineeFirstName",
+            "nomineeGender": "MALE",
+            "nomineeLastName": "NomineeLastName",
+            "nomineeMiddleName": "NomineeMiddleName",
+            "nomineeNickName": "Nickname",
+            "nomineeOccupation": "FORMAL_JOB",
+            "otherOccupation": "string",
+            "relationshipWithHouseholdHead": "HOUSEHOLD_HEAD"
+        }
+    ],
+    "notPerticipationOtherReason": "string",
+    "notPerticipationReason": "REASON_1",
+    "relationshipWithHouseholdHead": "HOUSEHOLD_HEAD",
+    "respondentAge": 50,
+    "respondentFirstName": "first",
+    "respondentGender": "MALE",
+    "respondentId": "string",
+    "respondentLastName": "last",
+    "respondentLegalStatus": "HOST",
+    "respondentMaritalStatus": "SINGLE",
+    "respondentMiddleName": "middle",
+    "respondentNickName": "nickname",
+    "respondentPhoneNo": "1234567890",
+    "selectionCriteria": "LIPW",
+    "selectionReason": "LIPW_REASON_1",
+    "spouseFirstName": "string",
+    "spouseLastName": "string",
+    "spouseMiddleName": "string",
+    "spouseNickName": "string"
+}

@@ -121,6 +121,8 @@ dependencies {
 //    releaseImplementation files('libs/finger_morpho.aar')
 //    debugImplementation files('libs/finger_morpho_dummy.aar')
 
+    implementation files('libs/IntegrationManager.aar')
+
 
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -190,6 +192,9 @@ dependencies {
 //    implementation 'com.squareup.okhttp3:okhttp:4.2.2'
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3'
     implementation 'com.github.bumptech.glide:glide:4.15.1'
+
+//    implementation "com.fasterxml.jackson.core:jackson-databind:2.16.1"
+
 
     // network interceptor
     implementation 'com.facebook.stetho:stetho:1.6.0'

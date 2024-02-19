@@ -30,7 +30,7 @@
         android:theme="@style/AppTheme.Light"
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,LockedOrientationActivity"
-        tools:replace="android:theme">
+        tools:replace="android:theme, android:name">
 
         <activity
             android:name=".ui.photo.ImagePickerActivity"

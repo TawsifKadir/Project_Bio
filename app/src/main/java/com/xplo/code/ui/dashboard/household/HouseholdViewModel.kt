@@ -3,21 +3,28 @@ package com.xplo.code.ui.dashboard.household
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kit.integrationmanager.model.ServerInfo
+import com.kit.integrationmanager.model.SyncResult
+import com.kit.integrationmanager.model.SyncStatus
+import com.kit.integrationmanager.service.OnlineIntegrationManager
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.offline.Column
 import com.xplo.code.data.db.offline.OptionItem
 import com.xplo.code.data.db.repo.DbRepo
 import com.xplo.code.data.mapper.FormMapper
+import com.xplo.code.network.fake.Fake
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.toJson
-import com.xplo.data.repo.UserRepo
 import com.xplo.data.core.DispatcherProvider
 import com.xplo.data.core.Resource
 import com.xplo.data.repo.ContentRepo
+import com.xplo.data.repo.UserRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.util.Observable
+import java.util.Observer
 import java.util.UUID
 import javax.inject.Inject
 
@@ -27,7 +34,7 @@ class HouseholdViewModel @Inject constructor(
     private val dbRepo: DbRepo,
     private val contentRepo: ContentRepo,
     private val dispatchers: DispatcherProvider
-) : ViewModel() {
+) : ViewModel(), Observer {
 
     companion object {
         private const val TAG = "HouseholdViewModel"
@@ -49,6 +56,9 @@ class HouseholdViewModel @Inject constructor(
 
         class SubmitHouseholdFormSuccess(val id: String, val pos: Int) : Event()
         class SubmitHouseholdFormFailure(val msg: String?) : Event()
+
+        class SyncFormSuccess(val syncResult: SyncResult, val pos: Int) : Event()
+        class SyncFormFailure(val msg: String?) : Event()
 
 
         class UpdateHouseholdFormSuccess(val id: String) : Event()
@@ -192,6 +202,25 @@ class HouseholdViewModel @Inject constructor(
         }
     }
 
+    fun syncHouseholdForm(form: HouseholdForm?, pos: Int) {
+        Log.d(TAG, "saveHouseholdForm() called with: form = $form")
+        if (form == null) return
+
+        var item = FormMapper.toFormRqb(form)
+        if (item == null) return
+
+
+        val serverInfo = ServerInfo()
+        serverInfo.port = 8090
+        serverInfo.protocol = "http"
+        serverInfo.host_name = "snsopafis.karoothitbd.com"
+        val integrationManager = OnlineIntegrationManager(this, serverInfo)
+
+        val beneficiary = Fake.getABenificiary()
+        integrationManager.syncRecord(beneficiary)
+    }
+
+
     fun updateHouseholdForm(form: HouseholdForm?) {
         Log.d(TAG, "saveHouseholdForm() called with: form = $form")
         if (form == null) return
@@ -315,6 +344,41 @@ class HouseholdViewModel @Inject constructor(
 
             }
         }
+
+    }
+
+    override fun update(observable: Observable?, arg: Any?) {
+        Log.d(TAG, "update() called with: observable = $observable, arg = $arg")
+        if (arg == null) return
+
+        val syncResult = arg as SyncResult?
+        onGetSyncResult(syncResult)
+
+
+    }
+
+    private fun onGetSyncResult(syncResult: SyncResult?) {
+        Log.d(TAG, "onGetSyncResult() called with: syncResult = ${syncResult?.syncStatus}")
+        if (syncResult == null) return
+
+        when (syncResult.syncStatus) {
+            SyncStatus.SUCCESS -> onSyncSuccess(syncResult)
+            else -> onSyncFailure(syncResult)
+        }
+
+
+    }
+
+    private fun onSyncSuccess(syncResult: SyncResult) {
+        Log.d(TAG, "onSyncSuccess() called with: syncResult = $syncResult")
+        _event.value = Event.SyncFormSuccess(syncResult, -1)
+
+
+    }
+
+    private fun onSyncFailure(syncResult: SyncResult) {
+        Log.d(TAG, "onSyncFailure() called with: syncResult = $syncResult")
+        _event.value = Event.SyncFormFailure("sync failed")
 
     }
 
