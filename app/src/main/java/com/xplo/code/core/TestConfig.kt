@@ -4,11 +4,11 @@ object TestConfig {
 
     val isValidationEnabled = true      // default true
 
-    val isDummyDataEnabled = false       // default false
+    val isDummyDataEnabled = true       // default false
     val isLongClickDGEnabled = true
     val isAutoDGEnabled = true
 
-    val isConsentEnabled = true   // default true
+    val isConsentEnabled = false   // default true
 
     val isNomineeAlwaysEnabled = true   // default true
     val isAlternateAddInHouseholdFlow = true   // default true
