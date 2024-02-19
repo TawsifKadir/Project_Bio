@@ -31,7 +31,6 @@ import com.xplo.code.data.db.offline.toSpinnerOptions
 import com.xplo.code.databinding.FragmentHhForm1RegSetupBinding
 import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
-import com.xplo.code.ui.dashboard.enums.Gender
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.HhForm1
@@ -462,7 +461,7 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
         //etLon.setText("99.99")
 
 
-        bindSpinnerData(binding.spTest, Gender.getArray())
+        //bindSpinnerData(binding.spTest, UiData.genderOptions)
 
 
 
