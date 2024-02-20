@@ -17,12 +17,16 @@ enum class GenderEnm(val value: String) {
     FEMALE("Female");
 
     override fun toString(): String {
-        return value
+        return "$ordinal: $name, $value"
     }
 
     companion object {
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
+        }
+
+        fun find(value: String): GenderEnm? {
+            return entries.find { it.value == value }
         }
     }
 
@@ -46,12 +50,16 @@ enum class RelationshipEnm(val value: String) {
 
 
     override fun toString(): String {
-        return value
+        return "$ordinal: $name, $value"
     }
 
     companion object {
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
+        }
+
+        fun find(value: String): RelationshipEnm? {
+            return entries.find { it.value == value }
         }
     }
 
@@ -69,12 +77,16 @@ enum class MaritalStatusEnm(val value: String) {
 
 
     override fun toString(): String {
-        return value
+        return "$ordinal: $name, $value"
     }
 
     companion object {
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
+        }
+
+        fun find(value: String): MaritalStatusEnm? {
+            return entries.find { it.value == value }
         }
     }
 
@@ -91,12 +103,16 @@ enum class LegalStatusEnm(val value: String) {
 
 
     override fun toString(): String {
-        return value
+        return "$ordinal: $name, $value"
     }
 
     companion object {
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
+        }
+
+        fun find(value: String): LegalStatusEnm? {
+            return entries.find { it.value == value }
         }
     }
 
@@ -120,12 +136,16 @@ enum class IncomeSourceEnm(val value: String) {
 
 
     override fun toString(): String {
-        return value
+        return "$ordinal: $name, $value"
     }
 
     companion object {
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
+        }
+
+        fun find(value: String): IncomeSourceEnm? {
+            return entries.find { it.value == value }
         }
     }
 
@@ -142,12 +162,16 @@ enum class CurrencyEnm(val value: String) {
 
 
     override fun toString(): String {
-        return value
+        return "$ordinal: $name, $value"
     }
 
     companion object {
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
+        }
+
+        fun find(value: String): CurrencyEnm? {
+            return entries.find { it.value == value }
         }
     }
 
@@ -162,12 +186,16 @@ enum class SelectionCriteriaEnm(val value: String) {
 
 
     override fun toString(): String {
-        return value
+        return "$ordinal: $name, $value"
     }
 
     companion object {
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
+        }
+
+        fun find(value: String): SelectionCriteriaEnm? {
+            return entries.find { it.value == value }
         }
     }
 
@@ -184,12 +212,16 @@ enum class SelectionReasonLipwEnm(val value: String) {
     LIPW_REASON_5("Poor household which have persons with severe disabilities");
 
     override fun toString(): String {
-        return value
+        return "$ordinal: $name, $value"
     }
 
     companion object {
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
+        }
+
+        fun find(value: String): SelectionReasonLipwEnm? {
+            return entries.find { it.value == value }
         }
     }
 
@@ -206,12 +238,16 @@ enum class SelectionReasonDisEnm(val value: String) {
 
 
     override fun toString(): String {
-        return value
+        return "$ordinal: $name, $value"
     }
 
     companion object {
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
+        }
+
+        fun find(value: String): SelectionReasonDisEnm? {
+            return entries.find { it.value == value }
         }
     }
 
@@ -230,12 +266,16 @@ enum class NonParticipationReasonEnm(val value: String) {
 
 
     override fun toString(): String {
-        return value
+        return "$ordinal: $name, $value"
     }
 
     companion object {
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
+        }
+
+        fun find(value: String): NonParticipationReasonEnm? {
+            return entries.find { it.value == value }
         }
     }
 
