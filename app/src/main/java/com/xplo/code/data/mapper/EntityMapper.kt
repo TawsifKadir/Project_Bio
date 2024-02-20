@@ -118,7 +118,7 @@ object EntityMapper {
             )
 
 
-        Log.d(TAG, "toFormRqb: return: ${form.toJson()}")
+        Log.d(TAG, "toBeneficiaryEntity: return: ${form.toJson()}")
         return form
     }
 
@@ -135,19 +135,22 @@ object EntityMapper {
         return list
     }
 
-    fun toHouseholdMember(male: HhMember?, female: HhMember?, id: String?): HouseholdMember {
+    private fun toHouseholdMember(
+        male: HhMember?,
+        female: HhMember?,
+        id: String?
+    ): HouseholdMember {
         if (male == null || female == null) return HouseholdMember()
-        var householdMember = HouseholdMember(
+        return HouseholdMember(
+            applicationId = id,
+            maleNormal = male.normal,
+            maleChronicalIll = male.ill,
+            maleDisable = male.disable,
 
-            femaleChronicalIll = female.normal,
-            femaleDisable = female.normal,
             femaleNormal = female.normal,
+            femaleChronicalIll = female.ill,
+            femaleDisable = female.disable
 
-            maleChronicalIll = male.normal,
-            maleDisable = male.normal,
-            maleNormal = male.normal
         )
-        householdMember.applicationId = id
-        return householdMember
     }
 }

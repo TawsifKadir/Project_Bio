@@ -77,18 +77,21 @@ data class Nominee(
 data class HouseholdMember(
     @SerializedName("applicationId")
     var applicationId: String? = null,
-    @SerializedName("femaleChronicalIll")
-    var femaleChronicalIll: Int = 0,
-    @SerializedName("femaleDisable")
-    var femaleDisable: Int = 0,
-    @SerializedName("femaleNormal")
-    var femaleNormal: Int = 0,
+
+    @SerializedName("maleNormal")
+    var maleNormal: Int = 0,
     @SerializedName("maleChronicalIll")
     var maleChronicalIll: Int = 0,
     @SerializedName("maleDisable")
     var maleDisable: Int = 0,
-    @SerializedName("maleNormal")
-    var maleNormal: Int = 0
+
+    @SerializedName("femaleNormal")
+    var femaleNormal: Int = 0,
+    @SerializedName("femaleChronicalIll")
+    var femaleChronicalIll: Int = 0,
+    @SerializedName("femaleDisable")
+    var femaleDisable: Int = 0
+
 )
 
 data class Biometric(
