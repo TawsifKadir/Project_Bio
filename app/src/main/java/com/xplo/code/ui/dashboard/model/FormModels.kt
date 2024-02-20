@@ -70,7 +70,7 @@ data class HhForm2(
     var respondentRlt: String? = null,
     var maritalStatus: String? = null,
     var legalStatus: String? = null,
-    var spouseName: String? = null,
+    //var spouseName: String? = null,
     var selectionReason: String? = null,
     var idIsOrNot: String? = null,
     var selectionCriteria: String? = null,
@@ -89,52 +89,73 @@ fun HhForm2?.getOppositeGender(): String? {
 data class HhForm3(
     var householdSize: Int? = null,
 
-    var mem0NormalMale: Int = 0,
-    var mem0DisableMale: Int = 0,
-    var mem0IllMale: Int = 0,
-    var mem3NormalMale: Int = 0,
-    var mem3DisableMale: Int = 0,
-    var mem3IllMale: Int = 0,
-    var mem6NormalMale: Int = 0,
-    var mem6DisableMale: Int = 0,
-    var mem6IllMale: Int = 0,
-    var mem18NormalMale: Int = 0,
-    var mem18DisableMale: Int = 0,
-    var mem18IllMale: Int = 0,
-    var mem36NormalMale: Int = 0,
-    var mem36DisableMale: Int = 0,
-    var mem36IllMale: Int = 0,
-    var mem65NormalMale: Int = 0,
-    var mem65DisableMale: Int = 0,
-    var mem65IllMale: Int = 0,
+    var male0_2: HouseholdMember = HouseholdMember(),
+    var male3_5: HouseholdMember = HouseholdMember(),
+    var male6_17: HouseholdMember = HouseholdMember(),
+    var male18_35: HouseholdMember = HouseholdMember(),
+    var male36_64: HouseholdMember = HouseholdMember(),
+    var male65p: HouseholdMember = HouseholdMember(),
 
-    var mem0NormalFemale: Int = 0,
-    var mem0DisableFemale: Int = 0,
-    var mem0IllFemale: Int = 0,
-    var mem3NormalFemale: Int = 0,
-    var mem3DisableFemale: Int = 0,
-    var mem3IllFemale: Int = 0,
-    var mem6NormalFemale: Int = 0,
-    var mem6DisableFemale: Int = 0,
-    var mem6IllFemale: Int = 0,
-    var mem18NormalFemale: Int = 0,
-    var mem18DisableFemale: Int = 0,
-    var mem18IllFemale: Int = 0,
-    var mem36NormalFemale: Int = 0,
-    var mem36DisableFemale: Int = 0,
-    var mem36IllFemale: Int = 0,
-    var mem65NormalFemale: Int = 0,
-    var mem65DisableFemale: Int = 0,
-    var mem65IllFemale: Int = 0,
+    var female0_2: HouseholdMember = HouseholdMember(),
+    var female3_5: HouseholdMember = HouseholdMember(),
+    var female6_17: HouseholdMember = HouseholdMember(),
+    var female18_35: HouseholdMember = HouseholdMember(),
+    var female36_64: HouseholdMember = HouseholdMember(),
+    var female65p: HouseholdMember = HouseholdMember(),
+
+//    var mem0NormalMale: Int = 0,
+//    var mem0DisableMale: Int = 0,
+//    var mem0IllMale: Int = 0,
+//    var mem3NormalMale: Int = 0,
+//    var mem3DisableMale: Int = 0,
+//    var mem3IllMale: Int = 0,
+//    var mem6NormalMale: Int = 0,
+//    var mem6DisableMale: Int = 0,
+//    var mem6IllMale: Int = 0,
+//    var mem18NormalMale: Int = 0,
+//    var mem18DisableMale: Int = 0,
+//    var mem18IllMale: Int = 0,
+//    var mem36NormalMale: Int = 0,
+//    var mem36DisableMale: Int = 0,
+//    var mem36IllMale: Int = 0,
+//    var mem65NormalMale: Int = 0,
+//    var mem65DisableMale: Int = 0,
+//    var mem65IllMale: Int = 0,
+//
+//    var mem0NormalFemale: Int = 0,
+//    var mem0DisableFemale: Int = 0,
+//    var mem0IllFemale: Int = 0,
+//    var mem3NormalFemale: Int = 0,
+//    var mem3DisableFemale: Int = 0,
+//    var mem3IllFemale: Int = 0,
+//    var mem6NormalFemale: Int = 0,
+//    var mem6DisableFemale: Int = 0,
+//    var mem6IllFemale: Int = 0,
+//    var mem18NormalFemale: Int = 0,
+//    var mem18DisableFemale: Int = 0,
+//    var mem18IllFemale: Int = 0,
+//    var mem36NormalFemale: Int = 0,
+//    var mem36DisableFemale: Int = 0,
+//    var mem36IllFemale: Int = 0,
+//    var mem65NormalFemale: Int = 0,
+//    var mem65DisableFemale: Int = 0,
+//    var mem65IllFemale: Int = 0,
 
     var readWriteNumber: Int? = null,
     var isReadWrite: String? = null
 
 )
 
+data class HouseholdMember(
+    var normal: Int = 0,
+    var ill: Int = 0,
+    var disable: Int = 0
+)
+
 data class HhForm4(
     var img: String? = null
 )
+
 fun HhForm4.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
     if (this.img == null) return false
@@ -142,6 +163,7 @@ fun HhForm4.isOk(): Boolean {
 
     return true
 }
+
 data class HhForm6(
 
     var isNomineeAdd: String? = null,       // nominee add or not
@@ -245,6 +267,7 @@ data class AlForm1(
 data class AlForm2(
     var img: String? = null
 ) : Serializable
+
 fun AlForm2.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
     if (this.img == null) return false
@@ -252,6 +275,7 @@ fun AlForm2.isOk(): Boolean {
 
     return true
 }
+
 data class AlForm3(
     var finger: Finger? = null
 ) : Serializable
