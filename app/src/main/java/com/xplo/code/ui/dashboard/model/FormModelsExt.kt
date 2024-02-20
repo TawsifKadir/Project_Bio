@@ -5,7 +5,7 @@ import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.isNo
 import com.xplo.code.core.ext.toBool
 import com.xplo.code.ui.dashboard.UiData
-import com.xplo.code.utils.MaritalStatus
+import com.xplo.code.ui.dashboard.enums.MaritalStatusEnm
 
 
 fun HhForm2?.getFullName(): String? {
@@ -63,7 +63,7 @@ fun HhForm2.isOk(): Boolean {
         return false
     }
 
-    if (this.maritalStatus == MaritalStatus.MARRIED.status) {
+    if (this.maritalStatus == MaritalStatusEnm.MARRIED.value) {
         if (this.spouseFirstName.isNullOrBlank()) {
             return false
         }
@@ -150,9 +150,9 @@ fun HhForm6.isOk(): Boolean {
 
 fun HhForm6.isExtraNomineeOk(): Boolean {
 
-    if (this.xIsNomineeAdd.isNo()){
+    if (this.xIsNomineeAdd.isNo()) {
         if (this.xNoNomineeReason.isNullOrEmpty()) return false
-        if (this.xNoNomineeReason?.contains(UiData.otherSpecify, true).toBool()){
+        if (this.xNoNomineeReason?.contains(UiData.otherSpecify, true).toBool()) {
             if (this.xOtherReason.isNullOrEmpty()) return false
         }
     }

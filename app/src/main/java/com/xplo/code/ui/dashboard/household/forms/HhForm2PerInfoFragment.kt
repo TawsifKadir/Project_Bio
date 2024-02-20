@@ -15,7 +15,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -24,6 +23,7 @@ import com.xplo.code.core.ext.checkRbOpABforIDcard
 import com.xplo.code.databinding.FragmentHhForm2PerInfoBinding
 import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
+import com.xplo.code.ui.dashboard.enums.MaritalStatusEnm
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.list.CheckboxListAdapter
@@ -31,7 +31,6 @@ import com.xplo.code.ui.dashboard.model.CheckboxItem
 import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.checkExtraCases
 import com.xplo.code.ui.dashboard.model.isOk
-import com.xplo.code.utils.MaritalStatus
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,7 +44,8 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View , CheckboxListAdapter.OnItemClickListener{
+class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
+    CheckboxListAdapter.OnItemClickListener {
 
     companion object {
         const val TAG = "HhForm2PerInfoFragment"
@@ -211,7 +211,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
                 id: Long
             ) {
                 val selectedItem = parent.getItemAtPosition(position).toString()
-                if (selectedItem.equals(MaritalStatus.MARRIED.status, ignoreCase = true)) {
+                if (selectedItem.equals(MaritalStatusEnm.MARRIED.value, ignoreCase = true)) {
                     binding.llspouse1.visibility = View.VISIBLE
                     binding.llspouse2.visibility = View.VISIBLE
                 } else {
@@ -327,9 +327,9 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         rgId.checkRbOpABforIDcard(binding.rbYes, binding.rbNo, form.idIsOrNot)
 
 
-        if(binding.rbA.isChecked){
+        if (binding.rbA.isChecked) {
             form.itemsSupportType?.let { doSomethingForRbA(it) }
-        }else{
+        } else {
             form.itemsSupportType?.let { doSomethingForRbB(it) }
         }
 
@@ -343,6 +343,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         //etSpouseName.setText(form.spouseName)
 
     }
+
     fun doSomethingForRbA(items: List<CheckboxItem>) {
         var list = UiData.getPublicWorks()
         for (item in list) {
@@ -364,6 +365,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         }
         adapterSupportType?.addAll(list)
     }
+
     override fun onClickBackButton() {
         Log.d(TAG, "onClickBackButton() called")
         interactor?.onBackButton()
@@ -406,9 +408,9 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
 
         if (binding.llIdTypeInput.isVisible && binding.llIdType.isVisible) {
             form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
-            if(form.idNumberType?.equals("Passport") == true){
+            if (form.idNumberType?.equals("Passport") == true) {
                 form.idNumber = chkEditTextOnlyNumberAndChar(etIdNumber, UiData.ER_ET_DF)
-            }else{
+            } else {
                 form.idNumber = chkEditTextOnlyNumber(etIdNumber, UiData.ER_ET_DF)
             }
         } else {
@@ -423,7 +425,8 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
 
         form.age = chkEditTextMax3Digit(etAge, UiData.ER_ET_DF)?.toInt()
         form.phoneNumber = chkEditText(etPhoneNumber, UiData.ER_ET_DF)
-        form.monthlyAverageIncome = chkEditTextMonthlyAvgIncome(etMonthlyAverageIncome, UiData.ER_ET_DF)
+        form.monthlyAverageIncome =
+            chkEditTextMonthlyAvgIncome(etMonthlyAverageIncome, UiData.ER_ET_DF)
         //form.spouseName = chkEditText(etSpouseName, UiData.ER_ET_DF)
         form.selectionCriteria = chkRadioGroup(rgSelectionCriteria, UiData.ER_RB_DF)
         form.idIsOrNot = chkRadioGroup(rgId, UiData.ER_RB_DF)
