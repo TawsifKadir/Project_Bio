@@ -181,7 +181,7 @@ enum class SelectionReasonLipwEnm(val value: String) {
     LIPW_REASON_2("Household contain able bodied youth member (18-35)"),
     LIPW_REASON_3("Household headed by young men and women between the ages of 18 and 35"),
     LIPW_REASON_4("Many members who are dependents (HH with dependants greater than 3)"),
-    LIPW_REASON_5("Poor household which have persons with severe disabilities"),
+    LIPW_REASON_5("Poor household which have persons with severe disabilities");
 
     override fun toString(): String {
         return value

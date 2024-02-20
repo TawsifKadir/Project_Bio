@@ -130,7 +130,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
     override fun initView() {
 
-        bindSpinnerData(spReasonNoNominee, UiData.whyNot)
+        bindSpinnerData(spReasonNoNominee, UiData.nonParticipationReason)
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.itemAnimator = DefaultItemAnimator()
@@ -238,7 +238,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
                 checkRbNo(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
                 onEnableDisableNominee(false)
 
-                setSpinnerItem(spReasonNoNominee, UiData.whyNot, form.xNoNomineeReason)
+                setSpinnerItem(spReasonNoNominee, UiData.nonParticipationReason, form.xNoNomineeReason)
                 if (isOtherSpecify(form.xNoNomineeReason)) {
                     llParentOtherReason.visible()
                     etOtherReason.setText(form.xOtherReason)
@@ -252,7 +252,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
             checkRbNo(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
 
             onEnableDisableNominee(false)
-            setSpinnerItem(spReasonNoNominee, UiData.whyNot, form.noNomineeReason)
+            setSpinnerItem(spReasonNoNominee, UiData.nonParticipationReason, form.noNomineeReason)
             if (isOtherSpecify(form.noNomineeReason)) {
                 llParentOtherReason.visible()
                 etOtherReason.setText(form.otherReason)

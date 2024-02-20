@@ -448,8 +448,8 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
         if (!TestConfig.isDummyDataEnabled) return
 
         bindSpinnerData(spStateName, UiData.stateNameOptions)
-        bindSpinnerData(spCountryName, UiData.countryNameOptions)
-        bindSpinnerData(spPayamName, UiData.payaamNameOptions)
+        bindSpinnerData(spCountryName, UiData.countyNameOptions)
+        bindSpinnerData(spPayamName, UiData.payamNameOptions)
         bindSpinnerData(spBomaName, UiData.bomaNameOptions)
 
         spStateName.setSelection(1)
@@ -474,7 +474,7 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
         if (form == null) return
 
         setSpinnerItem(spStateName, UiData.stateNameOptions, form.state?.name)
-        setSpinnerItem(spCountryName, UiData.countryNameOptions, form.county?.name)
+        setSpinnerItem(spCountryName, UiData.countyNameOptions, form.county?.name)
         setSpinnerItem(spPayamName, UiData.stateNameOptions, form.state?.name)
         setSpinnerItem(spBomaName, UiData.stateNameOptions, form.state?.name)
 

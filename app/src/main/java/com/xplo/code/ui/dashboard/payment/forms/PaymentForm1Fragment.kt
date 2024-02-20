@@ -102,7 +102,7 @@ class PaymentForm1Fragment : BaseFragment(), PaymentContract.Form1View, Checkbox
         adapter?.setOnItemClickListener(this)
         binding.recyclerView.adapter = adapter
 
-        adapter?.addAll(UiData.getReason())
+        //adapter?.addAll(UiData.getReason())
 
     }
 
