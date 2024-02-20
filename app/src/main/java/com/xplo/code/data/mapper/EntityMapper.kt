@@ -82,27 +82,27 @@ object EntityMapper {
             ),
             householdMember5 = toHouseholdMember(
                 item.form3?.male3_5,
-                item.form3?.male3_5,
+                item.form3?.female3_5,
                 applicationId
             ),
             householdMember17 = toHouseholdMember(
                 item.form3?.male6_17,
-                item.form3?.male6_17,
+                item.form3?.female6_17,
                 applicationId
             ),
             householdMember35 = toHouseholdMember(
                 item.form3?.male18_35,
-                item.form3?.male18_35,
+                item.form3?.female18_35,
                 applicationId
             ),
             householdMember64 = toHouseholdMember(
                 item.form3?.male36_64,
-                item.form3?.male36_64,
+                item.form3?.female36_64,
                 applicationId
             ),
             householdMember65 = toHouseholdMember(
                 item.form3?.male65p,
-                item.form3?.male65p,
+                item.form3?.female65p,
                 applicationId
             ),
 
