@@ -1,14 +1,11 @@
 package com.xplo.code.data.db.models
 
-import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.GsonBuilder
 import com.xplo.data.model.content.Address
-import com.xplo.data.model.content.AlternatePayee
-import com.xplo.data.model.content.Biometric
 import com.xplo.data.model.content.HouseholdMember
 import com.xplo.data.model.content.Location
 import com.xplo.data.model.content.Nominee
@@ -115,10 +112,10 @@ data class BeneficiaryEntity(
     var notPerticipationReason: String? = null,
     @ColumnInfo(name = "notPerticipationOtherReason")
     var notPerticipationOtherReason: String? = null,
-//    @ColumnInfo(name = "nominees")
-//    var nominees: List<Nominee>? = listOf(),
+    @ColumnInfo(name = "nominees")
+    var nominees: ArrayList<Nominee>? = arrayListOf(),
     @ColumnInfo(name = "xtra")
-    var xtra: Boolean = false,
+    var xtra: Boolean = false
 
 ) : Serializable
 
@@ -128,6 +125,12 @@ fun BeneficiaryEntity?.toJson(): String? {
         .create()
         .toJson(this)
 }
+
+//data class NomineeMappingTable (
+//    val outfitIdRef: Long,
+//    @ColumnInfo(index = true)
+//    val clothingIdRef: Long
+//)
 
 
 

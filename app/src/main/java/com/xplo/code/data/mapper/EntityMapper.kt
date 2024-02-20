@@ -1,11 +1,13 @@
 package com.xplo.code.data.mapper
 
 import android.util.Log
+import com.google.gson.annotations.SerializedName
 import com.xplo.code.core.ext.isYes
 import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.toJson
 import com.xplo.code.ui.dashboard.model.HhMember
 import com.xplo.code.ui.dashboard.model.HouseholdForm
+import com.xplo.code.ui.dashboard.model.Nominee
 import com.xplo.data.model.content.Address
 import com.xplo.data.model.content.HouseholdMember
 import com.xplo.data.model.content.Location
@@ -72,7 +74,6 @@ object EntityMapper {
             spouseLastName = item.form2?.spouseLastName,
             spouseMiddleName = item.form2?.spouseMiddleName,
 
-
             householdSize = item.form3?.householdSize ?: 0,
 
             householdMember2 = toHouseholdMember(
@@ -109,13 +110,12 @@ object EntityMapper {
             isReadWrite = item.form3?.isReadWrite.toBoolean(),
             memberReadWrite = item.form3?.householdSize ?: 0,
 
-
             isOtherMemberPerticipating = item.form6?.isNomineeAdd.isYes(),
             notPerticipationReason = item.form6?.noNomineeReason,
             notPerticipationOtherReason = item.form6?.otherReason,
+            nominees = toNomineeEntityItems(item.form6?.nominees, applicationId)
 
-
-            )
+        )
 
 
         Log.d(TAG, "toBeneficiaryEntity: return: ${form.toJson()}")
@@ -151,6 +151,44 @@ object EntityMapper {
             femaleChronicalIll = female.ill,
             femaleDisable = female.disable
 
+        )
+    }
+
+    private fun toNomineeEntityItems(
+        items: List<Nominee>?,
+        id: String?,
+    ): ArrayList<com.xplo.data.model.content.Nominee>? {
+        if (items.isNullOrEmpty()) return null
+        val list = arrayListOf<com.xplo.data.model.content.Nominee>()
+        for (item in items) {
+            val element = toNomineeEntity(item, id)
+            if (element != null) {
+                list.add(element)
+            }
+        }
+        return list
+    }
+
+    private fun toNomineeEntity(
+        item: Nominee?,
+        id: String?,
+    ): com.xplo.data.model.content.Nominee? {
+        if (item == null) return null
+        return com.xplo.data.model.content.Nominee(
+            applicationId = id,
+
+            nomineeFirstName = item.firstName,
+            nomineeLastName = item.lastName,
+            nomineeMiddleName = item.middleName,
+
+            nomineeAge = item.age ?: 0,
+            nomineeGender = item.gender,
+
+            nomineeOccupation = item.occupation,
+            otherOccupation = item.occupation,
+            relationshipWithHouseholdHead = item.relation,
+
+            isReadWrite = item.isReadWrite.isYes()
         )
     }
 }
