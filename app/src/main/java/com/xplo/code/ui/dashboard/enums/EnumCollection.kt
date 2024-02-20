@@ -31,18 +31,18 @@ enum class GenderEnm(val value: String) {
 enum class RelationshipEnm(val value: String) {
 
     SELECT("Select Relationship"),
-    HOUSEHOLD_HEAD("HOUSEHOLD_HEAD"),
-    SPOUSE("SPOUSE"),
-    SON_DAUGHTER("SON_DAUGHTER"),
-    SON_DAUGHTER_IN_LAW("SON_DAUGHTER_IN_LAW"),
-    GRANDCHILD("GRANDCHILD"),
-    PARENT("PARENT"),
-    PARENT_IN_LAW("PARENT_IN_LAW"),
-    SIBLING("SIBLING"),
-    OTHER("OTHER"),
-    DOMESTIC_WORKER("DOMESTIC_WORKER"),
-    NO_RELATION("NO_RELATION"),
-    UNKNOWN("UNKNOWN");
+    HOUSEHOLD_HEAD("Household head"),
+    SPOUSE("Spouse"),
+    SON_DAUGHTER("Son/daughter"),
+    SON_DAUGHTER_IN_LAW("Son/daughter in law"),
+    GRANDCHILD("Grandchild"),
+    PARENT("Parent"),
+    PARENT_IN_LAW("Parent in law"),
+    SIBLING("Sibling"),
+    OTHER("Other"),
+    DOMESTIC_WORKER("Domestic worker"),
+    NO_RELATION("No relation"),
+    UNKNOWN("Unknown");
 
 
     override fun toString(): String {
@@ -61,11 +61,11 @@ enum class RelationshipEnm(val value: String) {
 enum class MaritalStatusEnm(val value: String) {
 
     SELECT("Select Marital Status"),
-    SINGLE("SINGLE"),
-    MARRIED("MARRIED"),
-    WIDOW("WIDOW"),
-    SEPARATED("SEPARATED"),
-    DIVORCE("DIVORCE");
+    SINGLE("Single"),
+    MARRIED("Married"),
+    WIDOW("Widow"),
+    SEPARATED("Separated"),
+    DIVORCE("Divorce");
 
 
     override fun toString(): String {
@@ -84,10 +84,10 @@ enum class MaritalStatusEnm(val value: String) {
 enum class LegalStatusEnm(val value: String) {
 
     SELECT("Select Legal Status"),
-    HOST("HOST"),
-    RETURNEE("RETURNEE"),
-    REFUGEE("REFUGEE"),
-    IDP("IDP");
+    HOST("Host"),
+    RETURNEE("Returnee"),
+    REFUGEE("Refugee"),
+    IDP("Idp");
 
 
     override fun toString(): String {
@@ -106,17 +106,17 @@ enum class LegalStatusEnm(val value: String) {
 enum class IncomeSourceEnm(val value: String) {
 
     SELECT("Select Income Source"),
-    NONE("NONE"),
-    SELLING_OF_FARM("SELLING_OF_FARM"),
-    SELLING_OF_NON_FARM("SELLING_OF_NON_FARM"),
-    CAUSAL_LABOUR("CAUSAL_LABOUR"),
-    FORMAL_EMPLOYMENT("FORMAL_EMPLOYMENT"),
-    REMITTANCES("REMITTANCES"),
-    GIFT("GIFT"),
-    FROM_GOVT("FROM_GOVT"),
-    FROM_NGO("FROM_NGO"),
-    PENSION("PENSION"),
-    OTHER("OTHER");
+    NONE("None"),
+    SELLING_OF_FARM("Selling of farm"),
+    SELLING_OF_NON_FARM("Selling of non farm"),
+    CAUSAL_LABOUR("Causal labour"),
+    FORMAL_EMPLOYMENT("Formal employment"),
+    REMITTANCES("Remittances"),
+    GIFT("Gift"),
+    FROM_GOVT("From govt"),
+    FROM_NGO("From ngo"),
+    PENSION("Pension"),
+    OTHER("Other");
 
 
     override fun toString(): String {
@@ -135,10 +135,10 @@ enum class IncomeSourceEnm(val value: String) {
 enum class CurrencyEnm(val value: String) {
 
     SELECT("Select Currency"),
-    SUDANESE_POUND("SUDANESE_POUND"),
-    USD("USD"),
-    POUND("POUND"),
-    EURO("EURO");
+    SUDANESE_POUND("Sudanese pound"),
+    USD("Usd"),
+    POUND("Pound"),
+    EURO("Euro");
 
 
     override fun toString(): String {
