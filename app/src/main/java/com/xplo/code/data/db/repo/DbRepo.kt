@@ -1,5 +1,6 @@
 package com.xplo.code.data.db.repo
 
+import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.offline.OptionItem
 import com.xplo.data.core.Resource
@@ -20,6 +21,13 @@ interface DbRepo {
     suspend fun insertHousehold(item: HouseholdItem): Resource<Unit>
     suspend fun updateHousehold(item: HouseholdItem): Resource<Unit>
     suspend fun deleteHousehold(item: HouseholdItem): Resource<Unit>
+
+
+    suspend fun getBeneficiary(id: String): Resource<BeneficiaryEntity>
+    suspend fun getBeneficiaryItems(): Resource<List<BeneficiaryEntity>>
+    suspend fun insertBeneficiary(item: BeneficiaryEntity): Resource<Unit>
+    suspend fun updateBeneficiary(item: BeneficiaryEntity): Resource<Unit>
+    suspend fun deleteBeneficiary(item: BeneficiaryEntity): Resource<Unit>
 
     suspend fun getOptionItems(
         column: String,

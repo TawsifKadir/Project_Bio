@@ -14,6 +14,7 @@ import com.xplo.code.R
 import com.xplo.code.base.BaseActivity
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
+import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.databinding.ActivityHouseholdBinding
 import com.xplo.code.ui.dashboard.household.forms.FormDetailsFragment
@@ -351,6 +352,16 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
 
     override fun onPageAdd() {
         Log.d(TAG, "onPageAdd() called")
+
+    }
+
+    override fun onSaveBeneficiarySuccess(item: BeneficiaryEntity) {
+        Log.d(TAG, "onSaveBeneficiarySuccess() called with: item = $item")
+
+    }
+
+    override fun onSaveBeneficiaryFailure(msg: String?) {
+        Log.d(TAG, "onSaveBeneficiaryFailure() called with: msg = $msg")
 
     }
 

@@ -7,6 +7,7 @@ import com.kit.integrationmanager.model.ServerInfo
 import com.kit.integrationmanager.model.SyncResult
 import com.kit.integrationmanager.model.SyncStatus
 import com.kit.integrationmanager.service.OnlineIntegrationManager
+import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.offline.Column
 import com.xplo.code.data.db.offline.OptionItem
@@ -53,6 +54,9 @@ class HouseholdViewModel @Inject constructor(
 
         class SaveHouseholdFormSuccess(val id: String) : Event()
         class SaveHouseholdFormFailure(val msg: String?) : Event()
+
+        class SaveBeneficiarySuccess(val item: BeneficiaryEntity) : Event()
+        class SaveBeneficiaryFailure(val msg: String?) : Event()
 
         class SubmitHouseholdFormSuccess(val id: String, val pos: Int) : Event()
         class SubmitHouseholdFormFailure(val msg: String?) : Event()
@@ -170,6 +174,27 @@ class HouseholdViewModel @Inject constructor(
 
                 is Resource.Failure -> {
                     _event.value = Event.SaveHouseholdFormFailure(response.callInfo?.msg)
+                }
+
+                else -> {}
+            }
+        }
+    }
+
+    fun saveBeneficiary(item: BeneficiaryEntity?) {
+        Log.d(TAG, "saveBeneficiary() called with: item = $item")
+        if (item == null) return
+
+        viewModelScope.launch(dispatchers.io) {
+            _event.value = Event.Loading
+            when (val response = dbRepo.insertBeneficiary(item)) {
+
+                is Resource.Success -> {
+                    _event.value = Event.SaveBeneficiarySuccess(item)
+                }
+
+                is Resource.Failure -> {
+                    _event.value = Event.SaveBeneficiaryFailure(response.callInfo?.msg)
                 }
 
                 else -> {}

@@ -339,7 +339,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         etAge.setText(form.age.toString())
         etIdNumber.setText(form.idNumber)
         etPhoneNumber.setText(form.phoneNumber)
-        etMonthlyAverageIncome.setText(form.monthlyAverageIncome)
+        etMonthlyAverageIncome.setText(form.monthlyAverageIncome.toString())
         //etSpouseName.setText(form.spouseName)
 
     }

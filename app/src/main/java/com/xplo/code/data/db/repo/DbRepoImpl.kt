@@ -1,7 +1,9 @@
 package com.xplo.code.data.db.repo
 
+import com.xplo.code.data.db.dao.BeneficiaryDao
 import com.xplo.code.data.db.dao.HouseholdDao
 import com.xplo.code.data.db.dao.PostDao
+import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.offline.DbCallImpl
 import com.xplo.code.data.db.offline.OptionItem
@@ -20,7 +22,8 @@ import javax.inject.Inject
 
 class DbRepoImpl @Inject constructor(
     private val dao: PostDao,
-    private val householdDao: HouseholdDao
+    private val householdDao: HouseholdDao,
+    private val beneficiaryDao: BeneficiaryDao,
 ) : DbRepo {
 
     private val TAG = "DbRepoImpl"
@@ -64,6 +67,51 @@ class DbRepoImpl @Inject constructor(
     override suspend fun deleteHousehold(item: HouseholdItem): Resource<Unit> {
         return try {
             val response = householdDao.delete(item)
+            Resource.Success(response, null)
+        } catch (e: Exception) {
+            Resource.Failure(CallInfo(-1, e.message))
+        }
+    }
+
+    override suspend fun getBeneficiary(id: String): Resource<BeneficiaryEntity> {
+        return try {
+            val response = beneficiaryDao.readByUuid(id)
+            Resource.Success(response, null)
+        } catch (e: Exception) {
+            Resource.Failure(CallInfo(-1, e.message))
+        }
+    }
+
+    override suspend fun getBeneficiaryItems(): Resource<List<BeneficiaryEntity>> {
+        return try {
+            val response = beneficiaryDao.readAll()
+            Resource.Success(response, null)
+        } catch (e: Exception) {
+            Resource.Failure(CallInfo(-1, e.message))
+        }
+    }
+
+    override suspend fun insertBeneficiary(item: BeneficiaryEntity): Resource<Unit> {
+        return try {
+            val response = beneficiaryDao.insert(item)
+            Resource.Success(response, null)
+        } catch (e: Exception) {
+            Resource.Failure(CallInfo(-1, e.message))
+        }
+    }
+
+    override suspend fun updateBeneficiary(item: BeneficiaryEntity): Resource<Unit> {
+        return try {
+            val response = beneficiaryDao.update(item)
+            Resource.Success(response, null)
+        } catch (e: Exception) {
+            Resource.Failure(CallInfo(-1, e.message))
+        }
+    }
+
+    override suspend fun deleteBeneficiary(item: BeneficiaryEntity): Resource<Unit> {
+        return try {
+            val response = beneficiaryDao.delete(item)
             Resource.Success(response, null)
         } catch (e: Exception) {
             Resource.Failure(CallInfo(-1, e.message))

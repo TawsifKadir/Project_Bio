@@ -2,7 +2,9 @@ package com.xplo.code.ui.dashboard.household
 
 import android.net.Uri
 import androidx.fragment.app.Fragment
+import com.kit.integrationmanager.model.Beneficiary
 import com.xplo.code.base.BaseContract
+import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.offline.OptionItem
 import com.xplo.code.ui.dashboard.model.AlternateForm
@@ -53,6 +55,9 @@ interface HouseholdContract {
         )
 
         fun onPageAdd()
+
+        fun onSaveBeneficiarySuccess(item: BeneficiaryEntity)
+        fun onSaveBeneficiaryFailure(msg: String?)
 
         fun getRootForm(): HouseholdForm?
         fun setRootForm(form: HouseholdForm?)

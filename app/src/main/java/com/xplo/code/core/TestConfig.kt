@@ -20,5 +20,5 @@ object TestConfig {
     val isNavHackEnabled = false // default false
     val isNomineeFlow2Enabled = true // default true
 
-    val isFingerPrintRequired = true // default true
+    val isFingerPrintRequired = false // default true
 }

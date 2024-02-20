@@ -65,7 +65,7 @@ data class HhForm2(
     var phoneNumber: String? = null,
     var mainSourceOfIncome: String? = null,
     var currency: String? = null,
-    var monthlyAverageIncome: String? = null,
+    var monthlyAverageIncome: Int? = null,
     var gender: String? = null,
     var respondentRlt: String? = null,
     var maritalStatus: String? = null,

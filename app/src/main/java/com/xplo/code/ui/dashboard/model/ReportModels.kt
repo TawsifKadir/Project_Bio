@@ -49,7 +49,7 @@ fun HhForm2?.getReportRows(): List<ReportRow> {
     items.add(ReportRow("legal Status", form.legalStatus, null, null))
     items.add(ReportRow("Respondent Relation", form.respondentRlt, "Selection Reason", form.selectionReason))
     items.add(ReportRow("Selection Criteria", form.selectionCriteria, "Main Source Of Income", form.mainSourceOfIncome))
-    items.add(ReportRow("Monthly Average Income", form.monthlyAverageIncome, "Currency", form.currency))
+    items.add(ReportRow("Monthly Average Income", form.monthlyAverageIncome.toString(), "Currency", form.currency))
 
     return items
 }

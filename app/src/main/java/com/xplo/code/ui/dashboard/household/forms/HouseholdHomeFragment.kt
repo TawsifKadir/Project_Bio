@@ -30,6 +30,7 @@ import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.toBool
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
+import com.xplo.code.data.mapper.EntityMapper
 import com.xplo.code.databinding.FragmentHouseholdHomeBinding
 import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.household.HouseholdContract
@@ -154,6 +155,18 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                         viewModel.clearEvent()
                     }
 
+                    is HouseholdViewModel.Event.SaveBeneficiarySuccess -> {
+                        hideLoading()
+                        interactor?.onSaveBeneficiarySuccess(event.item)
+                        viewModel.clearEvent()
+                    }
+
+                    is HouseholdViewModel.Event.SaveBeneficiaryFailure -> {
+                        hideLoading()
+                        interactor?.onSaveBeneficiaryFailure(event.msg)
+                        viewModel.clearEvent()
+                    }
+
                     else -> Unit
                 }
             }
@@ -244,6 +257,12 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     override fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int) {
         Log.d(TAG, "onClickHouseholdItemAddAlternate() called with: item = $item, pos = $pos")
         navigateToAlternate(item.uuid)
+    }
+
+    override fun onClickHouseholdItemSave(item: HouseholdItem, pos: Int) {
+        Log.d(TAG, "onClickHouseholdItemSave() called with: item = $item, pos = $pos")
+        val entity = EntityMapper.toBeneficiaryEntity(item.toHouseholdForm())
+        viewModel.saveBeneficiary(entity)
     }
 
 

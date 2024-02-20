@@ -172,5 +172,9 @@ class HouseholdListFragment : BaseFragment(), HouseholdContract.HouseholdListVie
 
     }
 
+    override fun onClickHouseholdItemSave(item: HouseholdItem, pos: Int) {
+        Log.d(TAG, "onClickHouseholdItemSave() called with: item = $item, pos = $pos")
+    }
+
 
 }
