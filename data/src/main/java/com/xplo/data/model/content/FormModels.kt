@@ -56,7 +56,7 @@ data class FormRqb(
     var spouseMiddleName: String? = null,
 
     @SerializedName("alternates")
-    var alternates: List<AlternatePayee>? = null,
+    var alternates: List<Alternate>? = null,
     @SerializedName("biometrics")
     var biometrics: List<Biometric>? = null,
 

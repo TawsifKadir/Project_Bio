@@ -6,6 +6,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.GsonBuilder
 import com.xplo.data.model.content.Address
+import com.xplo.data.model.content.Alternate
+import com.xplo.data.model.content.Biometric
 import com.xplo.data.model.content.HouseholdMember
 import com.xplo.data.model.content.Location
 import com.xplo.data.model.content.Nominee
@@ -100,10 +102,10 @@ data class BeneficiaryEntity(
     @ColumnInfo(name = "memberReadWrite")
     var memberReadWrite: Int = 0,
 
-//    @ColumnInfo(name = "alternates")
-//    var alternates: List<AlternatePayee>? = null,
-//    @ColumnInfo(name = "biometrics")
-//    var biometrics: List<Biometric>? = null,
+    @ColumnInfo(name = "alternates")
+    var alternates: ArrayList<Alternate>? = null,
+    @ColumnInfo(name = "biometrics")
+    var biometrics: ArrayList<Biometric>? = null,
 
 
     @ColumnInfo(name = "isOtherMemberPerticipating")

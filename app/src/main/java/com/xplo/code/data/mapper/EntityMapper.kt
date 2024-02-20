@@ -1,7 +1,6 @@
 package com.xplo.code.data.mapper
 
 import android.util.Log
-import com.google.gson.annotations.SerializedName
 import com.xplo.code.core.ext.isYes
 import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.toJson

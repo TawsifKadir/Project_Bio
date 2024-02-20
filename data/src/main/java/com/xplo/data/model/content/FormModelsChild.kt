@@ -31,7 +31,7 @@ data class Location(
 )
 
 
-data class AlternatePayee(
+data class Alternate(
     @SerializedName("nationalId")
     var nationalId: String? = null,
     @SerializedName("payeeName")
