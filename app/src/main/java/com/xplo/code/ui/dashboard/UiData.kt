@@ -3,6 +3,13 @@ package com.xplo.code.ui.dashboard
 import android.content.res.Resources
 import com.xplo.code.R
 import com.xplo.code.core.Contextor
+import com.xplo.code.ui.dashboard.enums.CurrencyEnm
+import com.xplo.code.ui.dashboard.enums.GenderEnm
+import com.xplo.code.ui.dashboard.enums.IncomeSourceEnm
+import com.xplo.code.ui.dashboard.enums.LegalStatusEnm
+import com.xplo.code.ui.dashboard.enums.MaritalStatusEnm
+import com.xplo.code.ui.dashboard.enums.NonParticipationReasonEnm
+import com.xplo.code.ui.dashboard.enums.RelationshipEnm
 import com.xplo.code.ui.dashboard.model.CheckboxItem
 
 /**
@@ -30,14 +37,28 @@ object UiData {
     val bomaNameOptions = getStringArray(R.array.boma_name_array)
     val payamNameOptions = getStringArray(R.array.payam_name_array)
 
-    val relationshipOptions = getStringArray(R.array.respondent_relationship_to_the_household_head_array)
-    val genderOptions = getStringArray(R.array.respondent_gender_array)
-    val maritalStatusOptions = getStringArray(R.array.respondent_marital_status_array)
-    val legalStatusOptions = getStringArray(R.array.respondent_legal_status_array)
-    val mainIncomeOptions = getStringArray(R.array.household_main_source_of_income_array)
-    val currency = getStringArray(R.array.currency_array)
+//    val relationshipOptions = getStringArray(R.array.respondent_relationship_to_the_household_head_array)
+//    val genderOptions = getStringArray(R.array.respondent_gender_array)
+//    val maritalStatusOptions = getStringArray(R.array.respondent_marital_status_array)
+//    val legalStatusOptions = getStringArray(R.array.respondent_legal_status_array)
+//    val mainIncomeOptions = getStringArray(R.array.household_main_source_of_income_array)
+//    val currency = getStringArray(R.array.currency_array)
+//    val selectionReason = getStringArray(R.array.selection_reason_array)
+//    val nonParticipationReason = getStringArray(R.array.non_participation_reason)
+//    val idType = getStringArray(R.array.id_type)
+//    val nomineeOccupation = getStringArray(R.array.what_does_currently_do_for_a_living_array)
+//    val publicWorks = getStringArray(R.array.support_type_public_work_array)
+//    val directIncomeSupport = getStringArray(R.array.support_type_direct_income_array)
+
+
+    val relationshipOptions = RelationshipEnm.getArray()
+    val genderOptions = GenderEnm.getArray()
+    val maritalStatusOptions = MaritalStatusEnm.getArray()
+    val legalStatusOptions = LegalStatusEnm.getArray()
+    val mainIncomeOptions = IncomeSourceEnm.getArray()
+    val currency = CurrencyEnm.getArray()
     val selectionReason = getStringArray(R.array.selection_reason_array)
-    val nonParticipationReason = getStringArray(R.array.non_participation_reason)
+    val nonParticipationReason = NonParticipationReasonEnm.getArray()
     val idType = getStringArray(R.array.id_type)
     val nomineeOccupation = getStringArray(R.array.what_does_currently_do_for_a_living_array)
     val publicWorks = getStringArray(R.array.support_type_public_work_array)
