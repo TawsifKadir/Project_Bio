@@ -1,5 +1,6 @@
 package com.xplo.code.ui.dashboard.household
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,6 +17,7 @@ import com.xplo.code.data.mapper.FormMapper
 import com.xplo.code.network.fake.Fake
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.toJson
+import com.xplo.code.utils.FormAppUtils
 import com.xplo.data.core.DispatcherProvider
 import com.xplo.data.core.Resource
 import com.xplo.data.repo.ContentRepo
@@ -227,7 +229,7 @@ class HouseholdViewModel @Inject constructor(
         }
     }
 
-    fun syncHouseholdForm(form: HouseholdForm?, pos: Int) {
+    fun syncHouseholdForm(context: Context, form: HouseholdForm?, pos: Int) {
         Log.d(TAG, "saveHouseholdForm() called with: form = $form")
         if (form == null) return
 
@@ -235,14 +237,11 @@ class HouseholdViewModel @Inject constructor(
         if (item == null) return
 
 
-        val serverInfo = ServerInfo()
-        serverInfo.port = 8090
-        serverInfo.protocol = "http"
-        serverInfo.host_name = "snsopafis.karoothitbd.com"
-        val integrationManager = OnlineIntegrationManager(this, serverInfo)
-
+        val serverInfo = FormAppUtils.getServerInfo()
+        val integrationManager = OnlineIntegrationManager(context, this, serverInfo)
+        val headers = FormAppUtils.getHeaderForIntegrationManager()
         val beneficiary = Fake.getABenificiary()
-        integrationManager.syncRecord(beneficiary)
+        integrationManager.syncRecord(beneficiary, headers)
     }
 
 

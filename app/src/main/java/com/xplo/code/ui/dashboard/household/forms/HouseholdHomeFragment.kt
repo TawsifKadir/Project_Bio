@@ -251,7 +251,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         //showToast("Feature not implemented yet")
 
         //viewModel.submitHouseholdForm(item.toHouseholdForm(), pos)
-        viewModel.syncHouseholdForm(item.toHouseholdForm(), pos)
+        viewModel.syncHouseholdForm(requireContext(), item.toHouseholdForm(), pos)
     }
 
     override fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int) {

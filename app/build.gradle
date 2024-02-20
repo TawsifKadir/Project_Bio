@@ -121,7 +121,8 @@ dependencies {
 //    releaseImplementation files('libs/finger_morpho.aar')
 //    debugImplementation files('libs/finger_morpho_dummy.aar')
 
-    implementation files('libs/IntegrationManager.aar')
+    //implementation files('libs/IntegrationManager.aar')
+    implementation files('libs/IntegrationManager-v1.1.aar')
 
 
 
