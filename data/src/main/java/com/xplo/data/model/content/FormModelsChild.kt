@@ -101,6 +101,9 @@ data class Biometric(
     var biometricType: String? = null,
     @SerializedName("biometricUserType")
     var biometricUserType: String? = null,
+    @SerializedName("biometricData")
+    var biometricData: String? = null,
+
 
     @SerializedName("noFingerPrint")
     var noFingerPrint: Boolean? = null,

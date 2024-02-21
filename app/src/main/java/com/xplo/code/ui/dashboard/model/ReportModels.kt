@@ -106,7 +106,7 @@ fun HhForm5?.getReportRows(): List<ReportRow> {
 
     val items = arrayListOf<ReportRow>()
     //val form = this
-    val finger = this.finger
+    val finger = this.fingerData
 
     //if (finger == null) return items
 
@@ -114,9 +114,9 @@ fun HhForm5?.getReportRows(): List<ReportRow> {
         items.add(
             ReportRow(
                 "Left Thumb:",
-                finger.isAFingerStatus(finger.fingerLT),
+                finger.isAFingerStatus(finger.fingerLT?.fingerPrint),
                 "Right Thumb: ",
-                finger.isAFingerStatus(finger.fingerRT)
+                finger.isAFingerStatus(finger.fingerRT?.fingerPrint)
             )
         )
     }
@@ -125,9 +125,9 @@ fun HhForm5?.getReportRows(): List<ReportRow> {
         items.add(
             ReportRow(
                 "Left Index:",
-                finger.isAFingerStatus(finger.fingerLI),
+                finger.isAFingerStatus(finger.fingerLI?.fingerPrint),
                 "Right Index: ",
-                finger.isAFingerStatus(finger.fingerRI)
+                finger.isAFingerStatus(finger.fingerRI?.fingerPrint)
             )
         )
     }
@@ -135,9 +135,9 @@ fun HhForm5?.getReportRows(): List<ReportRow> {
         items.add(
             ReportRow(
                 "Left Middle:",
-                finger.isAFingerStatus(finger.fingerLM),
+                finger.isAFingerStatus(finger.fingerLM?.fingerPrint),
                 "Right Middle: ",
-                finger.isAFingerStatus(finger.fingerRM)
+                finger.isAFingerStatus(finger.fingerRM?.fingerPrint)
             )
         )
     }
@@ -146,9 +146,9 @@ fun HhForm5?.getReportRows(): List<ReportRow> {
         items.add(
             ReportRow(
                 "Left Ring:",
-                finger.isAFingerStatus(finger.fingerLR),
+                finger.isAFingerStatus(finger.fingerLR?.fingerPrint),
                 "Right Ring: ",
-                finger.isAFingerStatus(finger.fingerRR)
+                finger.isAFingerStatus(finger.fingerRR?.fingerPrint)
             )
         )
     }
@@ -156,9 +156,9 @@ fun HhForm5?.getReportRows(): List<ReportRow> {
         items.add(
             ReportRow(
                 "Left Little:",
-                finger.isAFingerStatus(finger.fingerLL),
+                finger.isAFingerStatus(finger.fingerLL?.fingerPrint),
                 "Right little: ",
-                finger.isAFingerStatus(finger.fingerRL)
+                finger.isAFingerStatus(finger.fingerRL?.fingerPrint)
             )
         )
     }
@@ -166,14 +166,14 @@ fun HhForm5?.getReportRows(): List<ReportRow> {
     return items
 }
 
-fun Finger?.isAFingerStatus(finger: String?): String {
+fun FingerData?.isAFingerStatus(finger: String?): String {
     if (finger == null) return "False"
     return "True"
 //    if (this == null) return false.toString()
 //    return this.isAFingerCaptured(finger).toString()
 }
 
-fun Finger?.isAFingerCaptured(finger: String?): Boolean {
+fun FingerData?.isAFingerCaptured(finger: String?): Boolean {
     if (this == null) return false
     if (finger?.isNotEmpty().toBool()) return true
     return false
@@ -244,7 +244,7 @@ fun AlForm3?.getReportRows(): List<ReportRow> {
 
     val items = arrayListOf<ReportRow>()
     //val form = this
-    val finger = this.finger
+    val finger = this.fingerData
 
     //if (finger == null) return items
 
@@ -252,9 +252,9 @@ fun AlForm3?.getReportRows(): List<ReportRow> {
         items.add(
             ReportRow(
                 "Left Thumb:",
-                finger.isAFingerStatus(finger.fingerLT),
+                finger.isAFingerStatus(finger.fingerLT?.fingerPrint),
                 "Right Thumb: ",
-                finger.isAFingerStatus(finger.fingerRT)
+                finger.isAFingerStatus(finger.fingerRT?.fingerPrint)
             )
         )
     }
@@ -263,9 +263,9 @@ fun AlForm3?.getReportRows(): List<ReportRow> {
         items.add(
             ReportRow(
                 "Left Index:",
-                finger.isAFingerStatus(finger.fingerLI),
+                finger.isAFingerStatus(finger.fingerLI?.fingerPrint),
                 "Right Index: ",
-                finger.isAFingerStatus(finger.fingerRI)
+                finger.isAFingerStatus(finger.fingerRI?.fingerPrint)
             )
         )
     }
@@ -273,9 +273,9 @@ fun AlForm3?.getReportRows(): List<ReportRow> {
         items.add(
             ReportRow(
                 "Left Middle:",
-                finger.isAFingerStatus(finger.fingerLM),
+                finger.isAFingerStatus(finger.fingerLM?.fingerPrint),
                 "Right Middle: ",
-                finger.isAFingerStatus(finger.fingerRM)
+                finger.isAFingerStatus(finger.fingerRM?.fingerPrint)
             )
         )
     }
@@ -284,9 +284,9 @@ fun AlForm3?.getReportRows(): List<ReportRow> {
         items.add(
             ReportRow(
                 "Left Ring:",
-                finger.isAFingerStatus(finger.fingerLR),
+                finger.isAFingerStatus(finger.fingerLR?.fingerPrint),
                 "Right Ring: ",
-                finger.isAFingerStatus(finger.fingerRR)
+                finger.isAFingerStatus(finger.fingerRR?.fingerPrint)
             )
         )
     }
@@ -294,9 +294,9 @@ fun AlForm3?.getReportRows(): List<ReportRow> {
         items.add(
             ReportRow(
                 "Left Little:",
-                finger.isAFingerStatus(finger.fingerLL),
+                finger.isAFingerStatus(finger.fingerLL?.fingerPrint),
                 "Right little: ",
-                finger.isAFingerStatus(finger.fingerRL)
+                finger.isAFingerStatus(finger.fingerRL?.fingerPrint)
             )
         )
     }

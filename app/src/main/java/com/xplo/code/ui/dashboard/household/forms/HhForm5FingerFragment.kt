@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
@@ -29,7 +28,7 @@ import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
-import com.xplo.code.ui.dashboard.model.Finger
+import com.xplo.code.ui.dashboard.model.FingerData
 import com.xplo.code.ui.dashboard.model.HhForm5
 import com.xplo.code.utils.FormAppUtils
 import com.xplo.data.BuildConfig
@@ -156,38 +155,38 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
     override fun onReinstateData(form: HhForm5?) {
         Log.d(TAG, "onReinstateData() called with: form = $form")
 
-        if (form != null) {
-            if (form.finger?.fingerRT != null || form.finger?.fingerRT == ""){
-                addFingerDrawable(binding.imgRT)
-            }
-            if(form.finger?.fingerRI != null || form.finger?.fingerRI == "") {
-                addFingerDrawable(binding.imgRI)
-            }
-            if(form.finger?.fingerRM != null || form.finger?.fingerRM == "") {
-                addFingerDrawable(binding.imgRM)
-            }
-            if(form.finger?.fingerRR != null || form.finger?.fingerRR == "") {
-                addFingerDrawable(binding.imgRR)
-            }
-            if(form.finger?.fingerRL != null || form.finger?.fingerRL == "") {
-                addFingerDrawable(binding.imgRL)
-            }
-            if (form.finger?.fingerLT != null || form.finger?.fingerLT == ""){
-                addFingerDrawable(binding.imgLT)
-            }
-            if(form.finger?.fingerLI != null || form.finger?.fingerLI == "") {
-                addFingerDrawable(binding.imgLI)
-            }
-            if(form.finger?.fingerLM != null || form.finger?.fingerLM == "") {
-                addFingerDrawable(binding.imgLM)
-            }
-            if(form.finger?.fingerLR != null || form.finger?.fingerLR == "") {
-                addFingerDrawable(binding.imgLR)
-            }
-            if(form.finger?.fingerLL != null || form.finger?.fingerLL == "") {
-                addFingerDrawable(binding.imgLL)
-            }
-        }
+//        if (form != null) {
+//            if (form.fingerData?.fingerRT != null || form.fingerData?.fingerRT == ""){
+//                addFingerDrawable(binding.imgRT)
+//            }
+//            if(form.fingerData?.fingerRI != null || form.fingerData?.fingerRI == "") {
+//                addFingerDrawable(binding.imgRI)
+//            }
+//            if(form.fingerData?.fingerRM != null || form.fingerData?.fingerRM == "") {
+//                addFingerDrawable(binding.imgRM)
+//            }
+//            if(form.fingerData?.fingerRR != null || form.fingerData?.fingerRR == "") {
+//                addFingerDrawable(binding.imgRR)
+//            }
+//            if(form.fingerData?.fingerRL != null || form.fingerData?.fingerRL == "") {
+//                addFingerDrawable(binding.imgRL)
+//            }
+//            if (form.fingerData?.fingerLT != null || form.fingerData?.fingerLT == ""){
+//                addFingerDrawable(binding.imgLT)
+//            }
+//            if(form.fingerData?.fingerLI != null || form.fingerData?.fingerLI == "") {
+//                addFingerDrawable(binding.imgLI)
+//            }
+//            if(form.fingerData?.fingerLM != null || form.fingerData?.fingerLM == "") {
+//                addFingerDrawable(binding.imgLM)
+//            }
+//            if(form.fingerData?.fingerLR != null || form.fingerData?.fingerLR == "") {
+//                addFingerDrawable(binding.imgLR)
+//            }
+//            if(form.fingerData?.fingerLL != null || form.fingerData?.fingerLL == "") {
+//                addFingerDrawable(binding.imgLL)
+//            }
+//        }
             //Toast.makeText(activity, "Received Positive Result From Fingerprint Capture", Toast.LENGTH_LONG).show()
         }
 
@@ -331,42 +330,42 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
 
                 fingerprintTotalEnroll = fpList.size
                 val form = HhForm5()
-                form.finger = Finger()
-                for (item in fpList){
-                    if (item.fingerprintId.name == FingerprintID.RIGHT_THUMB.name){
-                        form.finger?.fingerRT = item.fingerprintData.toString()
-                        addFingerDrawable(binding.imgRT)
-                    }else if (item.fingerprintId.name == FingerprintID.RIGHT_INDEX.name){
-                        form.finger?.fingerRI = item.fingerprintData.toString()
-                        addFingerDrawable(binding.imgRI)
-                    }else if (item.fingerprintId.name == FingerprintID.RIGHT_MIDDLE.name){
-                        form.finger?.fingerRM = item.fingerprintData.toString()
-                        addFingerDrawable(binding.imgRM)
-                    }else if (item.fingerprintId.name == FingerprintID.RIGHT_RING.name){
-                        form.finger?.fingerRR = item.fingerprintData.toString()
-                        addFingerDrawable(binding.imgRR)
-                    }else if (item.fingerprintId.name == FingerprintID.RIGHT_SMALL.name){
-                        form.finger?.fingerRL = item.fingerprintData.toString()
-                        addFingerDrawable(binding.imgRL)
-                    }else if (item.fingerprintId.name == FingerprintID.LEFT_THUMB.name){
-                        form.finger?.fingerLT = item.fingerprintData.toString()
-                        addFingerDrawable(binding.imgLT)
-                    }else if (item.fingerprintId.name == FingerprintID.LEFT_INDEX.name){
-                        form.finger?.fingerLI = item.fingerprintData.toString()
-                        addFingerDrawable(binding.imgLI)
-                    }else if (item.fingerprintId.name == FingerprintID.LEFT_MIDDLE.name){
-                        form.finger?.fingerLM = item.fingerprintData.toString()
-                        addFingerDrawable(binding.imgLM)
-                    }else if (item.fingerprintId.name == FingerprintID.LEFT_RING.name){
-                        form.finger?.fingerLR = item.fingerprintData.toString()
-                        addFingerDrawable(binding.imgLR)
-                    }else if (item.fingerprintId.name == FingerprintID.LEFT_SMALL.name){
-                        form.finger?.fingerLL = item.fingerprintData.toString()
-                        addFingerDrawable(binding.imgLL)
-                    }
-                    onValidated(form)
-                    //Toast.makeText(activity, "Received Positive Result From Fingerprint Capture", Toast.LENGTH_LONG).show()
-                }
+                form.fingerData = FingerData()
+//                for (item in fpList){
+//                    if (item.fingerprintId.name == FingerprintID.RIGHT_THUMB.name){
+//                        form.fingerData?.fingerRT = item.fingerprintData.toString()
+//                        addFingerDrawable(binding.imgRT)
+//                    }else if (item.fingerprintId.name == FingerprintID.RIGHT_INDEX.name){
+//                        form.fingerData?.fingerRI = item.fingerprintData.toString()
+//                        addFingerDrawable(binding.imgRI)
+//                    }else if (item.fingerprintId.name == FingerprintID.RIGHT_MIDDLE.name){
+//                        form.fingerData?.fingerRM = item.fingerprintData.toString()
+//                        addFingerDrawable(binding.imgRM)
+//                    }else if (item.fingerprintId.name == FingerprintID.RIGHT_RING.name){
+//                        form.fingerData?.fingerRR = item.fingerprintData.toString()
+//                        addFingerDrawable(binding.imgRR)
+//                    }else if (item.fingerprintId.name == FingerprintID.RIGHT_SMALL.name){
+//                        form.fingerData?.fingerRL = item.fingerprintData.toString()
+//                        addFingerDrawable(binding.imgRL)
+//                    }else if (item.fingerprintId.name == FingerprintID.LEFT_THUMB.name){
+//                        form.fingerData?.fingerLT = item.fingerprintData.toString()
+//                        addFingerDrawable(binding.imgLT)
+//                    }else if (item.fingerprintId.name == FingerprintID.LEFT_INDEX.name){
+//                        form.fingerData?.fingerLI = item.fingerprintData.toString()
+//                        addFingerDrawable(binding.imgLI)
+//                    }else if (item.fingerprintId.name == FingerprintID.LEFT_MIDDLE.name){
+//                        form.fingerData?.fingerLM = item.fingerprintData.toString()
+//                        addFingerDrawable(binding.imgLM)
+//                    }else if (item.fingerprintId.name == FingerprintID.LEFT_RING.name){
+//                        form.fingerData?.fingerLR = item.fingerprintData.toString()
+//                        addFingerDrawable(binding.imgLR)
+//                    }else if (item.fingerprintId.name == FingerprintID.LEFT_SMALL.name){
+//                        form.fingerData?.fingerLL = item.fingerprintData.toString()
+//                        addFingerDrawable(binding.imgLL)
+//                    }
+//                    onValidated(form)
+//                    //Toast.makeText(activity, "Received Positive Result From Fingerprint Capture", Toast.LENGTH_LONG).show()
+//                }
 
             }else{
                 //Toast.makeText(activity, "Received Negative Result From Fingerprint Capture", Toast.LENGTH_LONG).show()

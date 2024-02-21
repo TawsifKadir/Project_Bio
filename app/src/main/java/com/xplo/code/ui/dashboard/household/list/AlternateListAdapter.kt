@@ -73,7 +73,7 @@ class AlternateListAdapter : RecyclerView.Adapter<AlternateListAdapter.ViewHolde
                 binding.root.isClickable = false
                 binding.tvAlternate.setTypeface(null, Typeface.BOLD)
             }
-            loadImage(form.form4?.img)
+            loadImage(form.form4?.photoData?.imgPath)
 
         }
 

@@ -334,7 +334,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
 
     private fun addReportForm4(form: HhForm4?) {
         if (form == null) return
-        binding.viewPreview.ivAvatar.loadAvatar(form.img)
+        binding.viewPreview.ivAvatar.loadAvatar(form.photoData?.imgPath)
     }
 
     private fun addReportForm5(form: HhForm5?) {

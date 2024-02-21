@@ -203,7 +203,7 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
     override fun onReinstateData(form: HhForm4?) {
         Log.d(TAG, "onReinstateData() called with: form = $form")
         if (form != null) {
-            form.img?.let { loadProfile(it) }
+            form.photoData?.imgPath?.let { loadProfile(it) }
             this.form = form
         }
 
@@ -342,9 +342,9 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
         }
     }
 
-    private fun setToModel(newPhotoBase64: String?) {
-        Log.d(TAG, "setToModel() called with: newPhotoBase64 = $newPhotoBase64")
-        form.img = newPhotoBase64
+    private fun setToModel(path: String?) {
+        Log.d(TAG, "setToModel() called with: path = $path")
+        form.photoData?.imgPath = path
         val rootForm = interactor?.getRootForm()
         rootForm?.form4 = form
         interactor?.setRootForm(rootForm)

@@ -28,13 +28,10 @@ import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.databinding.FragmentAlForm2CapPhotoBinding
-import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
-import com.xplo.code.ui.dashboard.household.forms.HhForm4CapPhotoFragment
 import com.xplo.code.ui.dashboard.model.AlForm2
-import com.xplo.code.ui.dashboard.model.HhForm4
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.code.ui.photo.ImagePickerActivity
 import com.xplo.code.ui.photo.ImageUtil
@@ -223,12 +220,12 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         Log.d(TAG, "onReinstateData() called with: form = $form")
 
         if (form != null) {
-            form.img?.let { loadProfile(it) }
+            form.photoData?.imgPath?.let { loadProfile(it) }
             this.form = form
         }
     }
     override fun onGetImageUri(uri: Uri?) {
-        Log.d(AlForm2Fragment.TAG, "onGetImageUri() called with: uri = $uri")
+        Log.d(TAG, "onGetImageUri() called with: uri = $uri")
         file = uri!!.path?.let { File(it) }
         fileName = uri.lastPathSegment
         try {
@@ -392,8 +389,8 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         }
     }
 
-    private fun setToModel(newPhotoBase64: String?) { 
-        form.img = newPhotoBase64
+    private fun setToModel(path: String?) {
+        form.photoData?.imgPath = path
         val rootForm = interactor?.getRootForm()
         rootForm?.form2 = form
         interactor?.setRootForm(rootForm)

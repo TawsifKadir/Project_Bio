@@ -85,7 +85,7 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
 //            } else {
 //                binding.tvStatus.text = "Not Synced"
 //            }
-            loadImage(form.form4?.img)
+            loadImage(form.form4?.photoData?.imgPath)
         }
 
         private fun loadImage(url: String?) {

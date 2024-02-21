@@ -1,6 +1,7 @@
 package com.xplo.code.ui.dashboard.model
 
 import com.xplo.code.core.TestConfig
+import com.xplo.data.core.ext.toBool
 import java.io.Serializable
 
 /**
@@ -115,13 +116,14 @@ data class HhMember(
 )
 
 data class HhForm4(
-    var img: String? = null
+    //var img: String? = null
+    var photoData: PhotoData? = null
 )
 
 fun HhForm4.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
-    if (this.img == null) return false
-    if (this.img.isNullOrEmpty()) return false
+    if (this.photoData == null) return false
+    if (this.photoData?.isOk().toBool()) return false
 
     return true
 }
@@ -207,7 +209,7 @@ fun Nominee?.toDetails(): String? {
 
 
 data class HhForm5(
-    var finger: Finger? = null
+    var fingerData: FingerData? = null
 )
 
 data class AlForm1(
@@ -227,31 +229,61 @@ data class AlForm1(
 ) : Serializable
 
 data class AlForm2(
-    var img: String? = null
+    var photoData: PhotoData? = null
 ) : Serializable
 
 fun AlForm2.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
-    if (this.img == null) return false
-    if (this.img.isNullOrEmpty()) return false
+    if (this.photoData == null) return false
+    return true
+}
+
+
+data class PhotoData(
+    var imgPath: String? = null,
+    var img: String? = null,
+    var userType: String? = null
+) : Serializable
+
+fun PhotoData.isOk(): Boolean {
+    if (!TestConfig.isValidationEnabled) return true
+    if (this.imgPath == null) return false
+    if (this.imgPath.isNullOrEmpty()) return false
 
     return true
 }
 
 data class AlForm3(
-    var finger: Finger? = null
+    var fingerData: FingerData? = null
+) : Serializable
+
+data class FingerData(
+    var fingerLT: Finger? = null,
+    var fingerLI: Finger? = null,
+    var fingerLM: Finger? = null,
+    var fingerLR: Finger? = null,
+    var fingerLL: Finger? = null,
+
+    var fingerRT: Finger? = null,
+    var fingerRI: Finger? = null,
+    var fingerRM: Finger? = null,
+    var fingerRR: Finger? = null,
+    var fingerRL: Finger? = null
+
 ) : Serializable
 
 data class Finger(
-    var fingerRT: String? = null,
-    var fingerRI: String? = null,
-    var fingerRM: String? = null,
-    var fingerRR: String? = null,
-    var fingerRL: String? = null,
-    var fingerLT: String? = null,
-    var fingerLI: String? = null,
-    var fingerLM: String? = null,
-    var fingerLR: String? = null,
-    var fingerLL: String? = null
+    var fingerPrint: String? = null,
+    var fingerType: String? = null,
+    var userType: String? = null
 ) : Serializable
+
+fun Finger.isOk(): Boolean {
+    if (!TestConfig.isValidationEnabled) return true
+    if (this.fingerPrint.isNullOrEmpty()) return false
+    if (this.fingerType.isNullOrEmpty()) return false
+    if (this.userType.isNullOrEmpty()) return false
+
+    return true
+}
 

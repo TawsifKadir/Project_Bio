@@ -4,10 +4,16 @@ import android.util.Log
 import com.xplo.code.core.ext.isYes
 import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.toJson
+import com.xplo.code.ui.dashboard.model.AlternateForm
+import com.xplo.code.ui.dashboard.model.Finger
 import com.xplo.code.ui.dashboard.model.HhMember
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.Nominee
+import com.xplo.code.ui.dashboard.model.PhotoData
+import com.xplo.code.ui.dashboard.model.getFullName
 import com.xplo.data.model.content.Address
+import com.xplo.data.model.content.Alternate
+import com.xplo.data.model.content.Biometric
 import com.xplo.data.model.content.HouseholdMember
 import com.xplo.data.model.content.Location
 
@@ -75,36 +81,39 @@ object EntityMapper {
 
             householdSize = item.form3?.householdSize ?: 0,
 
-            householdMember2 = toHouseholdMember(
+            householdMember2 = toHouseholdMemberEntity(
                 item.form3?.male0_2,
                 item.form3?.female0_2,
                 applicationId
             ),
-            householdMember5 = toHouseholdMember(
+            householdMember5 = toHouseholdMemberEntity(
                 item.form3?.male3_5,
                 item.form3?.female3_5,
                 applicationId
             ),
-            householdMember17 = toHouseholdMember(
+            householdMember17 = toHouseholdMemberEntity(
                 item.form3?.male6_17,
                 item.form3?.female6_17,
                 applicationId
             ),
-            householdMember35 = toHouseholdMember(
+            householdMember35 = toHouseholdMemberEntity(
                 item.form3?.male18_35,
                 item.form3?.female18_35,
                 applicationId
             ),
-            householdMember64 = toHouseholdMember(
+            householdMember64 = toHouseholdMemberEntity(
                 item.form3?.male36_64,
                 item.form3?.female36_64,
                 applicationId
             ),
-            householdMember65 = toHouseholdMember(
+            householdMember65 = toHouseholdMemberEntity(
                 item.form3?.male65p,
                 item.form3?.female65p,
                 applicationId
             ),
+
+            alternates = toAlternateEntityItems(item.alternates, applicationId),
+            biometrics = toBiometricEntityItemsFromHouseholdForm(item, applicationId),
 
             isReadWrite = item.form3?.isReadWrite.toBoolean(),
             memberReadWrite = item.form3?.householdSize ?: 0,
@@ -134,7 +143,7 @@ object EntityMapper {
         return list
     }
 
-    private fun toHouseholdMember(
+    fun toHouseholdMemberEntity(
         male: HhMember?,
         female: HhMember?,
         id: String?
@@ -153,22 +162,7 @@ object EntityMapper {
         )
     }
 
-    private fun toNomineeEntityItems(
-        items: List<Nominee>?,
-        id: String?,
-    ): ArrayList<com.xplo.data.model.content.Nominee>? {
-        if (items.isNullOrEmpty()) return null
-        val list = arrayListOf<com.xplo.data.model.content.Nominee>()
-        for (item in items) {
-            val element = toNomineeEntity(item, id)
-            if (element != null) {
-                list.add(element)
-            }
-        }
-        return list
-    }
-
-    private fun toNomineeEntity(
+    fun toNomineeEntity(
         item: Nominee?,
         id: String?,
     ): com.xplo.data.model.content.Nominee? {
@@ -190,4 +184,175 @@ object EntityMapper {
             isReadWrite = item.isReadWrite.isYes()
         )
     }
+
+    fun toNomineeEntityItems(
+        items: List<Nominee>?,
+        id: String?,
+    ): ArrayList<com.xplo.data.model.content.Nominee>? {
+        if (items.isNullOrEmpty()) return null
+        val list = arrayListOf<com.xplo.data.model.content.Nominee>()
+        for (item in items) {
+            val element = toNomineeEntity(item, id)
+            if (element != null) {
+                list.add(element)
+            }
+        }
+        return list
+    }
+
+    fun toAlternateEntity(
+        item: AlternateForm?,
+        id: String?,
+    ): Alternate? {
+        if (item == null) return null
+        return Alternate(
+            //applicationId = id,
+            nationalId = item.form1?.idNumber,
+
+            payeeName = item.form1?.getFullName(),
+            payeeAge = item.form1?.age ?: 0,
+            payeeGender = item.form1?.gender,
+            payeePhoneNo = item.form1?.phoneNumber,
+            biometrics = toBiometricEntityItemsFromAlternateForm(item, id)
+        )
+    }
+
+    fun toAlternateEntityItems(
+        items: List<AlternateForm>?,
+        id: String?,
+    ): ArrayList<Alternate>? {
+        if (items.isNullOrEmpty()) return null
+        val list = arrayListOf<Alternate>()
+        for (item in items) {
+            val element = toAlternateEntity(item, id)
+            if (element != null) {
+                list.add(element)
+            }
+        }
+        return list
+    }
+
+    fun toBiometricEntityFromFinger(
+        item: Finger?,
+        id: String?
+    ): Biometric? {
+        if (item == null) return null
+        if (id == null) return null
+        if (item.fingerPrint.isNullOrEmpty()) return null
+        if (item.fingerType.isNullOrEmpty()) return null
+        if (item.userType.isNullOrEmpty()) return null
+
+        return Biometric(
+            applicationId = id,
+            biometricType = item.fingerType,
+            biometricUserType = item.userType, //"ALTERNATE",
+
+            noFingerPrint = null,
+            noFingerprintReason = null,
+            noFingerprintReasonText = null,
+
+            biometricUrl = null
+        )
+    }
+
+
+    fun toBiometricEntityFromPhoto(
+        item: PhotoData?,
+        id: String?
+    ): Biometric? {
+        if (item == null) return null
+        if (id == null) return null
+        if (item.img.isNullOrEmpty()) return null
+        if (item.userType.isNullOrEmpty()) return null
+
+        return Biometric(
+            applicationId = id,
+            biometricType = "PHOTO",
+            biometricUserType = item.userType, //"ALTERNATE",
+
+            noFingerPrint = null,
+            noFingerprintReason = null,
+            noFingerprintReasonText = null,
+
+            biometricUrl = null
+        )
+    }
+
+    fun toBiometricEntityItemsFromAlternateForm(
+        item: AlternateForm?,
+        id: String?,
+    ): ArrayList<Biometric>? {
+        if (item == null) return null
+        val items = arrayListOf<Biometric>()
+
+        val fingerData = item.form3?.fingerData
+        val fLT = toBiometricEntityFromFinger(fingerData?.fingerLT, id)
+        val fLI = toBiometricEntityFromFinger(fingerData?.fingerLI, id)
+        val fLM = toBiometricEntityFromFinger(fingerData?.fingerLM, id)
+        val fLR = toBiometricEntityFromFinger(fingerData?.fingerLR, id)
+        val fLL = toBiometricEntityFromFinger(fingerData?.fingerLL, id)
+
+        val fRT = toBiometricEntityFromFinger(fingerData?.fingerRT, id)
+        val fRI = toBiometricEntityFromFinger(fingerData?.fingerRI, id)
+        val fRM = toBiometricEntityFromFinger(fingerData?.fingerRM, id)
+        val fRR = toBiometricEntityFromFinger(fingerData?.fingerRR, id)
+        val fRL = toBiometricEntityFromFinger(fingerData?.fingerRL, id)
+
+        if (fLT != null) items.add(fLT)
+        if (fLI != null) items.add(fLI)
+        if (fLM != null) items.add(fLM)
+        if (fLR != null) items.add(fLR)
+        if (fLL != null) items.add(fLL)
+
+        if (fRT != null) items.add(fRT)
+        if (fRI != null) items.add(fRI)
+        if (fRM != null) items.add(fRM)
+        if (fRR != null) items.add(fRR)
+        if (fRL != null) items.add(fRL)
+
+        val photoBiometric = toBiometricEntityFromPhoto(item.form2?.photoData, id)
+        if (photoBiometric != null) items.add(photoBiometric)
+
+        return items
+    }
+
+
+    fun toBiometricEntityItemsFromHouseholdForm(
+        item: HouseholdForm?,
+        id: String?,
+    ): ArrayList<Biometric>? {
+        if (item == null) return null
+        val items = arrayListOf<Biometric>()
+
+        val fingerData = item.form5?.fingerData
+        val fLT = toBiometricEntityFromFinger(fingerData?.fingerLT, id)
+        val fLI = toBiometricEntityFromFinger(fingerData?.fingerLI, id)
+        val fLM = toBiometricEntityFromFinger(fingerData?.fingerLM, id)
+        val fLR = toBiometricEntityFromFinger(fingerData?.fingerLR, id)
+        val fLL = toBiometricEntityFromFinger(fingerData?.fingerLL, id)
+
+        val fRT = toBiometricEntityFromFinger(fingerData?.fingerRT, id)
+        val fRI = toBiometricEntityFromFinger(fingerData?.fingerRI, id)
+        val fRM = toBiometricEntityFromFinger(fingerData?.fingerRM, id)
+        val fRR = toBiometricEntityFromFinger(fingerData?.fingerRR, id)
+        val fRL = toBiometricEntityFromFinger(fingerData?.fingerRL, id)
+
+        if (fLT != null) items.add(fLT)
+        if (fLI != null) items.add(fLI)
+        if (fLM != null) items.add(fLM)
+        if (fLR != null) items.add(fLR)
+        if (fLL != null) items.add(fLL)
+
+        if (fRT != null) items.add(fRT)
+        if (fRI != null) items.add(fRI)
+        if (fRM != null) items.add(fRM)
+        if (fRR != null) items.add(fRR)
+        if (fRL != null) items.add(fRL)
+
+        val photoBiometric = toBiometricEntityFromPhoto(item.form4?.photoData, id)
+        if (photoBiometric != null) items.add(photoBiometric)
+
+        return items
+    }
+
 }

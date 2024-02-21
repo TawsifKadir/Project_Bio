@@ -67,7 +67,7 @@ object ReportViewUtils {
         val img: ImageView = rowView.findViewById(R.id.ivAvatar)
 
 
-        img.loadImage(item.form2?.img)
+        img.loadImage(item.form2?.photoData?.imgPath)
         tvTitle.text = item.form1.getFullName()
         tvData.text = item.toSummary()
 
