@@ -11,24 +11,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.fragment.app.viewModels
 import com.faisal.fingerprintcapture.FingerprintCaptureActivity
 import com.faisal.fingerprintcapture.model.FingerprintData
+import com.faisal.fingerprintcapture.model.FingerprintID
 import com.faisal.fingerprintcapture.utils.ImageProc
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.toBool
+import com.xplo.code.data.mapper.BiometricHelper
 import com.xplo.code.databinding.FragmentHhForm5FingerBinding
 import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
-import com.xplo.code.ui.dashboard.model.FingerData
+import com.xplo.code.ui.dashboard.model.Finger
 import com.xplo.code.ui.dashboard.model.HhForm5
+import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.code.utils.FormAppUtils
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,7 +71,7 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
     //private lateinit var presenter: RegistrationContract.Presenter
     private var interactor: HouseholdContract.View? = null
 
-    private var fingerprintTotalEnroll = 0
+    private var fingerItemsStore = arrayListOf<Finger>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -139,16 +143,28 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
     }
 
     override fun onValidated(form: HhForm5?) {
-        Log.d(HhForm5FingerFragment.TAG, "onValidated() called with: form = $form")
+        Log.d(TAG, "onValidated() called with: form = $form")
+        if (form == null) return
         //showToast(form.toString())
 
         val rootForm = interactor?.getRootForm()
         rootForm?.form5 = form
         interactor?.setRootForm(rootForm)
 
-        Log.d(HhForm5FingerFragment.TAG, "onValidated: $rootForm")
+        Log.d(TAG, "onValidated: $rootForm")
 
-        Log.d(TAG, "onValidated() called with: form = $form")
+
+        if (TestConfig.isAlternateAddInHouseholdFlow) {
+            interactor?.navigateToAlternateAddForm()
+            return
+        }
+
+        if (FormAppUtils.canNomineeAdd(interactor?.getRootForm())) {
+            askForConsent()
+        } else {
+            interactor?.navigateToPreview()
+        }
+
     }
 
     override fun onReinstateData(form: HhForm5?) {
@@ -189,6 +205,43 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
         //Toast.makeText(activity, "Received Positive Result From Fingerprint Capture", Toast.LENGTH_LONG).show()
     }
 
+    override fun onGetFingerprintIntent(intent: Intent?) {
+        Log.d(TAG, "onGetFingerprintIntent() called with: intent = $intent")
+        if (intent == null) return
+        //val data = intent.data
+        //if (data == null) return
+
+        val fingers = BiometricHelper.fingerPrintIntentToFingerItems(intent, "BENEFICIARY")
+
+        onGetFingerprintData(fingers)
+
+    }
+
+    override fun onGetFingerprintData(items: List<Finger>?) {
+        Log.d(TAG, "onGetFingerprintData() called with: items = $items")
+        if (items.isNullOrEmpty()) return
+
+        fingerItemsStore.clear()
+        fingerItemsStore.addAll(items)
+
+        for (item in items) {
+            when (item.fingerId) {
+                FingerprintID.RIGHT_THUMB.name -> addFingerDrawable(binding.imgRT)
+                FingerprintID.RIGHT_INDEX.name -> addFingerDrawable(binding.imgRI)
+                FingerprintID.RIGHT_MIDDLE.name -> addFingerDrawable(binding.imgRM)
+                FingerprintID.RIGHT_RING.name -> addFingerDrawable(binding.imgRR)
+                FingerprintID.RIGHT_SMALL.name -> addFingerDrawable(binding.imgRL)
+
+                FingerprintID.LEFT_THUMB.name -> addFingerDrawable(binding.imgLT)
+                FingerprintID.LEFT_INDEX.name -> addFingerDrawable(binding.imgLI)
+                FingerprintID.LEFT_MIDDLE.name -> addFingerDrawable(binding.imgLM)
+                FingerprintID.LEFT_RING.name -> addFingerDrawable(binding.imgLR)
+                FingerprintID.LEFT_SMALL.name -> addFingerDrawable(binding.imgLL)
+            }
+        }
+
+    }
+
     override fun onClickBackButton() {
         Log.d(TAG, "onClickBackButton() called")
         interactor?.onBackButton()
@@ -198,27 +251,29 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
         Log.d(TAG, "onClickNextButton() called")
         //interactor?.navigateToPreview()
 
-        if (TestConfig.isFingerPrintRequired) {
-            if (fingerprintTotalEnroll == 0) {
-                showAlerter("Warning", "Please Add Fingerprint")
-                return
-            }
-        }
+        onReadInput()
 
-        if (TestConfig.isAlternateAddInHouseholdFlow) {
-            interactor?.navigateToAlternateAddForm()
-            return
-        }
-
-        if (FormAppUtils.canNomineeAdd(interactor?.getRootForm())) {
-            askForConsent()
-        } else {
-            interactor?.navigateToPreview()
-        }
     }
 
     override fun onReadInput() {
         Log.d(TAG, "onReadInput() called")
+
+//        if (TestConfig.isFingerPrintRequired) {
+//            if (fingerItemsStore.isEmpty()) {
+//                showAlerter("Warning", "Please Add Fingerprint")
+//                return
+//            }
+//        }
+
+        val form = HhForm5()
+        form.fingers = fingerItemsStore
+
+        if (!form.isOk()) {
+            showAlerter("Warning", "Please Add Fingerprint")
+            return
+        }
+
+        onValidated(form)
     }
 
     override fun onLongClickDataGeneration() {
@@ -304,132 +359,20 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
             ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
-                val fpList = ArrayList<FingerprintData>()
-                val names = arrayOf(
-                    "right_thumb",
-                    "right_index",
-                    "right_middle",
-                    "right_ring",
-                    "right_small",
-                    "left_thumb",
-                    "left_index",
-                    "left_middle",
-                    "left_ring",
-                    "left_small"
-                )
-                val ids = arrayOf(
-                    R.id.right_thumb,
-                    R.id.right_index,
-                    R.id.right_middle,
-                    R.id.right_ring,
-                    R.id.right_small,
-                    R.id.left_thumb,
-                    R.id.left_index,
-                    R.id.left_middle,
-                    R.id.left_ring,
-                    R.id.left_small
-                )
-
-                val data: Intent? = it.data
-
-                for (i in 0 until names.size) {
-                    val nowName = names[i]
-                    val nowID = ids[i]
-
-                    val nowFPData = data?.getParcelableExtra(nowName) as FingerprintData?
-                    if (nowFPData != null && nowFPData.fingerprintData != null) {
-                        drawWSQ(nowID, nowFPData)
-                        Log.d("HouseHold Fingerprint", ">>>>>> $nowName is not null >>>>>>")
-                    }
-                    if (nowFPData != null) {
-                        fpList.add(nowFPData)
-                    }
-                }
-                //binding.llDataShow.visibility = View.VISIBLE
-
-                fingerprintTotalEnroll = fpList.size
-                val form = HhForm5()
-                form.fingerData = FingerData()
-//                for (item in fpList){
-//                    if (item.fingerprintId.name == FingerprintID.RIGHT_THUMB.name){
-//                        form.fingerData?.fingerRT = item.fingerprintData.toString()
-//                        addFingerDrawable(binding.imgRT)
-//                    }else if (item.fingerprintId.name == FingerprintID.RIGHT_INDEX.name){
-//                        form.fingerData?.fingerRI = item.fingerprintData.toString()
-//                        addFingerDrawable(binding.imgRI)
-//                    }else if (item.fingerprintId.name == FingerprintID.RIGHT_MIDDLE.name){
-//                        form.fingerData?.fingerRM = item.fingerprintData.toString()
-//                        addFingerDrawable(binding.imgRM)
-//                    }else if (item.fingerprintId.name == FingerprintID.RIGHT_RING.name){
-//                        form.fingerData?.fingerRR = item.fingerprintData.toString()
-//                        addFingerDrawable(binding.imgRR)
-//                    }else if (item.fingerprintId.name == FingerprintID.RIGHT_SMALL.name){
-//                        form.fingerData?.fingerRL = item.fingerprintData.toString()
-//                        addFingerDrawable(binding.imgRL)
-//                    }else if (item.fingerprintId.name == FingerprintID.LEFT_THUMB.name){
-//                        form.fingerData?.fingerLT = item.fingerprintData.toString()
-//                        addFingerDrawable(binding.imgLT)
-//                    }else if (item.fingerprintId.name == FingerprintID.LEFT_INDEX.name){
-//                        form.fingerData?.fingerLI = item.fingerprintData.toString()
-//                        addFingerDrawable(binding.imgLI)
-//                    }else if (item.fingerprintId.name == FingerprintID.LEFT_MIDDLE.name){
-//                        form.fingerData?.fingerLM = item.fingerprintData.toString()
-//                        addFingerDrawable(binding.imgLM)
-//                    }else if (item.fingerprintId.name == FingerprintID.LEFT_RING.name){
-//                        form.fingerData?.fingerLR = item.fingerprintData.toString()
-//                        addFingerDrawable(binding.imgLR)
-//                    }else if (item.fingerprintId.name == FingerprintID.LEFT_SMALL.name){
-//                        form.fingerData?.fingerLL = item.fingerprintData.toString()
-//                        addFingerDrawable(binding.imgLL)
-//                    }
-//                    onValidated(form)
-//                    //Toast.makeText(activity, "Received Positive Result From Fingerprint Capture", Toast.LENGTH_LONG).show()
-//                }
-
+                onGetFingerprintIntent(it.data)
             } else {
-                //Toast.makeText(activity, "Received Negative Result From Fingerprint Capture", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    activity,
+                    "Received Negative Result From Fingerprint Capture",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
 
     private fun addFingerDrawable(img: ImageView) {
-        fingerprintTotalEnroll += 1
         img.setImageResource(R.drawable.ic_finger_add)
         val color = ContextCompat.getColor(requireContext(), R.color.green) // Your color resource
         ImageViewCompat.setImageTintList(img, ColorStateList.valueOf(color))
-    }
-
-
-    fun drawWSQ(id: Int, fpData: FingerprintData?) {
-        Log.d("IDEMIADeviceIntegration", ">>>> Entering drawWSQ >>>>")
-        try {
-            if (fpData == null) {
-                Log.e("IDEMIADeviceIntegration", ">>>> fpData is null >>>>")
-                return
-            }
-            val fingerprintData = fpData.getFingerprintData()
-            if (fingerprintData == null) {
-                Log.e("IDEMIADeviceIntegration", ">>>> fpData.getFingerprintData() is null >>>>")
-                return
-            }
-            val imView = activity?.findViewById<ImageView>(id)
-            if (imView == null) {
-                Log.e("IDEMIADeviceIntegration", ">>>> Image View is null >>>>")
-                return
-            }
-            val width = 248
-            val height = 448
-            val data = ImageProc.fromWSQ(fingerprintData, width, height)
-            if (data == null) {
-                Log.e("IDEMIADeviceIntegration", ">>>> Could not decode WSQ >>>>")
-                return
-            }
-            val bitmap = Bitmap.createBitmap(ImageProc.toGrayscale(data, width, height))
-            imView.setImageBitmap(bitmap)
-        } catch (t: Throwable) {
-            Log.e("IDEMIADeviceIntegration", t.localizedMessage ?: "Unknown error")
-            t.printStackTrace()
-        }
-        Log.d("IDEMIADeviceIntegration", ">>>> Leaving drawWSQ >>>>")
     }
 
 

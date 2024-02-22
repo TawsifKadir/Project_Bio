@@ -289,30 +289,41 @@ object EntityMapper {
         if (item == null) return null
         val items = arrayListOf<Biometric>()
 
-        val fingerData = item.form3?.fingerData
-        val fLT = toBiometricEntityFromFinger(fingerData?.fingerLT, id)
-        val fLI = toBiometricEntityFromFinger(fingerData?.fingerLI, id)
-        val fLM = toBiometricEntityFromFinger(fingerData?.fingerLM, id)
-        val fLR = toBiometricEntityFromFinger(fingerData?.fingerLR, id)
-        val fLL = toBiometricEntityFromFinger(fingerData?.fingerLL, id)
+        val fingers = item.form3?.fingers
 
-        val fRT = toBiometricEntityFromFinger(fingerData?.fingerRT, id)
-        val fRI = toBiometricEntityFromFinger(fingerData?.fingerRI, id)
-        val fRM = toBiometricEntityFromFinger(fingerData?.fingerRM, id)
-        val fRR = toBiometricEntityFromFinger(fingerData?.fingerRR, id)
-        val fRL = toBiometricEntityFromFinger(fingerData?.fingerRL, id)
+        fingers?.let {
+            for (finger in fingers) {
+                val bitem = toBiometricEntityFromFinger(finger, id)
+                if (bitem != null) {
+                    items.add(bitem)
+                }
+            }
+        }
 
-        if (fLT != null) items.add(fLT)
-        if (fLI != null) items.add(fLI)
-        if (fLM != null) items.add(fLM)
-        if (fLR != null) items.add(fLR)
-        if (fLL != null) items.add(fLL)
-
-        if (fRT != null) items.add(fRT)
-        if (fRI != null) items.add(fRI)
-        if (fRM != null) items.add(fRM)
-        if (fRR != null) items.add(fRR)
-        if (fRL != null) items.add(fRL)
+//        val fingerData = item.form3?.fingerData
+//        val fLT = toBiometricEntityFromFinger(fingerData?.fingerLT, id)
+//        val fLI = toBiometricEntityFromFinger(fingerData?.fingerLI, id)
+//        val fLM = toBiometricEntityFromFinger(fingerData?.fingerLM, id)
+//        val fLR = toBiometricEntityFromFinger(fingerData?.fingerLR, id)
+//        val fLL = toBiometricEntityFromFinger(fingerData?.fingerLL, id)
+//
+//        val fRT = toBiometricEntityFromFinger(fingerData?.fingerRT, id)
+//        val fRI = toBiometricEntityFromFinger(fingerData?.fingerRI, id)
+//        val fRM = toBiometricEntityFromFinger(fingerData?.fingerRM, id)
+//        val fRR = toBiometricEntityFromFinger(fingerData?.fingerRR, id)
+//        val fRL = toBiometricEntityFromFinger(fingerData?.fingerRL, id)
+//
+//        if (fLT != null) items.add(fLT)
+//        if (fLI != null) items.add(fLI)
+//        if (fLM != null) items.add(fLM)
+//        if (fLR != null) items.add(fLR)
+//        if (fLL != null) items.add(fLL)
+//
+//        if (fRT != null) items.add(fRT)
+//        if (fRI != null) items.add(fRI)
+//        if (fRM != null) items.add(fRM)
+//        if (fRR != null) items.add(fRR)
+//        if (fRL != null) items.add(fRL)
 
         val photoBiometric = toBiometricEntityFromPhoto(item.form2?.photoData, id)
         if (photoBiometric != null) items.add(photoBiometric)
@@ -328,31 +339,43 @@ object EntityMapper {
         if (item == null) return null
         val items = arrayListOf<Biometric>()
 
-        val fingerData = item.form5?.fingerData
-        val fLT = toBiometricEntityFromFinger(fingerData?.fingerLT, id)
-        val fLI = toBiometricEntityFromFinger(fingerData?.fingerLI, id)
-        val fLM = toBiometricEntityFromFinger(fingerData?.fingerLM, id)
-        val fLR = toBiometricEntityFromFinger(fingerData?.fingerLR, id)
-        val fLL = toBiometricEntityFromFinger(fingerData?.fingerLL, id)
+        val fingers = item.form5?.fingers
 
-        val fRT = toBiometricEntityFromFinger(fingerData?.fingerRT, id)
-        val fRI = toBiometricEntityFromFinger(fingerData?.fingerRI, id)
-        val fRM = toBiometricEntityFromFinger(fingerData?.fingerRM, id)
-        val fRR = toBiometricEntityFromFinger(fingerData?.fingerRR, id)
-        val fRL = toBiometricEntityFromFinger(fingerData?.fingerRL, id)
+        fingers?.let {
+            for (finger in fingers) {
+                val bitem = toBiometricEntityFromFinger(finger, id)
+                if (bitem != null) {
+                    items.add(bitem)
+                }
+            }
+        }
 
-        if (fLT != null) items.add(fLT)
-        if (fLI != null) items.add(fLI)
-        if (fLM != null) items.add(fLM)
-        if (fLR != null) items.add(fLR)
-        if (fLL != null) items.add(fLL)
 
-        if (fRT != null) items.add(fRT)
-        if (fRI != null) items.add(fRI)
-        if (fRM != null) items.add(fRM)
-        if (fRR != null) items.add(fRR)
-        if (fRL != null) items.add(fRL)
-
+//        val fingerData = item.form5?.fingerData
+//        val fLT = toBiometricEntityFromFinger(fingerData?.fingerLT, id)
+//        val fLI = toBiometricEntityFromFinger(fingerData?.fingerLI, id)
+//        val fLM = toBiometricEntityFromFinger(fingerData?.fingerLM, id)
+//        val fLR = toBiometricEntityFromFinger(fingerData?.fingerLR, id)
+//        val fLL = toBiometricEntityFromFinger(fingerData?.fingerLL, id)
+//
+//        val fRT = toBiometricEntityFromFinger(fingerData?.fingerRT, id)
+//        val fRI = toBiometricEntityFromFinger(fingerData?.fingerRI, id)
+//        val fRM = toBiometricEntityFromFinger(fingerData?.fingerRM, id)
+//        val fRR = toBiometricEntityFromFinger(fingerData?.fingerRR, id)
+//        val fRL = toBiometricEntityFromFinger(fingerData?.fingerRL, id)
+//
+//        if (fLT != null) items.add(fLT)
+//        if (fLI != null) items.add(fLI)
+//        if (fLM != null) items.add(fLM)
+//        if (fLR != null) items.add(fLR)
+//        if (fLL != null) items.add(fLL)
+//
+//        if (fRT != null) items.add(fRT)
+//        if (fRI != null) items.add(fRI)
+//        if (fRM != null) items.add(fRM)
+//        if (fRR != null) items.add(fRR)
+//        if (fRL != null) items.add(fRL)
+//
         val photoBiometric = toBiometricEntityFromPhoto(item.form4?.photoData, id)
         if (photoBiometric != null) items.add(photoBiometric)
 

@@ -209,8 +209,55 @@ fun Nominee?.toDetails(): String? {
 
 
 data class HhForm5(
-    var fingerData: FingerData? = null
+    //var fingerData: FingerData? = null
+    var fingers: List<Finger> = arrayListOf()
 )
+
+fun HhForm5.isOk(): Boolean {
+    if (!TestConfig.isValidationEnabled) return true
+    if (!TestConfig.isFingerPrintRequired) return true
+    if (this.fingers.isEmpty()) return false
+
+//    if (TestConfig.isFingerPrintRequired) {
+//        if (fingerItemsStore.isEmpty()) {
+//            showAlerter("Warning", "Please Add Fingerprint")
+//            return
+//        }
+//    }
+
+    return true
+}
+
+data class FingerData(
+    var fingerLT: Finger? = null,
+    var fingerLI: Finger? = null,
+    var fingerLM: Finger? = null,
+    var fingerLR: Finger? = null,
+    var fingerLL: Finger? = null,
+
+    var fingerRT: Finger? = null,
+    var fingerRI: Finger? = null,
+    var fingerRM: Finger? = null,
+    var fingerRR: Finger? = null,
+    var fingerRL: Finger? = null
+
+) : Serializable
+
+data class Finger(
+    var fingerId: String? = null,
+    var fingerPrint: String? = null,
+    var fingerType: String? = null,
+    var userType: String? = null
+) : Serializable
+
+fun Finger.isOk(): Boolean {
+    if (!TestConfig.isValidationEnabled) return true
+    if (this.fingerPrint.isNullOrEmpty()) return false
+    if (this.fingerType.isNullOrEmpty()) return false
+    if (this.userType.isNullOrEmpty()) return false
+
+    return true
+}
 
 data class AlForm1(
     var householdName: String? = null,
@@ -254,36 +301,16 @@ fun PhotoData.isOk(): Boolean {
 }
 
 data class AlForm3(
-    var fingerData: FingerData? = null
+    //var fingerData: FingerData? = null
+    var fingers: List<Finger> = arrayListOf()
 ) : Serializable
 
-data class FingerData(
-    var fingerLT: Finger? = null,
-    var fingerLI: Finger? = null,
-    var fingerLM: Finger? = null,
-    var fingerLR: Finger? = null,
-    var fingerLL: Finger? = null,
-
-    var fingerRT: Finger? = null,
-    var fingerRI: Finger? = null,
-    var fingerRM: Finger? = null,
-    var fingerRR: Finger? = null,
-    var fingerRL: Finger? = null
-
-) : Serializable
-
-data class Finger(
-    var fingerPrint: String? = null,
-    var fingerType: String? = null,
-    var userType: String? = null
-) : Serializable
-
-fun Finger.isOk(): Boolean {
+fun AlForm3.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
-    if (this.fingerPrint.isNullOrEmpty()) return false
-    if (this.fingerType.isNullOrEmpty()) return false
-    if (this.userType.isNullOrEmpty()) return false
+    if (!TestConfig.isFingerPrintRequired) return true
+    if (this.fingers.isEmpty()) return false
 
     return true
 }
+
 

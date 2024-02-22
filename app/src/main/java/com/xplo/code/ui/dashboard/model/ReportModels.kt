@@ -105,63 +105,63 @@ fun HhForm5?.getReportRows(): List<ReportRow> {
     }
 
     val items = arrayListOf<ReportRow>()
-    //val form = this
-    val finger = this.fingerData
-
-    //if (finger == null) return items
-
-    if (finger != null) {
-        items.add(
-            ReportRow(
-                "Left Thumb:",
-                finger.isAFingerStatus(finger.fingerLT?.fingerPrint),
-                "Right Thumb: ",
-                finger.isAFingerStatus(finger.fingerRT?.fingerPrint)
-            )
-        )
-    }
-
-    if (finger != null) {
-        items.add(
-            ReportRow(
-                "Left Index:",
-                finger.isAFingerStatus(finger.fingerLI?.fingerPrint),
-                "Right Index: ",
-                finger.isAFingerStatus(finger.fingerRI?.fingerPrint)
-            )
-        )
-    }
-    if (finger != null) {
-        items.add(
-            ReportRow(
-                "Left Middle:",
-                finger.isAFingerStatus(finger.fingerLM?.fingerPrint),
-                "Right Middle: ",
-                finger.isAFingerStatus(finger.fingerRM?.fingerPrint)
-            )
-        )
-    }
-
-    if (finger != null) {
-        items.add(
-            ReportRow(
-                "Left Ring:",
-                finger.isAFingerStatus(finger.fingerLR?.fingerPrint),
-                "Right Ring: ",
-                finger.isAFingerStatus(finger.fingerRR?.fingerPrint)
-            )
-        )
-    }
-    if (finger != null) {
-        items.add(
-            ReportRow(
-                "Left Little:",
-                finger.isAFingerStatus(finger.fingerLL?.fingerPrint),
-                "Right little: ",
-                finger.isAFingerStatus(finger.fingerRL?.fingerPrint)
-            )
-        )
-    }
+//    //val form = this
+//    val finger = this.fingerData
+//
+//    //if (finger == null) return items
+//
+//    if (finger != null) {
+//        items.add(
+//            ReportRow(
+//                "Left Thumb:",
+//                finger.isAFingerStatus(finger.fingerLT?.fingerPrint),
+//                "Right Thumb: ",
+//                finger.isAFingerStatus(finger.fingerRT?.fingerPrint)
+//            )
+//        )
+//    }
+//
+//    if (finger != null) {
+//        items.add(
+//            ReportRow(
+//                "Left Index:",
+//                finger.isAFingerStatus(finger.fingerLI?.fingerPrint),
+//                "Right Index: ",
+//                finger.isAFingerStatus(finger.fingerRI?.fingerPrint)
+//            )
+//        )
+//    }
+//    if (finger != null) {
+//        items.add(
+//            ReportRow(
+//                "Left Middle:",
+//                finger.isAFingerStatus(finger.fingerLM?.fingerPrint),
+//                "Right Middle: ",
+//                finger.isAFingerStatus(finger.fingerRM?.fingerPrint)
+//            )
+//        )
+//    }
+//
+//    if (finger != null) {
+//        items.add(
+//            ReportRow(
+//                "Left Ring:",
+//                finger.isAFingerStatus(finger.fingerLR?.fingerPrint),
+//                "Right Ring: ",
+//                finger.isAFingerStatus(finger.fingerRR?.fingerPrint)
+//            )
+//        )
+//    }
+//    if (finger != null) {
+//        items.add(
+//            ReportRow(
+//                "Left Little:",
+//                finger.isAFingerStatus(finger.fingerLL?.fingerPrint),
+//                "Right little: ",
+//                finger.isAFingerStatus(finger.fingerRL?.fingerPrint)
+//            )
+//        )
+//    }
 
     return items
 }
@@ -244,62 +244,62 @@ fun AlForm3?.getReportRows(): List<ReportRow> {
 
     val items = arrayListOf<ReportRow>()
     //val form = this
-    val finger = this.fingerData
-
-    //if (finger == null) return items
-
-    if (finger != null) {
-        items.add(
-            ReportRow(
-                "Left Thumb:",
-                finger.isAFingerStatus(finger.fingerLT?.fingerPrint),
-                "Right Thumb: ",
-                finger.isAFingerStatus(finger.fingerRT?.fingerPrint)
-            )
-        )
-    }
-
-    if (finger != null) {
-        items.add(
-            ReportRow(
-                "Left Index:",
-                finger.isAFingerStatus(finger.fingerLI?.fingerPrint),
-                "Right Index: ",
-                finger.isAFingerStatus(finger.fingerRI?.fingerPrint)
-            )
-        )
-    }
-    if (finger != null) {
-        items.add(
-            ReportRow(
-                "Left Middle:",
-                finger.isAFingerStatus(finger.fingerLM?.fingerPrint),
-                "Right Middle: ",
-                finger.isAFingerStatus(finger.fingerRM?.fingerPrint)
-            )
-        )
-    }
-
-    if (finger != null) {
-        items.add(
-            ReportRow(
-                "Left Ring:",
-                finger.isAFingerStatus(finger.fingerLR?.fingerPrint),
-                "Right Ring: ",
-                finger.isAFingerStatus(finger.fingerRR?.fingerPrint)
-            )
-        )
-    }
-    if (finger != null) {
-        items.add(
-            ReportRow(
-                "Left Little:",
-                finger.isAFingerStatus(finger.fingerLL?.fingerPrint),
-                "Right little: ",
-                finger.isAFingerStatus(finger.fingerRL?.fingerPrint)
-            )
-        )
-    }
+//    val finger = this.fingerData
+//
+//    //if (finger == null) return items
+//
+//    if (finger != null) {
+//        items.add(
+//            ReportRow(
+//                "Left Thumb:",
+//                finger.isAFingerStatus(finger.fingerLT?.fingerPrint),
+//                "Right Thumb: ",
+//                finger.isAFingerStatus(finger.fingerRT?.fingerPrint)
+//            )
+//        )
+//    }
+//
+//    if (finger != null) {
+//        items.add(
+//            ReportRow(
+//                "Left Index:",
+//                finger.isAFingerStatus(finger.fingerLI?.fingerPrint),
+//                "Right Index: ",
+//                finger.isAFingerStatus(finger.fingerRI?.fingerPrint)
+//            )
+//        )
+//    }
+//    if (finger != null) {
+//        items.add(
+//            ReportRow(
+//                "Left Middle:",
+//                finger.isAFingerStatus(finger.fingerLM?.fingerPrint),
+//                "Right Middle: ",
+//                finger.isAFingerStatus(finger.fingerRM?.fingerPrint)
+//            )
+//        )
+//    }
+//
+//    if (finger != null) {
+//        items.add(
+//            ReportRow(
+//                "Left Ring:",
+//                finger.isAFingerStatus(finger.fingerLR?.fingerPrint),
+//                "Right Ring: ",
+//                finger.isAFingerStatus(finger.fingerRR?.fingerPrint)
+//            )
+//        )
+//    }
+//    if (finger != null) {
+//        items.add(
+//            ReportRow(
+//                "Left Little:",
+//                finger.isAFingerStatus(finger.fingerLL?.fingerPrint),
+//                "Right little: ",
+//                finger.isAFingerStatus(finger.fingerRL?.fingerPrint)
+//            )
+//        )
+//    }
 
     return items
 }

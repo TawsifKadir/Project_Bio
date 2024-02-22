@@ -1,13 +1,14 @@
 package com.xplo.code.ui.dashboard.household
 
+import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.Fragment
-import com.kit.integrationmanager.model.Beneficiary
 import com.xplo.code.base.BaseContract
 import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.offline.OptionItem
 import com.xplo.code.ui.dashboard.model.AlternateForm
+import com.xplo.code.ui.dashboard.model.Finger
 import com.xplo.code.ui.dashboard.model.HhForm1
 import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.HhForm3
@@ -138,6 +139,9 @@ interface HouseholdContract {
     interface Form5View : BaseContract.View, CommonView {
         fun onValidated(form: HhForm5?)
         fun onReinstateData(form: HhForm5?)
+
+        fun onGetFingerprintIntent(intent: Intent?)
+        fun onGetFingerprintData(items: List<Finger>?)
 
     }
 
