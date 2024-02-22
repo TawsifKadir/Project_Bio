@@ -11,6 +11,7 @@ import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.Nominee
 import com.xplo.code.ui.dashboard.model.PhotoData
 import com.xplo.code.ui.dashboard.model.getFullName
+import com.xplo.code.ui.dashboard.model.getTotal
 import com.xplo.data.model.content.Address
 import com.xplo.data.model.content.Alternate
 import com.xplo.data.model.content.Biometric
@@ -151,13 +152,16 @@ object EntityMapper {
         if (male == null || female == null) return HouseholdMember()
         return HouseholdMember(
             applicationId = id,
+
             maleNormal = male.normal,
             maleChronicalIll = male.ill,
             maleDisable = male.disable,
+            totalMale = male.getTotal(),
 
             femaleNormal = female.normal,
             femaleChronicalIll = female.ill,
-            femaleDisable = female.disable
+            femaleDisable = female.disable,
+            totalFemale = female.getTotal()
 
         )
     }

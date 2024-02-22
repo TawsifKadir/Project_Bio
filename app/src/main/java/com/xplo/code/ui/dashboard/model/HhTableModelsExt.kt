@@ -64,3 +64,7 @@ fun HhForm3.getIllPerson(): Int {
 fun HhForm3.getTotalTable(): Int {
     return this.getNormalPerson() + this.getDisablePerson() + this.getIllPerson()
 }
+
+fun HhMember.getTotal(): Int {
+    return normal + ill + disable
+}
