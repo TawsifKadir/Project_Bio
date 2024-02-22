@@ -1,6 +1,8 @@
 package com.xplo.code.ui.dashboard.alternate
 
+import android.content.Intent
 import android.net.Uri
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.xplo.code.base.BaseContract
 import com.xplo.code.data.db.models.HouseholdItem
@@ -8,6 +10,7 @@ import com.xplo.code.ui.dashboard.model.AlForm1
 import com.xplo.code.ui.dashboard.model.AlForm2
 import com.xplo.code.ui.dashboard.model.AlForm3
 import com.xplo.code.ui.dashboard.model.AlternateForm
+import com.xplo.code.ui.dashboard.model.Finger
 
 /**
  * Copyright 2020 (C) xplo
@@ -100,6 +103,13 @@ interface AlternateContract {
 
         fun onValidated(form: AlForm3?)
         fun onReinstateData(form: AlForm3?)
+
+        fun onStartFingerprintCapture()
+        fun onGetFingerprintIntent(intent: Intent?)
+        fun onGetFingerprintData(items: List<Finger>?)
+
+        fun onRefreshFingerprints(items: List<Finger>?)
+        fun onRefreshFingerDrawable(img: ImageView, finger: Finger?)
 
     }
 
