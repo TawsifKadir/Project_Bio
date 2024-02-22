@@ -2,6 +2,7 @@ package com.xplo.code.ui.dashboard.household
 
 import android.content.Intent
 import android.net.Uri
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.xplo.code.base.BaseContract
 import com.xplo.code.data.db.models.BeneficiaryEntity
@@ -140,8 +141,13 @@ interface HouseholdContract {
         fun onValidated(form: HhForm5?)
         fun onReinstateData(form: HhForm5?)
 
+        fun onStartFingerprintCapture()
         fun onGetFingerprintIntent(intent: Intent?)
         fun onGetFingerprintData(items: List<Finger>?)
+
+        fun onRefreshFingerprints(items: List<Finger>?)
+        fun onRefreshFingerDrawable(img: ImageView, finger: Finger?)
+
 
     }
 
