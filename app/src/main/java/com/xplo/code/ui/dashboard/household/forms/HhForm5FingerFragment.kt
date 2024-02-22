@@ -318,16 +318,16 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
                     "left_small"
                 )
                 val ids = arrayOf(
-                    com.xplo.code.R.id.right_thumb,
-                    com.xplo.code.R.id.right_index,
-                    com.xplo.code.R.id.right_middle,
-                    com.xplo.code.R.id.right_ring,
-                    com.xplo.code.R.id.right_small,
-                    com.xplo.code.R.id.left_thumb,
-                    com.xplo.code.R.id.left_index,
-                    com.xplo.code.R.id.left_middle,
-                    com.xplo.code.R.id.left_ring,
-                    com.xplo.code.R.id.left_small
+                    R.id.right_thumb,
+                    R.id.right_index,
+                    R.id.right_middle,
+                    R.id.right_ring,
+                    R.id.right_small,
+                    R.id.left_thumb,
+                    R.id.left_index,
+                    R.id.left_middle,
+                    R.id.left_ring,
+                    R.id.left_small
                 )
 
                 val data: Intent? = it.data
