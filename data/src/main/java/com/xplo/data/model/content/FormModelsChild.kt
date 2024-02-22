@@ -84,13 +84,17 @@ data class HouseholdMember(
     var maleChronicalIll: Int = 0,
     @SerializedName("maleDisable")
     var maleDisable: Int = 0,
+    @SerializedName("totalMale")
+    var totalMale: Int = 0,
 
     @SerializedName("femaleNormal")
     var femaleNormal: Int = 0,
     @SerializedName("femaleChronicalIll")
     var femaleChronicalIll: Int = 0,
     @SerializedName("femaleDisable")
-    var femaleDisable: Int = 0
+    var femaleDisable: Int = 0,
+    @SerializedName("totalFemale")
+    var totalFemale: Int = 0
 
 )
 
