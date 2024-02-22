@@ -42,14 +42,35 @@ fun HhForm2?.getReportRows(): List<ReportRow> {
     val form = this
 
     items.add(ReportRow("Name:", form.getFullName(), "Gender: ", form.gender))
-    items.add(ReportRow("Age:", form.age.toString(),"Phone: ", form.phoneNumber))
+    items.add(ReportRow("Age:", form.age.toString(), "Phone: ", form.phoneNumber))
     items.add(ReportRow("Id No:", form.idNumber, "Id Type: ", form.idNumberType))
     items.add(ReportRow("Phone Number", form.phoneNumber, "Marital Status", form.maritalStatus))
     items.add(ReportRow("Spouse Name", form.getSpouseFullName(), null, null))
     items.add(ReportRow("legal Status", form.legalStatus, null, null))
-    items.add(ReportRow("Respondent Relation", form.respondentRlt, "Selection Reason", form.selectionReason))
-    items.add(ReportRow("Selection Criteria", form.selectionCriteria, "Main Source Of Income", form.mainSourceOfIncome))
-    items.add(ReportRow("Monthly Average Income", form.monthlyAverageIncome.toString(), "Currency", form.currency))
+    items.add(
+        ReportRow(
+            "Respondent Relation",
+            form.respondentRlt,
+            "Selection Reason",
+            form.selectionReason
+        )
+    )
+    items.add(
+        ReportRow(
+            "Selection Criteria",
+            form.selectionCriteria,
+            "Main Source Of Income",
+            form.mainSourceOfIncome
+        )
+    )
+    items.add(
+        ReportRow(
+            "Monthly Average Income",
+            form.monthlyAverageIncome.toString(),
+            "Currency",
+            form.currency
+        )
+    )
 
     return items
 }
@@ -87,7 +108,14 @@ fun HhForm3?.getReportRows(): List<ReportRow> {
     )
     items.add(ReportRow("Total Input:", form.getTotalTable().toString(), null, null))
     items.add(ReportRow("Do You Read and Write :", form.isReadWrite, null, null))
-    items.add(ReportRow("How Many others member can read and write :", form.readWriteNumber.toString(), null, null))
+    items.add(
+        ReportRow(
+            "How Many others member can read and write :",
+            form.readWriteNumber.toString(),
+            null,
+            null
+        )
+    )
 
     return items
 }
@@ -95,11 +123,11 @@ fun HhForm3?.getReportRows(): List<ReportRow> {
 fun HhForm5?.getReportRows(): List<ReportRow> {
     if (this == null) {
         val items = arrayListOf<ReportRow>()
-            items.add(ReportRow("Left Thumb:", "False", "Right Thumb: ", "False"))
-            items.add(ReportRow("Left Index:","False", "Right Index: ", "False"))
-            items.add(ReportRow("Left Middle:", "False", "Right Middle: ", "False"))
-            items.add(ReportRow("Left Ring:","False", "Right Ring: ", "False"))
-            items.add(ReportRow("Left Little:","False", "Right little: ", "False"))
+        items.add(ReportRow("Left Thumb:", "False", "Right Thumb: ", "False"))
+        items.add(ReportRow("Left Index:", "False", "Right Index: ", "False"))
+        items.add(ReportRow("Left Middle:", "False", "Right Middle: ", "False"))
+        items.add(ReportRow("Left Ring:", "False", "Right Ring: ", "False"))
+        items.add(ReportRow("Left Little:", "False", "Right little: ", "False"))
 
         return items
     }
@@ -234,10 +262,10 @@ fun AlForm3?.getReportRows(): List<ReportRow> {
     if (this == null) {
         val items = arrayListOf<ReportRow>()
         items.add(ReportRow("Left Thumb:", "False", "Right Thumb: ", "False"))
-        items.add(ReportRow("Left Index:","False", "Right Index: ", "False"))
+        items.add(ReportRow("Left Index:", "False", "Right Index: ", "False"))
         items.add(ReportRow("Left Middle:", "False", "Right Middle: ", "False"))
-        items.add(ReportRow("Left Ring:","False", "Right Ring: ", "False"))
-        items.add(ReportRow("Left Little:","False", "Right little: ", "False"))
+        items.add(ReportRow("Left Ring:", "False", "Right Ring: ", "False"))
+        items.add(ReportRow("Left Little:", "False", "Right little: ", "False"))
 
         return items
     }
