@@ -15,6 +15,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.fragment.app.viewModels
+import com.faisal.fingerprintcapture.FingerprintCaptureActivity
+import com.faisal.fingerprintcapture.model.FingerprintData
+import com.faisal.fingerprintcapture.utils.ImageProc
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -23,14 +26,9 @@ import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.AlForm3
+import com.xplo.code.ui.dashboard.model.FingerData
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
-
-import com.faisal.fingerprintcapture.FingerprintCaptureActivity
-import com.faisal.fingerprintcapture.model.FingerprintData
-import com.faisal.fingerprintcapture.model.FingerprintID
-import com.faisal.fingerprintcapture.utils.ImageProc
-import com.xplo.code.ui.dashboard.model.FingerData
 
 
 @AndroidEntryPoint
@@ -183,8 +181,8 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
 
     override fun onClickNextButton() {
         Log.d(TAG, "onClickNextButton() called")
-        if(TestConfig.isFingerPrintRequired){
-            if(fingerprintTotalEnroll == 0){
+        if (TestConfig.isFingerPrintRequired) {
+            if (fingerprintTotalEnroll == 0) {
                 showAlerter("Warning", "Please Add Fingerprint")
                 return
             }
@@ -230,20 +228,40 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
                 val fpList = ArrayList<FingerprintData>()
-                val names =  arrayOf("right_thumb", "right_index","right_middle", "right_ring", "right_small", "left_thumb", "left_index","left_middle", "left_ring", "left_small")
-                val ids = arrayOf(com.xplo.code.R.id.right_thumb, com.xplo.code.R.id.right_index,com.xplo.code.R.id.right_middle, com.xplo.code.R.id.right_ring,
-                    com.xplo.code.R.id.right_small, com.xplo.code.R.id.left_thumb, com.xplo.code.R.id.left_index,
-                    com.xplo.code.R.id.left_middle, com.xplo.code.R.id.left_ring, com.xplo.code.R.id.left_small)
+                val names = arrayOf(
+                    "right_thumb",
+                    "right_index",
+                    "right_middle",
+                    "right_ring",
+                    "right_small",
+                    "left_thumb",
+                    "left_index",
+                    "left_middle",
+                    "left_ring",
+                    "left_small"
+                )
+                val ids = arrayOf(
+                    R.id.right_thumb,
+                    R.id.right_index,
+                    R.id.right_middle,
+                    R.id.right_ring,
+                    R.id.right_small,
+                    R.id.left_thumb,
+                    R.id.left_index,
+                    R.id.left_middle,
+                    R.id.left_ring,
+                    R.id.left_small
+                )
 
                 val data: Intent? = it.data
 
-                for (i in 0 until names.size){
+                for (i in 0 until names.size) {
                     val nowName = names[i]
                     val nowID = ids[i]
 
                     val nowFPData = data?.getParcelableExtra(nowName) as FingerprintData?
                     if (nowFPData != null && nowFPData.fingerprintData != null) {
-                        drawWSQ(nowID,nowFPData)
+                        drawWSQ(nowID, nowFPData)
                         Log.d("HouseHold Fingerprint", ">>>>>> $nowName is not null >>>>>>")
                     }
                     if (nowFPData != null) {
@@ -291,7 +309,7 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
 //                    //Toast.makeText(activity, "Received Positive Result From Fingerprint Capture", Toast.LENGTH_LONG).show()
 //                }
 
-            }else{
+            } else {
                 //Toast.makeText(activity, "Received Negative Result From Fingerprint Capture", Toast.LENGTH_LONG).show()
             }
         }
