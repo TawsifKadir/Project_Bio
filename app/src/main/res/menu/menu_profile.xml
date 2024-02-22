@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/mSettings"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="@string/settings"
+        android:visible="true"
+        app:iconTint="@color/gray"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/mUpdateProfile"
+        android:title="@string/profile_update"
+        android:visible="true"
+        app:iconTint="@color/white"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/mLogout"
+        android:title="@string/logout"
+        android:visible="true"
+        app:iconTint="@color/white"
+        app:showAsAction="never" />
+
+
+</menu>

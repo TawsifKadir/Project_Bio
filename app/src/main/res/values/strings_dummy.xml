@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="dummy_date">43059</string>
+    <string name="dummy_date_time">43496.6274652778</string>
+    <string name="dummy_designation">Inspector</string>
+    <string name="dummy_mobile_no">1731487887</string>
+    <string name="dummy_name_female">Farida Yasmin</string>
+    <string name="dummy_name_male">Ina Ahmed</string>
+    <string name="dummy_name_school">Charigram High School</string>
+    <string name="dummy_text_big">Sport includes all forms of competitive physical activity or games which, through casual or organised participation, aim to use, maintain or improve physical ability and skills while providing enjoyment to participants</string>
+    <string name="dummy_text_medium">Sport includes all forms of competitive physical activity or games which, through casual or organised participation</string>
+    <string name="dummy_text_small">Rhymes Contest</string>
+
+
+</resources>

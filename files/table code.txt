@@ -1,0 +1,143 @@
+
+
+        val form1Text = getForm1Text(form?.form1)
+        val form2Text = getForm2Text(form?.form2)
+
+        Log.d(TAG, "onGetCompleteData: form1\n" + form1Text)
+        Log.d(TAG, "onGetCompleteData: form2\n" + form2Text)
+
+
+        //binding.tvForm1Location.text = form1Text
+        //binding.tvForm2PerInfo.text = form2Text
+
+
+    private fun getForm1Text(form: HhForm1?): String {
+        Log.d(TAG, "getForm1Text() called with: form = $form")
+        var txt = StringBuilder()
+        if (form == null) return txt.toString()
+
+        txt.append(getFormattedText("State:", form.stateName, "County: ", form.countryName))
+            .append("\n" + getFormattedText("Payam:", form.payamName, "Boma: ", form.bomaName))
+
+        return txt.toString()
+
+    }
+
+
+    private fun getForm2Text(form: HhForm2?): String {
+        var txt = StringBuilder()
+        if (form == null) return txt.toString()
+
+        txt.append(getFormattedText("Name:", form.getFullName(), "", ""))
+            .append("\n" + getFormattedText("Gender:", form.gender, "Age: ", form.age))
+            .append("\n" + getFormattedText("Id:", form.idNumber, "Phone: ", form.phoneNumber))
+
+        return txt.toString()
+
+    }
+
+
+    private fun getFormattedText(
+        key: String?,
+        value: String?,
+        key2: String?,
+        value2: String?,
+    ): String {
+        return String.format("%-40s %-30s %-30s %-30s", key, value, key2, value2)
+    }
+
+
+
+
+
+        var companies = arrayOf(
+            "Google", "Windows", "iPhone", "Nokia", "Samsung",
+            "Google", "Windows", "iPhone", "Nokia", "Samsung",
+            "Google", "Windows", "iPhone", "Nokia", "Samsung"
+        )
+        var os = arrayOf(
+            "Android", "Mango", "iOS", "Symbian", "Bada",
+            "Android", "Mango", "iOS", "Symbian", "Bada",
+            "Android", "Mango", "iOS", "Symbian", "Bada"
+        )
+
+
+
+
+    private fun getTextView(
+        id: Int,
+        title: String,
+        color: Int,
+        typeface: Int,
+        bgColor: Int
+    ): TextView {
+        val tv = TextView(requireContext())
+        tv.id = id
+        tv.text = title.uppercase(Locale.getDefault())
+        tv.setTextColor(color)
+        tv.setPadding(40, 40, 40, 40)
+        tv.setTypeface(Typeface.DEFAULT, typeface)
+        tv.setBackgroundColor(bgColor)
+        tv.layoutParams = getLayoutParams()
+        //tv.setOnClickListener(this)
+        return tv
+    }
+
+    private fun getLayoutParams(): TableLayout.LayoutParams {
+        val params = TableLayout.LayoutParams(
+            TableLayout.LayoutParams.MATCH_PARENT,
+            TableLayout.LayoutParams.WRAP_CONTENT
+        )
+        params.setMargins(2, 0, 0, 2)
+        return params
+    }
+
+    private fun getTblLayoutParams(): TableLayout.LayoutParams {
+        return TableLayout.LayoutParams(
+            TableLayout.LayoutParams.MATCH_PARENT,
+            TableLayout.LayoutParams.WRAP_CONTENT
+        )
+    }
+
+    /**
+     * This function add the headers to the table
+     */
+    fun addHeaders() {
+        val tl: TableLayout = binding.table
+        val tr = TableRow(requireContext())
+        tr.layoutParams = getLayoutParams()
+        tr.addView(getTextView(0, "COMPANY", Color.WHITE, Typeface.BOLD, Color.BLUE))
+        tr.addView(getTextView(0, "OS", Color.WHITE, Typeface.BOLD, Color.BLUE))
+        tl.addView(tr, getTblLayoutParams())
+    }
+
+    /**
+     * This function add the data to the table
+     */
+    fun addData() {
+        val numCompanies: Int = companies.size
+        val tl: TableLayout = binding.table
+        for (i in 0 until numCompanies) {
+            val tr = TableRow(requireContext())
+            tr.layoutParams = getLayoutParams()
+            tr.addView(
+                getTextView(
+                    i + 1,
+                    companies.get(i),
+                    Color.WHITE,
+                    Typeface.NORMAL,
+                    ContextCompat.getColor(requireContext(), R.color.colorAccent)
+                )
+            )
+            tr.addView(
+                getTextView(
+                    i + numCompanies,
+                    os.get(i),
+                    Color.WHITE,
+                    Typeface.NORMAL,
+                    ContextCompat.getColor(requireContext(), R.color.colorAccent)
+                )
+            )
+            tl.addView(tr, getTblLayoutParams())
+        }
+    }

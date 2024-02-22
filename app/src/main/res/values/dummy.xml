@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string-array name="dummy_titles_book">
+        <item>দেয়াল</item>
+        <item>গৌরীপুর জংশন</item>
+        <item>ময়ুরাক্ষী</item>
+        <item>মেঘের উপর বাড়ি</item>
+        <item>গীতাঞ্জলি</item>
+        <item>সহজ ক্যালকুলাস</item>
+    </string-array>
+
+    <string-array name="dummy_images_book">
+        <item>https://images-na.ssl-images-amazon.com/images/I/51OOjWAKi%2BL._SX313_BO1,204,203,200_.jpg</item>
+        <item>https://images-na.ssl-images-amazon.com/images/I/51GKn4taVyL._SY346_.jpg</item>
+        <item>https://images-na.ssl-images-amazon.com/images/I/41VoTqb3haL._SY346_.jpg</item>
+        <item>https://images-na.ssl-images-amazon.com/images/I/418G8IhX22L._SX307_BO1,204,203,200_.jpg</item>
+        <item>https://images-na.ssl-images-amazon.com/images/I/51mPtCNLx1L._SX348_BO1,204,203,200_.jpg</item>
+        <item>https://images-na.ssl-images-amazon.com/images/I/41YzEgyb2tL._BO1,204,203,200_.jpg</item>
+    </string-array>
+
+    <string-array name="dummy_names_author">
+
+        <item>হুমায়ূন আহমেদ</item>
+        <item>রবীন্দ্রনাথ ঠাকুর</item>
+        <item>কাজী নজরুল ইসলাম</item>
+        <item>আবদুল্লাহ্ আবু সায়ীদ</item>
+        <item>আসাদ চৌধুরী</item>
+
+    </string-array>
+
+    <string-array name="dummy_images_author">
+
+        <item>https://upload.wikimedia.org/wikipedia/commons/8/85/Humayun_Ahmed_13Nov2010.jpg</item>
+        <item>https://upload.wikimedia.org/wikipedia/commons/8/80/Rabindranath_Tagore_unknown_location.jpg</item>
+        <item>https://upload.wikimedia.org/wikipedia/commons/a/a6/Nazrul.jpg</item>
+        <item>https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Abdullah_Abu_Sayeed_%28cropped%29.jpg/1280px-Abdullah_Abu_Sayeed_%28cropped%29.jpg</item>
+        <item>https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Asad_Chowdhury_2010.jpg/1280px-Asad_Chowdhury_2010.jpg</item>
+
+    </string-array>
+
+    <string-array name="dummy_images_banner">
+
+        <item>https://ds.rokomari.store/rokomari110/banner/91d64ca4-32da-45ba-80ac-0dfea3ffecc9.png</item>
+        <item>https://ds.rokomari.store/rokomari110/banner/4f47b4b0-756f-4394-8457-bbb05e3a0edf.png</item>
+        <item>https://ds.rokomari.store/rokomari110/banner/f66ff055-4b7d-4bbd-b6e7-e6500be19498.png</item>
+        <item>https://ds.rokomari.store/rokomari110/banner/858dd184-a313-4bd8-adbd-dc6b99137e46.png</item>
+        <item>https://ds.rokomari.store/rokomari110/banner/858dd184-a313-4bd8-adbd-dc6b99137e46.png</item>
+
+    </string-array>
+
+
+    <string-array name="dummy_categories">
+
+        <item>এডভেঞ্চার</item>
+        <item>সাহিত্য</item>
+        <item>গল্প</item>
+        <item>কবিতা</item>
+        <item>উপন্যাস</item>
+
+    </string-array>
+
+    <string-array name="dummy_my_lists">
+
+        <item>ওয়াচ লেটার</item>
+        <item>ফেভারিট</item>
+        <item>বাংলা</item>
+        <item>অনুবাদ</item>
+        <item>এডভেঞ্চার</item>
+
+    </string-array>
+
+
+</resources>

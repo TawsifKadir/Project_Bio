@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="dec_key_en">2500</integer>
+    <integer name="dec_key_bn">97</integer>
+    <integer name="dec_key_df">300</integer>
+    <integer name="maximum">100</integer>
+
+</resources>

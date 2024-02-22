@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+
+    <!-- settings-->
+    <string name="pfTheme">pfTheme</string>
+    <string name="pfLanguage">pfLanguage</string>
+
+    <string name="pfPlayQuality">pfPlayQuality</string>
+    <string name="pfDownloadQuality">pfDownloadQuality</string>
+    <string name="pfDownloadWithMobileData">pfDownloadWithMobileData</string>
+    <string name="pfUseSdCard">pfUseSdCard</string>
+
+    <string name="pfAbout">pfAbout</string>
+    <string name="pfDeveloper">pfDeveloper</string>
+
+    <string name="pfRate">pfRate</string>
+    <string name="pfShare">pfShare</string>
+    <string name="pfFeedback">pfFeedback</string>
+    <string name="pfFaq">pfFaq</string>
+    <string name="pfTerms">pfTerms</string>
+    <string name="pfPrivacyPolicy">pfPrivacyPolicy</string>
+
+    <string name="pfDevOption">pfDevOption</string>
+    <string name="pfCatAdvanceSettings">pfCatAdvanceSettings</string>
+    <string name="pfResetAll">pfResetAll</string>
+
+    <!-- settings dev-->
+    <string name="pfIsPro">pfIsPro</string>
+
+
+    <!--mix-->
+    <string name="pfMoreApps">pfMoreApps</string>
+
+</resources>

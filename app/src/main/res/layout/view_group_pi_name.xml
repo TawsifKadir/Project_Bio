@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:visibility="visible">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            style="@style/AppLinearLayoutInputBox"
+            android:layout_weight="1">
+
+            <TextView
+                style="@style/AppTextView.Input.Header"
+                android:text="@string/respondent_first_name_min_3_letters" />
+
+            <EditText
+                android:id="@+id/etFirstName"
+                style="@style/AppEditText.Form.Text" />
+
+        </LinearLayout>
+
+        <include layout="@layout/view_margin_space" />
+
+        <LinearLayout
+            style="@style/AppLinearLayoutInputBox"
+            android:layout_weight="1">
+
+            <TextView
+                style="@style/AppTextView.Input.Header"
+                android:text="@string/respondent_middle_name_min_3_letters" />
+
+            <EditText
+                android:id="@+id/etMiddleName"
+                style="@style/AppEditText.Form.Text" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            style="@style/AppLinearLayoutInputBox"
+            android:layout_weight="1">
+
+            <TextView
+                style="@style/AppTextView.Input.Header"
+                android:text="@string/respondent_last_name_min_3_letters" />
+
+            <EditText
+                android:id="@+id/etLastName"
+                style="@style/AppEditText.Form.Text" />
+
+        </LinearLayout>
+
+        <include layout="@layout/view_margin_space" />
+
+        <LinearLayout
+            style="@style/AppLinearLayoutInputBox"
+            android:layout_weight="1"
+            android:visibility="invisible">
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

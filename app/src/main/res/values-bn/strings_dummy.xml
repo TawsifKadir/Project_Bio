@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="dummy_date">43059</string>
+    <string name="dummy_date_time">43496.6274652778</string>
+    <string name="dummy_designation">পরিদর্শক</string>
+    <string name="dummy_mobile_no">1731487887</string>
+    <string name="dummy_name_female">ফরিদা ইয়াসমিন</string>
+    <string name="dummy_name_male">ইনাম আহমেদ</string>
+    <string name="dummy_name_school">চারিগ্রাম প্রাথমিক বিদ্যালয়</string>
+    <string name="dummy_text_big">ইতোমধ্যে শেষ হয়ে গিয়েছে চলতি বিপিএলের ৭টি ম্যাচ। কিন্তু এখনো পর্যন্ত সে অর্থে বাংলাদেশের কেউই জ্বলে উঠতে পারেননি ব্যাট হাতে। বুধবার সবশেষ ম্যাচে তরুণ আফিফ হোসেন ধ্রুবর ৪৫ রানের ইনিংসটিই এখনো পর্যন্ত বাংলাদেশি ব্যাটসম্যানদের সেরা ইনিংস। এছাড়া ঢাকা ডায়নামাইটসের প্রথম ম্যাচে ১৪ বলে ৩৮ রানের তুফান চালিয়েছিলেন শুভাগত হোম।</string>
+    <string name="dummy_text_medium">ইতোমধ্যে শেষ হয়ে গিয়েছে চলতি বিপিএলের ৭টি ম্যাচ। কিন্তু এখনো পর্যন্ত সে অর্থে বাংলাদেশের কেউই জ্বলে উঠতে পারেননি ব্যাট হাতে। বুধবার সবশেষ ম্যাচে তরুণ আফিফ হোসেন ধ্রুবর ৪৫ রানের ইনিংসটিই এখনো পর্যন্ত বাংলাদেশি ব্যাটসম্যানদের সেরা ইনিংস।</string>
+    <string name="dummy_text_small">ছড়া লেখা প্রতিযোগিতা</string>
+
+</resources>

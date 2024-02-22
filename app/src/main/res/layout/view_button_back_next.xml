@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewButtons"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btBack"
+        style="@style/AppButton.Bottom.Negative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_weight="1"
+        android:text="@string/back"
+        tools:visibility="visible" />
+
+    <!--    <View-->
+    <!--        android:layout_width="8dp"-->
+    <!--        android:layout_height="wrap_content"/>-->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btNext"
+        style="@style/AppButton.Bottom.Positive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_weight="1"
+        android:text="@string/next" />
+
+
+</LinearLayout>
+
