@@ -201,42 +201,20 @@ enum class SelectionCriteriaEnm(val value: String) {
 
 }
 
+enum class SelectionReasonEnm(val value: String) {
 
-enum class SelectionReasonLipwEnm(val value: String) {
-
-    SELECT("Select Selection Reason LIPW"),
+    SELECT("Select Selection Reason"),
     LIPW_REASON_1("Poor household with no sufficient income to sustain the household"),
     LIPW_REASON_2("Household contain able bodied youth member (18-35)"),
     LIPW_REASON_3("Household headed by young men and women between the ages of 18 and 35"),
     LIPW_REASON_4("Many members who are dependents (HH with dependants greater than 3)"),
-    LIPW_REASON_5("Poor household which have persons with severe disabilities");
-
-    override fun toString(): String {
-        return "$ordinal: $name, $value"
-    }
-
-    companion object {
-        fun getArray(): Array<String> {
-            return entries.map { it.value }.toTypedArray()
-        }
-
-        fun find(value: String): SelectionReasonLipwEnm? {
-            return entries.find { it.value == value }
-        }
-    }
-
-}
-
-enum class SelectionReasonDisEnm(val value: String) {
-
-    SELECT("Select Selection Reason DIS"),
+    LIPW_REASON_5("Poor household which have persons with severe disabilities"),
     DIS_REASON_1("Child headed households with no alternate income support"),
     DIS_REASON_2("Elderly headed household lacking alternate income support and able bodied member"),
     DIS_REASON_3("Persons with disability headed household lacking alternate income support and able bodied member"),
     DIS_REASON_4("Chronically ill headed household lacking alternate income and able bodied member"),
     DIS_REASON_5("Female headed household lacking alternate income support and able-bodied member");
 
-
     override fun toString(): String {
         return "$ordinal: $name, $value"
     }
@@ -246,12 +224,79 @@ enum class SelectionReasonDisEnm(val value: String) {
             return entries.map { it.value }.toTypedArray()
         }
 
-        fun find(value: String): SelectionReasonDisEnm? {
+        fun getArrayLipw(): Array<String> {
+            val items = entries.filter {
+                it.name.contains("lipw_", true) || it.name.contains(SELECT.name, true)
+            }
+            return items.map { it.value }.toTypedArray()
+        }
+
+        fun getArrayDis(): Array<String> {
+            val items = entries.filter {
+                it.name.contains("dis_", true) || it.name.contains(SELECT.name, true)
+            }
+            return items.map { it.value }.toTypedArray()
+        }
+
+
+        fun find(value: String): SelectionReasonEnm? {
             return entries.find { it.value == value }
         }
     }
 
 }
+
+
+//enum class SelectionReasonLipwEnm(val value: String) {
+//
+//    SELECT("Select Selection Reason LIPW"),
+//    LIPW_REASON_1("Poor household with no sufficient income to sustain the household"),
+//    LIPW_REASON_2("Household contain able bodied youth member (18-35)"),
+//    LIPW_REASON_3("Household headed by young men and women between the ages of 18 and 35"),
+//    LIPW_REASON_4("Many members who are dependents (HH with dependants greater than 3)"),
+//    LIPW_REASON_5("Poor household which have persons with severe disabilities");
+//
+//    override fun toString(): String {
+//        return "$ordinal: $name, $value"
+//    }
+//
+//    companion object {
+//        fun getArray(): Array<String> {
+//            return entries.map { it.value }.toTypedArray()
+//        }
+//
+//        fun find(value: String): SelectionReasonLipwEnm? {
+//            return entries.find { it.value == value }
+//        }
+//    }
+//
+//}
+//
+//enum class SelectionReasonDisEnm(val value: String) {
+//
+//    SELECT("Select Selection Reason DIS"),
+//    DIS_REASON_1("Child headed households with no alternate income support"),
+//    DIS_REASON_2("Elderly headed household lacking alternate income support and able bodied member"),
+//    DIS_REASON_3("Persons with disability headed household lacking alternate income support and able bodied member"),
+//    DIS_REASON_4("Chronically ill headed household lacking alternate income and able bodied member"),
+//    DIS_REASON_5("Female headed household lacking alternate income support and able-bodied member");
+//
+//
+//    override fun toString(): String {
+//        return "$ordinal: $name, $value"
+//    }
+//
+//    companion object {
+//        fun getArray(): Array<String> {
+//            return entries.map { it.value }.toTypedArray()
+//        }
+//
+//        fun find(value: String): SelectionReasonDisEnm? {
+//            return entries.find { it.value == value }
+//        }
+//    }
+//
+//}
 
 
 enum class NonParticipationReasonEnm(val value: String) {
@@ -280,6 +325,46 @@ enum class NonParticipationReasonEnm(val value: String) {
     }
 
 }
+
+
+enum class BiometricType(val value: String) {
+
+    PHOTO("PHOTO"),
+    LT("Left Thumb"),
+    LI("Left Index"),
+    LM("Left Middle"),
+    LR("Left Ring"),
+    LL("Left Little"),
+    RT("Right Thumb"),
+    RI("Right Index"),
+    RM("Right Middle"),
+    RR("Right Ring"),
+    RL("Right Little");
+
+    override fun toString(): String {
+        return "$ordinal: $name, $value"
+    }
+
+    companion object {
+        fun getArray(): Array<String> {
+            return entries.map { it.value }.toTypedArray()
+        }
+
+        fun find(value: String): BiometricType? {
+            return entries.find { it.value == value }
+        }
+    }
+}
+
+
+enum class BiometricUserType {
+    BENEFICIARY,
+    NOMINEE,
+    ALTERNATE
+}
+
+
+
 
 
 

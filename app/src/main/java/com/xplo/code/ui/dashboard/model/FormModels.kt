@@ -165,6 +165,7 @@ fun Nominee?.getOppositeGender(): String? {
 }
 
 fun Nominee?.getNomineeHeader(number: Int): String {
+    if (this == null) return "Nominee $number"
     when (number) {
         1 -> return "First Nominee"
         2 -> return "Second Nominee"
