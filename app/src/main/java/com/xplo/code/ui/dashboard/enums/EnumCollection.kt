@@ -329,7 +329,7 @@ enum class NonParticipationReasonEnm(val value: String) {
 
 enum class BiometricType(val value: String) {
 
-    PHOTO("PHOTO"),
+    PHOTO("Photo"),
     LT("Left Thumb"),
     LI("Left Index"),
     LM("Left Middle"),
@@ -356,12 +356,41 @@ enum class BiometricType(val value: String) {
     }
 }
 
+enum class NoFingerprintReasonEnum(val id: Int, val value: String) {
+    SELECT(0, "Select Reason"),
+    NoFingerprintImpression(1, "No Fingerprint"),
+    NoFinger(2, "Missing Finger"),
+    NoLeftHand(3, "Missing Left Hand"),
+    NoRightHand(4, "Missing Right Hand"),
+    NoBothHand(5, "Missing Both Hand"),
+    Other(6, "Other (Specify)");
+
+    override fun toString(): String {
+        return "$ordinal: $name, $value, $id"
+    }
+
+    companion object {
+        fun getArray(): Array<String> {
+            return entries.map { it.value }.toTypedArray()
+        }
+
+        fun find(value: String): NoFingerprintReasonEnum? {
+            return entries.find { it.value == value }
+        }
+
+        fun find(id: Int): NoFingerprintReasonEnum? {
+            return entries.find { it.id == id }
+        }
+    }
+}
 
 enum class BiometricUserType {
     BENEFICIARY,
     NOMINEE,
     ALTERNATE
 }
+
+
 
 
 
