@@ -213,6 +213,20 @@ data class HhForm5(
     var fingers: List<Finger> = arrayListOf()
 )
 
+fun List<Finger>?.isCaptured(fingerCode: String?): Boolean {
+    //if (!TestConfig.isValidationEnabled) return true
+    //if (!TestConfig.isFingerPrintRequired) return true
+    if (this == null) return false
+    if (this.isEmpty()) return false
+    if (fingerCode == null) return false
+
+    for (item in this){
+        if (fingerCode.equals(item.fingerType, true)) return true
+    }
+
+    return false
+}
+
 fun HhForm5.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
     if (!TestConfig.isFingerPrintRequired) return true

@@ -7,6 +7,7 @@ import com.kit.integrationmanager.model.Beneficiary
 import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.data.model.content.Address
 import com.xplo.data.model.content.Alternate
+import com.xplo.data.model.content.Biometric
 import com.xplo.data.model.content.HouseholdMember
 import com.xplo.data.model.content.Location
 import com.xplo.data.model.content.Nominee
@@ -75,7 +76,7 @@ object BeneficiaryMapper {
 
         beneficiary.alternatePayee1 = getFirstAlternate(item.alternates)
         beneficiary.alternatePayee2 = getSecondAlternate(item.alternates)
-        beneficiary.biometrics = null
+        beneficiary.biometrics = toBiometricEntities(item.biometrics)
 
         beneficiary.isOtherMemberPerticipating = item.isOtherMemberPerticipating
         //beneficiary.notPerticipationReason = item.notPerticipationReason
@@ -156,7 +157,7 @@ object BeneficiaryMapper {
         alternate.payeeAge = item.payeeAge
         //alternate.payeeGender = item.payeeGender
         alternate.payeePhoneNo = item.payeePhoneNo
-        alternate.biometrics = null
+        alternate.biometrics = toBiometricEntities(item.biometrics)
 
         return alternate
     }
@@ -189,6 +190,38 @@ object BeneficiaryMapper {
         val list = arrayListOf<com.kit.integrationmanager.model.Nominee>()
         for (item in items) {
             val element = toNominee(item)
+            if (element != null) {
+                list.add(element)
+            }
+        }
+        return list
+    }
+
+    private fun toBiometricEntity(item: Biometric?): com.kit.integrationmanager.model.Biometric? {
+        if (item == null) return null
+        val biometric = com.kit.integrationmanager.model.Biometric()
+        biometric.applicationId = item.applicationId
+
+        biometric.applicationId = item.applicationId
+        //biometric.biometricType = item.biometricType
+        //biometric.biometricUserType = item.biometricUserType
+        biometric.biometricData = item.biometricData?.toByteArray()
+
+
+        biometric.noFingerPrint = item.noFingerPrint
+        //biometric.noFingerprintReason = item.noFingerprintReason
+        biometric.noFingerprintReasonText = item.noFingerprintReasonText
+
+        biometric.biometricUrl = item.biometricUrl
+
+        return biometric
+    }
+
+    private fun toBiometricEntities(items: List<Biometric>?): List<com.kit.integrationmanager.model.Biometric>? {
+        if (items.isNullOrEmpty()) return null
+        val list = arrayListOf<com.kit.integrationmanager.model.Biometric>()
+        for (item in items) {
+            val element = toBiometricEntity(item)
             if (element != null) {
                 list.add(element)
             }
