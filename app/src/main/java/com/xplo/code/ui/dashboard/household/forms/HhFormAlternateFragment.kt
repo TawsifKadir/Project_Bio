@@ -1,6 +1,7 @@
 package com.xplo.code.ui.dashboard.household.forms
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
@@ -9,11 +10,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.databinding.FragmentHhFormAlternateBinding
@@ -73,6 +77,27 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
         if (context is HouseholdContract.View) {
             interactor = activity as HouseholdContract.View
         }
+    }
+
+    private fun showDialogBox(){
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_reasource)
+
+        val btnOk : Button = dialog.findViewById<Button>(R.id.okButton)
+        val btnCancel : Button = dialog.findViewById<Button>(R.id.cancelButton)
+
+        btnOk.setOnClickListener {
+            val dataset = adapter?.getDataset()
+            onValidated(dataset)
+            dialog.dismiss()
+        }
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     override fun onCreateView(
@@ -209,17 +234,18 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
     override fun onReadInput() {
         Log.d(TAG, "onReadInput() called")
 
-        val dataset = adapter?.getDataset()
-
-        if (dataset.isNullOrEmpty()) {
-            showAlerter(null, "Minimum 1 alternet needed")
-            return
-        }else if (dataset.size>5) {
-            showAlerter(null, "Maximum 5 Alternet can be added")
-            return
-        }
-
-        onValidated(dataset)
+//        val dataset = adapter?.getDataset()
+//
+//        if (dataset.isNullOrEmpty()) {
+//            showAlerter(null, "Minimum 1 alternet needed")
+//            return
+//        }else if (dataset.size>5) {
+//            showAlerter(null, "Maximum 5 Alternet can be added")
+//            return
+//        }
+//
+//        onValidated(dataset)
+        showDialogBox()
     }
 
     override fun onLongClickDataGeneration() {

@@ -74,13 +74,11 @@
                     <RadioButton
                         android:id="@+id/rbYes"
                         style="@style/AppRadioButton.Form"
-                        android:text="Yes"
-                        tools:checked="true" />
+                        android:text="Yes" />
 
                     <RadioButton
                         android:id="@+id/rbNo"
                         style="@style/AppRadioButton.Form"
-                        android:checked="true"
                         android:text="No" />
 
                 </RadioGroup>
