@@ -356,7 +356,7 @@ enum class BiometricType(val value: String) {
     }
 }
 
-enum class NoFingerprintReasonEnum(val id: Int, val value: String) {
+enum class NoFingerprintReasonEnm(val id: Int, val value: String) {
     SELECT(0, "Select Reason"),
     NoFingerprintImpression(1, "No Fingerprint"),
     NoFinger(2, "Missing Finger"),
@@ -374,11 +374,11 @@ enum class NoFingerprintReasonEnum(val id: Int, val value: String) {
             return entries.map { it.value }.toTypedArray()
         }
 
-        fun find(value: String?): NoFingerprintReasonEnum? {
+        fun find(value: String?): NoFingerprintReasonEnm? {
             return entries.find { it.value == value }
         }
 
-        fun find(id: Int): NoFingerprintReasonEnum? {
+        fun find(id: Int): NoFingerprintReasonEnm? {
             return entries.find { it.id == id }
         }
     }

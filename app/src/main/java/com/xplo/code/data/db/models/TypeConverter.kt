@@ -9,6 +9,16 @@ import com.xplo.data.model.content.HouseholdMember
 import com.xplo.data.model.content.Nominee
 import java.util.Date
 
+/**
+ * Copyright 2020 (C) xplo
+ *
+ * Created  : 3/16/20
+ * Updated  :
+ * Author   : xplo
+ * Desc     :
+ * Comment  :
+ */
+
 class Converters {
 
     @TypeConverter
