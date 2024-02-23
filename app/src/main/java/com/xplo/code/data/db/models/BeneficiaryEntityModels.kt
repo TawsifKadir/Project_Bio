@@ -5,6 +5,13 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.GsonBuilder
+import com.xplo.code.ui.dashboard.enums.CurrencyEnm
+import com.xplo.code.ui.dashboard.enums.GenderEnm
+import com.xplo.code.ui.dashboard.enums.IncomeSourceEnm
+import com.xplo.code.ui.dashboard.enums.LegalStatusEnm
+import com.xplo.code.ui.dashboard.enums.MaritalStatusEnm
+import com.xplo.code.ui.dashboard.enums.SelectionCriteriaEnm
+import com.xplo.code.ui.dashboard.enums.SelectionReasonEnm
 import com.xplo.data.model.content.Address
 import com.xplo.data.model.content.Alternate
 import com.xplo.data.model.content.Biometric
@@ -46,12 +53,12 @@ data class BeneficiaryEntity(
     @ColumnInfo(name = "respondentAge")
     var respondentAge: Int = 0,
     @ColumnInfo(name = "respondentGender")
-    var respondentGender: String? = null,
+    var respondentGender: GenderEnm? = null,
 
     @ColumnInfo(name = "respondentLegalStatus")
-    var respondentLegalStatus: String? = null,
+    var respondentLegalStatus: LegalStatusEnm? = null,
     @ColumnInfo(name = "respondentMaritalStatus")
-    var respondentMaritalStatus: String? = null,
+    var respondentMaritalStatus: MaritalStatusEnm? = null,
 
     @ColumnInfo(name = "respondentId")
     var respondentId: String? = null,
@@ -63,16 +70,16 @@ data class BeneficiaryEntity(
     var relationshipWithHouseholdHead: String? = null,
 
     @ColumnInfo(name = "currency")
-    var currency: String? = null,
+    var currency: CurrencyEnm? = null,
     @ColumnInfo(name = "householdIncomeSource")
-    var householdIncomeSource: String? = null,
+    var householdIncomeSource: IncomeSourceEnm? = null,
     @ColumnInfo(name = "householdMonthlyAvgIncome")
     var householdMonthlyAvgIncome: Int = 0,
 
     @ColumnInfo(name = "selectionCriteria")
-    var selectionCriteria: String? = null,
+    var selectionCriteria: SelectionCriteriaEnm? = null,
     @ColumnInfo(name = "selectionReason")
-    var selectionReason: String? = null,
+    var selectionReason: SelectionReasonEnm? = null,
 
     @ColumnInfo(name = "spouseFirstName")
     var spouseFirstName: String? = null,
@@ -115,9 +122,7 @@ data class BeneficiaryEntity(
     @ColumnInfo(name = "notPerticipationOtherReason")
     var notPerticipationOtherReason: String? = null,
     @ColumnInfo(name = "nominees")
-    var nominees: ArrayList<Nominee>? = arrayListOf(),
-    @ColumnInfo(name = "xtra")
-    var xtra: Boolean = false
+    var nominees: ArrayList<Nominee>? = arrayListOf()
 
 ) : Serializable
 

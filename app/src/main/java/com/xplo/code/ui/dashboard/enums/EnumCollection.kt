@@ -25,7 +25,7 @@ enum class GenderEnm(val value: String) {
             return entries.map { it.value }.toTypedArray()
         }
 
-        fun find(value: String): GenderEnm? {
+        fun find(value: String?): GenderEnm? {
             return entries.find { it.value == value }
         }
     }
@@ -58,7 +58,7 @@ enum class RelationshipEnm(val value: String) {
             return entries.map { it.value }.toTypedArray()
         }
 
-        fun find(value: String): RelationshipEnm? {
+        fun find(value: String?): RelationshipEnm? {
             return entries.find { it.value == value }
         }
     }
@@ -85,7 +85,7 @@ enum class MaritalStatusEnm(val value: String) {
             return entries.map { it.value }.toTypedArray()
         }
 
-        fun find(value: String): MaritalStatusEnm? {
+        fun find(value: String?): MaritalStatusEnm? {
             return entries.find { it.value == value }
         }
     }
@@ -111,7 +111,7 @@ enum class LegalStatusEnm(val value: String) {
             return entries.map { it.value }.toTypedArray()
         }
 
-        fun find(value: String): LegalStatusEnm? {
+        fun find(value: String?): LegalStatusEnm? {
             return entries.find { it.value == value }
         }
     }
@@ -144,7 +144,7 @@ enum class IncomeSourceEnm(val value: String) {
             return entries.map { it.value }.toTypedArray()
         }
 
-        fun find(value: String): IncomeSourceEnm? {
+        fun find(value: String?): IncomeSourceEnm? {
             return entries.find { it.value == value }
         }
     }
@@ -170,7 +170,7 @@ enum class CurrencyEnm(val value: String) {
             return entries.map { it.value }.toTypedArray()
         }
 
-        fun find(value: String): CurrencyEnm? {
+        fun find(value: String?): CurrencyEnm? {
             return entries.find { it.value == value }
         }
     }
@@ -194,7 +194,7 @@ enum class SelectionCriteriaEnm(val value: String) {
             return entries.map { it.value }.toTypedArray()
         }
 
-        fun find(value: String): SelectionCriteriaEnm? {
+        fun find(value: String?): SelectionCriteriaEnm? {
             return entries.find { it.value == value }
         }
     }
@@ -239,7 +239,7 @@ enum class SelectionReasonEnm(val value: String) {
         }
 
 
-        fun find(value: String): SelectionReasonEnm? {
+        fun find(value: String?): SelectionReasonEnm? {
             return entries.find { it.value == value }
         }
     }
@@ -265,7 +265,7 @@ enum class SelectionReasonEnm(val value: String) {
 //            return entries.map { it.value }.toTypedArray()
 //        }
 //
-//        fun find(value: String): SelectionReasonLipwEnm? {
+//        fun find(value: String?): SelectionReasonLipwEnm? {
 //            return entries.find { it.value == value }
 //        }
 //    }
@@ -291,7 +291,7 @@ enum class SelectionReasonEnm(val value: String) {
 //            return entries.map { it.value }.toTypedArray()
 //        }
 //
-//        fun find(value: String): SelectionReasonDisEnm? {
+//        fun find(value: String?): SelectionReasonDisEnm? {
 //            return entries.find { it.value == value }
 //        }
 //    }
@@ -319,7 +319,7 @@ enum class NonParticipationReasonEnm(val value: String) {
             return entries.map { it.value }.toTypedArray()
         }
 
-        fun find(value: String): NonParticipationReasonEnm? {
+        fun find(value: String?): NonParticipationReasonEnm? {
             return entries.find { it.value == value }
         }
     }
@@ -350,7 +350,7 @@ enum class BiometricType(val value: String) {
             return entries.map { it.value }.toTypedArray()
         }
 
-        fun find(value: String): BiometricType? {
+        fun find(value: String?): BiometricType? {
             return entries.find { it.value == value }
         }
     }
@@ -374,7 +374,7 @@ enum class NoFingerprintReasonEnum(val id: Int, val value: String) {
             return entries.map { it.value }.toTypedArray()
         }
 
-        fun find(value: String): NoFingerprintReasonEnum? {
+        fun find(value: String?): NoFingerprintReasonEnum? {
             return entries.find { it.value == value }
         }
 
