@@ -40,23 +40,23 @@ object BeneficiaryMapper {
 
 
         beneficiary.respondentAge = item.respondentAge
-//        beneficiary.respondentGender = item.respondentGender
-//
-//        beneficiary.respondentLegalStatus = item.respondentLegalStatus
-//        beneficiary.respondentMaritalStatus = item.respondentMaritalStatus
+        beneficiary.respondentGender = item.respondentGender
+
+        beneficiary.respondentLegalStatus = item.respondentLegalStatus
+        beneficiary.respondentMaritalStatus = item.respondentMaritalStatus
 
         beneficiary.respondentId = item.respondentId
         beneficiary.respondentPhoneNo = item.respondentPhoneNo
 
 
-//        beneficiary.relationshipWithHouseholdHead = item.relationshipWithHouseholdHead
+        beneficiary.relationshipWithHouseholdHead = item.relationshipWithHouseholdHead
 
-//        beneficiary.currency = item.currency
-//        beneficiary.householdIncomeSource = item.householdIncomeSource
+        beneficiary.currency = item.currency
+        beneficiary.householdIncomeSource = item.householdIncomeSource
         beneficiary.householdMonthlyAvgIncome = item.householdMonthlyAvgIncome
 
-//        beneficiary.selectionCriteria = item.selectionCriteria
-//        beneficiary.selectionReason = item.selectionReason
+        beneficiary.selectionCriteria = item.selectionCriteria
+        beneficiary.selectionReason = item.selectionReason
 
         beneficiary.spouseFirstName = item.spouseFirstName
         beneficiary.spouseLastName = item.spouseLastName
@@ -79,7 +79,7 @@ object BeneficiaryMapper {
         beneficiary.biometrics = toBiometricEntities(item.biometrics)
 
         beneficiary.isOtherMemberPerticipating = item.isOtherMemberPerticipating
-        //beneficiary.notPerticipationReason = item.notPerticipationReason
+        beneficiary.notPerticipationReason = item.notPerticipationReason
         beneficiary.notPerticipationOtherReason = item.notPerticipationOtherReason
         beneficiary.nominees = toNomineeItems(item.nominees)
 
@@ -155,7 +155,7 @@ object BeneficiaryMapper {
         alternate.nationalId = item.nationalId
         alternate.payeeName = item.payeeName
         alternate.payeeAge = item.payeeAge
-        //alternate.payeeGender = item.payeeGender
+        alternate.payeeGender = item.payeeGender
         alternate.payeePhoneNo = item.payeePhoneNo
         alternate.biometrics = toBiometricEntities(item.biometrics)
 

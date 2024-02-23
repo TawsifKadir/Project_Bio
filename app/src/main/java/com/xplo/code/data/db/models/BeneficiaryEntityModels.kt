@@ -10,6 +10,8 @@ import com.kit.integrationmanager.model.GenderEnum
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.LegalStatusEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
+import com.kit.integrationmanager.model.NonPerticipationReasonEnum
+import com.kit.integrationmanager.model.RelationshipEnum
 import com.kit.integrationmanager.model.SelectionCriteriaEnum
 import com.kit.integrationmanager.model.SelectionReasonEnum
 import com.xplo.data.model.content.Address
@@ -67,7 +69,7 @@ data class BeneficiaryEntity(
 
 
     @ColumnInfo(name = "relationshipWithHouseholdHead")
-    var relationshipWithHouseholdHead: String? = null,
+    var relationshipWithHouseholdHead: RelationshipEnum? = null,
 
     @ColumnInfo(name = "currency")
     var currency: CurrencyEnum? = null,
@@ -118,7 +120,7 @@ data class BeneficiaryEntity(
     @ColumnInfo(name = "isOtherMemberPerticipating")
     var isOtherMemberPerticipating: Boolean = false,
     @ColumnInfo(name = "notPerticipationReason")
-    var notPerticipationReason: String? = null,
+    var notPerticipationReason: NonPerticipationReasonEnum? = null,
     @ColumnInfo(name = "notPerticipationOtherReason")
     var notPerticipationOtherReason: String? = null,
     @ColumnInfo(name = "nominees")

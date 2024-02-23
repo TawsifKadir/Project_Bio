@@ -1,6 +1,7 @@
 package com.xplo.data.model.content
 
 import com.google.gson.annotations.SerializedName
+import com.kit.integrationmanager.model.GenderEnum
 
 /**
  * Copyright 2022 (C) xplo
@@ -39,7 +40,7 @@ data class Alternate(
     @SerializedName("payeeAge")
     var payeeAge: Int = 0,
     @SerializedName("payeeGender")
-    var payeeGender: String? = null,
+    var payeeGender: GenderEnum? = null,
     @SerializedName("payeePhoneNo")
     var payeePhoneNo: String? = null,
     @SerializedName("biometrics")

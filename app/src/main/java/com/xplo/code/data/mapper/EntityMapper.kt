@@ -6,6 +6,8 @@ import com.kit.integrationmanager.model.GenderEnum
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.LegalStatusEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
+import com.kit.integrationmanager.model.NonPerticipationReasonEnum
+import com.kit.integrationmanager.model.RelationshipEnum
 import com.kit.integrationmanager.model.SelectionCriteriaEnum
 import com.kit.integrationmanager.model.SelectionReasonEnum
 import com.xplo.code.core.ext.isYes
@@ -73,7 +75,7 @@ object EntityMapper {
             respondentId = item.form2?.idNumber,
             respondentPhoneNo = item.form2?.phoneNumber,
 
-            relationshipWithHouseholdHead = item.form2?.respondentRlt,
+            relationshipWithHouseholdHead = RelationshipEnum.find(item.form2?.respondentRlt),
 
             currency = CurrencyEnum.find(item.form2?.currency),
             householdIncomeSource = IncomeSourceEnum.find(item.form2?.mainSourceOfIncome),
@@ -127,7 +129,7 @@ object EntityMapper {
             memberReadWrite = item.form3?.householdSize ?: 0,
 
             isOtherMemberPerticipating = item.form6?.isNomineeAdd.isYes(),
-            notPerticipationReason = item.form6?.noNomineeReason,
+            notPerticipationReason = NonPerticipationReasonEnum.find(item.form6?.noNomineeReason),
             notPerticipationOtherReason = item.form6?.otherReason,
             nominees = toNomineeEntityItems(item.form6?.nominees, applicationId)
 
@@ -222,7 +224,7 @@ object EntityMapper {
 
             payeeName = item.form1?.getFullName(),
             payeeAge = item.form1?.age ?: 0,
-            payeeGender = item.form1?.gender,
+            payeeGender = GenderEnum.find(item.form1?.gender),
             payeePhoneNo = item.form1?.phoneNumber,
             biometrics = toBiometricEntityItemsFromAlternateForm(item, id)
         )
