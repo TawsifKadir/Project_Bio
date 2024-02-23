@@ -16,11 +16,11 @@ import com.xplo.code.R
 import com.xplo.code.base.BaseActivity
 import com.xplo.code.core.Bk
 import com.xplo.code.databinding.ActivityMainBinding
-import com.xplo.code.ui.content_list.ContentListFragment
 import com.xplo.code.ui.dashboard.DashboardFragment
 import com.xplo.code.ui.dashboard.household.list.HouseholdListFragment
 import com.xplo.code.ui.favorite.FavoriteActivity
 import com.xplo.code.ui.home.HomeFragment
+import com.xplo.code.ui.user_profile.FormDetailsClickActivity
 import com.xplo.code.ui.user_profile.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
@@ -155,6 +155,12 @@ class MainActivity : BaseActivity(), MainContract.View,
             R.id.mProfile -> {
                 openActivity(ProfileActivity::class.java, null)
             }
+           /* R.id.mProfile -> {
+                openActivity(FormDetailsClickActivity::class.java, null)
+            }*/
+
+
+
         }
 
         return super.onOptionsItemSelected(item)
