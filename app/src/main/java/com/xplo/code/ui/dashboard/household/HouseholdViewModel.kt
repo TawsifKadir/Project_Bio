@@ -13,6 +13,8 @@ import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.offline.Column
 import com.xplo.code.data.db.offline.OptionItem
 import com.xplo.code.data.db.repo.DbRepo
+import com.xplo.code.data.mapper.BeneficiaryMapper
+import com.xplo.code.data.mapper.EntityMapper
 import com.xplo.code.data.mapper.FormMapper
 import com.xplo.code.network.fake.Fake
 import com.xplo.code.ui.dashboard.model.HouseholdForm
@@ -241,6 +243,8 @@ class HouseholdViewModel @Inject constructor(
         val integrationManager = OnlineIntegrationManager(context, this, serverInfo)
         val headers = FormAppUtils.getHeaderForIntegrationManager()
         val beneficiary = Fake.getABenificiary()
+        //val entity = EntityMapper.toBeneficiaryEntity(form)
+        //val beneficiary = BeneficiaryMapper.toBeneficiary(entity)
         integrationManager.syncRecord(beneficiary, headers)
     }
 

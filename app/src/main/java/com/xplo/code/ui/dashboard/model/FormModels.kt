@@ -123,7 +123,7 @@ data class HhForm4(
 fun HhForm4.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
     if (this.photoData == null) return false
-    if (this.photoData?.isOk().toBool()) return false
+    if (!this.photoData?.isOk().toBool()) return false
 
     return true
 }
@@ -296,7 +296,7 @@ data class AlForm2(
 
 fun AlForm2.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
-    if (this.photoData == null) return false
+    if (!this.photoData?.isOk().toBool()) return false
     return true
 }
 

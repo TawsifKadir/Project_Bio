@@ -24,6 +24,7 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.kit.integrationmanager.model.BiometricUserType
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -32,6 +33,7 @@ import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.AlForm2
+import com.xplo.code.ui.dashboard.model.PhotoData
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.code.ui.photo.ImagePickerActivity
 import com.xplo.code.ui.photo.ImageUtil
@@ -390,7 +392,11 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
     }
 
     private fun setToModel(path: String?) {
-        form.photoData?.imgPath = path
+        var data = PhotoData()
+        data.imgPath = path
+        data.userType = BiometricUserType.BENEFICIARY.name
+        data.img = null
+        form.photoData = data
         val rootForm = interactor?.getRootForm()
         rootForm?.form2 = form
         interactor?.setRootForm(rootForm)

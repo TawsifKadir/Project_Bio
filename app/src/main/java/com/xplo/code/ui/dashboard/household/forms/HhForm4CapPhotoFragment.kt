@@ -23,6 +23,7 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.kit.integrationmanager.model.BiometricUserType
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -34,6 +35,7 @@ import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.HhForm3
 import com.xplo.code.ui.dashboard.model.HhForm4
 import com.xplo.code.ui.dashboard.model.HhForm5
+import com.xplo.code.ui.dashboard.model.PhotoData
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.code.ui.photo.ImagePickerActivity
 import com.xplo.code.ui.photo.ImageUtil
@@ -344,7 +346,11 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
 
     private fun setToModel(path: String?) {
         Log.d(TAG, "setToModel() called with: path = $path")
-        form.photoData?.imgPath = path
+        var data = PhotoData()
+        data.imgPath = path
+        data.userType = BiometricUserType.BENEFICIARY.name
+        data.img = null
+        form.photoData = data
         val rootForm = interactor?.getRootForm()
         rootForm?.form4 = form
         interactor?.setRootForm(rootForm)
