@@ -68,7 +68,7 @@
         <item>Other Relative</item>
         <item>Domestic Worker</item>
         <item>No Relation</item>
-        <item>sibling in law</item>
+        <item>Sibling-in-law</item>
         <item>Does not know</item>
     </string-array>
 
@@ -193,7 +193,7 @@
 
     <string-array name="support_type_public_work_array">
         <item>Poor household with no sufficient income to sustain the household</item>
-        <item>Household contain able bodied youth member (18–35</item>
+        <item>Household contain able bodied youth member (18–35)</item>
         <item>Household headed by young men and women between the ages of 18 and 35</item>
         <item>Household has three or more dependents (children 0–14, eligible vulnerable HH selected UNOPS, Payam and Boma development committees, and selection committees etc. disabled and elderly 65+)</item>
         <item>Poor household which have persons with severe disabilities</item>
@@ -254,7 +254,7 @@
     <string name="alternate_name">Alternate Name</string>
     <string name="alternate_age">Age</string>
     <string name="alternate_id">ID Number</string>
-    <string name="alternate_phone">Phonenumber</string>
+    <string name="alternate_phone">Phone Number</string>
     <string name="alternate_relation">Select Alternate Relationship</string>
     <string name="alternate_gender">Alternate\'s Gender</string>
 
@@ -283,7 +283,7 @@
     <string name="what_does_currently_do_for_a_living">What does currently do for a living?</string>
 
     <string name="can_you_read_and_write_any_language">Do you read and write? (any language)</string>
-    <string name="not_including_yourself_how_many_other_members_of_your_household_are_between_18_and_35_and_can_read_and_write">household members who are between 18 and 35 and who can read and write are recommended to participate in this component.</string>
+    <string name="not_including_yourself_how_many_other_members_of_your_household_are_between_18_and_35_and_can_read_and_write">How many members of the household are between 18 and 35 and can read and write?</string>
     <string name="minimum_2_maximum_5_and_1_female_nominee_required">Minimum 2, maximum 5 and 1 female nominee required</string>
     <string name="do_you_have_a_national_id">Do you have an ID?</string>
     <string name="what_type_of_id_number_do_you_possess">What type of ID number do you possess?</string>
