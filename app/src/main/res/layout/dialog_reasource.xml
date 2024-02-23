@@ -34,6 +34,7 @@
         android:padding="5dp"
         android:orientation="horizontal">
         <Button
+            android:id="@+id/cancelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_round_box"
@@ -46,6 +47,7 @@
             android:drawableStart="@drawable/baseline_cancel_24"
             />
         <Button
+            android:id="@+id/okButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_round_box"
