@@ -1,16 +1,16 @@
 package com.xplo.code.data.mapper
 
 import android.util.Log
+import com.kit.integrationmanager.model.CurrencyEnum
+import com.kit.integrationmanager.model.GenderEnum
+import com.kit.integrationmanager.model.IncomeSourceEnum
+import com.kit.integrationmanager.model.LegalStatusEnum
+import com.kit.integrationmanager.model.MaritalStatusEnum
+import com.kit.integrationmanager.model.SelectionCriteriaEnum
+import com.kit.integrationmanager.model.SelectionReasonEnum
 import com.xplo.code.core.ext.isYes
 import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.toJson
-import com.xplo.code.ui.dashboard.enums.CurrencyEnm
-import com.xplo.code.ui.dashboard.enums.GenderEnm
-import com.xplo.code.ui.dashboard.enums.IncomeSourceEnm
-import com.xplo.code.ui.dashboard.enums.LegalStatusEnm
-import com.xplo.code.ui.dashboard.enums.MaritalStatusEnm
-import com.xplo.code.ui.dashboard.enums.SelectionCriteriaEnm
-import com.xplo.code.ui.dashboard.enums.SelectionReasonEnm
 import com.xplo.code.ui.dashboard.model.AlternateForm
 import com.xplo.code.ui.dashboard.model.Finger
 import com.xplo.code.ui.dashboard.model.HhMember
@@ -65,23 +65,23 @@ object EntityMapper {
             respondentLastName = item.form2?.lastName,
 
             respondentAge = item.form2?.age ?: 0,
-            respondentGender = GenderEnm.find(item.form2?.gender),
+            respondentGender = GenderEnum.find(item.form2?.gender),
 
-            respondentLegalStatus = LegalStatusEnm.find(item.form2?.legalStatus),
-            respondentMaritalStatus = MaritalStatusEnm.find(item.form2?.maritalStatus),
+            respondentLegalStatus = LegalStatusEnum.find(item.form2?.legalStatus),
+            respondentMaritalStatus = MaritalStatusEnum.find(item.form2?.maritalStatus),
 
             respondentId = item.form2?.idNumber,
             respondentPhoneNo = item.form2?.phoneNumber,
 
             relationshipWithHouseholdHead = item.form2?.respondentRlt,
 
-            currency = CurrencyEnm.find(item.form2?.currency),
-            householdIncomeSource = IncomeSourceEnm.find(item.form2?.mainSourceOfIncome),
+            currency = CurrencyEnum.find(item.form2?.currency),
+            householdIncomeSource = IncomeSourceEnum.find(item.form2?.mainSourceOfIncome),
             householdMonthlyAvgIncome = item.form2?.monthlyAverageIncome ?: 0,
 
 
-            selectionCriteria = SelectionCriteriaEnm.find(item.form2?.selectionCriteria),
-            selectionReason = SelectionReasonEnm.find(item.form2?.selectionReason),
+            selectionCriteria = SelectionCriteriaEnum.find(item.form2?.selectionCriteria),
+            selectionReason = SelectionReasonEnum.find(item.form2?.selectionReason),
 
             spouseFirstName = item.form2?.spouseFirstName,
             spouseLastName = item.form2?.spouseLastName,

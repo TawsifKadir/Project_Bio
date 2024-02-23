@@ -1,11 +1,11 @@
 package com.xplo.code.ui.dashboard.model
 
 import com.google.gson.GsonBuilder
+import com.kit.integrationmanager.model.MaritalStatusEnum
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.isNo
 import com.xplo.code.core.ext.toBool
 import com.xplo.code.ui.dashboard.UiData
-import com.xplo.code.ui.dashboard.enums.MaritalStatusEnm
 
 
 fun HhForm2?.getFullName(): String? {
@@ -63,7 +63,7 @@ fun HhForm2.isOk(): Boolean {
         return false
     }
 
-    if (this.maritalStatus == MaritalStatusEnm.MARRIED.value) {
+    if (this.maritalStatus == MaritalStatusEnum.MARRIED.value) {
         if (this.spouseFirstName.isNullOrBlank()) {
             return false
         }

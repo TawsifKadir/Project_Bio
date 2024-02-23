@@ -5,13 +5,13 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.GsonBuilder
-import com.xplo.code.ui.dashboard.enums.CurrencyEnm
-import com.xplo.code.ui.dashboard.enums.GenderEnm
-import com.xplo.code.ui.dashboard.enums.IncomeSourceEnm
-import com.xplo.code.ui.dashboard.enums.LegalStatusEnm
-import com.xplo.code.ui.dashboard.enums.MaritalStatusEnm
-import com.xplo.code.ui.dashboard.enums.SelectionCriteriaEnm
-import com.xplo.code.ui.dashboard.enums.SelectionReasonEnm
+import com.kit.integrationmanager.model.CurrencyEnum
+import com.kit.integrationmanager.model.GenderEnum
+import com.kit.integrationmanager.model.IncomeSourceEnum
+import com.kit.integrationmanager.model.LegalStatusEnum
+import com.kit.integrationmanager.model.MaritalStatusEnum
+import com.kit.integrationmanager.model.SelectionCriteriaEnum
+import com.kit.integrationmanager.model.SelectionReasonEnum
 import com.xplo.data.model.content.Address
 import com.xplo.data.model.content.Alternate
 import com.xplo.data.model.content.Biometric
@@ -53,12 +53,12 @@ data class BeneficiaryEntity(
     @ColumnInfo(name = "respondentAge")
     var respondentAge: Int = 0,
     @ColumnInfo(name = "respondentGender")
-    var respondentGender: GenderEnm? = null,
+    var respondentGender: GenderEnum? = null,
 
     @ColumnInfo(name = "respondentLegalStatus")
-    var respondentLegalStatus: LegalStatusEnm? = null,
+    var respondentLegalStatus: LegalStatusEnum? = null,
     @ColumnInfo(name = "respondentMaritalStatus")
-    var respondentMaritalStatus: MaritalStatusEnm? = null,
+    var respondentMaritalStatus: MaritalStatusEnum? = null,
 
     @ColumnInfo(name = "respondentId")
     var respondentId: String? = null,
@@ -70,16 +70,16 @@ data class BeneficiaryEntity(
     var relationshipWithHouseholdHead: String? = null,
 
     @ColumnInfo(name = "currency")
-    var currency: CurrencyEnm? = null,
+    var currency: CurrencyEnum? = null,
     @ColumnInfo(name = "householdIncomeSource")
-    var householdIncomeSource: IncomeSourceEnm? = null,
+    var householdIncomeSource: IncomeSourceEnum? = null,
     @ColumnInfo(name = "householdMonthlyAvgIncome")
     var householdMonthlyAvgIncome: Int = 0,
 
     @ColumnInfo(name = "selectionCriteria")
-    var selectionCriteria: SelectionCriteriaEnm? = null,
+    var selectionCriteria: SelectionCriteriaEnum? = null,
     @ColumnInfo(name = "selectionReason")
-    var selectionReason: SelectionReasonEnm? = null,
+    var selectionReason: SelectionReasonEnum? = null,
 
     @ColumnInfo(name = "spouseFirstName")
     var spouseFirstName: String? = null,

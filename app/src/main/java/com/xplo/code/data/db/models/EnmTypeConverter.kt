@@ -1,18 +1,18 @@
 package com.xplo.code.data.db.models
 
 import androidx.room.TypeConverter
-import com.xplo.code.ui.dashboard.enums.BiometricType
-import com.xplo.code.ui.dashboard.enums.BiometricUserType
-import com.xplo.code.ui.dashboard.enums.CurrencyEnm
-import com.xplo.code.ui.dashboard.enums.GenderEnm
-import com.xplo.code.ui.dashboard.enums.IncomeSourceEnm
-import com.xplo.code.ui.dashboard.enums.LegalStatusEnm
-import com.xplo.code.ui.dashboard.enums.MaritalStatusEnm
-import com.xplo.code.ui.dashboard.enums.NoFingerprintReasonEnm
-import com.xplo.code.ui.dashboard.enums.NonParticipationReasonEnm
-import com.xplo.code.ui.dashboard.enums.RelationshipEnm
-import com.xplo.code.ui.dashboard.enums.SelectionCriteriaEnm
-import com.xplo.code.ui.dashboard.enums.SelectionReasonEnm
+import com.kit.integrationmanager.model.BiometricType
+import com.kit.integrationmanager.model.BiometricUserType
+import com.kit.integrationmanager.model.CurrencyEnum
+import com.kit.integrationmanager.model.GenderEnum
+import com.kit.integrationmanager.model.IncomeSourceEnum
+import com.kit.integrationmanager.model.LegalStatusEnum
+import com.kit.integrationmanager.model.MaritalStatusEnum
+import com.kit.integrationmanager.model.NoFingerprintReasonEnum
+import com.kit.integrationmanager.model.NonPerticipationReasonEnum
+import com.kit.integrationmanager.model.RelationshipEnum
+import com.kit.integrationmanager.model.SelectionCriteriaEnum
+import com.kit.integrationmanager.model.SelectionReasonEnum
 
 /**
  * Copyright 2020 (C) xplo
@@ -24,111 +24,111 @@ import com.xplo.code.ui.dashboard.enums.SelectionReasonEnm
  * Comment  :
  */
 
-class EnmTypeConverters {
+class EnumTypeConverters {
 
 
     @TypeConverter
-    fun toGenderEnm(name: String?): GenderEnm? {
+    fun toGenderEnum(name: String?): GenderEnum? {
         if (name == null) return null
-        return GenderEnm.valueOf(name)
+        return GenderEnum.valueOf(name)
     }
 
     @TypeConverter
-    fun fromGenderEnm(enm: GenderEnm?): String? {
+    fun fromGenderEnum(enm: GenderEnum?): String? {
         return enm?.name
     }
 
     @TypeConverter
-    fun toLegalStatusEnm(name: String?): LegalStatusEnm? {
+    fun toLegalStatusEnum(name: String?): LegalStatusEnum? {
         if (name == null) return null
-        return LegalStatusEnm.valueOf(name)
+        return LegalStatusEnum.valueOf(name)
     }
 
     @TypeConverter
-    fun fromLegalStatusEnm(enm: LegalStatusEnm?): String? {
+    fun fromLegalStatusEnum(enm: LegalStatusEnum?): String? {
         return enm?.name
     }
 
     @TypeConverter
-    fun toMaritalStatusEnm(name: String?): MaritalStatusEnm? {
+    fun toMaritalStatusEnum(name: String?): MaritalStatusEnum? {
         if (name == null) return null
-        return MaritalStatusEnm.valueOf(name)
+        return MaritalStatusEnum.valueOf(name)
     }
 
     @TypeConverter
-    fun fromMaritalStatusEnm(enm: MaritalStatusEnm?): String? {
-        return enm?.name
-    }
-
-
-    @TypeConverter
-    fun toRelationshipEnm(name: String?): RelationshipEnm? {
-        if (name == null) return null
-        return RelationshipEnm.valueOf(name)
-    }
-
-    @TypeConverter
-    fun fromRelationshipEnm(enm: RelationshipEnm?): String? {
+    fun fromMaritalStatusEnum(enm: MaritalStatusEnum?): String? {
         return enm?.name
     }
 
 
     @TypeConverter
-    fun toIncomeSourceEnm(name: String?): IncomeSourceEnm? {
+    fun toRelationshipEnum(name: String?): RelationshipEnum? {
         if (name == null) return null
-        return IncomeSourceEnm.valueOf(name)
+        return RelationshipEnum.valueOf(name)
     }
 
     @TypeConverter
-    fun fromIncomeSourceEnm(enm: IncomeSourceEnm?): String? {
+    fun fromRelationshipEnum(enm: RelationshipEnum?): String? {
         return enm?.name
     }
 
 
     @TypeConverter
-    fun toCurrencyEnm(name: String?): CurrencyEnm? {
+    fun toIncomeSourceEnum(name: String?): IncomeSourceEnum? {
         if (name == null) return null
-        return CurrencyEnm.valueOf(name)
+        return IncomeSourceEnum.valueOf(name)
     }
 
     @TypeConverter
-    fun fromCurrencyEnm(enm: CurrencyEnm?): String? {
+    fun fromIncomeSourceEnum(enm: IncomeSourceEnum?): String? {
         return enm?.name
     }
 
 
     @TypeConverter
-    fun toSelectionCriteriaEnm(name: String?): SelectionCriteriaEnm? {
+    fun toCurrencyEnum(name: String?): CurrencyEnum? {
         if (name == null) return null
-        return SelectionCriteriaEnm.valueOf(name)
+        return CurrencyEnum.valueOf(name)
     }
 
     @TypeConverter
-    fun fromSelectionCriteriaEnm(enm: SelectionCriteriaEnm?): String? {
+    fun fromCurrencyEnum(enm: CurrencyEnum?): String? {
         return enm?.name
     }
 
 
     @TypeConverter
-    fun toSelectionReasonEnm(name: String?): SelectionReasonEnm? {
+    fun toSelectionCriteriaEnum(name: String?): SelectionCriteriaEnum? {
         if (name == null) return null
-        return SelectionReasonEnm.valueOf(name)
+        return SelectionCriteriaEnum.valueOf(name)
     }
 
     @TypeConverter
-    fun fromSelectionReasonEnm(enm: SelectionReasonEnm?): String? {
+    fun fromSelectionCriteriaEnum(enm: SelectionCriteriaEnum?): String? {
         return enm?.name
     }
 
 
     @TypeConverter
-    fun toNonParticipationReasonEnm(name: String?): NonParticipationReasonEnm? {
+    fun toSelectionReasonEnum(name: String?): SelectionReasonEnum? {
         if (name == null) return null
-        return NonParticipationReasonEnm.valueOf(name)
+        return SelectionReasonEnum.valueOf(name)
     }
 
     @TypeConverter
-    fun fromNonParticipationReasonEnm(enm: NonParticipationReasonEnm?): String? {
+    fun fromSelectionReasonEnum(enm: SelectionReasonEnum?): String? {
+        return enm?.name
+    }
+
+
+    @TypeConverter
+    fun toNonParticipationReasonEnum(name: String?): NonPerticipationReasonEnum? {
+        if (name == null) return null
+        return NonPerticipationReasonEnum.valueOf(name)
+    }
+
+    @TypeConverter
+    fun fromNonParticipationReasonEnum(enm: NonPerticipationReasonEnum?): String? {
         return enm?.name
     }
 
@@ -146,13 +146,13 @@ class EnmTypeConverters {
 
 
     @TypeConverter
-    fun toNoFingerprintReasonEnm(name: String?): NoFingerprintReasonEnm? {
+    fun toNoFingerprintReasonEnum(name: String?): NoFingerprintReasonEnum? {
         if (name == null) return null
-        return NoFingerprintReasonEnm.valueOf(name)
+        return NoFingerprintReasonEnum.valueOf(name)
     }
 
     @TypeConverter
-    fun fromNoFingerprintReasonEnm(enm: NoFingerprintReasonEnm?): String? {
+    fun fromNoFingerprintReasonEnum(enm: NoFingerprintReasonEnum?): String? {
         return enm?.name
     }
 

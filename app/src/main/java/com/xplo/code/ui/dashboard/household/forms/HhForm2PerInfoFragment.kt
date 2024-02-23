@@ -15,6 +15,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kit.integrationmanager.model.MaritalStatusEnum
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -23,7 +24,6 @@ import com.xplo.code.core.ext.checkRbOpABforIDcard
 import com.xplo.code.databinding.FragmentHhForm2PerInfoBinding
 import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
-import com.xplo.code.ui.dashboard.enums.MaritalStatusEnm
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.list.CheckboxListAdapter
@@ -211,7 +211,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
                 id: Long
             ) {
                 val selectedItem = parent.getItemAtPosition(position).toString()
-                if (selectedItem.equals(MaritalStatusEnm.MARRIED.value, ignoreCase = true)) {
+                if (selectedItem.equals(MaritalStatusEnum.MARRIED.value, ignoreCase = true)) {
                     binding.llspouse1.visibility = View.VISIBLE
                     binding.llspouse2.visibility = View.VISIBLE
                 } else {

@@ -8,7 +8,7 @@ import com.xplo.code.data.db.dao.HouseholdDao
 import com.xplo.code.data.db.dao.PostDao
 import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.Converters
-import com.xplo.code.data.db.models.EnmTypeConverters
+import com.xplo.code.data.db.models.EnumTypeConverters
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.Post
 
@@ -29,7 +29,7 @@ import com.xplo.code.data.db.models.Post
     ],
     version = 1
 )
-@TypeConverters(Converters::class, EnmTypeConverters::class)
+@TypeConverters(Converters::class, EnumTypeConverters::class)
 abstract class AppDb : RoomDatabase() {
     abstract fun postDao(): PostDao
     abstract fun householdDao(): HouseholdDao

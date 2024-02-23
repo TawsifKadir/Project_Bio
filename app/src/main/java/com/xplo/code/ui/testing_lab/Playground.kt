@@ -1,13 +1,13 @@
 package com.xplo.code.ui.testing_lab
 
 import android.util.Log
-import com.xplo.code.ui.dashboard.enums.GenderEnm
+import com.kit.integrationmanager.model.GenderEnum
 
 fun main () {
     println("hello")
 
-    val gender = GenderEnm.valueOf("MALE")
+    val gender = GenderEnum.valueOf("MALE")
     println(gender)
-    val gender2 = GenderEnm.find("Male")
+    val gender2 = GenderEnum.find("Male")
     println(gender2)
 }

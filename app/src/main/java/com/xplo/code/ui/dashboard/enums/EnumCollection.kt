@@ -9,16 +9,12 @@ package com.xplo.code.ui.dashboard.enums
  * Desc     :
  * Comment  :
  */
-
-enum class GenderEnm(val value: String) {
+/*
+enum class GenderEnum(val value: String) {
 
     SELECT("Select Gender"),
     MALE("Male"),
     FEMALE("Female");
-
-    override fun toString(): String {
-        return "$ordinal: $name, $value"
-    }
 
     companion object {
         @JvmStatic
@@ -27,14 +23,14 @@ enum class GenderEnm(val value: String) {
         }
 
         @JvmStatic
-        fun find(value: String?): GenderEnm? {
+        fun find(value: String?): GenderEnum? {
             return entries.find { it.value == value }
         }
     }
 
 }
 
-enum class RelationshipEnm(val value: String) {
+enum class RelationshipEnum(val value: String) {
 
     SELECT("Select Relationship"),
     HOUSEHOLD_HEAD("Household head"),
@@ -50,11 +46,6 @@ enum class RelationshipEnm(val value: String) {
     NO_RELATION("No relation"),
     UNKNOWN("Unknown");
 
-
-    override fun toString(): String {
-        return "$ordinal: $name, $value"
-    }
-
     companion object {
         @JvmStatic
         fun getArray(): Array<String> {
@@ -62,7 +53,7 @@ enum class RelationshipEnm(val value: String) {
         }
 
         @JvmStatic
-        fun find(value: String?): RelationshipEnm? {
+        fun find(value: String?): RelationshipEnum? {
             return entries.find { it.value == value }
         }
     }
@@ -70,7 +61,7 @@ enum class RelationshipEnm(val value: String) {
 }
 
 
-enum class MaritalStatusEnm(val value: String) {
+enum class MaritalStatusEnum(val value: String) {
 
     SELECT("Select Marital Status"),
     SINGLE("Single"),
@@ -79,11 +70,6 @@ enum class MaritalStatusEnm(val value: String) {
     SEPARATED("Separated"),
     DIVORCE("Divorce");
 
-
-    override fun toString(): String {
-        return "$ordinal: $name, $value"
-    }
-
     companion object {
         @JvmStatic
         fun getArray(): Array<String> {
@@ -91,7 +77,7 @@ enum class MaritalStatusEnm(val value: String) {
         }
 
         @JvmStatic
-        fun find(value: String?): MaritalStatusEnm? {
+        fun find(value: String?): MaritalStatusEnum? {
             return entries.find { it.value == value }
         }
     }
@@ -99,7 +85,7 @@ enum class MaritalStatusEnm(val value: String) {
 }
 
 
-enum class LegalStatusEnm(val value: String) {
+enum class LegalStatusEnum(val value: String) {
 
     SELECT("Select Legal Status"),
     HOST("Host"),
@@ -108,9 +94,7 @@ enum class LegalStatusEnm(val value: String) {
     IDP("Idp");
 
 
-    override fun toString(): String {
-        return "$ordinal: $name, $value"
-    }
+
 
     companion object {
         @JvmStatic
@@ -119,7 +103,7 @@ enum class LegalStatusEnm(val value: String) {
         }
 
         @JvmStatic
-        fun find(value: String?): LegalStatusEnm? {
+        fun find(value: String?): LegalStatusEnum? {
             return entries.find { it.value == value }
         }
     }
@@ -127,7 +111,7 @@ enum class LegalStatusEnm(val value: String) {
 }
 
 
-enum class IncomeSourceEnm(val value: String) {
+enum class IncomeSourceEnum(val value: String) {
 
     SELECT("Select Income Source"),
     NONE("None"),
@@ -142,11 +126,6 @@ enum class IncomeSourceEnm(val value: String) {
     PENSION("Pension"),
     OTHER("Other");
 
-
-    override fun toString(): String {
-        return "$ordinal: $name, $value"
-    }
-
     companion object {
         @JvmStatic
         fun getArray(): Array<String> {
@@ -154,7 +133,7 @@ enum class IncomeSourceEnm(val value: String) {
         }
 
         @JvmStatic
-        fun find(value: String?): IncomeSourceEnm? {
+        fun find(value: String?): IncomeSourceEnum? {
             return entries.find { it.value == value }
         }
     }
@@ -162,7 +141,7 @@ enum class IncomeSourceEnm(val value: String) {
 }
 
 
-enum class CurrencyEnm(val value: String) {
+enum class CurrencyEnum(val value: String) {
 
     SELECT("Select Currency"),
     SUDANESE_POUND("Sudanese pound"),
@@ -170,11 +149,6 @@ enum class CurrencyEnm(val value: String) {
     POUND("Pound"),
     EURO("Euro");
 
-
-    override fun toString(): String {
-        return "$ordinal: $name, $value"
-    }
-
     companion object {
         @JvmStatic
         fun getArray(): Array<String> {
@@ -182,7 +156,7 @@ enum class CurrencyEnm(val value: String) {
         }
 
         @JvmStatic
-        fun find(value: String?): CurrencyEnm? {
+        fun find(value: String?): CurrencyEnum? {
             return entries.find { it.value == value }
         }
     }
@@ -190,16 +164,14 @@ enum class CurrencyEnm(val value: String) {
 }
 
 
-enum class SelectionCriteriaEnm(val value: String) {
+enum class SelectionCriteriaEnum(val value: String) {
 
     SELECT("Select Selection Criteria"),
     LIPW("LIPW"),
     DIS("DIS");
 
 
-    override fun toString(): String {
-        return "$ordinal: $name, $value"
-    }
+
 
     companion object {
         @JvmStatic
@@ -208,14 +180,14 @@ enum class SelectionCriteriaEnm(val value: String) {
         }
 
         @JvmStatic
-        fun find(value: String?): SelectionCriteriaEnm? {
+        fun find(value: String?): SelectionCriteriaEnum? {
             return entries.find { it.value == value }
         }
     }
 
 }
 
-enum class SelectionReasonEnm(val value: String) {
+enum class SelectionReasonEnum(val value: String) {
 
     SELECT("Select Selection Reason"),
     LIPW_REASON_1("Poor household with no sufficient income to sustain the household"),
@@ -229,9 +201,7 @@ enum class SelectionReasonEnm(val value: String) {
     DIS_REASON_4("Chronically ill headed household lacking alternate income and able bodied member"),
     DIS_REASON_5("Female headed household lacking alternate income support and able-bodied member");
 
-    override fun toString(): String {
-        return "$ordinal: $name, $value"
-    }
+
 
     companion object {
         @JvmStatic
@@ -255,7 +225,7 @@ enum class SelectionReasonEnm(val value: String) {
 
 
         @JvmStatic
-        fun find(value: String?): SelectionReasonEnm? {
+        fun find(value: String?): SelectionReasonEnum? {
             return entries.find { it.value == value }
         }
     }
@@ -263,7 +233,7 @@ enum class SelectionReasonEnm(val value: String) {
 }
 
 
-//enum class SelectionReasonLipwEnm(val value: String) {
+//enum class SelectionReasonLipwEnum(val value: String) {
 //
 //    SELECT("Select Selection Reason LIPW"),
 //    LIPW_REASON_1("Poor household with no sufficient income to sustain the household"),
@@ -273,7 +243,7 @@ enum class SelectionReasonEnm(val value: String) {
 //    LIPW_REASON_5("Poor household which have persons with severe disabilities");
 //
 //    override fun toString(): String {
-//        return "$ordinal: $name, $value"
+//        return value
 //    }
 //
 //    companion object {
@@ -283,14 +253,14 @@ enum class SelectionReasonEnm(val value: String) {
 //        }
 //
 //@JvmStatic
-//        fun find(value: String?): SelectionReasonLipwEnm? {
+//        fun find(value: String?): SelectionReasonLipwEnum? {
 //            return entries.find { it.value == value }
 //        }
 //    }
 //
 //}
 //
-//enum class SelectionReasonDisEnm(val value: String) {
+//enum class SelectionReasonDisEnum(val value: String) {
 //
 //    SELECT("Select Selection Reason DIS"),
 //    DIS_REASON_1("Child headed households with no alternate income support"),
@@ -301,7 +271,7 @@ enum class SelectionReasonEnm(val value: String) {
 //
 //
 //    override fun toString(): String {
-//        return "$ordinal: $name, $value"
+//        return value
 //    }
 //
 //    companion object {
@@ -311,7 +281,7 @@ enum class SelectionReasonEnm(val value: String) {
 //        }
 //
 //@JvmStatic
-//        fun find(value: String?): SelectionReasonDisEnm? {
+//        fun find(value: String?): SelectionReasonDisEnum? {
 //            return entries.find { it.value == value }
 //        }
 //    }
@@ -319,7 +289,7 @@ enum class SelectionReasonEnm(val value: String) {
 //}
 
 
-enum class NonParticipationReasonEnm(val value: String) {
+enum class NonParticipationReasonEnum(val value: String) {
 
     SELECT("Select Non Participation Reason"),
     REASON_1("All eligible household members have other commitments that occupy their time"),
@@ -330,9 +300,7 @@ enum class NonParticipationReasonEnm(val value: String) {
     REASON_OTHER("Other");
 
 
-    override fun toString(): String {
-        return "$ordinal: $name, $value"
-    }
+
 
     companion object {
         @JvmStatic
@@ -341,7 +309,7 @@ enum class NonParticipationReasonEnm(val value: String) {
         }
 
         @JvmStatic
-        fun find(value: String?): NonParticipationReasonEnm? {
+        fun find(value: String?): NonParticipationReasonEnum? {
             return entries.find { it.value == value }
         }
     }
@@ -363,9 +331,7 @@ enum class BiometricType(val value: String) {
     RR("Right Ring"),
     RL("Right Little");
 
-    override fun toString(): String {
-        return "$ordinal: $name, $value"
-    }
+
 
     companion object {
         @JvmStatic
@@ -380,7 +346,7 @@ enum class BiometricType(val value: String) {
     }
 }
 
-enum class NoFingerprintReasonEnm(val id: Int, val value: String) {
+enum class NoFingerprintReasonEnum(val id: Int, val value: String) {
     SELECT(0, "Select Reason"),
     NoFingerprintImpression(1, "No Fingerprint"),
     NoFinger(2, "Missing Finger"),
@@ -400,12 +366,12 @@ enum class NoFingerprintReasonEnm(val id: Int, val value: String) {
         }
 
         @JvmStatic
-        fun find(value: String?): NoFingerprintReasonEnm? {
+        fun find(value: String?): NoFingerprintReasonEnum? {
             return entries.find { it.value == value }
         }
 
         @JvmStatic
-        fun find(id: Int): NoFingerprintReasonEnm? {
+        fun find(id: Int): NoFingerprintReasonEnum? {
             return entries.find { it.id == id }
         }
     }
@@ -424,7 +390,7 @@ enum class BiometricUserType {
 
 
 
-
+*/
 
 
 

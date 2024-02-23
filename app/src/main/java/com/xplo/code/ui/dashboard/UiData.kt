@@ -1,15 +1,15 @@
 package com.xplo.code.ui.dashboard
 
 import android.content.res.Resources
+import com.kit.integrationmanager.model.CurrencyEnum
+import com.kit.integrationmanager.model.GenderEnum
+import com.kit.integrationmanager.model.IncomeSourceEnum
+import com.kit.integrationmanager.model.LegalStatusEnum
+import com.kit.integrationmanager.model.MaritalStatusEnum
+import com.kit.integrationmanager.model.NonPerticipationReasonEnum
+import com.kit.integrationmanager.model.RelationshipEnum
 import com.xplo.code.R
 import com.xplo.code.core.Contextor
-import com.xplo.code.ui.dashboard.enums.CurrencyEnm
-import com.xplo.code.ui.dashboard.enums.GenderEnm
-import com.xplo.code.ui.dashboard.enums.IncomeSourceEnm
-import com.xplo.code.ui.dashboard.enums.LegalStatusEnm
-import com.xplo.code.ui.dashboard.enums.MaritalStatusEnm
-import com.xplo.code.ui.dashboard.enums.NonParticipationReasonEnm
-import com.xplo.code.ui.dashboard.enums.RelationshipEnm
 import com.xplo.code.ui.dashboard.model.CheckboxItem
 
 /**
@@ -51,14 +51,14 @@ object UiData {
 //    val directIncomeSupport = getStringArray(R.array.support_type_direct_income_array)
 
 
-    val relationshipOptions = RelationshipEnm.getArray()
-    val genderOptions = GenderEnm.getArray()
-    val maritalStatusOptions = MaritalStatusEnm.getArray()
-    val legalStatusOptions = LegalStatusEnm.getArray()
-    val mainIncomeOptions = IncomeSourceEnm.getArray()
-    val currency = CurrencyEnm.getArray()
+    val relationshipOptions = RelationshipEnum.getArray()
+    val genderOptions = GenderEnum.getArray()
+    val maritalStatusOptions = MaritalStatusEnum.getArray()
+    val legalStatusOptions = LegalStatusEnum.getArray()
+    val mainIncomeOptions = IncomeSourceEnum.getArray()
+    val currency = CurrencyEnum.getArray()
     val selectionReason = getStringArray(R.array.selection_reason_array)
-    val nonParticipationReason = NonParticipationReasonEnm.getArray()
+    val nonParticipationReason = NonPerticipationReasonEnum.getArray()
     val idType = getStringArray(R.array.id_type)
     val nomineeOccupation = getStringArray(R.array.what_does_currently_do_for_a_living_array)
     val publicWorks = getStringArray(R.array.support_type_public_work_array)
