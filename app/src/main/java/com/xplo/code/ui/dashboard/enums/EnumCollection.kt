@@ -21,10 +21,12 @@ enum class GenderEnm(val value: String) {
     }
 
     companion object {
+        @JvmStatic
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
         }
 
+        @JvmStatic
         fun find(value: String?): GenderEnm? {
             return entries.find { it.value == value }
         }
@@ -54,10 +56,12 @@ enum class RelationshipEnm(val value: String) {
     }
 
     companion object {
+        @JvmStatic
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
         }
 
+        @JvmStatic
         fun find(value: String?): RelationshipEnm? {
             return entries.find { it.value == value }
         }
@@ -81,10 +85,12 @@ enum class MaritalStatusEnm(val value: String) {
     }
 
     companion object {
+        @JvmStatic
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
         }
 
+        @JvmStatic
         fun find(value: String?): MaritalStatusEnm? {
             return entries.find { it.value == value }
         }
@@ -107,10 +113,12 @@ enum class LegalStatusEnm(val value: String) {
     }
 
     companion object {
+        @JvmStatic
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
         }
 
+        @JvmStatic
         fun find(value: String?): LegalStatusEnm? {
             return entries.find { it.value == value }
         }
@@ -140,10 +148,12 @@ enum class IncomeSourceEnm(val value: String) {
     }
 
     companion object {
+        @JvmStatic
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
         }
 
+        @JvmStatic
         fun find(value: String?): IncomeSourceEnm? {
             return entries.find { it.value == value }
         }
@@ -166,10 +176,12 @@ enum class CurrencyEnm(val value: String) {
     }
 
     companion object {
+        @JvmStatic
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
         }
 
+        @JvmStatic
         fun find(value: String?): CurrencyEnm? {
             return entries.find { it.value == value }
         }
@@ -190,10 +202,12 @@ enum class SelectionCriteriaEnm(val value: String) {
     }
 
     companion object {
+        @JvmStatic
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
         }
 
+        @JvmStatic
         fun find(value: String?): SelectionCriteriaEnm? {
             return entries.find { it.value == value }
         }
@@ -220,6 +234,7 @@ enum class SelectionReasonEnm(val value: String) {
     }
 
     companion object {
+        @JvmStatic
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
         }
@@ -239,6 +254,7 @@ enum class SelectionReasonEnm(val value: String) {
         }
 
 
+        @JvmStatic
         fun find(value: String?): SelectionReasonEnm? {
             return entries.find { it.value == value }
         }
@@ -261,10 +277,12 @@ enum class SelectionReasonEnm(val value: String) {
 //    }
 //
 //    companion object {
+//        @JvmStatic
 //        fun getArray(): Array<String> {
 //            return entries.map { it.value }.toTypedArray()
 //        }
 //
+//@JvmStatic
 //        fun find(value: String?): SelectionReasonLipwEnm? {
 //            return entries.find { it.value == value }
 //        }
@@ -287,10 +305,12 @@ enum class SelectionReasonEnm(val value: String) {
 //    }
 //
 //    companion object {
+//        @JvmStatic
 //        fun getArray(): Array<String> {
 //            return entries.map { it.value }.toTypedArray()
 //        }
 //
+//@JvmStatic
 //        fun find(value: String?): SelectionReasonDisEnm? {
 //            return entries.find { it.value == value }
 //        }
@@ -315,10 +335,12 @@ enum class NonParticipationReasonEnm(val value: String) {
     }
 
     companion object {
+        @JvmStatic
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
         }
 
+        @JvmStatic
         fun find(value: String?): NonParticipationReasonEnm? {
             return entries.find { it.value == value }
         }
@@ -346,10 +368,12 @@ enum class BiometricType(val value: String) {
     }
 
     companion object {
+        @JvmStatic
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
         }
 
+        @JvmStatic
         fun find(value: String?): BiometricType? {
             return entries.find { it.value == value }
         }
@@ -370,14 +394,17 @@ enum class NoFingerprintReasonEnm(val id: Int, val value: String) {
     }
 
     companion object {
+        @JvmStatic
         fun getArray(): Array<String> {
             return entries.map { it.value }.toTypedArray()
         }
 
+        @JvmStatic
         fun find(value: String?): NoFingerprintReasonEnm? {
             return entries.find { it.value == value }
         }
 
+        @JvmStatic
         fun find(id: Int): NoFingerprintReasonEnm? {
             return entries.find { it.id == id }
         }
