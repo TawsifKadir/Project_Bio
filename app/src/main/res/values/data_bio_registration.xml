@@ -140,9 +140,9 @@
 
     <string-array name="why_not">
         <item>Select Reason Why Not?</item>
-        <item>All eligible household members have other commitments that occupy their time.</item>
-        <item>I am uncertain about the ability of the household members to comply with the program\'s expectations or conditions.</item>
-        <item>The health or physical condition of eligible household members prevents them from participating.</item>
+        <item>All other eligible household members have other commitments that occupy their time.</item>
+        <item>I am uncertain about the ability of the other household members to comply with the program\'s expectations or conditions.</item>
+        <item>The health or physical condition of other eligible household members prevents them from participating.</item>
         <item>I am not convinced that the program will provide meaningful benefits.</item>
         <item>The program activities don\'t align with my interests.</item>
         <item>Other (specify)</item>
@@ -232,15 +232,15 @@
     <string name="what_were_the_main_reasons_for_nominating_first_nominee_label">What were the main reasons for nominating First Nominee</string>
     <string-array name="what_were_the_main_reasons_for_nominating_first_nominee_array">
         <item>Select Nominee Priority Reason</item>
-        <item>has more available time for participation.</item>
-        <item>has relevant skills or experience.</item>
-        <item>has expressed a strong interest in participating in this type of programs</item>
-        <item>needs the program\'s benefits more urgently.</item>
-        <item>can contribute more to the household income.</item>
-        <item>can handle the program\'s expectations or conditions better.</item>
-        <item>has a better understanding of the program.</item>
-        <item>has better access to resources for participation.</item>
-        <item>has a greater potential for success in the program.</item>
+        <item>Has more available time for participation.</item>
+        <item>Has relevant skills or experience.</item>
+        <item>Has expressed a strong interest in participating in this type of programs</item>
+        <item>Needs the program\'s benefits more urgently.</item>
+        <item>Can contribute more to the household income.</item>
+        <item>Can handle the program\'s expectations or conditions better.</item>
+        <item>Has a better understanding of the program.</item>
+        <item>Has better access to resources for participation.</item>
+        <item>Has a greater potential for success in the program.</item>
         <item>Other (specify)</item>
     </string-array>
 
@@ -271,6 +271,7 @@
     <string name="left_little">Left Little</string>
 
     <string name="would_anyone_from_your_household_including_yourself_be_interested_in_participating">Would anyone from your household (including yourself) be interested in participating?</string>
+    <string name="would_anyone_else_interested">Would anyone else from your household be interested in participating?</string>
     <string name="select_reason_why_not">Why Not?</string>
     <string name="nominee_first_name_min_3_letters">Nominee First Nam</string>
     <string name="nominee_middle_name">Nominee Middle Name</string>

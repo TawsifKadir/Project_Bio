@@ -21,6 +21,7 @@ import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.checkRbOpAB
 import com.xplo.code.core.ext.checkRbOpABforIDcard
+import com.xplo.code.core.ext.getString
 import com.xplo.code.databinding.FragmentHhForm2PerInfoBinding
 import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
@@ -91,6 +92,8 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
     private lateinit var etSpouseLastName: EditText
     private lateinit var rgSelectionCriteria: RadioGroup
     private lateinit var rgId: RadioGroup
+    private lateinit var tempFirst : String
+    private lateinit var tempSecond : String
     //private lateinit var directRecycler: RecyclerView
     //private lateinit var publicRecycler: RecyclerView
 
@@ -200,10 +203,6 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         if (TestConfig.isAutoDGEnabled) {
             onGenerateDummyInput()
         }
-
-
-
-
 
         spMaritalStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -456,32 +455,33 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         }
     }
 
+
     override fun onGenerateDummyInput() {
         Log.d(TAG, "onGenerateDummyInput() called")
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
         spIdType.setSelection(1)
-        spMainSourceOfIncome.setSelection(1)
-        spGender.setSelection(1)
-        spRespondentRlt.setSelection(1)
-        spMaritalStatus.setSelection(1)
-        spLegalStatus.setSelection(1)
-        spSelectionReason.setSelection(1)
-        //spCurrency.setSelection(1)
-
-        etFirstName.setText("Mohd")
-        etMiddleName.setText("Moniruzzaman")
-        etLastName.setText("Shadhin")
-        etNickName.setText("Bio")
-        etAge.setText("33")
-        etIdNumber.setText("12")
-        etPhoneNumber.setText("01672708329")
-        etMonthlyAverageIncome.setText("5000")
+//        spMainSourceOfIncome.setSelection(1)
+//        spGender.setSelection(1)
+//        spRespondentRlt.setSelection(1)
+//        spMaritalStatus.setSelection(1)
+//        spLegalStatus.setSelection(1)
+//        spSelectionReason.setSelection(1)
+//        //spCurrency.setSelection(1)
+//
+//        etFirstName.setText("Mohd")
+//        etMiddleName.setText("Moniruzzaman")
+//        etLastName.setText("Shadhin")
+//        etNickName.setText("Bio")
+//        etAge.setText("33")
+//        etIdNumber.setText("12")
+//        etPhoneNumber.setText("01672708329")
+//        etMonthlyAverageIncome.setText("5000")
         //etSpouseName.setText("Yesmin")
 
         rgSelectionCriteria.check(R.id.rbA)
-        adapterSupportType?.addAll(UiData.getPublicWorksDummy())
+//        adapterSupportType?.addAll(UiData.getPublicWorksDummy())
     }
 
     override fun onPopulateView() {
