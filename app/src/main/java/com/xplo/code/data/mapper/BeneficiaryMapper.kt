@@ -4,6 +4,8 @@ import android.util.Log
 import com.google.gson.Gson
 import com.kit.integrationmanager.model.AlternatePayee
 import com.kit.integrationmanager.model.Beneficiary
+import com.kit.integrationmanager.model.CurrencyEnum
+import com.kit.integrationmanager.model.SelectionCriteriaEnum
 import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.data.model.content.Address
 import com.xplo.data.model.content.Alternate
@@ -45,17 +47,20 @@ object BeneficiaryMapper {
         beneficiary.respondentLegalStatus = item.respondentLegalStatus
         beneficiary.respondentMaritalStatus = item.respondentMaritalStatus
 
-        beneficiary.respondentId = item.respondentId
+        //beneficiary.respondentId = item.respondentId
+        beneficiary.respondentId = "11112222"
         beneficiary.respondentPhoneNo = item.respondentPhoneNo
 
 
         beneficiary.relationshipWithHouseholdHead = item.relationshipWithHouseholdHead
 
-        beneficiary.currency = item.currency
+        //beneficiary.currency = item.currency
+        beneficiary.currency = CurrencyEnum.SUDANESE_POUND
         beneficiary.householdIncomeSource = item.householdIncomeSource
         beneficiary.householdMonthlyAvgIncome = item.householdMonthlyAvgIncome
 
-        beneficiary.selectionCriteria = item.selectionCriteria
+        //beneficiary.selectionCriteria = item.selectionCriteria
+        beneficiary.selectionCriteria = SelectionCriteriaEnum.DIS
         beneficiary.selectionReason = item.selectionReason
 
         beneficiary.spouseFirstName = item.spouseFirstName
@@ -75,7 +80,8 @@ object BeneficiaryMapper {
         beneficiary.memberReadWrite = item.memberReadWrite
 
         beneficiary.alternatePayee1 = getFirstAlternate(item.alternates)
-        beneficiary.alternatePayee2 = getSecondAlternate(item.alternates)
+        //beneficiary.alternatePayee2 = getSecondAlternate(item.alternates)
+        beneficiary.alternatePayee2 = getFirstAlternate(item.alternates)
         beneficiary.biometrics = toBiometricEntities(item.biometrics)
 
         beneficiary.isOtherMemberPerticipating = item.isOtherMemberPerticipating
