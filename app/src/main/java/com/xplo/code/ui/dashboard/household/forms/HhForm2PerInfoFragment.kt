@@ -200,10 +200,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         if (TestConfig.isAutoDGEnabled) {
             onGenerateDummyInput()
         }
-
-
-
-
+        
 
         spMaritalStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
