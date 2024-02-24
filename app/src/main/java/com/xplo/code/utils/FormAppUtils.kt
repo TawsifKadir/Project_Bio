@@ -33,7 +33,7 @@ object FormAppUtils {
     fun getHeaderForIntegrationManager(): HashMap<String, String> {
         val headers = HashMap<String, String>()
         headers["Authorization"] =
-            "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcwNzkyODUwOCwiZXhwIjoxODY1NjA4NTA4fQ.yRgZYaP2WlSoTtP8ZjhFLCTD3_Ov7SZtVLzrWG9BK7qDrXSCIlMwJM5kS0HDyrD1_qNbJFPm8Hz9KlkFGDfQ7Q"
+            "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbndhcjMzNiIsImlhdCI6MTcwODY5MzY3MSwiZXhwIjoxODY2MzczNjcxfQ.NKYlfpD9fntB5T7jJ1agLVihZLVak7Z3qNYsA1YMIvdosIRwrEXPMJcIb2MZD4nUV0Sqa8fLzdEZMP9dD3eocg"
         headers["DeviceId"] = "1234"
         return headers
     }

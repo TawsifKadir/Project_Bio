@@ -242,9 +242,9 @@ class HouseholdViewModel @Inject constructor(
         val serverInfo = FormAppUtils.getServerInfo()
         val integrationManager = OnlineIntegrationManager(context, this, serverInfo)
         val headers = FormAppUtils.getHeaderForIntegrationManager()
-        //val beneficiary = Fake.getABenificiary()
-        val entity = EntityMapper.toBeneficiaryEntity(form)
-        val beneficiary = BeneficiaryMapper.toBeneficiary(entity)
+        val beneficiary = Fake.getABenificiary()
+        //val entity = EntityMapper.toBeneficiaryEntity(form)
+        //val beneficiary = BeneficiaryMapper.toBeneficiary(entity)
         integrationManager.syncRecord(beneficiary, headers)
     }
 
