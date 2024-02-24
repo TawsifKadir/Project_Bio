@@ -37,15 +37,29 @@ fun AlForm1?.getFullName(): String? {
 fun HhForm1.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
 
-    if (this.county?.name.isNullOrBlank()) return false
-    if (this.state?.name.isNullOrBlank()) return false
-    if (this.payam?.name.isNullOrBlank()) return false
-    if (this.boma?.name.isNullOrBlank()) return false
+    if (!this.county?.isOk().toBool()) return false
+    if (!this.state?.isOk().toBool()) return false
+    if (!this.payam?.isOk().toBool()) return false
+    if (!this.boma?.isOk().toBool()) return false
+
+//    if (this.county?.name.isNullOrBlank()) return false
+//    if (this.state?.name.isNullOrBlank()) return false
+//    if (this.payam?.name.isNullOrBlank()) return false
+//    if (this.boma?.name.isNullOrBlank()) return false
     //if (this.lat == null) return false
     //if (this.lon == null) return false
 
     return true
 }
+
+fun Area.isOk(): Boolean {
+
+    if (this.id == null) return false
+    if (this.name.isNullOrBlank()) return false
+
+    return true
+}
+
 
 fun HhForm2.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true

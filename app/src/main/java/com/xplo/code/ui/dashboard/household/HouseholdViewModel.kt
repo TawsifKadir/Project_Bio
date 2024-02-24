@@ -299,7 +299,7 @@ class HouseholdViewModel @Inject constructor(
 
         viewModelScope.launch(dispatchers.io) {
             _event.value = Event.Loading
-            when (val response = dbRepo.getOptionItems(Column.state.name, null, null)) {
+            when (val response = dbRepo.getOptionItems2(Column.s_code.name, Column.state.name, null, null)) {
 
                 is Resource.Success -> {
                     _event.value = Event.GetStateItemsSuccess(response.data)
@@ -320,7 +320,7 @@ class HouseholdViewModel @Inject constructor(
 
         viewModelScope.launch(dispatchers.io) {
             _event.value = Event.Loading
-            when (val response = dbRepo.getOptionItems("county", Column.state.name, state)) {
+            when (val response = dbRepo.getOptionItems2(Column.c_code.name, Column.county.name, Column.state.name, state)) {
 
                 is Resource.Success -> {
                     _event.value = Event.GetCountryItemsSuccess(response.data)
@@ -339,7 +339,7 @@ class HouseholdViewModel @Inject constructor(
 
         viewModelScope.launch(dispatchers.io) {
             _event.value = Event.Loading
-            when (val response = dbRepo.getOptionItems(Column.payam.name, "county", country)) {
+            when (val response = dbRepo.getOptionItems2(Column.p_code.name, Column.payam.name, Column.county.name, country)) {
 
                 is Resource.Success -> {
                     _event.value = Event.GetPayamItemsSuccess(response.data)
@@ -360,7 +360,7 @@ class HouseholdViewModel @Inject constructor(
         viewModelScope.launch(dispatchers.io) {
             _event.value = Event.Loading
             when (val response =
-                dbRepo.getOptionItems(Column.boma.name, Column.payam.name, payam)) {
+                dbRepo.getOptionItems2(Column.b_code.name, Column.boma.name, Column.payam.name, payam)) {
 
                 is Resource.Success -> {
                     _event.value = Event.GetBomaItemsSuccess(response.data)

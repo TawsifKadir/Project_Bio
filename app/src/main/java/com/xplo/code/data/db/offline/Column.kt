@@ -16,7 +16,7 @@ enum class Column {
     state,
 
     c_code,
-    country,
+    county,
 
     p_code,
     payam,

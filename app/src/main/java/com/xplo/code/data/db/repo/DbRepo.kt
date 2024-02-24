@@ -34,4 +34,11 @@ interface DbRepo {
         argColName: String?,
         argColValue: String?
     ): Resource<List<OptionItem>>
+
+    suspend fun getOptionItems2(
+        columnCode: String,
+        columnTitle: String,
+        argColName: String?,
+        argColValue: String?
+    ): Resource<List<OptionItem>>
 }

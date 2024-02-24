@@ -4,7 +4,7 @@ object TestConfig {
 
     val isValidationEnabled = true      // default true
 
-    val isDummyDataEnabled = false       // default false
+    val isDummyDataEnabled = true       // default false
     val isLongClickDGEnabled = true
     val isAutoDGEnabled = true
 

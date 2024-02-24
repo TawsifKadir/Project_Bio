@@ -33,6 +33,7 @@ import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.model.Area
 import com.xplo.code.ui.dashboard.model.HhForm1
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.data.BuildConfig
@@ -89,6 +90,16 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
     private lateinit var locationManager: LocationManager
     private val locationPermissionCode = 2
 
+
+    private var selectedState: Area? = null
+    private var selectedCounty: Area? = null
+    private var selectedPayam: Area? = null
+    private var selectedBoma: Area? = null
+
+    private var stateOptions: List<OptionItem>? = null
+    private var countyOptions: List<OptionItem>? = null
+    private var payamOptions: List<OptionItem>? = null
+    private var bomaOptions: List<OptionItem>? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -291,6 +302,7 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
         Log.d(TAG, "onGetStateItems() called with: items = $items")
         if (items.isNullOrEmpty()) return
 
+        stateOptions = items
         val items1 = items.addSpinnerHeader().toSpinnerOptions()
         Log.d(TAG, "onGetStateItems: $items1")
         bindSpinnerData(spStateName, items1)
@@ -304,12 +316,14 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
     override fun onSelectStateItem(item: OptionItem?) {
         Log.d(TAG, "onSelectStateItem() called with: item = $item")
         viewModel.getCountryItems(item?.name)
+        selectedState = Area(id = item?.code, name = item?.name)
     }
 
     override fun onGetCountryItems(items: List<OptionItem>?) {
         Log.d(TAG, "onGetCountryItems() called with: items = $items")
         if (items.isNullOrEmpty()) return
 
+        countyOptions = items
         val items1 = items.addSpinnerHeader().toSpinnerOptions()
         Log.d(TAG, "onGetCountryItems: $items1")
         bindSpinnerData(spCountryName, items1)
@@ -324,6 +338,7 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
     override fun onSelectCountryItem(item: OptionItem?) {
         Log.d(TAG, "onSelectCountryItem() called with: item = $item")
         viewModel.getPayamItems(item?.name)
+        selectedCounty = Area(id = item?.code, name = item?.name)
     }
 
 
@@ -331,6 +346,7 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
         Log.d(TAG, "onGetPayamItems() called with: items = $items")
         if (items.isNullOrEmpty()) return
 
+        payamOptions = items
         val items1 = items.addSpinnerHeader().toSpinnerOptions()
         Log.d(TAG, "onGetPayamItems: $items1")
         bindSpinnerData(spPayamName, items1)
@@ -345,12 +361,14 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
     override fun onSelectPayamItem(item: OptionItem?) {
         Log.d(TAG, "onSelectPayamItem() called with: item = $item")
         viewModel.getBomaItems(item?.name)
+        selectedPayam = Area(id = item?.code, name = item?.name)
     }
 
     override fun onGetBomaItems(items: List<OptionItem>?) {
         Log.d(TAG, "onGetBomaItems() called with: items = $items")
         if (items.isNullOrEmpty()) return
 
+        bomaOptions = items
         val items1 = items.addSpinnerHeader().toSpinnerOptions()
         Log.d(TAG, "onGetBomaItems: $items1")
         bindSpinnerData(spBomaName, items1)
@@ -364,6 +382,7 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
     override fun onSelectBomaItem(item: OptionItem?) {
         Log.d(TAG, "onSelectBomaItem() called with: item = $item")
         //viewModel.getCountryItems()
+        selectedBoma = Area(id = item?.code, name = item?.name)
     }
 
 
@@ -409,6 +428,11 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
         form.payam?.name = chkSpinner(spPayamName, UiData.ER_SP_DF)
         form.boma?.name = chkSpinner(spBomaName, UiData.ER_SP_DF)
 
+        form.state = selectedState
+        form.county = selectedCounty
+        form.payam = selectedPayam
+        form.boma = selectedBoma
+
         form.lat = getEditText(etLat)?.toDouble()
         form.lon = getEditText(etLon)?.toDouble()
 
@@ -426,6 +450,7 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
 
 
         if (!form.isOk()) {
+            showAlerter(null, "Select valid options")
             return
         }
 
@@ -488,22 +513,30 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
         when (parent?.id) {
             R.id.spStateName -> {
                 val txt = spStateName.selectedItem.toString()
-                onSelectStateItem(OptionItem(0, txt))
+                //val item = OptionItem(0, txt)
+                val item = stateOptions?.get(position)
+                onSelectStateItem(item)
             }
 
             R.id.spCountryName -> {
                 val txt = spCountryName.selectedItem.toString()
-                onSelectCountryItem(OptionItem(0, txt))
+                //val item = OptionItem(0, txt)
+                val item = countyOptions?.get(position)
+                onSelectCountryItem(item)
             }
 
             R.id.spPayamName -> {
                 val txt = spPayamName.selectedItem.toString()
-                onSelectPayamItem(OptionItem(0, txt))
+                //val item = OptionItem(0, txt)
+                val item = payamOptions?.get(position)
+                onSelectPayamItem(item)
             }
 
             R.id.spBomaName -> {
                 val txt = spBomaName.selectedItem.toString()
-                onSelectBomaItem(OptionItem(0, txt))
+                //val item = OptionItem(0, txt)
+                val item = bomaOptions?.get(position)
+                onSelectBomaItem(item)
             }
 
 

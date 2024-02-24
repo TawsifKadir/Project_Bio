@@ -133,6 +133,22 @@ class DbRepoImpl @Inject constructor(
 
     }
 
+    override suspend fun getOptionItems2(
+        columnCode: String,
+        columnTitle: String,
+        argColName: String?,
+        argColValue: String?
+    ): Resource<List<OptionItem>> {
+
+        return try {
+            val response = DbCallImpl().getOptionItems2(getTable(), columnCode, columnTitle, argColName, argColValue)
+            Resource.Success(response, null)
+        } catch (e: Exception) {
+            Resource.Failure(CallInfo(-1, e.message))
+        }
+
+    }
+
 
     private fun getTable(): String {
         return "state"

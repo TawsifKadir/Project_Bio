@@ -129,7 +129,37 @@ class DbCallImpl : DbCall {
         dbHelper.openDataBase()
         try {
             val cursor = dbHelper.runQueryRaw(sql, null)
-            val items = CursorHelper.toOptionItem(cursor, column)
+            val items = CursorHelper.toOptionItem(cursor, column, column)
+            return items
+        } catch (e: Exception) {
+            return listOf()
+        } finally {
+            dbHelper.close()
+        }
+    }
+
+
+    override fun getOptionItems2(
+        table: String,
+        columnCode: String,
+        columnTitle: String,
+        argColName: String?,
+        argColValue: String?
+    ): List<OptionItem> {
+
+        //var sql = "select distinct $column from $table"
+        var sql = "select distinct $columnCode, $columnTitle from $table where $argColName = '$argColValue'"
+
+        if (argColName.isNullOrEmpty() || argColValue.isNullOrEmpty()){
+            sql = "select distinct $columnCode, $columnTitle from $table"
+        }
+
+        Log.d(TAG, "getOptionItems: $sql")
+
+        dbHelper.openDataBase()
+        try {
+            val cursor = dbHelper.runQueryRaw(sql, null)
+            val items = CursorHelper.toOptionItem(cursor, columnCode, columnTitle)
             return items
         } catch (e: Exception) {
             return listOf()
