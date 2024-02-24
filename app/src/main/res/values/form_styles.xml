@@ -294,5 +294,9 @@
 
     <style name="TextInput.Outline" parent="AppTextInputEditText.Outline" />
 
+    <style name="CustomDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
 
 </resources>

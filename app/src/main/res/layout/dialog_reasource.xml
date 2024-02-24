@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <TextView
@@ -16,12 +17,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:cardCornerRadius="14dp"
-        app:cardBackgroundColor="#f5c69c">
+        app:cardBackgroundColor="#fcf1ec">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/longstring"
-            android:maxLines="20"
+            android:maxLines="50"
             android:ellipsize="end"
             android:textSize="16sp"
             android:padding="16dp"/>
