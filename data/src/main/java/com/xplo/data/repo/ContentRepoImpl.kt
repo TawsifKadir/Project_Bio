@@ -1,5 +1,6 @@
 package com.xplo.data.repo
 
+import com.kit.integrationmanager.model.Beneficiary
 import com.xplo.data.core.CallInfo
 import com.xplo.data.model.content.FormRqb
 import com.xplo.data.model.content.FormRsp
@@ -52,5 +53,19 @@ class ContentRepoImpl @Inject constructor(
         }
     }
 
+    override suspend fun submitBeneficiary(body: Beneficiary?): Resource<Unit> {
+        return try {
+            val response = api.submitBeneficiary(body)
+            val result = response.body()
+            val callInfo = CallInfo(response.code(), response.message())
+            if (response.isSuccessful && result != null) {
+                Resource.Success(result, callInfo)
+            } else {
+                Resource.Failure(callInfo)
+            }
+        } catch (e: Exception) {
+            Resource.Failure(CallInfo(-1, e.message))
+        }
+    }
 
 }

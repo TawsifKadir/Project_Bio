@@ -1,5 +1,6 @@
 package com.xplo.data.repo
 
+import com.kit.integrationmanager.model.Beneficiary
 import com.xplo.data.model.content.FormRqb
 import com.xplo.data.model.content.FormRsp
 import com.xplo.data.model.content.FormsRqb
@@ -19,6 +20,8 @@ interface ContentRepo {
 
     suspend fun submitForm(body: FormRqb?): Resource<FormRsp>
     suspend fun submitForms(body: FormsRqb?): Resource<FormsRsp>
+
+    suspend fun submitBeneficiary(body: Beneficiary?): Resource<Unit>
 
 
 }

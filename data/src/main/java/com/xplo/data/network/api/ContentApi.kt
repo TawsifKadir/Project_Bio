@@ -1,5 +1,6 @@
 package com.xplo.data.network.api
 
+import com.kit.integrationmanager.model.Beneficiary
 import com.xplo.data.model.content.FormRqb
 import com.xplo.data.model.content.FormRsp
 import com.xplo.data.model.content.FormsRqb
@@ -15,6 +16,11 @@ interface ContentApi {
 
     @POST("/afis/api/beneficiary/register/batch")
     suspend fun submitForms(@Body body: FormsRqb?): Response<FormsRsp>
+
+
+    //http://snsopafis.karoothitbd.com:8090/afis/api/beneficiary/register
+    @POST("/afis/api/beneficiary/register")
+    suspend fun submitBeneficiary(@Body body: Beneficiary?): Response<Unit>
 
 
 }

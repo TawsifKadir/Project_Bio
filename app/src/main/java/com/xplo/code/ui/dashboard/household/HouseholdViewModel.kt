@@ -246,6 +246,24 @@ class HouseholdViewModel @Inject constructor(
         //val entity = EntityMapper.toBeneficiaryEntity(form)
         //val beneficiary = BeneficiaryMapper.toBeneficiary(entity)
         integrationManager.syncRecord(beneficiary, headers)
+
+//        viewModelScope.launch(dispatchers.io) {
+//            //_event.value = Event.Loading
+//            when (val response = contentRepo.submitBeneficiary(beneficiary)) {
+//
+//                is Resource.Success -> {
+//                    Log.d(TAG, "syncHouseholdForm() called success")
+//                    //_event.value = Event.SubmitHouseholdFormSuccess(item.applicationId!!, pos)
+//                }
+//
+//                is Resource.Failure -> {
+//                    Log.d(TAG, "syncHouseholdForm() called failure")
+//                   // _event.value = Event.SubmitHouseholdFormFailure(response.callInfo?.msg)
+//                }
+//
+//                else -> {}
+//            }
+//        }
     }
 
 
