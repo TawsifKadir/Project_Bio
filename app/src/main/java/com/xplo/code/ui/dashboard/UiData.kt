@@ -8,6 +8,7 @@ import com.kit.integrationmanager.model.LegalStatusEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
 import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.RelationshipEnum
+import com.kit.integrationmanager.model.SelectionReasonEnum
 import com.xplo.code.R
 import com.xplo.code.core.Contextor
 import com.xplo.code.ui.dashboard.model.CheckboxItem
@@ -57,7 +58,7 @@ object UiData {
     val legalStatusOptions = LegalStatusEnum.getArray()
     val mainIncomeOptions = IncomeSourceEnum.getArray()
     val currency = CurrencyEnum.getArray()
-    val selectionReason = getStringArray(R.array.selection_reason_array)
+    val selectionReason = SelectionReasonEnum.getArray()
     val nonParticipationReason = NonPerticipationReasonEnum.getArray()
     val idType = getStringArray(R.array.id_type)
     val nomineeOccupation = getStringArray(R.array.what_does_currently_do_for_a_living_array)

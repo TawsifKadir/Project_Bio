@@ -1,6 +1,8 @@
 package com.xplo.code.data.mapper
 
 import android.util.Log
+import com.kit.integrationmanager.model.BiometricType
+import com.kit.integrationmanager.model.BiometricUserType
 import com.kit.integrationmanager.model.CurrencyEnum
 import com.kit.integrationmanager.model.GenderEnum
 import com.kit.integrationmanager.model.IncomeSourceEnum
@@ -188,11 +190,11 @@ object EntityMapper {
             nomineeMiddleName = item.middleName,
 
             nomineeAge = item.age ?: 0,
-            nomineeGender = item.gender,
+            nomineeGender = GenderEnum.find(item.gender),
 
-            nomineeOccupation = item.occupation,
+            //nomineeOccupation = item.occupation,
             otherOccupation = item.occupation,
-            relationshipWithHouseholdHead = item.relation,
+            relationshipWithHouseholdHead = RelationshipEnum.find(item.relation),
 
             isReadWrite = item.isReadWrite.isYes()
         )
@@ -257,8 +259,8 @@ object EntityMapper {
 
         return Biometric(
             applicationId = id,
-            biometricType = item.fingerType,
-            biometricUserType = item.userType, //"ALTERNATE",
+            biometricType = BiometricType.find(item.fingerType),
+            biometricUserType = BiometricUserType.valueOf(item.userType!!),
 
             noFingerPrint = null,
             noFingerprintReason = null,
@@ -280,8 +282,8 @@ object EntityMapper {
 
         return Biometric(
             applicationId = id,
-            biometricType = "PHOTO",
-            biometricUserType = item.userType, //"ALTERNATE",
+            biometricType = BiometricType.PHOTO,
+            biometricUserType = BiometricUserType.valueOf(item.userType!!), //"ALTERNATE",
 
             noFingerPrint = null,
             noFingerprintReason = null,

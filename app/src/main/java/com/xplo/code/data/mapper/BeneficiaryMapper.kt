@@ -173,11 +173,11 @@ object BeneficiaryMapper {
         nominee.nomineeMiddleName = item.nomineeMiddleName
 
         nominee.nomineeAge = item.nomineeAge
-        //nominee.nomineeGender = item.nomineeGender
+        nominee.nomineeGender = item.nomineeGender
 
-        //nominee.nomineeOccupation = item.nomineeOccupation
+        nominee.nomineeOccupation = item.nomineeOccupation
         nominee.otherOccupation = item.otherOccupation
-        //nominee.relationshipWithHouseholdHead = item.relationshipWithHouseholdHead
+        nominee.relationshipWithHouseholdHead = item.relationshipWithHouseholdHead
 
         nominee.isReadWrite = item.isReadWrite
 
@@ -203,13 +203,13 @@ object BeneficiaryMapper {
         biometric.applicationId = item.applicationId
 
         biometric.applicationId = item.applicationId
-        //biometric.biometricType = item.biometricType
-        //biometric.biometricUserType = item.biometricUserType
+        biometric.biometricType = item.biometricType
+        biometric.biometricUserType = item.biometricUserType
         biometric.biometricData = item.biometricData?.toByteArray()
 
 
         biometric.noFingerPrint = item.noFingerPrint
-        //biometric.noFingerprintReason = item.noFingerprintReason
+        biometric.noFingerprintReason = item.noFingerprintReason
         biometric.noFingerprintReasonText = item.noFingerprintReasonText
 
         biometric.biometricUrl = item.biometricUrl
