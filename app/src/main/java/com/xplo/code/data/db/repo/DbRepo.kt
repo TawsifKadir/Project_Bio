@@ -16,6 +16,8 @@ import com.xplo.data.core.Resource
 
 interface DbRepo {
 
+    suspend fun insertFormPEntity(item: HouseholdItem, entity: BeneficiaryEntity): Resource<Unit>
+
     suspend fun getHousehold(id: String): Resource<HouseholdItem>
     suspend fun getHouseholds(): Resource<List<HouseholdItem>>
     suspend fun insertHousehold(item: HouseholdItem): Resource<Unit>

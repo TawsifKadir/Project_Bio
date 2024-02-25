@@ -117,13 +117,25 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                         //showLoading()
                     }
 
-                    is HouseholdViewModel.Event.SaveHouseholdFormSuccess -> {
+//                    is HouseholdViewModel.Event.SaveHouseholdFormSuccess -> {
+//                        hideLoading()
+//                        onSaveSuccess(event.id)
+//                        viewModel.clearEvent()
+//                    }
+//
+//                    is HouseholdViewModel.Event.SaveHouseholdFormFailure -> {
+//                        hideLoading()
+//                        onSaveFailure(event.msg)
+//                        viewModel.clearEvent()
+//                    }
+
+                    is HouseholdViewModel.Event.SaveFormPEntitySuccess -> {
                         hideLoading()
                         onSaveSuccess(event.id)
                         viewModel.clearEvent()
                     }
 
-                    is HouseholdViewModel.Event.SaveHouseholdFormFailure -> {
+                    is HouseholdViewModel.Event.SaveFormPEntityFailure -> {
                         hideLoading()
                         onSaveFailure(event.msg)
                         viewModel.clearEvent()
@@ -246,7 +258,8 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             .setListener(object : XDialog.DialogListener {
                 override fun onClickPositiveButton() {
                     val rootForm = interactor?.getRootForm()
-                    viewModel.saveHouseholdFormAsHouseholdItem(rootForm)
+                    //viewModel.saveHouseholdFormAsHouseholdItem(rootForm)
+                    viewModel.saveFormPEntity(rootForm)
                 }
 
                 override fun onClickNegativeButton() {

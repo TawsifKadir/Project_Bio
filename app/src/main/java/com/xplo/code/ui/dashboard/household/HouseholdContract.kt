@@ -72,6 +72,8 @@ interface HouseholdContract {
 
     interface Presenter {
 
+        fun saveFormPEntity(form: HouseholdForm?)
+
         fun saveHouseholdFormAsHouseholdItem(form: HouseholdForm?)
         fun getHouseholdItem(id: String?)
         fun getHouseholdItems()
@@ -87,6 +89,8 @@ interface HouseholdContract {
         fun deleteBeneficiaryEntity(item: BeneficiaryEntity?)
         fun sendBeneficiaryEntity(item: BeneficiaryEntity?, pos: Int)
         fun sendBeneficiary(item: Beneficiary?, pos: Int)
+
+
 
 
         fun getStateItems()
