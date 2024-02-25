@@ -143,16 +143,36 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                         viewModel.clearEvent()
                     }
 
-                    is HouseholdViewModel.Event.SendHouseholdFormSuccess -> {
+//                    is HouseholdViewModel.Event.SendHouseholdFormSuccess -> {
+//                        hideLoading()
+//                        onSubmitFormSuccess(event.id, event.pos)
+//                        viewModel.clearEvent()
+//                    }
+//
+//                    is HouseholdViewModel.Event.SendHouseholdFormFailure -> {
+//                        hideLoading()
+//                        onSubmitFormFailure(event.msg)
+//                        viewModel.clearEvent()
+//                    }
+
+                    is HouseholdViewModel.Event.SendHouseholdItemSuccess -> {
                         hideLoading()
-                        onSubmitFormSuccess(event.id, event.pos)
-                        viewModel.clearEvent()
+                        onSubmitHouseholdItemSuccess(event.item, event.pos)
                     }
 
-                    is HouseholdViewModel.Event.SendHouseholdFormFailure -> {
+                    is HouseholdViewModel.Event.SendHouseholdItemFailure -> {
                         hideLoading()
-                        onSubmitFormFailure(event.msg)
-                        viewModel.clearEvent()
+                        onSubmitHouseholdItemFailure(event.msg)
+                    }
+
+                    is HouseholdViewModel.Event.UpdateHouseholdItemSuccess -> {
+                        hideLoading()
+                        onUpdateHouseholdItemSuccess(event.id)
+                    }
+
+                    is HouseholdViewModel.Event.UpdateHouseholdItemFailure -> {
+                        hideLoading()
+                        onUpdateHouseholdItemFailure(event.msg)
                     }
 
                     is HouseholdViewModel.Event.SaveBeneficiaryEntitySuccess -> {
@@ -246,6 +266,27 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         showToast(msg ?: "")
     }
 
+    override fun onSubmitHouseholdItemSuccess(item: HouseholdItem?, pos: Int) {
+        Log.d(TAG, "onSubmitHouseholdItemSuccess() called with: item = $item, pos = $pos")
+        item?.isSynced = true
+        viewModel.updateHouseholdItem(item)
+    }
+
+    override fun onSubmitHouseholdItemFailure(msg: String?) {
+        Log.d(TAG, "onSubmitHouseholdItemFailure() called with: msg = $msg")
+        showToast(msg ?: "")
+    }
+
+    override fun onUpdateHouseholdItemSuccess(id: String?) {
+        Log.d(TAG, "onUpdateHouseholdItemSuccess() called with: id = $id")
+        viewModel.getHouseholdItems()
+    }
+
+    override fun onUpdateHouseholdItemFailure(msg: String?) {
+        Log.d(TAG, "onUpdateHouseholdItemFailure() called with: msg = $msg")
+
+    }
+
     override fun onClickHouseholdItem(item: HouseholdItem, pos: Int) {
         Log.d(TAG, "onClickHouseholdItem() called with: item = ${item.hid}, pos = $pos")
         //dToast(item.title)
@@ -262,8 +303,8 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         Log.d(TAG, "onClickHouseholdItemSend() called with: item = $item, pos = $pos")
         //showToast("Feature not implemented yet")
 
-        //viewModel.submitHouseholdForm(item.toHouseholdForm(), pos)
-        viewModel.syncHouseholdForm(requireContext(), item.toHouseholdForm(), pos)
+        viewModel.sendHouseholdItem(item, pos)
+        //viewModel.syncHouseholdForm(requireContext(), item.toHouseholdForm(), pos)
     }
 
     override fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int) {

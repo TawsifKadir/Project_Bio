@@ -80,11 +80,11 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
             binding.tvAge.text = "age: " + form.form2?.age
             binding.tvNominee.text = "Nominee: " + (form.form6?.nominees?.size)
             binding.tvAlternate.text = "Alternate: " + form.alternates.size
-//            if (item.isSynced) {
-//                binding.tvStatus.text = "Synced"
-//            } else {
-//                binding.tvStatus.text = "Not Synced"
-//            }
+            if (item.isSynced) {
+                binding.btSyncStatus.setBackgroundResource(R.drawable.baseline_cloud_done_24)
+            } else {
+                binding.btSyncStatus.setBackgroundResource(R.drawable.sync_saved_locally_24px)
+            }
             loadImage(form.form4?.photoData?.imgPath)
         }
 

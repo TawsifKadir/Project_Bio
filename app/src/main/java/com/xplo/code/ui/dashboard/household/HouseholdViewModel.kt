@@ -9,6 +9,7 @@ import com.kit.integrationmanager.model.SyncResult
 import com.kit.integrationmanager.model.SyncStatus
 import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.HouseholdItem
+import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.data.db.offline.Column
 import com.xplo.code.data.db.offline.OptionItem
 import com.xplo.code.data.db.repo.DbRepo
@@ -21,14 +22,12 @@ import com.xplo.data.core.DispatcherProvider
 import com.xplo.data.core.Resource
 import com.xplo.data.repo.ContentRepo
 import com.xplo.data.repo.UserRepo
-import com.xplo.data.utils.HIDGenerator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.util.Observable
 import java.util.Observer
-import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -67,8 +66,11 @@ class HouseholdViewModel @Inject constructor(
         class DeleteHouseholdItemSuccess(val id: String?) : Event()
         class DeleteHouseholdItemFailure(val msg: String?) : Event()
 
+        class SendHouseholdItemSuccess(val item: HouseholdItem?, val pos: Int) : Event()
+        class SendHouseholdItemFailure(val msg: String?, val pos: Int) : Event()
+
         class SendHouseholdFormSuccess(val id: String?, val pos: Int) : Event()
-        class SendHouseholdFormFailure(val msg: String?) : Event()
+        class SendHouseholdFormFailure(val msg: String?, val pos: Int) : Event()
 
         // beneficiary entity
         class SaveBeneficiaryEntitySuccess(val id: String?) : Event()
@@ -269,6 +271,34 @@ class HouseholdViewModel @Inject constructor(
 
     }
 
+    override fun sendHouseholdItem(item: HouseholdItem?, pos: Int) {
+        Log.d(TAG, "sendHouseholdItem() called with: item = $item, pos = $pos")
+        if (item == null) return
+        val form = item.toHouseholdForm()
+        var entity = EntityMapper.toBeneficiaryEntity(form)
+        var beneficiary = BeneficiaryMapper.toBeneficiary(entity)
+        if (beneficiary == null) return
+
+        viewModelScope.launch(dispatchers.io) {
+            _event.value = Event.Loading
+            when (val response = contentRepo.sendBeneficiary(beneficiary)) {
+
+                is Resource.Success -> {
+                    Log.d(TAG, "sendHouseholdItem: success: ${response.data}")
+
+                    _event.value = Event.SendHouseholdFormSuccess(beneficiary.applicationId, pos)
+                }
+
+                is Resource.Failure -> {
+                    Log.d(TAG, "sendHouseholdItem: failure: ${response.callInfo}")
+                    _event.value = Event.SendHouseholdFormFailure(response.callInfo?.msg, pos)
+                }
+
+                else -> {}
+            }
+        }
+    }
+
     override fun sendHouseholdForm(form: HouseholdForm?, pos: Int) {
         Log.d(TAG, "sendHouseholdForm() called with: form = $form")
         if (form == null) return
@@ -289,7 +319,7 @@ class HouseholdViewModel @Inject constructor(
 
                 is Resource.Failure -> {
                     Log.d(TAG, "sendHouseholdForm: failure: ${response.callInfo}")
-                    _event.value = Event.SendHouseholdFormFailure(response.callInfo?.msg)
+                    _event.value = Event.SendHouseholdFormFailure(response.callInfo?.msg, pos)
                 }
 
                 else -> {}

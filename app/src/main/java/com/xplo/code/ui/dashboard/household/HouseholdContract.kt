@@ -79,6 +79,7 @@ interface HouseholdContract {
         fun getHouseholdItems()
         fun updateHouseholdItem(item: HouseholdItem?)
         fun deleteHouseholdItem(item: HouseholdItem?)
+        fun sendHouseholdItem(item: HouseholdItem?, pos: Int)
         fun sendHouseholdForm(form: HouseholdForm?, pos: Int)
 
 
@@ -122,6 +123,12 @@ interface HouseholdContract {
 
         fun onSubmitFormSuccess(id: String?, pos: Int)
         fun onSubmitFormFailure(msg: String?)
+
+        fun onSubmitHouseholdItemSuccess(item: HouseholdItem?, pos: Int)
+        fun onSubmitHouseholdItemFailure(msg: String?)
+
+        fun onUpdateHouseholdItemSuccess(id: String?)
+        fun onUpdateHouseholdItemFailure(msg: String?)
 
     }
 
@@ -239,6 +246,8 @@ interface HouseholdContract {
         fun onGetHouseholdList(items: List<HouseholdItem>?)
         fun onGetHouseholdListFailure(msg: String?)
 
+        fun onSendSuccess(householdItem: HouseholdItem?, pos: Int)
+        fun onSendFailure(msg: String?, pos: Int)
 
     }
 
