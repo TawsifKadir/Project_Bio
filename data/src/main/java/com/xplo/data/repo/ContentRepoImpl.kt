@@ -2,10 +2,6 @@ package com.xplo.data.repo
 
 import com.kit.integrationmanager.model.Beneficiary
 import com.xplo.data.core.CallInfo
-import com.xplo.data.model.content.FormRqb
-import com.xplo.data.model.content.FormRsp
-import com.xplo.data.model.content.FormsRqb
-import com.xplo.data.model.content.FormsRsp
 import com.xplo.data.network.api.ContentApi
 import com.xplo.data.core.Resource
 import javax.inject.Inject
@@ -23,39 +19,39 @@ class ContentRepoImpl @Inject constructor(
     private val api: ContentApi
 ) : ContentRepo {
 
-    override suspend fun submitForm(body: FormRqb?): Resource<FormRsp> {
-        return try {
-            val response = api.submitForm(body)
-            val result = response.body()
-            val callInfo = CallInfo(response.code(), response.message())
-            if (response.isSuccessful && result != null) {
-                Resource.Success(result, callInfo)
-            } else {
-                Resource.Failure(callInfo)
-            }
-        } catch (e: Exception) {
-            Resource.Failure(CallInfo(-1, e.message))
-        }
-    }
+//    override suspend fun submitForm(body: FormRqb?): Resource<FormRsp> {
+//        return try {
+//            val response = api.submitForm(body)
+//            val result = response.body()
+//            val callInfo = CallInfo(response.code(), response.message())
+//            if (response.isSuccessful && result != null) {
+//                Resource.Success(result, callInfo)
+//            } else {
+//                Resource.Failure(callInfo)
+//            }
+//        } catch (e: Exception) {
+//            Resource.Failure(CallInfo(-1, e.message))
+//        }
+//    }
+//
+//    override suspend fun submitForms(body: FormsRqb?): Resource<FormsRsp> {
+//        return try {
+//            val response = api.submitForms(body)
+//            val result = response.body()
+//            val callInfo = CallInfo(response.code(), response.message())
+//            if (response.isSuccessful && result != null) {
+//                Resource.Success(result, callInfo)
+//            } else {
+//                Resource.Failure(callInfo)
+//            }
+//        } catch (e: Exception) {
+//            Resource.Failure(CallInfo(-1, e.message))
+//        }
+//    }
 
-    override suspend fun submitForms(body: FormsRqb?): Resource<FormsRsp> {
+    override suspend fun sendBeneficiary(body: Beneficiary?): Resource<Unit> {
         return try {
-            val response = api.submitForms(body)
-            val result = response.body()
-            val callInfo = CallInfo(response.code(), response.message())
-            if (response.isSuccessful && result != null) {
-                Resource.Success(result, callInfo)
-            } else {
-                Resource.Failure(callInfo)
-            }
-        } catch (e: Exception) {
-            Resource.Failure(CallInfo(-1, e.message))
-        }
-    }
-
-    override suspend fun submitBeneficiary(body: Beneficiary?): Resource<Unit> {
-        return try {
-            val response = api.submitBeneficiary(body)
+            val response = api.sendBeneficiary(body)
             val result = response.body()
             val callInfo = CallInfo(response.code(), response.message())
             if (response.isSuccessful && result != null) {

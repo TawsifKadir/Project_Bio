@@ -7,12 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.kit.integrationmanager.model.SyncResult
-import com.kit.integrationmanager.service.OnlineIntegrationManager
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.databinding.FragmentDashboardBinding
-import com.xplo.code.network.fake.Fake
-import com.xplo.code.utils.FormAppUtils
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Observable
 import java.util.Observer
@@ -107,12 +104,6 @@ class DashboardFragment : BaseFragment(), DashboardContract.View, Observer {
 //                .create()
 //                .show()
 
-            val serverInfo = FormAppUtils.getServerInfo()
-            val integrationManager = OnlineIntegrationManager(requireContext(), this, serverInfo)
-            val beneficiary = Fake.getABenificiary()
-            val headers = FormAppUtils.getHeaderForIntegrationManager()
-
-            integrationManager.syncRecord(beneficiary, headers)
 
         }
     }
