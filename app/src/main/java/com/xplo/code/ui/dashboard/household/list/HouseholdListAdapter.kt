@@ -86,7 +86,7 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
 
 
             if (item.isSynced) {
-                binding.btSend.gone()
+                //binding.btSend.gone()
                 binding.btSyncStatus.setImageResource(R.drawable.baseline_cloud_done_24)
             } else {
                 binding.btSend.visible()

@@ -21,12 +21,12 @@ object IMHelper {
     private const val TAG = "IMHelper"
 
     private val token =
-        "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbndhcjMzNiIsImlhdCI6MTcwODY5MzY3MSwiZXhwIjoxODY2MzczNjcxfQ.NKYlfpD9fntB5T7jJ1agLVihZLVak7Z3qNYsA1YMIvdosIRwrEXPMJcIb2MZD4nUV0Sqa8fLzdEZMP9dD3eocg"
+        "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmYWthZGlyXzIzIiwiaWF0IjoxNzA4ODg1NDcyLCJleHAiOjE4NjY1NjU0NzJ9.Fjf-FbaLDdIHuUsGuyOgiKlzbW2V9Bg2lTxxf7cAq4XGLYCaYsIEw4LX_sOp-WtWp7n-8pP95EkTSuvY31eMSg"
 
     fun getHeader(): HashMap<String, String> {
         val headers = HashMap<String, String>()
         headers["Authorization"] = token
-        headers["DeviceId"] = "1234"
+        headers["DeviceId"] = "47951385-a13f-409a-9a79-c4aaef0e3f9b"
         return headers
     }
 
