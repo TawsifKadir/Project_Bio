@@ -243,7 +243,7 @@ class HhPreviewFragment2 : BaseFragment(), HouseholdContract.PreviewView {
 
         val rootForm = interactor?.getRootForm()
 
-        viewModel.saveHouseholdForm(rootForm)
+        viewModel.saveHouseholdFormAsHouseholdItem(rootForm)
 
 
     }

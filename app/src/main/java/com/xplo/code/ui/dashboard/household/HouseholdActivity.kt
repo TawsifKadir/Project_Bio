@@ -355,7 +355,7 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
 
     }
 
-    override fun onSaveBeneficiarySuccess(item: BeneficiaryEntity) {
+    override fun onSaveBeneficiarySuccess(item: BeneficiaryEntity?) {
         Log.d(TAG, "onSaveBeneficiarySuccess() called with: item = $item")
 
     }

@@ -246,7 +246,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             .setListener(object : XDialog.DialogListener {
                 override fun onClickPositiveButton() {
                     val rootForm = interactor?.getRootForm()
-                    viewModel.saveHouseholdForm(rootForm)
+                    viewModel.saveHouseholdFormAsHouseholdItem(rootForm)
                 }
 
                 override fun onClickNegativeButton() {

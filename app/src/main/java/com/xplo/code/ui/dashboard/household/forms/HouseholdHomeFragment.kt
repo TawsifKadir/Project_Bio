@@ -143,27 +143,39 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                         viewModel.clearEvent()
                     }
 
-                    is HouseholdViewModel.Event.SubmitHouseholdFormSuccess -> {
+                    is HouseholdViewModel.Event.SendHouseholdFormSuccess -> {
                         hideLoading()
                         onSubmitFormSuccess(event.id, event.pos)
                         viewModel.clearEvent()
                     }
 
-                    is HouseholdViewModel.Event.SubmitHouseholdFormFailure -> {
+                    is HouseholdViewModel.Event.SendHouseholdFormFailure -> {
                         hideLoading()
                         onSubmitFormFailure(event.msg)
                         viewModel.clearEvent()
                     }
 
-                    is HouseholdViewModel.Event.SaveBeneficiarySuccess -> {
+                    is HouseholdViewModel.Event.SaveBeneficiaryEntitySuccess -> {
                         hideLoading()
-                        interactor?.onSaveBeneficiarySuccess(event.item)
+                        interactor?.onSaveBeneficiarySuccess(null)
                         viewModel.clearEvent()
                     }
 
-                    is HouseholdViewModel.Event.SaveBeneficiaryFailure -> {
+                    is HouseholdViewModel.Event.SaveBeneficiaryEntityFailure -> {
                         hideLoading()
                         interactor?.onSaveBeneficiaryFailure(event.msg)
+                        viewModel.clearEvent()
+                    }
+
+                    is HouseholdViewModel.Event.SendBeneficiaryEntitySuccess -> {
+                        hideLoading()
+                        onSubmitFormSuccess(event.id, event.pos)
+                        viewModel.clearEvent()
+                    }
+
+                    is HouseholdViewModel.Event.SendBeneficiaryEntityFailure -> {
+                        hideLoading()
+                        onSubmitFormFailure(event.msg)
                         viewModel.clearEvent()
                     }
 
@@ -262,7 +274,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     override fun onClickHouseholdItemSave(item: HouseholdItem, pos: Int) {
         Log.d(TAG, "onClickHouseholdItemSave() called with: item = $item, pos = $pos")
         val entity = EntityMapper.toBeneficiaryEntity(item.toHouseholdForm())
-        viewModel.saveBeneficiary(entity)
+        viewModel.saveBeneficiaryEntity(entity)
     }
 
 

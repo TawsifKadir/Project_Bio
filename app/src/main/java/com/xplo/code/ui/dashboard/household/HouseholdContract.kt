@@ -1,9 +1,11 @@
 package com.xplo.code.ui.dashboard.household
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.kit.integrationmanager.model.Beneficiary
 import com.xplo.code.base.BaseContract
 import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.HouseholdItem
@@ -58,7 +60,7 @@ interface HouseholdContract {
 
         fun onPageAdd()
 
-        fun onSaveBeneficiarySuccess(item: BeneficiaryEntity)
+        fun onSaveBeneficiarySuccess(item: BeneficiaryEntity?)
         fun onSaveBeneficiaryFailure(msg: String?)
 
         fun getRootForm(): HouseholdForm?
@@ -68,9 +70,33 @@ interface HouseholdContract {
 
     }
 
-    interface Presenter : BaseContract.Presenter<View> {
+    interface Presenter {
 
-        fun saveData(data: String?)
+        fun saveHouseholdFormAsHouseholdItem(form: HouseholdForm?)
+        fun getHouseholdItem(id: String?)
+        fun getHouseholdItems()
+        fun updateHouseholdItem(item: HouseholdItem?)
+        fun deleteHouseholdItem(item: HouseholdItem?)
+        fun sendHouseholdForm(form: HouseholdForm?, pos: Int)
+
+
+        fun saveBeneficiaryEntity(item: BeneficiaryEntity?)
+        fun getBeneficiaryEntity(id: String?)
+        fun getBeneficiaryEntityItems()
+        fun updateBeneficiaryEntity(item: BeneficiaryEntity?)
+        fun deleteBeneficiaryEntity(item: BeneficiaryEntity?)
+        fun sendBeneficiaryEntity(item: BeneficiaryEntity?, pos: Int)
+        fun sendBeneficiary(item: Beneficiary?, pos: Int)
+
+
+        fun getStateItems()
+        fun getCountryItems(state: String?)
+        fun getPayamItems(county: String?)
+        fun getBomaItems(payam: String?)
+
+        fun syncHouseholdForm(context: Context, form: HouseholdForm?, pos: Int)
+        fun syncBeneficiaryEntity(context: Context, entity: BeneficiaryEntity?, pos: Int)
+        fun syncBeneficiary(context: Context, beneficiary: Beneficiary?, pos: Int)
     }
 
     interface CommonView {
