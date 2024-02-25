@@ -147,6 +147,14 @@
         <item>Other (specify)</item>
     </string-array>
 
+    <string-array name="why_not_shortened">
+        <item>Select Reason Why Not?</item>
+        <item>All other eligible household members have other commitments that occupy their time.</item>
+        <item>I am uncertain about the ability of the other household members to comply with the program\'s expectations or conditions.</item>
+        <item>The health or physical condition of other eligible household members prevents them from participating.</item>
+        <item>Other (specify)</item>
+    </string-array>
+
     <string-array name="id_type">
         <item>Select ID Type</item>
         <item>Passport</item>

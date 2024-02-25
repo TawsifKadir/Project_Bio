@@ -133,7 +133,12 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
     override fun initView() {
 
-        bindSpinnerData(spReasonNoNominee, UiData.whyNot)
+        if(readNomineeInputsFromList().size == 0){
+            bindSpinnerData(spReasonNoNominee, UiData.whyNot)
+        }else{
+            bindSpinnerData(spReasonNoNominee, UiData.whyNotShortened)
+        }
+
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.itemAnimator = DefaultItemAnimator()
@@ -241,7 +246,11 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
                 checkRbNo(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
                 onEnableDisableNominee(false)
 
-                setSpinnerItem(spReasonNoNominee, UiData.whyNot, form.xNoNomineeReason)
+                if(isListContainsData()){
+                    setSpinnerItem(spReasonNoNominee, UiData.whyNotShortened, form.xNoNomineeReason)
+                }else {
+                    setSpinnerItem(spReasonNoNominee, UiData.whyNot, form.xNoNomineeReason)
+                }
                 if (isOtherSpecify(form.xNoNomineeReason)) {
                     llParentOtherReason.visible()
                     etOtherReason.setText(form.xOtherReason)
@@ -255,7 +264,11 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
             checkRbNo(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
 
             onEnableDisableNominee(false)
-            setSpinnerItem(spReasonNoNominee, UiData.whyNot, form.noNomineeReason)
+            if(isListContainsData()){
+                setSpinnerItem(spReasonNoNominee, UiData.whyNotShortened, form.noNomineeReason)
+            }else {
+                setSpinnerItem(spReasonNoNominee, UiData.whyNot, form.noNomineeReason)
+            }
             if (isOtherSpecify(form.noNomineeReason)) {
                 llParentOtherReason.visible()
                 etOtherReason.setText(form.otherReason)

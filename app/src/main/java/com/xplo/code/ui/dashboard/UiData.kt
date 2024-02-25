@@ -37,6 +37,7 @@ object UiData {
     val currency = getStringArray(R.array.currency_array)
     val selectionReason = getStringArray(R.array.selection_reason_array)
     val whyNot = getStringArray(R.array.why_not)
+    val whyNotShortened = getStringArray(R.array.why_not_shortened)
     val idType = getStringArray(R.array.id_type)
     val nomineeOccupation = getStringArray(R.array.what_does_currently_do_for_a_living_array)
     val publicWorks = getStringArray(R.array.support_type_public_work_array)
