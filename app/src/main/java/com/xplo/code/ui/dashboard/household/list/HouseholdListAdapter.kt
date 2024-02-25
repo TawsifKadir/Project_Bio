@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.xplo.code.R
+import com.xplo.code.core.ext.gone
+import com.xplo.code.core.ext.visible
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.databinding.RowHouseholdItemBinding
@@ -80,10 +82,15 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
             binding.tvAge.text = "age: " + form.form2?.age
             binding.tvNominee.text = "Nominee: " + (form.form6?.nominees?.size)
             binding.tvAlternate.text = "Alternate: " + form.alternates.size
+            //binding.btSyncStatus.setImageResource(R.drawable.baseline_cloud_done_24)
+
+
             if (item.isSynced) {
-                binding.btSyncStatus.setBackgroundResource(R.drawable.baseline_cloud_done_24)
+                binding.btSend.gone()
+                binding.btSyncStatus.setImageResource(R.drawable.baseline_cloud_done_24)
             } else {
-                binding.btSyncStatus.setBackgroundResource(R.drawable.sync_saved_locally_24px)
+                binding.btSend.visible()
+                binding.btSyncStatus.setImageResource(R.drawable.sync_saved_locally_24px)
             }
             loadImage(form.form4?.photoData?.imgPath)
         }

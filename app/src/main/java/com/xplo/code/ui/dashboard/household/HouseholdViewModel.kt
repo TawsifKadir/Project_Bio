@@ -286,12 +286,12 @@ class HouseholdViewModel @Inject constructor(
                 is Resource.Success -> {
                     Log.d(TAG, "sendHouseholdItem: success: ${response.data}")
 
-                    _event.value = Event.SendHouseholdFormSuccess(beneficiary.applicationId, pos)
+                    _event.value = Event.SendHouseholdItemSuccess(item, pos)
                 }
 
                 is Resource.Failure -> {
                     Log.d(TAG, "sendHouseholdItem: failure: ${response.callInfo}")
-                    _event.value = Event.SendHouseholdFormFailure(response.callInfo?.msg, pos)
+                    _event.value = Event.SendHouseholdItemFailure(response.callInfo?.msg, pos)
                 }
 
                 else -> {}

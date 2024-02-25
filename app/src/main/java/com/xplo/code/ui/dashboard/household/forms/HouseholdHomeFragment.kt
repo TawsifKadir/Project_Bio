@@ -32,6 +32,7 @@ import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.data.mapper.EntityMapper
 import com.xplo.code.databinding.FragmentHouseholdHomeBinding
+import com.xplo.code.network.fake.Fake
 import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
@@ -128,7 +129,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                 when (event) {
 
                     is HouseholdViewModel.Event.Loading -> {
-                        //showLoading()
+                        showLoading()
                     }
 
                     is HouseholdViewModel.Event.GetHouseholdItemsSuccess -> {
@@ -305,6 +306,9 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
         viewModel.sendHouseholdItem(item, pos)
         //viewModel.syncHouseholdForm(requireContext(), item.toHouseholdForm(), pos)
+
+        //val beneficiary = Fake.getABenificiary()
+        //viewModel.syncBeneficiary(requireContext(), beneficiary, 0 )
     }
 
     override fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int) {
