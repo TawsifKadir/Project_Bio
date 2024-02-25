@@ -80,7 +80,7 @@
     <string name="user_vote_up">Up</string>
     <string name="user_vote_down">Down</string>
     <string name="alternate">Alternate</string>
-    <string name="alternate_add_hint">Maximum 5 alternate allowed</string>
+    <string name="alternate_add_hint">Maximum 2 alternate allowed</string>
     <string name="total_number_of_males">Total Number of Males</string>
     <string name="total_number_of_females">Total Number of females</string>
     <string name="form_details">Form Details</string>
