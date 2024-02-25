@@ -207,20 +207,59 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         if (TestConfig.isAutoDGEnabled) {
             onGenerateDummyInput()
         }
-        spGender.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        /*spGender.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
                 view: View?,
                 position: Int,
                 id: Long
             ) {
+                Gender_Value = position
+                // Check if the selected position allows access to spLegalStatus spinner
+                if (position == 1 || position == 2) {
+                    // Gender position is 1 or 2, allow access to spLegalStatus spinner
+                    binding.spLegalStatus.visibility = View.VISIBLE
+                    binding.spLegalStatus.prompt = ""
+                } else {
+                    // Gender position is not 1 or 2, hide spLegalStatus spinner
+                    binding.spLegalStatus.visibility = View.GONE
+                    binding.spLegalStatus.prompt = "Please select gender"
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
                 // Another interface callback
             }
         }
+       spLegalStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                //val selectedItem = parent.getItemAtPosition(position).toString()
+                *//*Log.d(TAG,"First item is $parent.getItemAtPosition(0).toString()")
+                Log.d(TAG,"the gnder value is $Gender_Value")
+                if ( Gender_Value!! > 0)  {
+                    binding.spLegalStatus.visibility =View.VISIBLE
+                    binding.spLegalStatus.prompt = ""
 
+                }
+                else{
+                    binding.spLegalStatus.visibility = View.GONE
+                    binding.spLegalStatus.prompt = "Please select gender"
+                    //binding.spLegalStatus.settext = "please select gender"
+
+                }*//*
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Another interface callback
+            }
+        }
+*/
         spMainSourceOfIncome.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
