@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.Spinner
@@ -189,6 +190,8 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
 
     }
 
+
+
     override fun initObserver() {
         binding.viewButtonBackNext.btBack.setOnClickListener {
             onClickBackButton()
@@ -203,7 +206,31 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         if (TestConfig.isAutoDGEnabled) {
             onGenerateDummyInput()
         }
-        
+        spMainSourceOfIncome.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                Log.d(TAG,"First item is $parent.getItemAtPosition(0).toString()")
+                if ( position == 0 || position == 1 )  {
+                    binding.etMonthlyAverageIncome.setText("0")
+                    binding.etMonthlyAverageIncome.isEnabled = false
+                }
+                else{
+                    binding.etMonthlyAverageIncome.isEnabled = true
+                    //binding.etMonthlyAverageIncome.setText("0")
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Another interface callback
+            }
+        }
+
+
 
         spMaritalStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -213,7 +240,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
                 id: Long
             ) {
                 val selectedItem = parent.getItemAtPosition(position).toString()
-                if (selectedItem.equals(MaritalStatus.MARRIED.status, ignoreCase = true)) {
+                if (selectedItem.equals(MaritalStatus.MARRIED.status,  ignoreCase = true)) {
                     binding.llspouse1.visibility = View.VISIBLE
                     binding.llspouse2.visibility = View.VISIBLE
                 } else {
