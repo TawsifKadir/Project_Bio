@@ -209,7 +209,6 @@
                         <RadioButton
                             android:id="@+id/rbNo"
                             style="@style/AppRadioButton.Form"
-                            android:checked="true"
                             android:text="@string/no" />
 
                     </RadioGroup>
@@ -327,9 +326,9 @@
                         android:text="@string/household_monthly_average_income" />
 
                     <EditText
-                        android:maxLength="6"
                         android:id="@+id/etMonthlyAverageIncome"
-                        style="@style/AppEditText.Form.Number" />
+                        style="@style/AppEditText.Form.Number"
+                        android:maxLength="6" />
 
                 </LinearLayout>
 

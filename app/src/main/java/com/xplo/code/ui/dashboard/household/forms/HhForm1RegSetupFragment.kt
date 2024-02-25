@@ -254,7 +254,7 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
     override fun onResume() {
         super.onResume()
         //EventBus.getDefault().register(this)
-        setToolbarTitle("Registration Setup")
+        setToolbarTitle("Location Details")
 
         binding.viewButtonBackNext.btBack.gone()
         binding.viewButtonBackNext.btNext.visible()
