@@ -1,6 +1,7 @@
 package com.xplo.code.ui.dashboard.household.forms
 
 import android.Manifest
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,6 +13,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
@@ -229,8 +232,29 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
     override fun onClickHouseholdItemDelete(item: HouseholdItem, pos: Int) {
         Log.d(TAG, "onClickHouseholdItemDelete() called with: item = $item, pos = $pos")
-        viewModel.deleteHouseholdItem(item)
-        adapter?.remove(pos)
+        //Create Dialog Here
+        val dialog = Dialog(requireContext(), R.style.CustomDialogTheme)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.delete_dialog_resource)
+        val window = dialog.window
+        window?.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+        val btnOk : Button = dialog.findViewById<Button>(R.id.okButton)
+        val btnCancel : Button = dialog.findViewById<Button>(R.id.cancelButton)
+
+        btnOk.setOnClickListener {
+
+            viewModel.deleteHouseholdItem(item)
+            adapter?.remove(pos)
+            dialog.dismiss()
+        }
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+
     }
 
     override fun onClickHouseholdItemSend(item: HouseholdItem, pos: Int) {

@@ -25,6 +25,7 @@ import com.xplo.code.ui.dashboard.alternate.AlternateActivity
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.utils.DialogHandler
 import com.xplo.code.ui.dashboard.household.list.AlternateSumListAdapter
 import com.xplo.code.ui.dashboard.model.AlternateForm
 import com.xplo.code.ui.dashboard.model.getFullName
@@ -97,7 +98,7 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
 
         btnOk.setOnClickListener {
             val dataset = adapter?.getDataset()
-            onValidated(dataset)
+            ///onValidated(dataset)
             dialog.dismiss()
         }
 
@@ -241,7 +242,7 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
     override fun onReadInput() {
         Log.d(TAG, "onReadInput() called")
 
-//        val dataset = adapter?.getDataset()
+        val dataset = adapter?.getDataset()
 //
 //        if (dataset.isNullOrEmpty()) {
 //            showAlerter(null, "Minimum 1 alternet needed")
@@ -252,7 +253,11 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
 //        }
 //
 //        onValidated(dataset)
-        showDialogBox()
+
+//        showDialogBox()
+        if (dataset != null) {
+            DialogHandler.showNomineeCOnfirmfationDialog(requireContext(),this,dataset)
+        }
     }
 
     override fun onLongClickDataGeneration() {

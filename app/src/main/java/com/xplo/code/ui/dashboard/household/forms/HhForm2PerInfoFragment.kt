@@ -8,9 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -90,6 +92,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
     private lateinit var etSpouseFirstName: EditText
     private lateinit var etSpouseMiddleName: EditText
     private lateinit var etSpouseLastName: EditText
+    private lateinit var etSpouseFourthName : EditText
     private lateinit var rgSelectionCriteria: RadioGroup
     private lateinit var rgId: RadioGroup
     private lateinit var tempFirst : String
@@ -141,6 +144,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         etSpouseFirstName = binding.etSpouseFirstName
         etSpouseMiddleName = binding.etSpouseMiddleName
         etSpouseLastName = binding.etSpouseLastName
+        etSpouseFourthName = binding.etSpouseNickName
         spMainSourceOfIncome = binding.spMainSourceOfIncome
         spIdType = binding.spIdType
         //spCurrency = binding.spCurrency
@@ -189,6 +193,8 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
 
     }
 
+
+
     override fun initObserver() {
         binding.viewButtonBackNext.btBack.setOnClickListener {
             onClickBackButton()
@@ -203,7 +209,35 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         if (TestConfig.isAutoDGEnabled) {
             onGenerateDummyInput()
         }
+        spMainSourceOfIncome.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                Log.d(TAG,"First item is $parent.getItemAtPosition(0).toString()")
+                if ( position == 0 || position == 1 )  {
+                    binding.etMonthlyAverageIncome.setText("0")
+                    binding.etMonthlyAverageIncome.isEnabled = false
+                }
+                else{
+                    binding.etMonthlyAverageIncome.isEnabled = true
+                    //binding.etMonthlyAverageIncome.setText("0")
+                }
+            }
 
+<<<<<<< HEAD
+=======
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Another interface callback
+            }
+        }
+
+
+
+>>>>>>> new_feature
         spMaritalStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
@@ -212,7 +246,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
                 id: Long
             ) {
                 val selectedItem = parent.getItemAtPosition(position).toString()
-                if (selectedItem.equals(MaritalStatus.MARRIED.status, ignoreCase = true)) {
+                if (selectedItem.equals(MaritalStatus.MARRIED.status,  ignoreCase = true)) {
                     binding.llspouse1.visibility = View.VISIBLE
                     binding.llspouse2.visibility = View.VISIBLE
                 } else {
@@ -342,6 +376,10 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         etIdNumber.setText(form.idNumber)
         etPhoneNumber.setText(form.phoneNumber)
         etMonthlyAverageIncome.setText(form.monthlyAverageIncome)
+        etSpouseFirstName.setText(form.spouseFirstName)
+        etSpouseMiddleName.setText(form.spouseMiddleName)
+        etSpouseLastName.setText(form.spouseLastName)
+        etSpouseFourthName.setText(form.spouseFourthName)
         //etSpouseName.setText(form.spouseName)
 
     }
@@ -400,10 +438,12 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
             form.spouseFirstName = chkEditText3Char(etSpouseFirstName, UiData.ER_SP_DF)
             form.spouseMiddleName = chkEditText3Char(etSpouseMiddleName, UiData.ER_SP_DF)
             form.spouseLastName = chkEditText3Char(etSpouseLastName, UiData.ER_SP_DF)
+            form.spouseFourthName = chkEditText3Char(etSpouseFourthName,UiData.ER_SP_DF)
         } else {
             form.spouseFirstName = null
             form.spouseMiddleName = null
             form.spouseLastName = null
+            form.spouseFourthName = null
         }
 
         if (binding.llIdTypeInput.isVisible && binding.llIdType.isVisible) {
@@ -489,6 +529,16 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
 
     }
 
+//    override fun onSaveInstanceState(outState: Bundle) {
+//        super.onSaveInstanceState(outState)
+//
+//        outState.putString("FirstName", etSpouseFirstName.text.toString())
+//        Log.d(TAG,etSpouseFirstName.text.toString())
+//        outState.putString("SecondName", etSpouseMiddleName.text.toString())
+//        outState.putString("ThirdName", etSpouseLastName.text.toString())
+//        outState.putString("NickName", etSpouseNickName.text.toString())
+//    }
+
     override fun onStatusChangeCheckboxItem(item: CheckboxItem, pos: Int, isChecked: Boolean) {
         Log.d(
             HhForm2PerInfoFragment.TAG,
@@ -496,5 +546,19 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         )
     }
 
-
+//    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+//        super.onViewStateRestored(savedInstanceState)
+//        val firstName = savedInstanceState?.getString("FirstName")
+//        val secondName = savedInstanceState?.getString("SecondName")
+//        val thirdName = savedInstanceState?.getString("ThirdName")
+//        val nickName = savedInstanceState?.getString("NickName")
+//        if (firstName != null) {
+//            Log.d(TAG,firstName)
+//        }
+//        etSpouseFirstName.setText(firstName)
+//        etSpouseMiddleName.setText(secondName)
+//        etSpouseLastName.setText(thirdName)
+//        etSpouseNickName.setText(nickName)
+//
+//    }
 }

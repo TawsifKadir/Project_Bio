@@ -60,6 +60,7 @@ data class HhForm2(
     var spouseFirstName: String? = null,
     var spouseMiddleName: String? = null,
     var spouseLastName: String? = null,
+    var spouseFourthName: String? = null,
     var age: Int? = null,
     var idNumber: String? = null,
     var idNumberType: String? = null,
