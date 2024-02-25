@@ -48,6 +48,9 @@ class HouseholdViewModel @Inject constructor(
         object Loading : Event()
         object Empty : Event()
 
+        class SaveFormPEntitySuccess(val id: String?) : Event()
+        class SaveFormPEntityFailure(val msg: String?) : Event()
+
         // household form
         class SaveHouseholdFormSuccess(val id: String?) : Event()
         class SaveHouseholdFormFailure(val msg: String?) : Event()
@@ -117,13 +120,45 @@ class HouseholdViewModel @Inject constructor(
         _event.value = Event.Empty
     }
 
+    override fun saveFormPEntity(form: HouseholdForm?) {
+        Log.d(TAG, "saveFormPEntity() called with: form = $form")
+        if (form == null) return
+
+//        val uuid = UUID.randomUUID().toString()
+//        val hid = HIDGenerator.getHID()
+        var item = HouseholdItem(data = form.toJson(), id = form.id, hid = form.hid)
+
+        var entity = EntityMapper.toBeneficiaryEntity(form)
+        if (entity == null) return
+
+        viewModelScope.launch(dispatchers.io) {
+            _event.value = Event.Loading
+
+            when (val response = dbRepo.insertFormPEntity(item, entity)) {
+
+                is Resource.Success -> {
+                    Log.d(TAG, "saveFormPEntity:1 success: ${response.data}")
+                    _event.value = Event.SaveFormPEntitySuccess(item.id)
+                }
+
+                is Resource.Failure -> {
+                    Log.d(TAG, "saveFormPEntity:1 failure: ${response.callInfo}")
+                    _event.value = Event.SaveFormPEntityFailure(response.callInfo?.msg)
+                }
+
+                else -> {}
+            }
+        }
+    }
+
+
     override fun saveHouseholdFormAsHouseholdItem(form: HouseholdForm?) {
         Log.d(TAG, "saveHouseholdFormAsHouseholdItem() called with: form = $form")
         if (form == null) return
 
-        val uuid = UUID.randomUUID().toString()
-        val hid = HIDGenerator.getHID()
-        var item = HouseholdItem(data = form.toJson(), id = uuid, hid = hid)
+//        val uuid = UUID.randomUUID().toString()
+//        val hid = HIDGenerator.getHID()
+        var item = HouseholdItem(data = form.toJson(), id = form.id, hid = form.hid)
 
         viewModelScope.launch(dispatchers.io) {
             _event.value = Event.Loading
@@ -131,7 +166,7 @@ class HouseholdViewModel @Inject constructor(
 
                 is Resource.Success -> {
                     Log.d(TAG, "saveHouseholdFormAsHouseholdItem: success: ${response.data}")
-                    _event.value = Event.SaveHouseholdFormSuccess(uuid)
+                    _event.value = Event.SaveHouseholdFormSuccess(item.id)
                 }
 
                 is Resource.Failure -> {

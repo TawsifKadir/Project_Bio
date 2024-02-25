@@ -27,6 +27,18 @@ class DbRepoImpl @Inject constructor(
 ) : DbRepo {
 
     private val TAG = "DbRepoImpl"
+    override suspend fun insertFormPEntity(
+        item: HouseholdItem,
+        entity: BeneficiaryEntity
+    ): Resource<Unit> {
+        return try {
+            val response = householdDao.insert(item)
+            val response2 = beneficiaryDao.insert(entity)
+            Resource.Success(response, null)
+        } catch (e: Exception) {
+            Resource.Failure(CallInfo(-1, e.message))
+        }
+    }
 
     override suspend fun getHousehold(id: String): Resource<HouseholdItem> {
         return try {

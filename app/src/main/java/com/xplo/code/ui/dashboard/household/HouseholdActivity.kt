@@ -22,15 +22,17 @@ import com.xplo.code.ui.dashboard.household.forms.HhForm1RegSetupFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm2PerInfoFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm3HhBdFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm4CapPhotoFragment
-import com.xplo.code.ui.dashboard.household.forms.HhForm6NomineeFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm5FingerFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm6Nominee2Fragment
+import com.xplo.code.ui.dashboard.household.forms.HhForm6NomineeFragment
 import com.xplo.code.ui.dashboard.household.forms.HhFormAlternateFragment
 import com.xplo.code.ui.dashboard.household.forms.HhPreviewFragment
 import com.xplo.code.ui.dashboard.household.forms.HouseholdHomeFragment
 import com.xplo.code.ui.dashboard.model.HhForm1
 import com.xplo.code.ui.dashboard.model.HouseholdForm
+import com.xplo.data.utils.HIDGenerator
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.UUID
 
 /**
  * Copyright 2022 (C) xplo
@@ -65,7 +67,7 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
     private val viewModel: HouseholdViewModel by viewModels()
     //private lateinit var toolbar: Toolbar
 
-    private var rootForm: HouseholdForm? = HouseholdForm()
+    private var rootForm: HouseholdForm? = createANewHouseholdForm()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -207,7 +209,7 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         Log.d(TAG, "navigateToForm3() called")
 
         // will remove later, dev purpose
-        if (TestConfig.isNavHackEnabled){
+        if (TestConfig.isNavHackEnabled) {
             navigateToForm6()
             return
         }
@@ -379,7 +381,7 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         Log.d(TAG, "resetRootForm() called")
         //if (TestConfig.isNavHackEnabled) return
         this.rootForm = null
-        this.rootForm = HouseholdForm()
+        this.rootForm = createANewHouseholdForm()
         Log.d(TAG, "resetRootForm: rootForm: $rootForm")
     }
 
@@ -387,8 +389,19 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         Log.d(TAG, "resetRootFormKeepSetup() called")
         val form1 = rootForm?.form1
         this.rootForm = null
-        this.rootForm = HouseholdForm(form1 = form1)
+
+        val newForm = createANewHouseholdForm()
+        newForm.form1 = form1
+        this.rootForm = newForm
         Log.d(TAG, "resetRootFormKeepSetup: rootForm: $rootForm")
+    }
+
+    private fun createANewHouseholdForm(): HouseholdForm {
+        val uuid = UUID.randomUUID().toString()
+        val hid = HIDGenerator.getHID()
+        val householdForm = HouseholdForm(uuid, hid)
+        Log.d(TAG, "createANewHouseholdForm: $householdForm")
+        return householdForm
     }
 
 }

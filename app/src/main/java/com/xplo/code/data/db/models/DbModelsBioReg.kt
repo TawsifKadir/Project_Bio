@@ -17,7 +17,7 @@ data class HouseholdItem(
     var id: String,
 
     @ColumnInfo(name = "hid")
-    var hid: String? = null,
+    var hid: String,
 
     var data: String? = null,
     var isSynced: Boolean = false
@@ -33,7 +33,8 @@ fun HouseholdItem?.toJson(): String? {
 fun HouseholdItem?.toHouseholdForm(): HouseholdForm? {
     if (this == null) return null
     val form = Gson().fromJson(this?.data, HouseholdForm::class.java)
-    form.id = this.id
+//    form.id = this.id
+//    form.hid = this.hid
     return form
 }
 
