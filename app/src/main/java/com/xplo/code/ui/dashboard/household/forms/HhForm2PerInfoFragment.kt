@@ -219,25 +219,20 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
                 val selectedItem = parent.getItemAtPosition(position).toString()
                 Log.d(TAG,"First item is $parent.getItemAtPosition(0).toString()")
                 if ( position == 0 || position == 1 )  {
-                    binding.etMonthlyAverageIncome.setText("0")
-                    binding.etMonthlyAverageIncome.isEnabled = false
+                    etMonthlyAverageIncome.setText("0")
+                    etMonthlyAverageIncome.isEnabled = false
                 }
                 else{
-                    binding.etMonthlyAverageIncome.isEnabled = true
+                    etMonthlyAverageIncome.isEnabled = true
                     //binding.etMonthlyAverageIncome.setText("0")
                 }
             }
 
-<<<<<<< HEAD
-=======
             override fun onNothingSelected(parent: AdapterView<*>) {
                 // Another interface callback
             }
         }
 
-
-
->>>>>>> new_feature
         spMaritalStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,

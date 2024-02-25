@@ -69,7 +69,6 @@
         <item>Domestic Worker</item>
         <item>No Relation</item>
         <item>Sibling-in-law</item>
-        <item>Does not know</item>
     </string-array>
 
     <string name="respondent_gender_label">Respondent Gender</string>
@@ -188,15 +187,13 @@
         <item>Other Relative</item>
         <item>Domestic Worker</item>
         <item>No Relation</item>
-        <item>Does not know</item>
     </string-array>
 
     <string-array name="support_type_public_work_array">
         <item>Poor household with no sufficient income to sustain the household</item>
         <item>Household contain able bodied youth member (18–35)</item>
         <item>Household headed by young men and women between the ages of 18 and 35</item>
-        <item>Household has three or more dependents (children 0–14, eligible vulnerable HH selected UNOPS, Payam and Boma development committees, and selection committees etc. disabled and elderly 65+)</item>
-        <item>Poor household which have persons with severe disabilities</item>
+        <item>Household has three or more dependents</item>
     </string-array>
 
     <string-array name="support_type_direct_income_array">
