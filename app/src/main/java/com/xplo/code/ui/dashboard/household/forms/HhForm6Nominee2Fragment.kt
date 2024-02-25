@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -87,7 +88,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
     private lateinit var spReasonNoNominee: Spinner
     private lateinit var llParentOtherReason: View
     private lateinit var etOtherReason: EditText
-
+    private lateinit var questionText : TextView
     //private lateinit var btAdd: Button
     //private lateinit var btAddAnother: Button
     private lateinit var recyclerView: RecyclerView
@@ -123,7 +124,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         spReasonNoNominee = binding.viewNomineeNoNominee.spReasonNoNominee
         llParentOtherReason = binding.viewNomineeNoNominee.llParentOtherReason
         etOtherReason = binding.viewNomineeNoNominee.etOtherReason
-
+        questionText = binding.questionText
         //btAdd = binding.viewNomineeAddNominee.btAdd
         //btAddAnother = binding.viewNomineeAddNominee.btAddAnother
         recyclerView = binding.recyclerView
@@ -357,7 +358,6 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         val rootForm = interactor?.getRootForm()
         if (rootForm == null) return
 
-        consecutive++
         NomineeModal.Builder(requireActivity().supportFragmentManager)
             .listener(this)
             .parent(null)
@@ -374,8 +374,8 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
     override fun onGetANomineeFromPopup(nominee: Nominee?) {
         Log.d(TAG, "onGetANomineeFromPopup() called with: nominee = $nominee")
         if (nominee == null) return
-
         adapter?.addItem(nominee)
+        questionText.setText(R.string.would_anyone_else_interested)
         onRefreshViewWhenListUpdated()
 
     }
@@ -421,88 +421,6 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
     override fun onReadInput() {
         Log.d(TAG, "onReadInput() called")
-
-//        val form = HhForm6()
-//        form.isNomineeAdd = chkRadioGroup(binding.rgNomineeAdd, UiData.ER_ET_DF)
-//
-//        if (form.isNomineeAdd.isNo()) {
-//
-//            form.noNomineeReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
-//
-//            if (isOtherSpecify(form.noNomineeReason)) {
-//                form.noNomineeReasonOther = chkEditText(etOtherReason, UiData.ER_ET_DF)
-//            }
-//
-//            if (form.isOk()) {
-//                onValidated(form)
-//                return
-//            }
-//        }
-//
-//        form.nominees = readNomineeInputsFromList()
-//
-//        if (form.isOk()) {
-//            val checkExtraCases = form.checkExtraCases()
-//            if (checkExtraCases != null) {
-//                showAlerter(checkExtraCases, null)
-//                return
-//            }
-//            onValidated(form)
-//        }
-
-
-//        val form = HhForm6()
-//        form.nominees = readNomineeInputsFromList()
-//
-//        if (form.nominees.isNotEmpty()) {
-//
-//            form.isNomineeAdd = "Yes"
-//            form.noNomineeReason = null
-//            form.otherReason = null
-//
-//            form.xIsNomineeAdd = getRadioGroup(binding.rgNomineeAdd)
-//            if (form.xIsNomineeAdd.isNo()) {
-//                form.xNoNomineeReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
-//                if (isOtherSpecify(form.xNoNomineeReason)) {
-//                    form.xOtherReason = chkEditText(etOtherReason, UiData.ER_ET_DF)
-//                }
-//            }
-//
-//        } else {
-//            // empty
-//            form.isNomineeAdd = chkRadioGroup(binding.rgNomineeAdd, UiData.ER_ET_DF)
-//
-//            if (form.isNomineeAdd.isNo()) {
-//                form.noNomineeReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
-//                if (isOtherSpecify(form.noNomineeReason)) {
-//                    form.otherReason = chkEditText(etOtherReason, UiData.ER_ET_DF)
-//                }
-//            } else {
-//                // yes
-//                // already covered
-//            }
-//
-//        }
-//
-//        if (!form.isExtraNomineeOk()) return
-//
-//        if (form.isOk()) {
-//
-//            val checkExtraCases = form.checkExtraCases()
-//            if (checkExtraCases != null) {
-//                showAlerter(checkExtraCases, null)
-//                return
-//            }
-//
-//            if (!isCrossGenderExist()) {
-//                val crossGender = getGenderForCross()
-//                showAlerter("Need a $crossGender nominee. You can choose no if you don't want add.", null)
-//                return
-//            }
-//
-//            onValidated(form)
-//        }
-
 
         val form = HhForm6()
         form.nominees = readNomineeInputsFromList()
@@ -582,6 +500,9 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
     override fun onClickNomineeDelete(item: Nominee, pos: Int) {
         Log.d(TAG, "onClickNomineeDelete() called with: item = $item, pos = $pos")
+        if(readNomineeInputsFromList().size == 1){
+            questionText.setText(R.string.would_anyone_from_your_household_including_yourself_be_interested_in_participating)
+        }
         adapter?.remove(pos)
     }
 
