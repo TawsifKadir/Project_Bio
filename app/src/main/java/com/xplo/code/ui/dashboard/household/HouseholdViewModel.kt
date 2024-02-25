@@ -110,10 +110,12 @@ class HouseholdViewModel @Inject constructor(
             when (val response = dbRepo.getHousehold(id)) {
 
                 is Resource.Success -> {
+                    Log.d(TAG, "getHouseholdItem: success: ${response.data}")
                     _event.value = Event.GetHouseholdItemSuccess(response.data)
                 }
 
                 is Resource.Failure -> {
+                    Log.d(TAG, "getHouseholdItem: failure: ${response.callInfo}")
                     _event.value = Event.GetHouseholdItemFailure(response.callInfo?.msg)
                 }
             }
@@ -129,10 +131,12 @@ class HouseholdViewModel @Inject constructor(
             when (val response = dbRepo.getHouseholds()) {
 
                 is Resource.Success -> {
+                    Log.d(TAG, "getHouseholdItems: success: ${response.data?.size}")
                     _event.value = Event.GetHouseholdItemsSuccess(response.data)
                 }
 
                 is Resource.Failure -> {
+                    Log.d(TAG, "getHouseholdItems: failure: ${response.callInfo}")
                     _event.value = Event.GetHouseholdItemsFailure(response.callInfo?.msg)
                 }
             }
@@ -149,10 +153,12 @@ class HouseholdViewModel @Inject constructor(
             when (val response = dbRepo.deleteHousehold(item)) {
 
                 is Resource.Success -> {
+                    Log.d(TAG, "deleteHouseholdItem: success: ${response.data}")
                     _event.value = Event.DeleteHouseholdItemSuccess
                 }
 
                 is Resource.Failure -> {
+                    Log.d(TAG, "deleteHouseholdItem: failure: ${response.callInfo}")
                     _event.value = Event.DeleteHouseholdItemFailure(response.callInfo?.msg)
                 }
             }
@@ -173,10 +179,12 @@ class HouseholdViewModel @Inject constructor(
             when (val response = dbRepo.insertHousehold(item)) {
 
                 is Resource.Success -> {
+                    Log.d(TAG, "saveHouseholdForm: success: ${response.data}")
                     _event.value = Event.SaveHouseholdFormSuccess(uuid)
                 }
 
                 is Resource.Failure -> {
+                    Log.d(TAG, "saveHouseholdForm: failure: ${response.callInfo}")
                     _event.value = Event.SaveHouseholdFormFailure(response.callInfo?.msg)
                 }
 
@@ -194,10 +202,12 @@ class HouseholdViewModel @Inject constructor(
             when (val response = dbRepo.insertBeneficiary(item)) {
 
                 is Resource.Success -> {
+                    Log.d(TAG, "saveBeneficiary: success: ${response.data}")
                     _event.value = Event.SaveBeneficiarySuccess(item)
                 }
 
                 is Resource.Failure -> {
+                    Log.d(TAG, "saveBeneficiary: failure: ${response.callInfo}")
                     _event.value = Event.SaveBeneficiaryFailure(response.callInfo?.msg)
                 }
 
@@ -218,11 +228,13 @@ class HouseholdViewModel @Inject constructor(
             when (val response = contentRepo.submitForm(item)) {
 
                 is Resource.Success -> {
+                    Log.d(TAG, "submitHouseholdForm: success: ${response.data}")
 
                     _event.value = Event.SubmitHouseholdFormSuccess(item.applicationId!!, pos)
                 }
 
                 is Resource.Failure -> {
+                    Log.d(TAG, "submitHouseholdForm: failure: ${response.callInfo}")
                     _event.value = Event.SubmitHouseholdFormFailure(response.callInfo?.msg)
                 }
 
@@ -245,25 +257,27 @@ class HouseholdViewModel @Inject constructor(
         //val beneficiary = Fake.getABenificiary()
         val entity = EntityMapper.toBeneficiaryEntity(form)
         val beneficiary = BeneficiaryMapper.toBeneficiary(entity)
-//        integrationManager.syncRecord(beneficiary, headers)
+        integrationManager.syncRecord(beneficiary, headers)
 
-        viewModelScope.launch(dispatchers.io) {
-            //_event.value = Event.Loading
-            when (val response = contentRepo.submitBeneficiary(beneficiary)) {
-
-                is Resource.Success -> {
-                    Log.d(TAG, "syncHouseholdForm() called success")
-                    //_event.value = Event.SubmitHouseholdFormSuccess(item.applicationId!!, pos)
-                }
-
-                is Resource.Failure -> {
-                    Log.d(TAG, "syncHouseholdForm() called failure")
-                   // _event.value = Event.SubmitHouseholdFormFailure(response.callInfo?.msg)
-                }
-
-                else -> {}
-            }
-        }
+//        viewModelScope.launch(dispatchers.io) {
+//            //_event.value = Event.Loading
+//            when (val response = contentRepo.submitBeneficiary(beneficiary)) {
+//
+//                is Resource.Success -> {
+        //Log.d(TAG, "syncHouseholdForm: success: ${response.data}")
+//                    Log.d(TAG, "syncHouseholdForm() called success")
+//                    //_event.value = Event.SubmitHouseholdFormSuccess(item.applicationId!!, pos)
+//                }
+//
+//                is Resource.Failure -> {
+        //Log.d(TAG, "syncHouseholdForm: failure: ${response.callInfo}")
+//                    Log.d(TAG, "syncHouseholdForm() called failure")
+//                   // _event.value = Event.SubmitHouseholdFormFailure(response.callInfo?.msg)
+//                }
+//
+//                else -> {}
+//            }
+//        }
     }
 
 
@@ -279,10 +293,12 @@ class HouseholdViewModel @Inject constructor(
             when (val response = dbRepo.updateHousehold(item)) {
 
                 is Resource.Success -> {
+                    Log.d(TAG, "updateHouseholdForm: success: ${response.data}")
                     _event.value = Event.SaveHouseholdFormSuccess(uuid)
                 }
 
                 is Resource.Failure -> {
+                    Log.d(TAG, "updateHouseholdForm: failure: ${response.callInfo}")
                     _event.value = Event.SaveHouseholdFormFailure(response.callInfo?.msg)
                 }
 
@@ -300,10 +316,12 @@ class HouseholdViewModel @Inject constructor(
             when (val response = dbRepo.updateHousehold(item)) {
 
                 is Resource.Success -> {
+                    Log.d(TAG, "updateHouseholdItem: success: ${response.data}")
                     _event.value = Event.UpdateHouseholdItemSuccess(item.uuid)
                 }
 
                 is Resource.Failure -> {
+                    Log.d(TAG, "updateHouseholdItem: failure: ${response.callInfo}")
                     _event.value = Event.UpdateHouseholdItemFailure(response.callInfo?.msg)
                 }
 
@@ -320,10 +338,12 @@ class HouseholdViewModel @Inject constructor(
             when (val response = dbRepo.getOptionItems2(Column.s_code.name, Column.state.name, null, null)) {
 
                 is Resource.Success -> {
+                    Log.d(TAG, "getStateItems: success: ${response.data?.size}")
                     _event.value = Event.GetStateItemsSuccess(response.data)
                 }
 
                 is Resource.Failure -> {
+                    Log.d(TAG, "getStateItems: failure: ${response.callInfo}")
                     _event.value = Event.GetStateItemsFailure(response.callInfo?.msg)
                 }
 
@@ -341,10 +361,12 @@ class HouseholdViewModel @Inject constructor(
             when (val response = dbRepo.getOptionItems2(Column.c_code.name, Column.county.name, Column.state.name, state)) {
 
                 is Resource.Success -> {
+                    Log.d(TAG, "getCountryItems: success: ${response.data?.size}")
                     _event.value = Event.GetCountryItemsSuccess(response.data)
                 }
 
                 is Resource.Failure -> {
+                    Log.d(TAG, "getCountryItems: failure: ${response.callInfo}")
                     _event.value = Event.GetCountryItemsFailure(response.callInfo?.msg)
                 }
 
@@ -360,10 +382,12 @@ class HouseholdViewModel @Inject constructor(
             when (val response = dbRepo.getOptionItems2(Column.p_code.name, Column.payam.name, Column.county.name, country)) {
 
                 is Resource.Success -> {
+                    Log.d(TAG, "getPayamItems: success: ${response.data?.size}")
                     _event.value = Event.GetPayamItemsSuccess(response.data)
                 }
 
                 is Resource.Failure -> {
+                    Log.d(TAG, "getPayamItems: failure: ${response.callInfo}")
                     _event.value = Event.GetPayamItemsFailure(response.callInfo?.msg)
                 }
 
@@ -381,10 +405,12 @@ class HouseholdViewModel @Inject constructor(
                 dbRepo.getOptionItems2(Column.b_code.name, Column.boma.name, Column.payam.name, payam)) {
 
                 is Resource.Success -> {
+                    Log.d(TAG, "getBomaItems: success: ${response.data?.size}")
                     _event.value = Event.GetBomaItemsSuccess(response.data)
                 }
 
                 is Resource.Failure -> {
+                    Log.d(TAG, "getBomaItems: failure: ${response.callInfo}")
                     _event.value = Event.GetBomaItemsFailure(response.callInfo?.msg)
                 }
 
