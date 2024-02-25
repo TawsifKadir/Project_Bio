@@ -234,7 +234,7 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
             val bitmap =
                 MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
             newPhotoBase64 = ImageUtil.convert(bitmap)
-            setToModel(uri.toString())
+            setToModel(uri.toString(),newPhotoBase64)
             loadProfile(uri.toString())
         } catch (e: IOException) {
             e.printStackTrace()
@@ -391,11 +391,11 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         }
     }
 
-    private fun setToModel(path: String?) {
+    private fun setToModel(path: String?, newPhotoBase64: String) {
         var data = PhotoData()
         data.imgPath = path
         data.userType = BiometricUserType.BENEFICIARY.name
-        data.img = null
+        data.img = newPhotoBase64
         form.photoData = data
         val rootForm = interactor?.getRootForm()
         rootForm?.form2 = form
