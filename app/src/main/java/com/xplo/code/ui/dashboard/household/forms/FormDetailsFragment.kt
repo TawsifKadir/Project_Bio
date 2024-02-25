@@ -27,6 +27,7 @@ import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.ReportRow
 import com.xplo.code.ui.dashboard.model.getReportRows
 import com.xplo.code.ui.dashboard.model.getReportRowsAltSummary
+import com.xplo.code.ui.testing_lab.FormPGActivity
 import com.xplo.code.ui.testing_lab.JvActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -101,7 +102,8 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
     override fun initObserver() {
 
         binding.tvPage.setOnLongClickListener {
-            JvActivity.open(requireContext(), null, householdItem?.data)
+            //JvActivity.open(requireContext(), null, householdItem?.data)
+            FormPGActivity.open(requireContext(), null, householdItem?.uuid)
             return@setOnLongClickListener true
         }
 
