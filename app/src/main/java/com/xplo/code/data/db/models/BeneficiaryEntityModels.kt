@@ -27,7 +27,7 @@ data class BeneficiaryEntity(
 
     @PrimaryKey
     @ColumnInfo(name = "id")
-    var id: Long = 0,
+    var hid: Long = 0,
     @ColumnInfo(name = "uuid")
     var uuid: String? = null,
     @ColumnInfo(name = "isSynced")

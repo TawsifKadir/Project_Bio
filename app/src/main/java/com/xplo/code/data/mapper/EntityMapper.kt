@@ -48,7 +48,7 @@ object EntityMapper {
         val applicationId = item.uuid
 
         val form = BeneficiaryEntity(
-            id = item.id,
+            hid = item.hid,
             uuid = item.uuid,
             isSynced = false,
 
