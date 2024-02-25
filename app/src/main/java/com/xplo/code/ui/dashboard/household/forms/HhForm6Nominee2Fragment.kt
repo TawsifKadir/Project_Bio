@@ -34,6 +34,7 @@ import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.forms.nominee.NomineeListAdapter
 import com.xplo.code.ui.dashboard.household.forms.nominee.NomineeModal
+import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.HhForm6
 import com.xplo.code.ui.dashboard.model.Nominee
 import com.xplo.code.ui.dashboard.model.checkExtraCases
@@ -654,8 +655,16 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         return txt?.contains(UiData.otherSpecify, true).toBool()
     }
 
+    private fun getOppositeGender(string: String): String {
+//    if (TestConfig.isNavHackEnabled) {
+//        return "Female" // test purpose
+//    }
+        if (string.equals("Male", true)) return "Female"
+        return "Male"
+    }
+
     private fun getTargetGender(): String? {
-        if (isCrossGenderExist()) return null
+        if (!isListContainsData()) return null
 
 //        if ((adapter?.itemCount ?: 0) == 0) {
 //            val form2 = interactor?.getRootForm()?.form2
@@ -667,7 +676,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 //            return nominee?.getOppositeGender()
 //        }
 
-        return interactor?.getRootForm()?.form2.getOppositeGender()
+        return adapter?.getItem(0)?.gender?.let { getOppositeGender(it) }
     }
 
     private fun getTargetGenderTitle(targetGender: String?): String {
