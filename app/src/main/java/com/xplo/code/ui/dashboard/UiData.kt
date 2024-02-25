@@ -2,11 +2,15 @@ package com.xplo.code.ui.dashboard
 
 import android.content.res.Resources
 import com.kit.integrationmanager.model.CurrencyEnum
+import com.kit.integrationmanager.model.DirectIncomeSupportEnum
 import com.kit.integrationmanager.model.GenderEnum
+import com.kit.integrationmanager.model.IDtypeEnum
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.LegalStatusEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
+import com.kit.integrationmanager.model.NomineeOccupationEnum
 import com.kit.integrationmanager.model.NonPerticipationReasonEnum
+import com.kit.integrationmanager.model.PublicWorkEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.kit.integrationmanager.model.SelectionReasonEnum
 import com.xplo.code.R
@@ -60,10 +64,10 @@ object UiData {
     val currency = CurrencyEnum.getArray()
     val selectionReason = SelectionReasonEnum.getArray()
     val nonParticipationReason = NonPerticipationReasonEnum.getArray()
-    val idType = getStringArray(R.array.id_type)
-    val nomineeOccupation = getStringArray(R.array.what_does_currently_do_for_a_living_array)
-    val publicWorks = getStringArray(R.array.support_type_public_work_array)
-    val directIncomeSupport = getStringArray(R.array.support_type_direct_income_array)
+    val idType = IDtypeEnum.getArray()
+    val nomineeOccupation = NomineeOccupationEnum.getArray()
+    val publicWorks = PublicWorkEnum.getArray()
+    val directIncomeSupport = DirectIncomeSupportEnum.getArray()
 
 
     fun getPublicWorks(): List<CheckboxItem> {
