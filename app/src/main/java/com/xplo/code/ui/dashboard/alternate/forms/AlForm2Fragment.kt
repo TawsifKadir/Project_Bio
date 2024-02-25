@@ -107,6 +107,7 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         initView()
         initObserver()
 
+
     }
 
     override fun initInitial() {
