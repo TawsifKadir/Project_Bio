@@ -81,6 +81,8 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
     private var adapter: NomineeListAdapter? = null
 
+    public var consecutive : Int = 0
+
     private lateinit var spReasonNoNominee: Spinner
     private lateinit var llParentOtherReason: View
     private lateinit var etOtherReason: EditText
@@ -264,13 +266,19 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
     override fun onChangeRGNomineeAdd(id: Int) {
         Log.d(TAG, "onChangeRGNomineeAdd() called with: id = $id")
+
         when (id) {
             R.id.rbYes -> {
                 onRGNomineeAddYes()
             }
 
             R.id.rbNo -> {
-                onRGNomineeAddNo()
+                if(readNomineeInputsFromList().size == 0){
+                    onChooseNomineeNotAdd()
+                }
+                else{
+                    onRGNomineeAddNo()
+                }
             }
         }
     }
@@ -284,10 +292,10 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         Log.d(TAG, "onRGNomineeAddNo() called")
         //onChooseNomineeNotAdd()
 
-        if (isCrossGenderExist()){
-            onChooseNomineeNotAdd()
-            return
-        }
+//        if (isCrossGenderExist()){
+//            onChooseNomineeNotAdd()
+//            return
+//        }
 
         val targetGender = getTargetGender()
         val targetGenderTitle = getTargetGenderTitle(targetGender)
@@ -348,6 +356,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         val rootForm = interactor?.getRootForm()
         if (rootForm == null) return
 
+        consecutive++
         NomineeModal.Builder(requireActivity().supportFragmentManager)
             .listener(this)
             .parent(null)
@@ -534,16 +543,6 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
             val checkExtraCases = form.checkExtraCases()
             if (checkExtraCases != null) {
                 showAlerter(checkExtraCases, null)
-                return
-            }
-
-
-            if (shouldShowCrossGenderAlerter(form)) {
-                val crossGender = getGenderForCross()
-
-//                var title = "Need a $crossGender nominee. You can choose no if you don't want add more"
-                var title = getString(R.string.nominee_objective_alerter_msg)
-                showAlerterLong(title, null)
                 return
             }
 
