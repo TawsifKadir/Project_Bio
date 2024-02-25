@@ -289,7 +289,7 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
     }
 
     override fun navigateToFormDetails(item: HouseholdItem?) {
-        Log.d(TAG, "navigateToFormDetails() called with: item = ${item?.id}")
+        Log.d(TAG, "navigateToFormDetails() called with: item = ${item?.hid}")
         doFragmentTransaction(
             FormDetailsFragment.newInstance(null, item),
             FormDetailsFragment.TAG,

@@ -15,8 +15,8 @@ import java.io.Serializable
 
 data class HouseholdForm(
 
-    var hid: Long = -1L,     // optional, use at some specific case
-    var uuid: String? = null,
+    var id: String = "",     //uuid
+    var hid: String? = null,     // optional, use at some specific case
 
     var form1: HhForm1? = null,
     var form2: HhForm2? = null,

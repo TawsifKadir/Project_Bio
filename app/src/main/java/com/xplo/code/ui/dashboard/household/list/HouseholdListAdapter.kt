@@ -74,7 +74,7 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
             val form = item.toHouseholdForm()
             if (form == null) return
 
-            binding.tvId.text = "id: " + item.id.toString()
+            binding.tvId.text = "id: " + item.hid.toString()
             binding.tvName.text = form.form2.getFullName()
             binding.tvGender.text = "Gender: " + form.form2?.gender
             binding.tvAge.text = "age: " + form.form2?.age

@@ -30,7 +30,7 @@ class DbRepoImpl @Inject constructor(
 
     override suspend fun getHousehold(id: String): Resource<HouseholdItem> {
         return try {
-            val response = householdDao.readByUuid(id)
+            val response = householdDao.read(id)
             Resource.Success(response, null)
         } catch (e: Exception) {
             Resource.Failure(CallInfo(-1, e.message))
@@ -75,7 +75,7 @@ class DbRepoImpl @Inject constructor(
 
     override suspend fun getBeneficiary(id: String): Resource<BeneficiaryEntity> {
         return try {
-            val response = beneficiaryDao.readByUuid(id)
+            val response = beneficiaryDao.read(id)
             Resource.Success(response, null)
         } catch (e: Exception) {
             Resource.Failure(CallInfo(-1, e.message))

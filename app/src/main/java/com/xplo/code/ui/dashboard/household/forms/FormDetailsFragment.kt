@@ -28,7 +28,6 @@ import com.xplo.code.ui.dashboard.model.ReportRow
 import com.xplo.code.ui.dashboard.model.getReportRows
 import com.xplo.code.ui.dashboard.model.getReportRowsAltSummary
 import com.xplo.code.ui.testing_lab.FormPGActivity
-import com.xplo.code.ui.testing_lab.JvActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -49,7 +48,7 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
 
         @JvmStatic
         fun newInstance(parent: String?, item: HouseholdItem?): FormDetailsFragment {
-            Log.d(TAG, "newInstance() called with: parent = $parent, item = ${item?.id}")
+            Log.d(TAG, "newInstance() called with: parent = $parent, item = ${item?.hid}")
             val fragment = FormDetailsFragment()
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
@@ -103,7 +102,7 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
 
         binding.tvPage.setOnLongClickListener {
             //JvActivity.open(requireContext(), null, householdItem?.data)
-            FormPGActivity.open(requireContext(), null, householdItem?.uuid)
+            FormPGActivity.open(requireContext(), null, householdItem?.id)
             return@setOnLongClickListener true
         }
 

@@ -2,7 +2,6 @@ package com.xplo.code.data.db.dao
 
 import androidx.room.*
 import com.xplo.code.data.db.models.BeneficiaryEntity
-import com.xplo.code.data.db.models.HouseholdItem
 
 /**
  * Copyright 2020 (C) xplo
@@ -19,10 +18,10 @@ interface BeneficiaryDao {
     fun insert(item: BeneficiaryEntity)
 
     @Query("select * from beneficiary_items where id =:id")
-    fun read(id: Int): BeneficiaryEntity
+    fun read(id: String): BeneficiaryEntity
 
-    @Query("select * from beneficiary_items where uuid =:uuid")
-    fun readByUuid(uuid: String): BeneficiaryEntity
+    @Query("select * from beneficiary_items where hid =:hid")
+    fun readByHid(hid: String): BeneficiaryEntity
 
 
     @Query("select * from beneficiary_items")

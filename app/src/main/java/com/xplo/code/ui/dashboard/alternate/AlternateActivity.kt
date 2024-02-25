@@ -91,7 +91,7 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
     private val viewModel: HouseholdViewModel by viewModels()
     //private lateinit var toolbar: Toolbar
 
-    private var householdItem: HouseholdItem? = HouseholdItem()
+    private lateinit var householdItem: HouseholdItem
     private var rootForm: AlternateForm? = AlternateForm()
 
     //private var callForResult = false
@@ -322,6 +322,7 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
     }
 
     override fun setHouseholdItem(item: HouseholdItem?) {
+        if (item == null) return
         this.householdItem = item
     }
 

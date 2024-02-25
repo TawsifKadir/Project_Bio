@@ -17,11 +17,11 @@ interface HouseholdDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE) // or .IGNORE .REPLACE
     fun insert(item: HouseholdItem)
 
-    @Query("select * from household where id =:id")
-    fun read(id: Int): HouseholdItem
+    @Query("select * from household where id =:id")     // uuid
+    fun read(id: String): HouseholdItem
 
-    @Query("select * from household where uuid =:uuid")
-    fun readByUuid(uuid: String): HouseholdItem
+    @Query("select * from household where hid =:hid")
+    fun readByHid(hid: String): HouseholdItem
 
 //    @Query("select * from household where householdid =:id")
 //    fun readByUserId(id: String): HhFormDbItem

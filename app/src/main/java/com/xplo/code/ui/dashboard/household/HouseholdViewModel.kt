@@ -21,6 +21,7 @@ import com.xplo.data.core.DispatcherProvider
 import com.xplo.data.core.Resource
 import com.xplo.data.repo.ContentRepo
 import com.xplo.data.repo.UserRepo
+import com.xplo.data.utils.HIDGenerator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -121,7 +122,8 @@ class HouseholdViewModel @Inject constructor(
         if (form == null) return
 
         val uuid = UUID.randomUUID().toString()
-        var item = HouseholdItem(data = form.toJson(), uuid = uuid)
+        val hid = HIDGenerator.getHID()
+        var item = HouseholdItem(data = form.toJson(), id = uuid, hid = hid)
 
         viewModelScope.launch(dispatchers.io) {
             _event.value = Event.Loading
@@ -196,7 +198,7 @@ class HouseholdViewModel @Inject constructor(
 
                 is Resource.Success -> {
                     Log.d(TAG, "updateHouseholdItem: success: ${response.data}")
-                    _event.value = Event.UpdateHouseholdItemSuccess(item.uuid)
+                    _event.value = Event.UpdateHouseholdItemSuccess(item.id)
                 }
 
                 is Resource.Failure -> {
@@ -219,7 +221,7 @@ class HouseholdViewModel @Inject constructor(
 
                 is Resource.Success -> {
                     Log.d(TAG, "deleteHouseholdItem: success: ${response.data}")
-                    _event.value = Event.DeleteHouseholdItemSuccess(item.uuid)
+                    _event.value = Event.DeleteHouseholdItemSuccess(item.id)
                 }
 
                 is Resource.Failure -> {
@@ -270,7 +272,7 @@ class HouseholdViewModel @Inject constructor(
 
                 is Resource.Success -> {
                     Log.d(TAG, "saveBeneficiaryEntity: success: ${response.data}")
-                    _event.value = Event.SaveBeneficiaryEntitySuccess(item.uuid)
+                    _event.value = Event.SaveBeneficiaryEntitySuccess(item.id)
                 }
 
                 is Resource.Failure -> {
@@ -334,7 +336,7 @@ class HouseholdViewModel @Inject constructor(
 
                 is Resource.Success -> {
                     Log.d(TAG, "updateBeneficiaryEntity: success: ${response.data}")
-                    _event.value = Event.UpdateBeneficiaryEntitySuccess(item.uuid)
+                    _event.value = Event.UpdateBeneficiaryEntitySuccess(item.id)
                 }
 
                 is Resource.Failure -> {
@@ -356,7 +358,7 @@ class HouseholdViewModel @Inject constructor(
 
                 is Resource.Success -> {
                     Log.d(TAG, "deleteBeneficiaryEntity: success: ${response.data}")
-                    _event.value = Event.DeleteBeneficiaryEntitySuccess(item.uuid)
+                    _event.value = Event.DeleteBeneficiaryEntitySuccess(item.id)
                 }
 
                 is Resource.Failure -> {
@@ -379,7 +381,7 @@ class HouseholdViewModel @Inject constructor(
 
                 is Resource.Success -> {
                     Log.d(TAG, "sendBeneficiaryEntity: success: ${response.data}")
-                    _event.value = Event.SendBeneficiaryEntitySuccess(item.uuid, pos)
+                    _event.value = Event.SendBeneficiaryEntitySuccess(item.id, pos)
                 }
 
                 is Resource.Failure -> {

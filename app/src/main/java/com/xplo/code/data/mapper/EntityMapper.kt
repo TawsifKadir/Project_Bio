@@ -45,11 +45,11 @@ object EntityMapper {
         Log.d(TAG, "toBeneficiaryEntity() called with: item = $item")
         if (item == null) return null
 
-        val applicationId = item.uuid
+        val applicationId = item.id
 
         val form = BeneficiaryEntity(
+            id = item.id,
             hid = item.hid,
-            uuid = item.uuid,
             isSynced = false,
 
             applicationId = applicationId,

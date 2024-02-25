@@ -24,7 +24,7 @@ object FormMapper {
         if (item == null) return null
 
         val form = FormRqb(
-            applicationId = item.uuid,
+            applicationId = item.id,
             address = Address(
                 stateId = item.form1?.state?.id,
                 countyId = item.form1?.county?.id,
