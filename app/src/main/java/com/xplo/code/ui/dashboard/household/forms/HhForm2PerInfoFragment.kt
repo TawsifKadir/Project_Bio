@@ -23,6 +23,7 @@ import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.checkRbOpAB
 import com.xplo.code.core.ext.checkRbOpABforIDcard
+import com.xplo.code.core.ext.getString
 import com.xplo.code.databinding.FragmentHhForm2PerInfoBinding
 import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
@@ -94,7 +95,6 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
     private lateinit var etSpouseFourthName : EditText
     private lateinit var rgSelectionCriteria: RadioGroup
     private lateinit var rgId: RadioGroup
-    //private  var Gender_Value:Int? = null
     //private lateinit var directRecycler: RecyclerView
     //private lateinit var publicRecycler: RecyclerView
 
@@ -270,11 +270,11 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
                 val selectedItem = parent.getItemAtPosition(position).toString()
                 Log.d(TAG,"First item is $parent.getItemAtPosition(0).toString()")
                 if ( position == 0 || position == 1 )  {
-                    binding.etMonthlyAverageIncome.setText("0")
-                    binding.etMonthlyAverageIncome.isEnabled = false
+                    etMonthlyAverageIncome.setText("0")
+                    etMonthlyAverageIncome.isEnabled = false
                 }
                 else{
-                    binding.etMonthlyAverageIncome.isEnabled = true
+                    etMonthlyAverageIncome.isEnabled = true
                     //binding.etMonthlyAverageIncome.setText("0")
                 }
             }
@@ -283,8 +283,6 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
                 // Another interface callback
             }
         }
-
-
 
         spMaritalStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -513,7 +511,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         form.nickName = chkEditText3Char(etNickName, UiData.ER_ET_DF)
 
         form.age = chkEditTextMax3Digit(etAge, UiData.ER_ET_DF)?.toInt()
-        form.phoneNumber = chkEditText(etPhoneNumber, UiData.ER_ET_DF)
+        form.phoneNumber = chkPhoneNumber(etPhoneNumber, UiData.ER_ET_DF)
         form.monthlyAverageIncome = chkEditTextMonthlyAvgIncome(etMonthlyAverageIncome, UiData.ER_ET_DF)
         //form.spouseName = chkEditText(etSpouseName, UiData.ER_ET_DF)
         form.selectionCriteria = chkRadioGroup(rgSelectionCriteria, UiData.ER_RB_DF)
@@ -543,32 +541,33 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View 
         }
     }
 
+
     override fun onGenerateDummyInput() {
         Log.d(TAG, "onGenerateDummyInput() called")
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
         spIdType.setSelection(1)
-        spMainSourceOfIncome.setSelection(1)
-        spGender.setSelection(1)
-        spRespondentRlt.setSelection(1)
-        spMaritalStatus.setSelection(1)
-        spLegalStatus.setSelection(1)
-        spSelectionReason.setSelection(1)
-        //spCurrency.setSelection(1)
-
-        etFirstName.setText("Mohd")
-        etMiddleName.setText("Moniruzzaman")
-        etLastName.setText("Shadhin")
-        etNickName.setText("Bio")
-        etAge.setText("33")
-        etIdNumber.setText("12")
-        etPhoneNumber.setText("01672708329")
-        etMonthlyAverageIncome.setText("5000")
+//        spMainSourceOfIncome.setSelection(1)
+//        spGender.setSelection(1)
+//        spRespondentRlt.setSelection(1)
+//        spMaritalStatus.setSelection(1)
+//        spLegalStatus.setSelection(1)
+//        spSelectionReason.setSelection(1)
+//        //spCurrency.setSelection(1)
+//
+//        etFirstName.setText("Mohd")
+//        etMiddleName.setText("Moniruzzaman")
+//        etLastName.setText("Shadhin")
+//        etNickName.setText("Bio")
+//        etAge.setText("33")
+//        etIdNumber.setText("12")
+//        etPhoneNumber.setText("01672708329")
+//        etMonthlyAverageIncome.setText("5000")
         //etSpouseName.setText("Yesmin")
 
         rgSelectionCriteria.check(R.id.rbA)
-        adapterSupportType?.addAll(UiData.getPublicWorksDummy())
+//        adapterSupportType?.addAll(UiData.getPublicWorksDummy())
     }
 
     override fun onPopulateView() {

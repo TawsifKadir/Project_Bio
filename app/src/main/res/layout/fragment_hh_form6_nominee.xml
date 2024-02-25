@@ -34,7 +34,9 @@
             <LinearLayout style="@style/AppLinearLayoutInputBox">
 
                 <TextView
+                    android:id="@+id/nominee_question_text"
                     style="@style/AppTextView.Input.Header"
+                    android:inputType="textMultiLine"
                     android:text="@string/would_anyone_from_your_household_including_yourself_be_interested_in_participating" />
 
 

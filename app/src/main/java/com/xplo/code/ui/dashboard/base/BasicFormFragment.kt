@@ -55,6 +55,20 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         return txt
     }
 
+    override fun chkPhoneNumber(editText: EditText, error: String?): String? {
+        val txt = editText.text.toString()
+        if (isValidationEnabled()) {
+            if (txt.isEmpty() || txt == "" || txt.length != 10) {
+                editText.error = "Invalid Phone Number"
+                return null
+            } else if (!isOnlyNumber(txt)) {
+                editText.error = "No Characters Allowed"
+                return null
+            }
+        }
+        return txt
+    }
+
     override fun chkEditTextOnlyNumber(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {
@@ -75,10 +89,11 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
             if (txt.isEmpty() || txt == "") {
                 editText.error = error
                 return null
-            } else if (txt.toInt() > 10000) {
-                editText.error = "Income must be less than 10000"
-                return null
             }
+//            else if (txt.toInt() > 10000) {
+//                editText.error = "Income must be less than 10000"
+//                return null
+//            }
         }
         return txt
     }

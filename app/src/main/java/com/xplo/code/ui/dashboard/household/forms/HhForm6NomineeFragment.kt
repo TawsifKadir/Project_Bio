@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -86,7 +87,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
     private lateinit var btAdd: Button
     private lateinit var btAddAnother: Button
     private lateinit var recyclerView: RecyclerView
-
+    private lateinit var nomineeQuestion : TextView
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -122,7 +123,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
         btAdd = binding.viewNomineeAddNominee.btAdd
         btAddAnother = binding.viewNomineeAddNominee.btAddAnother
         recyclerView = binding.viewNomineeAddNominee.recyclerView
-
+        nomineeQuestion = binding.nomineeQuestionText
 
     }
 
@@ -201,7 +202,6 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
         if (form == null) return
 
         if (form.isNomineeAdd.isYes()) {
-
             //binding.rgNomineeAdd.check(binding.rbYes.id)
             checkRbYes(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
 
