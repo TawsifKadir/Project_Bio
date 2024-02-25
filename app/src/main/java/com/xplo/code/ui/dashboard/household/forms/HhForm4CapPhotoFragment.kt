@@ -28,13 +28,10 @@ import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.databinding.FragmentHhForm4CapPhotoBinding
-import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
-import com.xplo.code.ui.dashboard.model.HhForm3
 import com.xplo.code.ui.dashboard.model.HhForm4
-import com.xplo.code.ui.dashboard.model.HhForm5
 import com.xplo.code.ui.dashboard.model.PhotoData
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.code.ui.photo.ImagePickerActivity
@@ -220,7 +217,7 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
             val bitmap =
                 MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
             newPhotoBase64 = ImageUtil.convert(bitmap)
-            setToModel(uri.toString())
+            setToModel(uri.toString(),newPhotoBase64)
             loadProfile(uri.toString())
         } catch (e: IOException) {
             e.printStackTrace()
@@ -344,12 +341,12 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
         }
     }
 
-    private fun setToModel(path: String?) {
+    private fun setToModel(path: String?, newPhotoBase64: String) {
         Log.d(TAG, "setToModel() called with: path = $path")
         var data = PhotoData()
         data.imgPath = path
         data.userType = BiometricUserType.BENEFICIARY.name
-        data.img = null
+        data.img = newPhotoBase64
         form.photoData = data
         val rootForm = interactor?.getRootForm()
         rootForm?.form4 = form

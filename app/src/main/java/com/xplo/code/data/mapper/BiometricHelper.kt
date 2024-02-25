@@ -4,6 +4,7 @@ import android.content.Intent
 import com.faisal.fingerprintcapture.model.FingerprintData
 import com.xplo.code.ui.dashboard.model.Finger
 
+import java.util.Base64
 /**
  * Copyright 2022 (C) xplo
  *
@@ -56,7 +57,7 @@ object BiometricHelper {
 
             val finger = Finger(
                 fingerId = fingerprintData.fingerprintId.toString(),
-                fingerPrint = fingerprintData.fingerprintData.toString(),
+                fingerPrint = Base64.getEncoder().encodeToString(fingerprintData.fingerprintData),
                 fingerType = fingerCodes[i],
                 userType = userType
             )
