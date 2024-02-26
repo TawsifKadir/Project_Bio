@@ -10,6 +10,7 @@ import com.kit.integrationmanager.model.SyncResult
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.databinding.FragmentDashboardBinding
+import com.xplo.code.utils.DbExporter
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Observable
 import java.util.Observer
@@ -92,6 +93,37 @@ class DashboardFragment : BaseFragment(), DashboardContract.View, Observer {
         }
 
         binding.btTest.setOnClickListener {
+
+            DbExporter.exportWithPermission(requireContext(), requireActivity())
+
+//            if (!DbExporter.hasStoragePermission(requireContext())){
+//                // Permission is already granted, proceed with your operation
+//                DbExporter.askForPermission(requireActivity())
+//                return@setOnClickListener
+//            }
+//
+//            DbController.close()
+//            DbExporter.exportToSQLite(requireContext())
+
+
+//            // Check for permission and export the database
+//            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//                // Permission is not granted, request it
+//                ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 100)
+//            } else {
+//
+//            }
+//
+//
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && false == Environment.isExternalStorageManager()) {
+//                val uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID)
+//                startActivity(Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri))
+//                return@setOnClickListener
+//            }
+//
+//            DbController.close()
+//            DbExporter.exportToSQLite(requireContext())
+
 
 //            val builder = AlertDialog.Builder(requireContext())
 //            builder.setMessage(getString(R.string.reset_all_msg))

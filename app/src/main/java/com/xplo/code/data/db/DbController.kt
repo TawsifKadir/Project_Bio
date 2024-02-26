@@ -24,4 +24,8 @@ object DbController {
         return appDb
     }
 
+    fun close() {
+        appDb.close()
+    }
+
 }
