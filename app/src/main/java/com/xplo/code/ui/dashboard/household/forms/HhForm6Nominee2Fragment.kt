@@ -1,6 +1,7 @@
 package com.xplo.code.ui.dashboard.household.forms
 
 import android.content.Context
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.EditText
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -87,10 +90,12 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
     private lateinit var spReasonNoNominee: Spinner
     private lateinit var llParentOtherReason: View
     private lateinit var etOtherReason: EditText
-
+    private lateinit var questionText : TextView
     //private lateinit var btAdd: Button
     //private lateinit var btAddAnother: Button
     private lateinit var recyclerView: RecyclerView
+    private lateinit var rbNo : RadioButton
+
 
 
     override fun onAttach(context: Context) {
@@ -123,11 +128,11 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         spReasonNoNominee = binding.viewNomineeNoNominee.spReasonNoNominee
         llParentOtherReason = binding.viewNomineeNoNominee.llParentOtherReason
         etOtherReason = binding.viewNomineeNoNominee.etOtherReason
-
+        questionText = binding.questionText
         //btAdd = binding.viewNomineeAddNominee.btAdd
         //btAddAnother = binding.viewNomineeAddNominee.btAddAnother
         recyclerView = binding.recyclerView
-
+        rbNo = binding.rbNo
 
     }
 
@@ -287,11 +292,16 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
             }
 
             R.id.rbNo -> {
-                if(readNomineeInputsFromList().size == 0){
+                var dataset = readNomineeInputsFromList()
+                if(dataset.size == 0){
+                    onChooseNomineeNotAdd()
+                }
+                else if(dataset.size == 1  && (dataset[0].gender == interactor?.getRootForm()?.form2?.getOppositeGender())){
                     onChooseNomineeNotAdd()
                 }
                 else{
                     onRGNomineeAddNo()
+                    onChooseNomineeNotAdd()
                 }
             }
         }
@@ -299,7 +309,39 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
     override fun onRGNomineeAddYes() {
         Log.d(TAG, "onRGNomineeAddYes() called")
-        onChooseNomineeAdd(null)
+        val dataset = readNomineeInputsFromList()
+        if(!checkConsecutive() || (dataset[0].gender == interactor?.getRootForm()?.form2?.getOppositeGender())) {
+            onChooseNomineeAdd(null)
+        }else{
+            onRGNomineeAddDialogYes()
+        }
+    }
+
+    private fun onRGNomineeAddDialogYes() {
+        Log.d(TAG, "onRGNomineeAddNo() called")
+        //onChooseNomineeNotAdd()
+
+//        if (isCrossGenderExist()){
+//            onChooseNomineeNotAdd()
+//            return
+//        }
+
+        val targetGender = getTargetGender()
+        val targetGenderTitle = getTargetGenderTitle(targetGender)
+        val txt = getString(R.string.nominee_objective, targetGenderTitle)
+
+        AlertDialog.Builder(requireContext())
+            .setMessage(txt)
+            .setCancelable(false)
+            .setPositiveButton("Yes") { dialog, which ->
+                onChooseNomineeAdd(targetGender)
+            }
+            .setNegativeButton("No") { dialog, which ->
+                onChooseNomineeAdd(null)
+            }
+            .create()
+            .show()
+
     }
 
     override fun onRGNomineeAddNo() {
@@ -370,7 +412,6 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         val rootForm = interactor?.getRootForm()
         if (rootForm == null) return
 
-        consecutive++
         NomineeModal.Builder(requireActivity().supportFragmentManager)
             .listener(this)
             .parent(null)
@@ -387,8 +428,8 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
     override fun onGetANomineeFromPopup(nominee: Nominee?) {
         Log.d(TAG, "onGetANomineeFromPopup() called with: nominee = $nominee")
         if (nominee == null) return
-
         adapter?.addItem(nominee)
+        questionText.setText(R.string.would_anyone_else_interested)
         onRefreshViewWhenListUpdated()
 
     }
@@ -435,88 +476,6 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
     override fun onReadInput() {
         Log.d(TAG, "onReadInput() called")
 
-//        val form = HhForm6()
-//        form.isNomineeAdd = chkRadioGroup(binding.rgNomineeAdd, UiData.ER_ET_DF)
-//
-//        if (form.isNomineeAdd.isNo()) {
-//
-//            form.noNomineeReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
-//
-//            if (isOtherSpecify(form.noNomineeReason)) {
-//                form.noNomineeReasonOther = chkEditText(etOtherReason, UiData.ER_ET_DF)
-//            }
-//
-//            if (form.isOk()) {
-//                onValidated(form)
-//                return
-//            }
-//        }
-//
-//        form.nominees = readNomineeInputsFromList()
-//
-//        if (form.isOk()) {
-//            val checkExtraCases = form.checkExtraCases()
-//            if (checkExtraCases != null) {
-//                showAlerter(checkExtraCases, null)
-//                return
-//            }
-//            onValidated(form)
-//        }
-
-
-//        val form = HhForm6()
-//        form.nominees = readNomineeInputsFromList()
-//
-//        if (form.nominees.isNotEmpty()) {
-//
-//            form.isNomineeAdd = "Yes"
-//            form.noNomineeReason = null
-//            form.otherReason = null
-//
-//            form.xIsNomineeAdd = getRadioGroup(binding.rgNomineeAdd)
-//            if (form.xIsNomineeAdd.isNo()) {
-//                form.xNoNomineeReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
-//                if (isOtherSpecify(form.xNoNomineeReason)) {
-//                    form.xOtherReason = chkEditText(etOtherReason, UiData.ER_ET_DF)
-//                }
-//            }
-//
-//        } else {
-//            // empty
-//            form.isNomineeAdd = chkRadioGroup(binding.rgNomineeAdd, UiData.ER_ET_DF)
-//
-//            if (form.isNomineeAdd.isNo()) {
-//                form.noNomineeReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
-//                if (isOtherSpecify(form.noNomineeReason)) {
-//                    form.otherReason = chkEditText(etOtherReason, UiData.ER_ET_DF)
-//                }
-//            } else {
-//                // yes
-//                // already covered
-//            }
-//
-//        }
-//
-//        if (!form.isExtraNomineeOk()) return
-//
-//        if (form.isOk()) {
-//
-//            val checkExtraCases = form.checkExtraCases()
-//            if (checkExtraCases != null) {
-//                showAlerter(checkExtraCases, null)
-//                return
-//            }
-//
-//            if (!isCrossGenderExist()) {
-//                val crossGender = getGenderForCross()
-//                showAlerter("Need a $crossGender nominee. You can choose no if you don't want add.", null)
-//                return
-//            }
-//
-//            onValidated(form)
-//        }
-
-
         val form = HhForm6()
         form.nominees = readNomineeInputsFromList()
 
@@ -553,17 +512,29 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         if (!form.isExtraNomineeOk()) return
 
         if (form.isOk()) {
-
+            val text = "The project’s objective is to achieve a 50–50 percent distribution between male and female youth in the program. To ensure this, we kindly request your consent to nominate a participant of the opposite gender. If you prefer not to nominate, please select NO and provide your reason."
             val checkExtraCases = form.checkExtraCases()
             if (checkExtraCases != null) {
                 showAlerter(checkExtraCases, null)
                 return
             }
-
-            onValidated(form)
+            if(rbNo.isChecked){
+                onValidated(form)
+            }else{
+                //R.string.nominee_objective_alerter_msg
+                showAlerterLong("Add Nominee",text)
+            }
         }
 
 
+    }
+    //Checks for consecutives in the dataset
+    private fun checkConsecutive(): Boolean {
+        val dataset = readNomineeInputsFromList()
+        var length = dataset.size
+        if(length == 0 || length == 1) return false
+        //Check last and second last item
+        return dataset[length-1].gender == dataset[length-2].gender
     }
 
     override fun onLongClickDataGeneration() {
@@ -595,6 +566,9 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
     override fun onClickNomineeDelete(item: Nominee, pos: Int) {
         Log.d(TAG, "onClickNomineeDelete() called with: item = $item, pos = $pos")
+        if(readNomineeInputsFromList().size == 1){
+            questionText.setText(R.string.would_anyone_from_your_household_including_yourself_be_interested_in_participating)
+        }
         adapter?.remove(pos)
     }
 
