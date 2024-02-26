@@ -292,7 +292,12 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
     override fun onRGNomineeAddYes() {
         Log.d(TAG, "onRGNomineeAddYes() called")
-        onChooseNomineeAdd(null)
+        if(!checkConsecutive()) {
+            onChooseNomineeAdd(null)
+        }else{
+            val text = "The project’s objective is to achieve a 50–50 percent distribution between male and female youth in the program. To ensure this, we kindly request your consent to nominate a participant of the opposite gender. If you prefer not to nominate, please select NO and provide your reason."
+            onRGNomineeAddNo()
+        }
     }
 
     override fun onRGNomineeAddNo() {
@@ -478,6 +483,16 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         }
 
 
+    }
+    //Checks for consecutives in the dataset
+    private fun checkConsecutive(): Boolean {
+        val dataset = readNomineeInputsFromList()
+        var length = dataset.size
+        if(length == 0 || length == 1) return false
+        if(dataset[length-1].gender == dataset[length-2].gender){     //Check last and second last item
+            return true
+        }
+        return false
     }
 
     override fun onLongClickDataGeneration() {
