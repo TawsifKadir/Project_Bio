@@ -113,6 +113,7 @@ data class BeneficiaryEntity(
 
     @ColumnInfo(name = "alternates")
     var alternates: ArrayList<Alternate>? = null,
+
     @ColumnInfo(name = "biometrics")
     var biometrics: ArrayList<Biometric>? = null,
 

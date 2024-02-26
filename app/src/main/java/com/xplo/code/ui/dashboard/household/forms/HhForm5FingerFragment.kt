@@ -67,7 +67,9 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
     //private lateinit var presenter: RegistrationContract.Presenter
     private var interactor: HouseholdContract.View? = null
 
-    private var fingerItemsStore = listOf<Finger>()
+
+    private var fingerItemsStore: List<Finger>? = listOf<Finger>()
+    private var noFingerprintReasonStore: String? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -167,10 +169,11 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
         Log.d(TAG, "onReinstateData() called with: form = $form")
         if (form == null) return
         val fingers = form.fingers
-        if (fingers.isEmpty()) return
+        //if (fingers.isEmpty()) return
 
+        this.noFingerprintReasonStore = form.noFingerprintReason
         //fingerItemsStore.clear()
-        fingerItemsStore = fingers
+        this.fingerItemsStore = fingers
 
         onRefreshFingerprints(fingers)
 
@@ -191,17 +194,22 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
         //if (data == null) return
 
         val fingers = BiometricHelper.fingerPrintIntentToFingerItems(intent, "BENEFICIARY")
+        val reason = BiometricHelper.fingerPrintIntentToNoFingerprintReason(intent, "BENEFICIARY")
 
-        onGetFingerprintData(fingers)
+        onGetFingerprintData(fingers, reason)
 
     }
 
-    override fun onGetFingerprintData(items: List<Finger>?) {
-        Log.d(TAG, "onGetFingerprintData() called with: items = $items")
-        if (items.isNullOrEmpty()) return
+    override fun onGetFingerprintData(items: List<Finger>?, noFingerprintReason: String?) {
+        Log.d(
+            TAG,
+            "onGetFingerprintData() called with: items = $items, noFingerprintReason = $noFingerprintReason"
+        )
+        //if (items.isNullOrEmpty()) return
 
         //fingerItemsStore.clear()
-        fingerItemsStore = items
+        this.fingerItemsStore = items
+        this.noFingerprintReasonStore = noFingerprintReason
 
         onRefreshFingerprints(items)
 
@@ -253,10 +261,14 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
         Log.d(TAG, "onReadInput() called")
 
         val form = HhForm5()
-        form.fingers = fingerItemsStore
+        if (fingerItemsStore != null) {
+            form.fingers = this.fingerItemsStore!!
+        }
+        form.noFingerprintReason = this.noFingerprintReasonStore
+
 
         if (!form.isOk()) {
-            showAlerter("Warning", "Please Add Fingerprint")
+            showAlerter("Warning", "Please Add Fingerprint or Reason")
             return
         }
 

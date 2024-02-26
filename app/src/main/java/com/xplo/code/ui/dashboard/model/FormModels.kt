@@ -211,6 +211,7 @@ fun Nominee?.toDetails(): String? {
 
 data class HhForm5(
     //var fingerData: FingerData? = null
+    var noFingerprintReason: String? = null,
     var fingers: List<Finger> = arrayListOf()
 )
 
@@ -231,7 +232,8 @@ fun List<Finger>?.isCaptured(fingerCode: String?): Boolean {
 fun HhForm5.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
     if (!TestConfig.isFingerPrintRequired) return true
-    if (this.fingers.isEmpty()) return false
+
+    if (noFingerprintReason == null && this.fingers.isEmpty()) return false
 
 //    if (TestConfig.isFingerPrintRequired) {
 //        if (fingerItemsStore.isEmpty()) {
@@ -316,14 +318,15 @@ fun PhotoData.isOk(): Boolean {
 }
 
 data class AlForm3(
-    //var fingerData: FingerData? = null
+    var noFingerprintReason: String? = null,
     var fingers: List<Finger> = arrayListOf()
 ) : Serializable
 
 fun AlForm3.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
     if (!TestConfig.isFingerPrintRequired) return true
-    if (this.fingers.isEmpty()) return false
+
+    if (this.noFingerprintReason == null && this.fingers.isEmpty()) return false
 
     return true
 }

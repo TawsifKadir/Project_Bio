@@ -327,6 +327,9 @@ object EntityMapper {
 
         val fingers = item.form5?.fingers
 
+        val photoBiometric = toBiometricEntityFromPhoto(item.form4?.photoData, id)
+        if (photoBiometric != null) items.add(photoBiometric)
+
         fingers?.let {
             for (finger in fingers) {
                 val bitem = toBiometricEntityFromFinger(finger, id)
@@ -335,9 +338,6 @@ object EntityMapper {
                 }
             }
         }
-
-        val photoBiometric = toBiometricEntityFromPhoto(item.form4?.photoData, id)
-        if (photoBiometric != null) items.add(photoBiometric)
 
         return items
     }

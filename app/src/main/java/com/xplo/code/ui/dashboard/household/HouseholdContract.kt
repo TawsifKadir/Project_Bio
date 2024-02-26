@@ -180,7 +180,7 @@ interface HouseholdContract {
 
         fun onStartFingerprintCapture()
         fun onGetFingerprintIntent(intent: Intent?)
-        fun onGetFingerprintData(items: List<Finger>?)
+        fun onGetFingerprintData(items: List<Finger>?, noFingerprintReason: String?)
 
         fun onRefreshFingerprints(items: List<Finger>?)
         fun onRefreshFingerDrawable(img: ImageView, finger: Finger?)
