@@ -126,3 +126,9 @@ data class Biometric(
     var biometricUrl: String? = null
 )
 
+fun Biometric?.isContainValidBiometric(): Boolean {
+    if (this == null) return false
+    if (biometricData.isNullOrEmpty()) return false
+    return true
+}
+

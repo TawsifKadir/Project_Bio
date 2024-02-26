@@ -264,11 +264,26 @@ data class Finger(
     var fingerId: String? = null,
     var fingerPrint: String? = null,
     var fingerType: String? = null,
-    var userType: String? = null
+    var userType: String? = null,
+    var noFingerprint: Boolean = false,
+    var noFingerprintReason: String? = null
 ) : Serializable
 
 fun Finger.isOk(): Boolean {
-    if (!TestConfig.isValidationEnabled) return true
+
+    if (this.noFingerprint == true && noFingerprintReason != null) return true
+
+    if (this.fingerPrint.isNullOrEmpty()) return false
+    if (this.fingerType.isNullOrEmpty()) return false
+    if (this.userType.isNullOrEmpty()) return false
+
+    return true
+}
+
+fun Finger?.isContainValidFingerprint(): Boolean {
+    if (this == null) return false
+    if (this.noFingerprint == true ) return false
+
     if (this.fingerPrint.isNullOrEmpty()) return false
     if (this.fingerType.isNullOrEmpty()) return false
     if (this.userType.isNullOrEmpty()) return false

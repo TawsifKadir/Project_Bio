@@ -8,6 +8,7 @@ import com.kit.integrationmanager.model.GenderEnum
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.LegalStatusEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
+import com.kit.integrationmanager.model.NoFingerprintReasonEnum
 import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.kit.integrationmanager.model.SelectionCriteriaEnum
@@ -262,8 +263,8 @@ object EntityMapper {
             biometricType = BiometricType.find(item.fingerType),
             biometricUserType = BiometricUserType.valueOf(item.userType!!),
 
-            noFingerPrint = null,
-            noFingerprintReason = null,
+            noFingerPrint = item.noFingerprint,
+            noFingerprintReason = NoFingerprintReasonEnum.find(item.noFingerprintReason),
             noFingerprintReasonText = null,
 
             biometricUrl = null

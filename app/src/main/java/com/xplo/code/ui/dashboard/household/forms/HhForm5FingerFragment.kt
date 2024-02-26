@@ -16,6 +16,7 @@ import androidx.core.widget.ImageViewCompat
 import androidx.fragment.app.viewModels
 import com.faisal.fingerprintcapture.FingerprintCaptureActivity
 import com.faisal.fingerprintcapture.model.FingerprintID
+import com.kit.integrationmanager.model.BiometricUserType
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -28,6 +29,7 @@ import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.Finger
 import com.xplo.code.ui.dashboard.model.HhForm5
+import com.xplo.code.ui.dashboard.model.isContainValidFingerprint
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.code.utils.FormAppUtils
 import com.xplo.data.BuildConfig
@@ -193,8 +195,15 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
         //val data = intent.data
         //if (data == null) return
 
-        val fingers = BiometricHelper.fingerPrintIntentToFingerItems(intent, "BENEFICIARY")
-        val reason = BiometricHelper.fingerPrintIntentToNoFingerprintReason(intent, "BENEFICIARY")
+        val reason = BiometricHelper.fingerPrintIntentToNoFingerprintReason(
+            intent,
+            BiometricUserType.BENEFICIARY.name
+        )
+        val fingers = BiometricHelper.fingerPrintIntentToFingerItems(
+            intent,
+            BiometricUserType.BENEFICIARY.name
+        )
+
 
         onGetFingerprintData(fingers, reason)
 
@@ -239,9 +248,17 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
     override fun onRefreshFingerDrawable(img: ImageView, finger: Finger?) {
         Log.d(TAG, "onRefreshFingerDrawable() called with: img = $img, finger = $finger")
         if (finger == null) return
-        img.setImageResource(R.drawable.ic_finger_add)
-        val color = ContextCompat.getColor(requireContext(), R.color.green) // Your color resource
-        ImageViewCompat.setImageTintList(img, ColorStateList.valueOf(color))
+
+        if (finger.isContainValidFingerprint()) {
+            img.setImageResource(R.drawable.ic_finger_add)
+            val color = ContextCompat.getColor(requireContext(), R.color.green) // Your color resource
+            ImageViewCompat.setImageTintList(img, ColorStateList.valueOf(color))
+        } else {
+            img.setImageResource(R.drawable.ic_finger_minus)
+            val color = ContextCompat.getColor(requireContext(), R.color.li_waring) // Your color resource
+            ImageViewCompat.setImageTintList(img, ColorStateList.valueOf(color))
+        }
+
     }
 
     override fun onClickBackButton() {

@@ -4,8 +4,8 @@ import android.content.Intent
 import com.faisal.fingerprintcapture.model.FingerprintData
 import com.kit.integrationmanager.model.NoFingerprintReasonEnum
 import com.xplo.code.ui.dashboard.model.Finger
-
 import java.util.Base64
+
 /**
  * Copyright 2022 (C) xplo
  *
@@ -47,14 +47,29 @@ object BiometricHelper {
     fun fingerPrintIntentToFingerItems(intent: Intent?, userType: String?): List<Finger>? {
         if (intent == null) return null
 
+        var reason = fingerPrintIntentToNoFingerprintReason(intent, userType)
+
         val items = arrayListOf<Finger>()
 
         for (i in fingerNames.indices) {
             val fingerName = fingerNames[i]
 
             val fingerprintData = intent.getParcelableExtra(fingerName) as FingerprintData?
-            if (fingerprintData == null) continue
-            if (fingerprintData.fingerprintData == null) continue
+//            if (fingerprintData == null) continue
+//            if (fingerprintData.fingerprintData == null) continue
+
+            if (fingerprintData == null || fingerprintData.fingerprintData == null) {
+                val dfinger = Finger(
+                    fingerId = fingerprintData?.fingerprintId.toString(),
+                    fingerPrint = null,
+                    fingerType = fingerCodes[i],
+                    userType = userType,
+                    noFingerprint = true,
+                    noFingerprintReason = reason
+                )
+                items.add(dfinger)
+                continue
+            }
 
             val finger = Finger(
                 fingerId = fingerprintData.fingerprintId.toString(),
@@ -78,5 +93,61 @@ object BiometricHelper {
 
     }
 
+
+//    fun addReasonToBiometricItems(
+//        items: List<Biometric>?,
+//        reason: String?,
+//        id: String?,
+//        userType: String
+//    ): List<Biometric>? {
+//        if (items.isNullOrEmpty()) return items
+//        if (reason == null) return items
+//
+//        val list = arrayListOf<Biometric>()
+//
+//        val photoBiometric = getABiometricByType(items, BiometricType.PHOTO.name)
+//        if (photoBiometric != null) {
+//            list.add(photoBiometric)
+//        }
+//
+//        for (i in fingerCodes.indices) {
+//            val item = getABiometricByType(items, fingerCodes[i])
+//            if (item?.isContainValidBiometric().toBool()) {
+//                list.add(item!!)
+//            } else {
+//                list.add(createABiometricWithOnlyReason(reason, id, fingerCodes[i], userType))
+//            }
+//
+//        }
+//        return items
+//    }
+//
+//    fun getABiometricByType(items: List<Biometric>?, biometricType: String?): Biometric? {
+//        if (items.isNullOrEmpty()) return null
+//        if (biometricType.isNullOrEmpty()) return null
+//
+//        for (item in items) {
+//            if (item.biometricType?.name.equals(biometricType, true)) return item
+//        }
+//
+//        return null
+//    }
+//
+//    fun createABiometricWithOnlyReason(
+//        reason: String?,
+//        id: String?,
+//        biometricType: String?,
+//        userType: String
+//    ): Biometric {
+//        return Biometric(
+//            applicationId = id,
+//            biometricType = BiometricType.find(biometricType),
+//            biometricUserType = BiometricUserType.valueOf(userType),
+//            biometricData = null,
+//            noFingerPrint = true,
+//            noFingerprintReason = NoFingerprintReasonEnum.find(reason),
+//            biometricUrl = null
+//        )
+//    }
 
 }
