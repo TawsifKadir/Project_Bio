@@ -26,14 +26,18 @@
             android:entryValues="@array/language_list"
             android:key="@string/pfLanguage"
             android:summary="%1$s"
-            app:isPreferenceVisible="false"
-            android:title="@string/language_change" />
+            android:title="@string/language_change"
+            app:isPreferenceVisible="false" />
 
         <Preference
             android:key="@string/pfResetAll"
             android:summary="@string/reset_all_msg"
             android:title="@string/reset_all" />
 
+        <Preference
+            android:key="@string/pfExportDb"
+            android:summary="Export sqlite db to path bio_reg"
+            android:title="Export Database" />
 
     </PreferenceCategory>
 

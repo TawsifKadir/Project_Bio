@@ -17,6 +17,7 @@ import com.xplo.code.data.pref.PkSettings
 import com.xplo.code.ui.main_act.MainActivity
 import com.xplo.code.ui.user_profile.ProfileActivity
 import com.xplo.code.utils.AppInfo
+import com.xplo.code.utils.DbExporter
 import com.xplo.code.utils.EasyMenu
 
 /**
@@ -62,6 +63,7 @@ class SettingsFragment : BaseSettingsFragment(),
     private var pfFeedback: Preference? = null
     private var pfAbout: Preference? = null
     private var pfDeveloper: Preference? = null
+    private var pfExportDb: Preference? = null
 
     private var pfDevOption: Preference? = null
     private var pfCatAdvanceSettings: Preference? = null
@@ -96,6 +98,7 @@ class SettingsFragment : BaseSettingsFragment(),
 
         pfDevOption = findPreference(PkSettings.pfDevOption)
         pfCatAdvanceSettings = findPreference(PkSettings.pfCatAdvanceSettings)
+        pfExportDb = findPreference(PkSettings.pfExportDb)
 
 
 
@@ -107,6 +110,7 @@ class SettingsFragment : BaseSettingsFragment(),
         pfAbout?.onPreferenceClickListener = this
         pfDeveloper?.onPreferenceClickListener = this
         pfResetAll?.onPreferenceClickListener = this
+        pfExportDb?.onPreferenceClickListener = this
 
 
         if (pfTheme?.value == null) {
@@ -221,6 +225,11 @@ class SettingsFragment : BaseSettingsFragment(),
                     .setNegativeButton(getString(R.string.cancel), null)
                     .create()
                     .show()
+                return true
+            }
+
+            PkSettings.pfExportDb -> {
+                DbExporter.exportWithPermission(requireContext(), requireActivity())
                 return true
             }
 
