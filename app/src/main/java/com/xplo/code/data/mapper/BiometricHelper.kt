@@ -2,6 +2,7 @@ package com.xplo.code.data.mapper
 
 import android.content.Intent
 import com.faisal.fingerprintcapture.model.FingerprintData
+import com.kit.integrationmanager.model.NoFingerprintReasonEnum
 import com.xplo.code.ui.dashboard.model.Finger
 
 import java.util.Base64
@@ -67,6 +68,13 @@ object BiometricHelper {
         }
 
         return items
+
+    }
+
+
+    fun fingerPrintIntentToNoFingerprintReason(intent: Intent?, userType: String?): String? {
+        if (intent == null) return NoFingerprintReasonEnum.Other.name
+        return NoFingerprintReasonEnum.NoFinger.name
 
     }
 

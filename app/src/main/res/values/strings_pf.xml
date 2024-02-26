@@ -24,6 +24,7 @@
     <string name="pfDevOption">pfDevOption</string>
     <string name="pfCatAdvanceSettings">pfCatAdvanceSettings</string>
     <string name="pfResetAll">pfResetAll</string>
+    <string name="pfExportDb">pfExportDb</string>
 
     <!-- settings dev-->
     <string name="pfIsPro">pfIsPro</string>

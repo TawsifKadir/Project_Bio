@@ -1,12 +1,13 @@
 package com.xplo.code.ui.dashboard.household
 
 import android.content.Context
+import android.content.SyncResult
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kit.integrationmanager.model.Beneficiary
-import com.kit.integrationmanager.model.SyncResult
-import com.kit.integrationmanager.model.SyncStatus
+import com.kit.integrationmanager.payload.RegistrationResult
+import com.kit.integrationmanager.payload.RegistrationStatus
 import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
@@ -15,6 +16,7 @@ import com.xplo.code.data.db.offline.OptionItem
 import com.xplo.code.data.db.repo.DbRepo
 import com.xplo.code.data.mapper.BeneficiaryMapper
 import com.xplo.code.data.mapper.EntityMapper
+import com.xplo.code.ui.dashboard.DashboardFragment
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.toJson
 import com.xplo.code.utils.IMHelper
@@ -652,16 +654,44 @@ class HouseholdViewModel @Inject constructor(
 
     }
 
-    private fun onGetSyncResult(syncResult: SyncResult?) {
-        Log.d(TAG, "onGetSyncResult() called with: syncResult = ${syncResult?.syncStatus}")
-        if (syncResult == null) return
+    private fun onGetSyncResult(arg: SyncResult?) {
+//        Log.d(TAG, "onGetSyncResult() called with: syncResult = ${syncResult?.syncStatus}")
+//        if (syncResult == null) return
+//
+//        when (syncResult.syncStatus) {
+//            SyncStatus.SUCCESS -> onSyncSuccess(syncResult)
+//            else -> onSyncFailure(syncResult)
 
-        when (syncResult.syncStatus) {
-            SyncStatus.SUCCESS -> onSyncSuccess(syncResult)
-            else -> onSyncFailure(syncResult)
+        try {
+            Log.d(DashboardFragment.TAG, "Received update>>>>")
+            if (arg == null) {
+                Log.d(DashboardFragment.TAG, "Received null parameter in update. Returning...")
+                return
+            } else {
+                Log.d(DashboardFragment.TAG, "Received parameter in update.")
+                val registrationResult = arg as? RegistrationResult
+                if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
+                    Log.d(DashboardFragment.TAG, "Registration Successful")
+
+                    val appIds = registrationResult.applicationIds
+                    if (appIds == null) {
+                        Log.e(DashboardFragment.TAG, "No beneficiary list received. Returning ... ")
+                        return
+                    }
+
+                    Log.d(DashboardFragment.TAG, "Registered following users: ")
+                    for (nowId in appIds) {
+                        Log.d(DashboardFragment.TAG, "Beneficiary ID : $nowId")
+                    }
+                } else {
+                    Log.d(DashboardFragment.TAG, "Registration Failed")
+                    Log.d(DashboardFragment.TAG, "Error code : ${registrationResult?.syncStatus?.errorCode}")
+                    Log.d(DashboardFragment.TAG, "Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
+                }
+            }
+        } catch (exc: Exception) {
+            Log.e(DashboardFragment.TAG, "Error while processing update : ${exc.message}")
         }
-
-
     }
 
     private fun onSyncSuccess(syncResult: SyncResult) {

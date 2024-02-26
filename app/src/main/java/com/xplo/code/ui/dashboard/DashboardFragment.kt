@@ -1,15 +1,18 @@
 package com.xplo.code.ui.dashboard
 
+import android.content.SyncResult
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.kit.integrationmanager.model.SyncResult
+import com.kit.integrationmanager.payload.RegistrationResult
+import com.kit.integrationmanager.payload.RegistrationStatus
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.databinding.FragmentDashboardBinding
+import com.xplo.code.utils.DbExporter
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Observable
 import java.util.Observer
@@ -28,7 +31,7 @@ import java.util.Observer
 class DashboardFragment : BaseFragment(), DashboardContract.View, Observer {
 
     companion object {
-        private const val TAG = "DashboardFragment"
+        const val TAG = "DashboardFragment"
 
         @JvmStatic
         fun newInstance(
@@ -92,6 +95,37 @@ class DashboardFragment : BaseFragment(), DashboardContract.View, Observer {
 
         binding.btTest.setOnClickListener {
 
+            DbExporter.exportWithPermission(requireContext(), requireActivity())
+
+//            if (!DbExporter.hasStoragePermission(requireContext())){
+//                // Permission is already granted, proceed with your operation
+//                DbExporter.askForPermission(requireActivity())
+//                return@setOnClickListener
+//            }
+//
+//            DbController.close()
+//            DbExporter.exportToSQLite(requireContext())
+
+
+//            // Check for permission and export the database
+//            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//                // Permission is not granted, request it
+//                ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 100)
+//            } else {
+//
+//            }
+//
+//
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && false == Environment.isExternalStorageManager()) {
+//                val uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID)
+//                startActivity(Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri))
+//                return@setOnClickListener
+//            }
+//
+//            DbController.close()
+//            DbExporter.exportToSQLite(requireContext())
+
+
 //            val builder = AlertDialog.Builder(requireContext())
 //            builder.setMessage(getString(R.string.reset_all_msg))
 //                .setTitle("hi")
@@ -126,14 +160,44 @@ class DashboardFragment : BaseFragment(), DashboardContract.View, Observer {
 
     }
 
-    private fun onGetSyncResult(syncResult: SyncResult?) {
-        Log.d(TAG, "onGetSyncResult() called with: syncResult = ${syncResult?.syncStatus}")
-        if (syncResult == null) return
-        //showToast(syncResult.syncStatus.toString())
-//        when (syncResult.syncStatus) {
-//            SyncStatus.SUCCESS -> onSyncSuccess(syncResult)
-//            else -> onSyncFailure(syncResult)
-//        }
+    private fun onGetSyncResult(arg: SyncResult?) {
+//        Log.d(TAG, "onGetSyncResult() called with: syncResult = ${syncResult?.syncStatus}")
+//        if (syncResult == null) return
+//        //showToast(syncResult.syncStatus.toString())
+////        when (syncResult.syncStatus) {
+////            SyncStatus.SUCCESS -> onSyncSuccess(syncResult)
+////            else -> onSyncFailure(syncResult)
+////        }
+        try {
+            Log.d(TAG, "Received update>>>>")
+            if (arg == null) {
+                Log.d(TAG, "Received null parameter in update. Returning...")
+                return
+            } else {
+                Log.d(TAG, "Received parameter in update.")
+                val registrationResult = arg as? RegistrationResult
+                if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
+                    Log.d(TAG, "Registration Successful")
+
+                    val appIds = registrationResult.applicationIds
+                    if (appIds == null) {
+                        Log.e(TAG, "No beneficiary list received. Returning ... ")
+                        return
+                    }
+
+                    Log.d(TAG, "Registered following users: ")
+                    for (nowId in appIds) {
+                        Log.d(TAG, "Beneficiary ID : $nowId")
+                    }
+                } else {
+                    Log.d(TAG, "Registration Failed")
+                    Log.d(TAG, "Error code : ${registrationResult?.syncStatus?.errorCode}")
+                    Log.d(TAG, "Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
+                }
+            }
+        } catch (exc: Exception) {
+            Log.e(TAG, "Error while processing update : ${exc.message}")
+        }
 
 
     }

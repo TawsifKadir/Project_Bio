@@ -24,6 +24,7 @@ import com.xplo.code.databinding.FragmentAlForm3FingerBinding
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.household.forms.HhForm5FingerFragment
 import com.xplo.code.ui.dashboard.model.AlForm3
 import com.xplo.code.ui.dashboard.model.Finger
 import com.xplo.code.ui.dashboard.model.isOk
@@ -54,7 +55,10 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
 
     //private lateinit var presenter: RegistrationContract.Presenter
     private var interactor: AlternateContract.View? = null
-    private var fingerItemsStore = listOf<Finger>()
+
+    private var fingerItemsStore: List<Finger>? = listOf<Finger>()
+    private var noFingerprintReasonStore: String? = null
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -148,10 +152,11 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
         Log.d(TAG, "onReinstateData() called with: form = $form")
         if (form == null) return
         val fingers = form.fingers
-        if (fingers.isEmpty()) return
+        //if (fingers.isEmpty()) return
 
+        this.noFingerprintReasonStore = form.noFingerprintReason
         //fingerItemsStore.clear()
-        fingerItemsStore = fingers
+        this.fingerItemsStore = fingers
 
         onRefreshFingerprints(fingers)
 
@@ -171,18 +176,23 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
         //val data = intent.data
         //if (data == null) return
 
-        val fingers = BiometricHelper.fingerPrintIntentToFingerItems(intent, "BENEFICIARY")
+        val fingers = BiometricHelper.fingerPrintIntentToFingerItems(intent, "ALTERNATE")
+        val reason = BiometricHelper.fingerPrintIntentToNoFingerprintReason(intent, "ALTERNATE")
 
-        onGetFingerprintData(fingers)
+        onGetFingerprintData(fingers, reason)
 
     }
 
-    override fun onGetFingerprintData(items: List<Finger>?) {
-        Log.d(TAG, "onGetFingerprintData() called with: items = $items")
-        if (items.isNullOrEmpty()) return
+    override fun onGetFingerprintData(items: List<Finger>?, noFingerprintReason: String?) {
+        Log.d(
+            TAG,
+            "onGetFingerprintData() called with: items = $items, noFingerprintReason = $noFingerprintReason"
+        )
+        //if (items.isNullOrEmpty()) return
 
         //fingerItemsStore.clear()
-        fingerItemsStore = items
+        this.fingerItemsStore = items
+        this.noFingerprintReasonStore = noFingerprintReason
 
         onRefreshFingerprints(items)
 
@@ -234,7 +244,10 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
         Log.d(TAG, "onReadInput() called")
 
         val form = AlForm3()
-        form.fingers = fingerItemsStore
+        if (fingerItemsStore != null) {
+            form.fingers = this.fingerItemsStore!!
+        }
+        form.noFingerprintReason = this.noFingerprintReasonStore
 
         if (!form.isOk()) {
             showAlerter("Warning", "Please Add Fingerprint")

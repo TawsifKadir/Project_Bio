@@ -32,6 +32,7 @@ open class PkSettings {
         val pfFeedback = resources.getString(R.string.pfFeedback)
         val pfDevOption = resources.getString(R.string.pfDevOption)
         val pfCatAdvanceSettings = resources.getString(R.string.pfCatAdvanceSettings)
+        val pfExportDb = resources.getString(R.string.pfExportDb)
 
 
         //settings developer
