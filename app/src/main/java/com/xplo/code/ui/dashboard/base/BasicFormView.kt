@@ -18,6 +18,7 @@ interface BasicFormView {
     fun chkEditText3Char(editText: EditText, error: String?): String?
     fun chkEditTextMax3Digit(editText: EditText, error: String?): String?
     fun chkPhoneNumber(editText: EditText, error: String?): String?
+    fun chkAge(editText: EditText, error: String?): String?
 
     //    fun getOrAssertEditTextInt(view: EditText, error: String?): Int?
 //    fun getOrAssertEditTextDouble(view: EditText, error: String?): Double?
