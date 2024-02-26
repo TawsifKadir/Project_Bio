@@ -3,6 +3,7 @@ package com.xplo.data.model.content
 import com.google.gson.annotations.SerializedName
 import com.kit.integrationmanager.model.BiometricType
 import com.kit.integrationmanager.model.BiometricUserType
+import com.kit.integrationmanager.model.DocumentTypeEnum
 import com.kit.integrationmanager.model.GenderEnum
 import com.kit.integrationmanager.model.NoFingerprintReasonEnum
 import com.kit.integrationmanager.model.OccupationEnum
@@ -38,6 +39,8 @@ data class Location(
 
 
 data class Alternate(
+    @SerializedName("documentType")
+    var documentType: DocumentTypeEnum? = null,
     @SerializedName("nationalId")
     var nationalId: String? = null,
     @SerializedName("payeeName")

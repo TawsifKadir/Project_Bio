@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.kit.integrationmanager.model.AlternatePayee
 import com.kit.integrationmanager.model.Beneficiary
 import com.kit.integrationmanager.model.CurrencyEnum
+import com.kit.integrationmanager.model.DocumentTypeEnum
 import com.kit.integrationmanager.model.SelectionCriteriaEnum
 import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.data.model.content.Address
@@ -48,20 +49,21 @@ object BeneficiaryMapper {
         beneficiary.respondentLegalStatus = item.respondentLegalStatus
         beneficiary.respondentMaritalStatus = item.respondentMaritalStatus
 
+        beneficiary.documentType = DocumentTypeEnum.NATIONAL_ID
         //beneficiary.respondentId = item.respondentId
-        beneficiary.respondentId = "11112222"
+        beneficiary.respondentId = FakeMapperValue.respondentId
         beneficiary.respondentPhoneNo = item.respondentPhoneNo
 
 
         beneficiary.relationshipWithHouseholdHead = item.relationshipWithHouseholdHead
 
         //beneficiary.currency = item.currency
-        beneficiary.currency = CurrencyEnum.SUDANESE_POUND
+        beneficiary.currency = FakeMapperValue.currency
         beneficiary.householdIncomeSource = item.householdIncomeSource
         beneficiary.householdMonthlyAvgIncome = item.householdMonthlyAvgIncome
 
         //beneficiary.selectionCriteria = item.selectionCriteria
-        beneficiary.selectionCriteria = SelectionCriteriaEnum.DIS
+        beneficiary.selectionCriteria = FakeMapperValue.selectionCriteria
         beneficiary.selectionReason = item.selectionReason
 
         beneficiary.spouseFirstName = item.spouseFirstName
@@ -71,12 +73,12 @@ object BeneficiaryMapper {
 
         beneficiary.householdSize = item.householdSize
 
-        beneficiary.householdMember2 = toHouseholdMember(item.householdMember2)
-        beneficiary.householdMember5 = toHouseholdMember(item.householdMember5)
-        beneficiary.householdMember17 = toHouseholdMember(item.householdMember17)
-        beneficiary.householdMember35 = toHouseholdMember(item.householdMember35)
-        beneficiary.householdMember64 = toHouseholdMember(item.householdMember64)
-        beneficiary.householdMember65 = toHouseholdMember(item.householdMember65)
+        beneficiary.householdMember2 = toHouseholdMember(item.householdMember2, item.id)
+        beneficiary.householdMember5 = toHouseholdMember(item.householdMember5, item.id)
+        beneficiary.householdMember17 = toHouseholdMember(item.householdMember17, item.id)
+        beneficiary.householdMember35 = toHouseholdMember(item.householdMember35, item.id)
+        beneficiary.householdMember64 = toHouseholdMember(item.householdMember64, item.id)
+        beneficiary.householdMember65 = toHouseholdMember(item.householdMember65, item.id)
         beneficiary.isReadWrite = item.isReadWrite
         beneficiary.memberReadWrite = item.memberReadWrite
 
@@ -126,9 +128,10 @@ object BeneficiaryMapper {
         return location
     }
 
-    private fun toHouseholdMember(item: HouseholdMember?): com.kit.integrationmanager.model.HouseholdMember? {
+    private fun toHouseholdMember(item: HouseholdMember?, id: String?): com.kit.integrationmanager.model.HouseholdMember? {
         if (item == null) return null
         val member = com.kit.integrationmanager.model.HouseholdMember()
+        member.applicationId = id
 
         member.maleNormal = item.maleNormal
         member.maleDisable = item.maleDisable
@@ -158,8 +161,10 @@ object BeneficiaryMapper {
     private fun toAlternate(item: Alternate?): AlternatePayee? {
         if (item == null) return null
         val alternate = AlternatePayee()
-
-        alternate.nationalId = item.nationalId
+        alternate.documentType = FakeMapperValue.documentType
+        alternate.nationalId = FakeMapperValue.nationalId
+        //alternate.documentType = item.documentType
+        //alternate.nationalId = item.nationalId
         alternate.payeeFirstName = item.payeeName
         alternate.payeeMiddleName = item.payeeName
         alternate.payeeLastName = item.payeeName
@@ -179,7 +184,8 @@ object BeneficiaryMapper {
 
         nominee.nomineeFirstName = item.nomineeFirstName
         nominee.nomineeLastName = item.nomineeLastName
-        nominee.nomineeMiddleName = item.nomineeMiddleName
+        //nominee.nomineeMiddleName = item.nomineeMiddleName
+        nominee.nomineeMiddleName = FakeMapperValue.name
 
         nominee.nomineeAge = item.nomineeAge
         nominee.nomineeGender = item.nomineeGender
@@ -209,7 +215,6 @@ object BeneficiaryMapper {
     private fun toBiometricEntity(item: Biometric?): com.kit.integrationmanager.model.Biometric? {
         if (item == null) return null
         val biometric = com.kit.integrationmanager.model.Biometric()
-        biometric.applicationId = item.applicationId
 
         biometric.applicationId = item.applicationId
         biometric.biometricType = item.biometricType
