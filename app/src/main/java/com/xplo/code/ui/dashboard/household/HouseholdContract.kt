@@ -102,6 +102,7 @@ interface HouseholdContract {
         fun syncHouseholdForm(context: Context, form: HouseholdForm?, pos: Int)
         fun syncBeneficiaryEntity(context: Context, entity: BeneficiaryEntity?, pos: Int)
         fun syncBeneficiary(context: Context, beneficiary: Beneficiary?, pos: Int)
+
     }
 
     interface CommonView {
@@ -185,7 +186,6 @@ interface HouseholdContract {
         fun onRefreshFingerprints(items: List<Finger>?)
         fun onRefreshFingerDrawable(img: ImageView, finger: Finger?)
 
-
     }
 
     interface Form6View : BaseContract.View, CommonView {
@@ -248,6 +248,7 @@ interface HouseholdContract {
 
         fun onSendSuccess(householdItem: HouseholdItem?, pos: Int)
         fun onSendFailure(msg: String?, pos: Int)
+
 
     }
 

@@ -8,6 +8,7 @@ import com.xplo.code.core.ext.toBool
 import com.xplo.code.ui.dashboard.UiData
 
 
+
 fun HhForm2?.getFullName(): String? {
     if (this == null) return null
     var name = "${this.firstName} ${this.middleName} ${this.lastName}"
@@ -36,7 +37,6 @@ fun AlForm1?.getFullName(): String? {
 
 fun HhForm1.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
-
     if (!this.county?.isOk().toBool()) return false
     if (!this.state?.isOk().toBool()) return false
     if (!this.payam?.isOk().toBool()) return false
@@ -51,7 +51,6 @@ fun HhForm1.isOk(): Boolean {
 
     return true
 }
-
 fun Area.isOk(): Boolean {
 
     if (this.id == null) return false
@@ -59,7 +58,6 @@ fun Area.isOk(): Boolean {
 
     return true
 }
-
 
 fun HhForm2.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true

@@ -80,7 +80,16 @@
     <string name="user_vote_up">Up</string>
     <string name="user_vote_down">Down</string>
     <string name="alternate">Alternate</string>
-    <string name="alternate_add_hint">Maximum 5 alternate allowed</string>
-
+    <string name="alternate_add_hint">Maximum 2 alternate allowed</string>
+    <string name="total_number_of_males">Total Number of Males</string>
+    <string name="total_number_of_females">Total Number of females</string>
+    <string name="form_details">Form Details</string>
+    <string name="respondent">Respondent</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="address">Address</string>
+    <string name="household_breakdowns" translatable="false">Household Breakdown</string>
+    <string name="delete_confirm">Are you sure you want to delete the following Household Member?</string>
+    <string name="longstring">I would like to tell you about a livelihood component that we\'re  introducing in addition to the cash transfer support (either through "DIS" or "LIPW") that the program is already offering. This additional component wants to enhance economic opportunities for poor and vulnerable youth, with the goal of supporting them to become more productive. The new program component may include training in business, livelihoods, and soft skills, along with an additional conditional cash grant. Please note that this new program component will be introduced only to some households, so it\'s important to understand that the presence of this message does not necessarily mean that your household has been selected for the economic opportunities program. Only household members who are between 18-35 years old, and who can read and write are eligible for participation in this new component.
+</string>
 
 </resources>

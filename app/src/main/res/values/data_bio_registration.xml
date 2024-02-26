@@ -4,6 +4,7 @@
     <string name="first_name">First Name</string>
     <string name="middle_name">Middle Name</string>
     <string name="last_name">Last Name</string>
+    <string name="nick_name">Nick Name</string>
     <string name="age">Age</string>
     <string name="gender">Gender</string>
     <string name="relationship">Relationship</string>
@@ -12,10 +13,14 @@
     <string name="respondent_first_name_min_3_letters">Respondent First Name</string>
     <string name="respondent_middle_name_min_3_letters">Respondent Middle Name</string>
     <string name="respondent_last_name_min_3_letters">Respondent Last Name</string>
+    <string name="respondent_nick_name_min_3_letters">Respondent Nick Name</string>
+
 
     <string name="respondent_spouse_first_name_min_3_letters">Respondent Spouse First Name (min 3 letters)</string>
     <string name="respondent_spouse_middle_name_min_3_letters">Respondent Spouse Middle Name</string>
     <string name="respondent_spouse_last_name_min_3_letters">Respondent Spouse Last Name (min 3 letters)</string>
+    <string name="respondent_spouse_nick_name_min_3_letters">Respondent Spouse Nick Name (min 3 letters)</string>
+
 
     <string name="respondent_age_max_3_digit">Respondent Age (max 99)</string>
     <string name="respondent_id_number">Respondent Id Number</string>
@@ -65,8 +70,8 @@
         <item>Other Relative</item>
         <item>Domestic Worker</item>
         <item>No Relation</item>
-        <item>sibling in law</item>
-        <item>Does not know</item>
+        <item>Sibling-in-law</item>
+
     </string-array>
 
     <string name="respondent_gender_label">Respondent Gender</string>
@@ -135,13 +140,21 @@
         <item>Poor household which have persons with severe disabilities</item>
     </string-array>
 
-    <string-array name="non_participation_reason">
+    <string-array name="why_not">
         <item>Select Reason Why Not?</item>
-        <item>All eligible household members have other commitments that occupy their time.</item>
-        <item>I am uncertain about the ability of the household members to comply with the program\'s expectations or conditions.</item>
-        <item>The health or physical condition of eligible household members prevents them from participating.</item>
+        <item>All other eligible household members have other commitments that occupy their time.</item>
+        <item>I am uncertain about the ability of the other household members to comply with the program\'s expectations or conditions.</item>
+        <item>The health or physical condition of other eligible household members prevents them from participating.</item>
         <item>I am not convinced that the program will provide meaningful benefits.</item>
         <item>The program activities don\'t align with my interests.</item>
+        <item>Other (specify)</item>
+    </string-array>
+
+    <string-array name="why_not_shortened">
+        <item>Select Reason Why Not?</item>
+        <item>All other eligible household members have other commitments that occupy their time.</item>
+        <item>I am uncertain about the ability of the other household members to comply with the program\'s expectations or conditions.</item>
+        <item>The health or physical condition of other eligible household members prevents them from participating.</item>
         <item>Other (specify)</item>
     </string-array>
 
@@ -185,15 +198,14 @@
         <item>Other Relative</item>
         <item>Domestic Worker</item>
         <item>No Relation</item>
-        <item>Does not know</item>
     </string-array>
 
     <string-array name="support_type_public_work_array">
         <item>Poor household with no sufficient income to sustain the household</item>
         <item>Household contain able bodied youth member (18–35)</item>
         <item>Household headed by young men and women between the ages of 18 and 35</item>
-        <item>Household has three or more dependents (children 0–14, eligible vulnerable HH selected UNOPS, Payam and Boma development committees, and selection committees etc. disabled and elderly 65+)</item>
-        <item>Poor household which have persons with severe disabilities</item>
+        <item>Household has three or more dependents</item>
+
     </string-array>
 
     <string-array name="support_type_direct_income_array">
@@ -229,15 +241,15 @@
     <string name="what_were_the_main_reasons_for_nominating_first_nominee_label">What were the main reasons for nominating First Nominee</string>
     <string-array name="what_were_the_main_reasons_for_nominating_first_nominee_array">
         <item>Select Nominee Priority Reason</item>
-        <item>has more available time for participation.</item>
-        <item>has relevant skills or experience.</item>
-        <item>has expressed a strong interest in participating in this type of programs</item>
-        <item>needs the program\'s benefits more urgently.</item>
-        <item>can contribute more to the household income.</item>
-        <item>can handle the program\'s expectations or conditions better.</item>
-        <item>has a better understanding of the program.</item>
-        <item>has better access to resources for participation.</item>
-        <item>has a greater potential for success in the program.</item>
+        <item>Has more available time for participation.</item>
+        <item>Has relevant skills or experience.</item>
+        <item>Has expressed a strong interest in participating in this type of programs</item>
+        <item>Needs the program\'s benefits more urgently.</item>
+        <item>Can contribute more to the household income.</item>
+        <item>Can handle the program\'s expectations or conditions better.</item>
+        <item>Has a better understanding of the program.</item>
+        <item>Has better access to resources for participation.</item>
+        <item>Has a greater potential for success in the program.</item>
         <item>Other (specify)</item>
     </string-array>
 
@@ -251,7 +263,7 @@
     <string name="alternate_name">Alternate Name</string>
     <string name="alternate_age">Age</string>
     <string name="alternate_id">ID Number</string>
-    <string name="alternate_phone">Phonenumber</string>
+    <string name="alternate_phone">Phone Number</string>
     <string name="alternate_relation">Select Alternate Relationship</string>
     <string name="alternate_gender">Alternate\'s Gender</string>
 
@@ -268,6 +280,7 @@
     <string name="left_little">Left Little</string>
 
     <string name="would_anyone_from_your_household_including_yourself_be_interested_in_participating">Would anyone from your household (including yourself) be interested in participating?</string>
+    <string name="would_anyone_else_interested">Would anyone else from your household be interested in participating?</string>
     <string name="select_reason_why_not">Why Not?</string>
     <string name="nominee_first_name_min_3_letters">Nominee First Nam</string>
     <string name="nominee_middle_name">Nominee Middle Name</string>
@@ -280,13 +293,14 @@
     <string name="what_does_currently_do_for_a_living">What does currently do for a living?</string>
 
     <string name="can_you_read_and_write_any_language">Do you read and write? (any language)</string>
-    <string name="not_including_yourself_how_many_other_members_of_your_household_are_between_18_and_35_and_can_read_and_write">household members who are between 18 and 35 and who can read and write are recommended to participate in this component.</string>
+    <string name="not_including_yourself_how_many_other_members_of_your_household_are_between_18_and_35_and_can_read_and_write">How many members of the household are between 18 and 35 and can read and write?</string>
     <string name="minimum_2_maximum_5_and_1_female_nominee_required">Minimum 2, maximum 5 and 1 female nominee required</string>
     <string name="do_you_have_a_national_id">Do you have an ID?</string>
     <string name="what_type_of_id_number_do_you_possess">What type of ID number do you possess?</string>
     <string name="household_first_name_min_3_letters">Household First Name</string>
     <string name="alternate_first_name_min_3_letters">Alternate First Name</string>
     <string name="alternate_middle_name_min_3_letters">Alternate Middle Name</string>
+    <string name="alternate_nick_name_min_3_letters">Alternate Nick Name</string>
     <string name="alternate_last_name_min_3_letters">Alternate Last Name</string>
 
     <string name="with_disability">With Disability</string>
@@ -306,8 +320,8 @@
     <string name="finger">Finger</string>
     <string name="nominee">Nominee</string>
     <string name="preview">Preview</string>
-
+    <string name="no_button_not_clicked">The project’s objective is to achieve a 50–50 percent distribution between male and female youth in the program. To ensure this, we kindly request your consent to nominate a participant of the opposite gender. If you prefer not to nominate, please select NO and provide your reason.</string>
     <string name="nominee_objective">The project’s objective is to achieve a 50–50 percent distribution between male and female youth in the program. Consequently, there might be situations where nominating household members from both genders could enhance the likelihood of selection into the program. Would you like to nominate a %s for the program?</string>
-    <string name="nominee_objective_alerter_msg">The project’s objective is to achieve a 50–50 percent distribution between male and female youth in the program. To ensure this, we kindly request your consent to nominate a participant of the opposite gender. If you prefer not to nominate, please select NO and provide your reason.</string>
+    <string name="nominee_objective_alerter">The project’s objective is to achieve a 50–50 percent distribution between male and female youth in the program. To ensure this, we kindly request your consent to nominate a participant of the opposite gender. If you prefer not to nominate, please select NO and provide your reason.</string>
 
 </resources>

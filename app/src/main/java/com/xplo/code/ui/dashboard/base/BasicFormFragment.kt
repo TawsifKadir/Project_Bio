@@ -41,6 +41,17 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         return txt
     }
 
+    override fun chkAge(editText: EditText, error: String?): String? {
+        val txt = editText.text.toString()
+        val age = txt.toInt()
+        if (isValidationEnabled()) {
+            if (age < 18 || age > 35) {
+                editText.error = "Age must be between 18 and 35"
+                return null
+            }
+        }
+        return txt
+    }
     override fun chkEditTextOnlyNumberAndChar(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {
@@ -49,6 +60,20 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
                 return null
             } else if (!isOnlyNumberAndChar(txt)) {
                 editText.error = "No Special Character Allow"
+                return null
+            }
+        }
+        return txt
+    }
+
+    override fun chkPhoneNumber(editText: EditText, error: String?): String? {
+        val txt = editText.text.toString()
+        if (isValidationEnabled()) {
+            if (txt.isEmpty() || txt == "" || txt.length != 10) {
+                editText.error = "Invalid Phone Number"
+                return null
+            } else if (!isOnlyNumber(txt)) {
+                editText.error = "No Characters Allowed"
                 return null
             }
         }
@@ -75,10 +100,11 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
             if (txt.isEmpty() || txt == "") {
                 editText.error = error
                 return null
-            } else if (txt.toInt() > 10000) {
-                editText.error = "Income must be less than 10000"
-                return null
             }
+//            else if (txt.toInt() > 10000) {
+//                editText.error = "Income must be less than 10000"
+//                return null
+//            }
         }
         return txt.toInt()
     }

@@ -71,7 +71,6 @@ fun HhForm2?.getReportRows(): List<ReportRow> {
             form.currency
         )
     )
-
     return items
 }
 
@@ -116,7 +115,6 @@ fun HhForm3?.getReportRows(): List<ReportRow> {
             null
         )
     )
-
     return items
 }
 
@@ -134,7 +132,6 @@ fun List<Finger>?.getReportRows(): List<ReportRow> {
         items.add(ReportRow("Left Middle:", "False", "Right Middle: ", "False"))
         items.add(ReportRow("Left Ring:", "False", "Right Ring: ", "False"))
         items.add(ReportRow("Left Little:", "False", "Right little: ", "False"))
-
         return items
     }
 
@@ -189,12 +186,11 @@ fun List<Finger>?.getReportRows(): List<ReportRow> {
             fingers.isCaptured("RL").toString(),
         )
     )
-
     return items
 }
 
-
 fun FingerData?.isAFingerStatus(finger: String?): String {
+
     if (finger == null) return "False"
     return "True"
 //    if (this == null) return false.toString()
@@ -202,6 +198,7 @@ fun FingerData?.isAFingerStatus(finger: String?): String {
 }
 
 fun FingerData?.isAFingerCaptured(finger: String?): Boolean {
+
     if (this == null) return false
     if (finger?.isNotEmpty().toBool()) return true
     return false

@@ -245,7 +245,6 @@ class HhPreviewFragment2 : BaseFragment(), HouseholdContract.PreviewView {
 
         viewModel.saveHouseholdFormAsHouseholdItem(rootForm)
 
-
     }
 
     override fun onReadInput() {

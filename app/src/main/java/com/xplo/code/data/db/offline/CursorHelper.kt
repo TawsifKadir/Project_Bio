@@ -158,7 +158,6 @@ class CursorHelper {
 
             var code = 0
             var name = ""
-
             val colIndCode = cursor.getColumnIndex(columnCode)
             val colIndTitle = cursor.getColumnIndex(columnTitle)
 

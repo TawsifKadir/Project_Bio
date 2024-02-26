@@ -1,6 +1,5 @@
 package com.xplo.code.ui.dashboard.model
 
-
 //fun HhForm3.getNormalMale(): Int {
 //    return mem0NormalMale + mem3NormalMale + mem6NormalMale + mem18NormalMale + mem36NormalMale + mem65NormalMale
 //}

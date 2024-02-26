@@ -1,5 +1,4 @@
 package com.xplo.data.repo
-
 import com.kit.integrationmanager.model.Beneficiary
 import com.xplo.data.core.CallInfo
 import com.xplo.data.network.api.ContentApi

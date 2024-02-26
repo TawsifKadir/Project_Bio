@@ -69,9 +69,10 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
     //private lateinit var presenter: RegistrationContract.Presenter
     private var interactor: HouseholdContract.View? = null
 
-
     private var fingerItemsStore: List<Finger>? = listOf<Finger>()
     private var noFingerprintReasonStore: String? = null
+
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -150,8 +151,8 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
         val rootForm = interactor?.getRootForm()
         rootForm?.form5 = form
         interactor?.setRootForm(rootForm)
-
         Log.d(TAG, "onValidated: $rootForm")
+
 
 
         if (TestConfig.isAlternateAddInHouseholdFlow) {
@@ -288,8 +289,8 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
             showAlerter("Warning", "Please Add Fingerprint or Reason")
             return
         }
-
         onValidated(form)
+
     }
 
     override fun onLongClickDataGeneration() {
@@ -372,6 +373,5 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
                 showToast("Received Negative Result From Fingerprint Capture")
             }
         }
-
 
 }

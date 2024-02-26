@@ -1,5 +1,4 @@
 package com.xplo.code.ui.dashboard.alternate
-
 import android.content.Intent
 import android.net.Uri
 import android.widget.ImageView

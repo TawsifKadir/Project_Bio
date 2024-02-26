@@ -125,7 +125,7 @@ dependencies {
     //implementation files('libs/IntegrationManager-v1.1.aar')
     implementation files('libs/IntegrationManager-debug.aar')
 
-
+//    implementation files('libs/IntegrationManager-v1.4.aar')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
@@ -134,7 +134,8 @@ dependencies {
     //implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0'
     runtimeOnly 'org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.2'
 
-
+//    compileOnly "org.projectlombok:lombok:1.18.30"
+//    annotationProcessor 'org.projectlombok:lombok:1.18.30'
 
     // androidx basic
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -194,10 +195,7 @@ dependencies {
 //    implementation 'com.squareup.okhttp3:okhttp:4.2.2'
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3'
     implementation 'com.github.bumptech.glide:glide:4.15.1'
-
     implementation "com.fasterxml.jackson.core:jackson-databind:2.16.1"
-
-
     // network interceptor
     implementation 'com.facebook.stetho:stetho:1.6.0'
     implementation 'com.facebook.stetho:stetho-okhttp3:1.6.0'

@@ -70,6 +70,7 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
     private var rootForm: HouseholdForm? = createANewHouseholdForm()
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHouseholdBinding.inflate(layoutInflater)
@@ -389,7 +390,6 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         Log.d(TAG, "resetRootFormKeepSetup() called")
         val form1 = rootForm?.form1
         this.rootForm = null
-
         val newForm = createANewHouseholdForm()
         newForm.form1 = form1
         this.rootForm = newForm
@@ -403,5 +403,4 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         Log.d(TAG, "createANewHouseholdForm: $householdForm")
         return householdForm
     }
-
 }

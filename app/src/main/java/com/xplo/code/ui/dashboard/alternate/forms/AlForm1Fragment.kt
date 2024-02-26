@@ -81,7 +81,6 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
     private lateinit var etAlternateFirstName: EditText
     private lateinit var etAlternateMiddleName: EditText
     private lateinit var etAlternateLastName: EditText
-
     private lateinit var spGender: Spinner
     private lateinit var spAlternateRelation: Spinner
     private lateinit var etPhoneNo: EditText
@@ -294,7 +293,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
 
         form.age = chkEditText(etAge, UiData.ER_ET_DF)?.toInt() ?: 0
         form.idNumber = chkEditText(etIdNumber, UiData.ER_ET_DF)
-        form.phoneNumber = chkEditText(etPhoneNo, UiData.ER_ET_DF)
+        form.phoneNumber = chkPhoneNumber(etPhoneNo, UiData.ER_ET_DF)
         form.selectAlternateRlt = chkSpinner(spAlternateRelation, UiData.ER_SP_DF)
         form.gender = chkSpinner(spGender, UiData.ER_SP_DF)
 
@@ -316,7 +315,6 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         form.alternateFirstName = chkEditText3Char(etAlternateFirstName, UiData.ER_ET_DF)
         form.alternateMiddleName =  chkEditText3Char(etAlternateMiddleName, UiData.ER_ET_DF)
         form.alternateLastName = chkEditText3Char(etAlternateLastName, UiData.ER_ET_DF)
-
 
         if (!form.isOk()) {
             return
@@ -353,7 +351,6 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         etAlternateFirstName.setText("Mohd")
         etAlternateMiddleName.setText("Moniruzzaman")
         etAlternateLastName.setText("Shadhin")
-
     }
 
     override fun onPopulateView() {

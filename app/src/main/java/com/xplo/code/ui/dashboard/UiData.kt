@@ -36,7 +36,6 @@ object UiData {
     val ER_RB_DF = "Please select an item"
 
     val otherSpecify = "other (specify)"
-
     val stateNameOptions = getStringArray(R.array.state_name_array)
     val countyNameOptions = getStringArray(R.array.country_nam_array)
     val bomaNameOptions = getStringArray(R.array.boma_name_array)

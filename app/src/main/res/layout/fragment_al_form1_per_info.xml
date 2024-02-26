@@ -22,9 +22,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/llBottom"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvPage">
-
+        app:layout_constraintTop_toBottomOf="@id/tvPage"
+        app:layout_constraintVertical_bias="0.0">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,7 +66,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <LinearLayout
                     style="@style/AppLinearLayoutInputBox"
@@ -113,6 +114,21 @@
 
                 </LinearLayout>
 
+                <include layout="@layout/view_margin_space" />
+
+                <LinearLayout
+                    style="@style/AppLinearLayoutInputBox"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/AppTextView.Input.Header"
+                        android:text="@string/alternate_nick_name_min_3_letters" />
+
+                    <EditText
+                        android:id="@+id/etAlternateNickName"
+                        style="@style/AppEditText.Form.Text.Min3" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -202,9 +218,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                tools:visibility="visible"
-                android:visibility="gone">
-
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <LinearLayout
                     style="@style/AppLinearLayoutInputBox"
@@ -216,9 +231,8 @@
 
                     <EditText
                         android:id="@+id/etIdNumber"
-                        android:maxLength="10"
-                        style="@style/AppEditText.Form.Number" />
-
+                        style="@style/AppEditText.Form.Number"
+                        android:maxLength="10" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -237,10 +251,9 @@
                         android:text="@string/alternate_phone" />
 
                     <EditText
-                        android:maxLength="10"
                         android:id="@+id/etPhoneNo"
-                        style="@style/AppEditText.Form.Number" />
-
+                        style="@style/AppEditText.Form.Number"
+                        android:maxLength="10" />
                 </LinearLayout>
 
             </LinearLayout>

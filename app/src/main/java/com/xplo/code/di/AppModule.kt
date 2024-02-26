@@ -47,16 +47,15 @@ object AppModule {
     @Singleton
     @Provides
     fun provideHouseholdDao(): HouseholdDao = DbController.getAppDb().householdDao()
-
     @Singleton
     @Provides
     fun provideBeneficiaryDao(): BeneficiaryDao = DbController.getAppDb().beneficiaryDao()
-
 
     @Singleton
     @Provides
     fun provideDbRepo(dao: PostDao, householdDao: HouseholdDao, beneficiaryDao: BeneficiaryDao): DbRepo =
         DbRepoImpl(dao, householdDao, beneficiaryDao)
+
 
     @Singleton
     @Provides

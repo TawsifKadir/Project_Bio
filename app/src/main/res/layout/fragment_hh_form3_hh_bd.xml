@@ -22,8 +22,11 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/llBottom"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvPage">
+        app:layout_constraintTop_toBottomOf="@id/tvPage"
+        app:layout_constraintVertical_bias="1.0">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,21 +41,22 @@
                     android:text="@string/household_size" />
 
                 <EditText
-                    android:maxLength="2"
                     android:id="@+id/etHouseholdSize"
-                    style="@style/AppEditText.Form.Number" />
+                    style="@style/AppEditText.Form.Number"
+                    android:maxLength="2" />
 
             </LinearLayout>
 
             <TextView
-                android:text="What is the number of household members in your household, including yourself, for each category"
-                android:layout_marginTop="20dp"
-                android:textStyle="bold"
-                android:textSize="12sp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="What is the number of household members in your household, including yourself, for each category"
+                android:textSize="12sp"
+                android:textStyle="bold">
 
             </TextView>
+
             <include
                 android:id="@+id/view_hh_table"
                 layout="@layout/view_hh_table" />
@@ -71,14 +75,12 @@
                     <RadioButton
                         android:id="@+id/rbYes"
                         style="@style/AppRadioButton.Form"
-                        android:text="Yes"
-                        tools:checked="true" />
+                        android:text="Yes" />
 
                     <RadioButton
                         android:id="@+id/rbNo"
                         style="@style/AppRadioButton.Form"
-                        android:text="No"
-                        android:checked="true"/>
+                        android:text="No" />
 
                 </RadioGroup>
 
@@ -99,9 +101,9 @@
                         android:text="@string/not_including_yourself_how_many_other_members_of_your_household_are_between_18_and_35_and_can_read_and_write" />
 
                     <EditText
-                        android:maxLength="2"
                         android:id="@+id/etReadWriteNumber"
-                        style="@style/AppEditText.Form.Number" />
+                        style="@style/AppEditText.Form.Number"
+                        android:maxLength="2" />
 
                 </LinearLayout>
 

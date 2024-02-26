@@ -116,7 +116,6 @@ class HouseholdListFragment : BaseFragment(), HouseholdContract.HouseholdListVie
                         onGetHouseholdListFailure(event.msg)
                     }
 
-
                     is HouseholdViewModel.Event.SendHouseholdItemSuccess -> {
                         hideLoading()
                         onSendSuccess(event.item, event.pos)
@@ -126,7 +125,6 @@ class HouseholdListFragment : BaseFragment(), HouseholdContract.HouseholdListVie
                         hideLoading()
                         onSendFailure(event.msg, event.pos)
                     }
-
                     else -> Unit
                 }
             }

@@ -19,9 +19,9 @@ interface HouseholdDao {
 
     @Query("select * from household where id =:id")     // uuid
     fun read(id: String): HouseholdItem
-
     @Query("select * from household where hid =:hid")
     fun readByHid(hid: String): HouseholdItem
+
 
 //    @Query("select * from household where householdid =:id")
 //    fun readByUserId(id: String): HhFormDbItem

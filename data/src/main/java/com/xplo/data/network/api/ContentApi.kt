@@ -13,10 +13,10 @@ interface ContentApi {
 //    @POST("/afis/api/beneficiary/register/batch")
 //    suspend fun submitForms(@Body body: FormsRqb?): Response<FormsRsp>
 
-
     //http://snsopafis.karoothitbd.com:8090/afis/api/beneficiary/register
     @POST("/afis/api/beneficiary/register")
     suspend fun sendBeneficiary(@Body body: Beneficiary?): Response<Unit>
+
 
 
 }

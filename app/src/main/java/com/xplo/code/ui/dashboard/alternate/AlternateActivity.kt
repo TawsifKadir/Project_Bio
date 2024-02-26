@@ -90,8 +90,8 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
     private lateinit var binding: ActivityAlternateBinding
     private val viewModel: HouseholdViewModel by viewModels()
     //private lateinit var toolbar: Toolbar
-
     private lateinit var householdItem: HouseholdItem
+
     private var rootForm: AlternateForm? = AlternateForm()
 
     //private var callForResult = false

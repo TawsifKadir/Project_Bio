@@ -1,6 +1,7 @@
 package com.xplo.code.ui.dashboard.household.forms
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
@@ -9,11 +10,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.databinding.FragmentHhFormAlternateBinding
@@ -21,6 +25,7 @@ import com.xplo.code.ui.dashboard.alternate.AlternateActivity
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.utils.DialogHandler
 import com.xplo.code.ui.dashboard.household.list.AlternateSumListAdapter
 import com.xplo.code.ui.dashboard.model.AlternateForm
 import com.xplo.code.ui.dashboard.model.getFullName
@@ -73,6 +78,34 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
         if (context is HouseholdContract.View) {
             interactor = activity as HouseholdContract.View
         }
+    }
+
+    private fun showDialogBox(){
+        //val dialog = Dialog(requireContext())
+        val dialog = Dialog(requireContext(), R.style.CustomDialogTheme)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_reasource)
+        val window = dialog.window
+        window?.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+       /* val window = dialog.window
+        val width = resources.getDimensionPixelSize(R.dimen.dialog_min_width)
+        window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
+*/
+        val btnOk : Button = dialog.findViewById<Button>(R.id.okButton)
+        val btnCancel : Button = dialog.findViewById<Button>(R.id.cancelButton)
+
+        btnOk.setOnClickListener {
+            val dataset = adapter?.getDataset()
+            ///onValidated(dataset)
+            dialog.dismiss()
+        }
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     override fun onCreateView(
@@ -128,7 +161,12 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
         }
 
         binding.btAdd.setOnClickListener {
-            onClickAddAlternate()
+            if(binding.recyclerView.adapter?.itemCount!! < 2) {
+                onClickAddAlternate()
+            }
+            else{
+                binding.btAdd.setText("Max Limit is 2")
+            }
         }
 
 
@@ -210,16 +248,21 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
         Log.d(TAG, "onReadInput() called")
 
         val dataset = adapter?.getDataset()
+//
+//        if (dataset.isNullOrEmpty()) {
+//            showAlerter(null, "Minimum 1 alternet needed")
+//            return
+//        }else if (dataset.size>5) {
+//            showAlerter(null, "Maximum 5 Alternet can be added")
+//            return
+//        }
+//
+//        onValidated(dataset)
 
-        if (dataset.isNullOrEmpty()) {
-            showAlerter(null, "Minimum 1 alternet needed")
-            return
-        }else if (dataset.size>5) {
-            showAlerter(null, "Maximum 5 Alternet can be added")
-            return
+//        showDialogBox()
+        if (dataset != null) {
+            DialogHandler.showNomineeCOnfirmfationDialog(requireContext(),this,dataset)
         }
-
-        onValidated(dataset)
     }
 
     override fun onLongClickDataGeneration() {

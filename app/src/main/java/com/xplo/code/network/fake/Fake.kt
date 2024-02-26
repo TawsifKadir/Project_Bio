@@ -1,5 +1,4 @@
 package com.xplo.code.network.fake
-
 import android.annotation.SuppressLint
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -24,6 +23,7 @@ import kotlin.random.Random
  * Desc     :
  * Comment  :
  */
+
 @SuppressLint("StaticFieldLeak")
 object Fake {
 
@@ -132,6 +132,5 @@ object Fake {
 //
 //        return null
     }
-
 
 }

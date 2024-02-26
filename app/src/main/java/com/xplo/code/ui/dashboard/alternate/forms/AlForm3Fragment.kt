@@ -32,7 +32,6 @@ import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
 
@@ -60,7 +59,6 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
 
     private var fingerItemsStore: List<Finger>? = listOf<Finger>()
     private var noFingerprintReasonStore: String? = null
-
 
 
     override fun onAttach(context: Context) {
@@ -127,7 +125,6 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
 //        binding.viewButtonBackNext.btBack.visible()
 //        binding.viewButtonBackNext.btNext.visible()
 //        binding.viewButtonBackNext.btNext.text = "Submit"
-
 
     }
 
@@ -286,9 +283,9 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
 
 
     }
-
     override fun onPopulateView() {
         Log.d(TAG, "onPopulateView() called")
+
     }
 
     private val getResult =
@@ -302,6 +299,4 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
                 showToast("Received Negative Result From Fingerprint Capture")
             }
         }
-
-
 }

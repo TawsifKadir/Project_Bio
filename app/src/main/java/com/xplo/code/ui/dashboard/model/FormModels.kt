@@ -17,7 +17,6 @@ data class HouseholdForm(
 
     var id: String,     //uuid
     var hid: String,     // optional, use at some specific case
-
     var form1: HhForm1? = null,
     var form2: HhForm2? = null,
     var form3: HhForm3? = null,
@@ -89,7 +88,6 @@ fun HhForm2?.getOppositeGender(): String? {
 
 data class HhForm3(
     var householdSize: Int? = null,
-
     var male0_2: HhMember = HhMember(),
     var male3_5: HhMember = HhMember(),
     var male6_17: HhMember = HhMember(),
@@ -103,7 +101,6 @@ data class HhForm3(
     var female18_35: HhMember = HhMember(),
     var female36_64: HhMember = HhMember(),
     var female65p: HhMember = HhMember(),
-
     var readWriteNumber: Int? = null,
     var isReadWrite: String? = null
 
@@ -290,14 +287,12 @@ fun Finger?.isContainValidFingerprint(): Boolean {
 
     return true
 }
-
 data class AlForm1(
     var householdName: String? = null,
 
     var alternateFirstName: String? = null,
     var alternateMiddleName: String? = null,
     var alternateLastName: String? = null,
-
     var age: Int? = null,
     var idNumber: String? = null,
     var idNumberType: String? = null,

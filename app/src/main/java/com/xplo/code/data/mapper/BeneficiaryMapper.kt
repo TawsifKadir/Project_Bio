@@ -31,6 +31,7 @@ object BeneficiaryMapper {
         if (item == null) return null
 
         val beneficiary = Beneficiary()
+
         beneficiary.applicationId = item.applicationId
         beneficiary.address = toAddress(item.address)
         beneficiary.location = toLocation(item.location)
@@ -159,7 +160,9 @@ object BeneficiaryMapper {
         val alternate = AlternatePayee()
 
         alternate.nationalId = item.nationalId
-        alternate.payeeName = item.payeeName
+        alternate.payeeFirstName = item.payeeName
+        alternate.payeeMiddleName = item.payeeName
+        alternate.payeeLastName = item.payeeName
         alternate.payeeAge = item.payeeAge
         alternate.payeeGender = item.payeeGender
         alternate.payeePhoneNo = item.payeePhoneNo

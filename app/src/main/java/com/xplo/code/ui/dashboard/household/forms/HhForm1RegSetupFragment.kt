@@ -90,7 +90,6 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
     private lateinit var locationManager: LocationManager
     private val locationPermissionCode = 2
 
-
     private var selectedState: Area? = null
     private var selectedCounty: Area? = null
     private var selectedPayam: Area? = null
@@ -265,8 +264,8 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
     override fun onResume() {
         super.onResume()
         //EventBus.getDefault().register(this)
-        setToolbarTitle("Registration Setup")
 
+        setToolbarTitle("Location Details")
         binding.viewButtonBackNext.btBack.gone()
         binding.viewButtonBackNext.btNext.visible()
 
@@ -301,7 +300,6 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
     override fun onGetStateItems(items: List<OptionItem>?) {
         Log.d(TAG, "onGetStateItems() called with: items = $items")
         if (items.isNullOrEmpty()) return
-
         stateOptions = items
         val items1 = items.addSpinnerHeader().toSpinnerOptions()
         Log.d(TAG, "onGetStateItems: $items1")
@@ -317,12 +315,12 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
         Log.d(TAG, "onSelectStateItem() called with: item = $item")
         viewModel.getCountryItems(item?.name)
         selectedState = Area(id = item?.code, name = item?.name)
+
     }
 
     override fun onGetCountryItems(items: List<OptionItem>?) {
         Log.d(TAG, "onGetCountryItems() called with: items = $items")
         if (items.isNullOrEmpty()) return
-
         countyOptions = items
         val items1 = items.addSpinnerHeader().toSpinnerOptions()
         Log.d(TAG, "onGetCountryItems: $items1")
@@ -345,8 +343,8 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
     override fun onGetPayamItems(items: List<OptionItem>?) {
         Log.d(TAG, "onGetPayamItems() called with: items = $items")
         if (items.isNullOrEmpty()) return
-
         payamOptions = items
+
         val items1 = items.addSpinnerHeader().toSpinnerOptions()
         Log.d(TAG, "onGetPayamItems: $items1")
         bindSpinnerData(spPayamName, items1)
@@ -427,12 +425,10 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
         form.county?.name = chkSpinner(spCountryName, UiData.ER_SP_DF)
         form.payam?.name = chkSpinner(spPayamName, UiData.ER_SP_DF)
         form.boma?.name = chkSpinner(spBomaName, UiData.ER_SP_DF)
-
         form.state = selectedState
         form.county = selectedCounty
         form.payam = selectedPayam
         form.boma = selectedBoma
-
         form.lat = getEditText(etLat)?.toDouble()
         form.lon = getEditText(etLon)?.toDouble()
 
@@ -487,8 +483,6 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
 
 
         //bindSpinnerData(binding.spTest, UiData.genderOptions)
-
-
 
     }
 

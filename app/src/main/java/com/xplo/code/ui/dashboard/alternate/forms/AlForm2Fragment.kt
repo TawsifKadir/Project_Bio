@@ -24,16 +24,21 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+
 import com.kit.integrationmanager.model.BiometricUserType
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.databinding.FragmentAlForm2CapPhotoBinding
+import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.household.forms.HhForm4CapPhotoFragment
 import com.xplo.code.ui.dashboard.model.AlForm2
+import com.xplo.code.ui.dashboard.model.HhForm4
 import com.xplo.code.ui.dashboard.model.PhotoData
+
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.code.ui.photo.ImagePickerActivity
 import com.xplo.code.ui.photo.ImageUtil
@@ -105,7 +110,6 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         initInitial()
         initView()
         initObserver()
-
     }
 
     override fun initInitial() {
@@ -312,7 +316,6 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
 
     override fun onReadInput() {
         Log.d(TAG, "onReadInput() called")
-
         if(!isEmulator()){
             if (!form.isOk()) {
                 showAlerter("Warning", "Please Add Photo")

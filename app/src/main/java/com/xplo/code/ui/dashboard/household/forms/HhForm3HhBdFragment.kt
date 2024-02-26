@@ -61,7 +61,6 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
 
 
     private lateinit var etHouseholdSize: EditText
-
     private lateinit var etMem0NormalMale: EditText
     private lateinit var etMem0DisableMale: EditText
     private lateinit var etMem0IllMale: EditText
@@ -146,7 +145,6 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
 
 
         etHouseholdSize = binding.etHouseholdSize
-
         etMem0NormalMale = binding.viewHhTable.etMem0NormalMale
         etMem0DisableMale = binding.viewHhTable.etMem0DisableMale
         etMem0IllMale = binding.viewHhTable.etMem0IllMale
@@ -245,7 +243,6 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
         if (form == null) return
 
         etHouseholdSize.setText(form.householdSize.toString())
-
         etMem0NormalMale.setText(form.male0_2.normal.toString())
         etMem0DisableMale.setText(form.male0_2.disable.toString())
         etMem0IllMale.setText(form.male0_2.ill.toString())
@@ -295,8 +292,6 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
         etMem65NormalFemale.setText(form.female65p.normal.toString())
         etMem65DisableFemale.setText(form.female65p.disable.toString())
         etMem65IllFemale.setText(form.female65p.ill.toString())
-
-
         etReadWriteNumber.setText(form.readWriteNumber.toString())
 
         checkRbPosNeg(rgReadWrite, rbYes, rbNo, form.isReadWrite)
@@ -319,7 +314,6 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
         val form = HhForm3()
 
         form.householdSize = chkEditText(etHouseholdSize, UiData.ER_ET_DF)?.toInt()
-
         form.male0_2.normal = getEditTextInt(etMem0NormalMale)
         form.male0_2.disable = getEditTextInt(etMem0DisableMale)
         form.male0_2.ill = getEditTextInt(etMem0IllMale)
@@ -358,14 +352,12 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
         form.female65p.normal = getEditTextInt(etMem65NormalFemale)
         form.female65p.disable = getEditTextInt(etMem65DisableFemale)
         form.female65p.ill = getEditTextInt(etMem65IllFemale)
-
         form.readWriteNumber = getEditTextInt(etReadWriteNumber)
         form.isReadWrite = chkRadioGroup(rgReadWrite, UiData.ER_RB_DF)
-
         //val sum = myIntList.sum() // = 9
         val sum = form.getTotalTable()
-
         if (form.householdSize != sum) {
+
             etHouseholdSize.error = "Household Size not matched"
             etHouseholdSize.requestFocus()
             return
@@ -391,7 +383,6 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
         }
 
         onValidated(form)
-
     }
 
     override fun onLongClickDataGeneration() {

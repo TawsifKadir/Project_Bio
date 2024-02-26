@@ -129,6 +129,7 @@ class DbCallImpl : DbCall {
         dbHelper.openDataBase()
         try {
             val cursor = dbHelper.runQueryRaw(sql, null)
+
             val items = CursorHelper.toOptionItem(cursor, column, column)
             return items
         } catch (e: Exception) {

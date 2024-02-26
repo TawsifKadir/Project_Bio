@@ -1,5 +1,4 @@
 package com.xplo.code.data.db.models
-
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -11,14 +10,12 @@ import java.io.Serializable
 
 @Entity(tableName = "household")
 data class HouseholdItem(
-
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id")
     var id: String,
 
     @ColumnInfo(name = "hid")
     var hid: String,
-
     var data: String? = null,
     var isSynced: Boolean = false
 ) : Serializable

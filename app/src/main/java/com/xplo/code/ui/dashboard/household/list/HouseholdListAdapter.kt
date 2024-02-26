@@ -62,20 +62,18 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
                 )
             }
 
-            binding.btSaveLocally.setOnClickListener {
+            binding.btSyncStatus.setOnClickListener {
                 listener?.onClickHouseholdItemSave(
                     getItem(absoluteAdapterPosition),
                     absoluteAdapterPosition
                 )
             }
-
         }
 
         fun bind(item: HouseholdItem) {
             //Log.d(TAG, "bind() called with: item = $item")
             val form = item.toHouseholdForm()
             if (form == null) return
-
             binding.tvId.text = "id: " + item.hid.toString()
             binding.tvName.text = form.form2.getFullName()
             binding.tvGender.text = "Gender: " + form.form2?.gender
@@ -83,7 +81,6 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
             binding.tvNominee.text = "Nominee: " + (form.form6?.nominees?.size)
             binding.tvAlternate.text = "Alternate: " + form.alternates.size
             //binding.btSyncStatus.setImageResource(R.drawable.baseline_cloud_done_24)
-
 
             if (item.isSynced) {
                 //binding.btSend.gone()

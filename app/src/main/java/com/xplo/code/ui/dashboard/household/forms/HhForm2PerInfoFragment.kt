@@ -46,7 +46,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
     CheckboxListAdapter.OnItemClickListener {
-
     companion object {
         const val TAG = "HhForm2PerInfoFragment"
 
@@ -183,7 +182,6 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
 
 
     }
-
     override fun initObserver() {
         binding.viewButtonBackNext.btBack.setOnClickListener {
             onClickBackButton()
@@ -198,9 +196,6 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         if (TestConfig.isAutoDGEnabled) {
             onGenerateDummyInput()
         }
-
-
-
 
 
         spMaritalStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -326,7 +321,6 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         rgSelectionCriteria.checkRbOpAB(binding.rbA, binding.rbB, form.selectionCriteria)
         rgId.checkRbOpABforIDcard(binding.rbYes, binding.rbNo, form.idIsOrNot)
 
-
         if (binding.rbA.isChecked) {
             form.itemsSupportType?.let { doSomethingForRbA(it) }
         } else {
@@ -343,7 +337,6 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         //etSpouseName.setText(form.spouseName)
 
     }
-
     fun doSomethingForRbA(items: List<CheckboxItem>) {
         var list = UiData.getPublicWorks()
         for (item in list) {
@@ -365,7 +358,6 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         }
         adapterSupportType?.addAll(list)
     }
-
     override fun onClickBackButton() {
         Log.d(TAG, "onClickBackButton() called")
         interactor?.onBackButton()
@@ -422,7 +414,6 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         form.firstName = chkEditText3Char(etFirstName, UiData.ER_ET_DF)
         form.middleName = chkEditText3Char(etMiddleName, UiData.ER_ET_DF)
         form.lastName = chkEditText3Char(etLastName, UiData.ER_ET_DF)
-
         form.age = chkEditTextMax3Digit(etAge, UiData.ER_ET_DF)?.toInt()
         form.phoneNumber = chkEditText(etPhoneNumber, UiData.ER_ET_DF)
         form.monthlyAverageIncome =
@@ -454,7 +445,6 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
             return@setOnLongClickListener true
         }
     }
-
     override fun onGenerateDummyInput() {
         Log.d(TAG, "onGenerateDummyInput() called")
         if (!BuildConfig.DEBUG) return
@@ -493,6 +483,5 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
             "onStatusChangeCheckboxItem() called with: item = $item, pos = $pos, isChecked = $isChecked"
         )
     }
-
 
 }
