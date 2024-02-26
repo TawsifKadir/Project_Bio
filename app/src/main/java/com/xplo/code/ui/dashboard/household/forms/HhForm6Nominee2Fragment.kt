@@ -279,7 +279,11 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
             }
 
             R.id.rbNo -> {
-                if(readNomineeInputsFromList().size == 0){
+                var dataset = readNomineeInputsFromList()
+                if(dataset.size == 0){
+                    onChooseNomineeNotAdd()
+                }
+                else if(dataset.size == 1  && (dataset[0].gender == interactor?.getRootForm()?.form2?.getOppositeGender())){
                     onChooseNomineeNotAdd()
                 }
                 else{
@@ -292,12 +296,39 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
     override fun onRGNomineeAddYes() {
         Log.d(TAG, "onRGNomineeAddYes() called")
-        if(!checkConsecutive()) {
+        val dataset = readNomineeInputsFromList()
+        if(!checkConsecutive() || (dataset[0].gender == interactor?.getRootForm()?.form2?.getOppositeGender())) {
             onChooseNomineeAdd(null)
         }else{
-            val text = "The project’s objective is to achieve a 50–50 percent distribution between male and female youth in the program. To ensure this, we kindly request your consent to nominate a participant of the opposite gender. If you prefer not to nominate, please select NO and provide your reason."
-            onRGNomineeAddNo()
+            onRGNomineeAddDialogYes()
         }
+    }
+
+    private fun onRGNomineeAddDialogYes() {
+        Log.d(TAG, "onRGNomineeAddNo() called")
+        //onChooseNomineeNotAdd()
+
+//        if (isCrossGenderExist()){
+//            onChooseNomineeNotAdd()
+//            return
+//        }
+
+        val targetGender = getTargetGender()
+        val targetGenderTitle = getTargetGenderTitle(targetGender)
+        val txt = getString(R.string.nominee_objective, targetGenderTitle)
+
+        AlertDialog.Builder(requireContext())
+            .setMessage(txt)
+            .setCancelable(false)
+            .setPositiveButton("Yes") { dialog, which ->
+                onChooseNomineeAdd(targetGender)
+            }
+            .setNegativeButton("No") { dialog, which ->
+                onChooseNomineeAdd(null)
+            }
+            .create()
+            .show()
+
     }
 
     override fun onRGNomineeAddNo() {
@@ -489,10 +520,8 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         val dataset = readNomineeInputsFromList()
         var length = dataset.size
         if(length == 0 || length == 1) return false
-        if(dataset[length-1].gender == dataset[length-2].gender){     //Check last and second last item
-            return true
-        }
-        return false
+        //Check last and second last item
+        return dataset[length-1].gender == dataset[length-2].gender
     }
 
     override fun onLongClickDataGeneration() {
