@@ -648,13 +648,13 @@ class HouseholdViewModel @Inject constructor(
         Log.d(TAG, "update() called with: observable = $observable, arg = $arg")
         if (arg == null) return
 
-        val syncResult = arg as SyncResult?
+        val syncResult = arg as RegistrationResult?
         onGetSyncResult(syncResult)
 
 
     }
 
-    private fun onGetSyncResult(arg: SyncResult?) {
+    private fun onGetSyncResult(arg: RegistrationResult?) {
 //        Log.d(TAG, "onGetSyncResult() called with: syncResult = ${syncResult?.syncStatus}")
 //        if (syncResult == null) return
 //
