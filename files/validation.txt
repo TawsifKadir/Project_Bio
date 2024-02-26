@@ -1,0 +1,17 @@
+1. Alternate Biometrics would be mandatory
+2. Biometrics
+	a. If noFingerPrint is true then noFingerprintReason must be mandatory, should not accept null or empty
+	b. noFingerprintReason is choosen other then noFingerprintReasonText should contain value
+3. FirstName, MiddleName LastName is mandatory, Nickname will be optional-- This rule is applicable for beneficiaries, alternates, nominees (As per ALEX's mail)
+	a. Minimum characters required for each name component is 3 (As per ALEX's mail)
+4. Id number: 14 digits (As per ALEX's mail)
+5. Passport: 14 digits (As per ALEX's mail)
+6. If ID is other then there would not be any restriction about length
+7. Phone: 10 digits and optional (As per ALEX's mail)
+8. Alternates can be registered upto 2 members. Alternate is not mandatory. 
+7. Nominee can be registered upto 5 members but it should be optional too. Respondent may not nominate any one.
+8. householdSize: should not accept 0, it must be greater than 0
+9. Nominee biometric would be optional
+10. Spouse name is required if the marital status is married otherwise it should be optional
+11. applicationId should be mandatory for all objects and in a request all id must be same. 
+	a. if any request goes with same id there should be response message that beneficiary is already registered rather than returning 200
