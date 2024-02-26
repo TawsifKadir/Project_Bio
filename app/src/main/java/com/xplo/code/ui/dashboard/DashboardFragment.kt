@@ -1,12 +1,14 @@
 package com.xplo.code.ui.dashboard
 
+import android.content.SyncResult
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.kit.integrationmanager.model.SyncResult
+import com.kit.integrationmanager.payload.RegistrationResult
+import com.kit.integrationmanager.payload.RegistrationStatus
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.databinding.FragmentDashboardBinding
@@ -30,7 +32,7 @@ import java.util.Observer
 class DashboardFragment : BaseFragment(), DashboardContract.View, Observer {
 
     companion object {
-        private const val TAG = "DashboardFragment"
+        const val TAG = "DashboardFragment"
 
         @JvmStatic
         fun newInstance(
@@ -160,14 +162,44 @@ class DashboardFragment : BaseFragment(), DashboardContract.View, Observer {
 
     }
 
-    private fun onGetSyncResult(syncResult: SyncResult?) {
-        Log.d(TAG, "onGetSyncResult() called with: syncResult = ${syncResult?.syncStatus}")
-        if (syncResult == null) return
-        //showToast(syncResult.syncStatus.toString())
-//        when (syncResult.syncStatus) {
-//            SyncStatus.SUCCESS -> onSyncSuccess(syncResult)
-//            else -> onSyncFailure(syncResult)
-//        }
+    private fun onGetSyncResult(arg: SyncResult?) {
+//        Log.d(TAG, "onGetSyncResult() called with: syncResult = ${syncResult?.syncStatus}")
+//        if (syncResult == null) return
+//        //showToast(syncResult.syncStatus.toString())
+////        when (syncResult.syncStatus) {
+////            SyncStatus.SUCCESS -> onSyncSuccess(syncResult)
+////            else -> onSyncFailure(syncResult)
+////        }
+        try {
+            Log.d(TAG, "Received update>>>>")
+            if (arg == null) {
+                Log.d(TAG, "Received null parameter in update. Returning...")
+                return
+            } else {
+                Log.d(TAG, "Received parameter in update.")
+                val registrationResult = arg as? RegistrationResult
+                if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
+                    Log.d(TAG, "Registration Successful")
+
+                    val appIds = registrationResult.applicationIds
+                    if (appIds == null) {
+                        Log.e(TAG, "No beneficiary list received. Returning ... ")
+                        return
+                    }
+
+                    Log.d(TAG, "Registered following users: ")
+                    for (nowId in appIds) {
+                        Log.d(TAG, "Beneficiary ID : $nowId")
+                    }
+                } else {
+                    Log.d(TAG, "Registration Failed")
+                    Log.d(TAG, "Error code : ${registrationResult?.syncStatus?.errorCode}")
+                    Log.d(TAG, "Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
+                }
+            }
+        } catch (exc: Exception) {
+            Log.e(TAG, "Error while processing update : ${exc.message}")
+        }
 
 
     }
