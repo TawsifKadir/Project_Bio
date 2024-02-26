@@ -161,7 +161,12 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
         }
 
         binding.btAdd.setOnClickListener {
-            onClickAddAlternate()
+            if(binding.recyclerView.adapter?.itemCount!! < 2) {
+                onClickAddAlternate()
+            }
+            else{
+                binding.btAdd.setText("Max Limit is 2")
+            }
         }
 
 
