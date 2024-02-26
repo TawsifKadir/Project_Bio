@@ -1,6 +1,7 @@
 package com.xplo.code.ui.dashboard.household.forms
 
 import android.content.Context
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.EditText
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
@@ -92,6 +94,8 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
     //private lateinit var btAdd: Button
     //private lateinit var btAddAnother: Button
     private lateinit var recyclerView: RecyclerView
+    private lateinit var rbNo : RadioButton
+
 
 
     override fun onAttach(context: Context) {
@@ -128,7 +132,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         //btAdd = binding.viewNomineeAddNominee.btAdd
         //btAddAnother = binding.viewNomineeAddNominee.btAddAnother
         recyclerView = binding.recyclerView
-
+        rbNo = binding.rbNo
 
     }
 
@@ -280,6 +284,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
                 }
                 else{
                     onRGNomineeAddNo()
+                    onChooseNomineeNotAdd()
                 }
             }
         }
@@ -458,14 +463,18 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         if (!form.isExtraNomineeOk()) return
 
         if (form.isOk()) {
-
+            val text = "The project’s objective is to achieve a 50–50 percent distribution between male and female youth in the program. To ensure this, we kindly request your consent to nominate a participant of the opposite gender. If you prefer not to nominate, please select NO and provide your reason."
             val checkExtraCases = form.checkExtraCases()
             if (checkExtraCases != null) {
                 showAlerter(checkExtraCases, null)
                 return
             }
-
-            onValidated(form)
+            if(rbNo.isChecked){
+                onValidated(form)
+            }else{
+                //R.string.nominee_objective_alerter_msg
+                showAlerterLong("Add Nominee",text)
+            }
         }
 
 
