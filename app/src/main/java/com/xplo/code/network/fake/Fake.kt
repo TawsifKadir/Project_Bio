@@ -1,9 +1,17 @@
 package com.xplo.code.network.fake
-
+import android.annotation.SuppressLint
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.gson.Gson
+//import com.fasterxml.jackson.databind.ObjectMapper
+import com.kit.integrationmanager.model.Beneficiary
 import com.xplo.code.R
 import com.xplo.code.core.Contextor
 import com.xplo.code.network.model.IbdbModel
+import com.xplo.code.utils.JsonUtils
 import com.xplo.data.model.user.User
+import java.io.BufferedReader
+import java.io.InputStream
+import java.io.InputStreamReader
 import kotlin.random.Random
 
 /**
@@ -15,6 +23,8 @@ import kotlin.random.Random
  * Desc     :
  * Comment  :
  */
+
+@SuppressLint("StaticFieldLeak")
 object Fake {
 
 
@@ -106,6 +116,21 @@ object Fake {
         return items
     }
 
+    fun getABenificiary(): Beneficiary? {
 
+        val inputStream: InputStream = context.resources.openRawResource(R.raw.single_reg)
+        val br = BufferedReader(InputStreamReader(inputStream, "UTF-8"))
+        val mapper = ObjectMapper()
+        val beneficiary: Beneficiary = mapper.readValue(br, Beneficiary::class.java)
+        return beneficiary
+
+//        val txt = context.resources.openRawResource(R.raw.single_reg_mod)
+//            .bufferedReader().use { it.readText() }
+//
+//        val beneficiary: Beneficiary = Gson().fromJson(txt, Beneficiary::class.java)
+//
+//
+//        return null
+    }
 
 }

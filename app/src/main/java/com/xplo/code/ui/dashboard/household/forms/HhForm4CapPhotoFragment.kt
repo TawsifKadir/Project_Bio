@@ -23,17 +23,16 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.kit.integrationmanager.model.BiometricUserType
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.databinding.FragmentHhForm4CapPhotoBinding
-import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
-import com.xplo.code.ui.dashboard.model.HhForm3
 import com.xplo.code.ui.dashboard.model.HhForm4
-import com.xplo.code.ui.dashboard.model.HhForm5
+import com.xplo.code.ui.dashboard.model.PhotoData
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.code.ui.photo.ImagePickerActivity
 import com.xplo.code.ui.photo.ImageUtil
@@ -203,7 +202,7 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
     override fun onReinstateData(form: HhForm4?) {
         Log.d(TAG, "onReinstateData() called with: form = $form")
         if (form != null) {
-            form.img?.let { loadProfile(it) }
+            form.photoData?.imgPath?.let { loadProfile(it) }
             this.form = form
         }
 
@@ -218,7 +217,7 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
             val bitmap =
                 MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
             newPhotoBase64 = ImageUtil.convert(bitmap)
-            setToModel(uri.toString())
+            setToModel(uri.toString(),newPhotoBase64)
             loadProfile(uri.toString())
         } catch (e: IOException) {
             e.printStackTrace()
@@ -263,12 +262,12 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
     }
 
     override fun onReadInput() {
-//        if(!isEmulator()){
-//            if (!form.isOk()) {
-//                showAlerter("Warning", "Please Add Photo")
-//                return
-//            }
-//        }
+        if(!isEmulator()){
+            if (!form.isOk()) {
+                showAlerter("Warning", "Please Add Photo")
+                return
+            }
+        }
         interactor?.navigateToForm5()
         Log.d(TAG, "onReadInput() called")
     }
@@ -342,9 +341,13 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
         }
     }
 
-    private fun setToModel(newPhotoBase64: String?) {
-        Log.d(TAG, "setToModel() called with: newPhotoBase64 = $newPhotoBase64")
-        form.img = newPhotoBase64
+    private fun setToModel(path: String?, newPhotoBase64: String) {
+        Log.d(TAG, "setToModel() called with: path = $path")
+        var data = PhotoData()
+        data.imgPath = path
+        data.userType = BiometricUserType.BENEFICIARY.name
+        data.img = newPhotoBase64
+        form.photoData = data
         val rootForm = interactor?.getRootForm()
         rootForm?.form4 = form
         interactor?.setRootForm(rootForm)

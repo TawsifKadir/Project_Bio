@@ -179,7 +179,6 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         nominee.middleName = getEditText(etMiddleName)
         nominee.lastName = chkEditText3Char(etLastName, UiData.ER_ET_DF)
         nominee.age = chkAge(etAge, UiData.ER_ET_DF)?.toInt()
-
         nominee.relation = chkSpinner(spRelation, UiData.ER_SP_DF)
         nominee.gender = chkSpinner(spGender, UiData.ER_SP_DF)
         nominee.occupation = chkSpinner(spOccupation, UiData.ER_SP_DF)

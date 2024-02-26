@@ -1,6 +1,7 @@
 package com.xplo.code.ui.dashboard.model
 
 import com.xplo.code.core.TestConfig
+import com.xplo.data.core.ext.toBool
 import java.io.Serializable
 
 /**
@@ -14,9 +15,8 @@ import java.io.Serializable
 
 data class HouseholdForm(
 
-    var id: Long = -1L,     // optional, use at some specific case
-    var uuid: String? = null,
-
+    var id: String,     //uuid
+    var hid: String,     // optional, use at some specific case
     var form1: HhForm1? = null,
     var form2: HhForm2? = null,
     var form3: HhForm3? = null,
@@ -56,23 +56,21 @@ data class HhForm2(
     var firstName: String? = null,
     var middleName: String? = null,
     var lastName: String? = null,
-    var nickName: String? = null,
     var spouseFirstName: String? = null,
     var spouseMiddleName: String? = null,
     var spouseLastName: String? = null,
-    var spouseFourthName: String? = null,
     var age: Int? = null,
     var idNumber: String? = null,
     var idNumberType: String? = null,
     var phoneNumber: String? = null,
     var mainSourceOfIncome: String? = null,
     var currency: String? = null,
-    var monthlyAverageIncome: String? = null,
+    var monthlyAverageIncome: Int? = null,
     var gender: String? = null,
     var respondentRlt: String? = null,
     var maritalStatus: String? = null,
     var legalStatus: String? = null,
-    var spouseName: String? = null,
+    //var spouseName: String? = null,
     var selectionReason: String? = null,
     var idIsOrNot: String? = null,
     var selectionCriteria: String? = null,
@@ -90,77 +88,43 @@ fun HhForm2?.getOppositeGender(): String? {
 
 data class HhForm3(
     var householdSize: Int? = null,
+    var male0_2: HhMember = HhMember(),
+    var male3_5: HhMember = HhMember(),
+    var male6_17: HhMember = HhMember(),
+    var male18_35: HhMember = HhMember(),
+    var male36_64: HhMember = HhMember(),
+    var male65p: HhMember = HhMember(),
 
-    var mem0TotalMale: Int = 0,
-    var mem3TotalMale: Int = 0,
-    var mem6TotalMale: Int = 0,
-    var mem18TotalMale: Int = 0,
-    var mem36TotalMale: Int = 0,
-    var mem65TotalMale: Int = 0,
-
-    var mem0TotalFemale: Int = 0,
-    var mem3TotalFemale: Int = 0,
-    var mem6TotalFemale: Int = 0,
-    var mem18TotalFemale: Int = 0,
-    var mem36TotalFemale: Int = 0,
-    var mem65TotalFemale: Int = 0,
-
-
-    var mem0NormalMale: Int = 0,
-    var mem0DisableMale: Int = 0,
-    var mem0IllMale: Int = 0,
-    var mem3NormalMale: Int = 0,
-    var mem3DisableMale: Int = 0,
-    var mem3IllMale: Int = 0,
-    var mem6NormalMale: Int = 0,
-    var mem6DisableMale: Int = 0,
-    var mem6IllMale: Int = 0,
-    var mem18NormalMale: Int = 0,
-    var mem18DisableMale: Int = 0,
-    var mem18IllMale: Int = 0,
-    var mem36NormalMale: Int = 0,
-    var mem36DisableMale: Int = 0,
-    var mem36IllMale: Int = 0,
-    var mem65NormalMale: Int = 0,
-    var mem65DisableMale: Int = 0,
-    var mem65IllMale: Int = 0,
-
-    var mem0NormalFemale: Int = 0,
-    var mem0DisableFemale: Int = 0,
-    var mem0IllFemale: Int = 0,
-    var mem3NormalFemale: Int = 0,
-    var mem3DisableFemale: Int = 0,
-    var mem3IllFemale: Int = 0,
-    var mem6NormalFemale: Int = 0,
-    var mem6DisableFemale: Int = 0,
-    var mem6IllFemale: Int = 0,
-    var mem18NormalFemale: Int = 0,
-    var mem18DisableFemale: Int = 0,
-    var mem18IllFemale: Int = 0,
-    var mem36NormalFemale: Int = 0,
-    var mem36DisableFemale: Int = 0,
-    var mem36IllFemale: Int = 0,
-    var mem65NormalFemale: Int = 0,
-    var mem65DisableFemale: Int = 0,
-    var mem65IllFemale: Int = 0,
-
-
-
+    var female0_2: HhMember = HhMember(),
+    var female3_5: HhMember = HhMember(),
+    var female6_17: HhMember = HhMember(),
+    var female18_35: HhMember = HhMember(),
+    var female36_64: HhMember = HhMember(),
+    var female65p: HhMember = HhMember(),
     var readWriteNumber: Int? = null,
     var isReadWrite: String? = null
 
 )
 
-data class HhForm4(
-    var img: String? = null
+data class HhMember(
+    var normal: Int = 0,
+    var ill: Int = 0,
+    var disable: Int = 0
 )
+
+data class HhForm4(
+    //var img: String? = null
+    var photoData: PhotoData? = null
+)
+
 fun HhForm4.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
-    if (this.img == null) return false
-    if (this.img.isNullOrEmpty()) return false
+    if (this.photoData == null) return false
+    if (!this.photoData?.isOk().toBool()) return false
 
     return true
 }
+
 data class HhForm6(
 
     var isNomineeAdd: String? = null,       // nominee add or not
@@ -198,6 +162,7 @@ fun Nominee?.getOppositeGender(): String? {
 }
 
 fun Nominee?.getNomineeHeader(number: Int): String {
+    if (this == null) return "Nominee $number"
     when (number) {
         1 -> return "First Nominee"
         2 -> return "Second Nominee"
@@ -242,17 +207,75 @@ fun Nominee?.toDetails(): String? {
 
 
 data class HhForm5(
-    var finger: Finger? = null
+    //var fingerData: FingerData? = null
+    var fingers: List<Finger> = arrayListOf()
 )
 
+fun List<Finger>?.isCaptured(fingerCode: String?): Boolean {
+    //if (!TestConfig.isValidationEnabled) return true
+    //if (!TestConfig.isFingerPrintRequired) return true
+    if (this == null) return false
+    if (this.isEmpty()) return false
+    if (fingerCode == null) return false
+
+    for (item in this){
+        if (fingerCode.equals(item.fingerType, true)) return true
+    }
+
+    return false
+}
+
+fun HhForm5.isOk(): Boolean {
+    if (!TestConfig.isValidationEnabled) return true
+    if (!TestConfig.isFingerPrintRequired) return true
+    if (this.fingers.isEmpty()) return false
+
+//    if (TestConfig.isFingerPrintRequired) {
+//        if (fingerItemsStore.isEmpty()) {
+//            showAlerter("Warning", "Please Add Fingerprint")
+//            return
+//        }
+//    }
+
+    return true
+}
+
+data class FingerData(
+    var fingerLT: Finger? = null,
+    var fingerLI: Finger? = null,
+    var fingerLM: Finger? = null,
+    var fingerLR: Finger? = null,
+    var fingerLL: Finger? = null,
+
+    var fingerRT: Finger? = null,
+    var fingerRI: Finger? = null,
+    var fingerRM: Finger? = null,
+    var fingerRR: Finger? = null,
+    var fingerRL: Finger? = null
+
+) : Serializable
+
+data class Finger(
+    var fingerId: String? = null,
+    var fingerPrint: String? = null,
+    var fingerType: String? = null,
+    var userType: String? = null
+) : Serializable
+
+fun Finger.isOk(): Boolean {
+    if (!TestConfig.isValidationEnabled) return true
+    if (this.fingerPrint.isNullOrEmpty()) return false
+    if (this.fingerType.isNullOrEmpty()) return false
+    if (this.userType.isNullOrEmpty()) return false
+
+    return true
+}
 data class AlForm1(
     var householdName: String? = null,
 
     var alternateFirstName: String? = null,
     var alternateMiddleName: String? = null,
     var alternateLastName: String? = null,
-    var alternateNickName: String? = null,
-
     var age: Int? = null,
     var idNumber: String? = null,
     var idNumberType: String? = null,
@@ -263,29 +286,41 @@ data class AlForm1(
 ) : Serializable
 
 data class AlForm2(
-    var img: String? = null
+    var photoData: PhotoData? = null
 ) : Serializable
+
 fun AlForm2.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
-    if (this.img == null) return false
-    if (this.img.isNullOrEmpty()) return false
+    if (!this.photoData?.isOk().toBool()) return false
+    return true
+}
+
+
+data class PhotoData(
+    var imgPath: String? = null,
+    var img: String? = null,
+    var userType: String? = null
+) : Serializable
+
+fun PhotoData.isOk(): Boolean {
+    if (!TestConfig.isValidationEnabled) return true
+    if (this.imgPath == null) return false
+    if (this.imgPath.isNullOrEmpty()) return false
 
     return true
 }
+
 data class AlForm3(
-    var finger: Finger? = null
+    //var fingerData: FingerData? = null
+    var fingers: List<Finger> = arrayListOf()
 ) : Serializable
 
-data class Finger(
-    var fingerRT: String? = null,
-    var fingerRI: String? = null,
-    var fingerRM: String? = null,
-    var fingerRR: String? = null,
-    var fingerRL: String? = null,
-    var fingerLT: String? = null,
-    var fingerLI: String? = null,
-    var fingerLM: String? = null,
-    var fingerLR: String? = null,
-    var fingerLL: String? = null
-) : Serializable
+fun AlForm3.isOk(): Boolean {
+    if (!TestConfig.isValidationEnabled) return true
+    if (!TestConfig.isFingerPrintRequired) return true
+    if (this.fingers.isEmpty()) return false
+
+    return true
+}
+
 

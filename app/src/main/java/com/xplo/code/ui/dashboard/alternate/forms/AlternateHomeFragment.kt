@@ -129,7 +129,7 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
         }
 
         binding.btAddAlternate.setOnClickListener {
-            interactor?.navigateToForm1(null,false,false)
+            interactor?.navigateToForm1(null, false, false)
         }
 
     }
@@ -149,7 +149,7 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
     }
 
     override fun navigateToHouseholdDetails(content: HouseholdItem) {
-        Log.d(TAG, "navigateToHouseholdDetails() called with: content = ${content.id}")
+        Log.d(TAG, "navigateToHouseholdDetails() called with: content = ${content.hid}")
         interactor?.navigateToFormDetails(content)
     }
 
@@ -165,10 +165,10 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
     }
 
     override fun onClickHouseholdItem(item: HouseholdItem, pos: Int) {
-        Log.d(TAG, "onClickHouseholdItem() called with: item = ${item.id}, pos = $pos")
+        Log.d(TAG, "onClickHouseholdItem() called with: item = ${item.hid}, pos = $pos")
         //dToast(item.title)
         //navigateToHouseholdDetails(item)
-        interactor?.navigateToForm1(item.uuid,true, false)
+        interactor?.navigateToForm1(item.id, true, false)
     }
 
     override fun onClickHouseholdItemDelete(item: HouseholdItem, pos: Int) {
@@ -184,7 +184,7 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
 
     override fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int) {
         Log.d(TAG, "onClickHouseholdItemAddAlternate() called with: item = $item, pos = $pos")
-        interactor?.navigateToForm1(item.uuid,true, false)
+        interactor?.navigateToForm1(item.id, true, false)
     }
 
 }

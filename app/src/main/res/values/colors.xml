@@ -11,6 +11,7 @@
     <color name="red">#F44336</color>
     <color name="white">#FFFFFF</color>
 
+
     <color name="cellBackgroundPrimary">#FFFBEC</color>
     <color name="cellTextPrimary">#808080</color>
     <color name="login_text">#808080</color>

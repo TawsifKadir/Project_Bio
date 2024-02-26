@@ -1,11 +1,12 @@
 package com.xplo.code.ui.dashboard.model
 
 import com.google.gson.GsonBuilder
+import com.kit.integrationmanager.model.MaritalStatusEnum
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.isNo
 import com.xplo.code.core.ext.toBool
 import com.xplo.code.ui.dashboard.UiData
-import com.xplo.code.utils.MaritalStatus
+
 
 
 fun HhForm2?.getFullName(): String? {
@@ -36,13 +37,24 @@ fun AlForm1?.getFullName(): String? {
 
 fun HhForm1.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
+    if (!this.county?.isOk().toBool()) return false
+    if (!this.state?.isOk().toBool()) return false
+    if (!this.payam?.isOk().toBool()) return false
+    if (!this.boma?.isOk().toBool()) return false
 
-    if (this.county?.name.isNullOrBlank()) return false
-    if (this.state?.name.isNullOrBlank()) return false
-    if (this.payam?.name.isNullOrBlank()) return false
-    if (this.boma?.name.isNullOrBlank()) return false
+//    if (this.county?.name.isNullOrBlank()) return false
+//    if (this.state?.name.isNullOrBlank()) return false
+//    if (this.payam?.name.isNullOrBlank()) return false
+//    if (this.boma?.name.isNullOrBlank()) return false
     //if (this.lat == null) return false
     //if (this.lon == null) return false
+
+    return true
+}
+fun Area.isOk(): Boolean {
+
+    if (this.id == null) return false
+    if (this.name.isNullOrBlank()) return false
 
     return true
 }
@@ -63,7 +75,7 @@ fun HhForm2.isOk(): Boolean {
         return false
     }
 
-    if (this.maritalStatus == MaritalStatus.MARRIED.status) {
+    if (this.maritalStatus == MaritalStatusEnum.MARRIED.value) {
         if (this.spouseFirstName.isNullOrBlank()) {
             return false
         }
@@ -86,7 +98,7 @@ fun HhForm2.isOk(): Boolean {
     //if (this.spouseName.isNullOrBlank()) return false
     if (this.selectionReason.isNullOrBlank()) return false
     if (this.selectionCriteria.isNullOrBlank()) return false
-    if (this.monthlyAverageIncome.isNullOrBlank()) return false
+    if (this.monthlyAverageIncome == null) return false
     if (this.selectionReason.isNullOrBlank()) return false
 
     if (this.age == null) return false
@@ -150,9 +162,9 @@ fun HhForm6.isOk(): Boolean {
 
 fun HhForm6.isExtraNomineeOk(): Boolean {
 
-    if (this.xIsNomineeAdd.isNo()){
+    if (this.xIsNomineeAdd.isNo()) {
         if (this.xNoNomineeReason.isNullOrEmpty()) return false
-        if (this.xNoNomineeReason?.contains(UiData.otherSpecify, true).toBool()){
+        if (this.xNoNomineeReason?.contains(UiData.otherSpecify, true).toBool()) {
             if (this.xOtherReason.isNullOrEmpty()) return false
         }
     }

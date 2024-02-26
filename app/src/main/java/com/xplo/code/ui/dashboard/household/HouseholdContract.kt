@@ -1,11 +1,17 @@
 package com.xplo.code.ui.dashboard.household
 
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.kit.integrationmanager.model.Beneficiary
 import com.xplo.code.base.BaseContract
+import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.offline.OptionItem
 import com.xplo.code.ui.dashboard.model.AlternateForm
+import com.xplo.code.ui.dashboard.model.Finger
 import com.xplo.code.ui.dashboard.model.HhForm1
 import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.HhForm3
@@ -54,6 +60,9 @@ interface HouseholdContract {
 
         fun onPageAdd()
 
+        fun onSaveBeneficiarySuccess(item: BeneficiaryEntity?)
+        fun onSaveBeneficiaryFailure(msg: String?)
+
         fun getRootForm(): HouseholdForm?
         fun setRootForm(form: HouseholdForm?)
         fun resetRootForm()
@@ -61,9 +70,39 @@ interface HouseholdContract {
 
     }
 
-    interface Presenter : BaseContract.Presenter<View> {
+    interface Presenter {
 
-        fun saveData(data: String?)
+        fun saveFormPEntity(form: HouseholdForm?)
+
+        fun saveHouseholdFormAsHouseholdItem(form: HouseholdForm?)
+        fun getHouseholdItem(id: String?)
+        fun getHouseholdItems()
+        fun updateHouseholdItem(item: HouseholdItem?)
+        fun deleteHouseholdItem(item: HouseholdItem?)
+        fun sendHouseholdItem(item: HouseholdItem?, pos: Int)
+        fun sendHouseholdForm(form: HouseholdForm?, pos: Int)
+
+
+        fun saveBeneficiaryEntity(item: BeneficiaryEntity?)
+        fun getBeneficiaryEntity(id: String?)
+        fun getBeneficiaryEntityItems()
+        fun updateBeneficiaryEntity(item: BeneficiaryEntity?)
+        fun deleteBeneficiaryEntity(item: BeneficiaryEntity?)
+        fun sendBeneficiaryEntity(item: BeneficiaryEntity?, pos: Int)
+        fun sendBeneficiary(item: Beneficiary?, pos: Int)
+
+
+
+
+        fun getStateItems()
+        fun getCountryItems(state: String?)
+        fun getPayamItems(county: String?)
+        fun getBomaItems(payam: String?)
+
+        fun syncHouseholdForm(context: Context, form: HouseholdForm?, pos: Int)
+        fun syncBeneficiaryEntity(context: Context, entity: BeneficiaryEntity?, pos: Int)
+        fun syncBeneficiary(context: Context, beneficiary: Beneficiary?, pos: Int)
+
     }
 
     interface CommonView {
@@ -85,6 +124,12 @@ interface HouseholdContract {
 
         fun onSubmitFormSuccess(id: String?, pos: Int)
         fun onSubmitFormFailure(msg: String?)
+
+        fun onSubmitHouseholdItemSuccess(item: HouseholdItem?, pos: Int)
+        fun onSubmitHouseholdItemFailure(msg: String?)
+
+        fun onUpdateHouseholdItemSuccess(id: String?)
+        fun onUpdateHouseholdItemFailure(msg: String?)
 
     }
 
@@ -133,6 +178,13 @@ interface HouseholdContract {
     interface Form5View : BaseContract.View, CommonView {
         fun onValidated(form: HhForm5?)
         fun onReinstateData(form: HhForm5?)
+
+        fun onStartFingerprintCapture()
+        fun onGetFingerprintIntent(intent: Intent?)
+        fun onGetFingerprintData(items: List<Finger>?)
+
+        fun onRefreshFingerprints(items: List<Finger>?)
+        fun onRefreshFingerDrawable(img: ImageView, finger: Finger?)
 
     }
 
@@ -193,6 +245,9 @@ interface HouseholdContract {
 
         fun onGetHouseholdList(items: List<HouseholdItem>?)
         fun onGetHouseholdListFailure(msg: String?)
+
+        fun onSendSuccess(householdItem: HouseholdItem?, pos: Int)
+        fun onSendFailure(msg: String?, pos: Int)
 
 
     }

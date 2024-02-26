@@ -116,6 +116,15 @@ class HouseholdListFragment : BaseFragment(), HouseholdContract.HouseholdListVie
                         onGetHouseholdListFailure(event.msg)
                     }
 
+                    is HouseholdViewModel.Event.SendHouseholdItemSuccess -> {
+                        hideLoading()
+                        onSendSuccess(event.item, event.pos)
+                    }
+
+                    is HouseholdViewModel.Event.SendHouseholdItemFailure -> {
+                        hideLoading()
+                        onSendFailure(event.msg, event.pos)
+                    }
                     else -> Unit
                 }
             }
@@ -150,6 +159,17 @@ class HouseholdListFragment : BaseFragment(), HouseholdContract.HouseholdListVie
         //showMessage(msg)
     }
 
+    override fun onSendSuccess(householdItem: HouseholdItem?, pos: Int) {
+        Log.d(TAG, "onSendSuccess() called with: householdItem = $householdItem, pos = $pos")
+        householdItem?.isSynced = true
+        viewModel.updateHouseholdItem(householdItem)
+    }
+
+    override fun onSendFailure(msg: String?, pos: Int) {
+        Log.d(TAG, "onSendFailure() called with: msg = $msg, pos = $pos")
+
+    }
+
     override fun onClickHouseholdItem(item: HouseholdItem, pos: Int) {
         Log.d(TAG, "onClickHouseholdItem() called with: item = $item, pos = $pos")
         //dToast(item.title)
@@ -170,6 +190,10 @@ class HouseholdListFragment : BaseFragment(), HouseholdContract.HouseholdListVie
     override fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int) {
         Log.d(TAG, "onClickHouseholdItemAddAlternate() called with: item = $item, pos = $pos")
 
+    }
+
+    override fun onClickHouseholdItemSave(item: HouseholdItem, pos: Int) {
+        Log.d(TAG, "onClickHouseholdItemSave() called with: item = $item, pos = $pos")
     }
 
 

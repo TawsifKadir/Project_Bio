@@ -8,7 +8,6 @@ import com.bumptech.glide.Glide
 import com.xplo.code.R
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
-import com.xplo.code.data.db.models.toSummary
 import com.xplo.code.databinding.RowAlternateItemBinding
 import com.xplo.code.ui.dashboard.model.getFullName
 
@@ -63,7 +62,7 @@ class AlternateListAdapter : RecyclerView.Adapter<AlternateListAdapter.ViewHolde
             val form = item.toHouseholdForm()
             if (form == null) return
 
-            binding.tvId.text = "id: " + item.id.toString()
+            binding.tvId.text = "id: " + item.hid.toString()
             binding.tvName.text = form.form2.getFullName()
             binding.tvGender.text = form.form2?.gender
             binding.tvAge.text = "age: " + form.form2?.age
@@ -73,7 +72,7 @@ class AlternateListAdapter : RecyclerView.Adapter<AlternateListAdapter.ViewHolde
                 binding.root.isClickable = false
                 binding.tvAlternate.setTypeface(null, Typeface.BOLD)
             }
-            loadImage(form.form4?.img)
+            loadImage(form.form4?.photoData?.imgPath)
 
         }
 

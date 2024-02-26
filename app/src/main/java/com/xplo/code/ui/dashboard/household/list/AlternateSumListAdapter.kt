@@ -61,8 +61,7 @@ class AlternateSumListAdapter : RecyclerView.Adapter<AlternateSumListAdapter.Vie
             //binding.tvId.text = "id: " + item.id.toString()
             binding.tvTitle.text = item.form1.getFullName()
             binding.tvData.text = item.toSummary()
-
-            loadImage(item.form2?.img)
+            loadImage(item.form2?.photoData?.imgPath)
 
         }
 

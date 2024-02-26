@@ -19,6 +19,7 @@ class HeaderInterceptor @Inject constructor() : Interceptor {
         if (Config.ACCESS_TOKEN?.isNotBlank().toBool()){
             builder.addHeader("Authorization", "Bearer ${Config.ACCESS_TOKEN}")
         }
+        builder.addHeader("DeviceId", "47951385-a13f-409a-9a79-c4aaef0e3f9b")
         //builder.addHeader("Accept-Language", Config.LOCALE)
 
         return chain.proceed(builder.build())

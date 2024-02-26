@@ -104,6 +104,7 @@
                         style="@style/AppEditText.Form.Text.Min3" />
 
                 </LinearLayout>
+
                 <include layout="@layout/view_margin_space" />
                 <LinearLayout
                     style="@style/AppLinearLayoutInputBox"
@@ -329,7 +330,6 @@
                         android:id="@+id/etMonthlyAverageIncome"
                         style="@style/AppEditText.Form.Number"
                         android:maxLength="6" />
-
                 </LinearLayout>
 
                 <include
@@ -379,7 +379,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
                 <LinearLayout
                     style="@style/AppLinearLayoutInputBox"
                     android:layout_weight="1">
@@ -419,6 +418,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+
                 <LinearLayout
                     style="@style/AppLinearLayoutInputBox"
                     android:layout_weight="1">
@@ -446,6 +446,7 @@
                         style="@style/AppEditText.Form.Text" />
 
                 </LinearLayout>
+
 
                 <include layout="@layout/view_margin_space" />
 

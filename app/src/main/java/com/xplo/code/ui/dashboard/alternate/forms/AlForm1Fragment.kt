@@ -81,8 +81,6 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
     private lateinit var etAlternateFirstName: EditText
     private lateinit var etAlternateMiddleName: EditText
     private lateinit var etAlternateLastName: EditText
-    private lateinit var etAlternateNickName: EditText
-
     private lateinit var spGender: Spinner
     private lateinit var spAlternateRelation: Spinner
     private lateinit var etPhoneNo: EditText
@@ -94,7 +92,6 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
     private lateinit var etSpouseFirstName: EditText
     private lateinit var etSpouseMiddleName: EditText
     private lateinit var etSpouseLastName: EditText
-    private lateinit var etSpouseNickName: EditText
     private lateinit var rgId: RadioGroup
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -143,9 +140,6 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         etAlternateFirstName = binding.etAlternateFirstName
         etAlternateMiddleName = binding.etAlternateMiddleName
         etAlternateLastName = binding.etAlternateLastName
-        etAlternateNickName = binding.etAlternateNickName
-
-
     }
 
     override fun initView() {
@@ -321,8 +315,6 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         form.alternateFirstName = chkEditText3Char(etAlternateFirstName, UiData.ER_ET_DF)
         form.alternateMiddleName =  chkEditText3Char(etAlternateMiddleName, UiData.ER_ET_DF)
         form.alternateLastName = chkEditText3Char(etAlternateLastName, UiData.ER_ET_DF)
-        form.alternateNickName = chkEditText3Char(etAlternateNickName, UiData.ER_ET_DF)
-
 
         if (!form.isOk()) {
             return
@@ -359,8 +351,6 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         etAlternateFirstName.setText("Mohd")
         etAlternateMiddleName.setText("Moniruzzaman")
         etAlternateLastName.setText("Shadhin")
-        etAlternateNickName.setText("Bio")
-
     }
 
     override fun onPopulateView() {
@@ -398,7 +388,6 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         etAlternateFirstName.setText(form.alternateFirstName)
         etAlternateMiddleName.setText(form.alternateMiddleName)
         etAlternateLastName.setText(form.alternateLastName)
-        etAlternateNickName.setText(form.alternateNickName)
     }
 
     override fun onGetHouseholdItem(item: HouseholdItem?) {

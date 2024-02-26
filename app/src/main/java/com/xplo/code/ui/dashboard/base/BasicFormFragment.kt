@@ -94,7 +94,7 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         return txt
     }
 
-    override fun chkEditTextMonthlyAvgIncome(editText: EditText, error: String?): String? {
+    override fun chkEditTextMonthlyAvgIncome(editText: EditText, error: String?): Int? {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {
             if (txt.isEmpty() || txt == "") {
@@ -106,7 +106,7 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
 //                return null
 //            }
         }
-        return txt
+        return txt.toInt()
     }
 
     override fun chkEditText3Char(editText: EditText, error: String?): String? {

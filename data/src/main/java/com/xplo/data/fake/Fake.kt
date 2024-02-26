@@ -1,5 +1,5 @@
 package com.xplo.data.fake
 
 object Fake {
-    val token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcwNzcwODcyNywiZXhwIjoxODY1Mzg4NzI3fQ.E1VDXKmdlYCxvajkJkVaZlcXeBpGCBDTO7EsUkjgNxD6ZmRp7iy4T3aM1O2kbwEgitft4tKq_JFUdAXnmaAoOA"
+    val token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmYWthZGlyXzIzIiwiaWF0IjoxNzA4ODg1NDcyLCJleHAiOjE4NjY1NjU0NzJ9.Fjf-FbaLDdIHuUsGuyOgiKlzbW2V9Bg2lTxxf7cAq4XGLYCaYsIEw4LX_sOp-WtWp7n-8pP95EkTSuvY31eMSg"
 }

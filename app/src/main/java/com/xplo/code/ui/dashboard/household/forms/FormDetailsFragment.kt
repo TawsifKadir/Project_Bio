@@ -27,7 +27,7 @@ import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.ReportRow
 import com.xplo.code.ui.dashboard.model.getReportRows
 import com.xplo.code.ui.dashboard.model.getReportRowsAltSummary
-import com.xplo.code.ui.testing_lab.JvActivity
+import com.xplo.code.ui.testing_lab.FormPGActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -48,7 +48,7 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
 
         @JvmStatic
         fun newInstance(parent: String?, item: HouseholdItem?): FormDetailsFragment {
-            Log.d(TAG, "newInstance() called with: parent = $parent, item = ${item?.id}")
+            Log.d(TAG, "newInstance() called with: parent = $parent, item = ${item?.hid}")
             val fragment = FormDetailsFragment()
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
@@ -101,7 +101,8 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
     override fun initObserver() {
 
         binding.tvPage.setOnLongClickListener {
-            JvActivity.open(requireContext(), null, householdItem?.data)
+            //JvActivity.open(requireContext(), null, householdItem?.data)
+            FormPGActivity.open(requireContext(), null, householdItem?.id)
             return@setOnLongClickListener true
         }
 
@@ -171,7 +172,7 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
 
     private fun addReportForm4(form: HhForm4?) {
         if (form == null) return
-        binding.viewPreview.ivAvatar.loadAvatar(form.img)
+        binding.viewPreview.ivAvatar.loadAvatar(form.photoData?.imgPath)
     }
 
     private fun addReportForm5(form: HhForm5?) {

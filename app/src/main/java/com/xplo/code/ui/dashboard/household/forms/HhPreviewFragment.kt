@@ -117,13 +117,25 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                         //showLoading()
                     }
 
-                    is HouseholdViewModel.Event.SaveHouseholdFormSuccess -> {
+//                    is HouseholdViewModel.Event.SaveHouseholdFormSuccess -> {
+//                        hideLoading()
+//                        onSaveSuccess(event.id)
+//                        viewModel.clearEvent()
+//                    }
+//
+//                    is HouseholdViewModel.Event.SaveHouseholdFormFailure -> {
+//                        hideLoading()
+//                        onSaveFailure(event.msg)
+//                        viewModel.clearEvent()
+//                    }
+
+                    is HouseholdViewModel.Event.SaveFormPEntitySuccess -> {
                         hideLoading()
                         onSaveSuccess(event.id)
                         viewModel.clearEvent()
                     }
 
-                    is HouseholdViewModel.Event.SaveHouseholdFormFailure -> {
+                    is HouseholdViewModel.Event.SaveFormPEntityFailure -> {
                         hideLoading()
                         onSaveFailure(event.msg)
                         viewModel.clearEvent()
@@ -246,7 +258,8 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             .setListener(object : XDialog.DialogListener {
                 override fun onClickPositiveButton() {
                     val rootForm = interactor?.getRootForm()
-                    viewModel.saveHouseholdForm(rootForm)
+                    //viewModel.saveHouseholdFormAsHouseholdItem(rootForm)
+                    viewModel.saveFormPEntity(rootForm)
                 }
 
                 override fun onClickNegativeButton() {
@@ -334,7 +347,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
 
     private fun addReportForm4(form: HhForm4?) {
         if (form == null) return
-        binding.viewPreview.ivAvatar.loadAvatar(form.img)
+        binding.viewPreview.ivAvatar.loadAvatar(form.photoData?.imgPath)
     }
 
     private fun addReportForm5(form: HhForm5?) {

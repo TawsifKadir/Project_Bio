@@ -14,6 +14,7 @@ import com.xplo.code.R
 import com.xplo.code.base.BaseActivity
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
+import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.databinding.ActivityHouseholdBinding
 import com.xplo.code.ui.dashboard.household.forms.FormDetailsFragment
@@ -21,15 +22,17 @@ import com.xplo.code.ui.dashboard.household.forms.HhForm1RegSetupFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm2PerInfoFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm3HhBdFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm4CapPhotoFragment
-import com.xplo.code.ui.dashboard.household.forms.HhForm6NomineeFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm5FingerFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm6Nominee2Fragment
+import com.xplo.code.ui.dashboard.household.forms.HhForm6NomineeFragment
 import com.xplo.code.ui.dashboard.household.forms.HhFormAlternateFragment
 import com.xplo.code.ui.dashboard.household.forms.HhPreviewFragment
 import com.xplo.code.ui.dashboard.household.forms.HouseholdHomeFragment
 import com.xplo.code.ui.dashboard.model.HhForm1
 import com.xplo.code.ui.dashboard.model.HouseholdForm
+import com.xplo.data.utils.HIDGenerator
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.UUID
 
 /**
  * Copyright 2022 (C) xplo
@@ -64,7 +67,8 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
     private val viewModel: HouseholdViewModel by viewModels()
     //private lateinit var toolbar: Toolbar
 
-    private var rootForm: HouseholdForm? = HouseholdForm()
+    private var rootForm: HouseholdForm? = createANewHouseholdForm()
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -206,7 +210,7 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         Log.d(TAG, "navigateToForm3() called")
 
         // will remove later, dev purpose
-        if (TestConfig.isNavHackEnabled){
+        if (TestConfig.isNavHackEnabled) {
             navigateToForm6()
             return
         }
@@ -288,7 +292,7 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
     }
 
     override fun navigateToFormDetails(item: HouseholdItem?) {
-        Log.d(TAG, "navigateToFormDetails() called with: item = ${item?.id}")
+        Log.d(TAG, "navigateToFormDetails() called with: item = ${item?.hid}")
         doFragmentTransaction(
             FormDetailsFragment.newInstance(null, item),
             FormDetailsFragment.TAG,
@@ -354,6 +358,16 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
 
     }
 
+    override fun onSaveBeneficiarySuccess(item: BeneficiaryEntity?) {
+        Log.d(TAG, "onSaveBeneficiarySuccess() called with: item = $item")
+
+    }
+
+    override fun onSaveBeneficiaryFailure(msg: String?) {
+        Log.d(TAG, "onSaveBeneficiaryFailure() called with: msg = $msg")
+
+    }
+
     override fun getRootForm(): HouseholdForm? {
         Log.d(TAG, "getRootForm() called")
         return rootForm
@@ -368,7 +382,7 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         Log.d(TAG, "resetRootForm() called")
         //if (TestConfig.isNavHackEnabled) return
         this.rootForm = null
-        this.rootForm = HouseholdForm()
+        this.rootForm = createANewHouseholdForm()
         Log.d(TAG, "resetRootForm: rootForm: $rootForm")
     }
 
@@ -376,8 +390,17 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         Log.d(TAG, "resetRootFormKeepSetup() called")
         val form1 = rootForm?.form1
         this.rootForm = null
-        this.rootForm = HouseholdForm(form1 = form1)
+        val newForm = createANewHouseholdForm()
+        newForm.form1 = form1
+        this.rootForm = newForm
         Log.d(TAG, "resetRootFormKeepSetup: rootForm: $rootForm")
     }
 
+    private fun createANewHouseholdForm(): HouseholdForm {
+        val uuid = UUID.randomUUID().toString()
+        val hid = HIDGenerator.getHID()
+        val householdForm = HouseholdForm(uuid, hid)
+        Log.d(TAG, "createANewHouseholdForm: $householdForm")
+        return householdForm
+    }
 }

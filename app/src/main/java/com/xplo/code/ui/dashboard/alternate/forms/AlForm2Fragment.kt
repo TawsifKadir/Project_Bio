@@ -24,6 +24,8 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+
+import com.kit.integrationmanager.model.BiometricUserType
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -35,6 +37,8 @@ import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.forms.HhForm4CapPhotoFragment
 import com.xplo.code.ui.dashboard.model.AlForm2
 import com.xplo.code.ui.dashboard.model.HhForm4
+import com.xplo.code.ui.dashboard.model.PhotoData
+
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.code.ui.photo.ImagePickerActivity
 import com.xplo.code.ui.photo.ImageUtil
@@ -106,8 +110,6 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         initInitial()
         initView()
         initObserver()
-
-
     }
 
     override fun initInitial() {
@@ -224,19 +226,19 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         Log.d(TAG, "onReinstateData() called with: form = $form")
 
         if (form != null) {
-            form.img?.let { loadProfile(it) }
+            form.photoData?.imgPath?.let { loadProfile(it) }
             this.form = form
         }
     }
     override fun onGetImageUri(uri: Uri?) {
-        Log.d(AlForm2Fragment.TAG, "onGetImageUri() called with: uri = $uri")
+        Log.d(TAG, "onGetImageUri() called with: uri = $uri")
         file = uri!!.path?.let { File(it) }
         fileName = uri.lastPathSegment
         try {
             val bitmap =
                 MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
             newPhotoBase64 = ImageUtil.convert(bitmap)
-            setToModel(uri.toString())
+            setToModel(uri.toString(),newPhotoBase64)
             loadProfile(uri.toString())
         } catch (e: IOException) {
             e.printStackTrace()
@@ -314,13 +316,12 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
 
     override fun onReadInput() {
         Log.d(TAG, "onReadInput() called")
-
-//        if(!isEmulator()){
-//            if (!form.isOk()) {
-//                showAlerter("Warning", "Please Add Photo")
-//                return
-//            }
-//        }
+        if(!isEmulator()){
+            if (!form.isOk()) {
+                showAlerter("Warning", "Please Add Photo")
+                return
+            }
+        }
         interactor?.navigateToForm3()
     }
 
@@ -393,8 +394,12 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         }
     }
 
-    private fun setToModel(newPhotoBase64: String?) { 
-        form.img = newPhotoBase64
+    private fun setToModel(path: String?, newPhotoBase64: String) {
+        var data = PhotoData()
+        data.imgPath = path
+        data.userType = BiometricUserType.BENEFICIARY.name
+        data.img = newPhotoBase64
+        form.photoData = data
         val rootForm = interactor?.getRootForm()
         rootForm?.form2 = form
         interactor?.setRootForm(rootForm)

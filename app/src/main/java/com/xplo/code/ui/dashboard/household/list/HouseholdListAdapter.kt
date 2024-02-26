@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.xplo.code.R
+import com.xplo.code.core.ext.gone
+import com.xplo.code.core.ext.visible
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.databinding.RowHouseholdItemBinding
@@ -60,25 +62,34 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
                 )
             }
 
+            binding.btSyncStatus.setOnClickListener {
+                listener?.onClickHouseholdItemSave(
+                    getItem(absoluteAdapterPosition),
+                    absoluteAdapterPosition
+                )
+            }
         }
 
         fun bind(item: HouseholdItem) {
             //Log.d(TAG, "bind() called with: item = $item")
             val form = item.toHouseholdForm()
             if (form == null) return
-
-            binding.tvId.text = "id: " + item.id.toString()
+            binding.tvId.text = "id: " + item.hid.toString()
             binding.tvName.text = form.form2.getFullName()
             binding.tvGender.text = "Gender: " + form.form2?.gender
             binding.tvAge.text = "age: " + form.form2?.age
             binding.tvNominee.text = "Nominee: " + (form.form6?.nominees?.size)
             binding.tvAlternate.text = "Alternate: " + form.alternates.size
-//            if (item.isSynced) {
-//                binding.tvStatus.text = "Synced"
-//            } else {
-//                binding.tvStatus.text = "Not Synced"
-//            }
-            loadImage(form.form4?.img)
+            //binding.btSyncStatus.setImageResource(R.drawable.baseline_cloud_done_24)
+
+            if (item.isSynced) {
+                //binding.btSend.gone()
+                binding.btSyncStatus.setImageResource(R.drawable.baseline_cloud_done_24)
+            } else {
+                binding.btSend.visible()
+                binding.btSyncStatus.setImageResource(R.drawable.sync_saved_locally_24px)
+            }
+            loadImage(form.form4?.photoData?.imgPath)
         }
 
         private fun loadImage(url: String?) {
@@ -154,6 +165,7 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
         fun onClickHouseholdItemDelete(item: HouseholdItem, pos: Int)
         fun onClickHouseholdItemSend(item: HouseholdItem, pos: Int)
         fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int)
+        fun onClickHouseholdItemSave(item: HouseholdItem, pos: Int)
     }
 
 }

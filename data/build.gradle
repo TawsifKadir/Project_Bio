@@ -51,6 +51,7 @@ dependencies {
 
     //implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation files('libs/IntegrationManager-debug.aar')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'

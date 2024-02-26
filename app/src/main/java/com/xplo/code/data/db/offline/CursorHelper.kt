@@ -24,7 +24,7 @@ class CursorHelper {
         private var COLUMN_STATE = Column.state.name
 
         private var COLUMN_C_CODE = Column.c_code.name
-        private var COLUMN_COUNTRY = Column.country.name
+        private var COLUMN_COUNTRY = Column.county.name
 
         private var COLUMN_P_CODE = Column.p_code.name
         private var COLUMN_PAYAM = Column.payam.name
@@ -147,21 +147,24 @@ class CursorHelper {
 
         }
 
-        fun toOptionItem(cursor: Cursor?, column: String): ArrayList<OptionItem> {
-            Log.d(TAG, "toOptionItems() called with: cursor = $cursor, column = $column")
+        fun toOptionItem(cursor: Cursor?, columnCode: String?, columnTitle: String?): ArrayList<OptionItem> {
+            Log.d(
+                TAG,
+                "toOptionItem() called with: cursor = $cursor, columnCode = $columnCode, columnTitle = $columnTitle"
+            )
             val items = ArrayList<OptionItem>()
 
             if (cursor == null) return items
 
             var code = 0
             var name = ""
-
-            val colInd = cursor.getColumnIndex(column)
+            val colIndCode = cursor.getColumnIndex(columnCode)
+            val colIndTitle = cursor.getColumnIndex(columnTitle)
 
             cursor.moveToFirst()
             while (!cursor.isAfterLast) {
-                name = cursor.getString(colInd)
-                //code = cursor.getInt(colInd-1)
+                code = cursor.getInt(colIndTitle-1)
+                name = cursor.getString(colIndTitle)
                 items.add(
                     OptionItem(
                         code,

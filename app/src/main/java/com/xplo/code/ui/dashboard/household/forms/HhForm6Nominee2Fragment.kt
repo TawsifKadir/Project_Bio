@@ -1,7 +1,6 @@
 package com.xplo.code.ui.dashboard.household.forms
 
 import android.content.Context
-import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -84,9 +83,6 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
     private var interactor: HouseholdContract.View? = null
 
     private var adapter: NomineeListAdapter? = null
-
-    public var consecutive : Int = 0
-
     private lateinit var spReasonNoNominee: Spinner
     private lateinit var llParentOtherReason: View
     private lateinit var etOtherReason: EditText
@@ -95,7 +91,6 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
     //private lateinit var btAddAnother: Button
     private lateinit var recyclerView: RecyclerView
     private lateinit var rbNo : RadioButton
-
 
 
     override fun onAttach(context: Context) {
@@ -138,13 +133,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
     override fun initView() {
 
-        if(readNomineeInputsFromList().size == 0){
-            bindSpinnerData(spReasonNoNominee, UiData.whyNot)
-        }else{
-            bindSpinnerData(spReasonNoNominee, UiData.whyNotShortened)
-        }
-
-
+        bindSpinnerData(spReasonNoNominee, UiData.nonParticipationReason)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.itemAnimator = DefaultItemAnimator()
         adapter = NomineeListAdapter()
@@ -250,12 +239,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
             if (form.xIsNomineeAdd.isNo()) {
                 checkRbNo(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
                 onEnableDisableNominee(false)
-
-                if(isListContainsData()){
-                    setSpinnerItem(spReasonNoNominee, UiData.whyNotShortened, form.xNoNomineeReason)
-                }else {
-                    setSpinnerItem(spReasonNoNominee, UiData.whyNot, form.xNoNomineeReason)
-                }
+                setSpinnerItem(spReasonNoNominee, UiData.nonParticipationReason, form.xNoNomineeReason)
                 if (isOtherSpecify(form.xNoNomineeReason)) {
                     llParentOtherReason.visible()
                     etOtherReason.setText(form.xOtherReason)
@@ -269,11 +253,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
             checkRbNo(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
 
             onEnableDisableNominee(false)
-            if(isListContainsData()){
-                setSpinnerItem(spReasonNoNominee, UiData.whyNotShortened, form.noNomineeReason)
-            }else {
-                setSpinnerItem(spReasonNoNominee, UiData.whyNot, form.noNomineeReason)
-            }
+            setSpinnerItem(spReasonNoNominee, UiData.nonParticipationReason, form.noNomineeReason)
             if (isOtherSpecify(form.noNomineeReason)) {
                 llParentOtherReason.visible()
                 etOtherReason.setText(form.otherReason)
@@ -285,7 +265,6 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
     override fun onChangeRGNomineeAdd(id: Int) {
         Log.d(TAG, "onChangeRGNomineeAdd() called with: id = $id")
-
         when (id) {
             R.id.rbYes -> {
                 onRGNomineeAddYes()
@@ -341,17 +320,11 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
             }
             .create()
             .show()
-
     }
 
     override fun onRGNomineeAddNo() {
         Log.d(TAG, "onRGNomineeAddNo() called")
         //onChooseNomineeNotAdd()
-
-//        if (isCrossGenderExist()){
-//            onChooseNomineeNotAdd()
-//            return
-//        }
 
         val targetGender = getTargetGender()
         val targetGenderTitle = getTargetGenderTitle(targetGender)
@@ -513,6 +486,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
         if (form.isOk()) {
             val text = "The project’s objective is to achieve a 50–50 percent distribution between male and female youth in the program. To ensure this, we kindly request your consent to nominate a participant of the opposite gender. If you prefer not to nominate, please select NO and provide your reason."
+
             val checkExtraCases = form.checkExtraCases()
             if (checkExtraCases != null) {
                 showAlerter(checkExtraCases, null)
@@ -664,6 +638,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 //        }
 
         return adapter?.getItem(0)?.gender?.let { getOppositeGender(it) }
+
     }
 
     private fun getTargetGenderTitle(targetGender: String?): String {

@@ -2,6 +2,7 @@ package com.xplo.code.di
 
 
 import com.xplo.code.data.db.DbController
+import com.xplo.code.data.db.dao.BeneficiaryDao
 import com.xplo.code.data.db.dao.HouseholdDao
 import com.xplo.code.data.db.dao.PostDao
 import com.xplo.code.data.db.repo.DbRepo
@@ -46,12 +47,15 @@ object AppModule {
     @Singleton
     @Provides
     fun provideHouseholdDao(): HouseholdDao = DbController.getAppDb().householdDao()
-
+    @Singleton
+    @Provides
+    fun provideBeneficiaryDao(): BeneficiaryDao = DbController.getAppDb().beneficiaryDao()
 
     @Singleton
     @Provides
-    fun provideDbRepo(dao: PostDao, householdDao: HouseholdDao): DbRepo =
-        DbRepoImpl(dao, householdDao)
+    fun provideDbRepo(dao: PostDao, householdDao: HouseholdDao, beneficiaryDao: BeneficiaryDao): DbRepo =
+        DbRepoImpl(dao, householdDao, beneficiaryDao)
+
 
     @Singleton
     @Provides

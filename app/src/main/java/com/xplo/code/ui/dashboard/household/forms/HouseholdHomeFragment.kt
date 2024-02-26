@@ -33,7 +33,9 @@ import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.toBool
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
+import com.xplo.code.data.mapper.EntityMapper
 import com.xplo.code.databinding.FragmentHouseholdHomeBinding
+import com.xplo.code.network.fake.Fake
 import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
@@ -130,7 +132,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                 when (event) {
 
                     is HouseholdViewModel.Event.Loading -> {
-                        //showLoading()
+                        showLoading()
                     }
 
                     is HouseholdViewModel.Event.GetHouseholdItemsSuccess -> {
@@ -145,13 +147,57 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                         viewModel.clearEvent()
                     }
 
-                    is HouseholdViewModel.Event.SubmitHouseholdFormSuccess -> {
+//                    is HouseholdViewModel.Event.SendHouseholdFormSuccess -> {
+//                        hideLoading()
+//                        onSubmitFormSuccess(event.id, event.pos)
+//                        viewModel.clearEvent()
+//                    }
+//
+//                    is HouseholdViewModel.Event.SendHouseholdFormFailure -> {
+//                        hideLoading()
+//                        onSubmitFormFailure(event.msg)
+//                        viewModel.clearEvent()
+//                    }
+
+                    is HouseholdViewModel.Event.SendHouseholdItemSuccess -> {
+                        hideLoading()
+                        onSubmitHouseholdItemSuccess(event.item, event.pos)
+                    }
+
+                    is HouseholdViewModel.Event.SendHouseholdItemFailure -> {
+                        hideLoading()
+                        onSubmitHouseholdItemFailure(event.msg)
+                    }
+
+                    is HouseholdViewModel.Event.UpdateHouseholdItemSuccess -> {
+                        hideLoading()
+                        onUpdateHouseholdItemSuccess(event.id)
+                    }
+
+                    is HouseholdViewModel.Event.UpdateHouseholdItemFailure -> {
+                        hideLoading()
+                        onUpdateHouseholdItemFailure(event.msg)
+                    }
+
+                    is HouseholdViewModel.Event.SaveBeneficiaryEntitySuccess -> {
+                        hideLoading()
+                        interactor?.onSaveBeneficiarySuccess(null)
+                        viewModel.clearEvent()
+                    }
+
+                    is HouseholdViewModel.Event.SaveBeneficiaryEntityFailure -> {
+                        hideLoading()
+                        interactor?.onSaveBeneficiaryFailure(event.msg)
+                        viewModel.clearEvent()
+                    }
+
+                    is HouseholdViewModel.Event.SendBeneficiaryEntitySuccess -> {
                         hideLoading()
                         onSubmitFormSuccess(event.id, event.pos)
                         viewModel.clearEvent()
                     }
 
-                    is HouseholdViewModel.Event.SubmitHouseholdFormFailure -> {
+                    is HouseholdViewModel.Event.SendBeneficiaryEntityFailure -> {
                         hideLoading()
                         onSubmitFormFailure(event.msg)
                         viewModel.clearEvent()
@@ -185,7 +231,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     }
 
     override fun navigateToHouseholdDetails(content: HouseholdItem) {
-        Log.d(TAG, "navigateToHouseholdDetails() called with: content = ${content.id}")
+        Log.d(TAG, "navigateToHouseholdDetails() called with: content = ${content.hid}")
         interactor?.navigateToFormDetails(content)
     }
 
@@ -224,8 +270,29 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         showToast(msg ?: "")
     }
 
+    override fun onSubmitHouseholdItemSuccess(item: HouseholdItem?, pos: Int) {
+        Log.d(TAG, "onSubmitHouseholdItemSuccess() called with: item = $item, pos = $pos")
+        item?.isSynced = true
+        viewModel.updateHouseholdItem(item)
+    }
+
+    override fun onSubmitHouseholdItemFailure(msg: String?) {
+        Log.d(TAG, "onSubmitHouseholdItemFailure() called with: msg = $msg")
+        showToast(msg ?: "")
+    }
+
+    override fun onUpdateHouseholdItemSuccess(id: String?) {
+        Log.d(TAG, "onUpdateHouseholdItemSuccess() called with: id = $id")
+        viewModel.getHouseholdItems()
+    }
+
+    override fun onUpdateHouseholdItemFailure(msg: String?) {
+        Log.d(TAG, "onUpdateHouseholdItemFailure() called with: msg = $msg")
+
+    }
+
     override fun onClickHouseholdItem(item: HouseholdItem, pos: Int) {
-        Log.d(TAG, "onClickHouseholdItem() called with: item = ${item.id}, pos = $pos")
+        Log.d(TAG, "onClickHouseholdItem() called with: item = ${item.hid}, pos = $pos")
         //dToast(item.title)
         navigateToHouseholdDetails(item)
     }
@@ -261,12 +328,23 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         Log.d(TAG, "onClickHouseholdItemSend() called with: item = $item, pos = $pos")
         //showToast("Feature not implemented yet")
 
-        viewModel.submitHouseholdForm(item.toHouseholdForm(), pos)
+        viewModel.sendHouseholdItem(item, pos)
+        //viewModel.syncHouseholdForm(requireContext(), item.toHouseholdForm(), pos)
+
+        //val beneficiary = Fake.getABenificiary()
+        //viewModel.syncBeneficiary(requireContext(), beneficiary, 0 )
     }
 
     override fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int) {
         Log.d(TAG, "onClickHouseholdItemAddAlternate() called with: item = $item, pos = $pos")
-        navigateToAlternate(item.uuid)
+        navigateToAlternate(item.id)
+    }
+
+    override fun onClickHouseholdItemSave(item: HouseholdItem, pos: Int) {
+        Log.d(TAG, "onClickHouseholdItemSave() called with: item = $item, pos = $pos")
+        val entity = EntityMapper.toBeneficiaryEntity(item.toHouseholdForm())
+        viewModel.saveBeneficiaryEntity(entity)
+
     }
 
 

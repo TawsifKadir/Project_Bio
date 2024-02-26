@@ -1,26 +1,21 @@
 package com.xplo.code.data.db.models
-
-import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.xplo.code.ui.dashboard.model.HouseholdForm
-import com.xplo.code.ui.dashboard.model.toJson
 import com.xplo.code.ui.dashboard.model.toSummary
 import java.io.Serializable
 
 @Entity(tableName = "household")
 data class HouseholdItem(
-
-    @NonNull
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id")
-    var id: Long = 0,
-    @ColumnInfo(name = "uuid")
-    //var id: String = UUID.randomUUID().toString(),
-    var uuid: String? = null,
+    var id: String,
+
+    @ColumnInfo(name = "hid")
+    var hid: String,
     var data: String? = null,
     var isSynced: Boolean = false
 ) : Serializable
@@ -35,7 +30,8 @@ fun HouseholdItem?.toJson(): String? {
 fun HouseholdItem?.toHouseholdForm(): HouseholdForm? {
     if (this == null) return null
     val form = Gson().fromJson(this?.data, HouseholdForm::class.java)
-    form.uuid = this.uuid
+//    form.id = this.id
+//    form.hid = this.hid
     return form
 }
 
@@ -44,7 +40,7 @@ fun HouseholdItem?.toSummary(): String? {
     val form = this.toHouseholdForm()
     var txt = "" +
 //            "id: " + this.id.toString() +
-            "" + form.toSummary()+
+            "" + form.toSummary() +
             "\n" + "Not Synced"
     return txt.trim()
 }

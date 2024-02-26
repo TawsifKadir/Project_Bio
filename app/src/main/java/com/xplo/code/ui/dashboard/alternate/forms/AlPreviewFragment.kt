@@ -284,7 +284,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
 
     private fun addReportForm2(form: AlForm2?) {
         if (form == null) return
-        binding.viewPreview.ivAvatar.loadAvatar(form.img)
+        binding.viewPreview.ivAvatar.loadAvatar(form.photoData?.imgPath)
     }
 
     private fun addReportForm3(form: AlForm3?) {

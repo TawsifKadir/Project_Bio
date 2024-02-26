@@ -40,5 +40,13 @@ interface DbCall {
         argColValue: String?
     ): List<OptionItem>
 
+    fun getOptionItems2(
+        table: String,
+        columnCode: String,
+        columnTitle: String,
+        argColName: String?,
+        argColValue: String?
+    ): List<OptionItem>
+
 
 }
