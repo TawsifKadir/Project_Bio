@@ -65,6 +65,7 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
     private lateinit var etFirstName: EditText
     private lateinit var etMiddleName: EditText
     private lateinit var etLastName: EditText
+    private lateinit var etNickName: EditText
     private lateinit var etAge: EditText
     private lateinit var spRelation: Spinner
     private lateinit var spGender: Spinner
@@ -114,6 +115,7 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         etFirstName = binding.include.etFirstName
         etMiddleName = binding.include.etMiddleName
         etLastName = binding.include.etLastName
+        etNickName = binding.include.etNickName
         etAge = binding.include.etAge
         spRelation = binding.include.spRelation
         spGender = binding.include.spGender
@@ -178,6 +180,7 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         nominee.firstName = chkEditText3Char(etFirstName, UiData.ER_ET_DF)
         nominee.middleName = getEditText(etMiddleName)
         nominee.lastName = chkEditText3Char(etLastName, UiData.ER_ET_DF)
+        nominee.nickName = chkEditTextNickName3Char(etLastName, UiData.ER_ET_DF)
         nominee.age = chkAge(etAge, UiData.ER_ET_DF)?.toInt()
         nominee.relation = chkSpinner(spRelation, UiData.ER_SP_DF)
         nominee.gender = chkSpinner(spGender, UiData.ER_SP_DF)

@@ -7,13 +7,17 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
+import android.widget.PopupWindow
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -165,7 +169,20 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
                 onClickAddAlternate()
             }
             else{
-                binding.btAdd.setText("Max Limit is 2")
+                val popupView = layoutInflater.inflate(R.layout.popup_layout, null)
+                popupView.background = ContextCompat.getDrawable(requireContext(), R.drawable.popup_background)
+
+                val popupWindow = PopupWindow(
+                    popupView,
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT
+                )
+
+                popupView.findViewById<Button>(R.id.btnnOk).setOnClickListener {
+                    popupWindow.dismiss()
+                }
+
+                popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)
             }
         }
 
