@@ -71,7 +71,7 @@ object BeneficiaryMapper {
         beneficiary.spouseMiddleName = item.spouseMiddleName
 
 
-        beneficiary.householdSize = item.householdSize
+        beneficiary.householdSize = FakeMapperValue.houseHoldSize
 
         beneficiary.householdMember2 = toHouseholdMember(item.householdMember2, item.id)
         beneficiary.householdMember5 = toHouseholdMember(item.householdMember5, item.id)
@@ -223,7 +223,7 @@ object BeneficiaryMapper {
 
 
         if(item.biometricData.equals("")) {
-            biometric.biometricData = byteArrayOf(0)
+            biometric.biometricData = null
         } else {
             biometric.biometricData = item.biometricData?.toByteArray()
         }

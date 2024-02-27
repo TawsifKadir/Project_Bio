@@ -16,5 +16,6 @@ object FakeMapperValue {
     val nationalId  = "12345678901234"
     val respondentId  = "12345678901234"
     val name  = "fake_data"
+    val houseHoldSize = 10
 
 }
