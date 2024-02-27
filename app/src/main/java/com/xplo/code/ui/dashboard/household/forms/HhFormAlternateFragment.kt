@@ -17,6 +17,7 @@ import android.widget.Button
 import android.widget.PopupWindow
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -168,7 +169,7 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
                 onClickAddAlternate()
             }
             else{
-                val popupView = layoutInflater.inflate(R.layout.popup_layout, null)
+/*                val popupView = layoutInflater.inflate(R.layout.popup_layout, null)
                 popupView.background = ContextCompat.getDrawable(requireContext(), R.drawable.popup_background)
 
                 val popupWindow = PopupWindow(
@@ -181,7 +182,17 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
                     popupWindow.dismiss()
                 }
 
-                popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)
+                popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)*/
+                val builder = AlertDialog.Builder(requireContext())
+                val dialogView = layoutInflater.inflate(R.layout.popup_layout, null)
+                builder.setView(dialogView)
+                val alertDialog = builder.create()
+
+                dialogView.findViewById<Button>(R.id.btnnOk).setOnClickListener {
+                    alertDialog.dismiss()
+                }
+
+                alertDialog.show()
             }
         }
 
