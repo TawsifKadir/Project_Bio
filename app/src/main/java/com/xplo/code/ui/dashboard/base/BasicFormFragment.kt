@@ -126,6 +126,22 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         }
         return txt
     }
+    override fun chkEditTextNickName3Char(editText: EditText, error: String?): String? {
+        val txt = editText.text.toString()
+        if (isValidationEnabled()) {
+            if ( txt.length in 1..2) {
+                editText.error = "Minimum 3 character"
+                return null
+            } else if (txt.isEmpty() || txt == ""){
+                return txt
+            }else if (!isOnlyLetters(txt)) {
+                editText.error = "Only Character Allow"
+                return null
+            }
+        }
+        return txt
+    }
+
 
     private fun isOnlyLetters(input: String): Boolean {
         val pattern = "^[a-zA-Z]+$".toRegex()

@@ -16,6 +16,7 @@ interface BasicFormView {
     fun chkEditTextOnlyNumberAndChar(editText: EditText, error: String?): String?
     fun chkEditTextMonthlyAvgIncome(editText: EditText, error: String?): Int?
     fun chkEditText3Char(editText: EditText, error: String?): String?
+    fun chkEditTextNickName3Char(editText: EditText, error: String?): String?
     fun chkEditTextMax3Digit(editText: EditText, error: String?): String?
     fun chkPhoneNumber(editText: EditText, error: String?): String?
     fun chkAge(editText: EditText, error: String?): String?

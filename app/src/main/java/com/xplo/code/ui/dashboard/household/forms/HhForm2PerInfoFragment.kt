@@ -80,6 +80,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
     private lateinit var etFirstName: EditText
     private lateinit var etMiddleName: EditText
     private lateinit var etLastName: EditText
+    private lateinit var etNickName: EditText
     private lateinit var etAge: EditText
     private lateinit var etIdNumber: EditText
     private lateinit var etPhoneNumber: EditText
@@ -87,6 +88,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
     private lateinit var etSpouseFirstName: EditText
     private lateinit var etSpouseMiddleName: EditText
     private lateinit var etSpouseLastName: EditText
+    private lateinit var etSpouseNickName: EditText
     private lateinit var rgSelectionCriteria: RadioGroup
     private lateinit var rgId: RadioGroup
     //private lateinit var directRecycler: RecyclerView
@@ -136,6 +138,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         etSpouseFirstName = binding.etSpouseFirstName
         etSpouseMiddleName = binding.etSpouseMiddleName
         etSpouseLastName = binding.etSpouseLastName
+        etSpouseNickName = binding.etSpouseNickName
         spMainSourceOfIncome = binding.spMainSourceOfIncome
         spIdType = binding.spIdType
         //spCurrency = binding.spCurrency
@@ -147,6 +150,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         etFirstName = binding.etFirstName
         etMiddleName = binding.etMiddleName
         etLastName = binding.etLastName
+        etNickName = binding.etNickName
         etAge = binding.etAge
         etIdNumber = binding.etIdNumber
         etPhoneNumber = binding.etPhoneNumber
@@ -330,6 +334,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         etFirstName.setText(form.firstName)
         etMiddleName.setText(form.middleName)
         etLastName.setText(form.lastName)
+        etNickName.setText(form.nickName)
         etAge.setText(form.age.toString())
         etIdNumber.setText(form.idNumber)
         etPhoneNumber.setText(form.phoneNumber)
@@ -392,10 +397,12 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
             form.spouseFirstName = chkEditText3Char(etSpouseFirstName, UiData.ER_SP_DF)
             form.spouseMiddleName = chkEditText3Char(etSpouseMiddleName, UiData.ER_SP_DF)
             form.spouseLastName = chkEditText3Char(etSpouseLastName, UiData.ER_SP_DF)
+            form.spouseNickName = chkEditTextNickName3Char(etSpouseNickName, UiData.ER_SP_DF)
         } else {
             form.spouseFirstName = null
             form.spouseMiddleName = null
             form.spouseLastName = null
+            form.spouseNickName = null
         }
 
         if (binding.llIdTypeInput.isVisible && binding.llIdType.isVisible) {
@@ -414,6 +421,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         form.firstName = chkEditText3Char(etFirstName, UiData.ER_ET_DF)
         form.middleName = chkEditText3Char(etMiddleName, UiData.ER_ET_DF)
         form.lastName = chkEditText3Char(etLastName, UiData.ER_ET_DF)
+        form.nickName = chkEditTextNickName3Char(etNickName, UiData.ER_ET_DF)
         form.age = chkEditTextMax3Digit(etAge, UiData.ER_ET_DF)?.toInt()
         form.phoneNumber = chkEditText(etPhoneNumber, UiData.ER_ET_DF)
         form.monthlyAverageIncome =

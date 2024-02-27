@@ -23,7 +23,6 @@ package com.xplo.code.ui.dashboard.model
 //fun HhForm3.getIllFemale(): Int {
 //    return mem0IllFemale + mem3IllFemale + mem6IllFemale + mem18IllFemale + mem36IllFemale + mem65IllFemale
 //}
-
 fun HhForm3.getNormalMale(): Int {
     return male0_2.normal + male3_5.normal + male6_17.normal + male18_35.normal + male36_64.normal + male65p.normal
 }
