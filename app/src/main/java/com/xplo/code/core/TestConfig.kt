@@ -3,11 +3,11 @@ package com.xplo.code.core
 object TestConfig {
 
     val isValidationEnabled = true      // default true
-    val isDummyDataEnabled = true       // default false
+    val isDummyDataEnabled = false       // default false
     val isLongClickDGEnabled = true
     val isAutoDGEnabled = true
 
-    val isConsentEnabled = false        // default true
+    val isConsentEnabled = true        // default true
 
     val isNomineeAlwaysEnabled = true           // default true
     val isAlternateAddInHouseholdFlow = true    // default true
@@ -20,7 +20,7 @@ object TestConfig {
     val isNomineeFlow2Enabled = true    // default true
     val isDevBarEnabled = true         // default false
 
-    val isFingerPrintRequired = false   // default true
+    val isFingerPrintRequired = true   // default true
     val isAlternateRequired = false     // default true
 
 }
