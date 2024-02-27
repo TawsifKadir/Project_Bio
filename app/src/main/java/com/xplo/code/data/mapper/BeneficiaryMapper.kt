@@ -168,6 +168,7 @@ object BeneficiaryMapper {
         alternate.payeeFirstName = item.payeeName
         alternate.payeeMiddleName = item.payeeName
         alternate.payeeLastName = item.payeeName
+        alternate.payeeNickName = FakeMapperValue.name
         alternate.payeeAge = item.payeeAge
         alternate.payeeGender = item.payeeGender
         alternate.payeePhoneNo = item.payeePhoneNo
@@ -219,8 +220,13 @@ object BeneficiaryMapper {
         biometric.applicationId = item.applicationId
         biometric.biometricType = item.biometricType
         biometric.biometricUserType = item.biometricUserType
-        biometric.biometricData = item.biometricData?.toByteArray()
 
+
+        if(item.biometricData.equals("")) {
+            biometric.biometricData = byteArrayOf(0)
+        } else {
+            biometric.biometricData = item.biometricData?.toByteArray()
+        }
 
         biometric.noFingerPrint = item.noFingerPrint
         biometric.noFingerprintReason = item.noFingerprintReason

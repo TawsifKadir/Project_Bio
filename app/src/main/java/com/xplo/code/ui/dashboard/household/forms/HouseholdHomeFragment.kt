@@ -329,7 +329,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         //showToast("Feature not implemented yet")
 
         viewModel.sendHouseholdItem(item, pos)
-        //viewModel.syncHouseholdForm(requireContext(), item.toHouseholdForm(), pos)
+        viewModel.syncHouseholdForm(requireContext(), item.toHouseholdForm(), pos)
 
 //        val beneficiary = Fake.getABenificiary()
 //        viewModel.sendBeneficiary(beneficiary,0)
