@@ -423,6 +423,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         form.idIsOrNot = chkRadioGroup(rgId, UiData.ER_RB_DF)
 
         form.itemsSupportType = adapterSupportType?.getCheckedItems()
+        //checking
 
         if (!form.isOk()) {
             val checkExtraCases = form.checkExtraCases()
