@@ -266,7 +266,7 @@ object EntityMapper {
             biometricData =if (item.fingerPrint == null)"" else item.fingerPrint,
             noFingerPrint = item.noFingerprint,
             noFingerprintReason = NoFingerprintReasonEnum.find(item.noFingerprintReason),
-            noFingerprintReasonText = if (item.fingerPrint == null) "NoFinger" else null,
+            noFingerprintReasonText = if (item.fingerPrint == null) "1" else null,
             biometricUrl = null
         )
     }
