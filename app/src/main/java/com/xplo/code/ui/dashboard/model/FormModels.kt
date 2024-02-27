@@ -56,9 +56,11 @@ data class HhForm2(
     var firstName: String? = null,
     var middleName: String? = null,
     var lastName: String? = null,
+    var nickName: String? = null,
     var spouseFirstName: String? = null,
     var spouseMiddleName: String? = null,
     var spouseLastName: String? = null,
+    var spouseNickName: String? = null,
     var age: Int? = null,
     var idNumber: String? = null,
     var idNumberType: String? = null,
@@ -88,6 +90,59 @@ fun HhForm2?.getOppositeGender(): String? {
 
 data class HhForm3(
     var householdSize: Int? = null,
+
+    var mem0TotalMale: Int = 0,
+    var mem3TotalMale: Int = 0,
+    var mem6TotalMale: Int = 0,
+    var mem18TotalMale: Int = 0,
+    var mem36TotalMale: Int = 0,
+    var mem65TotalMale: Int = 0,
+
+    var mem0TotalFemale: Int = 0,
+    var mem3TotalFemale: Int = 0,
+    var mem6TotalFemale: Int = 0,
+    var mem18TotalFemale: Int = 0,
+    var mem36TotalFemale: Int = 0,
+    var mem65TotalFemale: Int = 0,
+
+    var mem0NormalMale: Int = 0,
+    var mem0DisableMale: Int = 0,
+    var mem0IllMale: Int = 0,
+    var mem3NormalMale: Int = 0,
+    var mem3DisableMale: Int = 0,
+    var mem3IllMale: Int = 0,
+    var mem6NormalMale: Int = 0,
+    var mem6DisableMale: Int = 0,
+    var mem6IllMale: Int = 0,
+    var mem18NormalMale: Int = 0,
+    var mem18DisableMale: Int = 0,
+    var mem18IllMale: Int = 0,
+    var mem36NormalMale: Int = 0,
+    var mem36DisableMale: Int = 0,
+    var mem36IllMale: Int = 0,
+    var mem65NormalMale: Int = 0,
+    var mem65DisableMale: Int = 0,
+    var mem65IllMale: Int = 0,
+
+    var mem0NormalFemale: Int = 0,
+    var mem0DisableFemale: Int = 0,
+    var mem0IllFemale: Int = 0,
+    var mem3NormalFemale: Int = 0,
+    var mem3DisableFemale: Int = 0,
+    var mem3IllFemale: Int = 0,
+    var mem6NormalFemale: Int = 0,
+    var mem6DisableFemale: Int = 0,
+    var mem6IllFemale: Int = 0,
+    var mem18NormalFemale: Int = 0,
+    var mem18DisableFemale: Int = 0,
+    var mem18IllFemale: Int = 0,
+    var mem36NormalFemale: Int = 0,
+    var mem36DisableFemale: Int = 0,
+    var mem36IllFemale: Int = 0,
+    var mem65NormalFemale: Int = 0,
+    var mem65DisableFemale: Int = 0,
+    var mem65IllFemale: Int = 0,
+
     var male0_2: HhMember = HhMember(),
     var male3_5: HhMember = HhMember(),
     var male6_17: HhMember = HhMember(),
@@ -148,6 +203,7 @@ data class Nominee(
     var firstName: String? = null,
     var middleName: String? = null,
     var lastName: String? = null,
+    var nickName: String? = null,
     var relation: String? = null,
     var age: Int? = null,
     var gender: String? = null,
@@ -261,11 +317,26 @@ data class Finger(
     var fingerId: String? = null,
     var fingerPrint: String? = null,
     var fingerType: String? = null,
-    var userType: String? = null
+    var userType: String? = null,
+    var noFingerprint: Boolean = false,
+    var noFingerprintReason: String? = null
 ) : Serializable
 
 fun Finger.isOk(): Boolean {
-    if (!TestConfig.isValidationEnabled) return true
+
+    if (this.noFingerprint == true && noFingerprintReason != null) return true
+
+    if (this.fingerPrint.isNullOrEmpty()) return false
+    if (this.fingerType.isNullOrEmpty()) return false
+    if (this.userType.isNullOrEmpty()) return false
+
+    return true
+}
+
+fun Finger?.isContainValidFingerprint(): Boolean {
+    if (this == null) return false
+    if (this.noFingerprint == true ) return false
+
     if (this.fingerPrint.isNullOrEmpty()) return false
     if (this.fingerType.isNullOrEmpty()) return false
     if (this.userType.isNullOrEmpty()) return false

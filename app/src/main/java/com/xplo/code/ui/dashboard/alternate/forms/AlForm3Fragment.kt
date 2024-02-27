@@ -27,6 +27,7 @@ import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.forms.HhForm5FingerFragment
 import com.xplo.code.ui.dashboard.model.AlForm3
 import com.xplo.code.ui.dashboard.model.Finger
+import com.xplo.code.ui.dashboard.model.isContainValidFingerprint
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.data.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
@@ -176,8 +177,9 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
         //val data = intent.data
         //if (data == null) return
 
-        val fingers = BiometricHelper.fingerPrintIntentToFingerItems(intent, "ALTERNATE")
         val reason = BiometricHelper.fingerPrintIntentToNoFingerprintReason(intent, "ALTERNATE")
+        val fingers = BiometricHelper.fingerPrintIntentToFingerItems(intent, "ALTERNATE")
+
 
         onGetFingerprintData(fingers, reason)
 
@@ -222,9 +224,16 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
     override fun onRefreshFingerDrawable(img: ImageView, finger: Finger?) {
         Log.d(TAG, "onRefreshFingerDrawable() called with: img = $img, finger = $finger")
         if (finger == null) return
-        img.setImageResource(R.drawable.ic_finger_add)
-        val color = ContextCompat.getColor(requireContext(), R.color.green) // Your color resource
-        ImageViewCompat.setImageTintList(img, ColorStateList.valueOf(color))
+
+        if (finger.isContainValidFingerprint()) {
+            img.setImageResource(R.drawable.ic_finger_add)
+            val color = ContextCompat.getColor(requireContext(), R.color.green) // Your color resource
+            ImageViewCompat.setImageTintList(img, ColorStateList.valueOf(color))
+        } else {
+            img.setImageResource(R.drawable.ic_finger_minus)
+            val color = ContextCompat.getColor(requireContext(), R.color.li_waring) // Your color resource
+            ImageViewCompat.setImageTintList(img, ColorStateList.valueOf(color))
+        }
     }
 
     override fun onClickBackButton() {

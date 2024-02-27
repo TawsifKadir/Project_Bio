@@ -331,8 +331,9 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         viewModel.sendHouseholdItem(item, pos)
         //viewModel.syncHouseholdForm(requireContext(), item.toHouseholdForm(), pos)
 
-        //val beneficiary = Fake.getABenificiary()
-        //viewModel.syncBeneficiary(requireContext(), beneficiary, 0 )
+//        val beneficiary = Fake.getABenificiary()
+//        viewModel.sendBeneficiary(beneficiary,0)
+//        viewModel.syncBeneficiary(requireContext(), beneficiary, 0 )
     }
 
     override fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int) {

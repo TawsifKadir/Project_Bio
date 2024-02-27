@@ -8,7 +8,9 @@ import com.kit.integrationmanager.model.GenderEnum
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.LegalStatusEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
+import com.kit.integrationmanager.model.NoFingerprintReasonEnum
 import com.kit.integrationmanager.model.NonPerticipationReasonEnum
+import com.kit.integrationmanager.model.OccupationEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.kit.integrationmanager.model.SelectionCriteriaEnum
 import com.kit.integrationmanager.model.SelectionReasonEnum
@@ -160,7 +162,7 @@ object EntityMapper {
         female: HhMember?,
         id: String?
     ): HouseholdMember {
-        if (male == null || female == null) return HouseholdMember()
+        if (male == null || female == null) return HouseholdMember(applicationId = id)
         return HouseholdMember(
             applicationId = id,
 
@@ -192,7 +194,7 @@ object EntityMapper {
             nomineeAge = item.age ?: 0,
             nomineeGender = GenderEnum.find(item.gender),
 
-            //nomineeOccupation = item.occupation,
+            nomineeOccupation = OccupationEnum.FORMAL_JOB,
             otherOccupation = item.occupation,
             relationshipWithHouseholdHead = RelationshipEnum.find(item.relation),
 
@@ -262,8 +264,8 @@ object EntityMapper {
             biometricType = BiometricType.find(item.fingerType),
             biometricUserType = BiometricUserType.valueOf(item.userType!!),
 
-            noFingerPrint = null,
-            noFingerprintReason = null,
+            noFingerPrint = item.noFingerprint,
+            noFingerprintReason = NoFingerprintReasonEnum.find(item.noFingerprintReason),
             noFingerprintReasonText = null,
 
             biometricUrl = null
