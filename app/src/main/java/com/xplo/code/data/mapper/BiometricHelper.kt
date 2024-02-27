@@ -73,7 +73,7 @@ object BiometricHelper {
                     fingerType = fingerCodes[i],
                     userType = userType,
                     noFingerprint = true,
-                    noFingerprintReason = reasonText
+                   noFingerprintReason = reasonText
                 )
                 items.add(dfinger)
                 continue
