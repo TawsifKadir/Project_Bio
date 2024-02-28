@@ -59,8 +59,8 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
     override fun chkEditTextOnlyNumberAndChar(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {
-            if (txt.isEmpty() || txt == "" || txt.length < 10) {
-                editText.error = "Minimum 10 character"
+            if (txt.isEmpty() || txt == "" || txt.length < 14) {
+                editText.error = "Minimum 14 character"
                 return null
             } else if (!isOnlyNumberAndChar(txt)) {
                 editText.error = "No Special Character Allow"
@@ -69,6 +69,9 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         }
         return txt
     }
+
+
+
 
     override fun chkPhoneNumber(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
@@ -87,8 +90,8 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
     override fun chkEditTextOnlyNumber(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {
-            if (txt.isEmpty() || txt == "" || txt.length < 10) {
-                editText.error = "Minimum 10 character"
+            if (txt.isEmpty() || txt == "" || txt.length < 14) {
+                editText.error = "Minimum 14 character"
                 return null
             } else if (!isOnlyNumber(txt)) {
                 editText.error = "No Character Allow"
