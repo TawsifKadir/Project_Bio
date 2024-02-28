@@ -7,6 +7,7 @@ import com.kit.integrationmanager.model.Beneficiary
 import com.kit.integrationmanager.model.CurrencyEnum
 import com.kit.integrationmanager.model.DocumentTypeEnum
 import com.kit.integrationmanager.model.SelectionCriteriaEnum
+import com.kit.integrationmanager.model.SelectionReasonEnum
 import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.data.model.content.Address
 import com.xplo.data.model.content.Alternate
@@ -64,7 +65,8 @@ object BeneficiaryMapper {
 
         //beneficiary.selectionCriteria = item.selectionCriteria
         beneficiary.selectionCriteria = FakeMapperValue.selectionCriteria
-        beneficiary.selectionReason = item.selectionReason
+        //beneficiary.selectionReason = item.selectionReason
+        beneficiary.selectionReason = FakeMapperValue.selectionReasons
 
         beneficiary.spouseFirstName = item.spouseFirstName
         beneficiary.spouseLastName = item.spouseLastName
