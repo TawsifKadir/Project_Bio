@@ -255,23 +255,46 @@ object EntityMapper {
     ): Biometric? {
         if (item == null) return null
         if (id == null) return null
-        if (item.fingerPrint.isNullOrEmpty()) return null
-        if (item.fingerType.isNullOrEmpty()) return null
-        if (item.userType.isNullOrEmpty()) return null
+        //if (item.fingerPrint.isNullOrEmpty()) return null
+       // if (item.fingerType.isNullOrEmpty()) return null
+        //if (item.userType.isNullOrEmpty()) return null
 
         return Biometric(
             applicationId = id,
-            biometricType = BiometricType.find(item.fingerType),
+            biometricType = returnFingerPrintEnum(item.fingerType),
             biometricUserType = BiometricUserType.valueOf(item.userType!!),
-
+            biometricData =if (item.fingerPrint == null)"" else item.fingerPrint,
             noFingerPrint = item.noFingerprint,
             noFingerprintReason = NoFingerprintReasonEnum.find(item.noFingerprintReason),
-            noFingerprintReasonText = null,
-
+            noFingerprintReasonText = if (item.fingerPrint == null) "1" else null,
             biometricUrl = null
         )
     }
-
+    fun returnFingerPrintEnum(finger:String?):BiometricType{
+        if(finger.equals("LT")){
+            return BiometricType.LT
+        }else if (finger.equals("LI")){
+            return BiometricType.LI
+        }else if (finger.equals("LM")){
+            return BiometricType.LM
+        }else if (finger.equals("LR")){
+            return BiometricType.LR
+        }else if (finger.equals("LS")){
+            return BiometricType.LL
+        }else if(finger.equals("RT")){
+            return BiometricType.RT
+        }else if (finger.equals("RI")){
+            return BiometricType.RI
+        }else if (finger.equals("RM")){
+            return BiometricType.RM
+        }else if (finger.equals("RR")){
+            return BiometricType.RR
+        }else if (finger.equals("RS")){
+            return BiometricType.RL
+        }else{
+            return BiometricType.NA
+        }
+    }
 
     fun toBiometricEntityFromPhoto(
         item: PhotoData?,
@@ -287,7 +310,8 @@ object EntityMapper {
             biometricType = BiometricType.PHOTO,
             biometricUserType = BiometricUserType.valueOf(item.userType!!), //"ALTERNATE",
 
-            noFingerPrint = null,
+            biometricData = item.img,
+            noFingerPrint = false,
             noFingerprintReason = null,
             noFingerprintReasonText = null,
 
