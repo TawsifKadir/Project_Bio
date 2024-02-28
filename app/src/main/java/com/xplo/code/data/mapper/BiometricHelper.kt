@@ -47,7 +47,15 @@ object BiometricHelper {
     fun fingerPrintIntentToFingerItems(intent: Intent?, userType: String?): List<Finger>? {
         if (intent == null) return null
 
-        var reason = fingerPrintIntentToNoFingerprintReason(intent, userType)
+        var reason =  intent.getBooleanExtra("noFingerprint" , false) ////fingerPrintIntentToNoFingerprintReason(intent, userType)
+        var reasonID = 0
+        var reasonText = ""
+
+        if(reason){
+            reasonID = intent.getIntExtra("noFingerprintReasonID", 0)
+            if(reasonID == NoFingerprintReasonEnum.Other.id)
+                reasonText = intent.getStringExtra("noFingerprintReasonText").toString()
+        }
 
         val items = arrayListOf<Finger>()
 
@@ -65,7 +73,7 @@ object BiometricHelper {
                     fingerType = fingerCodes[i],
                     userType = userType,
                     noFingerprint = true,
-                    noFingerprintReason = reason
+                   noFingerprintReason = reasonText
                 )
                 items.add(dfinger)
                 continue

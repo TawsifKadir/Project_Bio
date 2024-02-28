@@ -41,6 +41,7 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         return txt
     }
 
+
     override fun chkAge(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {
@@ -76,12 +77,13 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
     override fun chkPhoneNumber(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {
-            if (txt.isEmpty() || txt == "" || txt.length != 10) {
-                editText.error = "Invalid Phone Number"
-                return null
-            } else if (!isOnlyNumber(txt)) {
-                editText.error = "No Characters Allowed"
-                return null
+            if(txt.isNotEmpty()){
+                if(txt.length != 10){
+                    editText.error = "Invalid Phone Number"
+                    return null
+                }
+            }else if(txt.isEmpty()){
+                return ""
             }
         }
         return txt

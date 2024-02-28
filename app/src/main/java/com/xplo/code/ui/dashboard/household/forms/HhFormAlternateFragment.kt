@@ -146,7 +146,6 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
     }
 
     override fun initView() {
-
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
         adapter = AlternateSumListAdapter()

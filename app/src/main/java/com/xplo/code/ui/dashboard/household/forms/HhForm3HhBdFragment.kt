@@ -508,7 +508,6 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
         Log.d(TAG,"Sum of 18to35 $sum18to35")
         //val sum18to35 = myIntListFor18to35.sum() // = 9
         if (form.readWriteNumber!! > sum18to35) {
-            Log.d(TAG,"read and write number ${form.readWriteNumber}")
             etReadWriteNumber.error = "Member Size not matched"
             etReadWriteNumber.requestFocus()
             return

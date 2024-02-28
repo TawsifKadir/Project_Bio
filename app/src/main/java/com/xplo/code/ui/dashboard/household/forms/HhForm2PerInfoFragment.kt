@@ -409,7 +409,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
             form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
             if (form.idNumberType?.equals("Passport") == true) {
                 form.idNumber = chkEditTextOnlyNumberAndChar(etIdNumber, UiData.ER_ET_DF)
-            } else {
+            } else{
                 form.idNumber = chkEditTextOnlyNumber(etIdNumber, UiData.ER_ET_DF)
             }
         } else {
@@ -423,7 +423,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         form.lastName = chkEditText3Char(etLastName, UiData.ER_ET_DF)
         form.nickName = chkEditTextNickName3Char(etNickName, UiData.ER_ET_DF)
         form.age = chkEditTextMax3Digit(etAge, UiData.ER_ET_DF)?.toInt()
-        form.phoneNumber = chkEditText(etPhoneNumber, UiData.ER_ET_DF)
+        form.phoneNumber = chkPhoneNumber(etPhoneNumber, UiData.ER_ET_DF)
         form.monthlyAverageIncome =
             chkEditTextMonthlyAvgIncome(etMonthlyAverageIncome, UiData.ER_ET_DF)
         //form.spouseName = chkEditText(etSpouseName, UiData.ER_ET_DF)

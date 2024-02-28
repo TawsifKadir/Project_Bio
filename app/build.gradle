@@ -116,8 +116,8 @@ dependencies {
 
     // will move to flavor
 //    implementation files('libs/finger_morpho.aar')        // original
-    implementation files('libs/finger_morpho_dummy.aar')    // dummy
-
+//    implementation files('libs/finger_morpho_dummy.aar')    // dummy
+    implementation files('libs/FingerprintCapture-debug.aar')
 //    releaseImplementation files('libs/finger_morpho.aar')
 //    debugImplementation files('libs/finger_morpho_dummy.aar')
 

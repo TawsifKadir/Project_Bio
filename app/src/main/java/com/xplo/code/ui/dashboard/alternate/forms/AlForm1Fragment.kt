@@ -296,6 +296,8 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         form.phoneNumber = chkPhoneNumber(etPhoneNo, UiData.ER_ET_DF)
         form.selectAlternateRlt = chkSpinner(spAlternateRelation, UiData.ER_SP_DF)
         form.gender = chkSpinner(spGender, UiData.ER_SP_DF)
+        Log.d(TAG,"Number = ${form.idNumber}")
+        Log.d(TAG,"Edit text = $etIdNumber")
 
         if(binding.llIdTypeInput.isVisible &&  binding.llIdType.isVisible){
             form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)

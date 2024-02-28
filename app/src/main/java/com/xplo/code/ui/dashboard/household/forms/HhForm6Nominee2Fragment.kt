@@ -289,22 +289,20 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
     override fun onRGNomineeAddYes() {
         Log.d(TAG, "onRGNomineeAddYes() called")
         val dataset = readNomineeInputsFromList()
-        if(!checkConsecutive() || (dataset[0].gender == interactor?.getRootForm()?.form2?.getOppositeGender())) {
-            onChooseNomineeAdd(null)
-        }else{
+        if(dataset.size <= 1){
+            if(dataset.size == 1 && (dataset[0].gender != interactor?.getRootForm()?.form2?.getOppositeGender())){
+                onRGNomineeAddDialogYes()
+            }else{
+                onChooseNomineeAdd(null)
+            }
+        }else if(checkConsecutive()){
             onRGNomineeAddDialogYes()
+        }else{
+            onChooseNomineeAdd(null)
         }
     }
-
     private fun onRGNomineeAddDialogYes() {
         Log.d(TAG, "onRGNomineeAddNo() called")
-        //onChooseNomineeNotAdd()
-
-//        if (isCrossGenderExist()){
-//            onChooseNomineeNotAdd()
-//            return
-//        }
-
         val targetGender = getTargetGender()
         val targetGenderTitle = getTargetGenderTitle(targetGender)
         val txt = getString(R.string.nominee_objective, targetGenderTitle)
