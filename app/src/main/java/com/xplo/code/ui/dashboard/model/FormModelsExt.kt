@@ -97,7 +97,7 @@ fun HhForm2.isOk(): Boolean {
     if (this.legalStatus.isNullOrBlank()) return false
     if (this.respondentRlt.isNullOrBlank()) return false
     //if (this.spouseName.isNullOrBlank()) return false
-    if (this.selectionReason.isNullOrBlank()) return false
+//    if (this.selectionReason.isNullOrBlank()) return false
     if (this.selectionCriteria.isNullOrBlank()) return false
     if (this.monthlyAverageIncome == null) return false
 //    if (this.selectionReason.isNullOrBlank()) return false

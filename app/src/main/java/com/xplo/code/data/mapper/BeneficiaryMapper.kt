@@ -66,7 +66,6 @@ object BeneficiaryMapper {
         //beneficiary.selectionCriteria = item.selectionCriteria
         beneficiary.selectionCriteria = FakeMapperValue.selectionCriteria
         //beneficiary.selectionReason = item.selectionReason
-        beneficiary.selectionReason = FakeMapperValue.selectionReasons
 
         beneficiary.spouseFirstName = item.spouseFirstName
         beneficiary.spouseLastName = item.spouseLastName
