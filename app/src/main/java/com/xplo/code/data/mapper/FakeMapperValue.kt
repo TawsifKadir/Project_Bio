@@ -18,6 +18,7 @@ object FakeMapperValue {
     val respondentId  = "12345678901234"
     val name  = "fake_data"
     val houseHoldSize = 10
+    val isOtherMemberPerticipating = true
     val selectionReasons = listOf(
         SelectionReasonEnum.DIS_REASON_1,
         SelectionReasonEnum.DIS_REASON_2,

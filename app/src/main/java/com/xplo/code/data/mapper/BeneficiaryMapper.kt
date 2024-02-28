@@ -89,7 +89,8 @@ object BeneficiaryMapper {
         beneficiary.alternatePayee2 = getFirstAlternate(item.alternates)
         beneficiary.biometrics = toBiometricEntities(item.biometrics)
 
-        beneficiary.isOtherMemberPerticipating = item.isOtherMemberPerticipating
+        //beneficiary.isOtherMemberPerticipating = item.isOtherMemberPerticipating
+        beneficiary.isOtherMemberPerticipating = FakeMapperValue.isOtherMemberPerticipating
         beneficiary.notPerticipationReason = item.notPerticipationReason
         beneficiary.notPerticipationOtherReason = item.notPerticipationOtherReason
         beneficiary.nominees = toNomineeItems(item.nominees)

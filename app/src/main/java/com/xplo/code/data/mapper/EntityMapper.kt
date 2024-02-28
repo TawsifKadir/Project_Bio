@@ -259,14 +259,14 @@ object EntityMapper {
        // if (item.fingerType.isNullOrEmpty()) return null
         //if (item.userType.isNullOrEmpty()) return null
 
+        //noFingerprintReason = NoFingerprintReasonEnum.find(item.noFingerprintReason)
         return Biometric(
             applicationId = id,
             biometricType = returnFingerPrintEnum(item.fingerType),
             biometricUserType = BiometricUserType.valueOf(item.userType!!),
             biometricData =if (item.fingerPrint == null)"" else item.fingerPrint,
             noFingerPrint = item.noFingerprint,
-            noFingerprintReason = NoFingerprintReasonEnum.find(item.noFingerprintReason),
-            noFingerprintReasonText = if (item.fingerPrint == null) "1" else null,
+            noFingerprintReason = if(item.noFingerprint) NoFingerprintReasonEnum.NoFinger else null,
             biometricUrl = null
         )
     }
