@@ -299,11 +299,12 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
 
         if(binding.llIdTypeInput.isVisible &&  binding.llIdType.isVisible){
             form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
-            if(form.idNumberType?.equals("Passport") == true){
-                form.idNumber = chkEditTextOnlyNumberAndChar(etIdNumber, UiData.ER_ET_DF)
-            }else{
-                form.idNumber = chkEditTextOnlyNumber(etIdNumber, UiData.ER_ET_DF)
-            }
+//            if(form.idNumberType?.equals("Passport") == true){
+//                form.idNumber = chkEditTextOnlyNumberAndChar(etIdNumber, UiData.ER_ET_DF)
+//            }else{
+//                form.idNumber = chkEditTextOnlyNumber(etIdNumber, UiData.ER_ET_DF)
+//            }
+            form.idNumber = checkIDNumber(etIdNumber, UiData.ER_ET_DF, form.idNumberType)
         }else{
             form.idNumber = null
             form.idNumberType = null
