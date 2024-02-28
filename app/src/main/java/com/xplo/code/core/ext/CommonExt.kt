@@ -1,5 +1,6 @@
 package com.xplo.code.core.ext
 
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup

@@ -183,8 +183,8 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             .setLayoutId(R.layout.custom_dialog_pnn)
             .setTitle("Data Saved")
             .setMessage("Household successfully saved. Do you want register another household?")
-            .setPosButtonText("Another Household")
-            .setNegButtonText(getString(R.string.cancel))
+            .setPosButtonText("yes")
+            .setNegButtonText(getString(R.string.no))
             .setThumbId(R.drawable.ic_logo_photo)
             .setCancelable(false)
             .setListener(object : XDialog.DialogListener {
