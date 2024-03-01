@@ -58,8 +58,8 @@ object BeneficiaryMapper {
 
         beneficiary.relationshipWithHouseholdHead = item.relationshipWithHouseholdHead
 
-        beneficiary.currency = item.currency
-        //beneficiary.currency = FakeMapperValue.currency
+        //beneficiary.currency = item.currency
+        beneficiary.currency = FakeMapperValue.currency
         beneficiary.householdIncomeSource = item.householdIncomeSource
         beneficiary.householdMonthlyAvgIncome = item.householdMonthlyAvgIncome
 
