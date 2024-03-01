@@ -319,6 +319,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/incomeText"
                     style="@style/AppLinearLayoutInputBox"
                     android:layout_weight="1">
 
