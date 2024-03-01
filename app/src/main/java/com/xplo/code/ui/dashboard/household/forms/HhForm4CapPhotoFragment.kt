@@ -229,11 +229,11 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
         }
     }
     private fun convertBitmapToByteArray(context: Context, bitmap: Bitmap): ByteArray {
-//        val stream = ByteArrayOutputStream()
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-//        return stream.toByteArray()
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, stream)
+        return stream.toByteArray()
 
-       return ImageUtils.convertDrawableToByteArray(requireContext(), R.drawable.resize)
+       //return ImageUtils.convertDrawableToByteArray(requireContext(), R.drawable.resize)
     }
 
     override fun onClickBackButton() {

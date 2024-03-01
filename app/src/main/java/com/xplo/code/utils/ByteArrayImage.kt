@@ -11,7 +11,7 @@ object ImageUtils {
 
         // Convert Bitmap to ByteArray
         val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 10, stream)
         return stream.toByteArray()
     }
 }

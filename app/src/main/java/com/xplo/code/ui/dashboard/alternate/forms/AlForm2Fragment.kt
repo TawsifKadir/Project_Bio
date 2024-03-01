@@ -247,10 +247,10 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         }
     }
     private fun convertBitmapToByteArray(context: Context, bitmap: Bitmap): ByteArray {
-//        val stream = ByteArrayOutputStream()
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-//        return stream.toByteArray()
-        return ImageUtils.convertDrawableToByteArray(requireContext(), R.drawable.resize)
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, stream)
+        return stream.toByteArray()
+        //return ImageUtils.convertDrawableToByteArray(requireContext(), R.drawable.resize)
     }
     private fun isEmulator(): Boolean {
         return (Build.FINGERPRINT.startsWith("google/sdk_gphone_")
