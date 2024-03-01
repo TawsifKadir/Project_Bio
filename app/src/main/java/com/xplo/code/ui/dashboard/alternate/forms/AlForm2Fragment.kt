@@ -42,6 +42,7 @@ import com.xplo.code.ui.photo.ImagePickerActivity
 import com.xplo.code.ui.photo.ImageUtil
 
 import com.xplo.code.BuildConfig
+import com.xplo.code.utils.ImageUtils
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -246,9 +247,10 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
         }
     }
     private fun convertBitmapToByteArray(context: Context, bitmap: Bitmap): ByteArray {
-        val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-        return stream.toByteArray()
+//        val stream = ByteArrayOutputStream()
+//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+//        return stream.toByteArray()
+        return ImageUtils.convertDrawableToByteArray(requireContext(), R.drawable.resize)
     }
     private fun isEmulator(): Boolean {
         return (Build.FINGERPRINT.startsWith("google/sdk_gphone_")
