@@ -40,7 +40,11 @@ import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.list.HouseholdListAdapter
+import com.xplo.code.utils.DialogUtil
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  * Copyright 2022 (C) xplo
@@ -144,6 +148,12 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                     is HouseholdViewModel.Event.GetHouseholdItemsFailure -> {
                         hideLoading()
                         onGetHouseholdListFailure(event.msg)
+                        viewModel.clearEvent()
+                    }
+
+                    is HouseholdViewModel.Event.GetHouseholdItemsSuccessMsg -> {
+                        hideLoading()
+                        onGetHouseholdListSuccess(event.msg)
                         viewModel.clearEvent()
                     }
 
@@ -254,9 +264,23 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     }
 
     override fun onGetHouseholdListFailure(msg: String?) {
-        binding.llNoContentText.visibility = View.VISIBLE
-        binding.llBody.visibility = View.GONE
+        //binding.llNoContentText.visibility = View.VISIBLE
+        //binding.llBody.visibility = View.GONE
+        DialogUtil.dismissLottieDialog()
+        if (msg != null) {
+            DialogUtil.showLottieDialogFailMsg(requireContext(), "Error", msg)
+        }
         Log.d(TAG, "onGetHouseholdListFailure() called with: msg = $msg")
+        //showMessage(msg)
+    }
+    override fun onGetHouseholdListSuccess(msg: String?) {
+        //binding.llNoContentText.visibility = View.VISIBLE
+       // binding.llBody.visibility = View.GONE
+        DialogUtil.dismissLottieDialog()
+        if (msg != null) {
+            DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", msg)
+        }
+        Log.d(TAG, "onGetHouseholdListSuccess() called with: msg = $msg")
         //showMessage(msg)
     }
 
@@ -325,11 +349,17 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     }
 
     override fun onClickHouseholdItemSend(item: HouseholdItem, pos: Int) {
+        requireActivity().runOnUiThread {
+            DialogUtil.showLottieDialog(requireContext(), "Data will sync to server", "Please wait")
+        }
         Log.d(TAG, "onClickHouseholdItemSend() called with: item = $item, pos = $pos")
         //showToast("Feature not implemented yet")
 
         //viewModel.sendHouseholdItem(item, pos)
-        viewModel.syncHouseholdForm(requireContext(), item.toHouseholdForm(), pos)
+        GlobalScope.launch(Dispatchers.IO) {
+            viewModel.syncHouseholdForm(requireContext(), item.toHouseholdForm(), pos)
+        }
+        //viewModel.syncHouseholdForm(requireContext(), item.toHouseholdForm(), pos)
 
 //        val beneficiary = Fake.getABenificiary()
 //        viewModel.sendBeneficiary(beneficiary,0)

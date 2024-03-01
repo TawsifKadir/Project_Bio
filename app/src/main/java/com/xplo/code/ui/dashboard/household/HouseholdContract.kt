@@ -121,6 +121,7 @@ interface HouseholdContract {
 
         fun onGetHouseholdList(items: List<HouseholdItem>?)
         fun onGetHouseholdListFailure(msg: String?)
+        fun onGetHouseholdListSuccess(msg: String?)
 
         fun onSubmitFormSuccess(id: String?, pos: Int)
         fun onSubmitFormFailure(msg: String?)

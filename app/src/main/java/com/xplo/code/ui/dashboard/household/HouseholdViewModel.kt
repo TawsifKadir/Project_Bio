@@ -21,6 +21,7 @@ import com.xplo.code.data_module.repo.UserRepo
 import com.xplo.code.ui.dashboard.DashboardFragment
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.toJson
+import com.xplo.code.utils.DialogUtil
 import com.xplo.code.utils.IMHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -59,7 +60,7 @@ class HouseholdViewModel @Inject constructor(
 
         class GetHouseholdItemsSuccess(val items: List<HouseholdItem>?) : Event()
         class GetHouseholdItemsFailure(val msg: String?) : Event()
-
+        class GetHouseholdItemsSuccessMsg(val msg: String?) : Event()
         class UpdateHouseholdItemSuccess(val id: String?) : Event()
         class UpdateHouseholdItemFailure(val msg: String?) : Event()
 
@@ -659,36 +660,65 @@ class HouseholdViewModel @Inject constructor(
 //            SyncStatus.SUCCESS -> onSyncSuccess(syncResult)
 //            else -> onSyncFailure(syncResult)
 
-        try {
-            Log.d(DashboardFragment.TAG, "Received update>>>>")
-            if (arg == null) {
-                Log.d(DashboardFragment.TAG, "Received null parameter in update. Returning...")
-                return
-            } else {
-                Log.d(DashboardFragment.TAG, "Received parameter in update.")
-                val registrationResult = arg as? RegistrationResult
-                if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
-                    Log.d(DashboardFragment.TAG, "Registration Successful")
+        viewModelScope.launch(dispatchers.io) {
+                if (arg == null) {
+                    _event.value = Event.GetHouseholdItemsFailure("Received null parameter in update. Returning...")
+                }else{
+                    val registrationResult = arg as? RegistrationResult
+                    if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
+                        Log.d(DashboardFragment.TAG, "Registration Successful")
+                        _event.value = Event.GetHouseholdItemsSuccessMsg("Registration Successful")
 
-                    val appIds = registrationResult.applicationIds
-                    if (appIds == null) {
-                        Log.e(DashboardFragment.TAG, "No beneficiary list received. Returning ... ")
-                        return
+                        val appIds = registrationResult.applicationIds
+                        if (appIds == null) {
+                            Log.e(DashboardFragment.TAG, "No beneficiary list received. Returning ... ")
+                            //_event.value = Event.GetHouseholdItemsSuccessMsg("No beneficiary list received. Returning ... ")
+                        }
+                        Log.d(DashboardFragment.TAG, "Registered following users: ")
+                        for (nowId in appIds) {
+                           // _event.value = Event.GetHouseholdItemsSuccessMsg("Beneficiary ID : $nowId")
+                            Log.d(DashboardFragment.TAG, "Beneficiary ID : $nowId")
+                        }
+                    } else {
+                        _event.value = Event.GetHouseholdItemsFailure("Error code : ${registrationResult?.syncStatus?.errorCode}"+" Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
+                        Log.d(DashboardFragment.TAG, "Registration Failed")
+                        Log.d(DashboardFragment.TAG, "Error code : ${registrationResult?.syncStatus?.errorCode}")
+                        Log.d(DashboardFragment.TAG, "Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
                     }
-
-                    Log.d(DashboardFragment.TAG, "Registered following users: ")
-                    for (nowId in appIds) {
-                        Log.d(DashboardFragment.TAG, "Beneficiary ID : $nowId")
-                    }
-                } else {
-                    Log.d(DashboardFragment.TAG, "Registration Failed")
-                    Log.d(DashboardFragment.TAG, "Error code : ${registrationResult?.syncStatus?.errorCode}")
-                    Log.d(DashboardFragment.TAG, "Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
                 }
-            }
-        } catch (exc: Exception) {
-            Log.e(DashboardFragment.TAG, "Error while processing update : ${exc.message}")
+
         }
+//        try {
+//
+//            Log.d(DashboardFragment.TAG, "Received update>>>>")
+//            if (arg == null) {
+//                Log.d(DashboardFragment.TAG, "Received null parameter in update. Returning...")
+//                return
+//            } else {
+//                Log.d(DashboardFragment.TAG, "Received parameter in update.")
+//                val registrationResult = arg as? RegistrationResult
+//                if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
+//                    Log.d(DashboardFragment.TAG, "Registration Successful")
+//
+//                    val appIds = registrationResult.applicationIds
+//                    if (appIds == null) {
+//                        Log.e(DashboardFragment.TAG, "No beneficiary list received. Returning ... ")
+//                        return
+//                    }
+//
+//                    Log.d(DashboardFragment.TAG, "Registered following users: ")
+//                    for (nowId in appIds) {
+//                        Log.d(DashboardFragment.TAG, "Beneficiary ID : $nowId")
+//                    }
+//                } else {
+//                    Log.d(DashboardFragment.TAG, "Registration Failed")
+//                    Log.d(DashboardFragment.TAG, "Error code : ${registrationResult?.syncStatus?.errorCode}")
+//                    Log.d(DashboardFragment.TAG, "Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
+//                }
+//            }
+//        } catch (exc: Exception) {
+//            Log.e(DashboardFragment.TAG, "Error while processing update : ${exc.message}")
+//        }
     }
 
     private fun onSyncSuccess(syncResult: SyncResult) {
