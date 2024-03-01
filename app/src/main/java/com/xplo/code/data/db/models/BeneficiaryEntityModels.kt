@@ -51,6 +51,8 @@ data class BeneficiaryEntity(
     var respondentMiddleName: String? = null,
     @ColumnInfo(name = "respondentLastName")
     var respondentLastName: String? = null,
+    @ColumnInfo(name = "respondentNickName")
+    var respondentNickName: String? = null,
 
     @ColumnInfo(name = "respondentAge")
     var respondentAge: Int = 0,

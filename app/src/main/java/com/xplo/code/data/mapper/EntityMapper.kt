@@ -227,6 +227,10 @@ object EntityMapper {
             nationalId = item.form1?.idNumber,
 
             payeeName = item.form1?.getFullName(),
+            payeeFirstName = item.form1?.alternateFirstName,
+            payeeMiddleName = item.form1?.alternateMiddleName,
+            payeeLastName = item.form1?.alternateLastName,
+            payeeNickName = item.form1?.alternateNickName,
             payeeAge = item.form1?.age ?: 0,
             payeeGender = GenderEnum.find(item.form1?.gender),
             payeePhoneNo = item.form1?.phoneNumber,

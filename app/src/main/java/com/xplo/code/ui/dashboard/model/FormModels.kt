@@ -349,6 +349,7 @@ data class AlForm1(
     var alternateFirstName: String? = null,
     var alternateMiddleName: String? = null,
     var alternateLastName: String? = null,
+    var alternateNickName: String? = null,
     var age: Int? = null,
     var idNumber: String? = null,
     var idNumberType: String? = null,
