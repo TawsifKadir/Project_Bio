@@ -17,6 +17,11 @@ import com.kit.integrationmanager.model.SelectionReasonEnum
 import com.xplo.code.core.ext.isYes
 import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.toJson
+import com.xplo.code.data_module.model.content.Address
+import com.xplo.code.data_module.model.content.Alternate
+import com.xplo.code.data_module.model.content.Biometric
+import com.xplo.code.data_module.model.content.HouseholdMember
+import com.xplo.code.data_module.model.content.Location
 import com.xplo.code.ui.dashboard.model.AlternateForm
 import com.xplo.code.ui.dashboard.model.Finger
 import com.xplo.code.ui.dashboard.model.HhMember
@@ -25,11 +30,6 @@ import com.xplo.code.ui.dashboard.model.Nominee
 import com.xplo.code.ui.dashboard.model.PhotoData
 import com.xplo.code.ui.dashboard.model.getFullName
 import com.xplo.code.ui.dashboard.model.getTotal
-import com.xplo.data.model.content.Address
-import com.xplo.data.model.content.Alternate
-import com.xplo.data.model.content.Biometric
-import com.xplo.data.model.content.HouseholdMember
-import com.xplo.data.model.content.Location
 
 /**
  * Copyright 2022 (C) xplo
@@ -182,9 +182,9 @@ object EntityMapper {
     fun toNomineeEntity(
         item: Nominee?,
         id: String?,
-    ): com.xplo.data.model.content.Nominee? {
+    ): com.xplo.code.data_module.model.content.Nominee? {
         if (item == null) return null
-        return com.xplo.data.model.content.Nominee(
+        return com.xplo.code.data_module.model.content.Nominee(
             applicationId = id,
 
             nomineeFirstName = item.firstName,
@@ -205,9 +205,9 @@ object EntityMapper {
     fun toNomineeEntityItems(
         items: List<Nominee>?,
         id: String?,
-    ): ArrayList<com.xplo.data.model.content.Nominee>? {
+    ): ArrayList<com.xplo.code.data_module.model.content.Nominee>? {
         if (items.isNullOrEmpty()) return null
-        val list = arrayListOf<com.xplo.data.model.content.Nominee>()
+        val list = arrayListOf<com.xplo.code.data_module.model.content.Nominee>()
         for (item in items) {
             val element = toNomineeEntity(item, id)
             if (element != null) {

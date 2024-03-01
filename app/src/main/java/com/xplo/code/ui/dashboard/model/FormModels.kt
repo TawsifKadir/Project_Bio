@@ -1,7 +1,7 @@
 package com.xplo.code.ui.dashboard.model
 
 import com.xplo.code.core.TestConfig
-import com.xplo.data.core.ext.toBool
+import com.xplo.code.core.ext.toBool
 import java.io.Serializable
 
 /**

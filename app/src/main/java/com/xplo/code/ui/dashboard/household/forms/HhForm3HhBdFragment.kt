@@ -22,7 +22,8 @@ import com.xplo.code.ui.dashboard.model.HhForm3
 import com.xplo.code.ui.dashboard.model.getIllPerson
 import com.xplo.code.ui.dashboard.model.getTotalTable
 import com.xplo.code.ui.dashboard.model.isOk
-import com.xplo.data.BuildConfig
+
+import com.xplo.code.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

@@ -1,7 +1,7 @@
 package com.xplo.code.ui.content_list
 
 import com.xplo.code.base.BaseContract
-import com.xplo.data.model.content.ContentItem
+import com.xplo.code.data_module.model.content.ContentItem
 
 /**
  * Copyright 2020 (C) xplo

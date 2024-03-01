@@ -34,7 +34,8 @@ import com.xplo.code.utils.DialogHandler
 import com.xplo.code.ui.dashboard.household.list.AlternateSumListAdapter
 import com.xplo.code.ui.dashboard.model.AlternateForm
 import com.xplo.code.ui.dashboard.model.getFullName
-import com.xplo.data.BuildConfig
+
+import com.xplo.code.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
 

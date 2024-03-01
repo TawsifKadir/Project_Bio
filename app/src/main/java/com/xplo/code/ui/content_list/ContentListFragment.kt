@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
+import com.xplo.code.data_module.model.content.ContentItem
 import com.xplo.code.databinding.FragmentContentListBinding
-import com.xplo.data.model.content.ContentItem
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

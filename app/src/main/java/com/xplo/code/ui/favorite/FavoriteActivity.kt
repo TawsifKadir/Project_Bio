@@ -14,8 +14,8 @@ import com.xplo.code.R
 import com.xplo.code.base.BaseActivity
 import com.xplo.code.core.PaginationListener
 import com.xplo.code.core.Bk
+import com.xplo.code.data_module.model.content.ContentItem
 import com.xplo.code.databinding.ActivityFavoriteBinding
-import com.xplo.data.model.content.ContentItem
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

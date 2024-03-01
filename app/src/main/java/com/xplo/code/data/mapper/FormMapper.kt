@@ -1,11 +1,11 @@
 package com.xplo.code.data.mapper
 
 import android.util.Log
+import com.xplo.code.data_module.model.content.Address
+import com.xplo.code.data_module.model.content.FormRqb
+import com.xplo.code.data_module.model.content.Location
+import com.xplo.code.data_module.model.content.toJson
 import com.xplo.code.ui.dashboard.model.HouseholdForm
-import com.xplo.data.model.content.Address
-import com.xplo.data.model.content.FormRqb
-import com.xplo.data.model.content.Location
-import com.xplo.data.model.content.toJson
 
 /**
  * Copyright 2022 (C) xplo

@@ -137,7 +137,7 @@ class FormPGActivity : BaseActivity() {
 
         binding.viewOptionButtonHi.btSend.setOnClickListener {
             binding.tvDetails.text = householdItem.toHouseholdForm().toJson()
-            viewModel.sendHouseholdForm(householdItem.toHouseholdForm(), 0)
+           // viewModel.sendHouseholdForm(householdItem.toHouseholdForm(), 0)
         }
 
         binding.viewOptionButtonHi.btSaveLocally.setOnClickListener {
@@ -157,14 +157,14 @@ class FormPGActivity : BaseActivity() {
 
         binding.viewOptionButtonEntity.btSend.setOnClickListener {
             binding.tvDetails.text = beneficiaryEntity.toJson()
-            viewModel.sendBeneficiaryEntity(beneficiaryEntity, 0)
+            //viewModel.sendBeneficiaryEntity(beneficiaryEntity, 0)
         }
 
         binding.viewOptionButtonEntity.btSendWithRandomId.setOnClickListener {
             val beneficiary = BeneficiaryMapper.toBeneficiary(beneficiaryEntity)
             val random = RandomMapper.assignBeneficiaryARandomId(beneficiary)
             binding.tvDetails.text = Gson().toJson(random)
-            viewModel.sendBeneficiary(random, 0)
+            //viewModel.sendBeneficiary(random, 0)
         }
 
         // dummy data
@@ -176,7 +176,7 @@ class FormPGActivity : BaseActivity() {
         binding.viewOptionButtonDummy.btSend.setOnClickListener {
             val item = Fake.getABenificiary()
             binding.tvDetails.text = Gson().toJson(item)
-            viewModel.sendBeneficiary(item, 0)
+            //viewModel.sendBeneficiary(item, 0)
         }
 
         binding.viewOptionButtonDummy.btSendWithRandomId.setOnClickListener {

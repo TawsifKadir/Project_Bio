@@ -14,12 +14,12 @@ import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.kit.integrationmanager.model.SelectionCriteriaEnum
 import com.kit.integrationmanager.model.SelectionReasonEnum
-import com.xplo.data.model.content.Address
-import com.xplo.data.model.content.Alternate
-import com.xplo.data.model.content.Biometric
-import com.xplo.data.model.content.HouseholdMember
-import com.xplo.data.model.content.Location
-import com.xplo.data.model.content.Nominee
+import com.xplo.code.data_module.model.content.Address
+import com.xplo.code.data_module.model.content.Alternate
+import com.xplo.code.data_module.model.content.Biometric
+import com.xplo.code.data_module.model.content.HouseholdMember
+import com.xplo.code.data_module.model.content.Location
+import com.xplo.code.data_module.model.content.Nominee
 import java.io.Serializable
 
 @Entity(tableName = "beneficiary_items")

@@ -11,16 +11,19 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.fragment.app.viewModels
+import com.xplo.code.BuildConfig
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
+import com.xplo.code.core.ext.gone
+import com.xplo.code.core.ext.toBool
+import com.xplo.code.core.ext.visible
 import com.xplo.code.databinding.BsdNomineeInputBinding
 import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.Nominee
 import com.xplo.code.ui.dashboard.model.isOk
-import com.xplo.data.BuildConfig
-import com.xplo.data.core.ext.toBool
+
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

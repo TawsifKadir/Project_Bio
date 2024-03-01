@@ -43,7 +43,8 @@ import com.xplo.code.ui.dashboard.model.checkExtraCases
 import com.xplo.code.ui.dashboard.model.getOppositeGender
 import com.xplo.code.ui.dashboard.model.isExtraNomineeOk
 import com.xplo.code.ui.dashboard.model.isOk
-import com.xplo.data.BuildConfig
+
+import com.xplo.code.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

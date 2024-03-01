@@ -4,8 +4,6 @@ import android.app.Application
 import com.xplo.code.data.RMemory
 import com.xplo.code.data.pref.PrefHelperImpl
 import com.xplo.code.utils.Utils
-import com.xplo.data.core.Config
-import com.xplo.data.core.InterceptorHelper
 import dagger.hilt.android.HiltAndroidApp
 
 /**
@@ -36,13 +34,13 @@ class MainApplication : Application() {
 
 
     private fun initDataModule() {
-        com.xplo.data.core.Contextor.context = this
+       // com.xplo.data.core.Contextor.context = this
 
         //setting config for data module
-        Config.PLATFORM_ID = "abfea462-f64d-491e-9cd9-75ee001f45b0"
-        Config.ACCESS_CODE = Utils.getAccessCode(RMemory.countryCode)
-        Config.ACCESS_TOKEN = PrefHelperImpl().getAccessToken()
-        Config.LOCALE = "bn"
+        //Config.PLATFORM_ID = "abfea462-f64d-491e-9cd9-75ee001f45b0"
+        //Config.ACCESS_CODE = Utils.getAccessCode(RMemory.countryCode)
+        //Config.ACCESS_TOKEN = PrefHelperImpl().getAccessToken()
+        //Config.LOCALE = "bn"
         //Config.BASE_URL = BuildConfig.BASE_URL
     }
 
@@ -60,7 +58,7 @@ class MainApplication : Application() {
 //            start()
 //        }
 
-        InterceptorHelper.init(this)
+        //InterceptorHelper.init(this)
 
 
     }

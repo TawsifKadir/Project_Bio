@@ -7,8 +7,8 @@ import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.offline.DbCallImpl
 import com.xplo.code.data.db.offline.OptionItem
-import com.xplo.data.core.CallInfo
-import com.xplo.data.core.Resource
+import com.xplo.code.data_module.core.CallInfo
+import com.xplo.code.data_module.core.Resource
 import javax.inject.Inject
 
 /**

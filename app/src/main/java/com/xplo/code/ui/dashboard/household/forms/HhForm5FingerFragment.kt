@@ -32,7 +32,8 @@ import com.xplo.code.ui.dashboard.model.HhForm5
 import com.xplo.code.ui.dashboard.model.isContainValidFingerprint
 import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.code.utils.FormAppUtils
-import com.xplo.data.BuildConfig
+
+import com.xplo.code.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

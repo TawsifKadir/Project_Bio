@@ -1,7 +1,7 @@
 package com.xplo.code.ui.user_profile
 
 import com.xplo.code.base.BaseContract
-import com.xplo.data.model.user.ProfileInfo
+import com.xplo.code.data_module.model.user.ProfileInfo
 import okhttp3.MediaType
 
 /**

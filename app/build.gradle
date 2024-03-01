@@ -112,7 +112,7 @@ dependencies {
 
     //implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(":data")
+    //implementation project(":data")
 
     // will move to flavor
 //    implementation files('libs/finger_morpho.aar')        // original

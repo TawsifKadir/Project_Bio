@@ -328,7 +328,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         Log.d(TAG, "onClickHouseholdItemSend() called with: item = $item, pos = $pos")
         //showToast("Feature not implemented yet")
 
-        viewModel.sendHouseholdItem(item, pos)
+        //viewModel.sendHouseholdItem(item, pos)
         viewModel.syncHouseholdForm(requireContext(), item.toHouseholdForm(), pos)
 
 //        val beneficiary = Fake.getABenificiary()
