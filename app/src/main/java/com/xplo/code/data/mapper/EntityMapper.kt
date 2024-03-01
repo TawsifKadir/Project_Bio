@@ -264,7 +264,7 @@ object EntityMapper {
             applicationId = id,
             biometricType = returnFingerPrintEnum(item.fingerType),
             biometricUserType = BiometricUserType.valueOf(item.userType!!),
-            biometricData =if (item.fingerPrint == null)"" else item.fingerPrint,
+            biometricData =if (item.fingerPrint == null) null else item.fingerPrint,
             noFingerPrint = item.noFingerprint,
             noFingerprintReason = if(item.noFingerprint) NoFingerprintReasonEnum.NoFinger else null,
             biometricUrl = null
@@ -302,7 +302,7 @@ object EntityMapper {
     ): Biometric? {
         if (item == null) return null
         if (id == null) return null
-        if (item.img.isNullOrEmpty()) return null
+        if (item.img?.isEmpty() == true) return null
         if (item.userType.isNullOrEmpty()) return null
 
         return Biometric(

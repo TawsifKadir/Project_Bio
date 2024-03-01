@@ -81,7 +81,7 @@ object BiometricHelper {
 
             val finger = Finger(
                 fingerId = fingerprintData.fingerprintId.toString(),
-                fingerPrint = Base64.getEncoder().encodeToString(fingerprintData.fingerprintData),
+                fingerPrint = fingerprintData.fingerprintData,
                 fingerType = fingerCodes[i],
                 userType = userType
             )

@@ -225,10 +225,10 @@ object BeneficiaryMapper {
         biometric.biometricUserType = item.biometricUserType
 
 
-        if(item.biometricData.equals("")) {
+        if(item.biometricData?.equals("") == true) {
             biometric.biometricData = null
         } else {
-            biometric.biometricData = item.biometricData?.toByteArray()
+            biometric.biometricData = item.biometricData
         }
 
         biometric.noFingerPrint = item.noFingerPrint

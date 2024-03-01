@@ -315,7 +315,7 @@ data class FingerData(
 
 data class Finger(
     var fingerId: String? = null,
-    var fingerPrint: String? = null,
+    var fingerPrint: ByteArray? = null,
     var fingerType: String? = null,
     var userType: String? = null,
     var noFingerprint: Boolean = false,
@@ -326,7 +326,7 @@ fun Finger.isOk(): Boolean {
 
     if (this.noFingerprint == true && noFingerprintReason != null) return true
 
-    if (this.fingerPrint.isNullOrEmpty()) return false
+    if (this.fingerPrint?.isEmpty() == true) return false
     if (this.fingerType.isNullOrEmpty()) return false
     if (this.userType.isNullOrEmpty()) return false
 
@@ -337,7 +337,7 @@ fun Finger?.isContainValidFingerprint(): Boolean {
     if (this == null) return false
     if (this.noFingerprint == true ) return false
 
-    if (this.fingerPrint.isNullOrEmpty()) return false
+    if (this.fingerPrint?.isEmpty() == true) return false
     if (this.fingerType.isNullOrEmpty()) return false
     if (this.userType.isNullOrEmpty()) return false
 
@@ -371,7 +371,7 @@ fun AlForm2.isOk(): Boolean {
 
 data class PhotoData(
     var imgPath: String? = null,
-    var img: String? = null,
+    var img: ByteArray? = null,
     var userType: String? = null
 ) : Serializable
 

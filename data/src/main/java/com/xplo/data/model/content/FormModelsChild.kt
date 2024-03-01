@@ -115,7 +115,7 @@ data class Biometric(
     @SerializedName("biometricUserType")
     var biometricUserType: BiometricUserType? = null,
     @SerializedName("biometricData")
-    var biometricData: String? = null,
+    var biometricData: ByteArray? = null,
 
 
     @SerializedName("noFingerPrint")
@@ -131,7 +131,7 @@ data class Biometric(
 
 fun Biometric?.isContainValidBiometric(): Boolean {
     if (this == null) return false
-    if (biometricData.isNullOrEmpty()) return false
+    if (biometricData?.isEmpty() == true) return false
     return true
 }
 
