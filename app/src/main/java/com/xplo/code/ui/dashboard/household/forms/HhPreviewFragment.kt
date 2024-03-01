@@ -31,6 +31,7 @@ import com.xplo.code.ui.dashboard.model.getReportRows
 import com.xplo.code.ui.dashboard.model.getReportRowsAltSummary
 
 import com.xplo.code.BuildConfig
+import com.xplo.code.ui.dashboard.model.AlternateForm
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -376,6 +377,10 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             val view = getRowView(item)
             binding.viewPreview.blockAlternate.addView(view)
         }
+        for (item in form.alternates){
+            val view = getAltRowView(item)
+            binding.viewPreview.blockAlternate.addView(view)
+        }
     }
 
 
@@ -384,5 +389,9 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         return ReportViewUtils.getRowView(requireContext(), layoutInflater, item)
     }
 
+    private fun getAltRowView(item: AlternateForm?): View {
+        Log.d(FormDetailsFragment.TAG, "getAltRowView() called with: item = $item")
+        return ReportViewUtils.getAltFormView(requireContext(), layoutInflater, item)
+    }
 
 }
