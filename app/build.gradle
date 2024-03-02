@@ -112,12 +112,12 @@ dependencies {
 
     //implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(":data")
+    //implementation project(":data")
 
     // will move to flavor
 //    implementation files('libs/finger_morpho.aar')        // original
-    implementation files('libs/finger_morpho_dummy.aar')    // dummy
-
+//    implementation files('libs/finger_morpho_dummy.aar')    // dummy
+    implementation files('libs/FingerprintCapture-debug.aar')
 //    releaseImplementation files('libs/finger_morpho.aar')
 //    debugImplementation files('libs/finger_morpho_dummy.aar')
 
@@ -133,6 +133,8 @@ dependencies {
     //testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1'
     //implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0'
     runtimeOnly 'org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.2'
+    compileOnly "org.projectlombok:lombok:1.18.30"
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
 
 //    compileOnly "org.projectlombok:lombok:1.18.30"
 //    annotationProcessor 'org.projectlombok:lombok:1.18.30'

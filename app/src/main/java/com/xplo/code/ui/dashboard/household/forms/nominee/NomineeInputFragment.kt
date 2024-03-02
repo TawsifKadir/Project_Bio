@@ -11,16 +11,19 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.fragment.app.viewModels
+import com.xplo.code.BuildConfig
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
+import com.xplo.code.core.ext.gone
+import com.xplo.code.core.ext.toBool
+import com.xplo.code.core.ext.visible
 import com.xplo.code.databinding.BsdNomineeInputBinding
 import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.Nominee
 import com.xplo.code.ui.dashboard.model.isOk
-import com.xplo.data.BuildConfig
-import com.xplo.data.core.ext.toBool
+
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -65,6 +68,7 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
     private lateinit var etFirstName: EditText
     private lateinit var etMiddleName: EditText
     private lateinit var etLastName: EditText
+    private lateinit var etNickName: EditText
     private lateinit var etAge: EditText
     private lateinit var spRelation: Spinner
     private lateinit var spGender: Spinner
@@ -114,6 +118,7 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         etFirstName = binding.include.etFirstName
         etMiddleName = binding.include.etMiddleName
         etLastName = binding.include.etLastName
+        etNickName = binding.include.etNickName
         etAge = binding.include.etAge
         spRelation = binding.include.spRelation
         spGender = binding.include.spGender
@@ -178,6 +183,7 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         nominee.firstName = chkEditText3Char(etFirstName, UiData.ER_ET_DF)
         nominee.middleName = chkEditText3Char(etMiddleName, UiData.ER_ET_DF)
         nominee.lastName = chkEditText3Char(etLastName, UiData.ER_ET_DF)
+        nominee.nickName = chkEditTextNickName3Char(etNickName, UiData.ER_ET_DF)
         nominee.age = chkAge(etAge, UiData.ER_ET_DF)?.toInt()
         nominee.relation = chkSpinner(spRelation, UiData.ER_SP_DF)
         nominee.gender = chkSpinner(spGender, UiData.ER_SP_DF)

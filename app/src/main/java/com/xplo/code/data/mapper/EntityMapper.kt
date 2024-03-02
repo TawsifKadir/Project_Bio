@@ -4,6 +4,7 @@ import android.util.Log
 import com.kit.integrationmanager.model.BiometricType
 import com.kit.integrationmanager.model.BiometricUserType
 import com.kit.integrationmanager.model.CurrencyEnum
+import com.kit.integrationmanager.model.DocumentTypeEnum
 import com.kit.integrationmanager.model.GenderEnum
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.LegalStatusEnum
@@ -17,6 +18,11 @@ import com.kit.integrationmanager.model.SelectionReasonEnum
 import com.xplo.code.core.ext.isYes
 import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.toJson
+import com.xplo.code.data_module.model.content.Address
+import com.xplo.code.data_module.model.content.Alternate
+import com.xplo.code.data_module.model.content.Biometric
+import com.xplo.code.data_module.model.content.HouseholdMember
+import com.xplo.code.data_module.model.content.Location
 import com.xplo.code.ui.dashboard.model.AlternateForm
 import com.xplo.code.ui.dashboard.model.Finger
 import com.xplo.code.ui.dashboard.model.HhMember
@@ -25,11 +31,6 @@ import com.xplo.code.ui.dashboard.model.Nominee
 import com.xplo.code.ui.dashboard.model.PhotoData
 import com.xplo.code.ui.dashboard.model.getFullName
 import com.xplo.code.ui.dashboard.model.getTotal
-import com.xplo.data.model.content.Address
-import com.xplo.data.model.content.Alternate
-import com.xplo.data.model.content.Biometric
-import com.xplo.data.model.content.HouseholdMember
-import com.xplo.data.model.content.Location
 
 /**
  * Copyright 2022 (C) xplo
@@ -72,6 +73,7 @@ object EntityMapper {
 
             respondentAge = item.form2?.age ?: 0,
             respondentGender = GenderEnum.find(item.form2?.gender),
+            //documentTypeEnum = DocumentTypeEnum.find(item.form2?.idNumberType),
 
             respondentLegalStatus = LegalStatusEnum.find(item.form2?.legalStatus),
             respondentMaritalStatus = MaritalStatusEnum.find(item.form2?.maritalStatus),
@@ -182,9 +184,9 @@ object EntityMapper {
     fun toNomineeEntity(
         item: Nominee?,
         id: String?,
-    ): com.xplo.data.model.content.Nominee? {
+    ): com.xplo.code.data_module.model.content.Nominee? {
         if (item == null) return null
-        return com.xplo.data.model.content.Nominee(
+        return com.xplo.code.data_module.model.content.Nominee(
             applicationId = id,
 
             nomineeFirstName = item.firstName,
@@ -205,9 +207,9 @@ object EntityMapper {
     fun toNomineeEntityItems(
         items: List<Nominee>?,
         id: String?,
-    ): ArrayList<com.xplo.data.model.content.Nominee>? {
+    ): ArrayList<com.xplo.code.data_module.model.content.Nominee>? {
         if (items.isNullOrEmpty()) return null
-        val list = arrayListOf<com.xplo.data.model.content.Nominee>()
+        val list = arrayListOf<com.xplo.code.data_module.model.content.Nominee>()
         for (item in items) {
             val element = toNomineeEntity(item, id)
             if (element != null) {
@@ -227,6 +229,10 @@ object EntityMapper {
             nationalId = item.form1?.idNumber,
 
             payeeName = item.form1?.getFullName(),
+            payeeFirstName = item.form1?.alternateFirstName,
+            payeeMiddleName = item.form1?.alternateMiddleName,
+            payeeLastName = item.form1?.alternateLastName,
+            payeeNickName = item.form1?.alternateNickName,
             payeeAge = item.form1?.age ?: 0,
             payeeGender = GenderEnum.find(item.form1?.gender),
             payeePhoneNo = item.form1?.phoneNumber,
@@ -259,14 +265,14 @@ object EntityMapper {
        // if (item.fingerType.isNullOrEmpty()) return null
         //if (item.userType.isNullOrEmpty()) return null
 
+        //noFingerprintReason = NoFingerprintReasonEnum.find(item.noFingerprintReason)
         return Biometric(
             applicationId = id,
             biometricType = returnFingerPrintEnum(item.fingerType),
             biometricUserType = BiometricUserType.valueOf(item.userType!!),
-            biometricData =if (item.fingerPrint == null)"" else item.fingerPrint,
+            biometricData =if (item.fingerPrint == null) null else item.fingerPrint,
             noFingerPrint = item.noFingerprint,
-            noFingerprintReason = NoFingerprintReasonEnum.find(item.noFingerprintReason),
-            noFingerprintReasonText = if (item.fingerPrint == null) "1" else null,
+            noFingerprintReason = if(item.noFingerprint) NoFingerprintReasonEnum.NoFinger else null,
             biometricUrl = null
         )
     }
@@ -302,7 +308,7 @@ object EntityMapper {
     ): Biometric? {
         if (item == null) return null
         if (id == null) return null
-        if (item.img.isNullOrEmpty()) return null
+        if (item.img?.isEmpty() == true) return null
         if (item.userType.isNullOrEmpty()) return null
 
         return Biometric(

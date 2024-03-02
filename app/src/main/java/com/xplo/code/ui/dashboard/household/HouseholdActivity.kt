@@ -16,6 +16,7 @@ import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.HouseholdItem
+import com.xplo.code.data_module.utils.HIDGenerator
 import com.xplo.code.databinding.ActivityHouseholdBinding
 import com.xplo.code.ui.dashboard.household.forms.FormDetailsFragment
 import com.xplo.code.ui.dashboard.household.forms.HhForm1RegSetupFragment
@@ -30,7 +31,6 @@ import com.xplo.code.ui.dashboard.household.forms.HhPreviewFragment
 import com.xplo.code.ui.dashboard.household.forms.HouseholdHomeFragment
 import com.xplo.code.ui.dashboard.model.HhForm1
 import com.xplo.code.ui.dashboard.model.HouseholdForm
-import com.xplo.data.utils.HIDGenerator
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.UUID
 

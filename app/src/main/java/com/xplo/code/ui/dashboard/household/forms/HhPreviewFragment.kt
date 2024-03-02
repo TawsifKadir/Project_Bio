@@ -29,7 +29,9 @@ import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.ReportRow
 import com.xplo.code.ui.dashboard.model.getReportRows
 import com.xplo.code.ui.dashboard.model.getReportRowsAltSummary
-import com.xplo.data.BuildConfig
+
+import com.xplo.code.BuildConfig
+import com.xplo.code.ui.dashboard.model.AlternateForm
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -183,8 +185,8 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             .setLayoutId(R.layout.custom_dialog_pnn)
             .setTitle("Data Saved")
             .setMessage("Household successfully saved. Do you want register another household?")
-            .setPosButtonText("Another Household")
-            .setNegButtonText(getString(R.string.cancel))
+            .setPosButtonText("yes")
+            .setNegButtonText(getString(R.string.no))
             .setThumbId(R.drawable.ic_logo_photo)
             .setCancelable(false)
             .setListener(object : XDialog.DialogListener {
@@ -375,6 +377,10 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             val view = getRowView(item)
             binding.viewPreview.blockAlternate.addView(view)
         }
+        for (item in form.alternates){
+            val view = getAltRowView(item)
+            binding.viewPreview.blockAlternate.addView(view)
+        }
     }
 
 
@@ -383,5 +389,9 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         return ReportViewUtils.getRowView(requireContext(), layoutInflater, item)
     }
 
+    private fun getAltRowView(item: AlternateForm?): View {
+        Log.d(FormDetailsFragment.TAG, "getAltRowView() called with: item = $item")
+        return ReportViewUtils.getAltFormView(requireContext(), layoutInflater, item)
+    }
 
 }

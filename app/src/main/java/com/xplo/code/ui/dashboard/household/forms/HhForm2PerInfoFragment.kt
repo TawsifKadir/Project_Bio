@@ -1,6 +1,7 @@
 package com.xplo.code.ui.dashboard.household.forms
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -9,12 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
 import com.xplo.code.R
 import com.xplo.code.core.Bk
@@ -31,7 +34,8 @@ import com.xplo.code.ui.dashboard.model.CheckboxItem
 import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.checkExtraCases
 import com.xplo.code.ui.dashboard.model.isOk
-import com.xplo.data.BuildConfig
+
+import com.xplo.code.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -76,10 +80,11 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
     private lateinit var spRespondentRlt: Spinner
     private lateinit var spMaritalStatus: Spinner
     private lateinit var spLegalStatus: Spinner
-    private lateinit var spSelectionReason: Spinner
+//    private lateinit var spSelectionReason: Spinner
     private lateinit var etFirstName: EditText
     private lateinit var etMiddleName: EditText
     private lateinit var etLastName: EditText
+    private lateinit var etNickName: EditText
     private lateinit var etAge: EditText
     private lateinit var etIdNumber: EditText
     private lateinit var etPhoneNumber: EditText
@@ -87,10 +92,10 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
     private lateinit var etSpouseFirstName: EditText
     private lateinit var etSpouseMiddleName: EditText
     private lateinit var etSpouseLastName: EditText
+    private lateinit var etSpouseNickName: EditText
     private lateinit var rgSelectionCriteria: RadioGroup
     private lateinit var rgId: RadioGroup
-    //private lateinit var directRecycler: RecyclerView
-    //private lateinit var publicRecycler: RecyclerView
+    private lateinit var incomeField: LinearLayout
 
     private var adapterSupportType: CheckboxListAdapter? = null
 
@@ -132,10 +137,11 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         //presenter = RegistrationPresenter(DataRepoImpl())
         //presenter.attach(this)
 
-
+        incomeField = binding.incomeText
         etSpouseFirstName = binding.etSpouseFirstName
         etSpouseMiddleName = binding.etSpouseMiddleName
         etSpouseLastName = binding.etSpouseLastName
+        etSpouseNickName = binding.etSpouseNickName
         spMainSourceOfIncome = binding.spMainSourceOfIncome
         spIdType = binding.spIdType
         //spCurrency = binding.spCurrency
@@ -143,10 +149,11 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         spRespondentRlt = binding.spRespondentRlt
         spMaritalStatus = binding.spMaritalStatus
         spLegalStatus = binding.spLegalStatus
-        spSelectionReason = binding.spSelectionReason
+//        spSelectionReason = binding.spSelectionReason
         etFirstName = binding.etFirstName
         etMiddleName = binding.etMiddleName
         etLastName = binding.etLastName
+        etNickName = binding.etNickName
         etAge = binding.etAge
         etIdNumber = binding.etIdNumber
         etPhoneNumber = binding.etPhoneNumber
@@ -177,7 +184,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         bindSpinnerData(spRespondentRlt, UiData.relationshipOptions)
         bindSpinnerData(spMaritalStatus, UiData.maritalStatusOptions)
         bindSpinnerData(spLegalStatus, UiData.legalStatusOptions)
-        bindSpinnerData(spSelectionReason, UiData.selectionReason)
+//        bindSpinnerData(spSelectionReason, UiData.selectionReason)
         bindSpinnerData(spIdType, UiData.idType)
 
 
@@ -228,16 +235,42 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
                 id: Long
             ) {
                 val selectedItem = parent.getItemAtPosition(position).toString()
-                if (selectedItem.equals(UiData.idType[1], ignoreCase = true)) {
-                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
-                } else {
+                if (selectedItem.equals(UiData.idType[2], ignoreCase = true)) {
+//                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
                     etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
+                    etIdNumber.setText("")
+                } else {
+//                    etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
+                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
+                    etIdNumber.setText("")
                 }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
                 // Another interface callback
             }
+        }
+
+        spMainSourceOfIncome.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedItem = parent?.getItemAtPosition(position).toString()
+                if (selectedItem.equals(IncomeSourceEnum.NONE.toString(), ignoreCase = true)){
+                    etMonthlyAverageIncome.setText("0")
+                    etMonthlyAverageIncome.isEnabled = false
+                }else{
+                    etMonthlyAverageIncome.isEnabled = true
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
         }
 
         binding.rgId.setOnCheckedChangeListener { group, checkedId ->
@@ -316,10 +349,11 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         setSpinnerItem(spRespondentRlt, UiData.relationshipOptions, form.respondentRlt)
         setSpinnerItem(spMaritalStatus, UiData.maritalStatusOptions, form.maritalStatus)
         setSpinnerItem(spLegalStatus, UiData.legalStatusOptions, form.legalStatus)
-        setSpinnerItem(spSelectionReason, UiData.selectionReason, form.selectionReason)
+
+//        setSpinnerItem(spSelectionReason, UiData.selectionReason, form.selectionReason)
 
         rgSelectionCriteria.checkRbOpAB(binding.rbA, binding.rbB, form.selectionCriteria)
-        rgId.checkRbOpABforIDcard(binding.rbYes, binding.rbNo, form.idIsOrNot)
+        rgId.checkRbOpABforIDcard(binding.rbYes, binding.rbNo ,form.idIsOrNot)
 
         if (binding.rbA.isChecked) {
             form.itemsSupportType?.let { doSomethingForRbA(it) }
@@ -330,6 +364,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         etFirstName.setText(form.firstName)
         etMiddleName.setText(form.middleName)
         etLastName.setText(form.lastName)
+        etNickName.setText(form.nickName)
         etAge.setText(form.age.toString())
         etIdNumber.setText(form.idNumber)
         etPhoneNumber.setText(form.phoneNumber)
@@ -386,37 +421,43 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         form.respondentRlt = chkSpinner(spRespondentRlt, UiData.ER_SP_DF)
         form.maritalStatus = chkSpinner(spMaritalStatus, UiData.ER_SP_DF)
         form.legalStatus = chkSpinner(spLegalStatus, UiData.ER_SP_DF)
-        form.selectionReason = chkSpinner(spSelectionReason, UiData.ER_SP_DF)
+
+
+//        form.selectionReason = chkSpinner(spSelectionReason, UiData.ER_SP_DF)
 
         if (binding.llspouse1.isVisible && binding.llspouse2.isVisible) {
             form.spouseFirstName = chkEditText3Char(etSpouseFirstName, UiData.ER_SP_DF)
             form.spouseMiddleName = chkEditText3Char(etSpouseMiddleName, UiData.ER_SP_DF)
             form.spouseLastName = chkEditText3Char(etSpouseLastName, UiData.ER_SP_DF)
+            form.spouseNickName = chkEditTextNickName3Char(etSpouseNickName, UiData.ER_SP_DF)
         } else {
             form.spouseFirstName = null
             form.spouseMiddleName = null
             form.spouseLastName = null
+            form.spouseNickName = null
         }
 
         if (binding.llIdTypeInput.isVisible && binding.llIdType.isVisible) {
             form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
-            if (form.idNumberType?.equals("Passport") == true) {
-                form.idNumber = chkEditTextOnlyNumberAndChar(etIdNumber, UiData.ER_ET_DF)
-            } else {
-                form.idNumber = chkEditTextOnlyNumber(etIdNumber, UiData.ER_ET_DF)
-            }
+//            if (form.idNumberType?.equals("Passport") == true) {
+//                form.idNumber = chkEditTextOnlyNumberAndChar(etIdNumber, UiData.ER_ET_DF)
+//            } else{
+//                form.idNumber = chkEditTextOnlyNumber(etIdNumber, UiData.ER_ET_DF)
+//            }
+            form.idNumber = checkIDNumber(etIdNumber, UiData.ER_ET_DF, form.idNumberType)
         } else {
             form.idNumber = null
             form.idNumberType = null
         }
+        Log.d(TAG,"check nick Name ${form.nickName}")
 
         //Toast.makeText(requireContext(), form.idNumberType, Toast.LENGTH_SHORT).show()
         form.firstName = chkEditText3Char(etFirstName, UiData.ER_ET_DF)
         form.middleName = chkEditText3Char(etMiddleName, UiData.ER_ET_DF)
         form.lastName = chkEditText3Char(etLastName, UiData.ER_ET_DF)
+        form.nickName = chkEditTextNickName3Char(etNickName, UiData.ER_ET_DF)
         form.age = chkEditTextMax3Digit(etAge, UiData.ER_ET_DF)?.toInt()
-        //form.phoneNumber = chkEditText(etPhoneNumber, UiData.ER_ET_DF)
-        form.phoneNumber = etPhoneNumber.text.toString()
+        form.phoneNumber = chkPhoneNumber(etPhoneNumber, UiData.ER_ET_DF)
         form.monthlyAverageIncome =
             chkEditTextMonthlyAvgIncome(etMonthlyAverageIncome, UiData.ER_ET_DF)
         //form.spouseName = chkEditText(etSpouseName, UiData.ER_ET_DF)
@@ -424,6 +465,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         form.idIsOrNot = chkRadioGroup(rgId, UiData.ER_RB_DF)
 
         form.itemsSupportType = adapterSupportType?.getCheckedItems()
+        //checking
 
         if (!form.isOk()) {
             val checkExtraCases = form.checkExtraCases()
@@ -457,14 +499,14 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         spRespondentRlt.setSelection(1)
         spMaritalStatus.setSelection(1)
         spLegalStatus.setSelection(1)
-        spSelectionReason.setSelection(1)
+//        spSelectionReason.setSelection(1)
         //spCurrency.setSelection(1)
 
         etFirstName.setText("Mohd")
         etMiddleName.setText("Moniruzzaman")
         etLastName.setText("Shadhin")
         etAge.setText("33")
-        etIdNumber.setText("12")
+        etIdNumber.setText("12345678910112")
         etPhoneNumber.setText("01672708329")
         etMonthlyAverageIncome.setText("5000")
         //etSpouseName.setText("Yesmin")

@@ -7,13 +7,18 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
+import android.widget.PopupWindow
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,7 +34,8 @@ import com.xplo.code.utils.DialogHandler
 import com.xplo.code.ui.dashboard.household.list.AlternateSumListAdapter
 import com.xplo.code.ui.dashboard.model.AlternateForm
 import com.xplo.code.ui.dashboard.model.getFullName
-import com.xplo.data.BuildConfig
+
+import com.xplo.code.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -141,13 +147,13 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
     }
 
     override fun initView() {
-
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
         adapter = AlternateSumListAdapter()
         adapter?.setOnItemClickListener(this)
-        binding.recyclerView.adapter = adapter
         onReinstateData(interactor?.getRootForm()?.alternates)
+        binding.recyclerView.adapter = adapter
+
     }
 
     override fun initObserver() {
@@ -165,7 +171,30 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
                 onClickAddAlternate()
             }
             else{
-                binding.btAdd.setText("Max Limit is 2")
+/*                val popupView = layoutInflater.inflate(R.layout.popup_layout, null)
+                popupView.background = ContextCompat.getDrawable(requireContext(), R.drawable.popup_background)
+
+                val popupWindow = PopupWindow(
+                    popupView,
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT
+                )
+
+                popupView.findViewById<Button>(R.id.btnnOk).setOnClickListener {
+                    popupWindow.dismiss()
+                }
+
+                popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)*/
+                val builder = AlertDialog.Builder(requireContext())
+                val dialogView = layoutInflater.inflate(R.layout.popup_layout, null)
+                builder.setView(dialogView)
+                val alertDialog = builder.create()
+
+                dialogView.findViewById<Button>(R.id.btnnOk).setOnClickListener {
+                    alertDialog.dismiss()
+                }
+
+                alertDialog.show()
             }
         }
 

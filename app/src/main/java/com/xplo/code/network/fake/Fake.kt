@@ -6,9 +6,9 @@ import com.google.gson.Gson
 import com.kit.integrationmanager.model.Beneficiary
 import com.xplo.code.R
 import com.xplo.code.core.Contextor
+import com.xplo.code.data_module.model.user.User
 import com.xplo.code.network.model.IbdbModel
 import com.xplo.code.utils.JsonUtils
-import com.xplo.data.model.user.User
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader

@@ -1,7 +1,7 @@
 package com.xplo.code.ui.testing_lab
 
 import com.kit.integrationmanager.model.GenderEnum
-import com.xplo.data.utils.HIDGenerator
+import com.xplo.code.data_module.utils.HIDGenerator
 
 fun main() {
     println("hello")

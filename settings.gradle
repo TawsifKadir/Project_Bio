@@ -1,3 +1,3 @@
 rootProject.name='bio-registration'
 include ':app'
-include ':data'
+//include ':data'

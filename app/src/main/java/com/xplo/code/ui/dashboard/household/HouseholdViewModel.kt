@@ -10,20 +10,19 @@ import com.kit.integrationmanager.payload.RegistrationResult
 import com.kit.integrationmanager.payload.RegistrationStatus
 import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.HouseholdItem
-import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.data.db.offline.Column
 import com.xplo.code.data.db.offline.OptionItem
 import com.xplo.code.data.db.repo.DbRepo
 import com.xplo.code.data.mapper.BeneficiaryMapper
 import com.xplo.code.data.mapper.EntityMapper
+import com.xplo.code.data_module.core.DispatcherProvider
+import com.xplo.code.data_module.core.Resource
+import com.xplo.code.data_module.repo.UserRepo
 import com.xplo.code.ui.dashboard.DashboardFragment
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.toJson
+import com.xplo.code.utils.DialogUtil
 import com.xplo.code.utils.IMHelper
-import com.xplo.data.core.DispatcherProvider
-import com.xplo.data.core.Resource
-import com.xplo.data.repo.ContentRepo
-import com.xplo.data.repo.UserRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -36,7 +35,6 @@ import javax.inject.Inject
 class HouseholdViewModel @Inject constructor(
     private val userRepo: UserRepo,
     private val dbRepo: DbRepo,
-    private val contentRepo: ContentRepo,
     private val dispatchers: DispatcherProvider
 ) : ViewModel(), HouseholdContract.Presenter, Observer {
 
@@ -62,7 +60,7 @@ class HouseholdViewModel @Inject constructor(
 
         class GetHouseholdItemsSuccess(val items: List<HouseholdItem>?) : Event()
         class GetHouseholdItemsFailure(val msg: String?) : Event()
-
+        class GetHouseholdItemsSuccessMsg(val msg: String?) : Event()
         class UpdateHouseholdItemSuccess(val id: String?) : Event()
         class UpdateHouseholdItemFailure(val msg: String?) : Event()
 
@@ -275,61 +273,61 @@ class HouseholdViewModel @Inject constructor(
 
     }
 
-    override fun sendHouseholdItem(item: HouseholdItem?, pos: Int) {
-        Log.d(TAG, "sendHouseholdItem() called with: item = $item, pos = $pos")
-        if (item == null) return
-        val form = item.toHouseholdForm()
-        var entity = EntityMapper.toBeneficiaryEntity(form)
-        var beneficiary = BeneficiaryMapper.toBeneficiary(entity)
-        if (beneficiary == null) return
+//    override fun sendHouseholdItem(item: HouseholdItem?, pos: Int) {
+//        Log.d(TAG, "sendHouseholdItem() called with: item = $item, pos = $pos")
+//        if (item == null) return
+//        val form = item.toHouseholdForm()
+//        var entity = EntityMapper.toBeneficiaryEntity(form)
+//        var beneficiary = BeneficiaryMapper.toBeneficiary(entity)
+//        if (beneficiary == null) return
+//
+//        viewModelScope.launch(dispatchers.io) {
+//            _event.value = Event.Loading
+//            when (val response = contentRepo.sendBeneficiary(beneficiary)) {
+//
+//                is Resource.Success -> {
+//                    Log.d(TAG, "sendHouseholdItem: success: ${response.data}")
+//
+//                    _event.value = Event.SendHouseholdItemSuccess(item, pos)
+//                }
+//
+//                is Resource.Failure -> {
+//                    Log.d(TAG, "sendHouseholdItem: failure: ${response.callInfo}")
+//                    _event.value = Event.SendHouseholdItemFailure(response.callInfo?.msg, pos)
+//                }
+//
+//                else -> {}
+//            }
+//        }
+//    }
 
-        viewModelScope.launch(dispatchers.io) {
-            _event.value = Event.Loading
-            when (val response = contentRepo.sendBeneficiary(beneficiary)) {
-
-                is Resource.Success -> {
-                    Log.d(TAG, "sendHouseholdItem: success: ${response.data}")
-
-                    _event.value = Event.SendHouseholdItemSuccess(item, pos)
-                }
-
-                is Resource.Failure -> {
-                    Log.d(TAG, "sendHouseholdItem: failure: ${response.callInfo}")
-                    _event.value = Event.SendHouseholdItemFailure(response.callInfo?.msg, pos)
-                }
-
-                else -> {}
-            }
-        }
-    }
-
-    override fun sendHouseholdForm(form: HouseholdForm?, pos: Int) {
-        Log.d(TAG, "sendHouseholdForm() called with: form = $form")
-        if (form == null) return
-
-        var entity = EntityMapper.toBeneficiaryEntity(form)
-        var item = BeneficiaryMapper.toBeneficiary(entity)
-        if (item == null) return
-
-        viewModelScope.launch(dispatchers.io) {
-            _event.value = Event.Loading
-            when (val response = contentRepo.sendBeneficiary(item)) {
-
-                is Resource.Success -> {
-                    Log.d(TAG, "sendHouseholdForm: success: ${response.data}")
-
-                    _event.value = Event.SendHouseholdFormSuccess(item.applicationId, pos)
-                }
-
-                is Resource.Failure -> {
-                    Log.d(TAG, "sendHouseholdForm: failure: ${response.callInfo}")
-                    _event.value = Event.SendHouseholdFormFailure(response.callInfo?.msg, pos)
-                }
-
-                else -> {}
-            }
-        }
-    }
+//    override fun sendHouseholdForm(form: HouseholdForm?, pos: Int) {
+//        Log.d(TAG, "sendHouseholdForm() called with: form = $form")
+//        if (form == null) return
+//
+//        var entity = EntityMapper.toBeneficiaryEntity(form)
+//        var item = BeneficiaryMapper.toBeneficiary(entity)
+//        if (item == null) return
+//
+//        viewModelScope.launch(dispatchers.io) {
+//            _event.value = Event.Loading
+//            when (val response = contentRepo.sendBeneficiary(item)) {
+//
+//                is Resource.Success -> {
+//                    Log.d(TAG, "sendHouseholdForm: success: ${response.data}")
+//
+//                    _event.value = Event.SendHouseholdFormSuccess(item.applicationId, pos)
+//                }
+//
+//                is Resource.Failure -> {
+//                    Log.d(TAG, "sendHouseholdForm: failure: ${response.callInfo}")
+//                    _event.value = Event.SendHouseholdFormFailure(response.callInfo?.msg, pos)
+//                }
+//
+//                else -> {}
+//            }
+//        }
+//    }
 
     override fun saveBeneficiaryEntity(item: BeneficiaryEntity?) {
         Log.d(TAG, "saveBeneficiaryEntity() called with: item = $item")
@@ -438,50 +436,50 @@ class HouseholdViewModel @Inject constructor(
         }
     }
 
-    override fun sendBeneficiaryEntity(item: BeneficiaryEntity?, pos: Int) {
-        Log.d(TAG, "sendBeneficiaryEntity() called with: item = $item, pos = $pos")
-        if (item == null) return
+//    override fun sendBeneficiaryEntity(item: BeneficiaryEntity?, pos: Int) {
+//        Log.d(TAG, "sendBeneficiaryEntity() called with: item = $item, pos = $pos")
+//        if (item == null) return
+//
+//        val beneficiary = BeneficiaryMapper.toBeneficiary(item)
+//
+//        viewModelScope.launch(dispatchers.io) {
+//            _event.value = Event.Loading
+//            when (val response = contentRepo.sendBeneficiary(beneficiary)) {
+//
+//                is Resource.Success -> {
+//                    Log.d(TAG, "sendBeneficiaryEntity: success: ${response.data}")
+//                    _event.value = Event.SendBeneficiaryEntitySuccess(item.id, pos)
+//                }
+//
+//                is Resource.Failure -> {
+//                    Log.d(TAG, "sendBeneficiaryEntity: failure: ${response.callInfo}")
+//                    _event.value = Event.SendBeneficiaryEntityFailure(response.callInfo?.msg)
+//                }
+//            }
+//        }
+//    }
 
-        val beneficiary = BeneficiaryMapper.toBeneficiary(item)
 
-        viewModelScope.launch(dispatchers.io) {
-            _event.value = Event.Loading
-            when (val response = contentRepo.sendBeneficiary(beneficiary)) {
-
-                is Resource.Success -> {
-                    Log.d(TAG, "sendBeneficiaryEntity: success: ${response.data}")
-                    _event.value = Event.SendBeneficiaryEntitySuccess(item.id, pos)
-                }
-
-                is Resource.Failure -> {
-                    Log.d(TAG, "sendBeneficiaryEntity: failure: ${response.callInfo}")
-                    _event.value = Event.SendBeneficiaryEntityFailure(response.callInfo?.msg)
-                }
-            }
-        }
-    }
-
-
-    override fun sendBeneficiary(item: Beneficiary?, pos: Int) {
-        Log.d(TAG, "sendBeneficiary() called with: item = $item, pos = $pos")
-        if (item == null) return
-
-        viewModelScope.launch(dispatchers.io) {
-            _event.value = Event.Loading
-            when (val response = contentRepo.sendBeneficiary(item)) {
-
-                is Resource.Success -> {
-                    Log.d(TAG, "sendBeneficiary: success: ${response.data}")
-                    _event.value = Event.SendBeneficiarySuccess(item.applicationId, pos)
-                }
-
-                is Resource.Failure -> {
-                    Log.d(TAG, "sendBeneficiary: failure: ${response.callInfo}")
-                    _event.value = Event.SendBeneficiaryFailure(response.callInfo?.msg)
-                }
-            }
-        }
-    }
+//    override fun sendBeneficiary(item: Beneficiary?, pos: Int) {
+//        Log.d(TAG, "sendBeneficiary() called with: item = $item, pos = $pos")
+//        if (item == null) return
+//
+//        viewModelScope.launch(dispatchers.io) {
+//            _event.value = Event.Loading
+//            when (val response = contentRepo.sendBeneficiary(item)) {
+//
+//                is Resource.Success -> {
+//                    Log.d(TAG, "sendBeneficiary: success: ${response.data}")
+//                    _event.value = Event.SendBeneficiarySuccess(item.applicationId, pos)
+//                }
+//
+//                is Resource.Failure -> {
+//                    Log.d(TAG, "sendBeneficiary: failure: ${response.callInfo}")
+//                    _event.value = Event.SendBeneficiaryFailure(response.callInfo?.msg)
+//                }
+//            }
+//        }
+//    }
 
 
     override fun getStateItems() {
@@ -662,36 +660,65 @@ class HouseholdViewModel @Inject constructor(
 //            SyncStatus.SUCCESS -> onSyncSuccess(syncResult)
 //            else -> onSyncFailure(syncResult)
 
-        try {
-            Log.d(DashboardFragment.TAG, "Received update>>>>")
-            if (arg == null) {
-                Log.d(DashboardFragment.TAG, "Received null parameter in update. Returning...")
-                return
-            } else {
-                Log.d(DashboardFragment.TAG, "Received parameter in update.")
-                val registrationResult = arg as? RegistrationResult
-                if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
-                    Log.d(DashboardFragment.TAG, "Registration Successful")
+        viewModelScope.launch(dispatchers.io) {
+                if (arg == null) {
+                    _event.value = Event.GetHouseholdItemsFailure("Received null parameter in update. Returning...")
+                }else{
+                    val registrationResult = arg as? RegistrationResult
+                    if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
+                        Log.d(DashboardFragment.TAG, "Registration Successful")
+                        _event.value = Event.GetHouseholdItemsSuccessMsg("Registration Successful")
 
-                    val appIds = registrationResult.applicationIds
-                    if (appIds == null) {
-                        Log.e(DashboardFragment.TAG, "No beneficiary list received. Returning ... ")
-                        return
+                        val appIds = registrationResult.applicationIds
+                        if (appIds == null) {
+                            Log.e(DashboardFragment.TAG, "No beneficiary list received. Returning ... ")
+                            //_event.value = Event.GetHouseholdItemsSuccessMsg("No beneficiary list received. Returning ... ")
+                        }
+                        Log.d(DashboardFragment.TAG, "Registered following users: ")
+                        for (nowId in appIds) {
+                           // _event.value = Event.GetHouseholdItemsSuccessMsg("Beneficiary ID : $nowId")
+                            Log.d(DashboardFragment.TAG, "Beneficiary ID : $nowId")
+                        }
+                    } else {
+                        _event.value = Event.GetHouseholdItemsFailure("Error code : ${registrationResult?.syncStatus?.errorCode}"+" Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
+                        Log.d(DashboardFragment.TAG, "Registration Failed")
+                        Log.d(DashboardFragment.TAG, "Error code : ${registrationResult?.syncStatus?.errorCode}")
+                        Log.d(DashboardFragment.TAG, "Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
                     }
-
-                    Log.d(DashboardFragment.TAG, "Registered following users: ")
-                    for (nowId in appIds) {
-                        Log.d(DashboardFragment.TAG, "Beneficiary ID : $nowId")
-                    }
-                } else {
-                    Log.d(DashboardFragment.TAG, "Registration Failed")
-                    Log.d(DashboardFragment.TAG, "Error code : ${registrationResult?.syncStatus?.errorCode}")
-                    Log.d(DashboardFragment.TAG, "Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
                 }
-            }
-        } catch (exc: Exception) {
-            Log.e(DashboardFragment.TAG, "Error while processing update : ${exc.message}")
+
         }
+//        try {
+//
+//            Log.d(DashboardFragment.TAG, "Received update>>>>")
+//            if (arg == null) {
+//                Log.d(DashboardFragment.TAG, "Received null parameter in update. Returning...")
+//                return
+//            } else {
+//                Log.d(DashboardFragment.TAG, "Received parameter in update.")
+//                val registrationResult = arg as? RegistrationResult
+//                if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
+//                    Log.d(DashboardFragment.TAG, "Registration Successful")
+//
+//                    val appIds = registrationResult.applicationIds
+//                    if (appIds == null) {
+//                        Log.e(DashboardFragment.TAG, "No beneficiary list received. Returning ... ")
+//                        return
+//                    }
+//
+//                    Log.d(DashboardFragment.TAG, "Registered following users: ")
+//                    for (nowId in appIds) {
+//                        Log.d(DashboardFragment.TAG, "Beneficiary ID : $nowId")
+//                    }
+//                } else {
+//                    Log.d(DashboardFragment.TAG, "Registration Failed")
+//                    Log.d(DashboardFragment.TAG, "Error code : ${registrationResult?.syncStatus?.errorCode}")
+//                    Log.d(DashboardFragment.TAG, "Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
+//                }
+//            }
+//        } catch (exc: Exception) {
+//            Log.e(DashboardFragment.TAG, "Error while processing update : ${exc.message}")
+//        }
     }
 
     private fun onSyncSuccess(syncResult: SyncResult) {

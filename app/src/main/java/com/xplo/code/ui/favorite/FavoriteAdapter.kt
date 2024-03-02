@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.xplo.code.BuildConfig
+import com.xplo.code.data_module.model.content.ContentItem
 import com.xplo.code.databinding.RowFavoriteBinding
-import com.xplo.data.model.content.ContentItem
 
 /**
  * Copyright 2022 (C) xplo

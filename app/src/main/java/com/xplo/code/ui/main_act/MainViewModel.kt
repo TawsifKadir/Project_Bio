@@ -1,8 +1,8 @@
 package com.xplo.code.ui.main_act
 
 import androidx.lifecycle.ViewModel
-import com.xplo.data.repo.UserRepo
-import com.xplo.data.core.DispatcherProvider
+import com.xplo.code.data_module.core.DispatcherProvider
+import com.xplo.code.data_module.repo.UserRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
