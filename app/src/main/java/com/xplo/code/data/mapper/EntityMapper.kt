@@ -77,7 +77,7 @@ object EntityMapper {
         form.householdMonthlyAvgIncome = item.form2?.monthlyAverageIncome
         form.currency = CurrencyEnum.find(item.form2?.currency)
         form.selectionCriteria = SelectionCriteriaEnum.find(item.form2?.selectionCriteria)
-        //  form.selectionReason = SelectionReasonEnum.find(item.form2?.selectionReason)
+        //form.selectionReason = SelectionReasonEnum.find(item.form2?.selectionReason)
         val address = Address()
         address.stateId = item.form1?.state?.id
         address.countyId = item.form1?.county?.id
@@ -104,11 +104,12 @@ object EntityMapper {
         form.notPerticipationOtherReason = item.form6?.otherReason
 
         form.nominees = toNomineeItems(item.form6?.nominees)
+
         form.biometrics = toBiometricEntities(item.form5?.fingers)
         form.alternatePayee1 = getFirstAlternate(item.alternates)
         form.alternatePayee2 = getFirstAlternate(item.alternates)
 
-        form.createdBy = 10
+        form.createdBy = 0
 
 
         //  Log.d(TAG, "toBeneficiaryEntity: return: ${form.toJson()}")
@@ -138,6 +139,7 @@ object EntityMapper {
         alternate.payeeAge = item.form1?.age
         alternate.payeeGender = GenderEnum.find(item.form1?.gender)
         alternate.payeePhoneNo = item.form1?.phoneNumber
+
         alternate.biometrics = toBiometricEntities(item.form3?.fingers)
 
         return alternate
@@ -200,8 +202,9 @@ object EntityMapper {
 
         nominee.nomineeFirstName = item.firstName
         nominee.nomineeLastName = item.lastName
-        //nominee.nomineeMiddleName = item.nomineeMiddleName
-        nominee.nomineeMiddleName = FakeMapperValue.name
+        nominee.nomineeNickName = item.nickName
+        nominee.nomineeMiddleName = item.middleName
+//        nominee.nomineeMiddleName = FakeMapperValue.name
 
         nominee.nomineeAge = item.age
         nominee.nomineeGender = GenderEnum.find(item.gender)

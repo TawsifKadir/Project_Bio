@@ -526,10 +526,10 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                 if (nowBiometric != null) {
                     nowBiometricEO.applicationId = appId
                     nowBiometricEO.biometricUserType =
-                        nowBiometric.biometricUserType.ordinal.toLong()
+                        nowBiometric.biometricUserType?.ordinal?.toLong()
                     nowBiometricEO.noFingerPrint = nowBiometric.noFingerPrint
                     nowBiometricEO.noFingerprintReason =
-                        nowBiometric.noFingerprintReason.ordinal.toLong()
+                        nowBiometric.noFingerprintReason?.ordinal?.toLong()
                     nowBiometricEO.noFingerprintReasonText = nowBiometric.noFingerprintReasonText
                     if (nowBiometric.biometricType == BiometricType.PHOTO) {
                         nowBiometricEO.photo = nowBiometric.biometricData
