@@ -133,7 +133,7 @@ class HouseholdViewModel @Inject constructor(
         class GetDataLocalDb(val beneficiary: MutableList<com.xplo.code.data.db.room.model.Beneficiary>) :
             Event()
 
-        class GetDataLocalDbByAppId(val beneficiary: com.xplo.code.data.db.room.model.Beneficiary) :
+        class GetDataLocalDbByAppId(val beneficiary: Beneficiary) :
             Event()
 
     }
@@ -306,8 +306,8 @@ class HouseholdViewModel @Inject constructor(
 //            }
 
             form.createdBy = 0
-            Log.d(TAG, "showBeneficiary: ${beneficiary.applicationId}")
-            _event.value = Event.GetDataLocalDbByAppId(beneficiary)
+            Log.d(TAG, "showBeneficiary: ${form.address.boma}")
+            _event.value = Event.GetDataLocalDbByAppId(form)
         }
     }
 
