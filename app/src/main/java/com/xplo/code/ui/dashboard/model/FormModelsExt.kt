@@ -249,6 +249,7 @@ fun Nominee?.isOk(): Boolean {
     if (this == null) return false
     if (this.firstName.isNullOrBlank()) return false
     if (this.lastName.isNullOrBlank()) return false
+    if (this.middleName.isNullOrBlank()) return false
     if (this.relation.isNullOrBlank()) return false
     if (this.age == null) return false
     if (this.gender.isNullOrEmpty()) return false
