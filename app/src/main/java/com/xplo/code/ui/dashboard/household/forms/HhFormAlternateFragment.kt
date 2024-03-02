@@ -260,6 +260,11 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
 //            adapter?.addItem(form)
 //        }, 500)
         adapter?.addItem(form)
+        val rootForm = interactor?.getRootForm()
+        if(adapter != null){
+            rootForm?.alternates = adapter!!.getDataset()
+        }
+        interactor?.setRootForm(rootForm)
     }
 
     override fun onClickBackButton() {

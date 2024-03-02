@@ -484,7 +484,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         form.firstName = chkEditText3Char(etFirstName, UiData.ER_ET_DF)
         form.middleName = chkEditText3Char(etMiddleName, UiData.ER_ET_DF)
         form.lastName = chkEditText3Char(etLastName, UiData.ER_ET_DF)
-        form.nickName = etNickName.text.toString()
+        form.nickName = chkEditTextNickName3Char(etNickName,UiData.ER_ET_DF)
         form.age = chkEditTextMax3Digit(etAge, UiData.ER_ET_DF)?.toInt()
         form.phoneNumber = chkPhoneNumber(etPhoneNumber, UiData.ER_ET_DF)
         form.monthlyAverageIncome =
