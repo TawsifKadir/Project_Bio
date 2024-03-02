@@ -6,6 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.GsonBuilder
 import com.kit.integrationmanager.model.CurrencyEnum
+import com.kit.integrationmanager.model.DocumentTypeEnum
 import com.kit.integrationmanager.model.GenderEnum
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.LegalStatusEnum
@@ -51,6 +52,8 @@ data class BeneficiaryEntity(
     var respondentMiddleName: String? = null,
     @ColumnInfo(name = "respondentLastName")
     var respondentLastName: String? = null,
+    @ColumnInfo(name = "respondentNickName")
+    var respondentNickName: String? = null,
 
     @ColumnInfo(name = "respondentAge")
     var respondentAge: Int = 0,
@@ -59,6 +62,10 @@ data class BeneficiaryEntity(
 
     @ColumnInfo(name = "respondentLegalStatus")
     var respondentLegalStatus: LegalStatusEnum? = null,
+
+    @ColumnInfo(name = "documentTypeEnum")
+    var documentTypeEnum: DocumentTypeEnum? = null,
+
     @ColumnInfo(name = "respondentMaritalStatus")
     var respondentMaritalStatus: MaritalStatusEnum? = null,
 
@@ -89,6 +96,8 @@ data class BeneficiaryEntity(
     var spouseLastName: String? = null,
     @ColumnInfo(name = "spouseMiddleName")
     var spouseMiddleName: String? = null,
+    @ColumnInfo(name = "spouseNickName")
+    var spouseNickName: String? = null,
 
 
     @ColumnInfo(name = "householdSize")
