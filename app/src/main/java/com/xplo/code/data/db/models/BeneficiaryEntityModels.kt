@@ -31,6 +31,7 @@ data class BeneficiaryEntity(
     var id: String,             //uuid
     @ColumnInfo(name = "hid")
     var hid: String? = null,
+
     @ColumnInfo(name = "isSynced")
     var isSynced: Boolean = false,
 
