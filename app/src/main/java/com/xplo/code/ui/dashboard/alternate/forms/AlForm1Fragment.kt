@@ -322,6 +322,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         form.alternateFirstName = chkEditText3Char(etAlternateFirstName, UiData.ER_ET_DF)
         form.alternateMiddleName =  chkEditText3Char(etAlternateMiddleName, UiData.ER_ET_DF)
         form.alternateLastName = chkEditText3Char(etAlternateLastName, UiData.ER_ET_DF)
+        form.alternateNickName = chkEditTextNickName3Char(etAlternateNickName,UiData.ER_ET_DF)
 
         if (!form.isOk()) {
             return

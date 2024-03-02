@@ -11,7 +11,7 @@ import com.xplo.code.ui.dashboard.UiData
 
 fun HhForm2?.getFullName(): String? {
     if (this == null) return null
-    var name = "${this.firstName} ${this.middleName} ${this.lastName}"
+    var name = "${this.firstName} ${this.middleName} ${this.lastName} ${this.nickName}"
     return name.replace(" null ", " ")
 }
 
@@ -19,18 +19,19 @@ fun HhForm2?.getSpouseFullName(): String? {
     if (this!!.spouseFirstName == null) return null
     return "${spouseFirstName?.replace("null ", " ")}" +
             " ${spouseMiddleName?.replace("null ", " ")} " +
-            "${spouseLastName?.replace("null ", " ")}"
+            "${spouseLastName?.replace("null ", " ")} "+
+            "${spouseNickName?.replace("null ", " ")}"
 }
 
 fun Nominee?.getFullName(): String? {
     if (this == null) return null
-    var name = "${this.firstName} ${this.middleName} ${this.lastName}"
+    var name = "${this.firstName} ${this.middleName} ${this.lastName} ${this.nickName}"
     return name.replace(" null ", " ")
 }
 
 fun AlForm1?.getFullName(): String? {
     if (this == null) return null
-    var name = "${this.alternateFirstName} ${this.alternateMiddleName} ${this.alternateLastName}"
+    var name = "${this.alternateFirstName} ${this.alternateMiddleName} ${this.alternateLastName} ${this.alternateNickName}"
     return name.replace(" null ", " ")
 }
 
@@ -85,7 +86,7 @@ fun HhForm2.isOk(): Boolean {
         }
     }
 
-    if (this.idIsOrNot == "Yes") {
+    if (this.idIsOrNot == null) {
         if (this.idNumber.isNullOrBlank()) {
             return false
         }
@@ -97,7 +98,7 @@ fun HhForm2.isOk(): Boolean {
     if (this.legalStatus.isNullOrBlank()) return false
     if (this.respondentRlt.isNullOrBlank()) return false
     //if (this.spouseName.isNullOrBlank()) return false
-    if (this.selectionReason.isNullOrBlank()) return false
+//    if (this.selectionReason.isNullOrBlank()) return false
     if (this.selectionCriteria.isNullOrBlank()) return false
     if (this.monthlyAverageIncome == null) return false
 //    if (this.selectionReason.isNullOrBlank()) return false
@@ -281,7 +282,7 @@ fun AlForm1.isOk(): Boolean {
     if (this.age == null) return false
     if (this.selectAlternateRlt == null) return false
     if (this.gender == null) return false
-    if (this.idIsOrNot == "Yes") {
+    if (this.idIsOrNot == null) {
         if (this.idNumber.isNullOrBlank()) {
             return false
         }

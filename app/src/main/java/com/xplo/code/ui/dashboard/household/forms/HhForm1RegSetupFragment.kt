@@ -39,6 +39,7 @@ import com.xplo.code.ui.dashboard.model.HhForm1
 import com.xplo.code.ui.dashboard.model.isOk
 
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.Exception
 
 
 /**
@@ -168,73 +169,73 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
             }
             viewModel.getStateItems()
         }
-
-
     }
 
     override fun initObserver() {
 
+        try{
+            lifecycleScope.launchWhenStarted {
+                viewModel.event.collect { event ->
+                    when (event) {
 
-        lifecycleScope.launchWhenStarted {
-            viewModel.event.collect { event ->
-                when (event) {
+                        is HouseholdViewModel.Event.Loading -> {
+                            //showLoading()
+                        }
 
-                    is HouseholdViewModel.Event.Loading -> {
-                        //showLoading()
+                        is HouseholdViewModel.Event.GetStateItemsSuccess -> {
+                            hideLoading()
+                            onGetStateItems(event.items)
+                            viewModel.clearEvent()
+                        }
+
+                        is HouseholdViewModel.Event.GetStateItemsFailure -> {
+                            hideLoading()
+                            onGetStateItemsFailure(event.msg)
+                            viewModel.clearEvent()
+                        }
+
+                        is HouseholdViewModel.Event.GetCountryItemsSuccess -> {
+                            hideLoading()
+                            onGetCountryItems(event.items)
+                            viewModel.clearEvent()
+                        }
+
+                        is HouseholdViewModel.Event.GetCountryItemsFailure -> {
+                            hideLoading()
+                            onGetCountryItemsFailure(event.msg)
+                            viewModel.clearEvent()
+                        }
+
+                        is HouseholdViewModel.Event.GetPayamItemsSuccess -> {
+                            hideLoading()
+                            onGetPayamItems(event.items)
+                            viewModel.clearEvent()
+                        }
+
+                        is HouseholdViewModel.Event.GetPayamItemsFailure -> {
+                            hideLoading()
+                            onGetPayamItemsFailure(event.msg)
+                            viewModel.clearEvent()
+                        }
+
+                        is HouseholdViewModel.Event.GetBomaItemsSuccess -> {
+                            hideLoading()
+                            onGetBomaItems(event.items)
+                            viewModel.clearEvent()
+                        }
+
+                        is HouseholdViewModel.Event.GetBomaItemsFailure -> {
+                            hideLoading()
+                            onGetBomaItemsFailure(event.msg)
+                            viewModel.clearEvent()
+                        }
+                        else -> Unit
                     }
-
-                    is HouseholdViewModel.Event.GetStateItemsSuccess -> {
-                        hideLoading()
-                        onGetStateItems(event.items)
-                        viewModel.clearEvent()
-                    }
-
-                    is HouseholdViewModel.Event.GetStateItemsFailure -> {
-                        hideLoading()
-                        onGetStateItemsFailure(event.msg)
-                        viewModel.clearEvent()
-                    }
-
-                    is HouseholdViewModel.Event.GetCountryItemsSuccess -> {
-                        hideLoading()
-                        onGetCountryItems(event.items)
-                        viewModel.clearEvent()
-                    }
-
-                    is HouseholdViewModel.Event.GetCountryItemsFailure -> {
-                        hideLoading()
-                        onGetCountryItemsFailure(event.msg)
-                        viewModel.clearEvent()
-                    }
-
-                    is HouseholdViewModel.Event.GetPayamItemsSuccess -> {
-                        hideLoading()
-                        onGetPayamItems(event.items)
-                        viewModel.clearEvent()
-                    }
-
-                    is HouseholdViewModel.Event.GetPayamItemsFailure -> {
-                        hideLoading()
-                        onGetPayamItemsFailure(event.msg)
-                        viewModel.clearEvent()
-                    }
-
-                    is HouseholdViewModel.Event.GetBomaItemsSuccess -> {
-                        hideLoading()
-                        onGetBomaItems(event.items)
-                        viewModel.clearEvent()
-                    }
-
-                    is HouseholdViewModel.Event.GetBomaItemsFailure -> {
-                        hideLoading()
-                        onGetBomaItemsFailure(event.msg)
-                        viewModel.clearEvent()
-                    }
-
-
-                    else -> Unit
                 }
             }
+
+        }catch (e : Exception){
+            Log.e(TAG, e.toString())
         }
 
         binding.viewButtonBackNext.btBack.setOnClickListener {
