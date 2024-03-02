@@ -26,6 +26,9 @@ public interface AlternateDao {
     @Query("SELECT * FROM alternate WHERE id = :id")
     Alternate getAlternateById(Long id);
 
+    @Query("SELECT * FROM alternate where application_id=:appId")
+    List<Alternate> getAlternateList(String appId);
+
     @Query("SELECT * FROM alternate")
     List<Alternate> getAllAlternates();
 

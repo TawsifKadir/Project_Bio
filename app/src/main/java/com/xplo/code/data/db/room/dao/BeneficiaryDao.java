@@ -57,7 +57,6 @@ public interface BeneficiaryDao {
     @Query("SELECT * FROM nominee WHERE application_id = :appId")
     List<Nominee> getNomineeByAppId(String appId);
 
-
     @Query("SELECT * FROM beneficiary")
     List<Beneficiary> getAllBeneficiaries();
 

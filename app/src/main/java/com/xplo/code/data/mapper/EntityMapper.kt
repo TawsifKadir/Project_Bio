@@ -6,6 +6,7 @@ import com.kit.integrationmanager.model.Beneficiary
 import com.kit.integrationmanager.model.BiometricType
 import com.kit.integrationmanager.model.BiometricUserType
 import com.kit.integrationmanager.model.CurrencyEnum
+import com.kit.integrationmanager.model.DocumentTypeEnum
 import com.kit.integrationmanager.model.GenderEnum
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.LegalStatusEnum
@@ -67,7 +68,7 @@ object EntityMapper {
         form.respondentGender = GenderEnum.find(item.form2?.gender)
         form.respondentMaritalStatus = MaritalStatusEnum.find(item.form2?.maritalStatus)
         form.respondentLegalStatus = LegalStatusEnum.find(item.form2?.legalStatus)
-        // form.documentType = DocumentTypeEnum.
+         form.documentType = item.form2?.idNumberType?.let { DocumentTypeEnum.valueOf(it) }
         //  form.documentTypeOther = item.form2?.firstName
         form.documentTypeOther = "Other"
         form.respondentId = item.form2?.idNumber
@@ -256,7 +257,7 @@ object EntityMapper {
         return nominee
     }
 
-    private fun toAddress(item: Address?): com.kit.integrationmanager.model.Address? {
+    fun toAddress(item: Address?): com.kit.integrationmanager.model.Address? {
         if (item == null) return null
         val address = com.kit.integrationmanager.model.Address()
         address.stateId = item.stateId
@@ -266,7 +267,7 @@ object EntityMapper {
         return address
     }
 
-    private fun toLocation(item: Location?): com.kit.integrationmanager.model.Location? {
+    fun toLocation(item: Location?): com.kit.integrationmanager.model.Location? {
         if (item == null) return null
         val location = com.kit.integrationmanager.model.Location()
         location.lat = item.lat

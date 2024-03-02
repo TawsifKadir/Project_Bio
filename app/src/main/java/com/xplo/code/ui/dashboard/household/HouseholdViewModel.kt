@@ -3,9 +3,18 @@ package com.xplo.code.ui.dashboard.household
 import android.content.Context
 import android.content.SyncResult
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kit.integrationmanager.model.Beneficiary
+import com.kit.integrationmanager.model.CurrencyEnum
+import com.kit.integrationmanager.model.DocumentTypeEnum
+import com.kit.integrationmanager.model.GenderEnum
+import com.kit.integrationmanager.model.IncomeSourceEnum
+import com.kit.integrationmanager.model.LegalStatusEnum
+import com.kit.integrationmanager.model.MaritalStatusEnum
+import com.kit.integrationmanager.model.RelationshipEnum
+import com.kit.integrationmanager.model.SelectionCriteriaEnum
 import com.kit.integrationmanager.payload.RegistrationResult
 import com.kit.integrationmanager.payload.RegistrationStatus
 import com.xplo.code.data.db.models.BeneficiaryEntity
@@ -13,15 +22,25 @@ import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.offline.Column
 import com.xplo.code.data.db.offline.OptionItem
 import com.xplo.code.data.db.repo.DbRepo
+import com.xplo.code.data.db.room.dao.AddressDao
+import com.xplo.code.data.db.room.dao.AlternateDao
+import com.xplo.code.data.db.room.dao.BeneficiaryDao
+import com.xplo.code.data.db.room.dao.BiometricDao
+import com.xplo.code.data.db.room.dao.HouseholdInfoDao
+import com.xplo.code.data.db.room.dao.LocationDao
+import com.xplo.code.data.db.room.dao.NomineeDao
+import com.xplo.code.data.db.room.dao.SelectionReasonDao
+import com.xplo.code.data.db.room.database.BeneficiaryDatabase
 import com.xplo.code.data.mapper.BeneficiaryMapper
 import com.xplo.code.data.mapper.EntityMapper
 import com.xplo.code.data_module.core.DispatcherProvider
 import com.xplo.code.data_module.core.Resource
+import com.xplo.code.data_module.model.content.Address
+import com.xplo.code.data_module.model.content.Location
 import com.xplo.code.data_module.repo.UserRepo
 import com.xplo.code.ui.dashboard.DashboardFragment
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.toJson
-import com.xplo.code.utils.DialogUtil
 import com.xplo.code.utils.IMHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -111,7 +130,11 @@ class HouseholdViewModel @Inject constructor(
         // sync result
         class SyncFormSuccess(val syncResult: SyncResult, val pos: Int) : Event()
         class SyncFormFailure(val msg: String?) : Event()
+        class GetDataLocalDb(val beneficiary: MutableList<com.xplo.code.data.db.room.model.Beneficiary>) :
+            Event()
 
+        class GetDataLocalDbByAppId(val beneficiary: com.xplo.code.data.db.room.model.Beneficiary) :
+            Event()
 
     }
 
@@ -203,6 +226,127 @@ class HouseholdViewModel @Inject constructor(
 
     }
 
+    fun showBeneficiaryByAppId(context: Context, appId: String) {
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
+        val form: Beneficiary = Beneficiary()
+        _event.value = Event.Loading
+        viewModelScope.launch(dispatchers.io) {
+            val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
+            val alternateDao: AlternateDao = mDatabase.alternateDao()
+            val addressDao: AddressDao = mDatabase.addressDao()
+            val nomineeDao: NomineeDao = mDatabase.nomineeDao()
+            val locationDao: LocationDao = mDatabase.locationDao()
+            val householdInfoDao: HouseholdInfoDao = mDatabase.householdInfoDao()
+            val biometricDao: BiometricDao = mDatabase.biometricDao()
+            val selectionReasonDao: SelectionReasonDao = mDatabase.selectionReasonDao()
+            val beneficiary = beneficiaryDao.getBeneficiaryByAppId(appId)
+            val address = addressDao.getAddressByAppId(appId)
+            val location = locationDao.getLocationByAppId(appId)
+            val alternateEO = alternateDao.getAlternateList(appId)
+            form.applicationId = beneficiary.applicationId
+            form.respondentFirstName = beneficiary.respondentFirstName
+            form.respondentMiddleName = beneficiary.respondentMiddleName
+            form.respondentLastName = beneficiary.respondentLastName
+            form.respondentNickName = beneficiary.respondentNickName
+            form.spouseFirstName = beneficiary.spouseFirstName
+            form.spouseMiddleName = beneficiary.spouseMiddleName
+            form.spouseLastName = beneficiary.spouseLastName
+            form.spouseNickName = beneficiary.spouseNickName
+            form.relationshipWithHouseholdHead =
+                RelationshipEnum.find(beneficiary.relationshipWithHouseholdHead.toString())
+            form.respondentAge = beneficiary.respondentAge
+            form.respondentGender = GenderEnum.find(beneficiary.respondentGender.toString())
+            form.respondentMaritalStatus =
+                MaritalStatusEnum.find(beneficiary.respondentMaritalStatus.toString())
+            form.respondentLegalStatus =
+                LegalStatusEnum.find(beneficiary.respondentLegalStatus.toString())
+//            form.documentType = DocumentTypeEnum.valueOf(beneficiary.documentType.toString())
+            form.documentTypeOther = beneficiary.documentTypeOther
+            form.respondentId = beneficiary.respondentId
+            form.respondentPhoneNo = beneficiary.respondentPhoneNo
+            form.householdIncomeSource =
+                IncomeSourceEnum.find(beneficiary.householdIncomeSource.toString())
+            form.householdMonthlyAvgIncome = beneficiary.householdMonthlyAvgIncome
+            form.currency = CurrencyEnum.find(beneficiary.currency.toString())
+            form.selectionCriteria =
+                SelectionCriteriaEnum.find(beneficiary.selectionCriteria.toString())
+            //          form.selectionReason = SelectionReasonEnum.find(beneficiary.reas)
+            val addressOb = Address()
+            address.stateId = address.stateId
+            address.countyId = address.countyId
+            address.payam = address.payam
+            address.boma = address.boma
+            form.address = EntityMapper.toAddress(addressOb)
+            val locationObj = Location()
+            location.lat = location.lat
+            location.lon = location.lon
+            form.location = EntityMapper.toLocation(locationObj)
+//
+//           form.householdSize = item.form3?.householdSize
+//            form.householdMember2 = EntityMapper.toHouseholdMember2(applicationId, item.form3)
+//            form.householdMember5 = EntityMapper.toHouseholdMember5(applicationId, item.form3)
+//            form.householdMember17 = EntityMapper.toHouseholdMember17(applicationId, item.form3)
+//            form.householdMember35 = EntityMapper.toHouseholdMember35(applicationId, item.form3)
+//            form.householdMember64 = EntityMapper.toHouseholdMember64(applicationId, item.form3)
+//            form.householdMember65 = EntityMapper.toHouseholdMember65(applicationId, item.form3)
+//            form.isReadWrite = EntityMapper.getReadWrite(item.form3?.isReadWrite)
+//            // form.isReadWrite = true
+//            form.memberReadWrite = item.form3?.readWriteNumber
+//            form.isOtherMemberPerticipating = FakeMapperValue.isOtherMemberPerticipating
+//            form.notPerticipationReason = NonPerticipationReasonEnum.find(item.form6?.noNomineeReason)
+//            form.notPerticipationOtherReason = item.form6?.otherReason
+//
+//            form.nominees = EntityMapper.toNomineeItems(item.form6?.nominees)
+//
+//            //form.biometrics = toBiometricEntities(item.form5?.fingers)
+//            form.biometrics = EntityMapper.toBiometricEntities(item)
+//            form.alternatePayee1 = EntityMapper.getFirstAlternate(item.alternates)
+//            if(item.alternates.size==2){
+//                form.alternatePayee2 = EntityMapper.getSecondAlternate(item.alternates)
+//            }
+
+            form.createdBy = 0
+            Log.d(TAG, "showBeneficiary: ${beneficiary.applicationId}")
+            _event.value = Event.GetDataLocalDbByAppId(beneficiary)
+        }
+    }
+
+    fun showBeneficiary(context: Context) {
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
+        _event.value = Event.Loading
+        viewModelScope.launch(dispatchers.io) {
+            val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
+            val beneficiary =
+                beneficiaryDao.allBeneficiaries
+            Log.d(TAG, "showBeneficiary: $beneficiary")
+            _event.value = Event.GetDataLocalDb(beneficiary)
+        }
+
+
+//        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
+//      //  DatabaseExecutors.getInstance().diskIO().execute {
+//            try {
+//                val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
+//                val alternateDao: AlternateDao = mDatabase.alternateDao()
+//                val beneficiary =
+//                    beneficiaryDao.allBeneficiaries
+//                val alternateEO = alternateDao.getAlternateList(beneficiary[0].applicationId)
+////                val selectionReasonDao: SelectionReasonDao = mDatabase.selectionReasonDao()
+////                val selectionReasonEO: SelectionReason =
+////                    selectionReasonDao.getSelectionReasonByAppId(uuid.toString())
+//
+//                Log.d(TAG, "Alternate List: " + alternateEO.size)
+//                Log.d(TAG, "Loaded beneficiary")
+//                Log.d(TAG, "Beneficiary name ${beneficiary[0].applicationId}")
+//              //  adapterNew?.addAll(beneficiary)
+//              //  adapterNew?.notifyDataSetChanged()
+//            } catch (exc: Exception) {
+//                Log.e(TAG, "Error while loading beneficiary.")
+//                exc.printStackTrace()
+//            }
+//      //  }
+    }
+
     override fun getHouseholdItems() {
 
         Log.d(TAG, "getHouseholdItems() called")
@@ -210,7 +354,6 @@ class HouseholdViewModel @Inject constructor(
         viewModelScope.launch(dispatchers.io) {
             _event.value = Event.Loading
             when (val response = dbRepo.getHouseholds()) {
-
                 is Resource.Success -> {
                     Log.d(TAG, "getHouseholdItems: success: ${response.data?.size}")
                     _event.value = Event.GetHouseholdItemsSuccess(response.data)
@@ -225,6 +368,7 @@ class HouseholdViewModel @Inject constructor(
 
 
     }
+
 
     override fun updateHouseholdItem(item: HouseholdItem?) {
 
@@ -387,7 +531,8 @@ class HouseholdViewModel @Inject constructor(
 
                 is Resource.Failure -> {
                     Log.d(TAG, "getBeneficiaryEntity: failure: ${response.callInfo}")
-                    _event.value = Event.GetBeneficiaryEntityItemsFailure(response.callInfo?.msg)
+                    _event.value =
+                        Event.GetBeneficiaryEntityItemsFailure(response.callInfo?.msg)
                 }
             }
         }
@@ -589,7 +734,10 @@ class HouseholdViewModel @Inject constructor(
 
 
     override fun syncHouseholdForm(context: Context, form: HouseholdForm?, pos: Int) {
-        Log.d(TAG, "syncHouseholdForm() called with: context = $context, form = $form, pos = $pos")
+        Log.d(
+            TAG,
+            "syncHouseholdForm() called with: context = $context, form = $form, pos = $pos"
+        )
         if (form == null) return
 
 
@@ -661,31 +809,42 @@ class HouseholdViewModel @Inject constructor(
 //            else -> onSyncFailure(syncResult)
 
         viewModelScope.launch(dispatchers.io) {
-                if (arg == null) {
-                    _event.value = Event.GetHouseholdItemsFailure("Received null parameter in update. Returning...")
-                }else{
-                    val registrationResult = arg as? RegistrationResult
-                    if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
-                        Log.d(DashboardFragment.TAG, "Registration Successful")
-                        _event.value = Event.GetHouseholdItemsSuccessMsg("Registration Successful")
+            if (arg == null) {
+                _event.value =
+                    Event.GetHouseholdItemsFailure("Received null parameter in update. Returning...")
+            } else {
+                val registrationResult = arg as? RegistrationResult
+                if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
+                    Log.d(DashboardFragment.TAG, "Registration Successful")
+                    _event.value = Event.GetHouseholdItemsSuccessMsg("Registration Successful")
 
-                        val appIds = registrationResult.applicationIds
-                        if (appIds == null) {
-                            Log.e(DashboardFragment.TAG, "No beneficiary list received. Returning ... ")
-                            //_event.value = Event.GetHouseholdItemsSuccessMsg("No beneficiary list received. Returning ... ")
-                        }
-                        Log.d(DashboardFragment.TAG, "Registered following users: ")
-                        for (nowId in appIds) {
-                           // _event.value = Event.GetHouseholdItemsSuccessMsg("Beneficiary ID : $nowId")
-                            Log.d(DashboardFragment.TAG, "Beneficiary ID : $nowId")
-                        }
-                    } else {
-                        _event.value = Event.GetHouseholdItemsFailure("Error code : ${registrationResult?.syncStatus?.errorCode}"+" Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
-                        Log.d(DashboardFragment.TAG, "Registration Failed")
-                        Log.d(DashboardFragment.TAG, "Error code : ${registrationResult?.syncStatus?.errorCode}")
-                        Log.d(DashboardFragment.TAG, "Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
+                    val appIds = registrationResult.applicationIds
+                    if (appIds == null) {
+                        Log.e(
+                            DashboardFragment.TAG,
+                            "No beneficiary list received. Returning ... "
+                        )
+                        //_event.value = Event.GetHouseholdItemsSuccessMsg("No beneficiary list received. Returning ... ")
                     }
+                    Log.d(DashboardFragment.TAG, "Registered following users: ")
+                    for (nowId in appIds) {
+                        // _event.value = Event.GetHouseholdItemsSuccessMsg("Beneficiary ID : $nowId")
+                        Log.d(DashboardFragment.TAG, "Beneficiary ID : $nowId")
+                    }
+                } else {
+                    _event.value =
+                        Event.GetHouseholdItemsFailure("Error code : ${registrationResult?.syncStatus?.errorCode}" + " Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
+                    Log.d(DashboardFragment.TAG, "Registration Failed")
+                    Log.d(
+                        DashboardFragment.TAG,
+                        "Error code : ${registrationResult?.syncStatus?.errorCode}"
+                    )
+                    Log.d(
+                        DashboardFragment.TAG,
+                        "Error Msg : ${registrationResult?.syncStatus?.errorMsg}"
+                    )
                 }
+            }
 
         }
 //        try {
@@ -733,7 +892,6 @@ class HouseholdViewModel @Inject constructor(
         _event.value = Event.SyncFormFailure("sync failed")
 
     }
-
 
 
 }

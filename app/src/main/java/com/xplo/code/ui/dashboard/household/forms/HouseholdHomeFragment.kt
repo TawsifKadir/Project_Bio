@@ -33,13 +33,18 @@ import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.toBool
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
+import com.xplo.code.data.db.room.dao.AlternateDao
+import com.xplo.code.data.db.room.dao.BeneficiaryDao
+import com.xplo.code.data.db.room.database.BeneficiaryDatabase
+import com.xplo.code.data.db.room.database.DatabaseExecutors
+import com.xplo.code.data.db.room.model.Beneficiary
 import com.xplo.code.data.mapper.EntityMapper
 import com.xplo.code.databinding.FragmentHouseholdHomeBinding
-import com.xplo.code.network.fake.Fake
 import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.list.HouseholdListAdapter
+import com.xplo.code.ui.dashboard.household.list.HouseholdListAdapterNew
 import com.xplo.code.utils.DialogUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -57,7 +62,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
-    HouseholdListAdapter.OnItemClickListener {
+    HouseholdListAdapter.OnItemClickListener, HouseholdListAdapterNew.OnItemClickListener {
 
     companion object {
         const val TAG = "HouseholdHomeFragment"
@@ -79,7 +84,8 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     //private lateinit var presenter: HomeContract.Presenter
     private var interactor: HouseholdContract.View? = null
 
-    private var adapter: HouseholdListAdapter? = null
+    // private var adapter: HouseholdListAdapter? = null
+    private var adapterNew: HouseholdListAdapterNew? = null
 
     private lateinit var locationManager: LocationManager
     private val locationPermissionCode = 2
@@ -120,11 +126,19 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
 
-        adapter = HouseholdListAdapter()
-        adapter?.setOnItemClickListener(this)
-        binding.recyclerView.adapter = adapter
+//        adapter = HouseholdListAdapter()
+//        adapter?.setOnItemClickListener(this)
+//        binding.recyclerView.adapter = adapter
+
+        adapterNew = HouseholdListAdapterNew()
+        adapterNew?.setOnItemClickListener(this)
+        binding.recyclerView.adapter = adapterNew
+
+        //  showBeneficiary()
 
         //viewModel.getHouseholdItems()
+
+        viewModel.showBeneficiary(requireContext())
 
 
     }
@@ -156,6 +170,21 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                         onGetHouseholdListSuccess(event.msg)
                         viewModel.clearEvent()
                     }
+
+                    is HouseholdViewModel.Event.GetDataLocalDb -> {
+                        hideLoading()
+                        // onGetHouseholdListSuccess(event.msg)
+                        adapterNew?.addAll(event.beneficiary)
+                        adapterNew?.notifyDataSetChanged()
+                        viewModel.clearEvent()
+                    }
+
+                    is HouseholdViewModel.Event.GetDataLocalDbByAppId -> {
+                        hideLoading()
+                        Toast.makeText(requireContext(), event.beneficiary.applicationId, Toast.LENGTH_SHORT).show()
+                        viewModel.clearEvent()
+                    }
+
 
 //                    is HouseholdViewModel.Event.SendHouseholdFormSuccess -> {
 //                        hideLoading()
@@ -230,7 +259,11 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
         interactor?.resetRootForm()
 
-        viewModel.getHouseholdItems()
+        // viewModel.getHouseholdItems()
+
+        viewModel.showBeneficiary(requireContext())
+
+        // showBeneficiary()
 
     }
 
@@ -260,22 +293,24 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
             binding.llBody.visibility = View.VISIBLE
         }
 
-        adapter?.addAll(items)
+        //  adapter?.addAll(items)
     }
 
     override fun onGetHouseholdListFailure(msg: String?) {
         //binding.llNoContentText.visibility = View.VISIBLE
         //binding.llBody.visibility = View.GONE
-        DialogUtil.dismissLottieDialog()
-        if (msg != null) {
-            DialogUtil.showLottieDialogFailMsg(requireContext(), "Error", msg)
-        }
+
+//        DialogUtil.dismissLottieDialog()
+//        if (msg != null) {
+//            DialogUtil.showLottieDialogFailMsg(requireContext(), "Error", msg)
+//        }
         Log.d(TAG, "onGetHouseholdListFailure() called with: msg = $msg")
         //showMessage(msg)
     }
+
     override fun onGetHouseholdListSuccess(msg: String?) {
         //binding.llNoContentText.visibility = View.VISIBLE
-       // binding.llBody.visibility = View.GONE
+        // binding.llBody.visibility = View.GONE
         DialogUtil.dismissLottieDialog()
         if (msg != null) {
             DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", msg)
@@ -331,13 +366,13 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         val window = dialog.window
         window?.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
-        val btnOk : Button = dialog.findViewById<Button>(R.id.okButton)
-        val btnCancel : Button = dialog.findViewById<Button>(R.id.cancelButton)
+        val btnOk: Button = dialog.findViewById<Button>(R.id.okButton)
+        val btnCancel: Button = dialog.findViewById<Button>(R.id.cancelButton)
 
         btnOk.setOnClickListener {
 
             viewModel.deleteHouseholdItem(item)
-            adapter?.remove(pos)
+            //  adapter?.remove(pos)
             dialog.dismiss()
         }
 
@@ -491,4 +526,50 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         }
 
     }
+
+    fun showBeneficiary() {
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(requireContext());
+        DatabaseExecutors.getInstance().diskIO().execute {
+            try {
+                val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
+                val alternateDao: AlternateDao = mDatabase.alternateDao()
+                val beneficiary =
+                    beneficiaryDao.allBeneficiaries
+                val alternateEO = alternateDao.getAlternateList(beneficiary[0].applicationId)
+//                val selectionReasonDao: SelectionReasonDao = mDatabase.selectionReasonDao()
+//                val selectionReasonEO: SelectionReason =
+//                    selectionReasonDao.getSelectionReasonByAppId(uuid.toString())
+
+                Log.d(TAG, "Alternate List: " + alternateEO.size)
+                Log.d(TAG, "Loaded beneficiary")
+                Log.d(TAG, "Beneficiary name ${beneficiary[0].applicationId}")
+                adapterNew?.addAll(beneficiary)
+                adapterNew?.notifyDataSetChanged()
+            } catch (exc: Exception) {
+                Log.e(TAG, "Error while loading beneficiary.")
+                exc.printStackTrace()
+            }
+        }
+    }
+
+    override fun onClickHouseholdItem(item: Beneficiary, pos: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickHouseholdItemDelete(item: Beneficiary, pos: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickHouseholdItemSend(item: Beneficiary, pos: Int) {
+        viewModel.showBeneficiaryByAppId(requireContext(), item.applicationId)
+    }
+
+    override fun onClickHouseholdItemAddAlternate(item: Beneficiary, pos: Int) {
+        navigateToAlternate(item.applicationId)
+    }
+
+    override fun onClickHouseholdItemSave(item: Beneficiary, pos: Int) {
+        TODO("Not yet implemented")
+    }
+
 }
