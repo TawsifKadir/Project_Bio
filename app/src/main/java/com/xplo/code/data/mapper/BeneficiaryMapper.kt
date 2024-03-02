@@ -50,9 +50,15 @@ object BeneficiaryMapper {
         beneficiary.respondentLegalStatus = item.respondentLegalStatus
         beneficiary.respondentMaritalStatus = item.respondentMaritalStatus
 
+
+        beneficiary.documentType = item.documentTypeEnum
         beneficiary.documentType = DocumentTypeEnum.NATIONAL_ID
-        beneficiary.respondentId = item.respondentId
-        //beneficiary.respondentId = FakeMapperValue.respondentId
+        if(item.documentTypeEnum == DocumentTypeEnum.NONE){
+            beneficiary.respondentId = null
+        }else{
+            beneficiary.respondentId = item.respondentId
+        }
+        beneficiary.respondentId = FakeMapperValue.respondentId
         beneficiary.respondentPhoneNo = item.respondentPhoneNo
 
 

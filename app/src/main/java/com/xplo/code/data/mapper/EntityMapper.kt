@@ -4,6 +4,7 @@ import android.util.Log
 import com.kit.integrationmanager.model.BiometricType
 import com.kit.integrationmanager.model.BiometricUserType
 import com.kit.integrationmanager.model.CurrencyEnum
+import com.kit.integrationmanager.model.DocumentTypeEnum
 import com.kit.integrationmanager.model.GenderEnum
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.LegalStatusEnum
@@ -72,6 +73,7 @@ object EntityMapper {
 
             respondentAge = item.form2?.age ?: 0,
             respondentGender = GenderEnum.find(item.form2?.gender),
+            //documentTypeEnum = DocumentTypeEnum.find(item.form2?.idNumberType),
 
             respondentLegalStatus = LegalStatusEnum.find(item.form2?.legalStatus),
             respondentMaritalStatus = MaritalStatusEnum.find(item.form2?.maritalStatus),
