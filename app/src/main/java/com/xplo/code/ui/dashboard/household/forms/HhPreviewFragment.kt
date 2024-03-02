@@ -284,7 +284,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                 override fun onClickPositiveButton() {
                     val rootForm = interactor?.getRootForm()
                     //viewModel.saveHouseholdFormAsHouseholdItem(rootForm)
-                    // viewModel.saveFormPEntity(rootForm)
+                    viewModel.saveFormPEntity(rootForm)
                     mDatabase = BeneficiaryDatabase.getInstance(requireContext())
                     val entity = EntityMapper.toBeneficiaryModelEntity(rootForm)
                     if (entity != null) {
@@ -406,7 +406,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             val view = getRowView(item)
             binding.viewPreview.blockAlternate.addView(view)
         }
-        for (item in form.alternates){
+        for (item in form.alternates) {
             val view = getAltRowView(item)
             binding.viewPreview.blockAlternate.addView(view)
         }
@@ -422,6 +422,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         Log.d(FormDetailsFragment.TAG, "getAltRowView() called with: item = $item")
         return ReportViewUtils.getAltFormView(requireContext(), layoutInflater, item)
     }
+
     fun insertBeneficiary(beneficiaryBO: Beneficiary) {
         Log.d(TAG, "beneficiaryBO applicationId: = ${beneficiaryBO.applicationId}")
         Log.d(TAG, "beneficiaryBO applicationId: = ${beneficiaryBO}")
