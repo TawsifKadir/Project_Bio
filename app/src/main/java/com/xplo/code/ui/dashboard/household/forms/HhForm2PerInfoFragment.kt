@@ -36,6 +36,8 @@ import com.xplo.code.ui.dashboard.model.checkExtraCases
 import com.xplo.code.ui.dashboard.model.isOk
 
 import com.xplo.code.BuildConfig
+import com.xplo.code.core.ext.gone
+import com.xplo.code.core.ext.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -246,6 +248,25 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
                 // Another interface callback
             }
         }
+        spRespondentRlt.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                if (selectedItem.equals("Other", ignoreCase = true)) {
+                    binding.otherVisible.visible()
+                } else {
+                    binding.otherVisible.gone()
+
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Another interface callback
+            }
+        }
 
         spMainSourceOfIncome.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -260,6 +281,11 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
                     etMonthlyAverageIncome.isEnabled = false
                 }else{
                     etMonthlyAverageIncome.isEnabled = true
+                }
+                if (selectedItem.equals("Other", ignoreCase = true)) {
+                    binding.otherVisibleSource.visible()
+                } else {
+                    binding.otherVisibleSource.gone()
                 }
             }
 

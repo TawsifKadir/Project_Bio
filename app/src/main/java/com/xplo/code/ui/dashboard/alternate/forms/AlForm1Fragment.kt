@@ -233,7 +233,28 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
                 // Another interface callback
             }
         }
+        spAlternateRelation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                if (selectedItem.equals("Other", ignoreCase = true)) {
+                    binding.otherAlternateRelation.visible()
+                } else {
+                    binding.otherAlternateRelation.gone()
+
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Another interface callback
+            }
+        }
     }
+
     fun doSomethingForYes() {
         binding.llIdType.isVisible = true
         binding.llIdTypeInput.isVisible = true
