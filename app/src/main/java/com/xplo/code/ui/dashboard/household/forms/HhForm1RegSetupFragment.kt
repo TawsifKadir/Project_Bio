@@ -510,28 +510,28 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
             R.id.spStateName -> {
                 val txt = spStateName.selectedItem.toString()
                 //val item = OptionItem(0, txt)
-                val item = stateOptions?.get(position)
+                val item = stateOptions?.get(position-1)
                 onSelectStateItem(item)
             }
 
             R.id.spCountryName -> {
                 val txt = spCountryName.selectedItem.toString()
                 //val item = OptionItem(0, txt)
-                val item = countyOptions?.get(position)
+                val item = countyOptions?.get(position-1)
                 onSelectCountryItem(item)
             }
 
             R.id.spPayamName -> {
                 val txt = spPayamName.selectedItem.toString()
                 //val item = OptionItem(0, txt)
-                val item = payamOptions?.get(position)
+                val item = payamOptions?.get(position-1)
                 onSelectPayamItem(item)
             }
 
             R.id.spBomaName -> {
                 val txt = spBomaName.selectedItem.toString()
                 //val item = OptionItem(0, txt)
-                val item = bomaOptions?.get(position)
+                val item = bomaOptions?.get(position-1)
                 onSelectBomaItem(item)
             }
 
