@@ -6,7 +6,6 @@ import com.kit.integrationmanager.model.Beneficiary
 import com.kit.integrationmanager.model.BiometricType
 import com.kit.integrationmanager.model.BiometricUserType
 import com.kit.integrationmanager.model.CurrencyEnum
-import com.kit.integrationmanager.model.DocumentTypeEnum
 import com.kit.integrationmanager.model.GenderEnum
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.LegalStatusEnum
@@ -105,9 +104,12 @@ object EntityMapper {
 
         form.nominees = toNomineeItems(item.form6?.nominees)
 
-        form.biometrics = toBiometricEntities(item.form5?.fingers)
+        //form.biometrics = toBiometricEntities(item.form5?.fingers)
+        form.biometrics = toBiometricEntities(item)
         form.alternatePayee1 = getFirstAlternate(item.alternates)
-        form.alternatePayee2 = getFirstAlternate(item.alternates)
+        if(item.alternates.size==2){
+            form.alternatePayee2 = getSecondAlternate(item.alternates)
+        }
 
         form.createdBy = 0
 
@@ -123,6 +125,10 @@ object EntityMapper {
     private fun getFirstAlternate(items: ArrayList<AlternateForm>): AlternatePayee? {
         if (items.isNullOrEmpty()) return null
         return toAlternate(items[0])
+    }
+    private fun getSecondAlternate(items: ArrayList<AlternateForm>): AlternatePayee? {
+        if (items.isNullOrEmpty()) return null
+        return toAlternate(items[1])
     }
 
     private fun toAlternate(item: AlternateForm): AlternatePayee? {
@@ -140,40 +146,72 @@ object EntityMapper {
         alternate.payeeGender = GenderEnum.find(item.form1?.gender)
         alternate.payeePhoneNo = item.form1?.phoneNumber
 
-        alternate.biometrics = toBiometricEntities(item.form3?.fingers)
+        alternate.biometrics = toAlternateBiometricEntities(item)
 
         return alternate
     }
 
-    private fun toBiometricEntity(item: Finger): com.kit.integrationmanager.model.Biometric? {
-        if (item == null) return null
-        val biometric = com.kit.integrationmanager.model.Biometric()
+    private fun toBiometricEntity(item: Finger?,photoData: PhotoData?): com.kit.integrationmanager.model.Biometric? {
+        if (item != null) {
+            val biometric = com.kit.integrationmanager.model.Biometric()
+            biometric.applicationId = ""
+            biometric.biometricType = returnFingerPrintEnum(item.fingerType)
+            biometric.biometricUserType = item.userType?.let { BiometricUserType.valueOf(it) }
 
-        biometric.applicationId = ""
-        biometric.biometricType = BiometricType.find(item.fingerType)
-        biometric.biometricUserType = item.userType?.let { BiometricUserType.valueOf(it) }
+            if (item.fingerPrint == null) {
+                biometric.biometricData = null
+            } else {
+                biometric.biometricData = item.fingerPrint
+            }
+            biometric.noFingerPrint = item.noFingerprint
+            biometric.noFingerprintReason = NoFingerprintReasonEnum.find(item.noFingerprintReason)
+            biometric.noFingerprintReasonText = ""
 
+            biometric.biometricUrl = ""
+            return biometric
+        } else{
+            val biometric = com.kit.integrationmanager.model.Biometric()
+            biometric.applicationId = ""
+            biometric.biometricType = BiometricType.PHOTO
+            biometric.biometricUserType = photoData?.userType?.let { BiometricUserType.valueOf(it) }
 
-        if (item.fingerPrint?.equals("") == true) {
-            biometric.biometricData = null
-        } else {
-            biometric.biometricData = item.fingerPrint
+            if (photoData?.img?.isEmpty() == true) {
+                biometric.biometricData = null
+            } else {
+                biometric.biometricData = photoData?.img
+            }
+            return biometric
         }
-
-        biometric.noFingerPrint = item.noFingerprint
-        biometric.noFingerprintReason = NoFingerprintReasonEnum.find(item.noFingerprintReason)
-        biometric.noFingerprintReasonText = ""
-
-        biometric.biometricUrl = ""
-
-        return biometric
     }
 
-    private fun toBiometricEntities(items: List<Finger>?): List<com.kit.integrationmanager.model.Biometric>? {
-        if (items.isNullOrEmpty()) return null
+
+
+
+
+    private fun toBiometricEntities(items: HouseholdForm?): List<com.kit.integrationmanager.model.Biometric>? {
+        //if (items?.form5?.fingers.isNullOrEmpty()) return null
         val list = arrayListOf<com.kit.integrationmanager.model.Biometric>()
-        for (item in items) {
-            val element = toBiometricEntity(item)
+
+        val photoBiometric = toBiometricEntity(null,items?.form4?.photoData)
+        if (photoBiometric != null) list.add(photoBiometric)
+
+        for (item in items?.form5?.fingers!!) {
+            val element = toBiometricEntity(item,null)
+            if (element != null) {
+                list.add(element)
+            }
+        }
+        return list
+    }
+    private fun toAlternateBiometricEntities(items: AlternateForm?): List<com.kit.integrationmanager.model.Biometric>? {
+        //if (items?.form5?.fingers.isNullOrEmpty()) return null
+        val list = arrayListOf<com.kit.integrationmanager.model.Biometric>()
+
+        val photoBiometric = toBiometricEntity(null,items?.form2?.photoData)
+        if (photoBiometric != null) list.add(photoBiometric)
+
+        for (item in items?.form3?.fingers!!) {
+            val element = toBiometricEntity(item,null)
             if (element != null) {
                 list.add(element)
             }
