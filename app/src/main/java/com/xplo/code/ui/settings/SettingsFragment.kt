@@ -18,6 +18,7 @@ import com.xplo.code.ui.main_act.MainActivity
 import com.xplo.code.ui.user_profile.ProfileActivity
 import com.xplo.code.utils.AppInfo
 import com.xplo.code.utils.DbExporter
+import com.xplo.code.utils.DialogUtil
 import com.xplo.code.utils.EasyMenu
 
 /**
@@ -229,7 +230,14 @@ class SettingsFragment : BaseSettingsFragment(),
             }
 
             PkSettings.pfExportDb -> {
-                DbExporter.exportWithPermission(requireContext(), requireActivity())
+               DbExporter.exportWithPermission(requireContext(), requireActivity())
+                if (DbExporter.hasStoragePermission(requireContext())){
+                    if (DbExporter.exportToSQLite(requireContext())){
+                        DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", "File exported")
+                    }else{
+                        DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Failed", "File not exported , Maybe data not inserted or permission not taken , need WRITE_EXTERNAL_STORAGE permission from setting")
+                    }
+                }
                 return true
             }
 
