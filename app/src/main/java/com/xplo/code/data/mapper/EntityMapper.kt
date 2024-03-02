@@ -1,6 +1,8 @@
 package com.xplo.code.data.mapper
 
 import android.util.Log
+import com.kit.integrationmanager.model.AlternatePayee
+import com.kit.integrationmanager.model.Beneficiary
 import com.kit.integrationmanager.model.BiometricType
 import com.kit.integrationmanager.model.BiometricUserType
 import com.kit.integrationmanager.model.CurrencyEnum
@@ -25,6 +27,7 @@ import com.xplo.code.data_module.model.content.HouseholdMember
 import com.xplo.code.data_module.model.content.Location
 import com.xplo.code.ui.dashboard.model.AlternateForm
 import com.xplo.code.ui.dashboard.model.Finger
+import com.xplo.code.ui.dashboard.model.HhForm3
 import com.xplo.code.ui.dashboard.model.HhMember
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.Nominee
@@ -43,6 +46,303 @@ import com.xplo.code.ui.dashboard.model.getTotal
 
 object EntityMapper {
     private const val TAG = "EntityMapper"
+
+    fun toBeneficiaryModelEntity(item: HouseholdForm?): Beneficiary? {
+        Log.d(TAG, "toBeneficiaryEntity() called with: item = $item")
+        if (item == null) return null
+
+        val applicationId = item.id
+
+        val form: Beneficiary = Beneficiary()
+        form.applicationId = applicationId
+        form.respondentFirstName = item.form2?.firstName
+        form.respondentMiddleName = item.form2?.middleName
+        form.respondentLastName = item.form2?.lastName
+        form.respondentNickName = item.form2?.nickName
+        form.spouseFirstName = item.form2?.spouseFirstName
+        form.spouseMiddleName = item.form2?.spouseMiddleName
+        form.spouseLastName = item.form2?.spouseLastName
+        form.spouseNickName = item.form2?.spouseNickName
+        form.relationshipWithHouseholdHead = RelationshipEnum.find(item.form2?.respondentRlt)
+        form.respondentAge = item.form2?.age
+        form.respondentGender = GenderEnum.find(item.form2?.gender)
+        form.respondentMaritalStatus = MaritalStatusEnum.find(item.form2?.maritalStatus)
+        form.respondentLegalStatus = LegalStatusEnum.find(item.form2?.legalStatus)
+        // form.documentType = DocumentTypeEnum.
+        //  form.documentTypeOther = item.form2?.firstName
+        form.documentTypeOther = "Other"
+        form.respondentId = item.form2?.idNumber
+        form.respondentPhoneNo = item.form2?.phoneNumber
+        form.householdIncomeSource = IncomeSourceEnum.find(item.form2?.mainSourceOfIncome)
+        form.householdMonthlyAvgIncome = item.form2?.monthlyAverageIncome
+        form.currency = CurrencyEnum.find(item.form2?.currency)
+        form.selectionCriteria = SelectionCriteriaEnum.find(item.form2?.selectionCriteria)
+        //form.selectionReason = SelectionReasonEnum.find(item.form2?.selectionReason)
+        val address = Address()
+        address.stateId = item.form1?.state?.id
+        address.countyId = item.form1?.county?.id
+        address.payamId = item.form1?.payam?.id
+        address.bomaId = item.form1?.boma?.id
+        form.address = toAddress(address)
+        val location = Location()
+        location.lat = item.form1?.lat
+        location.lon = item.form1?.lon
+        form.location = toLocation(location)
+
+        form.householdSize = item.form3?.householdSize
+        form.householdMember2 = toHouseholdMember2(applicationId, item.form3)
+        form.householdMember5 = toHouseholdMember5(applicationId, item.form3)
+        form.householdMember17 = toHouseholdMember17(applicationId, item.form3)
+        form.householdMember35 = toHouseholdMember35(applicationId, item.form3)
+        form.householdMember64 = toHouseholdMember64(applicationId, item.form3)
+        form.householdMember65 = toHouseholdMember65(applicationId, item.form3)
+        form.isReadWrite = getReadWrite(item.form3?.isReadWrite)
+        // form.isReadWrite = true
+        form.memberReadWrite = item.form3?.readWriteNumber
+        form.isOtherMemberPerticipating = FakeMapperValue.isOtherMemberPerticipating
+        form.notPerticipationReason = NonPerticipationReasonEnum.find(item.form6?.noNomineeReason)
+        form.notPerticipationOtherReason = item.form6?.otherReason
+
+        form.nominees = toNomineeItems(item.form6?.nominees)
+
+        form.biometrics = toBiometricEntities(item.form5?.fingers)
+        form.alternatePayee1 = getFirstAlternate(item.alternates)
+        form.alternatePayee2 = getFirstAlternate(item.alternates)
+
+        form.createdBy = 0
+
+
+        //  Log.d(TAG, "toBeneficiaryEntity: return: ${form.toJson()}")
+        return form
+    }
+
+    private fun getReadWrite(value: String?): Boolean {
+        return value?.uppercase() == "YES"
+    }
+
+    private fun getFirstAlternate(items: ArrayList<AlternateForm>): AlternatePayee? {
+        if (items.isNullOrEmpty()) return null
+        return toAlternate(items[0])
+    }
+
+    private fun toAlternate(item: AlternateForm): AlternatePayee? {
+        if (item == null) return null
+        val alternate = AlternatePayee()
+        alternate.documentType = FakeMapperValue.documentType
+        alternate.nationalId = FakeMapperValue.nationalId
+        //alternate.documentType = item.documentType
+        //alternate.nationalId = item.nationalId
+        alternate.payeeFirstName = item.form1?.alternateFirstName
+        alternate.payeeMiddleName = item.form1?.alternateMiddleName
+        alternate.payeeLastName = item.form1?.alternateLastName
+        alternate.payeeNickName = FakeMapperValue.name
+        alternate.payeeAge = item.form1?.age
+        alternate.payeeGender = GenderEnum.find(item.form1?.gender)
+        alternate.payeePhoneNo = item.form1?.phoneNumber
+
+        alternate.biometrics = toBiometricEntities(item.form3?.fingers)
+
+        return alternate
+    }
+
+    private fun toBiometricEntity(item: Finger): com.kit.integrationmanager.model.Biometric? {
+        if (item == null) return null
+        val biometric = com.kit.integrationmanager.model.Biometric()
+
+        biometric.applicationId = ""
+        biometric.biometricType = BiometricType.find(item.fingerType)
+        biometric.biometricUserType = item.userType?.let { BiometricUserType.valueOf(it) }
+
+
+        if (item.fingerPrint?.equals("") == true) {
+            biometric.biometricData = null
+        } else {
+            biometric.biometricData = item.fingerPrint
+        }
+
+        biometric.noFingerPrint = item.noFingerprint
+        biometric.noFingerprintReason = NoFingerprintReasonEnum.find(item.noFingerprintReason)
+        biometric.noFingerprintReasonText = ""
+
+        biometric.biometricUrl = ""
+
+        return biometric
+    }
+
+    private fun toBiometricEntities(items: List<Finger>?): List<com.kit.integrationmanager.model.Biometric>? {
+        if (items.isNullOrEmpty()) return null
+        val list = arrayListOf<com.kit.integrationmanager.model.Biometric>()
+        for (item in items) {
+            val element = toBiometricEntity(item)
+            if (element != null) {
+                list.add(element)
+            }
+        }
+        return list
+    }
+
+
+    fun toNomineeItems(items: ArrayList<Nominee>?): List<com.kit.integrationmanager.model.Nominee>? {
+        if (items.isNullOrEmpty()) return null
+        val list = arrayListOf<com.kit.integrationmanager.model.Nominee>()
+        for (item in items) {
+            val element = toNominee(item)
+            if (element != null) {
+                list.add(element)
+            }
+        }
+        return list
+    }
+
+    private fun toNominee(item: Nominee): com.kit.integrationmanager.model.Nominee? {
+        if (item == null) return null
+        val nominee = com.kit.integrationmanager.model.Nominee()
+
+        nominee.applicationId = ""
+
+        nominee.nomineeFirstName = item.firstName
+        nominee.nomineeLastName = item.lastName
+        nominee.nomineeNickName = item.nickName
+        nominee.nomineeMiddleName = item.middleName
+//        nominee.nomineeMiddleName = FakeMapperValue.name
+
+        nominee.nomineeAge = item.age
+        nominee.nomineeGender = GenderEnum.find(item.gender)
+
+        nominee.nomineeOccupation = OccupationEnum.FORMAL_JOB
+        nominee.otherOccupation = "otoc"
+        nominee.relationshipWithHouseholdHead = RelationshipEnum.find(item.relation)
+
+        nominee.isReadWrite = getReadWrite(item.isReadWrite)
+
+        return nominee
+    }
+
+    private fun toAddress(item: Address?): com.kit.integrationmanager.model.Address? {
+        if (item == null) return null
+        val address = com.kit.integrationmanager.model.Address()
+        address.stateId = item.stateId
+        address.countyId = item.countyId
+        address.payam = item.payamId
+        address.boma = item.bomaId
+        return address
+    }
+
+    private fun toLocation(item: Location?): com.kit.integrationmanager.model.Location? {
+        if (item == null) return null
+        val location = com.kit.integrationmanager.model.Location()
+        location.lat = item.lat
+        location.lon = item.lon
+        return location
+    }
+
+    private fun toHouseholdMember2(
+        id: String,
+        item: HhForm3?
+    ): com.kit.integrationmanager.model.HouseholdMember? {
+        if (item == null) return null
+        val household = com.kit.integrationmanager.model.HouseholdMember()
+        household.applicationId = id
+        household.totalMale = item.mem0TotalMale
+        household.totalFemale = item.mem0TotalFemale
+        household.femaleChronicalIll = item.mem0IllFemale
+        household.femaleDisable = item.mem0DisableFemale
+        household.femaleNormal = item.mem0NormalFemale
+        household.maleChronicalIll = item.mem0IllMale
+        household.maleDisable = item.mem0DisableMale
+        household.maleNormal = item.mem0NormalMale
+        return household
+    }
+
+    private fun toHouseholdMember35(
+        id: String,
+        item: HhForm3?
+    ): com.kit.integrationmanager.model.HouseholdMember? {
+        if (item == null) return null
+        val household = com.kit.integrationmanager.model.HouseholdMember()
+        household.applicationId = id
+        household.totalMale = item.mem18TotalMale
+        household.totalFemale = item.mem18TotalFemale
+        household.femaleChronicalIll = item.mem18IllFemale
+        household.femaleDisable = item.mem18DisableFemale
+        household.femaleNormal = item.mem18NormalFemale
+        household.maleChronicalIll = item.mem18IllMale
+        household.maleDisable = item.mem18DisableMale
+        household.maleNormal = item.mem18NormalMale
+        return household
+    }
+
+    private fun toHouseholdMember64(
+        id: String,
+        item: HhForm3?
+    ): com.kit.integrationmanager.model.HouseholdMember? {
+        if (item == null) return null
+        val household = com.kit.integrationmanager.model.HouseholdMember()
+        household.applicationId = id
+        household.totalMale = item.mem36TotalMale
+        household.totalFemale = item.mem36TotalFemale
+        household.femaleChronicalIll = item.mem36IllFemale
+        household.femaleDisable = item.mem36DisableFemale
+        household.femaleNormal = item.mem36NormalFemale
+        household.maleChronicalIll = item.mem36IllMale
+        household.maleDisable = item.mem36DisableMale
+        household.maleNormal = item.mem36NormalMale
+        return household
+    }
+
+    private fun toHouseholdMember65(
+        id: String,
+        item: HhForm3?
+    ): com.kit.integrationmanager.model.HouseholdMember? {
+        if (item == null) return null
+        val household = com.kit.integrationmanager.model.HouseholdMember()
+        household.applicationId = id
+        household.totalMale = item.mem65TotalMale
+        household.totalFemale = item.mem65TotalFemale
+        household.femaleChronicalIll = item.mem65IllFemale
+        household.femaleDisable = item.mem65DisableFemale
+        household.femaleNormal = item.mem65NormalFemale
+        household.maleChronicalIll = item.mem65IllMale
+        household.maleDisable = item.mem65DisableMale
+        household.maleNormal = item.mem65NormalMale
+        return household
+    }
+
+    private fun toHouseholdMember17(
+        id: String,
+        item: HhForm3?
+    ): com.kit.integrationmanager.model.HouseholdMember? {
+        if (item == null) return null
+        val household = com.kit.integrationmanager.model.HouseholdMember()
+        household.applicationId = id
+        household.totalMale = item.mem6TotalMale
+        household.totalFemale = item.mem6TotalFemale
+        household.femaleChronicalIll = item.mem6IllFemale
+        household.femaleDisable = item.mem6DisableFemale
+        household.femaleNormal = item.mem6NormalFemale
+        household.maleChronicalIll = item.mem6IllMale
+        household.maleDisable = item.mem6DisableMale
+        household.maleNormal = item.mem6NormalMale
+        return household
+    }
+
+    private fun toHouseholdMember5(
+        id: String,
+        item: HhForm3?
+    ): com.kit.integrationmanager.model.HouseholdMember? {
+        if (item == null) return null
+        val household = com.kit.integrationmanager.model.HouseholdMember()
+        household.applicationId = id
+        household.totalMale = item.mem3TotalMale
+        household.totalFemale = item.mem3TotalFemale
+        household.femaleChronicalIll = item.mem3IllFemale
+        household.femaleDisable = item.mem3DisableFemale
+        household.femaleNormal = item.mem3NormalFemale
+        household.maleChronicalIll = item.mem3IllMale
+        household.maleDisable = item.mem3DisableMale
+        household.maleNormal = item.mem3NormalMale
+        return household
+    }
 
     fun toBeneficiaryEntity(item: HouseholdForm?): BeneficiaryEntity? {
         Log.d(TAG, "toBeneficiaryEntity() called with: item = $item")
@@ -145,6 +445,7 @@ object EntityMapper {
         Log.d(TAG, "toBeneficiaryEntity: return: ${form.toJson()}")
         return form
     }
+
 
     fun toBeneficiaryEntityItems(items: List<HouseholdForm>?): List<BeneficiaryEntity>? {
         Log.d(TAG, "toBeneficiaryEntityItems() called with: items = ${items?.size}")
@@ -262,7 +563,7 @@ object EntityMapper {
         if (item == null) return null
         if (id == null) return null
         //if (item.fingerPrint.isNullOrEmpty()) return null
-       // if (item.fingerType.isNullOrEmpty()) return null
+        // if (item.fingerType.isNullOrEmpty()) return null
         //if (item.userType.isNullOrEmpty()) return null
 
         //noFingerprintReason = NoFingerprintReasonEnum.find(item.noFingerprintReason)
@@ -270,34 +571,35 @@ object EntityMapper {
             applicationId = id,
             biometricType = returnFingerPrintEnum(item.fingerType),
             biometricUserType = BiometricUserType.valueOf(item.userType!!),
-            biometricData =if (item.fingerPrint == null) null else item.fingerPrint,
+            biometricData = if (item.fingerPrint == null) null else item.fingerPrint,
             noFingerPrint = item.noFingerprint,
-            noFingerprintReason = if(item.noFingerprint) NoFingerprintReasonEnum.NoFinger else null,
+            noFingerprintReason = if (item.noFingerprint) NoFingerprintReasonEnum.NoFinger else null,
             biometricUrl = null
         )
     }
-    fun returnFingerPrintEnum(finger:String?):BiometricType{
-        if(finger.equals("LT")){
+
+    fun returnFingerPrintEnum(finger: String?): BiometricType {
+        if (finger.equals("LT")) {
             return BiometricType.LT
-        }else if (finger.equals("LI")){
+        } else if (finger.equals("LI")) {
             return BiometricType.LI
-        }else if (finger.equals("LM")){
+        } else if (finger.equals("LM")) {
             return BiometricType.LM
-        }else if (finger.equals("LR")){
+        } else if (finger.equals("LR")) {
             return BiometricType.LR
-        }else if (finger.equals("LS")){
+        } else if (finger.equals("LS")) {
             return BiometricType.LL
-        }else if(finger.equals("RT")){
+        } else if (finger.equals("RT")) {
             return BiometricType.RT
-        }else if (finger.equals("RI")){
+        } else if (finger.equals("RI")) {
             return BiometricType.RI
-        }else if (finger.equals("RM")){
+        } else if (finger.equals("RM")) {
             return BiometricType.RM
-        }else if (finger.equals("RR")){
+        } else if (finger.equals("RR")) {
             return BiometricType.RR
-        }else if (finger.equals("RS")){
+        } else if (finger.equals("RS")) {
             return BiometricType.RL
-        }else{
+        } else {
             return BiometricType.NA
         }
     }
