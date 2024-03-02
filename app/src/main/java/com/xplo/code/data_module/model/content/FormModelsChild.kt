@@ -1,5 +1,6 @@
 package com.xplo.code.data_module.model.content
 
+import androidx.room.ColumnInfo
 import com.google.gson.annotations.SerializedName
 import com.kit.integrationmanager.model.BiometricType
 import com.kit.integrationmanager.model.BiometricUserType
@@ -43,6 +44,8 @@ data class Alternate(
     var documentType: DocumentTypeEnum? = null,
     @SerializedName("nationalId")
     var nationalId: String? = null,
+    @ColumnInfo(name = "documentTypeEnum")
+    var documentTypeEnum: DocumentTypeEnum? = null,
     @SerializedName("payeeName")
     var payeeName: String? = null,
     @SerializedName("payeeFirstName")

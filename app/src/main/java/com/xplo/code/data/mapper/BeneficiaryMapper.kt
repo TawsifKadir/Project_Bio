@@ -172,8 +172,16 @@ object BeneficiaryMapper {
         val alternate = AlternatePayee()
         //alternate.documentType = FakeMapperValue.documentType
         //alternate.nationalId = FakeMapperValue.nationalId
-        alternate.documentType = item.documentType
-        alternate.nationalId = item.nationalId
+
+        alternate.documentType = item.documentTypeEnum
+        alternate.documentType = DocumentTypeEnum.NATIONAL_ID
+        if(item.documentTypeEnum == DocumentTypeEnum.NONE){
+            alternate.nationalId = null
+        }else{
+            alternate.nationalId = item.nationalId
+        }
+        alternate.nationalId = FakeMapperValue.respondentId
+
         alternate.payeeFirstName = item.payeeFirstName
         alternate.payeeMiddleName = item.payeeMiddleName
         alternate.payeeLastName = item.payeeLastName
