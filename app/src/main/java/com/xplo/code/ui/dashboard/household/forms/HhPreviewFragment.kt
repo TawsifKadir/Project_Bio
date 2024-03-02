@@ -32,6 +32,7 @@ import com.xplo.code.data.db.room.model.Location
 import com.xplo.code.data.db.room.model.Nominee
 import com.xplo.code.data.db.room.model.SelectionReason
 import com.xplo.code.data.mapper.EntityMapper
+import com.xplo.code.data.mapper.FakeMapperValue
 import com.xplo.code.databinding.FragmentHhPreviewBinding
 import com.xplo.code.ui.components.ReportViewUtils
 import com.xplo.code.ui.components.XDialog
@@ -447,14 +448,22 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
 
                 val alternateList: MutableList<Alternate> =
                     ArrayList<Alternate>()
-                val firstAlternateEO: Alternate =
-                    prepareAlternateEntity(uuid.toString(), beneficiaryBO.alternatePayee1)
-                alternateList.add(firstAlternateEO)
-                val secondAlternateEO: Alternate =
-                    prepareAlternateEntity(uuid.toString(), beneficiaryBO.alternatePayee2)
-                alternateList.add(secondAlternateEO)
-                val nomineeList: List<Nominee> =
-                    prepareNomineeEntity(uuid.toString(), beneficiaryBO.nominees)
+                if(beneficiaryBO.alternatePayee1 != null){
+                    val firstAlternateEO: Alternate =
+                        prepareAlternateEntity(uuid.toString(), beneficiaryBO.alternatePayee1)
+                    alternateList.add(firstAlternateEO)
+                }
+                if(beneficiaryBO.alternatePayee2 != null){
+                    val secondAlternateEO: Alternate =
+                        prepareAlternateEntity(uuid.toString(), beneficiaryBO.alternatePayee2)
+                    alternateList.add(secondAlternateEO)
+                }
+
+                var nomineeList: List<Nominee> = ArrayList<Nominee>()
+                if(beneficiaryBO.nominees != null){
+                    nomineeList = prepareNomineeEntity(uuid.toString(), beneficiaryBO.nominees)
+                }
+
                 val householdInfoList: MutableList<HouseholdInfo> =
                     ArrayList<HouseholdInfo>()
                 val householdInfo2EO: HouseholdInfo =
@@ -526,29 +535,34 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             for (nowBiometric in biometricList) {
                 if (nowBiometric != null) {
                     nowBiometricEO.applicationId = appId
-                    nowBiometricEO.biometricUserType =
-                        nowBiometric.biometricUserType?.ordinal?.toLong()
-                    nowBiometricEO.noFingerPrint = nowBiometric.noFingerPrint
-                    nowBiometricEO.noFingerprintReason =
-                        nowBiometric.noFingerprintReason?.ordinal?.toLong()
-                    nowBiometricEO.noFingerprintReasonText = nowBiometric.noFingerprintReasonText
-                    if (nowBiometric.biometricType == BiometricType.PHOTO) {
+                    nowBiometricEO.biometricUserType = FakeMapperValue.respondentId.toLong()
+                   if(nowBiometric.biometricType == BiometricType.PHOTO && nowBiometric.biometricData != null){
                         nowBiometricEO.photo = nowBiometric.biometricData
-                    }
-                    when (nowBiometric.biometricType) {
-                        BiometricType.PHOTO -> nowBiometricEO.photo = nowBiometric.biometricData
-                        BiometricType.LT -> nowBiometricEO.wsqLt = nowBiometric.biometricData
-                        BiometricType.LI -> nowBiometricEO.wsqLi = nowBiometric.biometricData
-                        BiometricType.LM -> nowBiometricEO.wsqLm = nowBiometric.biometricData
-                        BiometricType.LR -> nowBiometricEO.wsqLr = nowBiometric.biometricData
-                        BiometricType.LL -> nowBiometricEO.wsqLs = nowBiometric.biometricData
-                        BiometricType.RT -> nowBiometricEO.wsqRt = nowBiometric.biometricData
-                        BiometricType.RI -> nowBiometricEO.wsqRi = nowBiometric.biometricData
-                        BiometricType.RM -> nowBiometricEO.wsqRm = nowBiometric.biometricData
-                        BiometricType.RR -> nowBiometricEO.wsqRr = nowBiometric.biometricData
-                        BiometricType.RL -> nowBiometricEO.wsqRs = nowBiometric.biometricData
-                        else -> {}
-                    }
+                    }else if (nowBiometric.biometricType == BiometricType.LT && nowBiometric.biometricData != null){
+                        nowBiometricEO.wsqLt = nowBiometric.biometricData
+                    }else if (nowBiometric.biometricType == BiometricType.LI && nowBiometric.biometricData != null){
+                        nowBiometricEO.wsqLi = nowBiometric.biometricData
+                    }else if (nowBiometric.biometricType == BiometricType.LM && nowBiometric.biometricData != null){
+                        nowBiometricEO.wsqLm = nowBiometric.biometricData
+                    }else if (nowBiometric.biometricType == BiometricType.LR && nowBiometric.biometricData != null){
+                        nowBiometricEO.wsqLr = nowBiometric.biometricData
+                    }else if (nowBiometric.biometricType == BiometricType.LL && nowBiometric.biometricData != null){
+                        nowBiometricEO.wsqLs = nowBiometric.biometricData
+                    }else if (nowBiometric.biometricType == BiometricType.RT && nowBiometric.biometricData != null){
+                        nowBiometricEO.wsqRt = nowBiometric.biometricData
+                    }else if (nowBiometric.biometricType == BiometricType.RI && nowBiometric.biometricData != null){
+                        nowBiometricEO.wsqRi = nowBiometric.biometricData
+                    }else if (nowBiometric.biometricType == BiometricType.RM && nowBiometric.biometricData != null){
+                        nowBiometricEO.wsqRm = nowBiometric.biometricData
+                    }else if (nowBiometric.biometricType == BiometricType.RR && nowBiometric.biometricData != null){
+                        nowBiometricEO.wsqRr = nowBiometric.biometricData
+                    }else if (nowBiometric.biometricType == BiometricType.RL && nowBiometric.biometricData != null){
+                        nowBiometricEO.wsqRs = nowBiometric.biometricData
+                    }else{
+                       nowBiometricEO.noFingerprintReasonText = nowBiometric.noFingerprintReasonText
+                       nowBiometricEO.noFingerPrint = true
+                       nowBiometricEO.noFingerprintReason = FakeMapperValue.respondentId.toLong()
+                   }
                 }
             }
         }
