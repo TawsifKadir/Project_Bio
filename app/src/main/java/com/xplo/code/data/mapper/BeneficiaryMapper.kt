@@ -70,12 +70,12 @@ object BeneficiaryMapper {
         beneficiary.householdMonthlyAvgIncome = item.householdMonthlyAvgIncome
 
         beneficiary.selectionCriteria = item.selectionCriteria
-        beneficiary.selectionCriteria = item.selectionCriteria
         beneficiary.selectionReason = FakeMapperValue.selectionReasons
 
         beneficiary.spouseFirstName = item.spouseFirstName
         beneficiary.spouseLastName = item.spouseLastName
         beneficiary.spouseMiddleName = item.spouseMiddleName
+        beneficiary.spouseNickName = item.spouseNickName
 
 
         //beneficiary.householdSize = FakeMapperValue.houseHoldSize

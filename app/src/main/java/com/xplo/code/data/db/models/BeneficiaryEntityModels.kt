@@ -96,6 +96,8 @@ data class BeneficiaryEntity(
     var spouseLastName: String? = null,
     @ColumnInfo(name = "spouseMiddleName")
     var spouseMiddleName: String? = null,
+    @ColumnInfo(name = "spouseNickName")
+    var spouseNickName: String? = null,
 
 
     @ColumnInfo(name = "householdSize")
