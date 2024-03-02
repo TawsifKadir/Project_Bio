@@ -147,17 +147,23 @@
             </LinearLayout>
             <include layout="@layout/view_margin_space" />
             <LinearLayout
-                style="@style/AppLinearLayoutInputBox"
-                android:layout_weight="1"
-                android:id="@+id/otherVisible"
-                android:visibility="gone"
-                tools:visibility="visible">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    style="@style/AppLinearLayoutInputBox"
+                    android:layout_weight="1"
+                    android:id="@+id/otherVisible">
 
-                <EditText
-                    android:id="@+id/etotherstext"
-                    style="@style/AppEditText.Form.Text"
-                    android:hint="Other relation"/>
+                    <TextView
+                        style="@style/AppTextView.Input.Header"
+                        android:text="Relation" />
 
+                    <EditText
+                        android:id="@+id/etotherstext"
+                        style="@style/AppEditText.Form.Text"
+                        android:hint="Please Specify"/>
+
+                </LinearLayout>
             </LinearLayout>
             <include layout="@layout/view_margin_space" />
 

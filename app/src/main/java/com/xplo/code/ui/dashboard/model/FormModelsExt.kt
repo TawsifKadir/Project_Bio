@@ -86,15 +86,15 @@ fun HhForm2.isOk(): Boolean {
         }
     }
 
-    if (this.idIsOrNot != null) {
+    if (this.idIsOrNot == null) {
+        return false
+    }else if(this.idIsOrNot.equals("Yes", ignoreCase = true)){
         if (this.idNumber.isNullOrBlank()) {
             return false
         }
         if (this.idNumberType.isNullOrBlank()) {
             return false
         }
-    }else{
-        return false
     }
 
     if (this.legalStatus.isNullOrBlank()) return false
@@ -284,15 +284,16 @@ fun AlForm1.isOk(): Boolean {
     if (this.age == null) return false
     if (this.selectAlternateRlt == null) return false
     if (this.gender == null) return false
-    if (this.idIsOrNot != null) {
+
+    if (this.idIsOrNot == null) {
+        return false
+    }else if(this.idIsOrNot.equals("Yes", ignoreCase = true)){
         if (this.idNumber.isNullOrBlank()) {
             return false
         }
         if (this.idNumberType.isNullOrBlank()) {
             return false
         }
-    }else{
-        return false
     }
     return true
 }
