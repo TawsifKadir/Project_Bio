@@ -447,14 +447,22 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
 
                 val alternateList: MutableList<Alternate> =
                     ArrayList<Alternate>()
-                val firstAlternateEO: Alternate =
-                    prepareAlternateEntity(uuid.toString(), beneficiaryBO.alternatePayee1)
-                alternateList.add(firstAlternateEO)
-                val secondAlternateEO: Alternate =
-                    prepareAlternateEntity(uuid.toString(), beneficiaryBO.alternatePayee2)
-                alternateList.add(secondAlternateEO)
-                val nomineeList: List<Nominee> =
-                    prepareNomineeEntity(uuid.toString(), beneficiaryBO.nominees)
+                if(beneficiaryBO.alternatePayee1 != null){
+                    val firstAlternateEO: Alternate =
+                        prepareAlternateEntity(uuid.toString(), beneficiaryBO.alternatePayee1)
+                    alternateList.add(firstAlternateEO)
+                }
+                if(beneficiaryBO.alternatePayee2 != null){
+                    val secondAlternateEO: Alternate =
+                        prepareAlternateEntity(uuid.toString(), beneficiaryBO.alternatePayee2)
+                    alternateList.add(secondAlternateEO)
+                }
+
+                var nomineeList: List<Nominee> = ArrayList<Nominee>()
+                if(beneficiaryBO.nominees != null){
+                    nomineeList = prepareNomineeEntity(uuid.toString(), beneficiaryBO.nominees)
+                }
+
                 val householdInfoList: MutableList<HouseholdInfo> =
                     ArrayList<HouseholdInfo>()
                 val householdInfo2EO: HouseholdInfo =
