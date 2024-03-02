@@ -233,9 +233,9 @@ class SettingsFragment : BaseSettingsFragment(),
                DbExporter.exportWithPermission(requireContext(), requireActivity())
                 if (DbExporter.hasStoragePermission(requireContext())){
                     if (DbExporter.exportToSQLite(requireContext())){
-                        DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", "File exported")
+                        DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", "File exported and folder name is (bio_reg/database)")
                     }else{
-                        DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Failed", "File not exported , Maybe data not inserted or permission not taken , need WRITE_EXTERNAL_STORAGE permission from setting")
+                        DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Failed", "File not exported , Maybe data not inserted or permission not taken , need (All Files access) permission from settings for this App")
                     }
                 }
                 return true
