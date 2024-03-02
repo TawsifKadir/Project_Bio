@@ -504,38 +504,40 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
     override fun onSelectSpinnerItem(parent: AdapterView<*>?, view: View?, position: Int) {
         super.onSelectSpinnerItem(parent, view, position)
         Log.d(TAG, "onSelectSpinnerItem() called with: view = , position = $position")
-        if (position == 0) return
+        try{
+            if (position == 0) return
 
-        when (parent?.id) {
-            R.id.spStateName -> {
-                val txt = spStateName.selectedItem.toString()
-                //val item = OptionItem(0, txt)
-                val item = stateOptions?.get(position)
-                onSelectStateItem(item)
+            when (parent?.id) {
+                R.id.spStateName -> {
+                    val txt = spStateName.selectedItem.toString()
+                    //val item = OptionItem(0, txt)
+                    val item = stateOptions?.get(position)
+                    onSelectStateItem(item)
+                }
+
+                R.id.spCountryName -> {
+                    val txt = spCountryName.selectedItem.toString()
+                    //val item = OptionItem(0, txt)
+                    val item = countyOptions?.get(position)
+                    onSelectCountryItem(item)
+                }
+
+                R.id.spPayamName -> {
+                    val txt = spPayamName.selectedItem.toString()
+                    //val item = OptionItem(0, txt)
+                    val item = payamOptions?.get(position)
+                    onSelectPayamItem(item)
+                }
+
+                R.id.spBomaName -> {
+                    val txt = spBomaName.selectedItem.toString()
+                    //val item = OptionItem(0, txt)
+                    val item = bomaOptions?.get(position)
+                    onSelectBomaItem(item)
+                }
             }
-
-            R.id.spCountryName -> {
-                val txt = spCountryName.selectedItem.toString()
-                //val item = OptionItem(0, txt)
-                val item = countyOptions?.get(position)
-                onSelectCountryItem(item)
-            }
-
-            R.id.spPayamName -> {
-                val txt = spPayamName.selectedItem.toString()
-                //val item = OptionItem(0, txt)
-                val item = payamOptions?.get(position)
-                onSelectPayamItem(item)
-            }
-
-            R.id.spBomaName -> {
-                val txt = spBomaName.selectedItem.toString()
-                //val item = OptionItem(0, txt)
-                val item = bomaOptions?.get(position)
-                onSelectBomaItem(item)
-            }
-
-
+        }catch(e : Exception){
+            Log.e(TAG,e.toString())
         }
     }
 

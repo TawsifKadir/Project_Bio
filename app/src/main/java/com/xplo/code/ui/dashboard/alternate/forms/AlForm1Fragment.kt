@@ -388,7 +388,6 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         setSpinnerItem(spGender, UiData.genderOptions, form.gender)
         setSpinnerItem(spAlternateRelation, UiData.relationshipOptions, form.selectAlternateRlt)
 
-
         setSpinnerItem(spIdType, UiData.idType, form.idNumberType)
         rgId.checkRbOpAB(binding.rbYes, binding.rbNo, form.idIsOrNot)
         etAge.setText(form.age.toString())
@@ -400,6 +399,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         etAlternateFirstName.setText(form.alternateFirstName)
         etAlternateMiddleName.setText(form.alternateMiddleName)
         etAlternateLastName.setText(form.alternateLastName)
+        etAlternateNickName.setText(form.alternateNickName)
     }
 
     override fun onGetHouseholdItem(item: HouseholdItem?) {

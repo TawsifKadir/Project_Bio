@@ -339,8 +339,6 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
                     //adapter?.addItem(form)
                     onGetAnAlternate(form)
                 }, 500)
-
-
             }
         }
 
