@@ -160,7 +160,8 @@ object EntityMapper {
         alternate.payeeLastName = item.form1?.alternateLastName
         alternate.payeeNickName = item.form1?.alternateNickName
         alternate.payeeAge = item.form1?.age
-        alternate.payeeGender = GenderEnum.find(item.form1?.gender)
+        //alternate.payeeGender = GenderEnum.find(item.form1?.gender)
+        alternate.payeeGender = FakeMapperValue.fakeGender
         alternate.payeePhoneNo = item.form1?.phoneNumber
 
         alternate.biometrics = toAlternateBiometricEntities(item)
@@ -176,14 +177,14 @@ object EntityMapper {
         val alternate = AlternatePayee()
         //alternate.documentType = FakeMapperValue.documentType
         // alternate.nationalId = FakeMapperValue.nationalId
-        alternate.documentType = DocumentTypeEnum.find(item.documentType.toString())
+        alternate.documentType = DocumentTypeEnum.find(item.documentType.toString()+1)
         alternate.nationalId = item.nationalId
         alternate.payeeFirstName = item.payeeFirstName
         alternate.payeeMiddleName = item.payeeMiddleName
         alternate.payeeLastName = item.payeeLastName
         alternate.payeeNickName = item.payeeNickName
         alternate.payeeAge = item.payeeAge
-        alternate.payeeGender = GenderEnum.find(item.payeeGender.toString())
+        alternate.payeeGender = GenderEnum.find(item.payeeGender.toString()+1)
         alternate.payeePhoneNo = item.payeePhoneNo
         alternate.biometrics = toBiometricEntityFromdbForBeneficiary(bio_data)
 
@@ -269,7 +270,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -295,7 +296,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -321,7 +322,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -347,7 +348,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -373,7 +374,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -398,7 +399,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -423,7 +424,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -448,7 +449,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -474,7 +475,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -500,7 +501,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -549,7 +550,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -575,7 +576,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -601,7 +602,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -627,7 +628,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -653,7 +654,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -678,7 +679,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -703,7 +704,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -728,7 +729,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -754,7 +755,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -780,7 +781,7 @@ object EntityMapper {
             biometricData.noFingerPrint = true
             if (item.noFingerprintReason != null) {
                 biometricData.noFingerprintReason =
-                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+                    NoFingerprintReasonEnum.getNoFingerprintReasonById(item.noFingerprintReason.toInt())
             }
             biometricData.noFingerprintReasonText = item.noFingerprintReasonText
             biometrics.add(biometricData)
@@ -886,14 +887,14 @@ object EntityMapper {
 
         nominee.nomineeAge = item.nomineeAge
         if (item.nomineeGender != null) {
-            nominee.nomineeGender = GenderEnum.entries.getOrNull(item.nomineeGender.toInt())
+            nominee.nomineeGender = GenderEnum.getGenderById(item.nomineeGender.toInt()+1)
         }
 
         //  nominee.nomineeOccupation = OccupationEnum.valueOf(item.nomineeOccupation.toString())
         nominee.otherOccupation = item.otherOccupation
         if (item.relationshipWithHouseholdHead != null) {
             nominee.relationshipWithHouseholdHead =
-                RelationshipEnum.entries.getOrNull(item.relationshipWithHouseholdHead.toInt())
+                RelationshipEnum.getRelationById(item.relationshipWithHouseholdHead.toInt()+1)
         }
         nominee.isReadWrite = item.isReadWrite
 

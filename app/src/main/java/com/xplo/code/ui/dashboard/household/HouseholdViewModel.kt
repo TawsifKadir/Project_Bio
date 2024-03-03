@@ -296,38 +296,39 @@ class HouseholdViewModel @Inject constructor(
             form.spouseNickName = beneficiary.spouseNickName
 
             if(beneficiary.relationshipWithHouseholdHead != null){
-                form.relationshipWithHouseholdHead = RelationshipEnum.entries.getOrNull(beneficiary.relationshipWithHouseholdHead.toInt())
+                form.relationshipWithHouseholdHead = RelationshipEnum.getRelationById(beneficiary.relationshipWithHouseholdHead.toInt()+1)
             }
 
             form.respondentAge = beneficiary.respondentAge
 
             if (beneficiary.respondentGender != null){
-                form.respondentGender = GenderEnum.entries.getOrNull(beneficiary.respondentGender.toInt())
+                form.respondentGender = GenderEnum.getGenderById(beneficiary.respondentGender.toInt()+1)
             }
 
             if(beneficiary.respondentMaritalStatus != null){
-                form.respondentMaritalStatus = MaritalStatusEnum.entries.getOrNull(beneficiary.respondentMaritalStatus.toInt())
+                form.respondentMaritalStatus = MaritalStatusEnum.getMartialStatusById(beneficiary.respondentMaritalStatus.toInt()+1)
             }
 
             if(beneficiary.respondentLegalStatus != null){
-                form.respondentLegalStatus = LegalStatusEnum.entries.getOrNull(beneficiary.respondentLegalStatus.toInt())
+                form.respondentLegalStatus = LegalStatusEnum.getLegalStatusById(beneficiary.respondentLegalStatus.toInt()+1)
             }
             if(beneficiary.documentType != null){
-                form.documentType = DocumentTypeEnum.entries.getOrNull(beneficiary.documentType.toInt())
+                form.documentType = DocumentTypeEnum.getDocumentTypeById(beneficiary.documentType.toInt()+1)
             }
 
             form.documentTypeOther = beneficiary.documentTypeOther
             form.respondentId = beneficiary.respondentId
             form.respondentPhoneNo = beneficiary.respondentPhoneNo
             if(beneficiary.householdIncomeSource != null){
-                form.householdIncomeSource = IncomeSourceEnum.entries.getOrNull(beneficiary.householdIncomeSource.toInt())
+                form.householdIncomeSource = IncomeSourceEnum.getIncomeSourceById(beneficiary.householdIncomeSource.toInt()+1)
             }
             form.householdMonthlyAvgIncome = beneficiary.householdMonthlyAvgIncome
             if(beneficiary.currency != null){
-                form.currency = CurrencyEnum.entries.getOrNull(beneficiary.currency.toInt())
+                //form.currency = CurrencyEnum.entries.getOrNull(beneficiary.currency.toInt())
+                form.currency = CurrencyEnum.getCurrencyById(beneficiary.currency.toInt()+1)
             }
             if(beneficiary.selectionCriteria != null){
-                form.selectionCriteria = SelectionCriteriaEnum.entries.getOrNull(beneficiary.selectionCriteria.toInt())
+                form.selectionCriteria = SelectionCriteriaEnum.getSelectionCriteriaById(beneficiary.selectionCriteria.toInt()+1)
             }
 
             // Assuming form.selectionReason is a MutableList<SelectionReasonEnum>
@@ -365,7 +366,7 @@ class HouseholdViewModel @Inject constructor(
             form.memberReadWrite = beneficiary.memberReadWrite
             form.isOtherMemberPerticipating = beneficiary.isOtherMemberPerticipating
             if(beneficiary.notPerticipationReason != null){
-                form.notPerticipationReason = NonPerticipationReasonEnum.entries.getOrNull(beneficiary.notPerticipationReason.toInt())
+                form.notPerticipationReason = NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt()+1)
             }
             form.notPerticipationOtherReason = beneficiary.notPerticipationOtherReason
             form.nominees = EntityMapper.toNomineeItemsLdb(nominee)
