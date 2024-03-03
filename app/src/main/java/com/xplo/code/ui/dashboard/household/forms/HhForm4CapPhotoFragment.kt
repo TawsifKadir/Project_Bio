@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -37,8 +38,11 @@ import com.xplo.code.ui.dashboard.model.isOk
 import com.xplo.code.ui.photo.ImagePickerActivity
 import com.xplo.code.ui.photo.ImageUtil
 import com.xplo.code.utils.FormAppUtils
-import com.xplo.data.BuildConfig
+
+import com.xplo.code.BuildConfig
+import com.xplo.code.utils.ImageUtils
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 
@@ -217,11 +221,19 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
             val bitmap =
                 MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
             newPhotoBase64 = ImageUtil.convert(bitmap)
-            setToModel(uri.toString(),newPhotoBase64)
+            val byteArray = convertBitmapToByteArray(requireContext(), bitmap)
+            setToModel(uri.toString(),byteArray)
             loadProfile(uri.toString())
         } catch (e: IOException) {
             e.printStackTrace()
         }
+    }
+    private fun convertBitmapToByteArray(context: Context, bitmap: Bitmap): ByteArray {
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, stream)
+        return stream.toByteArray()
+
+       //return ImageUtils.convertDrawableToByteArray(requireContext(), R.drawable.resize)
     }
 
     override fun onClickBackButton() {
@@ -341,12 +353,12 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
         }
     }
 
-    private fun setToModel(path: String?, newPhotoBase64: String) {
+    private fun setToModel(path: String?, bytearray: ByteArray) {
         Log.d(TAG, "setToModel() called with: path = $path")
         var data = PhotoData()
         data.imgPath = path
         data.userType = BiometricUserType.BENEFICIARY.name
-        data.img = newPhotoBase64
+        data.img = bytearray
         form.photoData = data
         val rootForm = interactor?.getRootForm()
         rootForm?.form4 = form

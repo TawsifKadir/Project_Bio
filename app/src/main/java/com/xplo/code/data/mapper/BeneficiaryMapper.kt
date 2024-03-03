@@ -6,14 +6,16 @@ import com.kit.integrationmanager.model.AlternatePayee
 import com.kit.integrationmanager.model.Beneficiary
 import com.kit.integrationmanager.model.CurrencyEnum
 import com.kit.integrationmanager.model.DocumentTypeEnum
+import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.SelectionCriteriaEnum
+import com.kit.integrationmanager.model.SelectionReasonEnum
 import com.xplo.code.data.db.models.BeneficiaryEntity
-import com.xplo.data.model.content.Address
-import com.xplo.data.model.content.Alternate
-import com.xplo.data.model.content.Biometric
-import com.xplo.data.model.content.HouseholdMember
-import com.xplo.data.model.content.Location
-import com.xplo.data.model.content.Nominee
+import com.xplo.code.data_module.model.content.Address
+import com.xplo.code.data_module.model.content.Alternate
+import com.xplo.code.data_module.model.content.Biometric
+import com.xplo.code.data_module.model.content.HouseholdMember
+import com.xplo.code.data_module.model.content.Location
+import com.xplo.code.data_module.model.content.Nominee
 
 /**
  * Copyright 2022 (C) xplo
@@ -40,7 +42,7 @@ object BeneficiaryMapper {
         beneficiary.respondentFirstName = item.respondentFirstName
         beneficiary.respondentMiddleName = item.respondentMiddleName
         beneficiary.respondentLastName = item.respondentLastName
-        //beneficiary.respondentNickName = item.respondentNickName
+        beneficiary.respondentNickName = item.respondentNickName
 
 
         beneficiary.respondentAge = item.respondentAge
@@ -49,8 +51,14 @@ object BeneficiaryMapper {
         beneficiary.respondentLegalStatus = item.respondentLegalStatus
         beneficiary.respondentMaritalStatus = item.respondentMaritalStatus
 
+
+        beneficiary.documentType = item.documentTypeEnum
         beneficiary.documentType = DocumentTypeEnum.NATIONAL_ID
-        //beneficiary.respondentId = item.respondentId
+        if(item.documentTypeEnum == DocumentTypeEnum.NONE){
+            beneficiary.respondentId = null
+        }else{
+            beneficiary.respondentId = item.respondentId
+        }
         beneficiary.respondentId = FakeMapperValue.respondentId
         beneficiary.respondentPhoneNo = item.respondentPhoneNo
 
@@ -60,18 +68,26 @@ object BeneficiaryMapper {
         //beneficiary.currency = item.currency
         beneficiary.currency = FakeMapperValue.currency
         beneficiary.householdIncomeSource = item.householdIncomeSource
-        beneficiary.householdMonthlyAvgIncome = item.householdMonthlyAvgIncome
 
-        //beneficiary.selectionCriteria = item.selectionCriteria
-        beneficiary.selectionCriteria = FakeMapperValue.selectionCriteria
-        beneficiary.selectionReason = item.selectionReason
+        if(beneficiary.householdIncomeSource != IncomeSourceEnum.NONE  && item.householdMonthlyAvgIncome != 0){
+            beneficiary.householdMonthlyAvgIncome = item.householdMonthlyAvgIncome
+        }else{
+            beneficiary.householdMonthlyAvgIncome = 0
+        }
+
+        beneficiary.selectionCriteria = item.selectionCriteria
+        beneficiary.selectionReason = FakeMapperValue.selectionReasons
+        //beneficiary.selectionReason = item.selectionReason
+       // beneficiary.selectionReason = FakeMapperValue.selectionReasons
 
         beneficiary.spouseFirstName = item.spouseFirstName
         beneficiary.spouseLastName = item.spouseLastName
         beneficiary.spouseMiddleName = item.spouseMiddleName
+        beneficiary.spouseNickName = item.spouseNickName
 
 
-        beneficiary.householdSize = FakeMapperValue.houseHoldSize
+        //beneficiary.householdSize = FakeMapperValue.houseHoldSize
+        beneficiary.householdSize = item.householdSize
 
         beneficiary.householdMember2 = toHouseholdMember(item.householdMember2, item.id)
         beneficiary.householdMember5 = toHouseholdMember(item.householdMember5, item.id)
@@ -84,10 +100,11 @@ object BeneficiaryMapper {
 
         beneficiary.alternatePayee1 = getFirstAlternate(item.alternates)
         //beneficiary.alternatePayee2 = getSecondAlternate(item.alternates)
-        beneficiary.alternatePayee2 = getFirstAlternate(item.alternates)
+        beneficiary.alternatePayee2 = getSecondAlternate(item.alternates)
         beneficiary.biometrics = toBiometricEntities(item.biometrics)
 
         beneficiary.isOtherMemberPerticipating = item.isOtherMemberPerticipating
+        //beneficiary.isOtherMemberPerticipating = FakeMapperValue.isOtherMemberPerticipating
         beneficiary.notPerticipationReason = item.notPerticipationReason
         beneficiary.notPerticipationOtherReason = item.notPerticipationOtherReason
         beneficiary.nominees = toNomineeItems(item.nominees)
@@ -161,14 +178,22 @@ object BeneficiaryMapper {
     private fun toAlternate(item: Alternate?): AlternatePayee? {
         if (item == null) return null
         val alternate = AlternatePayee()
-        alternate.documentType = FakeMapperValue.documentType
-        alternate.nationalId = FakeMapperValue.nationalId
-        //alternate.documentType = item.documentType
-        //alternate.nationalId = item.nationalId
-        alternate.payeeFirstName = item.payeeName
-        alternate.payeeMiddleName = item.payeeName
-        alternate.payeeLastName = item.payeeName
-        alternate.payeeNickName = FakeMapperValue.name
+        //alternate.documentType = FakeMapperValue.documentType
+        //alternate.nationalId = FakeMapperValue.nationalId
+
+        alternate.documentType = item.documentTypeEnum
+        alternate.documentType = DocumentTypeEnum.NATIONAL_ID
+        if(item.documentTypeEnum == DocumentTypeEnum.NONE){
+            alternate.nationalId = null
+        }else{
+            alternate.nationalId = item.nationalId
+        }
+        alternate.nationalId = FakeMapperValue.respondentId
+
+        alternate.payeeFirstName = item.payeeFirstName
+        alternate.payeeMiddleName = item.payeeMiddleName
+        alternate.payeeLastName = item.payeeLastName
+        alternate.payeeNickName = item.payeeNickName
         alternate.payeeAge = item.payeeAge
         alternate.payeeGender = item.payeeGender
         alternate.payeePhoneNo = item.payeePhoneNo
@@ -185,8 +210,8 @@ object BeneficiaryMapper {
 
         nominee.nomineeFirstName = item.nomineeFirstName
         nominee.nomineeLastName = item.nomineeLastName
-        //nominee.nomineeMiddleName = item.nomineeMiddleName
-        nominee.nomineeMiddleName = FakeMapperValue.name
+        nominee.nomineeMiddleName = item.nomineeMiddleName
+        nominee.nomineeNickName = item.nomineeNickName
 
         nominee.nomineeAge = item.nomineeAge
         nominee.nomineeGender = item.nomineeGender
@@ -222,10 +247,10 @@ object BeneficiaryMapper {
         biometric.biometricUserType = item.biometricUserType
 
 
-        if(item.biometricData.equals("")) {
+        if(item.biometricData?.equals("") == true) {
             biometric.biometricData = null
         } else {
-            biometric.biometricData = item.biometricData?.toByteArray()
+            biometric.biometricData = item.biometricData
         }
 
         biometric.noFingerPrint = item.noFingerPrint

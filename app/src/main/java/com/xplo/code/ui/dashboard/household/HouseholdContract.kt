@@ -79,8 +79,8 @@ interface HouseholdContract {
         fun getHouseholdItems()
         fun updateHouseholdItem(item: HouseholdItem?)
         fun deleteHouseholdItem(item: HouseholdItem?)
-        fun sendHouseholdItem(item: HouseholdItem?, pos: Int)
-        fun sendHouseholdForm(form: HouseholdForm?, pos: Int)
+        //fun sendHouseholdItem(item: HouseholdItem?, pos: Int)
+        //fun sendHouseholdForm(form: HouseholdForm?, pos: Int)
 
 
         fun saveBeneficiaryEntity(item: BeneficiaryEntity?)
@@ -88,8 +88,8 @@ interface HouseholdContract {
         fun getBeneficiaryEntityItems()
         fun updateBeneficiaryEntity(item: BeneficiaryEntity?)
         fun deleteBeneficiaryEntity(item: BeneficiaryEntity?)
-        fun sendBeneficiaryEntity(item: BeneficiaryEntity?, pos: Int)
-        fun sendBeneficiary(item: Beneficiary?, pos: Int)
+        //fun sendBeneficiaryEntity(item: BeneficiaryEntity?, pos: Int)
+        //fun sendBeneficiary(item: Beneficiary?, pos: Int)
 
 
 
@@ -121,6 +121,7 @@ interface HouseholdContract {
 
         fun onGetHouseholdList(items: List<HouseholdItem>?)
         fun onGetHouseholdListFailure(msg: String?)
+        fun onGetHouseholdListSuccess(msg: String?)
 
         fun onSubmitFormSuccess(id: String?, pos: Int)
         fun onSubmitFormFailure(msg: String?)

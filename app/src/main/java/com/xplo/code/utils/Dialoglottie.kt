@@ -16,6 +16,24 @@ object DialogUtil {
                 setCancelable(false)
             }
     }
+    fun showLottieDialogSuccessMsg(context: Context, title: String, description: String) {
+        alertDialog = LottieAlertDialog.Builder(context, DialogTypes.TYPE_SUCCESS)
+            .setTitle(title)
+            .setDescription(description)
+            .build().apply {
+                show()
+                setCancelable(true)
+            }
+    }
+    fun showLottieDialogFailMsg(context: Context, title: String, description: String) {
+        alertDialog = LottieAlertDialog.Builder(context, DialogTypes.TYPE_ERROR)
+            .setTitle(title)
+            .setDescription(description)
+            .build().apply {
+                show()
+                setCancelable(true)
+            }
+    }
     fun dismissLottieDialog() {
         alertDialog?.dismiss()
     }

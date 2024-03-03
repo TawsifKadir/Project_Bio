@@ -29,7 +29,8 @@ import com.xplo.code.ui.dashboard.model.AlForm3
 import com.xplo.code.ui.dashboard.model.Finger
 import com.xplo.code.ui.dashboard.model.isContainValidFingerprint
 import com.xplo.code.ui.dashboard.model.isOk
-import com.xplo.data.BuildConfig
+
+import com.xplo.code.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

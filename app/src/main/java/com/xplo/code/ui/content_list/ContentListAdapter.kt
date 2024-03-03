@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.xplo.code.R
+import com.xplo.code.data_module.model.content.ContentItem
 import com.xplo.code.databinding.RowContentListBinding
-import com.xplo.data.model.content.ContentItem
 
 /**
  * Copyright 2022 (C) xplo

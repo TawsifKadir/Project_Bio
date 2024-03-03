@@ -11,7 +11,7 @@ import com.xplo.code.ui.dashboard.UiData
 
 fun HhForm2?.getFullName(): String? {
     if (this == null) return null
-    var name = "${this.firstName} ${this.middleName} ${this.lastName}"
+    var name = "${this.firstName} ${this.middleName} ${this.lastName} ${this.nickName}"
     return name.replace(" null ", " ")
 }
 
@@ -19,18 +19,19 @@ fun HhForm2?.getSpouseFullName(): String? {
     if (this!!.spouseFirstName == null) return null
     return "${spouseFirstName?.replace("null ", " ")}" +
             " ${spouseMiddleName?.replace("null ", " ")} " +
-            "${spouseLastName?.replace("null ", " ")}"
+            "${spouseLastName?.replace("null ", " ")} "+
+            "${spouseNickName?.replace("null ", " ")}"
 }
 
 fun Nominee?.getFullName(): String? {
     if (this == null) return null
-    var name = "${this.firstName} ${this.middleName} ${this.lastName}"
+    var name = "${this.firstName} ${this.middleName} ${this.lastName} ${this.nickName}"
     return name.replace(" null ", " ")
 }
 
 fun AlForm1?.getFullName(): String? {
     if (this == null) return null
-    var name = "${this.alternateFirstName} ${this.alternateMiddleName} ${this.alternateLastName}"
+    var name = "${this.alternateFirstName} ${this.alternateMiddleName} ${this.alternateLastName} ${this.alternateNickName}"
     return name.replace(" null ", " ")
 }
 
@@ -66,17 +67,18 @@ fun HhForm2.isOk(): Boolean {
     if (this.middleName.isNullOrBlank()) return false
     if (this.lastName.isNullOrBlank()) return false
     //if (this.idNumber.isNullOrBlank()) return false
-//    if (this.phoneNumber.isNullOrBlank()) {
-//        return false
-//    }
     if (this.mainSourceOfIncome.isNullOrBlank()) return false
     if (this.gender.isNullOrBlank()) return false
     if (this.maritalStatus.isNullOrBlank()) {
         return false
     }
-
+    if (this.phoneNumber == null) return false
+    
     if (this.maritalStatus == MaritalStatusEnum.MARRIED.value) {
         if (this.spouseFirstName.isNullOrBlank()) {
+            return false
+        }
+        if (this.spouseMiddleName.isNullOrBlank()) {
             return false
         }
         if (this.spouseLastName.isNullOrBlank()) {
@@ -84,7 +86,9 @@ fun HhForm2.isOk(): Boolean {
         }
     }
 
-    if (this.idIsOrNot == "Yes") {
+    if (this.idIsOrNot == null) {
+        return false
+    }else if(this.idIsOrNot.equals("Yes", ignoreCase = true)){
         if (this.idNumber.isNullOrBlank()) {
             return false
         }
@@ -96,10 +100,10 @@ fun HhForm2.isOk(): Boolean {
     if (this.legalStatus.isNullOrBlank()) return false
     if (this.respondentRlt.isNullOrBlank()) return false
     //if (this.spouseName.isNullOrBlank()) return false
-    if (this.selectionReason.isNullOrBlank()) return false
+//    if (this.selectionReason.isNullOrBlank()) return false
     if (this.selectionCriteria.isNullOrBlank()) return false
     if (this.monthlyAverageIncome == null) return false
-    if (this.selectionReason.isNullOrBlank()) return false
+//    if (this.selectionReason.isNullOrBlank()) return false
 
     if (this.age == null) return false
     if (this.monthlyAverageIncome == null) return false
@@ -248,6 +252,7 @@ fun Nominee?.isOk(): Boolean {
     if (this == null) return false
     if (this.firstName.isNullOrBlank()) return false
     if (this.lastName.isNullOrBlank()) return false
+    if (this.middleName.isNullOrBlank()) return false
     if (this.relation.isNullOrBlank()) return false
     if (this.age == null) return false
     if (this.gender.isNullOrEmpty()) return false
@@ -277,10 +282,12 @@ fun AlForm1.isOk(): Boolean {
     if (this.alternateMiddleName.isNullOrBlank()) return false
     if (this.alternateLastName.isNullOrBlank()) return false
     if (this.age == null) return false
-    //if (this.phoneNumber.isNullOrBlank()) return false
     if (this.selectAlternateRlt == null) return false
     if (this.gender == null) return false
-    if (this.idIsOrNot == "Yes") {
+
+    if (this.idIsOrNot == null) {
+        return false
+    }else if(this.idIsOrNot.equals("Yes", ignoreCase = true)){
         if (this.idNumber.isNullOrBlank()) {
             return false
         }

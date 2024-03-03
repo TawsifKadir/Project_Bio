@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.xplo.code.BuildConfig
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -36,8 +37,9 @@ import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.Area
 import com.xplo.code.ui.dashboard.model.HhForm1
 import com.xplo.code.ui.dashboard.model.isOk
-import com.xplo.data.BuildConfig
+
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.Exception
 
 
 /**
@@ -167,73 +169,73 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
             }
             viewModel.getStateItems()
         }
-
-
     }
 
     override fun initObserver() {
 
+        try{
+            lifecycleScope.launchWhenStarted {
+                viewModel.event.collect { event ->
+                    when (event) {
 
-        lifecycleScope.launchWhenStarted {
-            viewModel.event.collect { event ->
-                when (event) {
+                        is HouseholdViewModel.Event.Loading -> {
+                            //showLoading()
+                        }
 
-                    is HouseholdViewModel.Event.Loading -> {
-                        //showLoading()
+                        is HouseholdViewModel.Event.GetStateItemsSuccess -> {
+                            hideLoading()
+                            onGetStateItems(event.items)
+                            viewModel.clearEvent()
+                        }
+
+                        is HouseholdViewModel.Event.GetStateItemsFailure -> {
+                            hideLoading()
+                            onGetStateItemsFailure(event.msg)
+                            viewModel.clearEvent()
+                        }
+
+                        is HouseholdViewModel.Event.GetCountryItemsSuccess -> {
+                            hideLoading()
+                            onGetCountryItems(event.items)
+                            viewModel.clearEvent()
+                        }
+
+                        is HouseholdViewModel.Event.GetCountryItemsFailure -> {
+                            hideLoading()
+                            onGetCountryItemsFailure(event.msg)
+                            viewModel.clearEvent()
+                        }
+
+                        is HouseholdViewModel.Event.GetPayamItemsSuccess -> {
+                            hideLoading()
+                            onGetPayamItems(event.items)
+                            viewModel.clearEvent()
+                        }
+
+                        is HouseholdViewModel.Event.GetPayamItemsFailure -> {
+                            hideLoading()
+                            onGetPayamItemsFailure(event.msg)
+                            viewModel.clearEvent()
+                        }
+
+                        is HouseholdViewModel.Event.GetBomaItemsSuccess -> {
+                            hideLoading()
+                            onGetBomaItems(event.items)
+                            viewModel.clearEvent()
+                        }
+
+                        is HouseholdViewModel.Event.GetBomaItemsFailure -> {
+                            hideLoading()
+                            onGetBomaItemsFailure(event.msg)
+                            viewModel.clearEvent()
+                        }
+                        else -> Unit
                     }
-
-                    is HouseholdViewModel.Event.GetStateItemsSuccess -> {
-                        hideLoading()
-                        onGetStateItems(event.items)
-                        viewModel.clearEvent()
-                    }
-
-                    is HouseholdViewModel.Event.GetStateItemsFailure -> {
-                        hideLoading()
-                        onGetStateItemsFailure(event.msg)
-                        viewModel.clearEvent()
-                    }
-
-                    is HouseholdViewModel.Event.GetCountryItemsSuccess -> {
-                        hideLoading()
-                        onGetCountryItems(event.items)
-                        viewModel.clearEvent()
-                    }
-
-                    is HouseholdViewModel.Event.GetCountryItemsFailure -> {
-                        hideLoading()
-                        onGetCountryItemsFailure(event.msg)
-                        viewModel.clearEvent()
-                    }
-
-                    is HouseholdViewModel.Event.GetPayamItemsSuccess -> {
-                        hideLoading()
-                        onGetPayamItems(event.items)
-                        viewModel.clearEvent()
-                    }
-
-                    is HouseholdViewModel.Event.GetPayamItemsFailure -> {
-                        hideLoading()
-                        onGetPayamItemsFailure(event.msg)
-                        viewModel.clearEvent()
-                    }
-
-                    is HouseholdViewModel.Event.GetBomaItemsSuccess -> {
-                        hideLoading()
-                        onGetBomaItems(event.items)
-                        viewModel.clearEvent()
-                    }
-
-                    is HouseholdViewModel.Event.GetBomaItemsFailure -> {
-                        hideLoading()
-                        onGetBomaItemsFailure(event.msg)
-                        viewModel.clearEvent()
-                    }
-
-
-                    else -> Unit
                 }
             }
+
+        }catch (e : Exception){
+            Log.e(TAG, e.toString())
         }
 
         binding.viewButtonBackNext.btBack.setOnClickListener {
@@ -502,37 +504,41 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
     override fun onSelectSpinnerItem(parent: AdapterView<*>?, view: View?, position: Int) {
         super.onSelectSpinnerItem(parent, view, position)
         Log.d(TAG, "onSelectSpinnerItem() called with: view = , position = $position")
-        if (position == 0) return
+        try{
+            if (position == 0) return
 
         when (parent?.id) {
             R.id.spStateName -> {
                 val txt = spStateName.selectedItem.toString()
                 //val item = OptionItem(0, txt)
-                val item = stateOptions?.get(position)
+                val item = stateOptions?.get(position-1)
                 onSelectStateItem(item)
             }
 
             R.id.spCountryName -> {
                 val txt = spCountryName.selectedItem.toString()
                 //val item = OptionItem(0, txt)
-                val item = countyOptions?.get(position)
+                val item = countyOptions?.get(position-1)
                 onSelectCountryItem(item)
             }
 
             R.id.spPayamName -> {
                 val txt = spPayamName.selectedItem.toString()
                 //val item = OptionItem(0, txt)
-                val item = payamOptions?.get(position)
+                val item = payamOptions?.get(position-1)
                 onSelectPayamItem(item)
             }
 
             R.id.spBomaName -> {
                 val txt = spBomaName.selectedItem.toString()
                 //val item = OptionItem(0, txt)
-                val item = bomaOptions?.get(position)
+                val item = bomaOptions?.get(position-1)
                 onSelectBomaItem(item)
             }
 
+        }
+    }catch(e : Exception){
+            Log.d(TAG, "Error$e")
 
         }
     }
@@ -602,6 +608,4 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
         etLat.setText(location.latitude.toString())
         etLon.setText(location.longitude.toString())
     }
-
-
-}
+    }

@@ -12,8 +12,8 @@ import com.google.android.material.appbar.AppBarLayout
 import com.xplo.code.BuildConfig
 import com.xplo.code.R
 import com.xplo.code.base.BaseActivity
+import com.xplo.code.data_module.model.user.ProfileInfo
 import com.xplo.code.databinding.ActivityProfileBinding
-import com.xplo.data.model.user.ProfileInfo
 
 
 class ProfileActivity : BaseActivity(), ProfileContract.View {

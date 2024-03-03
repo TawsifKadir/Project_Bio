@@ -3,10 +3,10 @@ package com.xplo.code.data.db.models
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.xplo.data.model.content.Alternate
-import com.xplo.data.model.content.Biometric
-import com.xplo.data.model.content.HouseholdMember
-import com.xplo.data.model.content.Nominee
+import com.xplo.code.data_module.model.content.Alternate
+import com.xplo.code.data_module.model.content.Biometric
+import com.xplo.code.data_module.model.content.HouseholdMember
+import com.xplo.code.data_module.model.content.Nominee
 import java.util.Date
 
 /**

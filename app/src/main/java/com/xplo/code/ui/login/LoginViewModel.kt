@@ -4,12 +4,12 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xplo.code.core.TestConfig
+import com.xplo.code.data_module.core.DispatcherProvider
+import com.xplo.code.data_module.core.Resource
+import com.xplo.code.data_module.fake.Fake
+import com.xplo.code.data_module.model.user.LoginRqb
+import com.xplo.code.data_module.repo.UserRepo
 import com.xplo.code.ui.login.model.LoginCredentials
-import com.xplo.data.core.DispatcherProvider
-import com.xplo.data.core.Resource
-import com.xplo.data.fake.Fake
-import com.xplo.data.model.user.LoginRqb
-import com.xplo.data.repo.UserRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -80,7 +80,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <LinearLayout
             style="@style/AppLinearLayoutInputBox"
@@ -94,6 +94,24 @@
             <Spinner
                 android:id="@+id/spRelation"
                 style="@style/AppSpinnerForm" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/AppLinearLayoutInputBox"
+            android:id="@+id/otherReason"
+            android:layout_weight="1">
+
+            <TextView
+                style="@style/AppTextView.Input.Header"
+                android:text="Relation" />
+
+
+            <EditText
+                style="@style/AppEditText.Form.Number"
+                android:maxLength="2"
+                android:id="@+id/etOtherReason"
+                android:hint="Please Specify"/>
 
         </LinearLayout>
 
@@ -144,7 +162,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <LinearLayout
             style="@style/AppLinearLayoutInputBox"

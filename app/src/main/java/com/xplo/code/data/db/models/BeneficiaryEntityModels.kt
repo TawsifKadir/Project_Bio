@@ -6,6 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.GsonBuilder
 import com.kit.integrationmanager.model.CurrencyEnum
+import com.kit.integrationmanager.model.DocumentTypeEnum
 import com.kit.integrationmanager.model.GenderEnum
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.LegalStatusEnum
@@ -14,12 +15,12 @@ import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.kit.integrationmanager.model.SelectionCriteriaEnum
 import com.kit.integrationmanager.model.SelectionReasonEnum
-import com.xplo.data.model.content.Address
-import com.xplo.data.model.content.Alternate
-import com.xplo.data.model.content.Biometric
-import com.xplo.data.model.content.HouseholdMember
-import com.xplo.data.model.content.Location
-import com.xplo.data.model.content.Nominee
+import com.xplo.code.data_module.model.content.Address
+import com.xplo.code.data_module.model.content.Alternate
+import com.xplo.code.data_module.model.content.Biometric
+import com.xplo.code.data_module.model.content.HouseholdMember
+import com.xplo.code.data_module.model.content.Location
+import com.xplo.code.data_module.model.content.Nominee
 import java.io.Serializable
 
 @Entity(tableName = "beneficiary_items")
@@ -30,6 +31,7 @@ data class BeneficiaryEntity(
     var id: String,             //uuid
     @ColumnInfo(name = "hid")
     var hid: String? = null,
+
     @ColumnInfo(name = "isSynced")
     var isSynced: Boolean = false,
 
@@ -51,6 +53,8 @@ data class BeneficiaryEntity(
     var respondentMiddleName: String? = null,
     @ColumnInfo(name = "respondentLastName")
     var respondentLastName: String? = null,
+    @ColumnInfo(name = "respondentNickName")
+    var respondentNickName: String? = null,
 
     @ColumnInfo(name = "respondentAge")
     var respondentAge: Int = 0,
@@ -59,6 +63,10 @@ data class BeneficiaryEntity(
 
     @ColumnInfo(name = "respondentLegalStatus")
     var respondentLegalStatus: LegalStatusEnum? = null,
+
+    @ColumnInfo(name = "documentTypeEnum")
+    var documentTypeEnum: DocumentTypeEnum? = null,
+
     @ColumnInfo(name = "respondentMaritalStatus")
     var respondentMaritalStatus: MaritalStatusEnum? = null,
 
@@ -89,6 +97,8 @@ data class BeneficiaryEntity(
     var spouseLastName: String? = null,
     @ColumnInfo(name = "spouseMiddleName")
     var spouseMiddleName: String? = null,
+    @ColumnInfo(name = "spouseNickName")
+    var spouseNickName: String? = null,
 
 
     @ColumnInfo(name = "householdSize")

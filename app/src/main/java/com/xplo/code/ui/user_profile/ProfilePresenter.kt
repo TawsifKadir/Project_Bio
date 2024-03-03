@@ -2,9 +2,9 @@ package com.xplo.code.ui.user_profile
 
 import android.util.Log
 import com.xplo.code.base.BasePresenter
-import com.xplo.data.model.user.ProfileInfo
-import com.xplo.data.repo.UserRepo
-import com.xplo.data.utils.FileUtils
+import com.xplo.code.data_module.model.user.ProfileInfo
+import com.xplo.code.data_module.repo.UserRepo
+import com.xplo.code.data_module.utils.FileUtils
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

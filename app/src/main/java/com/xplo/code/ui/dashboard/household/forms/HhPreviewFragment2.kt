@@ -21,7 +21,8 @@ import com.xplo.code.ui.dashboard.model.HhForm1
 import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.getFullName
-import com.xplo.data.BuildConfig
+
+import com.xplo.code.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
