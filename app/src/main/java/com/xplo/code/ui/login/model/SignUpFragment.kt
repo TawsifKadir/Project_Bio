@@ -145,7 +145,7 @@ class SignUpFragment : BaseFragment(), LoginContract.SignUpView{
             }
         }
 
-        btnSignUp.setOnClickListener {
+        btnBack.setOnClickListener {
             navigateToLogin()
         }
 
@@ -156,7 +156,7 @@ class SignUpFragment : BaseFragment(), LoginContract.SignUpView{
 
     override fun onResume() {
         super.onResume()
-
+        setToolbarTitle("Device Registration")
     }
 
     override fun onDestroy() {

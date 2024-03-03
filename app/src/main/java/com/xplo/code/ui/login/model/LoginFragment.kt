@@ -2,6 +2,7 @@ package com.xplo.code.ui.dashboard.alternate.forms
 
 
 import android.content.Context
+import android.database.Observable
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -14,8 +15,15 @@ import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import java.util.Observer
 import androidx.lifecycle.lifecycleScope
 import com.kit.integrationmanager.model.Login
+import com.kit.integrationmanager.model.ServerInfo
+import com.kit.integrationmanager.payload.login.request.LoginRequest
+import com.kit.integrationmanager.service.DeviceManager
+import com.kit.integrationmanager.service.LoginService
+import com.kit.integrationmanager.service.LoginServiceImpl
+import com.kit.integrationmanager.store.AuthStore
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -56,7 +64,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class LoginFragment : BaseFragment(), LoginContract.LoginView{
+class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
 
     companion object {
         const val TAG = "LoginFragment"
@@ -116,12 +124,47 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView{
             val userId = binding.etUserId.text.toString()
             val password = binding.etPassword.text.toString()
             val loginCredentials = LoginCredentials(userId, password)
+            try{
+                if(DeviceManager.getInstance(requireContext()).isOnline) {
+
+
+                    val serverInfo = ServerInfo();
+                    serverInfo.port=8090;
+                    serverInfo.protocol="http"
+                    serverInfo.host_name=""
+
+
+                    val loginService = LoginServiceImpl(requireContext(),this,serverInfo)
+                    val headers = HashMap<String,String>()
+
+                    val loginRequest = LoginRequest.builder().userName(userId).password(password).deviceId(DeviceManager.getInstance(requireContext()).deviceUniqueID).build()
+                    loginService.doOnlineLogin(loginRequest,headers)
+
+                }else
+                {
+                    val login = AuthStore.getInstance(requireContext()).loginInfoFromCache
+                    if(login==null){
+                        Log.e(TAG,"Intenet connectivity is required for device setup.")
+                    }
+                    else if(login.userName==userId && login.password==password){
+                        Log.e(TAG,"Offline Login Successful")
+                    }else{
+                        Log.e(TAG,"Offline login failed")
+                    }
+                }
+            }catch (e : Exception){
+                Log.d(TAG,"Login Failed")
+            }
             //presenter.passwordLogin(loginCredentials)
             viewModel.passwordLogin(loginCredentials)
         }
 
         binding.btSignup.setOnClickListener {
             navigateToSignup()
+        }
+
+        binding.btResetPass.setOnClickListener {
+            navigateToResetPassword()
         }
         //btSignup.setOnClickListener(this)
 
@@ -194,6 +237,10 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView{
     override fun onLoginFailure(msg: String?) {
         Log.d(TAG, "onLoginFailure() called with: msg = [$msg]")
         showErrorMessage(msg)
+    }
+
+    override fun update(o: java.util.Observable?, arg: Any?) {
+        Log.d(TAG,"Update Called")
     }
 
 }

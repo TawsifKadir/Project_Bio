@@ -151,7 +151,15 @@
                 android:text="@string/signup_underline"
                 android:textAlignment="textEnd"
                 android:textAllCaps="false" />
-
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btResetPass"
+                style="@style/AppButton.TextButton.Secondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:text="Forgot Password"
+                android:textAlignment="textEnd"
+                android:textAllCaps="false" />
 
         </LinearLayout>
 

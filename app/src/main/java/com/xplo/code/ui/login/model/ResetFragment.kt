@@ -148,7 +148,7 @@ class ResetFragment : BaseFragment(), LoginContract.ForgetPasswordView{
             }
         }
         btnresetPass.setOnClickListener {
-            navigateToLogin()
+            backToLogin()
         }
     }
     override fun onPause() {
@@ -157,7 +157,7 @@ class ResetFragment : BaseFragment(), LoginContract.ForgetPasswordView{
 
     override fun onResume() {
         super.onResume()
-
+        setToolbarTitle("Reset Password")
     }
 
     override fun onDestroy() {
