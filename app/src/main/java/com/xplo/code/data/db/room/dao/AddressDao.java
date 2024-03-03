@@ -26,7 +26,13 @@ public interface AddressDao {
     @Query("SELECT * FROM address WHERE id = :id")
     Address getAddressById(Long id);
 
+    @Query("SELECT * FROM address WHERE application_id = :appId")
+    Address getAddressByAppId(String appId);
+
     @Query("SELECT * FROM address")
     List<Address> getAllAddresses();
+
+    @Query("DELETE  FROM address WHERE application_id = :appId")
+    void deleteAddreesByAppId(String appId);
 }
 

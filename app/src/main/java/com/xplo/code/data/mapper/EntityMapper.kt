@@ -6,6 +6,7 @@ import com.kit.integrationmanager.model.Beneficiary
 import com.kit.integrationmanager.model.BiometricType
 import com.kit.integrationmanager.model.BiometricUserType
 import com.kit.integrationmanager.model.CurrencyEnum
+import com.kit.integrationmanager.model.DocumentTypeEnum
 import com.kit.integrationmanager.model.GenderEnum
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.LegalStatusEnum
@@ -19,6 +20,7 @@ import com.kit.integrationmanager.model.SelectionReasonEnum
 import com.xplo.code.core.ext.isYes
 import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.toJson
+import com.xplo.code.data.db.room.model.HouseholdInfo
 import com.xplo.code.data_module.model.content.Address
 import com.xplo.code.data_module.model.content.Alternate
 import com.xplo.code.data_module.model.content.Biometric
@@ -67,7 +69,7 @@ object EntityMapper {
         form.respondentGender = GenderEnum.find(item.form2?.gender)
         form.respondentMaritalStatus = MaritalStatusEnum.find(item.form2?.maritalStatus)
         form.respondentLegalStatus = LegalStatusEnum.find(item.form2?.legalStatus)
-        // form.documentType = DocumentTypeEnum.
+        form.documentType = DocumentTypeEnum.find(item.form2?.idNumberType)
         //  form.documentTypeOther = item.form2?.firstName
         form.documentTypeOther = "Other"
         form.respondentId = item.form2?.idNumber
@@ -107,7 +109,7 @@ object EntityMapper {
         //form.biometrics = toBiometricEntities(item.form5?.fingers)
         form.biometrics = toBiometricEntities(item)
         form.alternatePayee1 = getFirstAlternate(item.alternates)
-        if(item.alternates.size==2){
+        if (item.alternates.size == 2) {
             form.alternatePayee2 = getSecondAlternate(item.alternates)
         }
 
@@ -118,15 +120,24 @@ object EntityMapper {
         return form
     }
 
-    private fun getReadWrite(value: String?): Boolean {
+    fun getReadWrite(value: String?): Boolean {
         return value?.uppercase() == "YES"
     }
 
-    private fun getFirstAlternate(items: ArrayList<AlternateForm>): AlternatePayee? {
+    fun getFirstAlternate(items: ArrayList<AlternateForm>): AlternatePayee? {
         if (items.isNullOrEmpty()) return null
         return toAlternate(items[0])
     }
-    private fun getSecondAlternate(items: ArrayList<AlternateForm>): AlternatePayee? {
+
+    fun getFirstAlternateLdb(
+        items: MutableList<com.xplo.code.data.db.room.model.Alternate>,
+        type: String
+    ): AlternatePayee? {
+        if (items.isNullOrEmpty()) return null
+        return toAlternateLdb(items[0])
+    }
+
+    fun getSecondAlternate(items: ArrayList<AlternateForm>): AlternatePayee? {
         if (items.isNullOrEmpty()) return null
         return toAlternate(items[1])
     }
@@ -134,14 +145,12 @@ object EntityMapper {
     private fun toAlternate(item: AlternateForm): AlternatePayee? {
         if (item == null) return null
         val alternate = AlternatePayee()
-        alternate.documentType = FakeMapperValue.documentType
-        alternate.nationalId = FakeMapperValue.nationalId
-        //alternate.documentType = item.documentType
-        //alternate.nationalId = item.nationalId
+        alternate.nationalId = item.form1?.idNumber
+        alternate.documentType = DocumentTypeEnum.find(item.form1?.idNumberType)
         alternate.payeeFirstName = item.form1?.alternateFirstName
         alternate.payeeMiddleName = item.form1?.alternateMiddleName
         alternate.payeeLastName = item.form1?.alternateLastName
-        alternate.payeeNickName = FakeMapperValue.name
+        alternate.payeeNickName = item.form1?.alternateNickName
         alternate.payeeAge = item.form1?.age
         alternate.payeeGender = GenderEnum.find(item.form1?.gender)
         alternate.payeePhoneNo = item.form1?.phoneNumber
@@ -151,12 +160,36 @@ object EntityMapper {
         return alternate
     }
 
-    private fun toBiometricEntity(item: Finger?,photoData: PhotoData?): com.kit.integrationmanager.model.Biometric? {
+    private fun toAlternateLdb(item: com.xplo.code.data.db.room.model.Alternate): AlternatePayee? {
+        if (item == null) return null
+        val alternate = AlternatePayee()
+        //alternate.documentType = FakeMapperValue.documentType
+        // alternate.nationalId = FakeMapperValue.nationalId
+        alternate.documentType = DocumentTypeEnum.find(item.documentType.toString())
+        alternate.nationalId = item.nationalId
+        alternate.payeeFirstName = item.payeeFirstName
+        alternate.payeeMiddleName = item.payeeMiddleName
+        alternate.payeeLastName = item.payeeLastName
+        alternate.payeeNickName = item.payeeNickName
+        alternate.payeeAge = item.payeeAge
+        alternate.payeeGender = GenderEnum.find(item.payeeGender.toString())
+        alternate.payeePhoneNo = item.payeePhoneNo
+
+        alternate.biometrics = toAlternateBiometricEntitiesLdb(item)
+
+        return alternate
+    }
+
+    private fun toBiometricEntity(
+        item: Finger?,
+        photoData: PhotoData?
+    ): com.kit.integrationmanager.model.Biometric? {
         if (item != null) {
             val biometric = com.kit.integrationmanager.model.Biometric()
             biometric.applicationId = ""
             biometric.biometricType = returnFingerPrintEnum(item.fingerType)
             biometric.biometricUserType = item.userType?.let { BiometricUserType.valueOf(it) }
+            //  biometric.biometricUserType = BiometricUserType.BENEFICIARY// hard code value
 
             if (item.fingerPrint == null) {
                 biometric.biometricData = null
@@ -169,7 +202,7 @@ object EntityMapper {
 
             biometric.biometricUrl = ""
             return biometric
-        } else{
+        } else {
             val biometric = com.kit.integrationmanager.model.Biometric()
             biometric.applicationId = ""
             biometric.biometricType = BiometricType.PHOTO
@@ -185,38 +218,89 @@ object EntityMapper {
     }
 
 
-
-
-
     private fun toBiometricEntities(items: HouseholdForm?): List<com.kit.integrationmanager.model.Biometric>? {
         //if (items?.form5?.fingers.isNullOrEmpty()) return null
         val list = arrayListOf<com.kit.integrationmanager.model.Biometric>()
 
-        val photoBiometric = toBiometricEntity(null,items?.form4?.photoData)
+        val photoBiometric = toBiometricEntity(null, items?.form4?.photoData)
         if (photoBiometric != null) list.add(photoBiometric)
 
         for (item in items?.form5?.fingers!!) {
-            val element = toBiometricEntity(item,null)
+            val element = toBiometricEntity(item, null)
             if (element != null) {
                 list.add(element)
             }
         }
         return list
     }
+
     private fun toAlternateBiometricEntities(items: AlternateForm?): List<com.kit.integrationmanager.model.Biometric>? {
         //if (items?.form5?.fingers.isNullOrEmpty()) return null
         val list = arrayListOf<com.kit.integrationmanager.model.Biometric>()
 
-        val photoBiometric = toBiometricEntity(null,items?.form2?.photoData)
+        val photoBiometric = toBiometricEntity(null, items?.form2?.photoData)
         if (photoBiometric != null) list.add(photoBiometric)
 
         for (item in items?.form3?.fingers!!) {
-            val element = toBiometricEntity(item,null)
+            val element = toBiometricEntity(item, null)
             if (element != null) {
                 list.add(element)
             }
         }
         return list
+    }
+
+    private fun toAlternateBiometricEntitiesLdb(items: com.xplo.code.data.db.room.model.Alternate): List<com.kit.integrationmanager.model.Biometric>? {
+        //if (items?.form5?.fingers.isNullOrEmpty()) return null
+        val list = arrayListOf<com.kit.integrationmanager.model.Biometric>()
+
+//        val photoBiometric = toBiometricEntity(null, items?.form2?.photoData)
+//        if (photoBiometric != null) list.add(photoBiometric)
+//
+//        for (item in items?.form3?.fingers!!) {
+//            val element = toBiometricEntity(item, null)
+//            if (element != null) {
+//                list.add(element)
+//            }
+//        }
+        return list
+    }
+
+
+    fun toNomineeItemsLdb(items: MutableList<com.xplo.code.data.db.room.model.Nominee>): List<com.kit.integrationmanager.model.Nominee>? {
+        if (items.isNullOrEmpty()) return null
+        val list = arrayListOf<com.kit.integrationmanager.model.Nominee>()
+        for (item in items) {
+            val element = toNomineeLdb(item)
+            if (element != null) {
+                list.add(element)
+            }
+        }
+        return list
+    }
+
+    private fun toNomineeLdb(item: com.xplo.code.data.db.room.model.Nominee): com.kit.integrationmanager.model.Nominee? {
+        if (item == null) return null
+        val nominee = com.kit.integrationmanager.model.Nominee()
+
+        nominee.applicationId = item.applicationId
+        nominee.nomineeFirstName = item.nomineeFirstName
+        nominee.nomineeLastName = item.nomineeLastName
+        nominee.nomineeNickName = item.nomineeNickName
+        nominee.nomineeMiddleName = item.nomineeMiddleName
+
+        nominee.nomineeAge = item.nomineeAge
+        nominee.nomineeGender = GenderEnum.find(item.nomineeGender.toString())
+
+        //  nominee.nomineeOccupation = OccupationEnum.valueOf(item.nomineeOccupation.toString())
+        nominee.otherOccupation = item.otherOccupation
+        nominee.relationshipWithHouseholdHead =
+            RelationshipEnum.find(item.relationshipWithHouseholdHead.toString())
+        nominee.isReadWrite = item.isReadWrite
+
+        Log.d(TAG, "toNomineeLdb: ${item.nomineeFirstName}")
+
+        return nominee
     }
 
 
@@ -256,7 +340,7 @@ object EntityMapper {
         return nominee
     }
 
-    private fun toAddress(item: Address?): com.kit.integrationmanager.model.Address? {
+    fun toAddress(item: Address?): com.kit.integrationmanager.model.Address? {
         if (item == null) return null
         val address = com.kit.integrationmanager.model.Address()
         address.stateId = item.stateId
@@ -266,7 +350,7 @@ object EntityMapper {
         return address
     }
 
-    private fun toLocation(item: Location?): com.kit.integrationmanager.model.Location? {
+    fun toLocation(item: Location?): com.kit.integrationmanager.model.Location? {
         if (item == null) return null
         val location = com.kit.integrationmanager.model.Location()
         location.lat = item.lat
@@ -274,7 +358,7 @@ object EntityMapper {
         return location
     }
 
-    private fun toHouseholdMember2(
+    fun toHouseholdMember2(
         id: String,
         item: HhForm3?
     ): com.kit.integrationmanager.model.HouseholdMember? {
@@ -289,6 +373,29 @@ object EntityMapper {
         household.maleChronicalIll = item.mem0IllMale
         household.maleDisable = item.mem0DisableMale
         household.maleNormal = item.mem0NormalMale
+        return household
+    }
+
+    fun toHouseholdMember2Ldb(
+        id: String,
+        item: MutableList<HouseholdInfo>,
+        type: String
+    ): com.kit.integrationmanager.model.HouseholdMember? {
+        if (item == null) return null
+        val household = com.kit.integrationmanager.model.HouseholdMember()
+        for (value in item) {
+            if (value.type == type) {
+                household.applicationId = id
+                household.totalMale = value.maleTotal
+                household.totalFemale = value.femaleTotal
+                household.femaleChronicalIll = value.femaleChronicalIll
+                household.femaleDisable = value.femaleDisable
+                household.femaleNormal = value.femaleNormal
+                household.maleChronicalIll = value.maleChronicalIll
+                household.maleDisable = value.maleDisable
+                household.maleNormal = value.maleNormal
+            }
+        }
         return household
     }
 

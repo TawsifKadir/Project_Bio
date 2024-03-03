@@ -13,7 +13,9 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.kit.integrationmanager.model.AlternatePayee
 import com.kit.integrationmanager.model.Beneficiary
 import com.kit.integrationmanager.model.BiometricType
+import com.kit.integrationmanager.model.BiometricUserType
 import com.kit.integrationmanager.model.HouseholdMember
+import com.kit.integrationmanager.model.MaritalStatusEnum
 import com.kit.integrationmanager.model.SelectionReasonEnum
 import com.xplo.code.BuildConfig
 import com.xplo.code.R
@@ -441,14 +443,15 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                     prepareAddressEntity(uuid.toString(), beneficiaryBO.address)
                 val locationEO: Location =
                     prepareLocationEntity(uuid.toString(), beneficiaryBO.location)
-                val empList = listOf(
-                    beneficiaryBO.selectionReason
-                )
+                val empList = FakeMapperValue.selectionReasons
+//                val empList = listOf(
+//                    beneficiaryBO.selectionReason
+//                )
 //                val selectionReasonList: List<SelectionReason> =
 //                    prepareSelectionReasonEntity(uuid.toString(), empList)
 
                 val selectionReasonList: List<SelectionReason> =
-                    prepareSelectionReasonEntity(uuid.toString(), SelectionReasonEnum.DIS_REASON_1)
+                    prepareSelectionReasonEntity(uuid.toString(), empList)
 
                 val alternateList: MutableList<Alternate> =
                     ArrayList<Alternate>()
@@ -541,7 +544,17 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             for (nowBiometric in biometricList) {
                 if (nowBiometric != null) {
                     nowBiometricEO.applicationId = appId
-                    nowBiometricEO.biometricUserType = FakeMapperValue.respondentId.toLong()
+                  //  nowBiometricEO.biometricUserType = nowBiometric.biometricUserType.id.toLong()
+                    nowBiometricEO.biometricUserType = nowBiometric.biometricUserType?.id?.toLong()
+                    if(nowBiometric.noFingerprintReasonText != null){
+                        nowBiometricEO.noFingerprintReasonText = nowBiometric.noFingerprintReasonText
+                    }
+                    if(nowBiometric.noFingerPrint != null){
+                        nowBiometricEO.noFingerPrint = nowBiometric.noFingerPrint
+                    }
+                    if(nowBiometric.noFingerprintReason != null){
+                        nowBiometricEO.noFingerprintReason = nowBiometric.noFingerprintReason.id.toLong()
+                    }
                    if(nowBiometric.biometricType == BiometricType.PHOTO && nowBiometric.biometricData != null){
                         nowBiometricEO.photo = nowBiometric.biometricData
                     }else if (nowBiometric.biometricType == BiometricType.LT && nowBiometric.biometricData != null){
@@ -564,11 +577,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                         nowBiometricEO.wsqRr = nowBiometric.biometricData
                     }else if (nowBiometric.biometricType == BiometricType.RL && nowBiometric.biometricData != null){
                         nowBiometricEO.wsqRs = nowBiometric.biometricData
-                    }else{
-                       nowBiometricEO.noFingerprintReasonText = nowBiometric.noFingerprintReasonText
-                       nowBiometricEO.noFingerPrint = true
-                       nowBiometricEO.noFingerprintReason = FakeMapperValue.respondentId.toLong()
-                   }
+                    }
                 }
             }
         }
@@ -667,23 +676,23 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
 
     fun prepareSelectionReasonEntity(
         appId: String,
-        reasons: SelectionReasonEnum
+        reasons:List<SelectionReasonEnum>
     ): List<SelectionReason> {
         //  Log.d(TAG, "Reason List: " + appId + reasons!![0].value)
         val selectionReasons: MutableList<SelectionReason> = java.util.ArrayList()
         if (reasons != null) {
-//            for (nowReason in reasons) {
-//                val nowSelectionReason = SelectionReason()
-//                nowSelectionReason.applicationId = appId
-//                nowSelectionReason.selectionReasonName = nowReason.value
-//                selectionReasons.add(nowSelectionReason)
-//            }
-            if (selectionReasons.size <= 0) {
+            for (nowReason in reasons) {
                 val nowSelectionReason = SelectionReason()
                 nowSelectionReason.applicationId = appId
-                nowSelectionReason.selectionReasonName = SelectionReasonEnum.LIPW_REASON_4.value
+                nowSelectionReason.selectionReasonName = nowReason.value
                 selectionReasons.add(nowSelectionReason)
             }
+//            if (selectionReasons.size <= 0) {
+//                val nowSelectionReason = SelectionReason()
+//                nowSelectionReason.applicationId = appId
+//                nowSelectionReason.selectionReasonName = SelectionReasonEnum.LIPW_REASON_4.value
+//                selectionReasons.add(nowSelectionReason)
+//            }
         }
         return selectionReasons
     }

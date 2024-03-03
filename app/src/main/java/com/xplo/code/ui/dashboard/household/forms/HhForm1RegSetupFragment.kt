@@ -504,8 +504,7 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
     override fun onSelectSpinnerItem(parent: AdapterView<*>?, view: View?, position: Int) {
         super.onSelectSpinnerItem(parent, view, position)
         Log.d(TAG, "onSelectSpinnerItem() called with: view = , position = $position")
-        try{
-            if (position == 0) return
+        if (position == 0) return
 
         when (parent?.id) {
             R.id.spStateName -> {

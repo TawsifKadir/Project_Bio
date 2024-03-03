@@ -35,6 +35,8 @@ public class HouseholdInfo implements Serializable {
 
     @ColumnInfo(name = "male_chronically_ill")
     public Integer maleChronicalIll;
+    @ColumnInfo(name = "male_normal")
+    public Integer maleNormal;
 
     @ColumnInfo(name = "female_normal")
     public Integer femaleNormal;
@@ -44,4 +46,8 @@ public class HouseholdInfo implements Serializable {
 
     @ColumnInfo(name = "female_chronically_ill")
     public Integer femaleChronicalIll;
+
+    @ColumnInfo(name = "type")
+    public String type;
+
 }
