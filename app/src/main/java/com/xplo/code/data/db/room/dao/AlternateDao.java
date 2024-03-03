@@ -32,4 +32,7 @@ public interface AlternateDao {
     @Query("SELECT * FROM alternate")
     List<Alternate> getAllAlternates();
 
+    @Query("Delete from alternate WHERE application_id = :appId")
+    void deleteAlternate(String appId);
+
 }

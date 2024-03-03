@@ -26,6 +26,12 @@ public interface BiometricDao {
     @Query("SELECT * FROM biometric WHERE id = :id")
     Biometric getBiometricById(Long id);
 
+    @Query("SELECT * FROM biometric WHERE id = :appId")
+    List<Biometric> getBiometricsListByAppId(String appId);
+
     @Query("SELECT * FROM biometric")
     List<Biometric> getAllBiometrics();
+
+    @Query("DELETE FROM biometric WHERE id = :appId")
+    void deleteBiomatricByAppId(String appId);
 }

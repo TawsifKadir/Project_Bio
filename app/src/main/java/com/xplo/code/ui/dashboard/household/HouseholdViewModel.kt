@@ -3,7 +3,6 @@ package com.xplo.code.ui.dashboard.household
 import android.content.Context
 import android.content.SyncResult
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kit.integrationmanager.model.Beneficiary
@@ -13,8 +12,10 @@ import com.kit.integrationmanager.model.GenderEnum
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.LegalStatusEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
+import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.kit.integrationmanager.model.SelectionCriteriaEnum
+import com.kit.integrationmanager.model.SelectionReasonEnum
 import com.kit.integrationmanager.payload.RegistrationResult
 import com.kit.integrationmanager.payload.RegistrationStatus
 import com.xplo.code.data.db.models.BeneficiaryEntity
@@ -136,6 +137,8 @@ class HouseholdViewModel @Inject constructor(
         class GetDataLocalDbByAppId(val beneficiary: Beneficiary) :
             Event()
 
+        class DeleteDataLocalDbByAppId(val beneficiary: Boolean) : Event()
+
     }
 
     private val _event = MutableStateFlow<Event>(Event.Empty)
@@ -226,8 +229,39 @@ class HouseholdViewModel @Inject constructor(
 
     }
 
-    fun showBeneficiaryByAppId(context: Context, appId: String) {
+    fun deleteBeneficiary(context: Context, appId: String) {
         val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
+        viewModelScope.launch(dispatchers.io) {
+            val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
+            val beneficiary = beneficiaryDao.getBeneficiaryByAppId(appId)
+            val deleteBene = beneficiaryDao.deleteBeneficiary(beneficiary)
+
+            val alternateDao: AlternateDao = mDatabase.alternateDao()
+            val deleAlternate = alternateDao.deleteAlternate(appId)
+
+            val addressDao: AddressDao = mDatabase.addressDao()
+            val deleAddress = alternateDao.deleteAlternate(appId)
+
+            val nomineeDao: NomineeDao = mDatabase.nomineeDao()
+            val deleNominee = nomineeDao.deleteNomineeByAppid(appId)
+
+            val locationDao: LocationDao = mDatabase.locationDao()
+            val deleLocatio = locationDao.deleteLocationByAppId(appId)
+
+            val householdInfoDao: HouseholdInfoDao = mDatabase.householdInfoDao()
+            val deleHouslodInfo = householdInfoDao.deleteHouseholdByAppid(appId)
+
+            val biometricDao: BiometricDao = mDatabase.biometricDao()
+            val deleBiomatric = biometricDao.deleteBiomatricByAppId(appId)
+
+            val selectionReasonDao: SelectionReasonDao = mDatabase.selectionReasonDao()
+            val deleReason = selectionReasonDao.deleteReasonByAppId(appId)
+            _event.value = Event.DeleteDataLocalDbByAppId(true)
+        }
+    }
+
+    fun showBeneficiaryByAppId(context: Context, appId: String) {
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context)
         val form: Beneficiary = Beneficiary()
         //_event.value = Event.Loading
         viewModelScope.launch(dispatchers.io) {
@@ -242,7 +276,13 @@ class HouseholdViewModel @Inject constructor(
             val beneficiary = beneficiaryDao.getBeneficiaryByAppId(appId)
             val address = addressDao.getAddressByAppId(appId)
             val location = locationDao.getLocationByAppId(appId)
+            val nominee = nomineeDao.getNomineeListByAppId(appId)
+            val householdInfo = householdInfoDao.getHouseholdInfoListByAppId(appId)
             val alternateEO = alternateDao.getAlternateList(appId)
+            val selectionReason = selectionReasonDao.getSelectionReasonByAppId(appId)
+            val biometric = biometricDao.getBiometricsListByAppId(appId)
+
+            // Data Bind With Api Obj
             form.applicationId = beneficiary.applicationId
             form.respondentFirstName = beneficiary.respondentFirstName
             form.respondentMiddleName = beneficiary.respondentMiddleName
@@ -260,7 +300,7 @@ class HouseholdViewModel @Inject constructor(
                 MaritalStatusEnum.find(beneficiary.respondentMaritalStatus.toString())
             form.respondentLegalStatus =
                 LegalStatusEnum.find(beneficiary.respondentLegalStatus.toString())
-//            form.documentType = DocumentTypeEnum.valueOf(beneficiary.documentType.toString())
+            form.documentType = DocumentTypeEnum.find(beneficiary.documentType.toString())
             form.documentTypeOther = beneficiary.documentTypeOther
             form.respondentId = beneficiary.respondentId
             form.respondentPhoneNo = beneficiary.respondentPhoneNo
@@ -270,43 +310,48 @@ class HouseholdViewModel @Inject constructor(
             form.currency = CurrencyEnum.find(beneficiary.currency.toString())
             form.selectionCriteria =
                 SelectionCriteriaEnum.find(beneficiary.selectionCriteria.toString())
-            //          form.selectionReason = SelectionReasonEnum.find(beneficiary.reas)
+
+            // Assuming form.selectionReason is a MutableList<SelectionReasonEnum>
+            val selectionReasonList: MutableList<SelectionReasonEnum> = mutableListOf()
+            selectionReasonList.add(SelectionReasonEnum.find(selectionReason.selectionReasonName))
+            form.selectionReason = selectionReasonList
+
+            // form.selectionReason = SelectionReasonEnum.find(selectionReason.selectionReasonName)
             val addressOb = Address()
-            address.stateId = address.stateId
-            address.countyId = address.countyId
-            address.payam = address.payam
-            address.boma = address.boma
+            addressOb.stateId = address.stateId
+            addressOb.countyId = address.countyId
+            addressOb.payamId = address.payam
+            addressOb.bomaId = address.boma
             form.address = EntityMapper.toAddress(addressOb)
             val locationObj = Location()
-            location.lat = location.lat
-            location.lon = location.lon
+            locationObj.lat = location.lat
+            locationObj.lon = location.lon
             form.location = EntityMapper.toLocation(locationObj)
-//
-//           form.householdSize = item.form3?.householdSize
-//            form.householdMember2 = EntityMapper.toHouseholdMember2(applicationId, item.form3)
-//            form.householdMember5 = EntityMapper.toHouseholdMember5(applicationId, item.form3)
-//            form.householdMember17 = EntityMapper.toHouseholdMember17(applicationId, item.form3)
-//            form.householdMember35 = EntityMapper.toHouseholdMember35(applicationId, item.form3)
-//            form.householdMember64 = EntityMapper.toHouseholdMember64(applicationId, item.form3)
-//            form.householdMember65 = EntityMapper.toHouseholdMember65(applicationId, item.form3)
-//            form.isReadWrite = EntityMapper.getReadWrite(item.form3?.isReadWrite)
-//            // form.isReadWrite = true
-//            form.memberReadWrite = item.form3?.readWriteNumber
-//            form.isOtherMemberPerticipating = FakeMapperValue.isOtherMemberPerticipating
-//            form.notPerticipationReason = NonPerticipationReasonEnum.find(item.form6?.noNomineeReason)
-//            form.notPerticipationOtherReason = item.form6?.otherReason
-//
-//            form.nominees = EntityMapper.toNomineeItems(item.form6?.nominees)
-//
-//            //form.biometrics = toBiometricEntities(item.form5?.fingers)
-//            form.biometrics = EntityMapper.toBiometricEntities(item)
-//            form.alternatePayee1 = EntityMapper.getFirstAlternate(item.alternates)
-//            if(item.alternates.size==2){
-//                form.alternatePayee2 = EntityMapper.getSecondAlternate(item.alternates)
-//            }
+
+            form.householdSize = householdInfo.size
+            form.householdMember2 = EntityMapper.toHouseholdMember2Ldb(appId, householdInfo, "M2")
+            form.householdMember5 = EntityMapper.toHouseholdMember2Ldb(appId, householdInfo, "M5")
+            form.householdMember17 = EntityMapper.toHouseholdMember2Ldb(appId, householdInfo, "M17")
+            form.householdMember35 = EntityMapper.toHouseholdMember2Ldb(appId, householdInfo, "M35")
+            form.householdMember64 = EntityMapper.toHouseholdMember2Ldb(appId, householdInfo, "M64")
+            form.householdMember65 = EntityMapper.toHouseholdMember2Ldb(appId, householdInfo, "M65")
+            form.isReadWrite = beneficiary.isReadWrite
+            form.memberReadWrite = beneficiary.memberReadWrite
+            form.isOtherMemberPerticipating = beneficiary.isOtherMemberPerticipating
+            form.notPerticipationReason =
+                NonPerticipationReasonEnum.find(beneficiary.notPerticipationReason.toString())
+            form.notPerticipationOtherReason = beneficiary.notPerticipationOtherReason
+            form.nominees = EntityMapper.toNomineeItemsLdb(nominee)
+
+            //  form.biometrics = EntityMapper.toBiometricEntities(item)
+            form.alternatePayee1 = EntityMapper.getFirstAlternateLdb(alternateEO, "")
+            if (alternateEO.size == 2) {
+                form.alternatePayee2 = EntityMapper.getFirstAlternateLdb(alternateEO, "")
+            }
 
             form.createdBy = 0
-            Log.d(TAG, "showBeneficiary: ${form.address.boma}")
+            Log.d(TAG, "showBeneficiary: ${form.alternatePayee1.payeeAge}")
+            Log.d(TAG, "showBeneficiary: ${form.isReadWrite}")
             _event.value = Event.GetDataLocalDbByAppId(form)
         }
     }
@@ -316,35 +361,15 @@ class HouseholdViewModel @Inject constructor(
         //_event.value = Event.Loading
         viewModelScope.launch(dispatchers.io) {
             val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
-            val beneficiary =
-                beneficiaryDao.allBeneficiaries
+            val nomineeDao: NomineeDao = mDatabase.nomineeDao()
+            val alternateDao: AlternateDao = mDatabase.alternateDao()
+            val beneficiary = beneficiaryDao.allBeneficiaries
+            val nominee = beneficiaryDao.allBeneficiaries
+            val alternate = beneficiaryDao.allBeneficiaries
             Log.d(TAG, "showBeneficiary: $beneficiary")
             _event.value = Event.GetDataLocalDb(beneficiary)
         }
 
-
-//        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
-//      //  DatabaseExecutors.getInstance().diskIO().execute {
-//            try {
-//                val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
-//                val alternateDao: AlternateDao = mDatabase.alternateDao()
-//                val beneficiary =
-//                    beneficiaryDao.allBeneficiaries
-//                val alternateEO = alternateDao.getAlternateList(beneficiary[0].applicationId)
-////                val selectionReasonDao: SelectionReasonDao = mDatabase.selectionReasonDao()
-////                val selectionReasonEO: SelectionReason =
-////                    selectionReasonDao.getSelectionReasonByAppId(uuid.toString())
-//
-//                Log.d(TAG, "Alternate List: " + alternateEO.size)
-//                Log.d(TAG, "Loaded beneficiary")
-//                Log.d(TAG, "Beneficiary name ${beneficiary[0].applicationId}")
-//              //  adapterNew?.addAll(beneficiary)
-//              //  adapterNew?.notifyDataSetChanged()
-//            } catch (exc: Exception) {
-//                Log.e(TAG, "Error while loading beneficiary.")
-//                exc.printStackTrace()
-//            }
-//      //  }
     }
 
     override fun getHouseholdItems() {

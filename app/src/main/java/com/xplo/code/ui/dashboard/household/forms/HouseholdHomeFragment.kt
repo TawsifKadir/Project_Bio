@@ -181,7 +181,20 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
                     is HouseholdViewModel.Event.GetDataLocalDbByAppId -> {
                         hideLoading()
-                        Toast.makeText(requireContext(), event.beneficiary.applicationId, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            event.beneficiary.applicationId,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        viewModel.clearEvent()
+                    }
+
+                    is HouseholdViewModel.Event.DeleteDataLocalDbByAppId -> {
+                        hideLoading()
+                        if (event.beneficiary) {
+                         //   interactor?.navigateToAnotherHousehold(interactor?.getRootForm()?.form1)
+                            requireActivity().finish()
+                        }
                         viewModel.clearEvent()
                     }
 
@@ -553,11 +566,11 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     }
 
     override fun onClickHouseholdItem(item: Beneficiary, pos: Int) {
-        TODO("Not yet implemented")
+        viewModel.showBeneficiaryByAppId(requireContext(), item.applicationId)
     }
 
     override fun onClickHouseholdItemDelete(item: Beneficiary, pos: Int) {
-        TODO("Not yet implemented")
+        viewModel.deleteBeneficiary(requireContext(), item.applicationId)
     }
 
     override fun onClickHouseholdItemSend(item: Beneficiary, pos: Int) {

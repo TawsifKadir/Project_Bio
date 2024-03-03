@@ -27,8 +27,11 @@ public interface NomineeDao {
     Nominee getNomineeById(Long id);
 
     @Query("SELECT * FROM nominee where application_id=:appId")
-    List<Nominee> getNomineeList(String appId);
+    List<Nominee> getNomineeListByAppId(String appId);
 
     @Query("SELECT * FROM nominee")
     List<Nominee> getAllNominees();
+
+    @Query("DELETE FROM nominee where application_id=:appId")
+    void deleteNomineeByAppid(String appId);
 }

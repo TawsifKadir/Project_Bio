@@ -31,4 +31,7 @@ public interface LocationDao {
     @Query("SELECT * FROM location")
     List<Location> getAllLocations();
 
+    @Query("DELETE FROM location WHERE application_id = :appId")
+    void deleteLocationByAppId(String appId);
+
 }
