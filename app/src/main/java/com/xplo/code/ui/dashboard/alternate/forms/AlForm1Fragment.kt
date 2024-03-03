@@ -222,10 +222,34 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
                 id: Long
             ) {
                 val selectedItem = parent.getItemAtPosition(position).toString()
-                if (selectedItem.equals(UiData.idType[1], ignoreCase = true)) {
-                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
-                } else {
+                if (selectedItem.equals(UiData.idType[2], ignoreCase = true)) {
+//                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
                     etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
+                    etIdNumber.setText("")
+                } else {
+//                    etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
+                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
+                    etIdNumber.setText("")
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Another interface callback
+            }
+        }
+        spAlternateRelation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                if (selectedItem.equals("Other", ignoreCase = true)) {
+                    binding.otherAlternateRelation.visible()
+                } else {
+                    binding.otherAlternateRelation.gone()
+
                 }
             }
 
@@ -234,6 +258,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
             }
         }
     }
+
     fun doSomethingForYes() {
         binding.llIdType.isVisible = true
         binding.llIdTypeInput.isVisible = true
@@ -295,7 +320,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         val form = AlForm1()
 
         form.age = chkEditText(etAge, UiData.ER_ET_DF)?.toInt() ?: 0
-        form.idNumber = chkEditText(etIdNumber, UiData.ER_ET_DF)
+//        form.idNumber = chkEditText(etIdNumber, UiData.ER_ET_DF)
         //form.phoneNumber = chkPhoneNumber(etPhoneNo, UiData.ER_ET_DF)
         form.phoneNumber = etPhoneNo.text.toString()
         form.selectAlternateRlt = chkSpinner(spAlternateRelation, UiData.ER_SP_DF)
@@ -384,7 +409,6 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         setSpinnerItem(spGender, UiData.genderOptions, form.gender)
         setSpinnerItem(spAlternateRelation, UiData.relationshipOptions, form.selectAlternateRlt)
 
-
         setSpinnerItem(spIdType, UiData.idType, form.idNumberType)
         rgId.checkRbOpAB(binding.rbYes, binding.rbNo, form.idIsOrNot)
         etAge.setText(form.age.toString())
@@ -396,6 +420,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         etAlternateFirstName.setText(form.alternateFirstName)
         etAlternateMiddleName.setText(form.alternateMiddleName)
         etAlternateLastName.setText(form.alternateLastName)
+        etAlternateNickName.setText(form.alternateNickName)
     }
 
     override fun onGetHouseholdItem(item: HouseholdItem?) {

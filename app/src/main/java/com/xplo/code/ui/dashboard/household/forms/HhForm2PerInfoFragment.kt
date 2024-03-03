@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
+import com.kit.integrationmanager.model.RelationshipEnum
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -36,6 +37,8 @@ import com.xplo.code.ui.dashboard.model.checkExtraCases
 import com.xplo.code.ui.dashboard.model.isOk
 
 import com.xplo.code.BuildConfig
+import com.xplo.code.core.ext.gone
+import com.xplo.code.core.ext.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -96,6 +99,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
     private lateinit var rgSelectionCriteria: RadioGroup
     private lateinit var rgId: RadioGroup
     private lateinit var incomeField: LinearLayout
+    private lateinit var etOthersText: EditText
 
     private var adapterSupportType: CheckboxListAdapter? = null
 
@@ -161,6 +165,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         //etSpouseName = binding.etSpouseName
         rgSelectionCriteria = binding.rgSelectionCriteria
         rgId = binding.rgId
+        etOthersText = binding.etotherstext
 
         //publicRecycler = binding.recycler
         //directRecycler = binding.recycler
@@ -235,13 +240,36 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
                 id: Long
             ) {
                 val selectedItem = parent.getItemAtPosition(position).toString()
-                if (selectedItem.equals(UiData.idType[1], ignoreCase = true)) {
-                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
-                } else {
+                if (selectedItem.equals(UiData.idType[2], ignoreCase = true)) {
+//                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
                     etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
+                    etIdNumber.setText("")
+                } else {
+//                    etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
+                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
+                    etIdNumber.setText("")
                 }
             }
 
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Another interface callback
+            }
+        }
+        spRespondentRlt.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                if (selectedItem.equals(RelationshipEnum.OTHER.toString(), ignoreCase = true)) {
+                    binding.otherVisible.visible()
+                    etOthersText.setText("")
+                } else {
+                    binding.otherVisible.gone()
+                }
+            }
             override fun onNothingSelected(parent: AdapterView<*>) {
                 // Another interface callback
             }
@@ -260,6 +288,11 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
                     etMonthlyAverageIncome.isEnabled = false
                 }else{
                     etMonthlyAverageIncome.isEnabled = true
+                }
+                if (selectedItem.equals("Other", ignoreCase = true)) {
+                    binding.otherVisibleSource.visible()
+                } else {
+                    binding.otherVisibleSource.gone()
                 }
             }
 
@@ -451,7 +484,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         form.firstName = chkEditText3Char(etFirstName, UiData.ER_ET_DF)
         form.middleName = chkEditText3Char(etMiddleName, UiData.ER_ET_DF)
         form.lastName = chkEditText3Char(etLastName, UiData.ER_ET_DF)
-        form.nickName = chkEditTextNickName3Char(etNickName, UiData.ER_ET_DF)
+        form.nickName = chkEditTextNickName3Char(etNickName,UiData.ER_ET_DF)
         form.age = chkEditTextMax3Digit(etAge, UiData.ER_ET_DF)?.toInt()
         form.phoneNumber = chkPhoneNumber(etPhoneNumber, UiData.ER_ET_DF)
         form.monthlyAverageIncome =

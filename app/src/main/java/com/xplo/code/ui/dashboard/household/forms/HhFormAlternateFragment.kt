@@ -151,8 +151,9 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
         adapter = AlternateSumListAdapter()
         adapter?.setOnItemClickListener(this)
-        binding.recyclerView.adapter = adapter
         onReinstateData(interactor?.getRootForm()?.alternates)
+        binding.recyclerView.adapter = adapter
+
     }
 
     override fun initObserver() {
@@ -259,6 +260,11 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
 //            adapter?.addItem(form)
 //        }, 500)
         adapter?.addItem(form)
+        val rootForm = interactor?.getRootForm()
+        if(adapter != null){
+            rootForm?.alternates = adapter!!.getDataset()
+        }
+        interactor?.setRootForm(rootForm)
     }
 
     override fun onClickBackButton() {
@@ -338,8 +344,6 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
                     //adapter?.addItem(form)
                     onGetAnAlternate(form)
                 }, 500)
-
-
             }
         }
 
