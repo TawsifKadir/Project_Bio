@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
+import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.xplo.code.R
 import com.xplo.code.core.Bk
@@ -182,7 +183,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
     }
 
     override fun initView() {
-
+        Log.d(HhForm6Nominee2Fragment.TAG,"Rafi Added" + NonPerticipationReasonEnum.REASON_OTHER.ordinal)
         bindSpinnerData(spMainSourceOfIncome, UiData.mainIncomeOptions)
         //bindSpinnerData(spCurrency, UiData.currency)
         bindSpinnerData(spGender, UiData.genderOptions)
