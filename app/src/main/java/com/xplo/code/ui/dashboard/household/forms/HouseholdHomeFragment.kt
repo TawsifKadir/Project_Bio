@@ -541,7 +541,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     }
 
     fun showBeneficiary() {
-        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(requireContext());
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(requireContext())
         DatabaseExecutors.getInstance().diskIO().execute {
             try {
                 val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
