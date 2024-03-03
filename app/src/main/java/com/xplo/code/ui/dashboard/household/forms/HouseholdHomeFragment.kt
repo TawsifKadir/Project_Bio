@@ -192,7 +192,6 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                     is HouseholdViewModel.Event.DeleteDataLocalDbByAppId -> {
                         hideLoading()
                         if (event.beneficiary) {
-                            //   interactor?.navigateToAnotherHousehold(interactor?.getRootForm()?.form1)
                             requireActivity().finish()
                         }
                         viewModel.clearEvent()
