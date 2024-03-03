@@ -240,7 +240,7 @@ class HouseholdViewModel @Inject constructor(
             val deleAlternate = alternateDao.deleteAlternate(appId)
 
             val addressDao: AddressDao = mDatabase.addressDao()
-            val deleAddress = alternateDao.deleteAlternate(appId)
+            val deleAddress = addressDao.deleteAddreesByAppId(appId)
 
             val nomineeDao: NomineeDao = mDatabase.nomineeDao()
             val deleNominee = nomineeDao.deleteNomineeByAppid(appId)

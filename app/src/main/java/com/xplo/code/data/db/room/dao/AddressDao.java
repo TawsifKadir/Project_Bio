@@ -31,5 +31,8 @@ public interface AddressDao {
 
     @Query("SELECT * FROM address")
     List<Address> getAllAddresses();
+
+    @Query("DELETE  FROM address WHERE application_id = :appId")
+    void deleteAddreesByAppId(String appId);
 }
 
