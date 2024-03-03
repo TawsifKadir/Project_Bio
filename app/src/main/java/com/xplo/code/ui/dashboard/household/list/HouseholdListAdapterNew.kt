@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.kit.integrationmanager.model.GenderEnum
 import com.xplo.code.R
 import com.xplo.code.core.ext.gone
 import com.xplo.code.core.ext.visible
@@ -76,13 +77,18 @@ class HouseholdListAdapterNew : RecyclerView.Adapter<HouseholdListAdapterNew.Vie
             //Log.d(TAG, "bind() called with: item = $item")
             //   val form = item.toHouseholdForm()
             //   if (form == null) return
+
             binding.tvId.text = "id: " + item.applicationId
             binding.tvName.text =
                 item.respondentFirstName + " " + item.respondentMiddleName + " " + item.respondentLastName
-            binding.tvGender.text = "Gender: " + item.respondentGender
+            if (item.respondentGender.toInt() == 1) {
+                binding.tvGender.text = "Gender: Male"
+            } else if (item.respondentGender.toInt() == 2) {
+                binding.tvGender.text = "Gender: Female"
+            }
             binding.tvAge.text = "age: " + item.respondentAge
-            binding.tvNominee.text = "Nominee: " + "0"
-            binding.tvAlternate.text = "Alternate: " + "0"
+            binding.tvNominee.text = "Nominee: " + item.nomineeSize
+            binding.tvAlternate.text = "Alternate: " + item.alternateSize
             //binding.btSyncStatus.setImageResource(R.drawable.baseline_cloud_done_24)
 
             if (item.isSynced) {
@@ -92,7 +98,7 @@ class HouseholdListAdapterNew : RecyclerView.Adapter<HouseholdListAdapterNew.Vie
                 binding.btSend.visible()
                 binding.btSyncStatus.setImageResource(R.drawable.sync_saved_locally_24px)
             }
-             // loadImage(form.form4?.photoData?.imgPath)
+            // loadImage(form.form4?.photoData?.imgPath)
         }
 
         private fun loadImage(url: String?) {

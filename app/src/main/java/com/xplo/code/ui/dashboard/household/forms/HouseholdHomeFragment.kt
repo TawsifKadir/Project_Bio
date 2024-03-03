@@ -192,7 +192,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                     is HouseholdViewModel.Event.DeleteDataLocalDbByAppId -> {
                         hideLoading()
                         if (event.beneficiary) {
-                         //   interactor?.navigateToAnotherHousehold(interactor?.getRootForm()?.form1)
+                            //   interactor?.navigateToAnotherHousehold(interactor?.getRootForm()?.form1)
                             requireActivity().finish()
                         }
                         viewModel.clearEvent()
@@ -578,11 +578,16 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     }
 
     override fun onClickHouseholdItemAddAlternate(item: Beneficiary, pos: Int) {
-        navigateToAlternate(item.applicationId)
+        if (item.alternateSize >= 2) {
+            Toast.makeText(requireContext(), "Maximum 2 Alternate Add Options.", Toast.LENGTH_SHORT)
+                .show()
+        } else {
+            navigateToAlternate(item.applicationId)
+        }
     }
 
     override fun onClickHouseholdItemSave(item: Beneficiary, pos: Int) {
-        TODO("Not yet implemented")
+        Toast.makeText(requireContext(), "Coming Soon", Toast.LENGTH_SHORT).show()
     }
 
 }

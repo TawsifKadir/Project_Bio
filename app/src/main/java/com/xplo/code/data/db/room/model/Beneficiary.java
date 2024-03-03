@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
+import kotlin.jvm.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -119,6 +120,11 @@ public class Beneficiary implements Serializable {
 
     @ColumnInfo(name = "status")
     public Long status;
+
+    @Transient
+    public int nomineeSize = 0;
+    @Transient
+    public int alternateSize = 0;
 
     /*
     @OneToOne(cascade = CascadeType.ALL)

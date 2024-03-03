@@ -364,12 +364,13 @@ class HouseholdViewModel @Inject constructor(
             val nomineeDao: NomineeDao = mDatabase.nomineeDao()
             val alternateDao: AlternateDao = mDatabase.alternateDao()
             val beneficiary = beneficiaryDao.allBeneficiaries
-            for (iten in beneficiary){
+            for (iten in beneficiary) {
                 val nominee = nomineeDao.getNomineeListByAppId(iten.applicationId)
                 val alternate = alternateDao.getAlternateList(iten.applicationId)
                 Log.d(TAG, "showBeneficiary: ${nominee.size}")
                 Log.d(TAG, "showBeneficiary: ${alternate.size}")
-
+                iten.alternateSize = alternate.size;
+                iten.nomineeSize = nominee.size;
             }
             Log.d(TAG, "showBeneficiary: $beneficiary")
             _event.value = Event.GetDataLocalDb(beneficiary)
