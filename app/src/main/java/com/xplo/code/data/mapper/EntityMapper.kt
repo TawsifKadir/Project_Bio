@@ -131,10 +131,18 @@ object EntityMapper {
 
     fun getFirstAlternateLdb(
         items: MutableList<com.xplo.code.data.db.room.model.Alternate>,
-        type: String
+        bio_data: com.xplo.code.data.db.room.model.Biometric
     ): AlternatePayee? {
         if (items.isNullOrEmpty()) return null
-        return toAlternateLdb(items[0])
+        return toAlternateLdb(items[0], bio_data)
+    }
+
+    fun getSecondAlternateLdb(
+        items: MutableList<com.xplo.code.data.db.room.model.Alternate>,
+        bio_data: com.xplo.code.data.db.room.model.Biometric
+    ): AlternatePayee? {
+        if (items.isNullOrEmpty()) return null
+        return toAlternateLdb(items[1], bio_data)
     }
 
     fun getSecondAlternate(items: ArrayList<AlternateForm>): AlternatePayee? {
@@ -160,7 +168,10 @@ object EntityMapper {
         return alternate
     }
 
-    private fun toAlternateLdb(item: com.xplo.code.data.db.room.model.Alternate): AlternatePayee? {
+    private fun toAlternateLdb(
+        item: com.xplo.code.data.db.room.model.Alternate,
+        bio_data: com.xplo.code.data.db.room.model.Biometric
+    ): AlternatePayee? {
         if (item == null) return null
         val alternate = AlternatePayee()
         //alternate.documentType = FakeMapperValue.documentType
@@ -174,8 +185,7 @@ object EntityMapper {
         alternate.payeeAge = item.payeeAge
         alternate.payeeGender = GenderEnum.find(item.payeeGender.toString())
         alternate.payeePhoneNo = item.payeePhoneNo
-
-        alternate.biometrics = toAlternateBiometricEntitiesLdb(item)
+        alternate.biometrics = toBiometricEntityFromdbForBeneficiary(bio_data)
 
         return alternate
     }
@@ -218,6 +228,568 @@ object EntityMapper {
     }
 
 
+
+    public fun toBiometricEntityFromdbForBeneficiary(item: com.xplo.code.data.db.room.model.Biometric): List<com.kit.integrationmanager.model.Biometric?> {
+
+        val applicationId = item.applicationId
+        val biometrics = mutableListOf<com.kit.integrationmanager.model.Biometric?>()
+
+
+        if (item.photo != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+
+            biometricData.biometricType = BiometricType.PHOTO
+            biometricData.biometricData = item.photo
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        }
+
+        if (item.wsqLt != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LT
+            biometricData.biometricData = item.wsqLt
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LT
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+
+        if (item.wsqLi != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LI
+            biometricData.biometricData = item.wsqLi
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LI
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+
+        if (item.wsqLm != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LM
+            biometricData.biometricData = item.wsqLm
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LM
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+
+        if (item.wsqLr != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LR
+            biometricData.biometricData = item.wsqLr
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LR
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+
+        if (item.wsqLs != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LL
+            biometricData.biometricData = item.wsqLs
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LL
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+        if (item.wsqRt != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RT
+            biometricData.biometricData = item.wsqRt
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RT
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+        if (item.wsqRi != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RI
+            biometricData.biometricData = item.wsqRi
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RI
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+        if (item.wsqRm != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RM
+            biometricData.biometricData = item.wsqRm
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RM
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+        if (item.wsqRr != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RR
+            biometricData.biometricData = item.wsqRr
+
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RR
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+        if (item.wsqRs != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RL
+            biometricData.biometricData = item.wsqRs
+
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RL
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+
+        return biometrics
+
+    }
+    public fun toBiometricEntityFromdbForAlternate(item: com.xplo.code.data.db.room.model.Biometric): List<com.kit.integrationmanager.model.Biometric?> {
+
+        val applicationId = item.applicationId
+        val biometrics = mutableListOf<com.kit.integrationmanager.model.Biometric?>()
+
+
+        if (item.photo != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+
+            biometricData.biometricType = BiometricType.PHOTO
+            biometricData.biometricData = item.photo
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        }
+
+        if (item.wsqLt != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LT
+            biometricData.biometricData = item.wsqLt
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LT
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+
+        if (item.wsqLi != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LI
+            biometricData.biometricData = item.wsqLi
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LI
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+
+        if (item.wsqLm != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LM
+            biometricData.biometricData = item.wsqLm
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LM
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+
+        if (item.wsqLr != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LR
+            biometricData.biometricData = item.wsqLr
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LR
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+
+        if (item.wsqLs != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LL
+            biometricData.biometricData = item.wsqLs
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.LL
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+        if (item.wsqRt != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RT
+            biometricData.biometricData = item.wsqRt
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RT
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+        if (item.wsqRi != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RI
+            biometricData.biometricData = item.wsqRi
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RI
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+        if (item.wsqRm != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RM
+            biometricData.biometricData = item.wsqRm
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RM
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+        if (item.wsqRr != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RR
+            biometricData.biometricData = item.wsqRr
+
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RR
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+        if (item.wsqRs != null) {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RL
+            biometricData.biometricData = item.wsqRs
+
+            biometricData.noFingerPrint = false
+            biometrics.add(biometricData)
+        } else {
+            val biometricData = com.kit.integrationmanager.model.Biometric()
+            biometricData.applicationId = applicationId
+            if(item.biometricUserType != null){
+                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            }
+            biometricData.biometricType = BiometricType.RL
+            biometricData.noFingerPrint = true
+            if (item.noFingerprintReason != null) {
+                biometricData.noFingerprintReason =
+                    NoFingerprintReasonEnum.entries.getOrNull(item.noFingerprintReason.toInt())
+            }
+            biometricData.noFingerprintReasonText = item.noFingerprintReasonText
+            biometrics.add(biometricData)
+        }
+
+        return biometrics
+
+    }
+
     private fun toBiometricEntities(items: HouseholdForm?): List<com.kit.integrationmanager.model.Biometric>? {
         //if (items?.form5?.fingers.isNullOrEmpty()) return null
         val list = arrayListOf<com.kit.integrationmanager.model.Biometric>()
@@ -233,6 +805,29 @@ object EntityMapper {
         }
         return list
     }
+
+    //    public fun toBiometricEntityFromdbForBeneficiary(items: MutableList<com.xplo.code.data.db.room.model.Biometric>): List<com.kit.integrationmanager.model.Biometric>? {
+//        //if (items?.form5?.fingers.isNullOrEmpty()) return null
+//        val list = arrayListOf<com.kit.integrationmanager.model.Biometric>()
+//        for (item in items) {
+//            val element = toBiometricEntityFromdbForBeneficiary(item)
+//            if (element != null) {
+//                list.add(element)
+//            }
+//        }
+//        return list
+//    }
+//    public fun toBiometricEntityFromdbForAlternate(items: MutableList<com.xplo.code.data.db.room.model.Biometric>): List<com.kit.integrationmanager.model.Biometric>? {
+//        //if (items?.form5?.fingers.isNullOrEmpty()) return null
+//        val list = arrayListOf<com.kit.integrationmanager.model.Biometric>()
+//        for (item in items) {
+//            val element = toBiometricEntityFromdbForBeneficiary(item)
+//            if (element != null) {
+//                list.add(element)
+//            }
+//        }
+//        return list
+//    }
 
     private fun toAlternateBiometricEntities(items: AlternateForm?): List<com.kit.integrationmanager.model.Biometric>? {
         //if (items?.form5?.fingers.isNullOrEmpty()) return null
@@ -290,12 +885,16 @@ object EntityMapper {
         nominee.nomineeMiddleName = item.nomineeMiddleName
 
         nominee.nomineeAge = item.nomineeAge
-        nominee.nomineeGender = GenderEnum.find(item.nomineeGender.toString())
+        if (item.nomineeGender != null) {
+            nominee.nomineeGender = GenderEnum.entries.getOrNull(item.nomineeGender.toInt())
+        }
 
         //  nominee.nomineeOccupation = OccupationEnum.valueOf(item.nomineeOccupation.toString())
         nominee.otherOccupation = item.otherOccupation
-        nominee.relationshipWithHouseholdHead =
-            RelationshipEnum.find(item.relationshipWithHouseholdHead.toString())
+        if (item.relationshipWithHouseholdHead != null) {
+            nominee.relationshipWithHouseholdHead =
+                RelationshipEnum.entries.getOrNull(item.relationshipWithHouseholdHead.toInt())
+        }
         nominee.isReadWrite = item.isReadWrite
 
         Log.d(TAG, "toNomineeLdb: ${item.nomineeFirstName}")
