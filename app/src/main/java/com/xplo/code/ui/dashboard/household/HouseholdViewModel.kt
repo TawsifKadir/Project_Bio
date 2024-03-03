@@ -229,7 +229,7 @@ class HouseholdViewModel @Inject constructor(
     fun showBeneficiaryByAppId(context: Context, appId: String) {
         val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
         val form: Beneficiary = Beneficiary()
-        _event.value = Event.Loading
+        //_event.value = Event.Loading
         viewModelScope.launch(dispatchers.io) {
             val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
             val alternateDao: AlternateDao = mDatabase.alternateDao()
@@ -313,7 +313,7 @@ class HouseholdViewModel @Inject constructor(
 
     fun showBeneficiary(context: Context) {
         val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
-        _event.value = Event.Loading
+        //_event.value = Event.Loading
         viewModelScope.launch(dispatchers.io) {
             val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
             val beneficiary =
