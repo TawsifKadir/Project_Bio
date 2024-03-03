@@ -567,6 +567,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
     override fun onClickHouseholdItem(item: Beneficiary, pos: Int) {
         viewModel.showBeneficiaryByAppId(requireContext(), item.applicationId)
+        //   navigateToHouseholdDetails(item)
     }
 
     override fun onClickHouseholdItemDelete(item: Beneficiary, pos: Int) {
