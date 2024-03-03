@@ -507,37 +507,39 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
         try{
             if (position == 0) return
 
-            when (parent?.id) {
-                R.id.spStateName -> {
-                    val txt = spStateName.selectedItem.toString()
-                    //val item = OptionItem(0, txt)
-                    val item = stateOptions?.get(position)
-                    onSelectStateItem(item)
-                }
-
-                R.id.spCountryName -> {
-                    val txt = spCountryName.selectedItem.toString()
-                    //val item = OptionItem(0, txt)
-                    val item = countyOptions?.get(position)
-                    onSelectCountryItem(item)
-                }
-
-                R.id.spPayamName -> {
-                    val txt = spPayamName.selectedItem.toString()
-                    //val item = OptionItem(0, txt)
-                    val item = payamOptions?.get(position)
-                    onSelectPayamItem(item)
-                }
-
-                R.id.spBomaName -> {
-                    val txt = spBomaName.selectedItem.toString()
-                    //val item = OptionItem(0, txt)
-                    val item = bomaOptions?.get(position)
-                    onSelectBomaItem(item)
-                }
+        when (parent?.id) {
+            R.id.spStateName -> {
+                val txt = spStateName.selectedItem.toString()
+                //val item = OptionItem(0, txt)
+                val item = stateOptions?.get(position-1)
+                onSelectStateItem(item)
             }
-        }catch(e : Exception){
-            Log.e(TAG,e.toString())
+
+            R.id.spCountryName -> {
+                val txt = spCountryName.selectedItem.toString()
+                //val item = OptionItem(0, txt)
+                val item = countyOptions?.get(position-1)
+                onSelectCountryItem(item)
+            }
+
+            R.id.spPayamName -> {
+                val txt = spPayamName.selectedItem.toString()
+                //val item = OptionItem(0, txt)
+                val item = payamOptions?.get(position-1)
+                onSelectPayamItem(item)
+            }
+
+            R.id.spBomaName -> {
+                val txt = spBomaName.selectedItem.toString()
+                //val item = OptionItem(0, txt)
+                val item = bomaOptions?.get(position-1)
+                onSelectBomaItem(item)
+            }
+
+        }
+    }catch(e : Exception){
+            Log.d(TAG, "Error$e")
+
         }
     }
 
@@ -606,6 +608,4 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
         etLat.setText(location.latitude.toString())
         etLon.setText(location.longitude.toString())
     }
-
-
-}
+    }

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.kit.integrationmanager.model.AlternatePayee
 import com.kit.integrationmanager.model.Beneficiary
@@ -33,6 +34,7 @@ import com.xplo.code.data.db.room.model.Nominee
 import com.xplo.code.data.db.room.model.SelectionReason
 import com.xplo.code.data.mapper.EntityMapper
 import com.xplo.code.data.mapper.FakeMapperValue
+import com.xplo.code.data_module.core.Resource
 import com.xplo.code.databinding.FragmentHhPreviewBinding
 import com.xplo.code.ui.components.ReportViewUtils
 import com.xplo.code.ui.components.XDialog
@@ -49,7 +51,9 @@ import com.xplo.code.ui.dashboard.model.ReportRow
 import com.xplo.code.ui.dashboard.model.getReportRows
 import com.xplo.code.ui.dashboard.model.getReportRowsAltSummary
 import com.xplo.code.ui.dashboard.model.AlternateForm
+import com.xplo.code.utils.DialogUtil
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
@@ -285,7 +289,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                 override fun onClickPositiveButton() {
                     val rootForm = interactor?.getRootForm()
                     //viewModel.saveHouseholdFormAsHouseholdItem(rootForm)
-                    viewModel.saveFormPEntity(rootForm)
+                    //viewModel.saveFormPEntity(rootForm)
                     mDatabase = BeneficiaryDatabase.getInstance(requireContext())
                     val entity = EntityMapper.toBeneficiaryModelEntity(rootForm)
                     if (entity != null) {
@@ -517,14 +521,16 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                     biometricList,
                     householdInfoList, alternateList, nomineeList, selectionReasonList
                 )
-
                 Log.d(TAG, "Inserted the beneficiary data")
+                onSaveSuccess(null)
+                //DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", "Inserted the beneficiary data")
             }
         } catch (ex: Exception) {
+            DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Failed", "Error while sending data")
             Log.e(TAG, "Error while sending data : " + ex.message)
             ex.printStackTrace()
         }
-    }
+        }
 
     fun prepareBiometricEntity(
         appId: String?,
