@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="text_size_normal">14sp</dimen>
+    <dimen name="text_size_list_title">16sp</dimen>
+    <dimen name="text_size_input_header">12sp</dimen>
+    <dimen name="text_size_report_header">14sp</dimen>
+    <dimen name="text_size_report_body">12sp</dimen>
+    <dimen name="text_size_table_header">10sp</dimen>
+<!--    <dimen name="text_alerter_medium">18sp</dimen>-->
+
+    <dimen name="text_size_small_1">12sp</dimen>
+    <dimen name="text_size_small_2">14sp</dimen>
+    <dimen name="text_size_medium_1">16sp</dimen>
+    <dimen name="text_size_medium_2">18sp</dimen>
+    <dimen name="text_size_large_1">20sp</dimen>
+    <dimen name="text_size_large_2">22sp</dimen>
+    <dimen name="text_size_large_3">26sp</dimen>
+    <dimen name="text_size_xl_1">30sp</dimen>
+    <dimen name="text_size_xl_2">36sp</dimen>
+    <dimen name="text_size_xl_3">40sp</dimen>
+
+    <dimen name="ss_app_logo">40dp</dimen>
+    <dimen name="ss_app_title">20sp</dimen>
+    <dimen name="ss_app_version">18sp</dimen>
+
+    <dimen name="ccr_default">6dp</dimen>
+    <dimen name="scr_input_box">4dp</dimen>
+    <dimen name="img_btn_size_medium">50dp</dimen>
+    <dimen name="img_btn_size_large">60dp</dimen>
+
+    <dimen name="profile_block_title">25sp</dimen>
+    <dimen name="profile_block_value">24sp</dimen>
+    <dimen name="profile_block_height">100dp</dimen>
+    <dimen name="profile_block_width">100dp</dimen>
+    <dimen name="profile_block_width_2">155dp</dimen>
+
+    <dimen name="grid_cell_size">150dp</dimen>
+    <dimen name="grid_cell_icon_size">50dp</dimen>
+    <dimen name="grid_cell_text_size">18sp</dimen>
+
+    <dimen name="input_row_height">40dp</dimen>
+    <dimen name="content_padding">5dp</dimen>
+    <dimen name="finger_img_padding">10dp</dimen>
+    <dimen name="finger_img_height">30dp</dimen>
+    <dimen name="finger_img_text_size">10sp</dimen>
+
+    <dimen name="table_row_height_header">80dp</dimen>
+    <dimen name="table_row_height_header_half">40dp</dimen>
+    <dimen name="table_row_height_normal">65dp</dimen>
+
+    <dimen name="finger_cell_size">80dp</dimen>
+    <dimen name="finger_img_size">50dp</dimen>
+    <dimen name="finger_text_size">10sp</dimen>
+    <dimen name="finger_margin">8dp</dimen>
+
+    <dimen name="list_avatar_size">70dp</dimen>
+
+    <dimen name="consent_body_max_height">400dp</dimen>
+    <dimen name="dialog_min_width">400dp</dimen>
+
+
+</resources>

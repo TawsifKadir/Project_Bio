@@ -1,0 +1,2 @@
+https://www.pluralsight.com/guides/mvp-with-testing-part-2
+https://dzone.com/articles/a-guide-to-mocking-with-mockito

@@ -1,0 +1,260 @@
+
+
+user1
+Abc@1234.
+
+page navigation for nominee fixed as old flow
+made optional some field- all middle name, location info etc
+read some missing field
+household name lock for alternate
+location field lock
+re design alternate fingerprint ui to fix scroll issue
+alternate fingerprint functionality added [have to work with fingerprint data state]
+
+ignore
+house hold size calculation
+
+have to work with
+fingerprint data state
+preview page
+feedback
+
+
+
+ignore
+house hold size calculation, 36 field, default value 0
+hh size enable or disable
+
+
+
+
+
+
+
+
+private lateinit var spCountryName: EditText
+private lateinit var spStateName: EditText
+private lateinit var etPayamName: EditText
+private lateinit var etBomaName: EditText
+private lateinit var etLat: EditText
+private lateinit var etLong: EditText
+
+spCountryName = binding.spCountryName
+spStateName = binding.  spStateName
+etPayamName = binding.  etPayamName
+etBomaName = binding.   etBomaName
+etLat = binding.        etLat
+etLong = binding.       etLong
+
+
+
+Household members 0-2 yrs Old
+Household members 3-5 yrs Old
+Household members 6-17 yrs Old
+Household members 18-35 yrs Old
+Household members 46-64 yrs Old
+Household members 65 and Above
+
+spCountryName.text = "abc"
+spStateName.text = "abc"
+etPayamName.text = "abc"
+etBomaName.text = "abc"
+etLat.text = "abc"
+etLong.text = "abc"
+
+
+
+
+
+Household Size
+Male Household members
+Female Household members
+Household members 0-2 yrs Old
+Household members 3-5 yrs Old
+Household members 6-17 yrs Old
+Household members 18-35 yrs Old
+Household members 46-64 yrs Old
+Household members 65 and Above
+Household members with disability
+Household members with chronically ill
+
+
+
+
+spMainSourceOfIncome
+spGender
+spMaritalStatus
+spLegalStatus
+spRelationship
+etFirstName
+etMiddleName
+etLastName
+etAge
+etIdNumber
+etPhoneNumber
+etMonthlyAverageIncome
+etSpouseName
+etSelectionReason
+rgSelectionCriteria
+
+
+
+form.countryName = getOrAssertSpinner(spCountryName, UiData.ERROR_SP_DEFAULT)
+
+
+
+
+
+etHouseholdSize
+etMaleHouseholdMembers
+etFemaleHouseholdMembers
+etHouseholdMembers0_2
+etHouseholdMembers3_5
+etHouseholdMembers6_17
+etHouseholdMembers18_35
+etHouseholdMembers36_45
+etHouseholdMembers46_64
+etHouseholdMembers65andAbove
+etHouseholdMembersWithDisability
+etHouseholdMembersWithChronicallyIll
+
+
+
+
+etHouseholdSize
+etMaleHouseholdMembers
+etFemaleHouseholdMembers
+etHouseholdMembers0_2
+etHouseholdMembers3_5
+etHouseholdMembers6_17
+etHouseholdMembers18_35
+etHouseholdMembers36_45
+etHouseholdMembers46_64
+etHouseholdMembers65andAbove
+etHouseholdMembersWithDisability
+etHouseholdMembersWithChronicallyIll
+
+
+
+form.countryName = getOrAssertEditText(spCountryName, UiData.ERROR_ET_DEFAULT)
+
+
+
+
+if (this.age == null) return false
+
+
+
+
+
+etFirstName
+etMiddleName
+etLastName
+etAge
+spRelation
+spGender
+spOccupation
+rgReadWrite
+rbReadWriteYes
+rbReadWriteNo
+
+
+
+etFirstName = binding.etFirstName
+etMiddleName = binding.etMiddleName
+etLastName = binding.etLastName
+etAge = binding.etAge
+spRelation = binding.spRelation
+spGender = binding.spGender
+spOccupation = binding.spOccupation
+rgReadWrite = binding.rgReadWrite
+rbReadWriteYes = binding.rbReadWriteYes
+rbReadWriteNo = binding.rbReadWriteNo
+
+
+etMem0NormalMale
+etMem0DisableMale
+etMem0IllMale
+etMem3NormalMale
+etMem3DisableMale
+etMem3IllMale
+etMem6NormalMale
+etMem6DisableMale
+etMem6IllMale
+etMem18NormalMale
+etMem18DisableMale
+etMem18IllMale
+etMem36NormalMale
+etMem36DisableMale
+etMem36IllMale
+etMem65NormalMale
+etMem65DisableMale
+etMem65IllMale
+
+
+
+etMaleHouseholdMembers.setText(form.maleHouseholdMembers.toString())
+
+
+
+etMem0NormalMale = binding.etMem0NormalMale
+etMem0DisableMale = binding.etMem0DisableMale
+etMem0IllMale = binding.etMem0IllMale
+etMem3NormalMale = binding.etMem3NormalMale
+etMem3DisableMale = binding.etMem3DisableMale
+etMem3IllMale = binding.etMem3IllMale
+etMem6NormalMale = binding.etMem6NormalMale
+etMem6DisableMale = binding.etMem6DisableMale
+etMem6IllMale = binding.etMem6IllMale
+etMem18NormalMale = binding.etMem18NormalMale
+etMem18DisableMale = binding.etMem18DisableMale
+etMem18IllMale = binding.etMem18IllMale
+etMem36NormalMale = binding.etMem36NormalMale
+etMem36DisableMale = binding.etMem36DisableMale
+etMem36IllMale = binding.etMem36IllMale
+etMem65NormalMale = binding.etMem65NormalMale
+etMem65DisableMale = binding.etMem65DisableMale
+etMem65IllMale = binding.etMem65IllMale
+
+
+
+mem0NormalMale
+mem0DisableMale
+mem0IllMale
+mem3NormalMale
+mem3DisableMale
+mem3IllMale
+mem6NormalMale
+mem6DisableMale
+mem6IllMale
+mem18NormalMale
+mem18DisableMale
+mem18IllMale
+mem36NormalMale
+mem36DisableMale
+mem36IllMale
+mem65NormalMale
+mem65DisableMale
+mem65IllMale
+
+
+mem0NormalMale = getEditTextInt(etMem0NormalMale)
+mem0DisableMale = getEditTextInt(etMem0DisableMale)
+mem0IllMale = getEditTextInt(etMem0IllMale)
+mem3NormalMale = getEditTextInt(etMem3NormalMale)
+mem3DisableMale = getEditTextInt(etMem3DisableMale)
+mem3IllMale = getEditTextInt(etMem3IllMale)
+mem6NormalMale = getEditTextInt(etMem6NormalMale)
+mem6DisableMale = getEditTextInt(etMem6DisableMale)
+mem6IllMale = getEditTextInt(etMem6IllMale)
+mem18NormalMale = getEditTextInt(etMem18NormalMale)
+mem18DisableMale = getEditTextInt(etMem18DisableMale)
+mem18IllMale = getEditTextInt(etMem18IllMale)
+mem36NormalMale = getEditTextInt(etMem36NormalMale)
+mem36DisableMale = getEditTextInt(etMem36DisableMale)
+mem36IllMale = getEditTextInt(etMem36IllMale)
+mem65NormalMale = getEditTextInt(etMem65NormalMale)
+mem65DisableMale = getEditTextInt(etMem65DisableMale)
+mem65IllMale = getEditTextInt(etMem65IllMale)
+
+

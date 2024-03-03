@@ -1,0 +1,296 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+//apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlinx-serialization'
+apply plugin: 'dagger.hilt.android.plugin'
+//apply plugin: "androidx.navigation.safeargs.kotlin"
+
+//apply plugin: 'com.google.firebase.firebase-perf'
+//apply plugin: 'com.google.firebase.crashlytics'
+//apply plugin: 'com.google.gms.google-services'
+
+def versionMajor = 0
+def versionMinor = 10
+def versionPatch = 3
+
+android {
+
+    namespace 'com.xplo.code'
+
+    compileSdk 34
+    defaultConfig {
+        applicationId "com.xplo.skl"
+        minSdk 29
+        targetSdk 34
+        versionCode genVersionCode(versionMajor, versionMinor, versionPatch)
+        versionName genVersionName(versionMajor, versionMinor, versionPatch)
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = '-dev'
+
+            //buildConfigField "String", 'BASE_URL', '"http://stage.xplo.com/"'
+            resValue "string", "app_version_name_bc", "Version: ${defaultConfig.versionName}-dev"
+
+        }
+
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            //buildConfigField "String", 'BASE_URL', '"http://xplo.com/"'
+            resValue "string", "app_version_name_bc", "Version: ${defaultConfig.versionName}"
+        }
+
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            //outputFileName = "${variant.flavorName}-${variant.versionName}-${variant.buildType.name}.apk"
+            //outputFileName = "${variant.name}-${variant.versionName}-${variant.buildType.name}.apk"
+            outputFileName = "${"bio-registration"}-${variant.versionName}-${variant.buildType.name}.apk"
+        }
+
+        buildConfigField "String", 'BASE_URL', '"https://api.xdb-solutions.com/"'
+        buildConfigField "String", 'BASE_URL_STAGE', '"https://api.xdb-solutions.com/"'
+
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+
+//    kotlinOptions {
+//        jvmTarget = "1.8"
+//    }
+//
+//    compileOptions {
+//        sourceCompatibility = JavaVersion.VERSION_1_8
+//        targetCompatibility = JavaVersion.VERSION_1_8
+//    }
+//
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+
+    lint {
+        abortOnError false
+        disable 'LongLogTag', 'LogNotTimber', 'ContentDescription'
+    }
+
+    tasks.configureEach { task ->
+        if (task.name.equals("lint")) {
+            //this is for speed up build
+            task.enabled = false
+        }
+        if (task.name.contains("Test")) {
+            //this is what you need
+            task.enabled = false
+        }
+    }
+
+}
+
+dependencies {
+
+    //implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //implementation project(":data")
+
+    // will move to flavor
+//    implementation files('libs/finger_morpho.aar')        // original
+//    implementation files('libs/finger_morpho_dummy.aar')    // dummy
+    implementation files('libs/FingerprintCapture-debug.aar')
+//    releaseImplementation files('libs/finger_morpho.aar')
+//    debugImplementation files('libs/finger_morpho_dummy.aar')
+
+    //implementation files('libs/IntegrationManager.aar')
+    //implementation files('libs/IntegrationManager-v1.1.aar')
+    implementation files('libs/IntegrationManager-debug.aar')
+
+//    implementation files('libs/IntegrationManager-v1.4.aar')
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
+    //testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1'
+    //implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0'
+    runtimeOnly 'org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.2'
+    compileOnly "org.projectlombok:lombok:1.18.30"
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+//    compileOnly "org.projectlombok:lombok:1.18.30"
+//    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    // androidx basic
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.core:core-ktx:1.12.0'
+    //implementation 'androidx.leanback:leanback:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'androidx.preference:preference-ktx:1.2.1'
+    implementation 'androidx.percentlayout:percentlayout:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    implementation 'com.google.android.material:material:1.11.0'
+
+
+    //LifeCycle
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-common:$lifecycle_version"
+//    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+
+    implementation "androidx.activity:activity-ktx:1.8.2"
+    implementation 'androidx.fragment:fragment-ktx:1.6.2'
+
+
+    //hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+//    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
+//    kapt "androidx.hilt:hilt-compiler:1.0.0"
+
+    // lime packages
+//    implementation 'com.github.nasif02:lime-color:bc6da1561c'
+//    implementation 'com.github.nasif02:lime-strings:1.0.0'
+//    implementation 'com.github.nasif02:lime-ui:65911931f0'
+//    implementation 'com.github.nasif02:lime-utils:e8b9f9b740'
+
+    // room
+    def room_version = "2.5.2"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+//    // ViewModel and LiveData
+//    def lifecycle_version = '2.5.0'
+//    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+//    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+//    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+
+    // jetpack navigation
+    //implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    //implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // network
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+//    implementation 'com.squareup.okhttp3:okhttp:4.2.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3'
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+    implementation "com.fasterxml.jackson.core:jackson-databind:2.16.1"
+    // network interceptor
+    implementation 'com.facebook.stetho:stetho:1.6.0'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.6.0'
+    implementation 'com.localebro:okhttpprofiler:1.0.8'
+
+//    def flipper_version = "0.247.0"
+//    debugImplementation "com.facebook.flipper:flipper:$flipper_version"
+//    debugImplementation "com.facebook.soloader:soloader:0.10.5"
+//    debugImplementation "com.facebook.flipper:flipper-network-plugin:$flipper_version"
+//    releaseImplementation "com.facebook.flipper:flipper-noop:$flipper_version"
+
+    debugImplementation "com.github.chuckerteam.chucker:library:4.0.0"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:4.0.0"
+
+
+    //rx-java
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.6'
+
+    // firebase
+    implementation platform('com.google.firebase:firebase-bom:32.1.0')
+    //implementation "com.google.firebase:firebase-core:18.0.2"
+    implementation 'com.google.firebase:firebase-inappmessaging-display'
+    implementation 'com.google.firebase:firebase-messaging'
+//    implementation 'com.google.firebase:firebase-dynamic-links'
+//    implementation 'com.google.firebase:firebase-crashlytics'
+//    implementation 'com.google.firebase:firebase-analytics'
+//    implementation 'com.google.firebase:firebase-perf'
+//    implementation "com.google.firebase:firebase-config"
+
+    // facebook
+//    implementation 'com.facebook.android:facebook-android-sdk:5.4.0'
+//    implementation 'com.facebook.android:facebook-applinks:5.4.0'
+
+    implementation 'com.facebook.android:facebook-login:latest.release'
+
+
+    // dagger
+//    implementation 'com.google.dagger:dagger:2.27'
+//    kapt 'com.google.dagger:dagger-compiler:2.27'
+
+
+    // third party
+    implementation 'com.github.karanchuri:PermissionManager:0.1.0'
+    //    implementation 'de.hdodenhof:circleimageview:3.0.1'
+    implementation 'com.mikhaellopez:circularimageview:4.2.0'
+    implementation 'com.tapadoo.android:alerter:6.1.0'
+    //implementation 'com.afollestad.material-dialogs:core:3.3.0'
+    //implementation 'com.github.f0ris.sweetalert:library:1.6.2'
+    implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
+    implementation 'com.ouattararomuald:slider-picasso:3.0.1'
+    implementation 'com.github.IslamKhSh:CardSlider:1.0.1'
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    implementation 'uk.co.samuelwall:material-tap-target-prompt:3.1.0'
+    implementation 'com.hbb20:ccp:2.5.1'
+    implementation 'org.greenrobot:eventbus:3.3.1'
+    implementation 'com.github.aabhasr1:OtpView:v1.1.2'
+    //implementation 'com.github.aabhasr1:OtpView:v1.1.2-ktx'
+    implementation 'com.github.Mamoon-Alhawamdeh:AmazingSpinner:2.0.0'
+
+    //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
+
+    // unit test
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:3.12.4'
+    //testImplementation "org.robolectric:robolectric:4.3.1"
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation 'androidx.test:rules:1.4.0'
+    androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.4.0'
+
+
+//    implementation 'com.jakewharton:butterknife:10.0.0'
+//    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+    //dexter permissions
+    implementation "com.karumi:dexter:5.0.0"
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation 'com.github.bumptech.glide:annotations:4.11.0'
+    implementation('com.github.bumptech.glide:okhttp3-integration:4.0.0') {
+        exclude group: 'glide-parent'
+    }
+    implementation 'com.github.yalantis:ucrop:2.2.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.airbnb.android:lottie:4.2.1'
+    implementation 'com.github.mayuce:LottieAlertDialog:1.1'
+}
+
+def static genVersionCode(Integer major, Integer minor, Integer patch) {
+    return major * 10000 + minor * 100 + patch
+}
+
+def static genVersionName(Integer major, Integer minor, Integer patch) {
+    return "${major}.${minor}.${patch}"
+}

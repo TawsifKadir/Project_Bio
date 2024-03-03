@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- Without this folders will be inaccessible in Android-11 and above devices -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
+    <!-- Without this entry storage-permission entry will not be visible under app-info permissions list Android-10 and below -->
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29"
+        tools:ignore="ScopedStorage"/>
+
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<!--    <uses-permission-->
+<!--        android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+
+    <application
+        android:name=".core.MainApplication"
+        android:allowBackup="true"
+        android:configChanges="locale"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.Light"
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning,LockedOrientationActivity"
+        tools:replace="android:theme">
+        <activity
+            android:name=".ui.photo.ImagePickerActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashActivityTheme.Light"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--        <activity-->
+        <!--            android:name=".deeplink.uris.LinkDispatcherActivity"-->
+        <!--            android:exported="true"-->
+        <!--            android:launchMode="singleInstance"-->
+        <!--            android:noHistory="true"-->
+        <!--            android:theme="@android:style/Theme.NoDisplay">-->
+
+        <!--            <intent-filter android:label="@string/app_name">-->
+        <!--                <action android:name="android.intent.action.VIEW" />-->
+
+        <!--                <category android:name="android.intent.category.DEFAULT" />-->
+        <!--                <category android:name="android.intent.category.BROWSABLE" />-->
+
+        <!--                <data android:scheme="http" />-->
+        <!--                <data android:scheme="https" />-->
+        <!--                <data android:scheme="myapp" />-->
+
+        <!--                &lt;!&ndash; xdbbd.com &ndash;&gt;-->
+        <!--                <data android:host="www.xplo.com" />-->
+        <!--                <data android:host="xplo.com" />-->
+
+        <!--                &lt;!&ndash;                <data android:pathPattern="/en/.*" />&ndash;&gt;-->
+        <!--                &lt;!&ndash;                <data android:pathPattern="/bn/.*" />&ndash;&gt;-->
+
+        <!--            </intent-filter>-->
+
+        <!--        </activity>-->
+        <activity
+            android:name=".ui.main_act.MainActivity"
+            android:configChanges="locale"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:configChanges="locale"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.user_profile.ProfileActivity"
+            android:configChanges="locale"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.favorite.FavoriteActivity"
+            android:configChanges="locale"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:configChanges="locale"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.dashboard.household.HouseholdActivity"
+            android:configChanges="locale"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.dashboard.alternate.AlternateActivity"
+            android:configChanges="locale"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.dashboard.report.ReportActivity"
+            android:configChanges="locale"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.dashboard.payment.PaymentActivity"
+            android:configChanges="locale"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.testing_lab.LabActivity"
+            android:configChanges="locale"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.testing_lab.JvActivity"
+            android:configChanges="locale"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".ui.testing_lab.FormPGActivity"
+            android:configChanges="locale"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:configChanges="locale"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- cache directory file provider paths -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+
+</manifest>

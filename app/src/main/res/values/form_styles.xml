@@ -1,0 +1,302 @@
+<resources>
+
+
+    <style name="AppButton.Bottom.Positive" parent="AppButton.Primary">
+
+    </style>
+
+    <style name="AppButton.Bottom.Negative" parent="AppButton.Secondary">
+
+    </style>
+
+    <style name="AppTextView.Base" parent="android:Widget.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <!--        <item name="android:textSize">@dimen/text_size_input_header</item>-->
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="AppTextView.Report.Header" parent="AppTextView.Base">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:textColor">?attr/colorBrand</item>
+        <item name="android:textSize">@dimen/text_size_report_header</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="AppTextView.Report.Body" parent="AppTextView.Base">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textSize">@dimen/text_size_report_body</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:singleLine">false</item>
+    </style>
+
+    <style name="AppTextView.Input.Header" parent="android:Widget.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:textColor">?attr/colorTextSecondary</item>
+        <item name="android:textSize">@dimen/text_size_input_header</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="AppTextView.Nominee.Header" parent="AppTextView.Input.Header">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textSize">@dimen/text_size_input_header</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">.2</item>
+    </style>
+
+    <style name="AppTextView.Table.Header" parent="android:Widget.TextView">
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textSize">@dimen/text_size_table_header</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">false</item>
+    </style>
+
+    <style name="AppEditText.Table.Number" parent="android:Widget.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textColorHint">?attr/colorTextHint</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:hint">0</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">2</item>
+
+    </style>
+
+    <style name="AppEditText.Form" parent="android:Widget.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/input_row_height</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textColorHint">?attr/colorTextHint</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:singleLine">true</item>
+
+    </style>
+
+
+    <style name="AppEditText.Form.Text" parent="AppEditText.Form">
+        <item name="android:inputType">text</item>
+    </style>
+
+    <style name="AppEditText.Form.Text.NonEditable" parent="AppEditText.Form.Text">
+        <item name="android:enabled">false</item>
+        <item name="android:editable">false</item>
+    </style>
+
+    <style name="AppEditText.Form.Text.Min3" parent="AppEditText.Form.Text">
+        <item name="android:hint">Min 3 char</item>
+    </style>
+
+    <style name="AppEditText.Form.Number" parent="AppEditText.Form">
+        <item name="android:inputType">number</item>
+    </style>
+
+    <style name="AppEditText.Form.Number.Decimal" parent="AppEditText.Form">
+        <item name="android:inputType">numberDecimal</item>
+    </style>
+
+    <style name="AppEditText.Form.Phone" parent="AppEditText.Form">
+        <item name="android:inputType">phone</item>
+    </style>
+
+    <style name="AppSpinnerForm">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/input_row_height</item>
+        <item name="android:popupBackground">?attr/colorBackground</item>
+
+    </style>
+
+    <style name="AppFingerLayoutStyle">
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/finger_img_padding</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:weightSum">5</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="AppFingerImgStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">4</item>
+    </style>
+
+    <style name="AppFingerText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/finger_img_height</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">@dimen/finger_img_text_size</item>
+    </style>
+
+
+    <style name="AppLayoutStyleFinger">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!--        <item name="android:layout_width">@dimen/finger_cell_size</item>-->
+        <!--        <item name="android:layout_height">@dimen/finger_cell_size</item>-->
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <!--        <item name="android:background">@color/gr_primary</item>-->
+        <item name="android:layout_margin">@dimen/finger_margin</item>
+        <!--        <item name="android:padding">@dimen/finger_img_padding</item>-->
+        <!--        <item name="android:layout_weight">1</item>-->
+        <!--        <item name="android:weightSum">5</item>-->
+
+    </style>
+
+    <style name="AppImgStyleFinger">
+        <!--        <item name="android:layout_width">match_parent</item>-->
+        <!--        <item name="android:layout_height">wrap_content</item>-->
+        <item name="android:layout_width">@dimen/finger_img_size</item>
+        <item name="android:layout_height">@dimen/finger_img_size</item>
+        <!--        <item name="android:layout_weight">4</item>-->
+        <item name="android:src">@drawable/ic_finger_minus</item>
+        <item name="android:tint">?attr/colorError</item>
+        <item name="android:scaleType">fitCenter</item>
+
+    </style>
+
+    <style name="AppTextView.Finger" parent="AppTextView.Base">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!--        <item name="android:layout_weight">1</item>-->
+        <item name="android:textSize">@dimen/finger_text_size</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">4dp</item>
+    </style>
+
+    <style name="AppRadioButton.Form" parent="android:Widget.CompoundButton.RadioButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:buttonTint">@color/rb_tint</item>
+
+    </style>
+
+    <style name="AppRadioGroupForm">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/input_row_height</item>
+        <item name="android:orientation">horizontal</item>
+
+
+    </style>
+
+    <style name="AppLinearLayoutInputBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:background">@drawable/bg_round_box</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+    <style name="AppLinearLayoutReportBox" parent="AppLinearLayoutInputBox">
+        <item name="android:minHeight">80dp</item>
+    </style>
+
+    <style name="AppLinearLayoutInputBoxTable">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/border_table_cell</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="PreviewTitleStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/bottom_nav</item>
+    </style>
+
+    <style name="PreviewTitleLableStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="PreviewTitleLableValueStyle">
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="PreviewLLStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:weightSum">2</item>
+    </style>
+
+    <style name="PreviewLLTopStyle">
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="TextInputLayout.Outline.Dropdown" parent="AppTextInputLayout.Outline.Dropdown" />
+
+    <style name="TextInput.Outline" parent="AppTextInputEditText.Outline" />
+
+    <style name="CustomDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+
+</resources>

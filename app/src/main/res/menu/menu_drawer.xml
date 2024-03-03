@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/menuGroupTop"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/destHome"
+            android:checked="true"
+            android:icon="@drawable/ic_cat_home"
+            android:title="@string/home" />
+
+        <item
+            android:id="@+id/destLocal"
+            android:checked="false"
+            android:icon="@drawable/ic_cat_home"
+            android:title="@string/bangla" />
+
+        <item
+            android:id="@+id/destEnglish"
+            android:checked="false"
+            android:icon="@drawable/ic_bubble_chart_black_24dp"
+            android:title="@string/english" />
+
+        <item
+            android:id="@+id/destLocalish"
+            android:checked="false"
+            android:icon="@drawable/ic_pages_black_24dp"
+            android:title="@string/banglish" />
+
+
+        <item
+            android:id="@+id/destFavorite"
+            android:checked="false"
+            android:icon="@drawable/ic_cat_movie"
+            android:title="@string/favorite" />
+
+    </group>
+
+
+    <item android:title="@string/more">
+        <menu>
+            <group
+                android:id="@+id/menuGroupBottom"
+                android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/destSettings"
+                    android:checked="false"
+                    android:icon="@drawable/ic_settings_black_24dp"
+                    android:title="@string/settings" />
+
+                <item
+                    android:id="@+id/destLab"
+                    android:checkable="false"
+                    android:icon="@drawable/ic_extension_black_24dp"
+                    android:title="@string/more" />
+            </group>
+        </menu>
+    </item>
+
+</menu>

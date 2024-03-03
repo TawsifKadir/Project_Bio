@@ -1,0 +1,12 @@
+<resources>
+
+
+    <style name="AppTheme" parent="AppThemeBase">
+
+        <item name="android:fontFamily">@font/solaimanlipi_regular</item>
+        <item name="fontFamily">@font/solaimanlipi_regular</item>
+
+    </style>
+
+
+</resources>

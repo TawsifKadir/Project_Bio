@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorBackground">
+
+    <TextView
+        android:id="@+id/tvPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:padding="8dp"
+        android:text="Page - (1/5)"
+        android:textAlignment="textStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/llBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPage">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/bg_round_box"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/spState"
+                            style="@style/TextInputLayout.Outline.Dropdown"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:hint="Select State Name"
+                            android:padding="@dimen/content_padding"
+                            app:boxBackgroundColor="@color/white">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/acState"
+                                style="@style/TextInput.Outline"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:focusable="false"
+                                android:inputType="none"
+                                app:boxBackgroundColor="@color/white" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/TextInputLayout.Outline.Dropdown"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="County Name"
+                            android:padding="@dimen/content_padding">
+
+                            <AutoCompleteTextView
+                                style="@style/TextInput.Outline"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/TextInputLayout.Outline.Dropdown"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Payam Name"
+                            android:padding="@dimen/content_padding">
+
+                            <AutoCompleteTextView
+                                style="@style/TextInput.Outline"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/TextInputLayout.Outline.Dropdown"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Boma Name"
+                            android:padding="@dimen/content_padding">
+
+                            <AutoCompleteTextView
+                                style="@style/TextInput.Outline"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_round_box"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="Respondent First Name (min 3 letters)"
+                                android:padding="@dimen/content_padding">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    style="@style/TextInput.Outline"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="Respondent Middle Name (min 3 letters)"
+                                android:padding="@dimen/content_padding">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    style="@style/TextInput.Outline"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Respondent Last Name (min 3 letters)"
+                                android:padding="@dimen/content_padding">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    style="@style/TextInput.Outline"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="Respondent Age (max 3 digit)">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/TextInput.Outline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="Respondent Id Number">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/TextInput.Outline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="Respondent Phone Number (max 10 digit)">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/TextInput.Outline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayout.Outline.Dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="Household Main Source of Income">
+
+                    <AutoCompleteTextView
+                        style="@style/TextInput.Outline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="Household Monthly Average Income">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/TextInput.Outline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayout.Outline.Dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="Respondent Legal Status">
+
+                    <AutoCompleteTextView
+                        style="@style/TextInput.Outline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayout.Outline.Dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="Respondent Gender">
+
+                    <AutoCompleteTextView
+                        style="@style/TextInput.Outline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayout.Outline.Dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="Respondent Marital Status">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/tv"
+                        style="@style/TextInput.Outline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="Selection Reason">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/TextInput.Outline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayout.Outline.Dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="Respondent relationship to the household head">
+
+                    <AutoCompleteTextView
+                        style="@style/TextInput.Outline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_round_box"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        style="@style/AppTextView.Input.Header"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Selection Criteria" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/input_row_height"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rbA"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:buttonTint="@color/rb_tint"
+                            android:text="LIPW"
+                            android:textColor="?attr/colorTextPrimary"
+                            tools:checked="true" />
+
+                        <RadioButton
+                            android:id="@+id/rbB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:buttonTint="@color/rb_tint"
+                            android:text="LIPW"
+                            android:textColor="?attr/colorTextPrimary"
+                            tools:checked="false" />
+
+                    </RadioGroup>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_round_box"
+                    android:orientation="vertical"
+
+                    >
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="GPS Coordinates (Lat)"
+                        android:padding="@dimen/content_padding">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInput.Outline"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="GPS Coordinates (Long)"
+                        android:padding="@dimen/content_padding">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInput.Outline"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_round_box"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/AppTextView.Input.Header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Respondent First Name (min 3 letters)"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/etFirstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_row_height"
+                    android:layout_marginStart="8dp"
+                    android:background="@android:color/transparent"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextSecondary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_round_box"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    style="@style/AppTextView.Input.Header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Respondent Gender" />
+
+                <Spinner
+                    android:id="@+id/spGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_row_height"
+                    android:popupBackground="?attr/colorBackground" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/llBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/view_button_back_next"
+            layout="@layout/view_button_back_next" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

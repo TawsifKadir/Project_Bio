@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <PreferenceCategory
+        android:title="@string/customization"
+        app:icon="@drawable/ic_pref_customization"
+        tools:isPreferenceVisible="false">
+
+        <ListPreference
+            android:defaultValue="Light"
+            android:enabled="true"
+            android:entries="@array/themes"
+            android:entryValues="@array/themes"
+            android:key="@string/pfTheme"
+            android:summary="%1$s"
+            android:title="@string/theme" />
+
+
+        <ListPreference
+            android:defaultValue="English"
+            android:enabled="true"
+            android:entries="@array/language_list"
+            android:entryValues="@array/language_list"
+            android:key="@string/pfLanguage"
+            android:summary="%1$s"
+            android:title="@string/language_change"
+            app:isPreferenceVisible="false" />
+
+        <Preference
+            android:key="@string/pfResetAll"
+            android:summary="@string/reset_all_msg"
+            android:title="@string/reset_all" />
+
+        <Preference
+            android:key="@string/pfExportDb"
+            android:summary="Export sqlite db to path bio_reg"
+            android:title="Export Database" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/about"
+        app:icon="@drawable/ic_pref_about"
+        tools:isPreferenceVisible="false">
+
+        <Preference
+            android:key="@string/pfAbout"
+            android:summary="@string/app_version_name"
+            android:title="@string/app_title" />
+
+        <Preference
+            android:key="@string/pfDeveloper"
+            android:summary="@string/app_developer_code"
+            android:title="@string/developer"
+            app:isPreferenceVisible="false" />
+
+        <Preference
+            android:key="@string/pfFaq"
+            android:title="@string/faq" />
+
+        <Preference
+            android:key="@string/pfTerms"
+            android:title="@string/terms_and_conditions" />
+
+        <Preference
+            android:key="@string/pfPrivacyPolicy"
+            android:title="@string/privacy_policy" />
+
+        <Preference
+            android:key="@string/pfMoreApps"
+            android:summary="@string/more_apps_with_click"
+            android:title="@string/more_apps"
+            app:isPreferenceVisible="false">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="market://search?q=pub:Xplo" />
+        </Preference>
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:title="@string/support"
+        app:icon="@drawable/ic_pref_support"
+        tools:isPreferenceVisible="false">
+
+        <Preference
+            android:key="@string/pfRate"
+            android:title="@string/rate_now" />
+
+        <Preference
+            android:key="@string/pfShare"
+            android:summary="@string/tell_a_friend"
+            android:title="@string/share"
+            app:isPreferenceVisible="false" />
+
+        <Preference
+            android:key="@string/pfFeedback"
+            android:title="@string/feedback_provide" />
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="@string/pfCatAdvanceSettings"
+        android:title="@string/settings_advance"
+        app:icon="@drawable/ic_pref_settings_advance"
+        app:isPreferenceVisible="false"
+        tools:isPreferenceVisible="false">
+
+        <Preference
+            android:enabled="false"
+            android:key="@string/pfDevOption"
+            android:title="@string/developer_option" />
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

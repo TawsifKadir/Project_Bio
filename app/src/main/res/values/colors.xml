@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!--    others-->
+    <color name="contrast_light">#FFFBEC</color>
+    <color name="contrast_dark">#FFFBEC</color>
+
+    <color name="bottom_nav">#009688</color>
+    <color name="green">#4CAF50</color>
+    <color name="red">#F44336</color>
+    <color name="white">#FFFFFF</color>
+
+
+    <color name="cellBackgroundPrimary">#FFFBEC</color>
+    <color name="cellTextPrimary">#808080</color>
+    <color name="login_text">#808080</color>
+    <color name="transparent_darker_mild">#6F000000</color>
+    <color name="transparent_darker_high">#A6000000</color>
+    <color name="prime_icon">#DC9719</color>
+
+    <color name="ic_launcher_background">#FFFFFF</color>
+
+
+    <color name="icon_tint_home">#F15922</color>
+    <color name="gray">#E1E0E0</color>
+
+</resources>

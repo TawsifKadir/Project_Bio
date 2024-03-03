@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llInputOtpBox"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/colorBackground"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal"
+    android:padding="0dp">
+
+
+    <EditText
+        android:id="@+id/etDigit01"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/round_background_white"
+        android:focusable="true"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        android:padding="3dp"
+        android:textColor="@color/black"
+
+        android:textStyle="bold"
+        tools:text="9" />
+
+    <EditText
+        android:id="@+id/etDigit02"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/round_background_white"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        android:padding="3dp"
+        android:textColor="@color/black"
+
+        android:textStyle="bold"
+        tools:text="9" />
+
+    <EditText
+        android:id="@+id/etDigit03"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/round_background_white"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        android:padding="3dp"
+        android:textColor="@color/black"
+
+        android:textStyle="bold"
+        tools:text="9" />
+
+    <EditText
+        android:id="@+id/etDigit04"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/round_background_white"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        android:padding="3dp"
+        android:textColor="@color/black"
+
+        android:textStyle="bold"
+        tools:text="9" />
+
+    <EditText
+        android:id="@+id/etDigit05"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/round_background_white"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        android:padding="3dp"
+        android:textColor="@color/black"
+
+        android:textStyle="bold"
+        tools:text="9" />
+
+    <EditText
+        android:id="@+id/etDigit06"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/round_background_white"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        android:padding="3dp"
+        android:textColor="@color/black"
+
+        android:textStyle="bold"
+        tools:text="9" />
+
+
+</LinearLayout>

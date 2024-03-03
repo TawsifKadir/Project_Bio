@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorBackground">
+
+    <TextView
+        android:id="@+id/tvPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:padding="8dp"
+        android:text="Page - (5/6)"
+        android:textAlignment="textStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/llBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPage">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <LinearLayout style="@style/AppLinearLayoutInputBox">
+
+                <TextView
+                    style="@style/AppTextView.Input.Header"
+                    android:text="@string/would_anyone_from_your_household_including_yourself_be_interested_in_participating" />
+
+
+                <RadioGroup
+                    android:id="@+id/rgNomineeAdd"
+                    style="@style/AppRadioGroupForm">
+
+                    <RadioButton
+                        android:id="@+id/rbYes"
+                        style="@style/AppRadioButton.Form"
+                        android:text="@string/yes"
+                        tools:checked="true" />
+
+                    <RadioButton
+                        android:id="@+id/rbNo"
+                        style="@style/AppRadioButton.Form"
+                        android:text="@string/no"
+                        tools:checked="false" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/viewReasonNoNominee"
+                style="@style/AppLinearLayoutInputBox"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    style="@style/AppTextView.Input.Header"
+                    android:text="@string/select_reason_why_not" />
+
+
+                <Spinner
+                    android:id="@+id/spReasonNoNominee"
+                    style="@style/AppSpinnerForm" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/viewNominee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/nominee1"
+                    layout="@layout/view_nominee_block" />
+
+
+                <include
+                    android:id="@+id/nominee2"
+                    layout="@layout/view_nominee_block" />
+
+
+                <include
+                    android:id="@+id/nominee3"
+                    layout="@layout/view_nominee_block" />
+
+
+                <include
+                    android:id="@+id/nominee4"
+                    layout="@layout/view_nominee_block" />
+
+
+                <include
+                    android:id="@+id/nominee5"
+                    layout="@layout/view_nominee_block" />
+
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btAdd"
+                style="@style/AppButton.TextButton.Secondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/add"
+                android:textAlignment="viewEnd"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/llBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/view_button_back_next"
+            layout="@layout/view_button_back_next" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

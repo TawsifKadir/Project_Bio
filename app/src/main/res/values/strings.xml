@@ -1,0 +1,97 @@
+<resources>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--    <string name="startup_sound">Startup Sound</string>-->
+    <!--    <string name="settings_advance">Advance Settings</string>-->
+    <!--    <string name="developer_option">Developer Option</string>-->
+    <string name="my_book">My Book</string>
+    <string name="splash_title">bio-registration</string>
+    <!--    <string name="dummy_book_title">নন্দিত নরকে</string>-->
+    <!--    <string name="dummy_writer">হুমায়ূন আহমেদ</string>-->
+
+
+    <string name="book_details">কাল রাত্তির থেকে মেঘের কামাই নেই । কেবলই চলছে বৃষ্টি । গাছগুলো বোকার মতো জবুস্থবু হয়ে রয়েছে । পাখির ডাক বন্ধ । আজ মনে পড়ছে আমার ছেলেবেলাকার সন্ধেবেলা ।
+তখন আমাদের ঐ সময়টা কাটত চাকরদের মহলে । তখনও ইংরেজি শব্দের বানান আর মানে-মুখস্থর বুক-ধড়াস সন্ধেবেলার ঘাড়ে চেপে বসে নি । সেজদাদা বলতেন আগে চাই বাংলা ভাষার গাঁথুনি , তার পরে ইংরেজি শেখার পত্তন । </string>
+
+    <string name="login_with_phone">Login with Phone</string>
+    <string name="sms_sent_msg">We have sent an SMS. Please enter the 4 digit One-Time-Password below</string>
+    <string name="verify">Verify</string>
+    <string name="entered_wrong_number"><u>Entered Wrong Number?</u></string>
+    <string name="click_verify_msg">Click VERIFY to complete verification. An SMS may be sent to verify your number. Message and data rates may apply.</string>
+    <string name="password_again">Password Again</string>
+    <string name="cant_empty">Can\'t be empty.</string>
+    <string name="my_downloads">My Downloads</string>
+    <string name="watch_list">Watch List</string>
+    <string name="continue_with_phone_number">Continue With Phone number</string>
+    <string name="use_your_phone_number_to_continue">Use your phone number to continue. xdb will send a code to verify this number.</string>
+    <string name="skip_to_home">Skip To Home</string>
+    <string name="verify_your_phone_no">Please, Verify Your Phone No</string>
+    <string name="enter_code_that_sent_to_">Enter code that sent to %1$s</string>
+    <string name="resend_code_after_">Resend code after 0:%1$d sec.</string>
+    <string name="add_to_list">+ Add To List</string>
+    <string name="invite_your_friends"><![CDATA[Invite Family & Friends]]></string>
+    <string name="invite_and_enjoy_"><![CDATA[Invite & Enjoy xdb with your Family Friends]]></string>
+    <string name="invitation_url">https://xdbbd.com/asdf</string>
+    <string name="invite">Invite</string>
+    <string name="upgrade_premium">Upgrade Premium</string>
+    <string name="watch_premium_content_">Watch Premium Content\nEnjoy Live TV</string>
+    <string name="buy_now">Buy Now</string>
+    <string name="complete_your_profile">Complete your profile</string>
+    <string name="not_logged_in">Not Logged in</string>
+    <string name="movies">Movies</string>
+    <string name="discover">Discover</string>
+    <string name="tv">TV</string>
+    <string name="wish_list">Wish List</string>
+    <string name="packages">Packages</string>
+    <string name="subscribed">Subscribed</string>
+    <string name="download_settings">Download Settings</string>
+    <string name="content_settings">Content Settings</string>
+    <string name="video_quality">Video Quality</string>
+    <string name="play_quality">Play Quality</string>
+    <string name="download_quality">Download Quality</string>
+    <string name="download_with_mobile_data">Download with mobile data</string>
+    <string name="use_sd_card">Use SD Card</string>
+    <string name="add">Add</string>
+    <string name="like">Like</string>
+    <string name="download">Download</string>
+    <string name="synopsis">Synopsis</string>
+    <string name="cast">Cast</string>
+    <string name="director">Director</string>
+
+    <string name="rent">Rent</string>
+    <string name="rent_now">Rent Now</string>
+    <string name="your_rental_for__">Your Rental for  \`%1$s\` is successful but payment is under process. You will be notified soon once the payment is successful. Enjoy!</string>
+    <string name="str_season">Season</string>
+    <string name="str_starring">Starring</string>
+    <string name="str_genres">Genres</string>
+    <string name="str_episodes">Episodes</string>
+    <string name="delete_comment">Delete comment</string>
+    <string name="delete_comment_msg">Delete your comment permanently?</string>
+    <string name="error_unable_parsing_data">Unable to load data</string>
+    <string name="comment_is_deleted">Your comment is deleted</string>
+    <string name="info_scan_for_login">Scan the barcode for TV login</string>
+    <string name="tab_ads">Ads</string>
+    <string name="no_item_found">No item found</string>
+    <string name="rental">Rental</string>
+    <!--    <string name="packages">Packages</string>-->
+    <string name="type_your_comment">Type your comment..</string>
+    <string name="comment_history_loading">Comment history is loading..</string>
+    <string name="user_vote_up">Up</string>
+    <string name="user_vote_down">Down</string>
+    <string name="alternate">Alternate</string>
+    <string name="alternate_add_hint">Maximum 2 alternate allowed</string>
+    <string name="total_number_of_males">Total Number of Males</string>
+    <string name="total_number_of_females">Total Number of females</string>
+    <string name="form_details">Form Details</string>
+    <string name="respondent">Respondent</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="address">Address</string>
+    <string name="household_breakdowns" translatable="false">Household Breakdown</string>
+    <string name="delete_confirm">Are you sure you want to delete the following Household Member?</string>
+    <string name="longstring">I would like to tell you about a livelihood component that we\'re  introducing in addition to the cash transfer support (either through "DIS" or "LIPW") that the program is already offering. This additional component wants to enhance economic opportunities for poor and vulnerable youth, with the goal of supporting them to become more productive. The new program component may include training in business, livelihoods, and soft skills, along with an additional conditional cash grant. Please note that this new program component will be introduced only to some households, so it\'s important to understand that the presence of this message does not necessarily mean that your household has been selected for the economic opportunities program. Only household members who are between 18-35 years old, and who can read and write are eligible for participation in this new component.
+</string>
+    <string name="add_nominee">Add Nominee</string>
+    <string name="maximum_number_of_alternates_already_added">Maximum Number of Alternates already added</string>
+
+</resources>

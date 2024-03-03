@@ -1,0 +1,368 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="NewApi">
+
+
+    <style name="AppThemeBase" parent="Theme.MaterialComponents.NoActionBar.Bridge">
+
+
+        <item name="android:textSize">@dimen/text_size_normal</item>
+
+        <item name="textInputStyle">@style/TextInputLayout.Outline</item>
+        <!--        <item name="android:textColor">@color/secondary_text</item>-->
+        <!--        <item name="android:textColor">?android:attr/textColorPrimary</item>-->
+
+        <!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
+        <!--        <item name="android:windowLightStatusBar">true</item>-->
+
+        <!--        <item name="android:windowTranslucentStatus">true</item>-->
+        <!--        <item name="android:windowTranslucentNavigation">true</item>-->
+
+        <!--        <item name="alertDialogTheme">@style/DialogTheme.Dark</item>-->
+
+    </style>
+
+    <style name="AppTheme" parent="AppThemeBase">
+
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="fontFamily">@font/roboto</item>
+
+    </style>
+
+    <style name="AppTheme.Light" parent="AppTheme">
+
+        <item name="colorPrimary">@color/li_primary</item>
+        <item name="colorOnPrimary">@color/li_on_primary</item>
+        <item name="colorPrimaryDark">@color/li_primary_dark</item>
+        <item name="colorAccent">@color/li_accent</item>
+
+
+
+        <!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
+        <item name="android:statusBarColor">@color/li_background</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <item name="android:textColor">@color/li_text_primary</item>
+        <item name="android:textColorSecondary">@color/li_text_secondary</item>
+        <!--        <item name="android:textColorHint">@color/primary_text</item>-->
+        <item name="android:drawableTint">@color/li_icon</item>
+        <item name="android:windowBackground">@color/li_background</item>
+
+        <item name="alertDialogTheme">@style/DialogTheme.Light</item>
+
+
+        <item name="colorBrand">@color/li_brand</item>
+        <item name="colorOnBrand">@color/li_on_brand</item>
+        <item name="colorBrandLight">@color/li_brand_light</item>
+        <item name="colorBrandDark">@color/li_brand_dark</item>
+        <item name="colorBrandSemiTransparent">@color/li_brand_semi_transparent</item>
+        <item name="colorBrandDisabled">@color/li_brand_disabled</item>
+        <item name="colorOnBrandDisabled">@color/li_on_brand_disabled</item>
+
+        <item name="colorAppbar">@color/li_appbar</item>
+        <item name="colorOnAppbar">@color/li_on_appbar</item>
+
+        <item name="colorBottomBar">@color/li_bottom_bar</item>
+        <item name="colorOnBottomBar">@color/li_on_bottom_bar</item>
+        <item name="colorOnBottomBarChecked">@color/li_on_bottom_bar_checked</item>
+
+
+        <item name="colorBackground">@color/li_background</item>
+        <item name="colorOnBackground">@color/li_on_background</item>
+        <item name="colorBackgroundSecondary">@color/li_background_secondary</item>
+
+        <item name="colorTextPrimary">@color/li_text_primary</item>
+        <item name="colorTextSecondary">@color/li_text_secondary</item>
+        <item name="colorTextPrimaryContrastPrimary">@color/li_text_primary_contrast</item>
+        <item name="colorTextHint">@color/li_text_hint</item>
+
+        <item name="colorIcon">@color/li_icon</item>
+        <item name="colorDivider">@color/li_divider</item>
+        <item name="colorBorder">@color/li_border</item>
+        <item name="colorWarning">@color/li_waring</item>
+        <item name="colorError">@color/li_error</item>
+
+        <item name="colorTag">@color/li_tag</item>
+        <item name="colorOnTag">@color/li_on_tag</item>
+        <item name="colorTagTvod">@color/li_tag_tvod</item>
+        <item name="colorOnTagTvod">@color/li_on_tag_tvod</item>
+
+        <item name="colorTab">@color/li_tab</item>
+        <item name="colorOnTab">@color/li_on_tab</item>
+        <item name="colorTabSelected">@color/li_tab_selected</item>
+        <item name="colorOnTabSelected">@color/li_on_tab_selected</item>
+
+        <item name="colorShimmer">@color/li_shimmer</item>
+        <item name="colorTransparentDarkA">@color/li_transparent_dark_a</item>
+
+        <item name="colorButtonPrimary">@color/li_button_primary</item>
+        <item name="colorOnButtonPrimary">@color/li_on_button_primary</item>
+        <item name="colorButtonPrimaryDisabled">@color/li_button_primary_disabled</item>
+        <item name="colorButtonPrimaryBorder">@color/li_button_primary_border</item>
+
+        <item name="colorButtonA">@color/li_button_a</item>
+        <item name="colorOnButtonA">@color/li_on_button_a</item>
+        <item name="colorButtonADisabled">@color/li_button_a_disabled</item>
+        <item name="colorButtonABorder">@color/li_button_a_border</item>
+
+        <item name="colorButtonB">@color/li_button_b</item>
+        <item name="colorOnButtonB">@color/li_on_button_b</item>
+        <item name="colorButtonBDisabled">@color/li_button_b_disabled</item>
+        <item name="colorButtonBBorder">@color/li_button_b_border</item>
+
+        <item name="colorGrid">@color/li_grid</item>
+        <item name="colorOnGrid">@color/li_on_grid</item>
+
+        <item name="themeToolbar">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="themePopup">@style/ThemeOverlay.AppCompat.Light</item>
+
+        <!--        <item name="themeToolbar">@style/PopupTheme.Light</item>-->
+        <!--        <item name="themePopup">@style/PopupTheme.Light</item>-->
+
+        <item name="themeNavDrawer">@style/ThemeOverlay.AppCompat.Light</item>
+
+        <!-- Navigation Drawer -->
+        <item name="colorNavigationItem">@color/li_text_primary</item>
+        <!--        <item name="colorNavigationItemSelected">@color/colorWhite</item>-->
+        <!--        <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>-->
+
+        <!--        <item name="drawableLogoBongo">@drawable/logo_bongo_dark</item>-->
+
+        <!--        <item name="drawableAppPicto">@drawable/app_picto_bioscope</item>-->
+        <!--        <item name="drawableAppLogoBanner">@drawable/app_logo_bioscope_banner_dark</item>-->
+        <!--        <item name="drawableAppLogoBannerOnBrand">@drawable/app_logo_bioscope_banner_light</item>-->
+
+    </style>
+
+    <style name="AppTheme.Dark" parent="AppTheme">
+
+        <item name="colorPrimary">@color/dk_primary</item>
+        <item name="colorOnPrimary">@color/dk_on_primary</item>
+        <item name="colorPrimaryDark">@color/dk_primary_dark</item>
+        <item name="colorAccent">@color/dk_accent</item>
+
+        <item name="android:statusBarColor">@color/dk_background</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+        <item name="android:textColor">@color/dk_text_primary</item>
+        <item name="android:textColorSecondary">@color/dk_text_secondary</item>
+        <item name="android:textColorHint">@color/dk_text_primary</item>
+        <item name="android:drawableTint">@color/dk_icon</item>
+        <item name="android:windowBackground">@color/dk_background</item>
+
+        <item name="alertDialogTheme">@style/DialogTheme.Dark</item>
+
+
+        <item name="colorBrand">@color/dk_brand</item>
+        <item name="colorOnBrand">@color/dk_on_brand</item>
+        <item name="colorBrandLight">@color/dk_brand_light</item>
+        <item name="colorBrandDark">@color/dk_brand_dark</item>
+        <item name="colorBrandSemiTransparent">@color/dk_brand_semi_transparent</item>
+        <item name="colorBrandDisabled">@color/dk_brand_disabled</item>
+        <item name="colorOnBrandDisabled">@color/dk_on_brand_disabled</item>
+
+        <item name="colorAppbar">@color/dk_appbar</item>
+        <item name="colorOnAppbar">@color/dk_on_appbar</item>
+
+        <item name="colorBottomBar">@color/dk_bottom_bar</item>
+        <item name="colorOnBottomBar">@color/dk_on_bottom_bar</item>
+        <item name="colorOnBottomBarChecked">@color/dk_on_bottom_bar_checked</item>
+
+
+        <item name="colorBackground">@color/dk_background</item>
+        <item name="colorOnBackground">@color/dk_on_background</item>
+        <item name="colorBackgroundSecondary">@color/dk_background_secondary</item>
+
+        <item name="colorTextPrimary">@color/dk_text_primary</item>
+        <item name="colorTextSecondary">@color/dk_text_secondary</item>
+        <item name="colorTextPrimaryContrastPrimary">@color/dk_text_primary_contrast</item>
+        <item name="colorTextHint">@color/dk_text_hint</item>
+
+        <item name="colorIcon">@color/dk_icon</item>
+        <item name="colorDivider">@color/dk_divider</item>
+        <item name="colorBorder">@color/dk_border</item>
+        <item name="colorWarning">@color/li_waring</item>
+        <item name="colorError">@color/li_error</item>
+
+        <item name="colorTag">@color/dk_tag</item>
+        <item name="colorOnTag">@color/dk_on_tag</item>
+        <item name="colorTagTvod">@color/dk_tag_tvod</item>
+        <item name="colorOnTagTvod">@color/dk_on_tag_tvod</item>
+
+        <item name="colorTab">@color/dk_tab</item>
+        <item name="colorOnTab">@color/dk_on_tab</item>
+        <item name="colorTabSelected">@color/dk_tab_selected</item>
+        <item name="colorOnTabSelected">@color/dk_on_tab_selected</item>
+
+        <item name="colorShimmer">@color/dk_shimmer</item>
+        <item name="colorTransparentDarkA">@color/dk_transparent_dark_a</item>
+
+        <item name="colorButtonPrimary">@color/dk_button_primary</item>
+        <item name="colorOnButtonPrimary">@color/dk_on_button_primary</item>
+        <item name="colorButtonPrimaryDisabled">@color/dk_button_primary_disabled</item>
+        <item name="colorButtonPrimaryBorder">@color/dk_button_primary_border</item>
+
+        <item name="colorButtonA">@color/dk_button_a</item>
+        <item name="colorOnButtonA">@color/dk_on_button_a</item>
+        <item name="colorButtonADisabled">@color/dk_button_a_disabled</item>
+        <item name="colorButtonABorder">@color/dk_button_a_border</item>
+
+        <item name="colorButtonB">@color/dk_button_b</item>
+        <item name="colorOnButtonB">@color/dk_on_button_b</item>
+        <item name="colorButtonBDisabled">@color/dk_button_b_disabled</item>
+        <item name="colorButtonBBorder">@color/dk_button_b_border</item>
+
+        <item name="colorGrid">@color/dk_grid</item>
+        <item name="colorOnGrid">@color/dk_on_grid</item>
+
+        <item name="themeToolbar">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="themePopup">@style/ThemeOverlay.AppCompat.Dark</item>
+
+        <item name="themeNavDrawer">@style/ThemeOverlay.AppCompat.Dark</item>
+
+
+        <!-- Navigation Drawer -->
+        <item name="colorNavigationItem">@color/dk_text_primary</item>
+        <!--        <item name="colorNavigationItemSelected">@color/colorWhite</item>-->
+        <!--        <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>-->
+
+        <!--        <item name="drawableLogoBongo">@drawable/logo_bongo_light</item>-->
+
+
+        <!--        <item name="drawableAppPicto">@drawable/app_picto_bioscope</item>-->
+        <!--        <item name="drawableAppLogoBanner">@drawable/app_logo_bioscope_banner_dark</item>-->
+        <!--        <item name="drawableAppLogoBannerOnBrand">@drawable/app_logo_bioscope_banner_light</item>-->
+
+    </style>
+
+
+    <style name="SplashActivityTheme.Light" parent="AppTheme.Light">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <!--<item name="android:windowTranslucentNavigation">true</item>-->
+    </style>
+
+    <style name="SplashActivityTheme.Dark" parent="AppTheme.Dark">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <!--<item name="android:windowTranslucentNavigation">true</item>-->
+    </style>
+
+
+    <style name="ProfileActivityTheme.Light" parent="AppTheme.Light">
+
+        <!--        <item name="android:statusBarColor">@color/background_1</item>-->
+        <!--        <item name="android:windowTranslucentStatus">true</item>-->
+        <!--<item name="android:windowTranslucentNavigation">true</item>-->
+
+    </style>
+
+    <style name="ProfileActivityTheme.Dark" parent="AppTheme.Dark">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!--        <item name="android:windowTranslucentStatus">true</item>-->
+        <!--<item name="android:windowTranslucentNavigation">true</item>-->
+    </style>
+
+    <style name="DialogTheme.Light" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:windowBackground">@color/li_background_secondary</item>
+<!--        <item name="android:background">@color/li_background_secondary</item>-->
+        <item name="colorPrimary">@color/li_accent</item>
+
+    </style>
+
+    <style name="DialogTheme.Dark" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="android:windowBackground">@color/dk_background_secondary</item>
+<!--        <item name="android:background">@color/dk_background_secondary</item>-->
+        <item name="colorPrimary">@color/dk_accent</item>
+
+    </style>
+
+<!--    <style name="DialogTheme.Light" parent="Theme.AppCompat.Dialog.Alert">-->
+<!--        &lt;!&ndash; title, buttons &ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="android:textColor">@color/li_primary</item>&ndash;&gt;-->
+<!--        &lt;!&ndash; msg &ndash;&gt;-->
+<!--        <item name="android:textColorPrimary">@color/li_text_primary</item>-->
+<!--        <item name="android:colorBackground">@color/li_background_secondary</item>-->
+<!--        &lt;!&ndash;        <item name="android:windowBackground">@color/li_background</item>&ndash;&gt;-->
+<!--    </style>-->
+
+<!--    <style name="DialogTheme.Dark" parent="Theme.AppCompat.Dialog.Alert">-->
+<!--        &lt;!&ndash; title, buttons &ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="android:textColor">@color/dk_primary</item>&ndash;&gt;-->
+<!--        &lt;!&ndash; msg &ndash;&gt;-->
+<!--        <item name="android:textColorPrimary">@color/dk_text_primary</item>-->
+<!--        <item name="android:colorBackground">@color/dk_background_secondary</item>-->
+<!--        &lt;!&ndash;        <item name="android:windowBackground">@color/dk_background</item>&ndash;&gt;-->
+<!--    </style>-->
+
+    <!--    <style name="DialogStyle.Dark" parent="@android:style/Theme.Dialog">-->
+    <!--        <item name="android:textColor">@color/red</item>-->
+    <!--        <item name="android:textColorSecondary">@color/red</item>-->
+    <!--        <item name="android:textColorPrimary">@color/red</item>-->
+    <!--        <item name="android:colorBackground">@color/grey</item>-->
+    <!--        <item name="android:windowBackground">@color/grey</item>-->
+    <!--    </style>-->
+
+
+    <style name="CustomAlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/li_brand</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+
+    <style name="ts_bottom_icon">
+        <item name="android:gravity">center</item>
+        <item name="android:tint">@color/white</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+
+    </style>
+
+    <style name="NavigationView.Custom" parent="Widget.Design.NavigationView">
+        <!--        <item name="itemIconTint">?attr/colorNavigationItem</item>-->
+        <item name="itemTextColor">?attr/colorNavigationItem</item>
+        <!--        <item name="itemBackground">?attr/drawableNavigationItemBackground</item>-->
+    </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">?attr/colorTextPrimary</item>
+        <item name="colorControlActivated">?attr/colorAccent</item>
+    </style>
+
+    <style name="PopupTheme.Light" parent="ThemeOverlay.AppCompat.Light">
+        <!--        <item name="android:textColor">@color/li_primary_text</item>-->
+        <item name="android:textColorPrimary">@color/li_text_primary</item>
+    </style>
+
+    <style name="PopupTheme.Dark" parent="ThemeOverlay.AppCompat.Dark">
+        <!--        <item name="android:textColor">@color/li_primary_text</item>-->
+        <item name="android:textColorPrimary">@color/dk_text_primary</item>
+    </style>
+
+    <declare-styleable name="IconCard">
+        <attr name="title" format="string" />
+<!--        <attr name="subtitle" format="string" />-->
+        <attr name="icon" format="reference" />
+    </declare-styleable>
+
+
+    <style name="AppBottomSheetDialog.Default" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="bottomSheetStyle">@style/BottomSheetStyleWrapper.Default</item>
+    </style>
+
+    <style name="BottomSheetStyleWrapper.Default" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+
+</resources>

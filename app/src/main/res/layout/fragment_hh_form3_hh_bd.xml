@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorBackground">
+
+    <TextView
+        android:id="@+id/tvPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:padding="8dp"
+        android:text="Page - (3/6)"
+        android:textAlignment="textStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/llBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPage"
+        app:layout_constraintVertical_bias="1.0">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <LinearLayout style="@style/AppLinearLayoutInputBox">
+
+                <TextView
+                    style="@style/AppTextView.Input.Header"
+                    android:text="@string/household_size" />
+
+                <EditText
+                    android:id="@+id/etHouseholdSize"
+                    style="@style/AppEditText.Form.Number"
+                    android:maxLength="2" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="What is the number of household members in your household, including yourself, for each category"
+                android:textSize="12sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <include
+                android:id="@+id/view_hh_table"
+                layout="@layout/view_hh_table" />
+
+            <LinearLayout style="@style/AppLinearLayoutInputBox">
+
+                <TextView
+                    style="@style/AppTextView.Input.Header"
+                    android:text="@string/can_you_read_and_write_any_language" />
+
+
+                <RadioGroup
+                    android:id="@+id/rgReadWrite"
+                    style="@style/AppRadioGroupForm">
+
+                    <RadioButton
+                        android:id="@+id/rbYes"
+                        style="@style/AppRadioButton.Form"
+                        android:text="Yes" />
+
+                    <RadioButton
+                        android:id="@+id/rbNo"
+                        style="@style/AppRadioButton.Form"
+                        android:text="No" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    style="@style/AppLinearLayoutInputBox"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/AppTextView.Input.Header"
+                        android:singleLine="false"
+                        android:text="@string/not_including_yourself_how_many_other_members_of_your_household_are_between_18_and_35_and_can_read_and_write" />
+
+                    <EditText
+                        android:id="@+id/etReadWriteNumber"
+                        style="@style/AppEditText.Form.Number"
+                        android:maxLength="2" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/llBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/view_button_back_next"
+            layout="@layout/view_button_back_next" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,173 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="NewApi">
+
+    <style name="AppTheme.Pink" parent="AppTheme.Light">
+
+        <item name="colorPrimary">@color/pi_primary</item>
+        <item name="colorOnPrimary">@color/pi_on_primary</item>
+        <item name="colorPrimaryDark">@color/pi_primary_dark</item>
+        <item name="colorAccent">@color/pi_accent</item>
+
+        <!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
+        <item name="android:statusBarColor">@color/pi_background</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <item name="android:textColor">@color/pi_text_primary</item>
+        <item name="android:textColorSecondary">@color/pi_text_secondary</item>
+        <!--        <item name="android:textColorHint">@color/primary_text</item>-->
+        <item name="android:drawableTint">@color/pi_icon</item>
+        <item name="android:windowBackground">@color/pi_background</item>
+
+        <item name="alertDialogTheme">@style/DialogTheme.Light</item>
+
+
+        <item name="colorBrand">@color/pi_brand</item>
+        <item name="colorOnBrand">@color/pi_on_brand</item>
+        <item name="colorBrandLight">@color/pi_brand_light</item>
+        <item name="colorBrandDark">@color/pi_brand_dark</item>
+        <item name="colorBrandSemiTransparent">@color/pi_brand_semi_transparent</item>
+        <item name="colorBrandDisabled">@color/pi_brand_disabled</item>
+        <item name="colorOnBrandDisabled">@color/pi_on_brand_disabled</item>
+
+        <item name="colorAppbar">@color/pi_appbar</item>
+        <item name="colorOnAppbar">@color/pi_on_appbar</item>
+
+        <item name="colorBottomBar">@color/pi_bottom_bar</item>
+        <item name="colorOnBottomBar">@color/pi_on_bottom_bar</item>
+        <item name="colorOnBottomBarChecked">@color/pi_on_bottom_bar_checked</item>
+
+
+        <item name="colorBackground">@color/pi_background</item>
+        <item name="colorOnBackground">@color/pi_on_background</item>
+        <item name="colorBackgroundSecondary">@color/pi_background_secondary</item>
+
+        <item name="colorTextPrimary">@color/pi_text_primary</item>
+        <item name="colorTextSecondary">@color/pi_text_secondary</item>
+        <item name="colorTextPrimaryContrastPrimary">@color/pi_text_primary_contrast</item>
+        <item name="colorTextHint">@color/pi_text_hint</item>
+
+        <item name="colorIcon">@color/pi_icon</item>
+        <item name="colorDivider">@color/pi_divider</item>
+        <item name="colorBorder">@color/pi_border</item>
+        <item name="colorWarning">@color/pi_waring</item>
+        <item name="colorError">@color/pi_error</item>
+
+        <item name="colorTag">@color/pi_tag</item>
+        <item name="colorOnTag">@color/pi_on_tag</item>
+        <item name="colorTagTvod">@color/pi_tag_tvod</item>
+        <item name="colorOnTagTvod">@color/pi_on_tag_tvod</item>
+
+        <item name="colorTab">@color/pi_tab</item>
+        <item name="colorOnTab">@color/pi_on_tab</item>
+        <item name="colorTabSelected">@color/pi_tab_selected</item>
+        <item name="colorOnTabSelected">@color/pi_on_tab_selected</item>
+
+        <item name="colorShimmer">@color/pi_shimmer</item>
+        <item name="colorTransparentDarkA">@color/pi_transparent_dark_a</item>
+
+        <item name="colorButtonPrimary">@color/pi_button_primary</item>
+        <item name="colorOnButtonPrimary">@color/pi_on_button_primary</item>
+        <item name="colorButtonPrimaryDisabled">@color/pi_button_primary_disabled</item>
+        <item name="colorButtonPrimaryBorder">@color/pi_button_primary_border</item>
+
+        <item name="colorButtonA">@color/pi_button_a</item>
+        <item name="colorOnButtonA">@color/pi_on_button_a</item>
+        <item name="colorButtonADisabled">@color/pi_button_a_disabled</item>
+        <item name="colorButtonABorder">@color/pi_button_a_border</item>
+
+        <item name="colorButtonB">@color/pi_button_b</item>
+        <item name="colorOnButtonB">@color/pi_on_button_b</item>
+        <item name="colorButtonBDisabled">@color/pi_button_b_disabled</item>
+        <item name="colorButtonBBorder">@color/pi_button_b_border</item>
+
+        <item name="colorGrid">@color/pi_grid</item>
+        <item name="colorOnGrid">@color/pi_on_grid</item>
+
+    </style>
+
+    <style name="AppTheme.Green" parent="AppTheme.Light">
+
+        <item name="colorPrimary">@color/gr_primary</item>
+        <item name="colorOnPrimary">@color/gr_on_primary</item>
+        <item name="colorPrimaryDark">@color/gr_primary_dark</item>
+        <item name="colorAccent">@color/gr_accent</item>
+
+        <!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
+        <item name="android:statusBarColor">@color/gr_background</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <item name="android:textColor">@color/gr_text_primary</item>
+        <item name="android:textColorSecondary">@color/gr_text_secondary</item>
+        <!--        <item name="android:textColorHint">@color/primary_text</item>-->
+        <item name="android:drawableTint">@color/gr_icon</item>
+        <item name="android:windowBackground">@color/gr_background</item>
+
+        <item name="alertDialogTheme">@style/DialogTheme.Light</item>
+
+
+        <item name="colorBrand">@color/gr_brand</item>
+        <item name="colorOnBrand">@color/gr_on_brand</item>
+        <item name="colorBrandLight">@color/gr_brand_light</item>
+        <item name="colorBrandDark">@color/gr_brand_dark</item>
+        <item name="colorBrandSemiTransparent">@color/gr_brand_semi_transparent</item>
+        <item name="colorBrandDisabled">@color/gr_brand_disabled</item>
+        <item name="colorOnBrandDisabled">@color/gr_on_brand_disabled</item>
+
+        <item name="colorAppbar">@color/gr_appbar</item>
+        <item name="colorOnAppbar">@color/gr_on_appbar</item>
+
+        <item name="colorBottomBar">@color/gr_bottom_bar</item>
+        <item name="colorOnBottomBar">@color/gr_on_bottom_bar</item>
+        <item name="colorOnBottomBarChecked">@color/gr_on_bottom_bar_checked</item>
+
+
+        <item name="colorBackground">@color/gr_background</item>
+        <item name="colorOnBackground">@color/gr_on_background</item>
+        <item name="colorBackgroundSecondary">@color/gr_background_secondary</item>
+
+        <item name="colorTextPrimary">@color/gr_text_primary</item>
+        <item name="colorTextSecondary">@color/gr_text_secondary</item>
+        <item name="colorTextPrimaryContrastPrimary">@color/gr_text_primary_contrast</item>
+        <item name="colorTextHint">@color/gr_text_hint</item>
+
+        <item name="colorIcon">@color/gr_icon</item>
+        <item name="colorDivider">@color/gr_divider</item>
+        <item name="colorBorder">@color/gr_border</item>
+        <item name="colorWarning">@color/gr_waring</item>
+        <item name="colorError">@color/gr_error</item>
+
+        <item name="colorTag">@color/gr_tag</item>
+        <item name="colorOnTag">@color/gr_on_tag</item>
+        <item name="colorTagTvod">@color/gr_tag_tvod</item>
+        <item name="colorOnTagTvod">@color/gr_on_tag_tvod</item>
+
+        <item name="colorTab">@color/gr_tab</item>
+        <item name="colorOnTab">@color/gr_on_tab</item>
+        <item name="colorTabSelected">@color/gr_tab_selected</item>
+        <item name="colorOnTabSelected">@color/gr_on_tab_selected</item>
+
+        <item name="colorShimmer">@color/gr_shimmer</item>
+        <item name="colorTransparentDarkA">@color/gr_transparent_dark_a</item>
+
+        <item name="colorButtonPrimary">@color/gr_button_primary</item>
+        <item name="colorOnButtonPrimary">@color/gr_on_button_primary</item>
+        <item name="colorButtonPrimaryDisabled">@color/gr_button_primary_disabled</item>
+        <item name="colorButtonPrimaryBorder">@color/gr_button_primary_border</item>
+
+        <item name="colorButtonA">@color/gr_button_a</item>
+        <item name="colorOnButtonA">@color/gr_on_button_a</item>
+        <item name="colorButtonADisabled">@color/gr_button_a_disabled</item>
+        <item name="colorButtonABorder">@color/gr_button_a_border</item>
+
+        <item name="colorButtonB">@color/gr_button_b</item>
+        <item name="colorOnButtonB">@color/gr_on_button_b</item>
+        <item name="colorButtonBDisabled">@color/gr_button_b_disabled</item>
+        <item name="colorButtonBBorder">@color/gr_button_b_border</item>
+
+        <item name="colorGrid">@color/gr_grid</item>
+        <item name="colorOnGrid">@color/gr_on_grid</item>
+
+    </style>
+
+
+
+</resources>

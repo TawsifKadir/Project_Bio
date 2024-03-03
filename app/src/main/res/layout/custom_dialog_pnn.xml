@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_background_dialog"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:minWidth="@dimen/dialog_min_width" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivDialogThumb"
+            style="@style/DialogIconLeft"
+            tools:src="@drawable/ic_person"
+            tools:visibility="visible" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tvDialogTitle"
+        style="@style/AppTextView.Dialog.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        tools:text="@string/dummy_text_small" />
+
+    <TextView
+        android:id="@+id/tvDialogMessage"
+        style="@style/AppTextView.Dialog.Body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        tools:text="@string/dummy_text_small" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btDialogNegativeButton"
+            style="@style/AppButton.Dialog.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/cancel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btDialogNeutralButton"
+            style="@style/AppButton.Dialog.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="Neutral" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btDialogPositiveButton"
+            style="@style/AppButton.Dialog.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/confirm" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
