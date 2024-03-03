@@ -135,14 +135,12 @@ object EntityMapper {
     private fun toAlternate(item: AlternateForm): AlternatePayee? {
         if (item == null) return null
         val alternate = AlternatePayee()
-        alternate.documentType = FakeMapperValue.documentType
-        alternate.nationalId = FakeMapperValue.nationalId
-        //alternate.documentType = item.documentType
-        //alternate.nationalId = item.nationalId
+        alternate.nationalId = item.form1?.idNumber
+        alternate.documentType = DocumentTypeEnum.find(item.form1?.idNumberType)
         alternate.payeeFirstName = item.form1?.alternateFirstName
         alternate.payeeMiddleName = item.form1?.alternateMiddleName
         alternate.payeeLastName = item.form1?.alternateLastName
-        alternate.payeeNickName = FakeMapperValue.name
+        alternate.payeeNickName = item.form1?.alternateNickName
         alternate.payeeAge = item.form1?.age
         alternate.payeeGender = GenderEnum.find(item.form1?.gender)
         alternate.payeePhoneNo = item.form1?.phoneNumber

@@ -59,7 +59,7 @@ object BeneficiaryMapper {
         }else{
             beneficiary.respondentId = item.respondentId
         }
-        beneficiary.respondentId = FakeMapperValue.respondentId
+        //beneficiary.respondentId = FakeMapperValue.respondentId
         beneficiary.respondentPhoneNo = item.respondentPhoneNo
 
 
@@ -188,7 +188,7 @@ object BeneficiaryMapper {
         }else{
             alternate.nationalId = item.nationalId
         }
-        alternate.nationalId = FakeMapperValue.respondentId
+        //alternate.nationalId = FakeMapperValue.respondentId
 
         alternate.payeeFirstName = item.payeeFirstName
         alternate.payeeMiddleName = item.payeeMiddleName
