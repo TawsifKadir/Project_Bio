@@ -180,12 +180,23 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                     }
 
                     is HouseholdViewModel.Event.GetDataLocalDbByAppId -> {
-                        hideLoading()
-                        Toast.makeText(
-                            requireContext(),
-                            event.beneficiary.applicationId,
-                            Toast.LENGTH_SHORT
-                        ).show()
+
+                        requireActivity().runOnUiThread {
+                            DialogUtil.showLottieDialog(requireContext(), "Data will sync to server", "Please wait")
+                        }
+                        //Log.d(TAG, "onClickHouseholdItemSend() called with: item = $item, pos = $pos")
+                        //showToast("Feature not implemented yet")
+
+                        //viewModel.sendHouseholdItem(item, pos)
+                        GlobalScope.launch(Dispatchers.IO) {
+                            viewModel.callRegisterApi(requireContext(),event.beneficiary)
+                        }
+                        //hideLoading()
+//                        Toast.makeText(
+//                            requireContext(),
+//                            event.beneficiary.applicationId,
+//                            Toast.LENGTH_SHORT
+//                        ).show()
                         viewModel.clearEvent()
                     }
 
@@ -312,10 +323,10 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         //binding.llNoContentText.visibility = View.VISIBLE
         //binding.llBody.visibility = View.GONE
 
-//        DialogUtil.dismissLottieDialog()
-//        if (msg != null) {
-//            DialogUtil.showLottieDialogFailMsg(requireContext(), "Error", msg)
-//        }
+        DialogUtil.dismissLottieDialog()
+        if (msg != null) {
+            DialogUtil.showLottieDialogFailMsg(requireContext(), "Error", msg)
+        }
         Log.d(TAG, "onGetHouseholdListFailure() called with: msg = $msg")
         //showMessage(msg)
     }

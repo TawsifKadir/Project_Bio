@@ -811,6 +811,11 @@ class HouseholdViewModel @Inject constructor(
 
     }
 
+    public fun callRegisterApi(context: Context, beneficiary: Beneficiary?){
+        val integrationManager = IMHelper.getIntegrationManager(context, this)
+        val header = IMHelper.getHeader()
+        integrationManager.syncRecord(beneficiary, header)
+    }
     override fun syncBeneficiaryEntity(context: Context, entity: BeneficiaryEntity?, pos: Int) {
         Log.d(
             TAG,
