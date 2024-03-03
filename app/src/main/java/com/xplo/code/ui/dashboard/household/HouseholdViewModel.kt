@@ -281,7 +281,8 @@ class HouseholdViewModel @Inject constructor(
             val alternateEO = alternateDao.getAlternateList(appId)
             val selectionReason = selectionReasonDao.getSelectionReasonByAppId(appId)
             val biometricBio = biometricDao.getBiometricsListByAppIdForBenaficiary(appId)
-            val alternateBio = biometricDao.getBiometricsListByAppIdForAlternate(appId)
+            val alternateBio1 = biometricDao.getBiometricsListByAppIdForAlternate1(appId)
+            val alternateBio2 = biometricDao.getBiometricsListByAppIdForAlternate2(appId)
 
             // Data Bind With Api Obj
             form.applicationId = beneficiary.applicationId
@@ -371,9 +372,9 @@ class HouseholdViewModel @Inject constructor(
 
             form.biometrics = EntityMapper.toBiometricEntityFromdbForBeneficiary(biometricBio)
 
-            form.alternatePayee1 = EntityMapper.getFirstAlternateLdb(alternateEO, alternateBio)
+            form.alternatePayee1 = EntityMapper.getFirstAlternateLdb(alternateEO, alternateBio1)
             if (alternateEO.size == 2) {
-               form.alternatePayee2 = EntityMapper.getSecondAlternateLdb(alternateEO, alternateBio)
+               form.alternatePayee2 = EntityMapper.getSecondAlternateLdb(alternateEO, alternateBio2)
             }
             form.createdBy = 0
             //Log.d(TAG, "showBeneficiary: ${form.alternatePayee1.payeeAge}")
