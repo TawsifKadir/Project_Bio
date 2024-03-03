@@ -1,5 +1,6 @@
 package com.xplo.code.ui.login
 
+import androidx.fragment.app.Fragment
 import com.xplo.code.base.BaseContract
 import com.xplo.code.ui.login.model.LoginCredentials
 
@@ -21,13 +22,41 @@ interface LoginContract {
 
     interface View : BaseContract.View {
 
-        fun navigateToNext()
+        fun navigateToSignUp()
+        fun navigateToReset()
+        fun doFragmentTransaction(
+            fragment: Fragment,
+            tag: String,
+            addToBackStack: Boolean,
+            clearBackStack: Boolean
+        )
+        fun onLoginSuccess(token: String, id: String?)
+        fun onLoginFailure(msg: String?)
+
+
+
+    }
+
+    interface LoginView : BaseContract.View {
+
         fun navigateToSignup()
-        fun navigateToOtpLogin()
+        fun navigateToResetPassword()
 
         fun onLoginSuccess(token: String, id: String?)
         fun onLoginFailure(msg: String?)
 
+    }
+
+    interface SignUpView : BaseContract.View {
+
+        fun backToLogin()
+        fun onSignUpSuccess(id: String?)
+        fun onSignUpFailure(msg: String?)
+
+    }
+
+    interface ForgetPasswordView : BaseContract.View {
+        fun backToLogin()
     }
 
     interface Presenter : BaseContract.Presenter<View> {
