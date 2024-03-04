@@ -12,6 +12,7 @@ import com.xplo.code.core.Bk
 import com.xplo.code.core.ext.loadAvatar
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
+import com.xplo.code.data.db.room.model.Beneficiary
 import com.xplo.code.databinding.FragmentFormDetailsBinding
 import com.xplo.code.ui.components.ReportViewUtils
 import com.xplo.code.ui.dashboard.household.HouseholdContract
@@ -56,6 +57,17 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
             fragment.arguments = bundle
             return fragment
         }
+        @JvmStatic
+        fun newInstance(parent: String?, item: String?): FormDetailsFragment {
+           // Log.d(TAG, "newInstance() called with: parent = $parent, item = ${item?.hid}")
+            val fragment = FormDetailsFragment()
+            fragment.item = item
+            //val bundle = Bundle()
+            //bundle.putString(Bk.KEY_PARENT, parent)
+            //bundle.putSerializable(Bk.KEY_ITEM, item)
+            //fragment.arguments = bundle
+            return fragment
+        }
     }
 
     private lateinit var binding: FragmentFormDetailsBinding
@@ -65,6 +77,7 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
     //private var interactor: HouseholdContract.View? = null
 
     private var householdItem : HouseholdItem? = null
+    private var item : String? = null
 
 
     override fun onCreateView(

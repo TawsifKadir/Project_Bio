@@ -16,6 +16,7 @@ import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.HouseholdItem
+import com.xplo.code.data.db.room.model.Beneficiary
 import com.xplo.code.data_module.utils.HIDGenerator
 import com.xplo.code.databinding.ActivityHouseholdBinding
 import com.xplo.code.ui.dashboard.household.forms.FormDetailsFragment
@@ -300,6 +301,16 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
             false
         )
     }
+
+    override fun navigateToFormDetailsBeneficiary(item: String?) {
+        doFragmentTransaction(
+            FormDetailsFragment.newInstance(null, item),
+            FormDetailsFragment.TAG,
+            true,
+            false
+        )
+    }
+
 
     override fun navigateToAnotherHousehold(hhForm1: HhForm1?) {
         Log.d(TAG, "navigateToAnotherHousehold() called with: hhForm1 = $hhForm1")

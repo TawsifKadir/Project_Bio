@@ -308,6 +308,9 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         Log.d(TAG, "navigateToHouseholdDetails() called with: content = ${content.hid}")
         interactor?.navigateToFormDetails(content)
     }
+    override fun navigateToHouseholdDetailsFromBeneficiary(item: String?) {
+        interactor?.navigateToFormDetailsBeneficiary(item)
+    }
 
     override fun onGetHouseholdList(items: List<HouseholdItem>?) {
         Log.d(TAG, "onGetHouseholdList() called with: items = ${items?.size}")
@@ -585,8 +588,13 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     }
 
     override fun onClickHouseholdItem(item: Beneficiary, pos: Int) {
-       // viewModel.showBeneficiaryByAppId(requireContext(), item.applicationId)
-        //   navigateToHouseholdDetails(item)
+        //viewModel.showBeneficiaryByAppId(requireContext(), item.applicationId)
+        //navigateToHouseholdDetails(item)
+        navigateToHouseholdDetailsFromBeneficiary(item.applicationId)
+    }
+
+    override fun onClickHouseholdItemBeneficiary(item: Beneficiary, pos: Int) {
+        TODO("Not yet implemented")
     }
 
     override fun onClickHouseholdItemDelete(item: Beneficiary, pos: Int) {
