@@ -287,11 +287,14 @@
                 android:id="@+id/otherAlternateRelation"
                 android:visibility="gone"
                 tools:visibility="visible">
+                <TextView
+                    style="@style/AppTextView.Input.Header"
+                    android:text="Relation" />
 
                 <EditText
                     android:id="@+id/etotherstext"
                     style="@style/AppEditText.Form.Text"
-                    android:hint="Other relation"/>
+                    android:hint="Please Specify"/>
 
             </LinearLayout>
             <include layout="@layout/view_margin_space" />

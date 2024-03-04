@@ -6,11 +6,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.fragment.app.viewModels
+import com.kit.integrationmanager.model.NonPerticipationReasonEnum
+import com.kit.integrationmanager.model.OccupationEnum
 import com.xplo.code.BuildConfig
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -21,6 +25,7 @@ import com.xplo.code.databinding.BsdNomineeInputBinding
 import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.household.forms.HhForm6Nominee2Fragment
 import com.xplo.code.ui.dashboard.model.Nominee
 import com.xplo.code.ui.dashboard.model.isOk
 
@@ -64,11 +69,14 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
     //private lateinit var presenter: RegistrationContract.Presenter
     private var interactor: NomineeModal? = null
 
-
+    private lateinit var otherReason: LinearLayout
+    private lateinit var etOtherText: EditText
     private lateinit var etFirstName: EditText
     private lateinit var etMiddleName: EditText
     private lateinit var etLastName: EditText
     private lateinit var etNickName: EditText
+    private lateinit var otherWork: LinearLayout
+    private lateinit var etOtherWork: EditText
     private lateinit var etAge: EditText
     private lateinit var spRelation: Spinner
     private lateinit var spGender: Spinner
@@ -126,6 +134,10 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         rgReadWrite = binding.include.rgReadWrite
         rbReadWriteYes = binding.include.rbReadWriteYes
         rbReadWriteNo = binding.include.rbReadWriteNo
+        etOtherText = binding.include.etOtherReason
+        otherReason = binding.include.otherReason
+        otherWork = binding.include.otherWork
+        etOtherWork = binding.include.etOtherWork
     }
 
     override fun initView() {
@@ -135,9 +147,6 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         bindSpinnerData(spRelation, UiData.relationshipOptions)
         bindSpinnerData(spGender, UiData.genderOptions)
         bindSpinnerData(spOccupation, UiData.nomineeOccupation)
-
-
-
     }
 
     override fun initObserver() {
@@ -145,6 +154,49 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
             onReadInput()
         }
 
+        spRelation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedItem = parent?.getItemAtPosition(position).toString()
+                if(selectedItem.equals(NonPerticipationReasonEnum.REASON_OTHER.value, ignoreCase = true)){
+                    otherReason.visible()
+                }else{
+                    Log.d(HhForm6Nominee2Fragment.TAG,"Selected Spinner Other not selected")
+                    etOtherText.setText("")
+                    otherReason.gone()
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
+        spOccupation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedItem = parent?.getItemAtPosition(position).toString()
+                if(selectedItem.contains("Other", ignoreCase = true)){
+                    otherWork.visible()
+                }else{
+                    Log.d(NomineeInputFragment.TAG,"Selected Spinner Other not selected")
+                    etOtherWork.setText("")
+                    otherWork.gone()
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
         onLongClickDataGeneration()
         onGenerateDummyInput()
 

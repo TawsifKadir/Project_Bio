@@ -29,7 +29,6 @@ object DbExporter {
             DbExporter.askForPermission(activity)
             return
         }
-
         DbController.close()
         DbExporter.exportToSQLite(context)
     }

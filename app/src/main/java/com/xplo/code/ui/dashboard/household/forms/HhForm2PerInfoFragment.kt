@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
+import com.kit.integrationmanager.model.NonPerticipationReasonEnum
+import com.kit.integrationmanager.model.RelationshipEnum
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -98,6 +100,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
     private lateinit var rgSelectionCriteria: RadioGroup
     private lateinit var rgId: RadioGroup
     private lateinit var incomeField: LinearLayout
+    private lateinit var etOthersText: EditText
 
     private var adapterSupportType: CheckboxListAdapter? = null
 
@@ -163,6 +166,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         //etSpouseName = binding.etSpouseName
         rgSelectionCriteria = binding.rgSelectionCriteria
         rgId = binding.rgId
+        etOthersText = binding.etotherstext
 
         //publicRecycler = binding.recycler
         //directRecycler = binding.recycler
@@ -179,7 +183,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
     }
 
     override fun initView() {
-
+        Log.d(HhForm6Nominee2Fragment.TAG,"Rafi Added" + NonPerticipationReasonEnum.REASON_OTHER.ordinal)
         bindSpinnerData(spMainSourceOfIncome, UiData.mainIncomeOptions)
         //bindSpinnerData(spCurrency, UiData.currency)
         bindSpinnerData(spGender, UiData.genderOptions)
@@ -237,10 +241,14 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
                 id: Long
             ) {
                 val selectedItem = parent.getItemAtPosition(position).toString()
-                if (selectedItem.equals(UiData.idType[1], ignoreCase = true)) {
-                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
-                } else {
+                if (selectedItem.equals(UiData.idType[2], ignoreCase = true)) {
+//                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
                     etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
+                    etIdNumber.setText("")
+                } else {
+//                    etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
+                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
+                    etIdNumber.setText("")
                 }
             }
 
