@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.kit.integrationmanager.model.BiometricUserType
+import com.kit.integrationmanager.model.Nominee
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.core.ext.loadAvatar
@@ -338,11 +339,30 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         }
         addReportForm5(form5)
 
-//               val form6 = HhForm6()
-//               form6.nominees = beneficiary.nominees
-//               addReportForm6(form6)
-//
-//               addReportAlternate(form)
+        val form6 = HhForm6()
+        // Assuming you have a MutableList<com.kit.integrationmanager.model.Nominee?>!
+        val mutableList: MutableList<Nominee?> = beneficiary.nominees
+
+        // Convert MutableList to ArrayList
+        val arrayList: ArrayList<Nominee> = ArrayList(mutableList.filterNotNull())
+        val newlist = ArrayList<com.xplo.code.ui.dashboard.model.Nominee>()
+        for (item in arrayList) {
+            val nominee = com.xplo.code.ui.dashboard.model.Nominee()
+            nominee.firstName = item.nomineeFirstName
+            nominee.middleName = item.nomineeMiddleName
+            nominee.lastName = item.nomineeLastName
+            nominee.nickName = item.nomineeNickName
+            nominee.relation = item.relationshipWithHouseholdHead.value
+            nominee.age = item.nomineeAge
+            nominee.gender = item.nomineeGender.value
+            nominee.occupation = item.nomineeOccupation.value
+            nominee.isReadWrite = item.isReadWrite.toString()
+            newlist.add(nominee)
+        }
+        form6.nominees = newlist
+        addReportForm6(form6)
+
+        //    addReportAlternate(form)
 
 
     }
