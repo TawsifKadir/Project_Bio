@@ -458,10 +458,12 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
 
         val form = HhForm2()
 
-        if(spMainSourceOfIncome.selectedItem.toString().equals(IncomeSourceEnum.NONE.toString(), ignoreCase = true)){
+        if(spMainSourceOfIncome.selectedItem.toString().equals(IncomeSourceEnum.OTHER.toString(), ignoreCase = true)){
             form.mainSourceOfIncome = binding.etothersourcetext.text.toString()
+            Log.d(TAG,"Entered Main Source of Income other with ${form.mainSourceOfIncome}")
         }else{
             form.mainSourceOfIncome = chkSpinner(spMainSourceOfIncome, UiData.ER_SP_DF)
+            Log.d(TAG,"Entered Main Source of Income with ${form.mainSourceOfIncome}")
         }
         //form.currency = chkSpinner(spCurrency, UiData.ER_SP_DF)
         form.gender = chkSpinner(spGender, UiData.ER_SP_DF)
@@ -542,26 +544,26 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
-//        spIdType.setSelection(1)
-//        spMainSourceOfIncome.setSelection(1)
-//        spGender.setSelection(1)
-//        spRespondentRlt.setSelection(1)
-//        spMaritalStatus.setSelection(1)
-//        spLegalStatus.setSelection(1)
-////        spSelectionReason.setSelection(1)
-//        //spCurrency.setSelection(1)
-//
-//        etFirstName.setText("Mohd")
-//        etMiddleName.setText("Moniruzzaman")
-//        etLastName.setText("Shadhin")
-//        etAge.setText("33")
-//        etIdNumber.setText("12345678910112")
-//        etPhoneNumber.setText("01672708329")
-//        etMonthlyAverageIncome.setText("5000")
-        //etSpouseName.setText("Yesmin")
+        spIdType.setSelection(1)
+        spMainSourceOfIncome.setSelection(1)
+        spGender.setSelection(1)
+        spRespondentRlt.setSelection(1)
+        spMaritalStatus.setSelection(1)
+        spLegalStatus.setSelection(1)
+//        spSelectionReason.setSelection(1)
+        //spCurrency.setSelection(1)
 
-//        rgSelectionCriteria.check(R.id.rbA)
-//        adapterSupportType?.addAll(UiData.getPublicWorksDummy())
+        etFirstName.setText("Mohd")
+        etMiddleName.setText("Moniruzzaman")
+        etLastName.setText("Shadhin")
+        etAge.setText("33")
+        etIdNumber.setText("12345678910112")
+        etPhoneNumber.setText("01672708329")
+        etMonthlyAverageIncome.setText("5000")
+
+
+        rgSelectionCriteria.check(R.id.rbA)
+        adapterSupportType?.addAll(UiData.getPublicWorksDummy())
     }
 
     override fun onPopulateView() {

@@ -99,7 +99,7 @@
 
         <LinearLayout
             style="@style/AppLinearLayoutInputBox"
-            android:id="@+id/otherReason"
+            android:id="@+id/otherRelation"
             android:layout_weight="1">
 
             <TextView
@@ -111,7 +111,7 @@
                 style="@style/AppEditText.Form.Number"
                 android:maxLength="25"
                 android:inputType="text"
-                android:id="@+id/etOtherReason"
+                android:id="@+id/etOtherRelation"
                 android:hint="@string/please_specify"/>
 
         </LinearLayout>

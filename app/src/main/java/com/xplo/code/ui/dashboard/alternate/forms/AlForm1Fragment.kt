@@ -10,11 +10,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.google.api.Distribution.BucketOptions.Linear
+import com.kit.integrationmanager.model.IDtypeEnum
+import com.kit.integrationmanager.model.RelationshipEnum
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -77,8 +81,9 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
 
     private var id: String? = null
 
+    private lateinit var idType: LinearLayout
+    private lateinit var alternateOtherRelation: LinearLayout
     private lateinit var etHouseholdName: EditText
-
     private lateinit var etAlternateFirstName: EditText
     private lateinit var etAlternateMiddleName: EditText
     private lateinit var etAlternateLastName: EditText
@@ -88,12 +93,9 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
     private lateinit var etPhoneNo: EditText
     private lateinit var etIdNumber: EditText
     private lateinit var etAge: EditText
-
+    private lateinit var etIdType: EditText
+    private lateinit var etothers: EditText
     private lateinit var spIdType: Spinner
-
-    private lateinit var etSpouseFirstName: EditText
-    private lateinit var etSpouseMiddleName: EditText
-    private lateinit var etSpouseLastName: EditText
     private lateinit var rgId: RadioGroup
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -136,13 +138,15 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         etAge = binding.etAge
         spIdType = binding.spIdType
         rgId = binding.rgId
-
-
+        idType = binding.IdType
+        alternateOtherRelation = binding.otherAlternateRelation
         etHouseholdName = binding.etHouseholdName
         etAlternateFirstName = binding.etAlternateFirstName
         etAlternateMiddleName = binding.etAlternateMiddleName
         etAlternateLastName = binding.etAlternateLastName
         etAlternateNickName =binding.etAlternateNickName
+        etIdType = binding.etIDType
+        etothers = binding.etotherstext
     }
 
     override fun initView() {
@@ -153,7 +157,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         bindSpinnerData(spGender, UiData.genderOptions)
         bindSpinnerData(spAlternateRelation, UiData.relationshipOptions)
         bindSpinnerData(spIdType, UiData.idType)
-
+        idType.gone()
         // has no id, passed name instead of id
         if (interactor?.isCallForResult().toBool()) {
             binding.etHouseholdName.setText(id)
@@ -221,13 +225,20 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
                 position: Int,
                 id: Long
             ) {
+                idType.gone()
                 val selectedItem = parent.getItemAtPosition(position).toString()
-                if (selectedItem.equals(UiData.idType[2], ignoreCase = true)) {
+                if (selectedItem.equals(UiData.idType[2], ignoreCase = true)) { //NationalID selected
 //                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
                     etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
                     etIdNumber.setText("")
-                } else {
+                } else if (selectedItem.equals(UiData.idType[1], ignoreCase = true)){ // Passport Selected
 //                    etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
+                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
+                    etIdNumber.setText("")
+                }else if (selectedItem.equals(UiData.idType[3], ignoreCase = true)) {  ///Other Selected
+//                    etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
+                    idType.visible()
+                    etIdType.setText("")
                     etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
                     etIdNumber.setText("")
                 }
@@ -324,20 +335,23 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
 
         //form.phoneNumber = chkPhoneNumber(etPhoneNo, UiData.ER_ET_DF)
         form.phoneNumber = etPhoneNo.text.toString()
-        form.selectAlternateRlt = chkSpinner(spAlternateRelation, UiData.ER_SP_DF)
+        if(spAlternateRelation.selectedItem.toString().equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
+            form.selectAlternateRlt = etothers.text.toString()
+        }else{
+            form.selectAlternateRlt = chkSpinner(spAlternateRelation, UiData.ER_SP_DF)
+        }
         form.gender = chkSpinner(spGender, UiData.ER_SP_DF)
         Log.d(TAG,"Number = ${form.idNumber}")
         Log.d(TAG,"Edit text = $etIdNumber")
 
-        if(binding.llIdTypeInput.isVisible &&  binding.llIdType.isVisible){
-            form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
-//            if(form.idNumberType?.equals("Passport") == true){
-//                form.idNumber = chkEditTextOnlyNumberAndChar(etIdNumber, UiData.ER_ET_DF)
-//            }else{
-//                form.idNumber = chkEditTextOnlyNumber(etIdNumber, UiData.ER_ET_DF)
-//            }
+        if (binding.llIdTypeInput.isVisible && binding.llIdType.isVisible) {
+            if (spIdType.selectedItem.toString().equals(IDtypeEnum.OTHERS.value, ignoreCase = true)){
+                form.idNumberType = etIdType.text.toString()
+            }else{
+                form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
+            }
             form.idNumber = checkIDNumber(etIdNumber, UiData.ER_ET_DF, form.idNumberType)
-        }else{
+        } else {
             form.idNumber = null
             form.idNumberType = null
         }

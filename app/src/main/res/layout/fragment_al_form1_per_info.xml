@@ -216,7 +216,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/etIdType">
+                android:id="@+id/IdType">
                 <LinearLayout
                     style="@style/AppLinearLayoutInputBox"
                     android:layout_weight="1">
@@ -227,7 +227,7 @@
 
                     <EditText
                         android:id="@+id/etIDType"
-                        style="@style/AppEditText.Form.Number"
+                        style="@style/AppEditText.Form.Text"
                         android:maxLength="14" />
                 </LinearLayout>
             </LinearLayout>
