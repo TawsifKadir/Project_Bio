@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.kit.integrationmanager.model.GenderEnum
 import com.xplo.code.R
 import com.xplo.code.data.db.room.model.Beneficiary
 import com.xplo.code.databinding.RowHouseholdItemBinding
@@ -77,11 +78,9 @@ class HouseholdListAdapterNew : RecyclerView.Adapter<HouseholdListAdapterNew.Vie
             binding.tvId.text = "id: " + item.applicationId
             binding.tvName.text =
                 item.respondentFirstName + " " + item.respondentMiddleName + " " + item.respondentLastName
-            if (item.respondentGender.toInt() == 1) {
-                binding.tvGender.text = "Gender: Male"
-            } else if (item.respondentGender.toInt() == 2) {
-                binding.tvGender.text = "Gender: Female"
-            }
+            GenderEnum.getGenderById(item.respondentGender.toInt())
+            binding.tvGender.text =
+                "Gender: " + GenderEnum.getGenderById(item.respondentGender.toInt() + 1)
             binding.tvAge.text = "age: " + item.respondentAge
             binding.tvNominee.text = "Nominee: " + item.nomineeSize
             binding.tvAlternate.text = "Alternate: " + item.alternateSize
@@ -94,7 +93,7 @@ class HouseholdListAdapterNew : RecyclerView.Adapter<HouseholdListAdapterNew.Vie
                 //binding.btSend.visible()
                 binding.btSyncStatus.setImageResource(R.drawable.sync_saved_locally_24px)
             }
-             loadImage(item.photoPath)
+            loadImage(item.photoPath)
         }
 
         private fun loadImage(byteArray: ByteArray?) {
