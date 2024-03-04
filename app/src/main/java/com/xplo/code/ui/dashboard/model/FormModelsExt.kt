@@ -66,7 +66,6 @@ fun HhForm2.isOk(): Boolean {
     if (this.firstName.isNullOrBlank()) return false
     if (this.middleName.isNullOrBlank()) return false
     if (this.lastName.isNullOrBlank()) return false
-    if (this.nickName == null) return false
     //if (this.idNumber.isNullOrBlank()) return false
     if (this.mainSourceOfIncome.isNullOrBlank()) return false
     if (this.gender.isNullOrBlank()) return false
