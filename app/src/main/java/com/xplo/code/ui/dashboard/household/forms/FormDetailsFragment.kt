@@ -344,6 +344,7 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
 
         val form6 = HhForm6()
         // Assuming you have a MutableList<com.kit.integrationmanager.model.Nominee?>!
+        if (beneficiary.nominees.isNullOrEmpty()) return
         val mutableList: MutableList<Nominee?> = beneficiary.nominees
 
         // Convert MutableList to ArrayList
