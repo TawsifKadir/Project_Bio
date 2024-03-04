@@ -17,6 +17,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.tapadoo.alerter.Alerter
 import com.xplo.code.R
 import com.xplo.code.core.Bk
@@ -157,7 +158,28 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
             onClickNextButton()
         }
 
-        spReasonNoNominee.onItemSelectedListener = this
+        spReasonNoNominee.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                Log.d(TAG,"Entered Spinner Item Listener" + NonPerticipationReasonEnum.REASON_OTHER.ordinal)
+                val selectedItem = parent?.getItemAtPosition(position).toString()
+                if(selectedItem.equals(NonPerticipationReasonEnum.REASON_OTHER.value, ignoreCase = true)){
+                    llParentOtherReason.visible()
+                }else{
+                    Log.d(TAG,"Selected Spinner Other not selected")
+                    etOtherReason.setText("")
+                    llParentOtherReason.gone()
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        }
 
 //        btAdd.setOnClickListener {
 //            onClickAddNominee()
@@ -208,26 +230,6 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
     override fun onReinstateData(form: HhForm6?) {
         Log.d(TAG, "onReinstateData() called with: form = $form")
         if (form == null) return
-
-//        if (form.isNomineeAdd.isYes()) {
-//
-//            //binding.rgNomineeAdd.check(binding.rbYes.id)
-//            checkRbYes(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
-//
-//            onEnableDisableNominee(true)
-//            adapter?.addAll(form.nominees)
-//
-//        } else {
-//            //binding.rgNomineeAdd.check(binding.rbNo.id)
-//            checkRbNo(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
-//
-//            onEnableDisableNominee(false)
-//            setSpinnerItem(spReasonNoNominee, UiData.stateNameOptions, form.noNomineeReason)
-//            if (isOtherSpecify(form.noNomineeReason)) {
-//                llParentOtherReason.visible()
-//                etOtherReason.setText(form.noNomineeReasonOther)
-//            }
-//        }
 
         if (form.isNomineeAdd.isYes()) {
 
@@ -429,9 +431,10 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
     override fun onSelectNoNomineeReason(item: String?) {
         Log.d(TAG, "onSelectNoNomineeItems() called with: item = $item")
         if (item.isNullOrEmpty()) return
-        llParentOtherReason.gone()
-        if (isOtherSpecify(item)) {
+        if (item.equals(NonPerticipationReasonEnum.REASON_OTHER.value, ignoreCase = true)) {
             llParentOtherReason.visible()
+        }else{
+            llParentOtherReason.gone()
         }
     }
 
@@ -612,7 +615,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
     }
 
     private fun isOtherSpecify(txt: String?): Boolean {
-        return txt?.contains(UiData.otherSpecify, true).toBool()
+        return txt.equals(NonPerticipationReasonEnum.REASON_OTHER.value, ignoreCase = true)
     }
 
     private fun getOppositeGender(string: String): String {
