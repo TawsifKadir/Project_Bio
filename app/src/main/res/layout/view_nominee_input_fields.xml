@@ -104,14 +104,15 @@
 
             <TextView
                 style="@style/AppTextView.Input.Header"
-                android:text="Relation" />
+                android:text="@string/relation" />
 
 
             <EditText
                 style="@style/AppEditText.Form.Number"
-                android:maxLength="2"
+                android:maxLength="25"
+                android:inputType="text"
                 android:id="@+id/etOtherReason"
-                android:hint="Please Specify"/>
+                android:hint="@string/please_specify"/>
 
         </LinearLayout>
 
