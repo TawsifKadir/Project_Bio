@@ -29,10 +29,10 @@ import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.ReportRow
 import com.xplo.code.ui.dashboard.model.getReportRows
 import com.xplo.code.ui.dashboard.model.getReportRowsAltSummary
-
 import com.xplo.code.BuildConfig
 import com.xplo.code.ui.dashboard.model.AlternateForm
 import dagger.hilt.android.AndroidEntryPoint
+
 
 /**
  * Copyright 2020 (C) xplo
@@ -67,7 +67,6 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
 
     //private lateinit var presenter: RegistrationContract.Presenter
     private var interactor: HouseholdContract.View? = null
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -262,6 +261,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                     val rootForm = interactor?.getRootForm()
                     //viewModel.saveHouseholdFormAsHouseholdItem(rootForm)
                     viewModel.saveFormPEntity(rootForm)
+
                 }
 
                 override fun onClickNegativeButton() {

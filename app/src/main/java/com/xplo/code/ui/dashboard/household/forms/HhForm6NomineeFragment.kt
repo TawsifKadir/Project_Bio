@@ -17,6 +17,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.kit.integrationmanager.model.IncomeSourceEnum
+import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -156,7 +158,27 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
             onChangeRGNomineeAdd(id)
         }
 
-        spReasonNoNominee.onItemSelectedListener = this
+//        spReasonNoNominee.onItemSelectedListener = this
+        spReasonNoNominee.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedItem = parent?.getItemAtPosition(position).toString()
+                if(selectedItem.equals(NonPerticipationReasonEnum.REASON_OTHER.toString(), ignoreCase = true)){
+                    llParentOtherReason.visible()
+                }else{
+                    etOtherReason.setText("")
+                    llParentOtherReason.gone()
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        }
 
         btAdd.setOnClickListener {
             onClickAddNominee()
@@ -345,9 +367,10 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
     override fun onSelectNoNomineeReason(item: String?) {
         Log.d(TAG, "onSelectNoNomineeItems() called with: item = $item")
         if (item.isNullOrEmpty()) return
-        llParentOtherReason.gone()
         if (isOtherSpecify(item)) {
             llParentOtherReason.visible()
+        }else{
+            llParentOtherReason.gone()
         }
     }
 
@@ -370,10 +393,10 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
         if (form.isNomineeAdd.isNo()) {
 
             form.noNomineeReason = chkSpinner(spReasonNoNominee, UiData.ER_SP_DF)
-
-            if (isOtherSpecify(form.noNomineeReason)) {
-                form.otherReason = chkEditText(etOtherReason, UiData.ER_ET_DF)
-            }
+            form.otherReason = chkEditText(etOtherReason, UiData.ER_ET_DF)
+//            if (isOtherSpecify(form.noNomineeReason)) {
+//                form.otherReason = chkEditText(etOtherReason, UiData.ER_ET_DF)
+//            }
 
             if (form.isOk()) {
                 onValidated(form)
@@ -479,8 +502,6 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
                 val txt = spReasonNoNominee.selectedItem.toString()
                 onSelectNoNomineeReason(txt)
             }
-
-
         }
     }
 
@@ -490,7 +511,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
     }
 
     private fun isOtherSpecify(txt: String?): Boolean {
-        return txt?.contains(UiData.otherSpecify, true).toBool()
+        return txt?.contains(NonPerticipationReasonEnum.REASON_OTHER.value, true).toBool()
     }
 
     private fun getTargetGender(): String? {

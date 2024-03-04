@@ -504,7 +504,8 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
     override fun onSelectSpinnerItem(parent: AdapterView<*>?, view: View?, position: Int) {
         super.onSelectSpinnerItem(parent, view, position)
         Log.d(TAG, "onSelectSpinnerItem() called with: view = , position = $position")
-        if (position == 0) return
+        try{
+            if (position == 0) return
 
         when (parent?.id) {
             R.id.spStateName -> {
@@ -531,10 +532,12 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
             R.id.spBomaName -> {
                 val txt = spBomaName.selectedItem.toString()
                 //val item = OptionItem(0, txt)
-                val item = bomaOptions?.get(position)
+                val item = bomaOptions?.get(position-1)
                 onSelectBomaItem(item)
             }
-
+        }
+    }catch(e : Exception){
+            Log.d(TAG, "Error$e")
 
         }
     }
@@ -605,5 +608,5 @@ class HhForm1RegSetupFragment : BasicFormFragment(), HouseholdContract.Form1View
         etLon.setText(location.longitude.toString())
     }
 
-
 }
+

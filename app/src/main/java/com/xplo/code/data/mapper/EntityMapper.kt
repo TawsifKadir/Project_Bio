@@ -262,7 +262,6 @@ object EntityMapper {
         if (item == null) return null
         if (id == null) return null
         //if (item.fingerPrint.isNullOrEmpty()) return null
-       // if (item.fingerType.isNullOrEmpty()) return null
         //if (item.userType.isNullOrEmpty()) return null
 
         //noFingerprintReason = NoFingerprintReasonEnum.find(item.noFingerprintReason)
