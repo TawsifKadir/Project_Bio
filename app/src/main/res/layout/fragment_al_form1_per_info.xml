@@ -232,7 +232,7 @@
                     <EditText
                         android:id="@+id/etIdNumber"
                         style="@style/AppEditText.Form.Number"
-                        android:maxLength="20" />
+                        android:maxLength="14" />
                 </LinearLayout>
 
             </LinearLayout>

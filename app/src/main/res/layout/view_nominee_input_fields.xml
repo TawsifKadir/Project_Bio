@@ -181,7 +181,7 @@
                     android:id="@+id/rbReadWriteYes"
                     style="@style/AppRadioButton.Form"
                     android:text="Yes"
-                    tools:checked="true" />
+                    tools:checked="false" />
 
                 <RadioButton
                     android:id="@+id/rbReadWriteNo"

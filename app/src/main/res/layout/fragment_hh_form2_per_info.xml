@@ -284,7 +284,7 @@
 
                     <EditText
                         android:id="@+id/etIdNumber"
-                        android:maxLength="20"
+                        android:maxLength="14"
                         style="@style/AppEditText.Form.Number" />
 
                 </LinearLayout>
@@ -539,7 +539,7 @@
                     <RadioButton
                         android:id="@+id/rbA"
                         style="@style/AppRadioButton.Form"
-                        android:checked="true"
+                        android:checked="false"
                         android:text="LIPW" />
 
                     <RadioButton
