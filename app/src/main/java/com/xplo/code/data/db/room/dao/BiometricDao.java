@@ -33,6 +33,8 @@ public interface BiometricDao {
     Biometric getBiometricsListByAppIdForAlternate1(String appId);
     @Query("SELECT * FROM biometric WHERE application_id = :appId and type = 'ALT2'")
     Biometric getBiometricsListByAppIdForAlternate2(String appId);
+    @Query("SELECT * FROM biometric WHERE application_id = :appId and type = 'BENE'")
+    Biometric getPhoto(String appId);
 
     @Query("SELECT * FROM biometric")
     List<Biometric> getAllBiometrics();

@@ -1,19 +1,15 @@
 package com.xplo.code.ui.dashboard.household.list
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.kit.integrationmanager.model.GenderEnum
 import com.xplo.code.R
-import com.xplo.code.core.ext.gone
-import com.xplo.code.core.ext.visible
-import com.xplo.code.data.db.models.HouseholdItem
-import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.data.db.room.model.Beneficiary
 import com.xplo.code.databinding.RowHouseholdItemBinding
 import com.xplo.code.ui.dashboard.household.forms.HouseholdHomeFragment
-import com.xplo.code.ui.dashboard.model.getFullName
+
 
 /**
  * Copyright 2022 (C) xplo
@@ -98,16 +94,25 @@ class HouseholdListAdapterNew : RecyclerView.Adapter<HouseholdListAdapterNew.Vie
                 //binding.btSend.visible()
                 binding.btSyncStatus.setImageResource(R.drawable.sync_saved_locally_24px)
             }
-            // loadImage(form.form4?.photoData?.imgPath)
+             loadImage(item.photoPath)
         }
 
-        private fun loadImage(url: String?) {
-            if (url.isNullOrEmpty()) return
+        private fun loadImage(byteArray: ByteArray?) {
+            if (byteArray?.isEmpty() == true) return
 
-            Glide.with(binding.ivAvatar.context)
-                .load(url)
+            val bitmap = byteArray?.size?.let { BitmapFactory.decodeByteArray(byteArray, 0, it) }
+
+
+// Use Glide to load the Bitmap into an ImageView
+            Glide.with(binding.ivAvatar.getContext())
+                .load(bitmap)
                 .placeholder(R.drawable.ic_avatar_3)
-                .into(binding.ivAvatar)
+                .into(binding.ivAvatar);
+
+//            Glide.with(binding.ivAvatar.context)
+//                .load(url)
+//                .placeholder(R.drawable.ic_avatar_3)
+//                .into(binding.ivAvatar)
 
         }
 
