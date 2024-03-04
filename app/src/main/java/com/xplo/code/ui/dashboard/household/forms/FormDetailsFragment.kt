@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.kit.integrationmanager.model.BiometricUserType
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.core.ext.loadAvatar
+import com.xplo.code.core.ext.loadImage
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.databinding.FragmentFormDetailsBinding
@@ -17,6 +19,7 @@ import com.xplo.code.ui.components.ReportViewUtils
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.AlternateForm
+import com.xplo.code.ui.dashboard.model.Finger
 import com.xplo.code.ui.dashboard.model.HhForm1
 import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.HhForm3
@@ -25,6 +28,7 @@ import com.xplo.code.ui.dashboard.model.HhForm5
 import com.xplo.code.ui.dashboard.model.HhForm6
 import com.xplo.code.ui.dashboard.model.HhMember
 import com.xplo.code.ui.dashboard.model.HouseholdForm
+import com.xplo.code.ui.dashboard.model.PhotoData
 import com.xplo.code.ui.dashboard.model.ReportRow
 import com.xplo.code.ui.dashboard.model.getReportRows
 import com.xplo.code.ui.dashboard.model.getReportRowsAltSummary
@@ -57,9 +61,13 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
             fragment.arguments = bundle
             return fragment
         }
+
         @JvmStatic
-        fun newInstance(parent: String?, item: com.kit.integrationmanager.model.Beneficiary?): FormDetailsFragment {
-           // Log.d(TAG, "newInstance() called with: parent = $parent, item = ${item?.hid}")
+        fun newInstance(
+            parent: String?,
+            item: com.kit.integrationmanager.model.Beneficiary?
+        ): FormDetailsFragment {
+            // Log.d(TAG, "newInstance() called with: parent = $parent, item = ${item?.hid}")
             val fragment = FormDetailsFragment()
             fragment.item = item?.applicationId
             fragment.beneficiary = item
@@ -77,9 +85,9 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
     //private lateinit var presenter: HomeContract.Presenter
     //private var interactor: HouseholdContract.View? = null
 
-    private var householdItem : HouseholdItem? = null
-    private var item : String? = null
-    private var beneficiary : com.kit.integrationmanager.model.Beneficiary? = null
+    private var householdItem: HouseholdItem? = null
+    private var item: String? = null
+    private var beneficiary: com.kit.integrationmanager.model.Beneficiary? = null
 
 
     override fun onCreateView(
@@ -152,11 +160,12 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         addReportForm1(form.form1)
         addReportForm2(form.form2)
         addReportForm3(form.form3)
-        addReportForm4(form.form4)
+        addReportForm4(form.form4, "")
         addReportForm5(form.form5)
         addReportForm6(form.form6)
         addReportAlternate(form)
     }
+
     private fun generateReportFromBeneficiary(beneficiary: com.kit.integrationmanager.model.Beneficiary?) {
         //Log.d(TAG, "generateReport() called with: form = $form")
         if (beneficiary == null) return
@@ -165,15 +174,15 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         form1.lon = beneficiary.location.lon
         form1.lat = beneficiary.location.lat
         form1.state?.name = beneficiary.address.stateId.toString()
-        form1.payam?.name =  beneficiary.address.payam.toString()
-        form1.boma?.name =  beneficiary.address.boma.toString()
-        form1.county?.name =  beneficiary.address.countyId.toString()
+        form1.payam?.name = beneficiary.address.payam.toString()
+        form1.boma?.name = beneficiary.address.boma.toString()
+        form1.county?.name = beneficiary.address.countyId.toString()
         addReportForm1(form1)
 
         val form2 = HhForm2()
         form2.firstName = beneficiary.respondentFirstName
         form2.middleName = beneficiary.respondentMiddleName
-        form2.lastName =  beneficiary.respondentLastName
+        form2.lastName = beneficiary.respondentLastName
         form2.nickName = beneficiary.respondentNickName
         form2.spouseFirstName = beneficiary.spouseFirstName
         form2.spouseMiddleName = beneficiary.spouseMiddleName
@@ -182,36 +191,36 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         form2.age = beneficiary.respondentAge
         form2.idNumber = beneficiary.respondentId
 
-        if(beneficiary.documentType != null){
+        if (beneficiary.documentType != null) {
             form2.idNumberType = beneficiary.documentType.value
         }
         form2.phoneNumber = beneficiary.respondentPhoneNo
 
-        if (beneficiary.householdIncomeSource != null){
+        if (beneficiary.householdIncomeSource != null) {
             form2.mainSourceOfIncome = beneficiary.householdIncomeSource.value
         }
-        if(beneficiary.householdIncomeSource != null){
+        if (beneficiary.householdIncomeSource != null) {
             form2.currency = beneficiary.householdIncomeSource.value
         }
         form2.monthlyAverageIncome = beneficiary.householdMonthlyAvgIncome
 
-        if(beneficiary.respondentGender != null){
+        if (beneficiary.respondentGender != null) {
             form2.gender = beneficiary.respondentGender.value
         }
 
-        if(beneficiary.respondentMaritalStatus != null){
+        if (beneficiary.respondentMaritalStatus != null) {
             form2.respondentRlt = beneficiary.respondentMaritalStatus.value
         }
-        if(beneficiary.respondentMaritalStatus != null){
+        if (beneficiary.respondentMaritalStatus != null) {
             form2.maritalStatus = beneficiary.respondentMaritalStatus.value
         }
-        if(beneficiary.respondentLegalStatus != null){
+        if (beneficiary.respondentLegalStatus != null) {
             form2.legalStatus = beneficiary.respondentLegalStatus.value
         }
-        if(beneficiary.selectionReason[0] != null){
+        if (beneficiary.selectionReason[0] != null) {
             form2.selectionReason = beneficiary.selectionReason[0].value
         }
-        if(beneficiary.selectionCriteria != null){
+        if (beneficiary.selectionCriteria != null) {
             form2.selectionCriteria = beneficiary.selectionCriteria.value
         }
         addReportForm2(form2)
@@ -232,7 +241,6 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         form3.female0_2 = hhMemberm
 
 
-
         val hhMember35f = HhMember()
         hhMember35f.disable = beneficiary.householdMember35.femaleDisable
         hhMember35f.ill = beneficiary.householdMember35.femaleChronicalIll
@@ -244,7 +252,6 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         hhMember35m.ill = beneficiary.householdMember35.maleChronicalIll
         hhMember35m.normal = beneficiary.householdMember35.maleNormal
         form3.male3_5 = hhMember35m
-
 
 
         val hhMember64f = HhMember()
@@ -304,20 +311,39 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
 
         addReportForm3(form3)
 
-        /*
-               val form4 = HhForm4()
-               form4.photoData = beneficiary.biometrics[0].biometricData[0].pho
 
-               val form5 = HhForm5()
-               form5.fingers = beneficiary.biometrics
-               addReportForm5(form5)
+        val form4 = HhForm4()
+        val photoData = PhotoData()
+        photoData.imgPath = beneficiary.biometrics[0].biometricUrl
+        photoData.img = beneficiary.biometrics[0].biometricData
+        Log.d(TAG, "generateReportFromBeneficiary() called with: beneficiary = $beneficiary")
+        photoData.userType = beneficiary.biometrics[0].biometricUserType.name
+        form4.photoData = photoData
 
-               val form6 = HhForm6()
-               form6.nominees = beneficiary.nominees
-               addReportForm6(form6)
+        addReportForm4(form4, "V")
 
-               addReportAlternate(form)
-                */
+        val form5 = HhForm5()
+        val fingers: MutableList<Finger> =
+            mutableListOf() // Use MutableList for easier modification
+        for (item in beneficiary.biometrics) {
+            val finger = Finger().apply {
+                fingerId = item.applicationId
+                fingerType = item.biometricType?.value
+                fingerPrint = item.biometricData
+                userType = item.biometricUserType?.value
+                noFingerprint = item.noFingerPrint
+                noFingerprintReason = item.noFingerprintReason?.value
+            }
+            fingers.add(finger)
+        }
+        addReportForm5(form5)
+
+//               val form6 = HhForm6()
+//               form6.nominees = beneficiary.nominees
+//               addReportForm6(form6)
+//
+//               addReportAlternate(form)
+
 
     }
 
@@ -348,9 +374,14 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         }
     }
 
-    private fun addReportForm4(form: HhForm4?) {
+    private fun addReportForm4(form: HhForm4?, type: String?) {
         if (form == null) return
-        binding.viewPreview.ivAvatar.loadAvatar(form.photoData?.imgPath)
+        if (form.photoData?.img?.isEmpty() == true) return
+        if (type == "V") {
+            binding.viewPreview.ivAvatar.loadImage(form.photoData?.img)
+        } else {
+            binding.viewPreview.ivAvatar.loadAvatar(form.photoData?.imgPath)
+        }
     }
 
     private fun addReportForm5(form: HhForm5?) {
@@ -379,7 +410,7 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
             binding.viewPreview.blockAlternate.addView(view)
         }
 
-        for (item in form.alternates){
+        for (item in form.alternates) {
             val view = getAltRowView(item)
             binding.viewPreview.blockAlternate.addView(view)
         }
