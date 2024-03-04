@@ -3,6 +3,7 @@ package com.xplo.code.data.db.room.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -121,10 +122,13 @@ public class Beneficiary implements Serializable {
     @ColumnInfo(name = "status")
     public Long status;
 
-    @Transient
+    @Ignore
     public int nomineeSize = 0;
-    @Transient
+    @Ignore
     public int alternateSize = 0;
+    @Ignore
+    public byte[] photoPath;
+
 
     /*
     @OneToOne(cascade = CascadeType.ALL)

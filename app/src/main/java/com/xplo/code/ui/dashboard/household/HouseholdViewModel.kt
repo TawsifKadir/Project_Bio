@@ -515,16 +515,19 @@ class GetDataLocalDbByAppIdForView(val beneficiary: Beneficiary) :
         //_event.value = Event.Loading
         viewModelScope.launch(dispatchers.io) {
             val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
-            val nomineeDao: NomineeDao = mDatabase.nomineeDao()
-            val alternateDao: AlternateDao = mDatabase.alternateDao()
+            val nomineeDao = mDatabase.nomineeDao()
+            val alternateDao = mDatabase.alternateDao()
+            val biometricDao = mDatabase.biometricDao()
             val beneficiary = beneficiaryDao.allBeneficiaries
             for (iten in beneficiary) {
                 val nominee = nomineeDao.getNomineeListByAppId(iten.applicationId)
                 val alternate = alternateDao.getAlternateList(iten.applicationId)
+                val biometric = biometricDao.getPhoto(iten.applicationId)
                 Log.d(TAG, "showBeneficiary: ${nominee.size}")
                 Log.d(TAG, "showBeneficiary: ${alternate.size}")
-                iten.alternateSize = alternate.size;
-                iten.nomineeSize = nominee.size;
+                iten.alternateSize = alternate.size
+                iten.nomineeSize = nominee.size
+                iten.photoPath = biometric.photo
             }
             Log.d(TAG, "showBeneficiary: $beneficiary")
             _event.value = Event.GetDataLocalDb(beneficiary)
