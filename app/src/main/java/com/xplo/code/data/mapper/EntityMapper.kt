@@ -120,6 +120,37 @@ object EntityMapper {
         return form
     }
 
+    fun toAlternateModelEntity(item: AlternateForm?): Beneficiary? {
+        Log.d(TAG, "toBeneficiaryEntity() called with: item = $item")
+        if (item == null) return null
+
+        val form = Beneficiary()
+        form.applicationId = item.appId
+
+        val alternatePayee1 = AlternatePayee()
+        alternatePayee1.payeeFirstName = item.form1?.alternateFirstName
+        alternatePayee1.payeeMiddleName = item.form1?.alternateMiddleName
+        alternatePayee1.payeeLastName = item.form1?.alternateLastName
+        alternatePayee1.payeeNickName = item.form1?.alternateNickName
+        alternatePayee1.payeeAge = item.form1?.age
+        alternatePayee1.payeeGender = GenderEnum.find(item.form1?.gender)
+        alternatePayee1.documentType = DocumentTypeEnum.find(item.form1?.idNumberType)
+        alternatePayee1.documentTypeOther = item.form1?.documentTypeOther
+        alternatePayee1.nationalId = item.form1?.idNumber
+        alternatePayee1.payeePhoneNo = item.form1?.phoneNumber
+        alternatePayee1.biometrics = toAlternateBiometricEntities(item)
+
+        form.alternatePayee1 = alternatePayee1
+
+        //  form.alternatePayee1 = getFirstAlternate(item.)
+//        if (item.alternates.size == 2) {
+//            form.alternatePayee2 = getSecondAlternate(item.alternates)
+//        }
+
+        //  Log.d(TAG, "toBeneficiaryEntity: return: ${form.toJson()}")
+        return form
+    }
+
     fun getReadWrite(value: String?): Boolean {
         return value?.uppercase() == "YES"
     }
@@ -177,14 +208,14 @@ object EntityMapper {
         val alternate = AlternatePayee()
         //alternate.documentType = FakeMapperValue.documentType
         // alternate.nationalId = FakeMapperValue.nationalId
-        alternate.documentType = DocumentTypeEnum.find(item.documentType.toString()+1)
+        alternate.documentType = DocumentTypeEnum.find(item.documentType.toString() + 1)
         alternate.nationalId = item.nationalId
         alternate.payeeFirstName = item.payeeFirstName
         alternate.payeeMiddleName = item.payeeMiddleName
         alternate.payeeLastName = item.payeeLastName
         alternate.payeeNickName = item.payeeNickName
         alternate.payeeAge = item.payeeAge
-        alternate.payeeGender = GenderEnum.find(item.payeeGender.toString()+1)
+        alternate.payeeGender = GenderEnum.find(item.payeeGender.toString() + 1)
         alternate.payeePhoneNo = item.payeePhoneNo
         alternate.biometrics = toBiometricEntityFromdbForBeneficiary(bio_data)
 
@@ -229,7 +260,6 @@ object EntityMapper {
     }
 
 
-
     public fun toBiometricEntityFromdbForBeneficiary(item: com.xplo.code.data.db.room.model.Biometric): List<com.kit.integrationmanager.model.Biometric?> {
 
         val applicationId = item.applicationId
@@ -240,8 +270,9 @@ object EntityMapper {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
 
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
 
             biometricData.biometricType = BiometricType.PHOTO
@@ -253,8 +284,9 @@ object EntityMapper {
         if (item.wsqLt != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LT
             biometricData.biometricData = item.wsqLt
@@ -263,8 +295,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LT
             biometricData.noFingerPrint = true
@@ -279,8 +312,9 @@ object EntityMapper {
         if (item.wsqLi != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LI
             biometricData.biometricData = item.wsqLi
@@ -289,8 +323,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LI
             biometricData.noFingerPrint = true
@@ -305,8 +340,9 @@ object EntityMapper {
         if (item.wsqLm != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LM
             biometricData.biometricData = item.wsqLm
@@ -315,8 +351,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LM
             biometricData.noFingerPrint = true
@@ -331,8 +368,9 @@ object EntityMapper {
         if (item.wsqLr != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LR
             biometricData.biometricData = item.wsqLr
@@ -341,8 +379,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LR
             biometricData.noFingerPrint = true
@@ -357,8 +396,9 @@ object EntityMapper {
         if (item.wsqLs != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LL
             biometricData.biometricData = item.wsqLs
@@ -367,8 +407,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LL
             biometricData.noFingerPrint = true
@@ -382,8 +423,9 @@ object EntityMapper {
         if (item.wsqRt != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RT
             biometricData.biometricData = item.wsqRt
@@ -392,8 +434,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RT
             biometricData.noFingerPrint = true
@@ -407,8 +450,9 @@ object EntityMapper {
         if (item.wsqRi != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RI
             biometricData.biometricData = item.wsqRi
@@ -417,8 +461,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RI
             biometricData.noFingerPrint = true
@@ -432,8 +477,9 @@ object EntityMapper {
         if (item.wsqRm != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RM
             biometricData.biometricData = item.wsqRm
@@ -442,8 +488,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RM
             biometricData.noFingerPrint = true
@@ -457,8 +504,9 @@ object EntityMapper {
         if (item.wsqRr != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RR
             biometricData.biometricData = item.wsqRr
@@ -468,8 +516,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RR
             biometricData.noFingerPrint = true
@@ -483,8 +532,9 @@ object EntityMapper {
         if (item.wsqRs != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RL
             biometricData.biometricData = item.wsqRs
@@ -494,8 +544,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RL
             biometricData.noFingerPrint = true
@@ -510,6 +561,7 @@ object EntityMapper {
         return biometrics
 
     }
+
     public fun toBiometricEntityFromdbForAlternate(item: com.xplo.code.data.db.room.model.Biometric): List<com.kit.integrationmanager.model.Biometric?> {
 
         val applicationId = item.applicationId
@@ -520,8 +572,9 @@ object EntityMapper {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
 
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
 
             biometricData.biometricType = BiometricType.PHOTO
@@ -533,8 +586,9 @@ object EntityMapper {
         if (item.wsqLt != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LT
             biometricData.biometricData = item.wsqLt
@@ -543,8 +597,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LT
             biometricData.noFingerPrint = true
@@ -559,8 +614,9 @@ object EntityMapper {
         if (item.wsqLi != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LI
             biometricData.biometricData = item.wsqLi
@@ -569,8 +625,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LI
             biometricData.noFingerPrint = true
@@ -585,8 +642,9 @@ object EntityMapper {
         if (item.wsqLm != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LM
             biometricData.biometricData = item.wsqLm
@@ -595,8 +653,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LM
             biometricData.noFingerPrint = true
@@ -611,8 +670,9 @@ object EntityMapper {
         if (item.wsqLr != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LR
             biometricData.biometricData = item.wsqLr
@@ -621,8 +681,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LR
             biometricData.noFingerPrint = true
@@ -637,8 +698,9 @@ object EntityMapper {
         if (item.wsqLs != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LL
             biometricData.biometricData = item.wsqLs
@@ -647,8 +709,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.LL
             biometricData.noFingerPrint = true
@@ -662,8 +725,9 @@ object EntityMapper {
         if (item.wsqRt != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RT
             biometricData.biometricData = item.wsqRt
@@ -672,8 +736,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RT
             biometricData.noFingerPrint = true
@@ -687,8 +752,9 @@ object EntityMapper {
         if (item.wsqRi != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RI
             biometricData.biometricData = item.wsqRi
@@ -697,8 +763,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RI
             biometricData.noFingerPrint = true
@@ -712,8 +779,9 @@ object EntityMapper {
         if (item.wsqRm != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RM
             biometricData.biometricData = item.wsqRm
@@ -722,8 +790,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RM
             biometricData.noFingerPrint = true
@@ -737,8 +806,9 @@ object EntityMapper {
         if (item.wsqRr != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RR
             biometricData.biometricData = item.wsqRr
@@ -748,8 +818,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RR
             biometricData.noFingerPrint = true
@@ -763,8 +834,9 @@ object EntityMapper {
         if (item.wsqRs != null) {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RL
             biometricData.biometricData = item.wsqRs
@@ -774,8 +846,9 @@ object EntityMapper {
         } else {
             val biometricData = com.kit.integrationmanager.model.Biometric()
             biometricData.applicationId = applicationId
-            if(item.biometricUserType != null){
-                biometricData.biometricUserType = BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
+            if (item.biometricUserType != null) {
+                biometricData.biometricUserType =
+                    BiometricUserType.getBiometricUserTypeById(item.biometricUserType.toInt())
             }
             biometricData.biometricType = BiometricType.RL
             biometricData.noFingerPrint = true
@@ -887,14 +960,14 @@ object EntityMapper {
 
         nominee.nomineeAge = item.nomineeAge
         if (item.nomineeGender != null) {
-            nominee.nomineeGender = GenderEnum.getGenderById(item.nomineeGender.toInt()+1)
+            nominee.nomineeGender = GenderEnum.getGenderById(item.nomineeGender.toInt() + 1)
         }
 
         //  nominee.nomineeOccupation = OccupationEnum.valueOf(item.nomineeOccupation.toString())
         nominee.otherOccupation = item.otherOccupation
         if (item.relationshipWithHouseholdHead != null) {
             nominee.relationshipWithHouseholdHead =
-                RelationshipEnum.getRelationById(item.relationshipWithHouseholdHead.toInt()+1)
+                RelationshipEnum.getRelationById(item.relationshipWithHouseholdHead.toInt() + 1)
         }
         nominee.isReadWrite = item.isReadWrite
 

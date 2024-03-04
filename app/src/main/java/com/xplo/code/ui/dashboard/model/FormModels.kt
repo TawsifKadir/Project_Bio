@@ -35,7 +35,9 @@ data class ConsentStatus(
 data class AlternateForm(
     var form1: AlForm1? = null,
     var form2: AlForm2? = null,
-    var form3: AlForm3? = null
+    var form3: AlForm3? = null,
+    var appId: String? = null,
+    var hhType: String? = null
 ) : Serializable
 
 data class HhForm1(
@@ -275,7 +277,7 @@ fun List<Finger>?.isCaptured(fingerCode: String?): Boolean {
     if (this.isEmpty()) return false
     if (fingerCode == null) return false
 
-    for (item in this){
+    for (item in this) {
         if (fingerCode.equals(item.fingerType, true)) return true
     }
 
@@ -335,7 +337,7 @@ fun Finger.isOk(): Boolean {
 
 fun Finger?.isContainValidFingerprint(): Boolean {
     if (this == null) return false
-    if (this.noFingerprint == true ) return false
+    if (this.noFingerprint == true) return false
 
     if (this.fingerPrint?.isEmpty() == true) return false
     if (this.fingerType.isNullOrEmpty()) return false
@@ -343,6 +345,7 @@ fun Finger?.isContainValidFingerprint(): Boolean {
 
     return true
 }
+
 data class AlForm1(
     var householdName: String? = null,
 
@@ -356,7 +359,8 @@ data class AlForm1(
     var idIsOrNot: String? = null,
     var phoneNumber: String? = null,
     var selectAlternateRlt: String? = null,
-    var gender: String? = null
+    var gender: String? = null,
+    var documentTypeOther: String? = null
 ) : Serializable
 
 data class AlForm2(

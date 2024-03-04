@@ -25,7 +25,6 @@ import java.util.*
 open class BaseSettingsFragment : PreferenceFragmentCompat(), BaseContract.View {
 
 
-
     override fun setupToolbar() {
         getBaseActivity()?.setupToolbar()
     }
@@ -62,7 +61,7 @@ open class BaseSettingsFragment : PreferenceFragmentCompat(), BaseContract.View 
         if (getBaseActivity() != null) {
             return getBaseActivity()!!.isDarkTheme()
         }
-        return false;
+        return false
     }
 
     override fun setupLoading() {
@@ -101,7 +100,7 @@ open class BaseSettingsFragment : PreferenceFragmentCompat(), BaseContract.View 
         if (getBaseActivity() != null) {
             return getBaseActivity()!!.isNetworkConnected()
         }
-        return NetUtils.isNetworkConnected(requireContext());
+        return NetUtils.isNetworkConnected(requireContext())
     }
 
     override fun onNetworkStatusChanged(isConnected: Boolean) {
@@ -120,7 +119,7 @@ open class BaseSettingsFragment : PreferenceFragmentCompat(), BaseContract.View 
         if (getBaseActivity() != null) {
             return getBaseActivity()!!.getPrefHelper()
         }
-        return PrefHelperImpl();
+        return PrefHelperImpl()
 
     }
 
@@ -145,7 +144,7 @@ open class BaseSettingsFragment : PreferenceFragmentCompat(), BaseContract.View 
     }
 
     override fun loadFragment(fragment: Fragment, bundle: Bundle?) {
-        getBaseActivity()?.loadFragment(fragment,bundle)
+        getBaseActivity()?.loadFragment(fragment, bundle)
     }
 
     override fun openActivity(mClass: Class<*>, bundle: Bundle?) {
@@ -214,6 +213,10 @@ open class BaseSettingsFragment : PreferenceFragmentCompat(), BaseContract.View 
 
     override fun navigateToAlternate(id: String?) {
         getBaseActivity()?.navigateToAlternate(id)
+    }
+
+    override fun navigateToAlternateNew(id: String?, hhName: String, type: String) {
+        getBaseActivity()?.navigateToAlternateNew(id, hhName, type)
     }
 
     override fun navigateToPayment() {

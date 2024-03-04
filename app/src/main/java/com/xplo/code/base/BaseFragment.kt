@@ -155,7 +155,7 @@ abstract class BaseFragment : Fragment(), BaseContract.View, NomineeModal.Listen
     }
 
     override fun loadFragment(fragment: Fragment, bundle: Bundle?) {
-        getBaseActivity()?.loadFragment(fragment,bundle)
+        getBaseActivity()?.loadFragment(fragment, bundle)
     }
 
     override fun openActivity(mClass: Class<*>, bundle: Bundle?) {
@@ -224,6 +224,10 @@ abstract class BaseFragment : Fragment(), BaseContract.View, NomineeModal.Listen
 
     override fun navigateToAlternate(id: String?) {
         getBaseActivity()?.navigateToAlternate(id)
+    }
+
+    override fun navigateToAlternateNew(id: String?, hhName: String, type: String) {
+        getBaseActivity()?.navigateToAlternateNew(id, hhName, type)
     }
 
     override fun navigateToPayment() {

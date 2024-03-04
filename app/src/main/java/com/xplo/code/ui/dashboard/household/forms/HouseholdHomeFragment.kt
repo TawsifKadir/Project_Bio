@@ -41,6 +41,8 @@ import com.xplo.code.data.db.room.model.Beneficiary
 import com.xplo.code.data.mapper.EntityMapper
 import com.xplo.code.databinding.FragmentHouseholdHomeBinding
 import com.xplo.code.ui.components.XDialogSheet
+import com.xplo.code.ui.dashboard.alternate.AlternateActivity
+import com.xplo.code.ui.dashboard.alternate.AlternateNewActivity
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.list.HouseholdListAdapter
@@ -182,14 +184,18 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                     is HouseholdViewModel.Event.GetDataLocalDbByAppId -> {
 
                         requireActivity().runOnUiThread {
-                            DialogUtil.showLottieDialog(requireContext(), "Data will sync to server", "Please wait")
+                            DialogUtil.showLottieDialog(
+                                requireContext(),
+                                "Data will sync to server",
+                                "Please wait"
+                            )
                         }
                         //Log.d(TAG, "onClickHouseholdItemSend() called with: item = $item, pos = $pos")
                         //showToast("Feature not implemented yet")
 
                         //viewModel.sendHouseholdItem(item, pos)
                         GlobalScope.launch(Dispatchers.IO) {
-                            viewModel.callRegisterApi(requireContext(),event.beneficiary)
+                            viewModel.callRegisterApi(requireContext(), event.beneficiary)
                         }
                         //hideLoading()
 //                        Toast.makeText(
@@ -372,6 +378,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         Log.d(TAG, "onUpdateHouseholdItemFailure() called with: msg = $msg")
 
     }
+
 
     override fun onClickHouseholdItem(item: HouseholdItem, pos: Int) {
         Log.d(TAG, "onClickHouseholdItem() called with: item = ${item.hid}, pos = $pos")
@@ -576,7 +583,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     }
 
     override fun onClickHouseholdItem(item: Beneficiary, pos: Int) {
-        viewModel.showBeneficiaryByAppId(requireContext(), item.applicationId)
+       // viewModel.showBeneficiaryByAppId(requireContext(), item.applicationId)
         //   navigateToHouseholdDetails(item)
     }
 
@@ -612,7 +619,18 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
             Toast.makeText(requireContext(), "Maximum 2 Alternate Add Options.", Toast.LENGTH_SHORT)
                 .show()
         } else {
-            navigateToAlternate(item.applicationId)
+            // navigateToAlternate(item.applicationId)
+            navigateToAlternateNew(
+                item.applicationId,
+                item.respondentFirstName + " " + item.respondentMiddleName + " " + item.respondentLastName,
+                "V"
+            )
+
+            // val intent = Intent(context, AlternateNewActivity::class.java)
+            //intent.putExtras(bundle)
+            //  startActivity(intent)
+
+
         }
     }
 

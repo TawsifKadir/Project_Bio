@@ -417,6 +417,10 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
         AlternateActivity.open(this, null, id)
     }
 
+    override fun navigateToAlternateNew(id: String?, hhName: String, type: String) {
+        AlternateActivity.openNew(this, null, id, hhName, type)
+    }
+
     override fun navigateToPayment() {
         PaymentActivity.open(this, null)
     }
