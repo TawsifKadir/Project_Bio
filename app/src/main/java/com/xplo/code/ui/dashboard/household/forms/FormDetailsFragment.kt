@@ -327,16 +327,19 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         val fingers: MutableList<Finger> =
             mutableListOf() // Use MutableList for easier modification
         for (item in beneficiary.biometrics) {
-            val finger = Finger().apply {
-                fingerId = item.applicationId
-                fingerType = item.biometricType?.value
-                fingerPrint = item.biometricData
-                userType = item.biometricUserType?.value
-                noFingerprint = item.noFingerPrint
-                noFingerprintReason = item.noFingerprintReason?.value
+            if(item.biometricData != null){
+                val finger = Finger().apply {
+                    fingerId = item.applicationId
+                    fingerType = item.biometricType.name
+                    fingerPrint = item.biometricData
+                    userType = item.biometricUserType?.value
+                    noFingerprint = item.noFingerPrint
+                    noFingerprintReason = item.noFingerprintReason?.value
+                }
+                fingers.add(finger)
             }
-            fingers.add(finger)
         }
+        form5.fingers = fingers
         addReportForm5(form5)
 
         val form6 = HhForm6()
@@ -352,10 +355,10 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
             nominee.middleName = item.nomineeMiddleName
             nominee.lastName = item.nomineeLastName
             nominee.nickName = item.nomineeNickName
-            nominee.relation = item.relationshipWithHouseholdHead.value
+            nominee.relation = item.relationshipWithHouseholdHead?.value
             nominee.age = item.nomineeAge
-            nominee.gender = item.nomineeGender.value
-            nominee.occupation = item.nomineeOccupation.value
+            nominee.gender = item.nomineeGender?.value
+            nominee.occupation = item.nomineeOccupation?.value
             nominee.isReadWrite = item.isReadWrite.toString()
             newlist.add(nominee)
         }
