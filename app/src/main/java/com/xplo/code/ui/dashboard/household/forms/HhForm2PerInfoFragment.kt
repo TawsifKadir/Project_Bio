@@ -315,7 +315,9 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
             when (checkedId) {
                 R.id.rbA -> doSomethingForRbA()
                 R.id.rbB -> doSomethingForRbB()
-                else -> {}
+                else -> {
+//                    adapterSupportType?.addAll(arrayListOf())
+                }
             }
         }
     }
@@ -488,8 +490,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         form.nickName = chkEditTextNickName3Char(etNickName, UiData.ER_ET_DF)
         form.age = chkEditTextMax3Digit(etAge, UiData.ER_ET_DF)?.toInt()
         form.phoneNumber = chkPhoneNumber(etPhoneNumber, UiData.ER_ET_DF)
-        form.monthlyAverageIncome =
-            chkEditTextMonthlyAvgIncome(etMonthlyAverageIncome, UiData.ER_ET_DF)
+        form.monthlyAverageIncome = chkEditTextMonthlyAvgIncome(etMonthlyAverageIncome, UiData.ER_ET_DF)
         //form.spouseName = chkEditText(etSpouseName, UiData.ER_ET_DF)
         form.selectionCriteria = chkRadioGroup(rgSelectionCriteria, UiData.ER_RB_DF)
         form.idIsOrNot = chkRadioGroup(rgId, UiData.ER_RB_DF)
@@ -523,26 +524,26 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
-//        spIdType.setSelection(1)
-//        spMainSourceOfIncome.setSelection(1)
-//        spGender.setSelection(1)
-//        spRespondentRlt.setSelection(1)
-//        spMaritalStatus.setSelection(1)
-//        spLegalStatus.setSelection(1)
-////        spSelectionReason.setSelection(1)
-//        //spCurrency.setSelection(1)
-//
-//        etFirstName.setText("Mohd")
-//        etMiddleName.setText("Moniruzzaman")
-//        etLastName.setText("Shadhin")
-//        etAge.setText("33")
-//        etIdNumber.setText("12345678910112")
-//        etPhoneNumber.setText("01672708329")
-//        etMonthlyAverageIncome.setText("5000")
-//        //etSpouseName.setText("Yesmin")
-//
-//        rgSelectionCriteria.check(R.id.rbA)
-//        adapterSupportType?.addAll(UiData.getPublicWorksDummy())
+        spIdType.setSelection(1)
+        spMainSourceOfIncome.setSelection(1)
+        spGender.setSelection(1)
+        spRespondentRlt.setSelection(1)
+        spMaritalStatus.setSelection(1)
+        spLegalStatus.setSelection(1)
+//        spSelectionReason.setSelection(1)
+        //spCurrency.setSelection(1)
+
+        etFirstName.setText("Mohd")
+        etMiddleName.setText("Moniruzzaman")
+        etLastName.setText("Shadhin")
+        etAge.setText("33")
+        etIdNumber.setText("12345678910112")
+        etPhoneNumber.setText("01672708329")
+        etMonthlyAverageIncome.setText("5000")
+        //etSpouseName.setText("Yesmin")
+
+        rgSelectionCriteria.check(R.id.rbA)
+        adapterSupportType?.addAll(UiData.getPublicWorksDummy())
     }
 
     override fun onPopulateView() {

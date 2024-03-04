@@ -144,7 +144,7 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
     override fun chkEditTextNickName3Char(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {
-            if ( txt.length in 1..2) {
+            if (txt.length>0 && txt.length<3) {
                 editText.error = "Minimum 3 character"
                 return null
             } else if (txt.isEmpty() || txt == ""){
@@ -213,6 +213,8 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
 
         if (id != -1) {
             val rb = radioGroup.findViewById(id) as RadioButton
+            val lastChildPos: Int = radioGroup.childCount - 1
+            (radioGroup.getChildAt(lastChildPos) as RadioButton).error = null
             return rb.text.toString()
         }
 
