@@ -45,7 +45,7 @@ interface HouseholdContract {
         fun navigateToAlternateAddForm()
         fun navigateToPreview()
         fun navigateToFormDetails(item: HouseholdItem?)
-        fun navigateToFormDetailsBeneficiary(item: String?)
+        fun navigateToFormDetailsBeneficiary(item: Beneficiary?)
 
         fun navigateToAnotherHousehold(hhForm1: HhForm1?)
 
@@ -119,7 +119,7 @@ interface HouseholdContract {
 
     interface HomeView : BaseContract.View {
         fun navigateToHouseholdDetails(item: HouseholdItem)
-        fun navigateToHouseholdDetailsFromBeneficiary(item: String?)
+        fun navigateToHouseholdDetailsFromBeneficiary(item: Beneficiary?)
         fun onGetHouseholdList(items: List<HouseholdItem>?)
         fun onGetHouseholdListFailure(msg: String?)
         fun onGetHouseholdListSuccess(msg: String?)

@@ -58,10 +58,10 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
             return fragment
         }
         @JvmStatic
-        fun newInstance(parent: String?, item: String?): FormDetailsFragment {
+        fun newInstance(parent: String?, item: com.kit.integrationmanager.model.Beneficiary?): FormDetailsFragment {
            // Log.d(TAG, "newInstance() called with: parent = $parent, item = ${item?.hid}")
             val fragment = FormDetailsFragment()
-            fragment.item = item
+            fragment.item = item?.applicationId
             //val bundle = Bundle()
             //bundle.putString(Bk.KEY_PARENT, parent)
             //bundle.putSerializable(Bk.KEY_ITEM, item)

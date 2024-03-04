@@ -171,7 +171,6 @@ class HouseholdListAdapterNew : RecyclerView.Adapter<HouseholdListAdapterNew.Vie
 
     interface OnItemClickListener {
         fun onClickHouseholdItem(item: Beneficiary, pos: Int)
-        fun onClickHouseholdItemBeneficiary(item: Beneficiary, pos: Int)
         fun onClickHouseholdItemDelete(item: Beneficiary, pos: Int)
         fun onClickHouseholdItemSend(item: Beneficiary, pos: Int)
         fun onClickHouseholdItemAddAlternate(item: Beneficiary, pos: Int)

@@ -302,7 +302,7 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         )
     }
 
-    override fun navigateToFormDetailsBeneficiary(item: String?) {
+    override fun navigateToFormDetailsBeneficiary(item: com.kit.integrationmanager.model.Beneficiary?) {
         doFragmentTransaction(
             FormDetailsFragment.newInstance(null, item),
             FormDetailsFragment.TAG,

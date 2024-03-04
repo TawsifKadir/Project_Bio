@@ -136,6 +136,8 @@ class HouseholdViewModel @Inject constructor(
 
         class GetDataLocalDbByAppId(val beneficiary: Beneficiary) :
             Event()
+class GetDataLocalDbByAppIdForView(val beneficiary: Beneficiary) :
+            Event()
 
         class DeleteDataLocalDbByAppId(val beneficiary: Boolean) : Event()
 
@@ -381,6 +383,130 @@ class HouseholdViewModel @Inject constructor(
             //Log.d(TAG, "showBeneficiary: ${form.alternatePayee1.payeeAge}")
             Log.d(TAG, "showBeneficiary: ${form.isReadWrite}")
             _event.value = Event.GetDataLocalDbByAppId(form)
+        }
+    }
+
+    fun showBeneficiaryByAppIdForViewDetails(context: Context, appId: String) {
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context)
+        val form: Beneficiary = Beneficiary()
+        //_event.value = Event.Loading
+        viewModelScope.launch(dispatchers.io) {
+            val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
+            val alternateDao: AlternateDao = mDatabase.alternateDao()
+            val addressDao: AddressDao = mDatabase.addressDao()
+            val nomineeDao: NomineeDao = mDatabase.nomineeDao()
+            val locationDao: LocationDao = mDatabase.locationDao()
+            val householdInfoDao: HouseholdInfoDao = mDatabase.householdInfoDao()
+            val biometricDao: BiometricDao = mDatabase.biometricDao()
+            val selectionReasonDao: SelectionReasonDao = mDatabase.selectionReasonDao()
+            val beneficiary = beneficiaryDao.getBeneficiaryByAppId(appId)
+            val address = addressDao.getAddressByAppId(appId)
+            val location = locationDao.getLocationByAppId(appId)
+            val nominee = nomineeDao.getNomineeListByAppId(appId)
+            val householdInfo = householdInfoDao.getHouseholdInfoListByAppId(appId)
+            val alternateEO = alternateDao.getAlternateList(appId)
+            val selectionReason = selectionReasonDao.getSelectionReasonByAppId(appId)
+            val biometricBio = biometricDao.getBiometricsListByAppIdForBenaficiary(appId)
+            val alternateBio1 = biometricDao.getBiometricsListByAppIdForAlternate1(appId)
+            val alternateBio2 = biometricDao.getBiometricsListByAppIdForAlternate2(appId)
+
+            // Data Bind With Api Obj
+            form.applicationId = beneficiary.applicationId
+            form.respondentFirstName = beneficiary.respondentFirstName
+            form.respondentMiddleName = beneficiary.respondentMiddleName
+            form.respondentLastName = beneficiary.respondentLastName
+            form.respondentNickName = beneficiary.respondentNickName
+            form.spouseFirstName = beneficiary.spouseFirstName
+            form.spouseMiddleName = beneficiary.spouseMiddleName
+            form.spouseLastName = beneficiary.spouseLastName
+            form.spouseNickName = beneficiary.spouseNickName
+
+            if(beneficiary.relationshipWithHouseholdHead != null){
+                form.relationshipWithHouseholdHead = RelationshipEnum.getRelationById(beneficiary.relationshipWithHouseholdHead.toInt()+1)
+            }
+
+            form.respondentAge = beneficiary.respondentAge
+
+            if (beneficiary.respondentGender != null){
+                form.respondentGender = GenderEnum.getGenderById(beneficiary.respondentGender.toInt()+1)
+            }
+
+            if(beneficiary.respondentMaritalStatus != null){
+                form.respondentMaritalStatus = MaritalStatusEnum.getMartialStatusById(beneficiary.respondentMaritalStatus.toInt()+1)
+            }
+
+            if(beneficiary.respondentLegalStatus != null){
+                form.respondentLegalStatus = LegalStatusEnum.getLegalStatusById(beneficiary.respondentLegalStatus.toInt()+1)
+            }
+            if(beneficiary.documentType != null){
+                form.documentType = DocumentTypeEnum.getDocumentTypeById(beneficiary.documentType.toInt()+1)
+            }
+
+            form.documentTypeOther = beneficiary.documentTypeOther
+            form.respondentId = beneficiary.respondentId
+            form.respondentPhoneNo = beneficiary.respondentPhoneNo
+            if(beneficiary.householdIncomeSource != null){
+                form.householdIncomeSource = IncomeSourceEnum.getIncomeSourceById(beneficiary.householdIncomeSource.toInt()+1)
+            }
+            form.householdMonthlyAvgIncome = beneficiary.householdMonthlyAvgIncome
+            if(beneficiary.currency != null){
+                //form.currency = CurrencyEnum.entries.getOrNull(beneficiary.currency.toInt())
+                form.currency = CurrencyEnum.getCurrencyById(beneficiary.currency.toInt()+1)
+            }
+            if(beneficiary.selectionCriteria != null){
+                form.selectionCriteria = SelectionCriteriaEnum.getSelectionCriteriaById(beneficiary.selectionCriteria.toInt()+1)
+            }
+
+            // Assuming form.selectionReason is a MutableList<SelectionReasonEnum>
+            val selectionReasonList = FakeMapperValue.selectionReasons
+//            if(selectionReason.selectionReasonName != null){
+//                SelectionReasonEnum.entries.getOrNull(selectionReason.selectionReasonName.toInt())?.let {
+//                    selectionReasonList.add(
+//                        it
+//                    )
+//                }
+//            }
+
+            form.selectionReason = selectionReasonList
+
+            // form.selectionReason = SelectionReasonEnum.find(selectionReason.selectionReasonName)
+            val addressOb = Address()
+            addressOb.stateId = address.stateId
+            addressOb.countyId = address.countyId
+            addressOb.payamId = address.payam
+            addressOb.bomaId = address.boma
+            form.address = EntityMapper.toAddress(addressOb)
+            val locationObj = Location()
+            locationObj.lat = location.lat
+            locationObj.lon = location.lon
+            form.location = EntityMapper.toLocation(locationObj)
+
+            form.householdSize = householdInfo.size
+            form.householdMember2 = EntityMapper.toHouseholdMember2Ldb(appId, householdInfo, "M2")
+            form.householdMember5 = EntityMapper.toHouseholdMember2Ldb(appId, householdInfo, "M5")
+            form.householdMember17 = EntityMapper.toHouseholdMember2Ldb(appId, householdInfo, "M17")
+            form.householdMember35 = EntityMapper.toHouseholdMember2Ldb(appId, householdInfo, "M35")
+            form.householdMember64 = EntityMapper.toHouseholdMember2Ldb(appId, householdInfo, "M64")
+            form.householdMember65 = EntityMapper.toHouseholdMember2Ldb(appId, householdInfo, "M65")
+            form.isReadWrite = beneficiary.isReadWrite
+            form.memberReadWrite = beneficiary.memberReadWrite
+            form.isOtherMemberPerticipating = beneficiary.isOtherMemberPerticipating
+            if(beneficiary.notPerticipationReason != null){
+                form.notPerticipationReason = NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt()+1)
+            }
+            form.notPerticipationOtherReason = beneficiary.notPerticipationOtherReason
+            form.nominees = EntityMapper.toNomineeItemsLdb(nominee)
+
+            form.biometrics = EntityMapper.toBiometricEntityFromdbForBeneficiary(biometricBio)
+
+            form.alternatePayee1 = EntityMapper.getFirstAlternateLdb(alternateEO, alternateBio1)
+            if (alternateEO.size == 2) {
+                form.alternatePayee2 = EntityMapper.getSecondAlternateLdb(alternateEO, alternateBio2)
+            }
+            form.createdBy = 0
+            //Log.d(TAG, "showBeneficiary: ${form.alternatePayee1.payeeAge}")
+            Log.d(TAG, "showBeneficiary: ${form.isReadWrite}")
+            _event.value = Event.GetDataLocalDbByAppIdForView(form)
         }
     }
 
