@@ -284,7 +284,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
                     }
 
                     override fun onClickNegativeButton() {
-                        // navigateToHome()
+                        navigateToHome()
                     }
 
                     override fun onClickNeutralButton() {
@@ -293,6 +293,11 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
                 })
                 .build()
                 .show()
+
+//            val entity = EntityMapper.toAlternateModelEntity(rootForm)
+//            if (entity != null) {
+//                insertAlternate(entity, entity.applicationId)
+//            }
 
         }
 
@@ -365,59 +370,70 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
                 val mDatabase = BeneficiaryDatabase.getInstance(requireContext())
                 val alternateDao: AlternateDao = mDatabase.alternateDao()
                 val alternate = alternateDao.getAlternateList(appId)
+                var type = ""
+                if (alternate.size == 0) {
+                    type = "ALT1"
+                } else if (alternate.size == 1) {
+                    type = "ALT2"
+                }
 
                 val alternateList: MutableList<Alternate> =
                     ArrayList<Alternate>()
 
-                if (alternate.size == 0) {
-                    if (beneficiaryBO.alternatePayee1 != null) {
-                        val firstAlternateEO: Alternate =
-                            prepareAlternateEntity(
-                                appId,
-                                beneficiaryBO.alternatePayee1,
-                                "ALT1"
-                            )
-                        alternateList.add(firstAlternateEO)
-                    }
-                } else if (alternate.size == 1) {
-                    if (beneficiaryBO.alternatePayee2 != null) {
-                        val secondAlternateEO: Alternate =
-                            prepareAlternateEntity(
-                                appId,
-                                beneficiaryBO.alternatePayee2,
-                                "ALT2"
-                            )
-                        alternateList.add(secondAlternateEO)
-                    }
-                } else {
-                    Toast.makeText(
-                        requireContext(),
-                        "Maximum 2 Alternate Add Permission.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                //  if (alternate.size == 0) {
+                if (beneficiaryBO.alternatePayee1 != null) {
+                    val firstAlternateEO: Alternate =
+                        prepareAlternateEntity(
+                            appId,
+                            beneficiaryBO.alternatePayee1,
+                            type
+                        )
+                    alternateList.add(firstAlternateEO)
+                }
+                //   } else if (alternate.size == 1) {
+                if (beneficiaryBO.alternatePayee2 != null) {
+                    val secondAlternateEO: Alternate =
+                        prepareAlternateEntity(
+                            appId,
+                            beneficiaryBO.alternatePayee2,
+                            type
+                        )
+                    alternateList.add(secondAlternateEO)
+                    //     }
+//                } else {
+//                    Toast.makeText(
+//                        requireContext(),
+//                        "Maximum 2 Alternate Add Permission.",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
                 }
 
 
                 val biometricList: MutableList<Biometric> =
                     ArrayList<Biometric>()
+                //   if (alternate.size == 0) {
                 if (beneficiaryBO.alternatePayee1 != null && beneficiaryBO.alternatePayee1
                         .biometrics != null
                 ) {
                     val alternate1Biometric: Biometric = prepareBiometricEntity(
                         appId,
-                        beneficiaryBO.alternatePayee1.biometrics, "ALT1"
+                        beneficiaryBO.alternatePayee1.biometrics, type
                     )
                     biometricList.add(alternate1Biometric)
                 }
+                //   } else if (alternate.size == 1) {
                 if (beneficiaryBO.alternatePayee2 != null && beneficiaryBO.alternatePayee2
                         .biometrics != null
                 ) {
                     val alternate2Biometric: Biometric = prepareBiometricEntity(
                         appId,
-                        beneficiaryBO.alternatePayee2.biometrics, "ALT2"
+                        beneficiaryBO.alternatePayee2.biometrics, type
                     )
                     biometricList.add(alternate2Biometric)
                 }
+                // }
+
+
                 val beneficiaryTransactionDao: BeneficiaryTransactionDao =
                     mDatabase!!.beneficiaryTransactionDao()
                 beneficiaryTransactionDao.insertAlternateRecord(
@@ -433,7 +449,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
                 "Failed",
                 "Error while sending data"
             )
-            Log.e(HhPreviewFragment.TAG, "Error while sending data : " + ex.message)
+            Log.e(TAG, "Error while sending data : " + ex.message)
             ex.printStackTrace()
         }
     }
