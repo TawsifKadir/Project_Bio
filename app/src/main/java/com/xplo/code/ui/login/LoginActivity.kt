@@ -7,12 +7,18 @@ import android.os.Bundle
 //import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
+import com.xplo.code.R
 import com.xplo.code.base.BaseActivity
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.data.Constants
 import com.xplo.code.databinding.ActivityLoginBinding
+import com.xplo.code.ui.dashboard.alternate.forms.LoginFragment
+import com.xplo.code.ui.dashboard.alternate.forms.ResetFragment
+import com.xplo.code.ui.dashboard.alternate.forms.SignUpFragment
 import com.xplo.code.ui.login.model.LoginCredentials
 import com.xplo.code.ui.testing_lab.LabActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,58 +63,10 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     }
 
     override fun initView() {
-
-
+        navigateToLogin()
     }
 
     override fun initObserver() {
-
-        binding.btLogin.setOnClickListener {
-            val userId = binding.etUserId.text.toString()
-            val password = binding.etPassword.text.toString()
-            val loginCredentials = LoginCredentials(userId, password)
-            //presenter.passwordLogin(loginCredentials)
-            viewModel.passwordLogin(loginCredentials)
-        }
-        //btSignup.setOnClickListener(this)
-
-//        binding.cbShowPassword.setOnCheckedChangeListener { buttonView, isChecked ->
-//            // checkbox status is changed from uncheck to checked.
-//            if (!isChecked) {
-//                binding.etPassword.transformationMethod = PasswordTransformationMethod.getInstance()
-//            } else {
-//                binding.etPassword.transformationMethod =
-//                    HideReturnsTransformationMethod.getInstance()
-//            }
-//        }
-
-        lifecycleScope.launchWhenStarted {
-            viewModel.event.collect { event ->
-                when (event) {
-
-                    is LoginViewModel.Event.Loading -> {
-                        showLoading()
-                    }
-
-                    is LoginViewModel.Event.LoginSuccess -> {
-                        hideLoading()
-                        onLoginSuccess(event.token!!, event.id)
-                        viewModel.clearEvent()
-                    }
-
-                    is LoginViewModel.Event.LoginFailure -> {
-                        hideLoading()
-                        onLoginFailure(event.msg)
-                        viewModel.clearEvent()
-                    }
-
-                    else -> Unit
-                }
-            }
-        }
-
-        taskDev()
-
 
     }
 
@@ -122,18 +80,42 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         //presenter.detach()
     }
 
-    override fun navigateToNext() {
+    override fun doFragmentTransaction(
+        fragment: Fragment,
+        tag: String,
+        addToBackStack: Boolean,
+        clearBackStack: Boolean
+    ) {
+        Log.d(
+            TAG,
+            "doFragmentTransaction() called with: fragment = $fragment, tag = $tag, addToBackStack = $addToBackStack, clearBackStack = $clearBackStack"
+        )
+
+        if (clearBackStack) {
+            supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        }
+
+        var transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frame, fragment, tag)
+        if (addToBackStack) {
+            transaction.addToBackStack(tag)
+        }
+        transaction.commit()
 
     }
 
-    override fun navigateToSignup() {
-
+    override fun navigateToLogin() {
+        doFragmentTransaction(LoginFragment.newInstance(null),LoginFragment.TAG,false,true)
     }
 
-    override fun navigateToOtpLogin() {
-        Log.d(TAG, "navigateToOtpLogin: ")
-
+    override fun navigateToSignUp() {
+        doFragmentTransaction(SignUpFragment.newInstance(null),SignUpFragment.TAG,true,false)
     }
+
+    override fun navigateToReset() {
+        doFragmentTransaction(ResetFragment.newInstance(null),ResetFragment.TAG,false,true)
+    }
+
 
     override fun onLoginSuccess(token: String, id: String?) {
         Log.d(TAG, "onLoginSuccess() called with: token = $token, id = $id")
@@ -141,7 +123,6 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         getPrefHelper().setUserId("abc07")
         navigateToHome()
         finish()
-
     }
 
     override fun onLoginFailure(msg: String?) {
@@ -158,20 +139,4 @@ class LoginActivity : BaseActivity(), LoginContract.View {
 
     }
 
-    private fun taskDev() {
-        if (!isDebugBuild()) return
-
-//        if (TestConfig.isTestLoginEnabled) {
-//            binding.etUserId.setText(Constants.TEST_USER_ID)
-//            binding.etPassword.setText(Constants.TEST_PASSWORD)
-//        }
-
-        binding.ivBannar.setOnLongClickListener {
-            //openActivity(LabActivity::class.java, null)
-            binding.etUserId.setText(Constants.TEST_USER_ID)
-            binding.etPassword.setText(Constants.TEST_PASSWORD)
-            return@setOnLongClickListener true
-        }
-
-    }
 }

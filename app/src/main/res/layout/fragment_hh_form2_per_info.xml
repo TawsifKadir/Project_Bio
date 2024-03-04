@@ -341,11 +341,13 @@
                 android:id="@+id/otherVisibleSource"
                 android:visibility="gone"
                 tools:visibility="visible">
-
+                <TextView
+                    style="@style/AppTextView.Input.Header"
+                    android:text="Income Source" />
                 <EditText
                     android:id="@+id/etothersourcetext"
                     style="@style/AppEditText.Form.Text"
-                    android:hint="Other reason"/>
+                    android:hint="Please Specify"/>
 
             </LinearLayout>
             <include layout="@layout/view_margin_space" />

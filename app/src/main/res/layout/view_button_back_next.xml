@@ -8,6 +8,10 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
+    <!--    <View-->
+    <!--        android:layout_width="8dp"-->
+    <!--        android:layout_height="wrap_content"/>-->
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btBack"
         style="@style/AppButton.Bottom.Negative"
@@ -17,10 +21,6 @@
         android:layout_weight="1"
         android:text="@string/back"
         tools:visibility="visible" />
-
-    <!--    <View-->
-    <!--        android:layout_width="8dp"-->
-    <!--        android:layout_height="wrap_content"/>-->
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btNext"

@@ -156,6 +156,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                     }
 
                     is HouseholdViewModel.Event.GetHouseholdItemsSuccess -> {
+                        Log.d(TAG,"GetHouseHoldList Called")
                         hideLoading()
                         onGetHouseholdList(event.items)
                         viewModel.clearEvent()
@@ -168,6 +169,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                     }
 
                     is HouseholdViewModel.Event.GetHouseholdItemsSuccessMsg -> {
+                        Log.d(TAG,"GetHouseHoldListSuccess Called")
                         hideLoading()
                         onGetHouseholdListSuccess(event.msg)
                         viewModel.clearEvent()

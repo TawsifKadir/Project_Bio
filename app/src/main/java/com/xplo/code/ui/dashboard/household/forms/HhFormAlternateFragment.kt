@@ -266,7 +266,6 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
         }
         interactor?.setRootForm(rootForm)
     }
-
     override fun onClickBackButton() {
         Log.d(TAG, "onClickBackButton() called")
         interactor?.onBackButton()

@@ -37,12 +37,12 @@ class HouseholdListAdapterNew : RecyclerView.Adapter<HouseholdListAdapterNew.Vie
 
         init {
 
-            binding.root.setOnClickListener {
-                listener?.onClickHouseholdItem(
-                    getItem(absoluteAdapterPosition),
-                    absoluteAdapterPosition
-                )
-            }
+//            binding.root.setOnClickListener {
+//                listener?.onClickHouseholdItem(
+//                    getItem(absoluteAdapterPosition),
+//                    absoluteAdapterPosition
+//                )
+//            }
 
             binding.btDelete.setOnClickListener {
                 listener?.onClickHouseholdItemDelete(
@@ -95,7 +95,7 @@ class HouseholdListAdapterNew : RecyclerView.Adapter<HouseholdListAdapterNew.Vie
                 //binding.btSend.gone()
                 binding.btSyncStatus.setImageResource(R.drawable.baseline_cloud_done_24)
             } else {
-                binding.btSend.visible()
+                //binding.btSend.visible()
                 binding.btSyncStatus.setImageResource(R.drawable.sync_saved_locally_24px)
             }
             // loadImage(form.form4?.photoData?.imgPath)
