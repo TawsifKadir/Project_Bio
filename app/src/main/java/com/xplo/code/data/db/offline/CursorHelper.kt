@@ -21,7 +21,7 @@ class CursorHelper {
         private var COLUMN_ID = Column._id.name
 
         private var COLUMN_S_CODE = Column.s_code.name
-        private var COLUMN_STATE = Column.state.name
+        var COLUMN_STATE = Column.state.name
 
         private var COLUMN_C_CODE = Column.c_code.name
         private var COLUMN_COUNTRY = Column.county.name

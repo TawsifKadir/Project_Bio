@@ -41,6 +41,29 @@ class DbCallImpl : DbCall {
         }
     }
 
+    fun getItemName(columnValue: String, peram: String, id: Int, columnCode: Int): String? {
+        val sql = "SELECT DISTINCT $columnValue FROM state WHERE $peram = ?"
+        val args = arrayOf(id.toString())
+        var value: String? = null
+
+        dbHelper.openDataBase()
+        try {
+            val cursor = dbHelper.runQueryRaw(sql, args)
+            if (cursor.moveToNext()) {
+                value = cursor.getString(columnCode)
+                Log.d(TAG, "getItemName: $value")
+            }
+        } catch (e: Exception) {
+            // Handle the exception, if necessary
+            Log.e(TAG, "Error retrieving data from the database", e)
+        } finally {
+            dbHelper.close()
+        }
+
+        return value
+    }
+
+
     override fun getItemsByTable(table: String, callback: RspCallback<List<ODbItem>>?) {
         Log.d(TAG, "getItemsByTable() called with: table = $table, callback = $callback")
 
@@ -120,7 +143,7 @@ class DbCallImpl : DbCall {
         //var sql = "select distinct $column from $table"
         var sql = "select distinct $column from $table where $argColName = '$argColValue'"
 
-        if (argColName.isNullOrEmpty() || argColValue.isNullOrEmpty()){
+        if (argColName.isNullOrEmpty() || argColValue.isNullOrEmpty()) {
             sql = "select distinct $column from $table"
         }
 
@@ -149,9 +172,10 @@ class DbCallImpl : DbCall {
     ): List<OptionItem> {
 
         //var sql = "select distinct $column from $table"
-        var sql = "select distinct $columnCode, $columnTitle from $table where $argColName = '$argColValue'"
+        var sql =
+            "select distinct $columnCode, $columnTitle from $table where $argColName = '$argColValue'"
 
-        if (argColName.isNullOrEmpty() || argColValue.isNullOrEmpty()){
+        if (argColName.isNullOrEmpty() || argColValue.isNullOrEmpty()) {
             sql = "select distinct $columnCode, $columnTitle from $table"
         }
 

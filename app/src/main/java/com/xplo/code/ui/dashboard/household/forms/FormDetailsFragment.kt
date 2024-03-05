@@ -15,6 +15,8 @@ import com.xplo.code.core.ext.loadAvatar
 import com.xplo.code.core.ext.loadImage
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
+import com.xplo.code.data.db.offline.DbCall
+import com.xplo.code.data.db.offline.DbCallImpl
 import com.xplo.code.databinding.FragmentFormDetailsBinding
 import com.xplo.code.ui.components.ReportViewUtils
 import com.xplo.code.ui.dashboard.household.HouseholdContract
@@ -170,14 +172,23 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
     private fun generateReportFromBeneficiary(beneficiary: com.kit.integrationmanager.model.Beneficiary?) {
         //Log.d(TAG, "generateReport() called with: form = $form")
         if (beneficiary == null) return
+        val dbcall = DbCallImpl()
+        val stateName = dbcall.getItemName("state", "s_code", 71, 0)
+        Log.d(TAG, "stateName:  = $stateName")
+
+
+        // state,county,payam,boma
+
+        // s_code,c_code,p_code,b_code
 
         val form1 = HhForm1()
         form1.lon = beneficiary.location.lon
         form1.lat = beneficiary.location.lat
-        form1.state?.name = beneficiary.address.stateId.toString()
-        form1.payam?.name = beneficiary.address.payam.toString()
-        form1.boma?.name = beneficiary.address.boma.toString()
-        form1.county?.name = beneficiary.address.countyId.toString()
+      //  form1.state?.name = stateName
+         form1.state?.name = dbcall.getItemName("state", "s_code", beneficiary.address.stateId, 0)
+          form1.payam?.name = dbcall.getItemName("payam", "p_code", beneficiary.address.payam, 0)
+          form1.boma?.name = dbcall.getItemName("boma", "b_code", beneficiary.address.boma, 0)
+         form1.county?.name = dbcall.getItemName("county", "c_code", beneficiary.address.countyId, 0)
         addReportForm1(form1)
 
         val form2 = HhForm2()
@@ -327,7 +338,7 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         val fingers: MutableList<Finger> =
             mutableListOf() // Use MutableList for easier modification
         for (item in beneficiary.biometrics) {
-            if(item.biometricData != null){
+            if (item.biometricData != null) {
                 val finger = Finger().apply {
                     fingerId = item.applicationId
                     fingerType = item.biometricType.name
