@@ -21,6 +21,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.GsonBuilder
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -31,6 +32,7 @@ import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.toBool
+import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.data.db.room.dao.AlternateDao
@@ -197,6 +199,12 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
                         //viewModel.sendHouseholdItem(item, pos)
                         GlobalScope.launch(Dispatchers.IO) {
+
+                            Log.d(
+                                TAG, "initObserver: ${
+                                    event.beneficiary.toJson()
+                                }"
+                            )
                             viewModel.callRegisterApi(requireContext(), event.beneficiary)
                         }
                         //hideLoading()
@@ -649,6 +657,13 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
     override fun onClickHouseholdItemSave(item: Beneficiary, pos: Int) {
         Toast.makeText(requireContext(), "Coming Soon", Toast.LENGTH_SHORT).show()
+    }
+
+    fun com.kit.integrationmanager.model.Beneficiary?.toJson(): String? {
+        return GsonBuilder()
+            .setPrettyPrinting()
+            .create()
+            .toJson(this)
     }
 
 }
