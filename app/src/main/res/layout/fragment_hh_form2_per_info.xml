@@ -116,7 +116,8 @@
 
                     <EditText
                         android:id="@+id/etNickName"
-                        style="@style/AppEditText.Form.Text.Min3" />
+                        style="@style/AppEditText.Form.Text"
+                        android:hint="Optional"/>
 
                 </LinearLayout>
 
@@ -506,7 +507,8 @@
 
                     <EditText
                         android:id="@+id/etSpouseNickName"
-                        style="@style/AppEditText.Form.Text" />
+                        style="@style/AppEditText.Form.Text"
+                        android:hint="Optional"/>
 
                 </LinearLayout>
 
@@ -571,11 +573,16 @@
 
                 </RadioGroup>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    style="@style/AppLinearLayoutInputBox"
-                    android:id="@+id/rvSupportType"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent"
+                    android:id="@+id/llrecycle">
+                    <androidx.recyclerview.widget.RecyclerView
+                        style="@style/AppLinearLayoutInputBox"
+                        android:id="@+id/rvSupportType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
             </LinearLayout>
 
             <!--            <LinearLayout style="@style/AppLinearLayoutInputBox">-->

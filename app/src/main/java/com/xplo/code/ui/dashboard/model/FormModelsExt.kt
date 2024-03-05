@@ -69,6 +69,7 @@ fun HhForm2.isOk(): Boolean {
     if (this.middleName.isNullOrBlank()) return false
     Log.d(TAG,"Third Name Check")
     if (this.lastName.isNullOrBlank()) return false
+    if (this.nickName.equals("-1", ignoreCase = true)) return false
 //    if (this.nickName == null) return false
     Log.d(TAG,"Main Source of Income Check")
     if (this.mainSourceOfIncome.isNullOrBlank()) return false
@@ -89,6 +90,9 @@ fun HhForm2.isOk(): Boolean {
             return false
         }
         if (this.spouseLastName.isNullOrBlank()) {
+            return false
+        }
+        if(this.spouseNickName.equals("-1", ignoreCase = true)){
             return false
         }
     }
@@ -264,6 +268,7 @@ fun Nominee?.isOk(): Boolean {
     if (this.firstName.isNullOrBlank()) return false
     if (this.lastName.isNullOrBlank()) return false
     if (this.middleName.isNullOrBlank()) return false
+    if(this.nickName.equals("-1", ignoreCase = true)) return false
     if (this.relation.isNullOrBlank()) return false
     if (this.age == null) return false
     if (this.gender.isNullOrEmpty()) return false
@@ -292,6 +297,7 @@ fun AlForm1.isOk(): Boolean {
     if (this.alternateFirstName.isNullOrBlank()) return false
     if (this.alternateMiddleName.isNullOrBlank()) return false
     if (this.alternateLastName.isNullOrBlank()) return false
+    if (this.alternateNickName.equals("-1", ignoreCase = true)) return false
     if (this.age == null) return false
     if (this.selectAlternateRlt == null) return false
     if (this.gender == null) return false

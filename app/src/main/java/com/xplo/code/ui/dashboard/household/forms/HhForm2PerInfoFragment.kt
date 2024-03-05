@@ -176,7 +176,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         //publicRecycler = binding.recycler
         //directRecycler = binding.recycler
 
-        binding.rvSupportType.setHasFixedSize(true)
+//        binding.rvSupportType.setHasFixedSize(true)
         binding.rvSupportType.layoutManager = LinearLayoutManager(requireContext())
         binding.rvSupportType.itemAnimator = DefaultItemAnimator()
 
@@ -328,16 +328,19 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
                 R.id.rbA -> doSomethingForRbA()
                 R.id.rbB -> doSomethingForRbB()
                 else -> {
+                    binding.llrecycle.gone()
                 }
             }
         }
     }
 
     fun doSomethingForRbA() {
+        binding.llrecycle.visible()
         adapterSupportType?.addAll(UiData.getPublicWorks())
     }
 
     fun doSomethingForRbB() {
+        binding.llrecycle.visible()
         adapterSupportType?.addAll(UiData.getDirectIncomeSupport())
     }
 
@@ -531,7 +534,6 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
     }
 
     override fun onLongClickDataGeneration() {
-        if (!BuildConfig.DEBUG) return
         if (!TestConfig.isLongClickDGEnabled) return
 
         binding.viewButtonBackNext.btNext.setOnLongClickListener {
@@ -541,29 +543,8 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
     }
     override fun onGenerateDummyInput() {
         Log.d(TAG, "onGenerateDummyInput() called")
-        if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
-        spIdType.setSelection(1)
-        spMainSourceOfIncome.setSelection(1)
-        spGender.setSelection(1)
-        spRespondentRlt.setSelection(1)
-        spMaritalStatus.setSelection(1)
-        spLegalStatus.setSelection(1)
-//        spSelectionReason.setSelection(1)
-        //spCurrency.setSelection(1)
-
-        etFirstName.setText("Mohd")
-        etMiddleName.setText("Moniruzzaman")
-        etLastName.setText("Shadhin")
-        etAge.setText("33")
-        etIdNumber.setText("12345678910112")
-        etPhoneNumber.setText("01672708329")
-        etMonthlyAverageIncome.setText("5000")
-
-
-        rgSelectionCriteria.check(R.id.rbA)
-        adapterSupportType?.addAll(UiData.getPublicWorksDummy())
     }
 
     override fun onPopulateView() {

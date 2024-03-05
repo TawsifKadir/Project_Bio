@@ -93,7 +93,7 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
                     return null
                 }
             }else if(txt.isEmpty()){
-                return ""
+                return " "
             }
         }
         return txt
@@ -145,13 +145,13 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {
             if (txt.length>0 && txt.length<3) {
-                editText.error = "Minimum 3 character"
-                return null
+                editText.error = "Invalid Name"
+                return "-1"
             } else if (txt.isEmpty() || txt == ""){
                 return txt
             }else if (!isOnlyLetters(txt)) {
                 editText.error = "Only Character Allow"
-                return null
+                return "-1"
             }
         }
         return txt
