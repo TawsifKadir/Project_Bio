@@ -378,48 +378,48 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         form6.nominees = newlist
         addReportForm6(form6)
 
-        val arrayListValue: ArrayList<AlternateForm> = ArrayList<AlternateForm>()
-        val alternateForm = AlternateForm()
-        Log.d(TAG, "generateReportFromBeneficiary: ${beneficiary.alternatePayee1.payeeFirstName}")
-        alternateForm.form1?.alternateFirstName = beneficiary.alternatePayee1.payeeFirstName
-        alternateForm.form1?.alternateMiddleName = beneficiary.alternatePayee1.payeeMiddleName
-        alternateForm.form1?.alternateLastName = beneficiary.alternatePayee1.payeeLastName
-        alternateForm.form1?.alternateNickName = beneficiary.alternatePayee1.payeeNickName
-        alternateForm.form1?.age = beneficiary.alternatePayee1.payeeAge
-        alternateForm.form1?.idNumber = beneficiary.alternatePayee1.nationalId
-        alternateForm.form1?.idNumberType = beneficiary.alternatePayee1.documentType.name
-        //  alternateForm.form1?. idIsOrNot=beneficiary.alternatePayee1.
-        alternateForm.form1?.phoneNumber = beneficiary.alternatePayee1.payeePhoneNo
-        //    alternateForm.form1?. selectAlternateRlt=beneficiary.alternatePayee1.
-        alternateForm.form1?.gender = beneficiary.alternatePayee1.payeeGender.value
-        alternateForm.form1?.documentTypeOther = beneficiary.alternatePayee1.documentTypeOther
-       // alternateForm.form2?.photoData=beneficiary.alternatePayee1.biometrics[0].biometricData
-        arrayListValue.add(alternateForm)
+//        val arrayListValue: ArrayList<AlternateForm> = ArrayList<AlternateForm>()
+//        val alternateForm = AlternateForm()
+//        Log.d(TAG, "generateReportFromBeneficiary: ${beneficiary.alternatePayee1.payeeFirstName}")
+//        alternateForm.form1?.alternateFirstName = beneficiary.alternatePayee1.payeeFirstName
+//        alternateForm.form1?.alternateMiddleName = beneficiary.alternatePayee1.payeeMiddleName
+//        alternateForm.form1?.alternateLastName = beneficiary.alternatePayee1.payeeLastName
+//        alternateForm.form1?.alternateNickName = beneficiary.alternatePayee1.payeeNickName
+//        alternateForm.form1?.age = beneficiary.alternatePayee1.payeeAge
+//        alternateForm.form1?.idNumber = beneficiary.alternatePayee1.nationalId
+//        alternateForm.form1?.idNumberType = beneficiary.alternatePayee1.documentType.name
+//        //  alternateForm.form1?. idIsOrNot=beneficiary.alternatePayee1.
+//        alternateForm.form1?.phoneNumber = beneficiary.alternatePayee1.payeePhoneNo
+//        //    alternateForm.form1?. selectAlternateRlt=beneficiary.alternatePayee1.
+//        alternateForm.form1?.gender = beneficiary.alternatePayee1.payeeGender.value
+//        alternateForm.form1?.documentTypeOther = beneficiary.alternatePayee1.documentTypeOther
+//       // alternateForm.form2?.photoData=beneficiary.alternatePayee1.biometrics[0].biometricData
+//        arrayListValue.add(alternateForm)
+//
+//        if (beneficiary.alternatePayee2.payeeFirstName.isNotEmpty()) {
+//            val alternateForm2 = AlternateForm()
+//            alternateForm2.form1?.alternateFirstName = beneficiary.alternatePayee2.payeeFirstName
+//            Log.d(
+//                TAG,
+//                "generateReportFromBeneficiary: ${beneficiary.alternatePayee2.payeeFirstName}"
+//            )
+//            alternateForm2.form1?.alternateMiddleName = beneficiary.alternatePayee2.payeeMiddleName
+//            alternateForm2.form1?.alternateLastName = beneficiary.alternatePayee2.payeeLastName
+//            alternateForm2.form1?.alternateNickName = beneficiary.alternatePayee2.payeeNickName
+//            alternateForm2.form1?.age = beneficiary.alternatePayee2.payeeAge
+//            alternateForm2.form1?.idNumber = beneficiary.alternatePayee2.nationalId
+//            alternateForm2.form1?.idNumberType = beneficiary.alternatePayee2.documentType.name
+//            // alternateForm2.form1?. idIsOrNot=beneficiary.alternatePayee1.
+//            alternateForm2.form1?.phoneNumber = beneficiary.alternatePayee2.payeePhoneNo
+//            //  alternateForm2.form1?. selectAlternateRlt=beneficiary.alternatePayee1.
+//            alternateForm2.form1?.gender = beneficiary.alternatePayee2.payeeGender.name
+//            alternateForm2.form1?.documentTypeOther = beneficiary.alternatePayee2.documentTypeOther
+//            //alternateForm.form2?.photoData=beneficiary.alternatePayee1.biometrics[0].biometricData
+//            arrayListValue.add(alternateForm2)
+//        }
+//
 
-        if (beneficiary.alternatePayee2.payeeFirstName.isNotEmpty()) {
-            val alternateForm2 = AlternateForm()
-            alternateForm2.form1?.alternateFirstName = beneficiary.alternatePayee2.payeeFirstName
-            Log.d(
-                TAG,
-                "generateReportFromBeneficiary: ${beneficiary.alternatePayee2.payeeFirstName}"
-            )
-            alternateForm2.form1?.alternateMiddleName = beneficiary.alternatePayee2.payeeMiddleName
-            alternateForm2.form1?.alternateLastName = beneficiary.alternatePayee2.payeeLastName
-            alternateForm2.form1?.alternateNickName = beneficiary.alternatePayee2.payeeNickName
-            alternateForm2.form1?.age = beneficiary.alternatePayee2.payeeAge
-            alternateForm2.form1?.idNumber = beneficiary.alternatePayee2.nationalId
-            alternateForm2.form1?.idNumberType = beneficiary.alternatePayee2.documentType.name
-            // alternateForm2.form1?. idIsOrNot=beneficiary.alternatePayee1.
-            alternateForm2.form1?.phoneNumber = beneficiary.alternatePayee2.payeePhoneNo
-            //  alternateForm2.form1?. selectAlternateRlt=beneficiary.alternatePayee1.
-            alternateForm2.form1?.gender = beneficiary.alternatePayee2.payeeGender.name
-            alternateForm2.form1?.documentTypeOther = beneficiary.alternatePayee2.documentTypeOther
-            //alternateForm.form2?.photoData=beneficiary.alternatePayee1.biometrics[0].biometricData
-            arrayListValue.add(alternateForm2)
-        }
-
-
-        addReportAlternateForView(arrayListValue)
+        //  addReportAlternateForView(arrayListValue)
 
 
     }
