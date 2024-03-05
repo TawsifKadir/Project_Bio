@@ -375,7 +375,9 @@ class GetDataLocalDbByAppIdForView(val beneficiary: Beneficiary) :
 
             form.biometrics = EntityMapper.toBiometricEntityFromdbForBeneficiary(biometricBio)
 
-            form.alternatePayee1 = EntityMapper.getFirstAlternateLdb(alternateEO, alternateBio1)
+            if(alternateBio1 != null){
+                form.alternatePayee1 = EntityMapper.getFirstAlternateLdb(alternateEO, alternateBio1)
+            }
             if (alternateEO.size == 2) {
                form.alternatePayee2 = EntityMapper.getSecondAlternateLdb(alternateEO, alternateBio2)
             }

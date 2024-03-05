@@ -12,6 +12,7 @@ import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.LegalStatusEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
 import com.kit.integrationmanager.model.NoFingerprintReasonEnum
+import com.kit.integrationmanager.model.NomineeOccupationEnum
 import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.OccupationEnum
 import com.kit.integrationmanager.model.RelationshipEnum
@@ -76,7 +77,7 @@ object EntityMapper {
         form.respondentPhoneNo = item.form2?.phoneNumber
         form.householdIncomeSource = IncomeSourceEnum.find(item.form2?.mainSourceOfIncome)
         form.householdMonthlyAvgIncome = item.form2?.monthlyAverageIncome
-        form.currency = CurrencyEnum.find(item.form2?.currency)
+        form.currency = CurrencyEnum.SUDANESE_POUND
         form.selectionCriteria = SelectionCriteriaEnum.find(item.form2?.selectionCriteria)
         //form.selectionReason = SelectionReasonEnum.find(item.form2?.selectionReason)
         val address = Address()
@@ -208,14 +209,14 @@ object EntityMapper {
         val alternate = AlternatePayee()
         //alternate.documentType = FakeMapperValue.documentType
         // alternate.nationalId = FakeMapperValue.nationalId
-        alternate.documentType = DocumentTypeEnum.find(item.documentType.toString() + 1)
+        alternate.documentType = DocumentTypeEnum.getDocumentTypeById(item.documentType.toInt() + 1)
         alternate.nationalId = item.nationalId
         alternate.payeeFirstName = item.payeeFirstName
         alternate.payeeMiddleName = item.payeeMiddleName
         alternate.payeeLastName = item.payeeLastName
         alternate.payeeNickName = item.payeeNickName
         alternate.payeeAge = item.payeeAge
-        alternate.payeeGender = GenderEnum.find(item.payeeGender.toString() + 1)
+        alternate.payeeGender = GenderEnum.getGenderById(item.payeeGender.toInt() + 1)
         alternate.payeePhoneNo = item.payeePhoneNo
         alternate.biometrics = toBiometricEntityFromdbForBeneficiary(bio_data)
 
@@ -239,7 +240,7 @@ object EntityMapper {
                 biometric.biometricData = item.fingerPrint
             }
             biometric.noFingerPrint = item.noFingerprint
-            biometric.noFingerprintReason = NoFingerprintReasonEnum.find(item.noFingerprintReason)
+            biometric.noFingerprintReason = NoFingerprintReasonEnum.NoFinger
             biometric.noFingerprintReasonText = ""
 
             biometric.biometricUrl = ""
@@ -963,8 +964,8 @@ object EntityMapper {
             nominee.nomineeGender = GenderEnum.getGenderById(item.nomineeGender.toInt() + 1)
         }
 
-        //  nominee.nomineeOccupation = OccupationEnum.valueOf(item.nomineeOccupation.toString())
-        nominee.otherOccupation = item.otherOccupation
+        //nominee.nomineeOccupation = OccupationEnum.valueOf(item.nomineeOccupation.toString())
+        nominee.nomineeOccupation = OccupationEnum.HOMEMAKER
         if (item.relationshipWithHouseholdHead != null) {
             nominee.relationshipWithHouseholdHead =
                 RelationshipEnum.getRelationById(item.relationshipWithHouseholdHead.toInt() + 1)

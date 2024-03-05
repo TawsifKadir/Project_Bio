@@ -15,6 +15,7 @@ import android.widget.Spinner
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.kit.integrationmanager.model.DocumentTypeEnum
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -358,7 +359,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View,
             form.idNumber = checkIDNumber(etIdNumber, UiData.ER_ET_DF, form.idNumberType)
         } else {
             form.idNumber = null
-            form.idNumberType = null
+            form.idNumberType = DocumentTypeEnum.NONE.value
         }
         form.idIsOrNot = chkRadioGroup(rgId, UiData.ER_RB_DF)
 
