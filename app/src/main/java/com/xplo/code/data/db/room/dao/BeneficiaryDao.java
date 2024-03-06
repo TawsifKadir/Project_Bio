@@ -44,7 +44,6 @@ public interface BeneficiaryDao {
     @Query("SELECT * FROM location WHERE application_id = :appId")
     Location getLocationByAppId(String appId);
 
-
     @Query("SELECT * FROM address WHERE application_id = :appId")
     Address getAddressByAppId(String appId);
 

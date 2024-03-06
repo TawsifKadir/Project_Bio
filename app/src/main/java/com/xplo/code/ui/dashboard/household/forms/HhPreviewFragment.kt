@@ -422,7 +422,6 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
 
     fun insertBeneficiary(beneficiaryBO: Beneficiary) {
         Log.d(TAG, "beneficiaryBO applicationId: = ${beneficiaryBO.applicationId}")
-        Log.d(TAG, "beneficiaryBO applicationId: = ${beneficiaryBO}")
         try {
             DatabaseExecutors.getInstance().diskIO().execute {
                 // uuid = UUID.randomUUID()
