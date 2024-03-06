@@ -391,6 +391,7 @@ fun PhotoData.isOk(): Boolean {
 
 data class AlForm3(
     var noFingerprintReason: String? = null,
+    var noFingerprintReasonText: String? = null,
     var fingers: List<Finger> = arrayListOf()
 ) : Serializable
 
