@@ -1047,10 +1047,10 @@ class HouseholdViewModel @Inject constructor(
                 _event.value =
                     Event.GetHouseholdItemsFailure("Received null parameter in update. Returning...")
             } else {
+                var appId=""
                 val registrationResult = arg as? RegistrationResult
                 if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
                     Log.d(DashboardFragment.TAG, "Registration Successful")
-                    _event.value = Event.GetHouseholdItemsSuccessMsg("Registration Successful", "")
 
                     val appIds = registrationResult.applicationIds
                     if (appIds == null) {
@@ -1064,7 +1064,13 @@ class HouseholdViewModel @Inject constructor(
                     for (nowId in appIds) {
                         // _event.value = Event.GetHouseholdItemsSuccessMsg("Beneficiary ID : $nowId")
                         Log.d(DashboardFragment.TAG, "Beneficiary ID : $nowId")
+                        if (appIds.size == 1) {
+                            appId = nowId
+                        }
                     }
+                    _event.value =
+                        Event.GetHouseholdItemsSuccessMsg("Registration Successful", appId)
+
                 } else {
                     _event.value =
                         Event.GetHouseholdItemsFailure("Error code : ${registrationResult?.syncStatus?.errorCode}" + " Error Msg : ${registrationResult?.syncStatus?.errorMsg}")

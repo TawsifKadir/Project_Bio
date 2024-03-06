@@ -126,8 +126,7 @@
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/send_24px"
                 android:visibility="visible"
-                tools:visibility="visible"
-                />
+                tools:visibility="visible" />
 
 
             <ImageButton
@@ -135,9 +134,8 @@
                 style="@style/AppImageButton.Medium"
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/sync_saved_locally_24px"
-                android:visibility="gone"
-                tools:visibility="visible"
-                />
+                android:visibility="visible"
+                tools:visibility="visible" />
 
             <ImageButton
                 android:id="@+id/btAddAlternate"

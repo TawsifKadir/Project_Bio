@@ -1,7 +1,9 @@
 package com.xplo.code.ui.dashboard.household.list
 
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -85,12 +87,12 @@ class HouseholdListAdapterNew : RecyclerView.Adapter<HouseholdListAdapterNew.Vie
             binding.tvNominee.text = "Nominee: " + item.nomineeSize
             binding.tvAlternate.text = "Alternate: " + item.alternateSize
             //binding.btSyncStatus.setImageResource(R.drawable.baseline_cloud_done_24)
-
+            Log.d(TAG, "bind: isSynced ${item.isSynced}")
             if (item.isSynced) {
-                //binding.btSend.gone()
+                // binding.btSend.visibility=View.VISIBLE
                 binding.btSyncStatus.setImageResource(R.drawable.baseline_cloud_done_24)
             } else {
-                //binding.btSend.visible()
+                //  binding.btSend.visibility=View.VISIBLE
                 binding.btSyncStatus.setImageResource(R.drawable.sync_saved_locally_24px)
             }
             loadImage(item.photoPath)

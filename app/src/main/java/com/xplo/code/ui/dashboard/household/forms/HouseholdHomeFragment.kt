@@ -32,19 +32,12 @@ import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.toBool
-import com.xplo.code.data.db.models.BeneficiaryEntity
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
-import com.xplo.code.data.db.room.dao.AlternateDao
-import com.xplo.code.data.db.room.dao.BeneficiaryDao
-import com.xplo.code.data.db.room.database.BeneficiaryDatabase
-import com.xplo.code.data.db.room.database.DatabaseExecutors
 import com.xplo.code.data.db.room.model.Beneficiary
 import com.xplo.code.data.mapper.EntityMapper
 import com.xplo.code.databinding.FragmentHouseholdHomeBinding
 import com.xplo.code.ui.components.XDialogSheet
-import com.xplo.code.ui.dashboard.alternate.AlternateActivity
-import com.xplo.code.ui.dashboard.alternate.AlternateNewActivity
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.list.HouseholdListAdapter
@@ -365,7 +358,8 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         if (msg != null) {
             DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", msg)
             if (appId != null) {
-                viewModel.updateBeneficiary(requireContext(), "6be82dbe-a3ee-49d2-976d-9c7e83f5ca2c")
+                //  viewModel.updateBeneficiary(requireContext(), "6be82dbe-a3ee-49d2-976d-9c7e83f5ca2c")
+                viewModel.updateBeneficiary(requireContext(), appId)
             }
         }
         Log.d(TAG, "onGetHouseholdListSuccess() called with: msg = $msg")
@@ -581,30 +575,6 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
     }
 
-    fun showBeneficiary() {
-        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(requireContext())
-        DatabaseExecutors.getInstance().diskIO().execute {
-            try {
-                val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
-                val alternateDao: AlternateDao = mDatabase.alternateDao()
-                val beneficiary =
-                    beneficiaryDao.allBeneficiaries
-                val alternateEO = alternateDao.getAlternateList(beneficiary[0].applicationId)
-//                val selectionReasonDao: SelectionReasonDao = mDatabase.selectionReasonDao()
-//                val selectionReasonEO: SelectionReason =
-//                    selectionReasonDao.getSelectionReasonByAppId(uuid.toString())
-
-                Log.d(TAG, "Alternate List: " + alternateEO.size)
-                Log.d(TAG, "Loaded beneficiary")
-                Log.d(TAG, "Beneficiary name ${beneficiary[0].applicationId}")
-                adapterNew?.addAll(beneficiary)
-                adapterNew?.notifyDataSetChanged()
-            } catch (exc: Exception) {
-                Log.e(TAG, "Error while loading beneficiary.")
-                exc.printStackTrace()
-            }
-        }
-    }
 
     override fun onClickHouseholdItem(item: Beneficiary, pos: Int) {
         viewModel.showBeneficiaryByAppIdForViewDetails(requireContext(), item.applicationId)
@@ -650,16 +620,12 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                 "V"
             )
 
-            // val intent = Intent(context, AlternateNewActivity::class.java)
-            //intent.putExtras(bundle)
-            //  startActivity(intent)
-
-
         }
     }
 
     override fun onClickHouseholdItemSave(item: Beneficiary, pos: Int) {
-        Toast.makeText(requireContext(), "Coming Soon", Toast.LENGTH_SHORT).show()
+        // Toast.makeText(requireContext(), "Coming Soon", Toast.LENGTH_SHORT).show()
+        viewModel.updateBeneficiary(requireContext(), item.applicationId)
     }
 
     fun com.kit.integrationmanager.model.Beneficiary?.toJson(): String? {

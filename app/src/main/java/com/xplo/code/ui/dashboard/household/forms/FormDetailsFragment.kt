@@ -22,6 +22,8 @@ import com.xplo.code.databinding.FragmentFormDetailsBinding
 import com.xplo.code.ui.components.ReportViewUtils
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.model.AlForm1
+import com.xplo.code.ui.dashboard.model.AlForm2
 import com.xplo.code.ui.dashboard.model.AlternateForm
 import com.xplo.code.ui.dashboard.model.Finger
 import com.xplo.code.ui.dashboard.model.HhForm1
@@ -171,12 +173,16 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
     }
 
     private fun generateReportFromBeneficiary(beneficiary: com.kit.integrationmanager.model.Beneficiary?) {
-        //Log.d(TAG, "generateReport() called with: form = $form")
+        Log.d(
+            TAG,
+            "generateReportFromBeneficiary() called with: beneficiary = ${beneficiary?.alternatePayee1?.payeeAge}"
+        )
+        Log.d(
+            TAG,
+            "generateReportFromBeneficiary() called with: beneficiary = ${beneficiary?.alternatePayee2?.payeeAge}"
+        )
         if (beneficiary == null) return
         val dbcall = DbCallImpl()
-        val stateName = dbcall.getItemName("state", "s_code", 71, 0)
-        Log.d(TAG, "stateName:  = $stateName")
-
 
         // state,county,payam,boma
 
@@ -354,72 +360,110 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         form5.fingers = fingers
         addReportForm5(form5)
 
-        val form6 = HhForm6()
         // Assuming you have a MutableList<com.kit.integrationmanager.model.Nominee?>!
-        if (beneficiary.nominees.isNullOrEmpty()) return
-        val mutableList: MutableList<Nominee?> = beneficiary.nominees
+        if (beneficiary.nominees.isNullOrEmpty()) {
 
-        // Convert MutableList to ArrayList
-        val arrayList: ArrayList<Nominee> = ArrayList(mutableList.filterNotNull())
-        val newlist = ArrayList<com.xplo.code.ui.dashboard.model.Nominee>()
-        for (item in arrayList) {
-            val nominee = com.xplo.code.ui.dashboard.model.Nominee()
-            nominee.firstName = item.nomineeFirstName
-            nominee.middleName = item.nomineeMiddleName
-            nominee.lastName = item.nomineeLastName
-            nominee.nickName = item.nomineeNickName
-            nominee.relation = item.relationshipWithHouseholdHead?.value
-            nominee.age = item.nomineeAge
-            nominee.gender = item.nomineeGender?.value
-            nominee.occupation = item.nomineeOccupation?.value
-            nominee.isReadWrite = item.isReadWrite.toString()
-            newlist.add(nominee)
+        } else {
+            val form6 = HhForm6()
+            val mutableList: MutableList<Nominee?> = beneficiary.nominees
+            // Convert MutableList to ArrayList
+            val arrayList: ArrayList<Nominee> = ArrayList(mutableList.filterNotNull())
+            val newlist = ArrayList<com.xplo.code.ui.dashboard.model.Nominee>()
+            for (item in arrayList) {
+                val nominee = com.xplo.code.ui.dashboard.model.Nominee()
+                nominee.firstName = item.nomineeFirstName
+                nominee.middleName = item.nomineeMiddleName
+                nominee.lastName = item.nomineeLastName
+                nominee.nickName = item.nomineeNickName
+                nominee.relation = item.relationshipWithHouseholdHead?.value
+                nominee.age = item.nomineeAge
+                nominee.gender = item.nomineeGender?.value
+                nominee.occupation = item.nomineeOccupation?.value
+                nominee.isReadWrite = item.isReadWrite.toString()
+                newlist.add(nominee)
+            }
+            form6.nominees = newlist
+            addReportForm6(form6)
         }
-        form6.nominees = newlist
-        addReportForm6(form6)
+        val arrayListValue: ArrayList<AlternateForm> = ArrayList<AlternateForm>()
 
-//        val arrayListValue: ArrayList<AlternateForm> = ArrayList<AlternateForm>()
-//        val alternateForm = AlternateForm()
-//        Log.d(TAG, "generateReportFromBeneficiary: ${beneficiary.alternatePayee1.payeeFirstName}")
-//        alternateForm.form1?.alternateFirstName = beneficiary.alternatePayee1.payeeFirstName
-//        alternateForm.form1?.alternateMiddleName = beneficiary.alternatePayee1.payeeMiddleName
-//        alternateForm.form1?.alternateLastName = beneficiary.alternatePayee1.payeeLastName
-//        alternateForm.form1?.alternateNickName = beneficiary.alternatePayee1.payeeNickName
-//        alternateForm.form1?.age = beneficiary.alternatePayee1.payeeAge
-//        alternateForm.form1?.idNumber = beneficiary.alternatePayee1.nationalId
-//        alternateForm.form1?.idNumberType = beneficiary.alternatePayee1.documentType.name
-//        //  alternateForm.form1?. idIsOrNot=beneficiary.alternatePayee1.
-//        alternateForm.form1?.phoneNumber = beneficiary.alternatePayee1.payeePhoneNo
-//        //    alternateForm.form1?. selectAlternateRlt=beneficiary.alternatePayee1.
-//        alternateForm.form1?.gender = beneficiary.alternatePayee1.payeeGender.value
-//        alternateForm.form1?.documentTypeOther = beneficiary.alternatePayee1.documentTypeOther
-//       // alternateForm.form2?.photoData=beneficiary.alternatePayee1.biometrics[0].biometricData
-//        arrayListValue.add(alternateForm)
-//
-//        if (beneficiary.alternatePayee2.payeeFirstName.isNotEmpty()) {
-//            val alternateForm2 = AlternateForm()
-//            alternateForm2.form1?.alternateFirstName = beneficiary.alternatePayee2.payeeFirstName
-//            Log.d(
-//                TAG,
-//                "generateReportFromBeneficiary: ${beneficiary.alternatePayee2.payeeFirstName}"
-//            )
-//            alternateForm2.form1?.alternateMiddleName = beneficiary.alternatePayee2.payeeMiddleName
-//            alternateForm2.form1?.alternateLastName = beneficiary.alternatePayee2.payeeLastName
-//            alternateForm2.form1?.alternateNickName = beneficiary.alternatePayee2.payeeNickName
-//            alternateForm2.form1?.age = beneficiary.alternatePayee2.payeeAge
-//            alternateForm2.form1?.idNumber = beneficiary.alternatePayee2.nationalId
-//            alternateForm2.form1?.idNumberType = beneficiary.alternatePayee2.documentType.name
-//            // alternateForm2.form1?. idIsOrNot=beneficiary.alternatePayee1.
-//            alternateForm2.form1?.phoneNumber = beneficiary.alternatePayee2.payeePhoneNo
-//            //  alternateForm2.form1?. selectAlternateRlt=beneficiary.alternatePayee1.
-//            alternateForm2.form1?.gender = beneficiary.alternatePayee2.payeeGender.name
-//            alternateForm2.form1?.documentTypeOther = beneficiary.alternatePayee2.documentTypeOther
-//            //alternateForm.form2?.photoData=beneficiary.alternatePayee1.biometrics[0].biometricData
-//            arrayListValue.add(alternateForm2)
-//        }
-//
+        try {
+            val alternateForm = AlternateForm()
 
-        //  addReportAlternateForView(arrayListValue)
+            if (beneficiary.alternatePayee1.payeeFirstName.isNotEmpty()) {
+                val a1Form = AlForm1()
+                val a2Form = AlForm2()
+                a1Form.alternateFirstName =
+                    beneficiary.alternatePayee1?.payeeFirstName
+                a1Form.alternateMiddleName =
+                    beneficiary.alternatePayee1?.payeeMiddleName
+                a1Form.alternateLastName = beneficiary.alternatePayee1?.payeeLastName
+                a1Form.alternateNickName = beneficiary.alternatePayee1?.payeeNickName
+                a1Form.age = beneficiary.alternatePayee1?.payeeAge
+                a1Form.idNumber = beneficiary.alternatePayee1?.nationalId
+                a1Form.idNumberType = beneficiary.alternatePayee1?.documentType?.name
+                //  alternateForm.form1?. idIsOrNot=beneficiary.alternatePayee1.
+                alternateForm.form1?.phoneNumber = beneficiary.alternatePayee1?.payeePhoneNo
+                //    alternateForm.form1?. selectAlternateRlt=beneficiary.alternatePayee1.
+                a1Form.gender = beneficiary.alternatePayee1?.payeeGender?.value
+                a1Form.documentTypeOther =
+                    beneficiary.alternatePayee1?.documentTypeOther
+
+                // alternateForm.form2?.photoData=beneficiary.alternatePayee1.biometrics[0].biometricData
+                val phdata = PhotoData()
+                phdata.imgPath = beneficiary.biometrics[0].biometricUrl
+                phdata.img = beneficiary.alternatePayee1.biometrics[0].biometricData
+                phdata.userType = beneficiary.alternatePayee1.biometrics[0].biometricUserType.name
+                a2Form.photoData = phdata
+                alternateForm.form1 = a1Form
+                alternateForm.form2 = a2Form
+                alternateForm.appId = beneficiary.applicationId
+                alternateForm.hhType = "V"
+                arrayListValue.add(alternateForm)
+            }
+        } catch (ex: Exception) {
+
+        }
+
+
+        try {
+            if (beneficiary.alternatePayee2.payeeFirstName.isNotEmpty()) {
+                val alternateForm2 = AlternateForm()
+                val a1Form = AlForm1()
+                val a2Form = AlForm2()
+                a1Form.alternateFirstName =
+                    beneficiary.alternatePayee2.payeeFirstName
+                a1Form.alternateMiddleName =
+                    beneficiary.alternatePayee2.payeeMiddleName
+                a1Form.alternateLastName = beneficiary.alternatePayee2.payeeLastName
+                a1Form.alternateNickName = beneficiary.alternatePayee2.payeeNickName
+                a1Form.age = beneficiary.alternatePayee2.payeeAge
+                a1Form.idNumber = beneficiary.alternatePayee2.nationalId
+                a1Form.idNumberType = beneficiary.alternatePayee2.documentType.name
+                // alternateForm2.form1?. idIsOrNot=beneficiary.alternatePayee1.
+                a1Form.phoneNumber = beneficiary.alternatePayee2.payeePhoneNo
+                //  alternateForm2.form1?. selectAlternateRlt=beneficiary.alternatePayee1.
+                a1Form.gender = beneficiary.alternatePayee2.payeeGender.name
+                a1Form.documentTypeOther =
+                    beneficiary.alternatePayee2.documentTypeOther
+                //alternateForm.form2?.photoData=beneficiary.alternatePayee1.biometrics[0].biometricData
+                val phdata = PhotoData()
+                phdata.imgPath = beneficiary.biometrics[0].biometricUrl
+                phdata.img = beneficiary.alternatePayee1.biometrics[0].biometricData
+                phdata.userType = beneficiary.alternatePayee1.biometrics[0].biometricUserType.name
+                a2Form.photoData = phdata
+                alternateForm2.form1 = a1Form
+                alternateForm2.form2 = a2Form
+                alternateForm2.appId = beneficiary.applicationId
+                alternateForm2.hhType = "V"
+                arrayListValue.add(alternateForm2)
+            }
+
+        } catch (ex: Exception) {
+
+        }
+
+        addReportAlternateForView(arrayListValue)
 
 
     }
