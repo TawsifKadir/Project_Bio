@@ -4,6 +4,7 @@ package com.xplo.code.data.db.room.model;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -11,12 +12,14 @@ import java.io.Serializable;
 import kotlin.jvm.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity(tableName = "beneficiary")
+@Entity(tableName = "beneficiary", indices = {@Index(value = {"application_id"}, unique = true)})
+
 public class Beneficiary implements Serializable {
 
     @PrimaryKey(autoGenerate = true)

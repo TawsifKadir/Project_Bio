@@ -44,6 +44,7 @@ import com.xplo.code.ui.dashboard.model.AlForm1
 import com.xplo.code.ui.dashboard.model.AlForm2
 import com.xplo.code.ui.dashboard.model.AlForm3
 import com.xplo.code.ui.dashboard.model.AlternateForm
+import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.ReportRow
 import com.xplo.code.ui.dashboard.model.getReportRows
 import com.xplo.code.ui.dashboard.model.toJson
@@ -442,6 +443,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
                 Log.d(TAG, "Inserted the Alternate data")
                 // onSaveSuccess(null)
                 //DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", "Inserted the beneficiary data")
+             //   mDatabase.close()
             }
         } catch (ex: Exception) {
             DialogUtil.showLottieDialogSuccessMsg(

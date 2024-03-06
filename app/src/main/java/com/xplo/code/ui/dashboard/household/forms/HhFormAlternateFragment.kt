@@ -151,9 +151,8 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
         adapter = AlternateSumListAdapter()
         adapter?.setOnItemClickListener(this)
-        onReinstateData(interactor?.getRootForm()?.alternates)
         binding.recyclerView.adapter = adapter
-
+        onReinstateData(interactor?.getRootForm()?.alternates)
     }
 
     override fun initObserver() {
@@ -281,18 +280,6 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
         Log.d(TAG, "onReadInput() called")
 
         val dataset = adapter?.getDataset()
-//
-//        if (dataset.isNullOrEmpty()) {
-//            showAlerter(null, "Minimum 1 alternet needed")
-//            return
-//        }else if (dataset.size>5) {
-//            showAlerter(null, "Maximum 5 Alternet can be added")
-//            return
-//        }
-//
-//        onValidated(dataset)
-
-//        showDialogBox()
         if (dataset != null) {
             DialogHandler.showNomineeCOnfirmfationDialog(requireContext(),this,dataset)
         }
@@ -302,10 +289,6 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isLongClickDGEnabled) return
 
-        binding.viewButtonBackNext.btNext.setOnLongClickListener {
-            onGenerateDummyInput()
-            return@setOnLongClickListener true
-        }
     }
 
     override fun onGenerateDummyInput() {

@@ -1,8 +1,14 @@
 package com.xplo.code.ui.login
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kit.integrationmanager.model.ServerInfo
+import com.kit.integrationmanager.payload.login.request.LoginRequest
+import com.kit.integrationmanager.service.DeviceManager
+import com.kit.integrationmanager.service.LoginServiceImpl
+import com.kit.integrationmanager.store.AuthStore
 import com.xplo.code.core.TestConfig
 import com.xplo.code.data_module.core.DispatcherProvider
 import com.xplo.code.data_module.core.Resource
@@ -14,13 +20,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.util.Observable
+import java.util.Observer
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val repo: UserRepo,
     private val dispatchers: DispatcherProvider
-) : ViewModel() {
+) : ViewModel(), Observer {
 
     companion object {
         private const val TAG = "LoginViewModel"
@@ -76,5 +84,41 @@ class LoginViewModel @Inject constructor(
 
     }
 
+    fun passwordLoginwithSDK(credentials: LoginCredentials, context: Context) {
+        Log.d(TAG, "passwordLoginwithSdk() called with: loginCredentials = $credentials")
 
+        if (TestConfig.isFakeLoginEnabled) {
+            _event.value = Event.LoginSuccess(Fake.token, null)
+            return
+        }
+            try{
+                if(DeviceManager.getInstance(context).isOnline) {
+                    val serverInfo = ServerInfo();
+                    serverInfo.port=8090;
+                    serverInfo.protocol="http"
+                    serverInfo.host_name="snsopafis.karoothitbd.com"
+                    val loginService = LoginServiceImpl(context,this,serverInfo)
+                    val headers = HashMap<String,String>()
+                    val loginRequest = LoginRequest.builder().userName(credentials.userId).password(credentials.password).deviceId(DeviceManager.getInstance(context).deviceUniqueID).build()
+                    loginService.doOnlineLogin(loginRequest,headers)
+                }else {
+                    val login = AuthStore.getInstance(context).loginInfoFromCache
+                    if(login==null){
+                        Log.e(TAG,"Intenet connectivity is required for device setup.")
+                    }
+                    else if(login.userName==credentials.userId && login.password==credentials.password){
+                        Log.e(TAG,"Offline Login Successful")
+                    }else{
+                        Log.e(TAG,"Offline login failed")
+                    }
+                }
+            }catch (e : Exception){
+                Log.d(TAG,"Login Failed")
+            }
+
+    }
+
+    override fun update(o: Observable?, arg: Any?) {
+        Log.d(TAG,"Got response")
+    }
 }

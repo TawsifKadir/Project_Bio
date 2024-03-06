@@ -35,12 +35,14 @@ public interface BeneficiaryDao {
     @Query("SELECT * FROM beneficiary WHERE application_id = :appId")
     Beneficiary getBeneficiaryByAppId(String appId);
 
+    @Query("UPDATE beneficiary set is_synced=1 WHERE application_id = :appId")
+    void updateBeneficiaryByAppId(String appId);
+
     @Query("SELECT * FROM biometric WHERE application_id = :appId")
     Biometric getBiometricByAppId(String appId);
 
     @Query("SELECT * FROM location WHERE application_id = :appId")
     Location getLocationByAppId(String appId);
-
 
     @Query("SELECT * FROM address WHERE application_id = :appId")
     Address getAddressByAppId(String appId);

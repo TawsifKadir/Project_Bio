@@ -5,7 +5,7 @@ import com.labters.lottiealertdialoglibrary.DialogTypes
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog
 
 object DialogUtil {
-    private var alertDialog: LottieAlertDialog? = null
+    var alertDialog: LottieAlertDialog? = null
 
     fun showLottieDialog(context: Context, title: String, description: String) {
         alertDialog = LottieAlertDialog.Builder(context, DialogTypes.TYPE_LOADING)
@@ -16,6 +16,7 @@ object DialogUtil {
                 setCancelable(false)
             }
     }
+
     fun showLottieDialogSuccessMsg(context: Context, title: String, description: String) {
         alertDialog = LottieAlertDialog.Builder(context, DialogTypes.TYPE_SUCCESS)
             .setTitle(title)
@@ -25,6 +26,7 @@ object DialogUtil {
                 setCancelable(true)
             }
     }
+
     fun showLottieDialogFailMsg(context: Context, title: String, description: String) {
         alertDialog = LottieAlertDialog.Builder(context, DialogTypes.TYPE_ERROR)
             .setTitle(title)
@@ -34,6 +36,7 @@ object DialogUtil {
                 setCancelable(true)
             }
     }
+
     fun dismissLottieDialog() {
         alertDialog?.dismiss()
     }

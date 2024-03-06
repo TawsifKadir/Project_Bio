@@ -34,9 +34,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,LockedOrientationActivity"
         tools:replace="android:theme">
-        <activity
-            android:name=".ui.dashboard.alternate.AlternateNewActivity"
-            android:exported="false" />
+
         <activity
             android:name=".ui.photo.ImagePickerActivity"
             android:exported="false"

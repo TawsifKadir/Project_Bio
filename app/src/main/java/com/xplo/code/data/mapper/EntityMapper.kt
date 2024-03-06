@@ -79,18 +79,24 @@ object EntityMapper {
         form.householdMonthlyAvgIncome = item.form2?.monthlyAverageIncome
         form.currency = CurrencyEnum.SUDANESE_POUND
         form.selectionCriteria = SelectionCriteriaEnum.find(item.form2?.selectionCriteria)
-        //form.selectionReason = SelectionReasonEnum.find(item.form2?.selectionReason)
+        // form.selectionReason = SelectionReasonEnum.find(item.form2?.selectionReason)
+        form.selectionReason = listOf(SelectionReasonEnum.find(item.form2?.selectionReason))
+
+        // Address
         val address = Address()
         address.stateId = item.form1?.state?.id
         address.countyId = item.form1?.county?.id
         address.payamId = item.form1?.payam?.id
         address.bomaId = item.form1?.boma?.id
         form.address = toAddress(address)
+
+        // Location
         val location = Location()
         location.lat = item.form1?.lat
         location.lon = item.form1?.lon
         form.location = toLocation(location)
 
+        //  Household
         form.householdSize = item.form3?.householdSize
         form.householdMember2 = toHouseholdMember2(applicationId, item.form3)
         form.householdMember5 = toHouseholdMember5(applicationId, item.form3)
@@ -99,7 +105,6 @@ object EntityMapper {
         form.householdMember64 = toHouseholdMember64(applicationId, item.form3)
         form.householdMember65 = toHouseholdMember65(applicationId, item.form3)
         form.isReadWrite = getReadWrite(item.form3?.isReadWrite)
-        // form.isReadWrite = true
         form.memberReadWrite = item.form3?.readWriteNumber
         form.isOtherMemberPerticipating = FakeMapperValue.isOtherMemberPerticipating
         form.notPerticipationReason = NonPerticipationReasonEnum.find(item.form6?.noNomineeReason)
@@ -205,7 +210,6 @@ object EntityMapper {
         item: com.xplo.code.data.db.room.model.Alternate,
         bio_data: com.xplo.code.data.db.room.model.Biometric
     ): AlternatePayee? {
-        if (item == null) return null
         val alternate = AlternatePayee()
         //alternate.documentType = FakeMapperValue.documentType
         // alternate.nationalId = FakeMapperValue.nationalId

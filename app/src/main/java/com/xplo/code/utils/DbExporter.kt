@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.xplo.code.BuildConfig
@@ -24,34 +25,45 @@ object DbExporter {
     private const val DB_NAME = "benedb.db"
 
     fun exportWithPermission(context: Context, activity: Activity) {
-        if (!DbExporter.hasStoragePermission(context)) {
+        if (!hasStoragePermission(context)) {
             // ask permission
-            DbExporter.askForPermission(activity)
+            askForPermission(activity)
             return
         }
+        DbController.close()
+        exportToSQLite(context)
     }
 
-    fun exportToSQLite(context: Context): Boolean {
-        DbController.close()
+    fun exportToSQLite(context: Context) {
         try {
             val dbFile: File = context.getDatabasePath(DB_NAME)
+
             if (dbFile.exists()) {
-                val exportDir = File(Environment.getExternalStorageDirectory(), "bio_reg/database")
-                if (!exportDir.exists()) exportDir.mkdirs()
-                val exportFile = File(exportDir, DB_NAME)
-                exportFile.createNewFile()
-                val src = FileInputStream(dbFile).channel
-                val dst = FileOutputStream(exportFile).channel
-                dst.transferFrom(src, 0, src.size())
-                src.close()
-                dst.close()
-                return true
+                try {
+                    val exportDir =
+                        File(Environment.getExternalStorageDirectory(), "bio_reg/database")
+                    if (!exportDir.exists()) exportDir.mkdirs()
+
+                    val exportFile = File(exportDir, DB_NAME)
+                    exportFile.createNewFile()
+
+                    val src = FileInputStream(dbFile).channel
+                    val dst = FileOutputStream(exportFile).channel
+                    dst.transferFrom(src, 0, src.size())
+
+                    src.close()
+                    dst.close()
+
+                    Log.d("DatabaseExport", "Database exported successfully.")
+                } catch (e: Exception) {
+                    Log.e("DatabaseExport", "Error exporting database: ${e.message}")
+                }
+            } else {
+                Log.e("DatabaseExport", "Database file does not exist.")
             }
         } catch (e: IOException) {
             e.printStackTrace()
-            return  false
         }
-        return  false
     }
 
     fun askForPermission(activity: Activity) {
