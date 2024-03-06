@@ -471,7 +471,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
             if (alternateBO.payeeGender != null) alternateBO.payeeGender.ordinal.toLong() else null
         alternateEO.payeeAge = alternateBO.payeeAge
         alternateEO.documentType =
-            if (alternateBO.documentType != null) alternateBO.documentType.ordinal.toLong() else 4
+            if (alternateBO.documentType != null) alternateBO.documentType.ordinal.toLong() else 3
         alternateEO.documentTypeOther = alternateBO.documentTypeOther
         alternateEO.nationalId = alternateBO.nationalId
         alternateEO.payeePhoneNo = alternateBO.payeePhoneNo
