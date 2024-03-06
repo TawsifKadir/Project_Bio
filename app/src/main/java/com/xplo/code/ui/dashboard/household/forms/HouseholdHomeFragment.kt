@@ -193,19 +193,9 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                         //viewModel.sendHouseholdItem(item, pos)
                         GlobalScope.launch(Dispatchers.IO) {
 
-                            Log.d(
-                                TAG, "initObserver: ${
-                                    event.beneficiary.toJson()
-                                }"
-                            )
                             viewModel.callRegisterApi(requireContext(), event.beneficiary)
                         }
                         //hideLoading()
-//                        Toast.makeText(
-//                            requireContext(),
-//                            event.beneficiary.applicationId,
-//                            Toast.LENGTH_SHORT
-//                        ).show()
                         viewModel.clearEvent()
                     }
 
@@ -625,14 +615,9 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
     override fun onClickHouseholdItemSave(item: Beneficiary, pos: Int) {
         // Toast.makeText(requireContext(), "Coming Soon", Toast.LENGTH_SHORT).show()
-        viewModel.updateBeneficiary(requireContext(), item.applicationId)
+     //   viewModel.updateBeneficiary(requireContext(), item.applicationId)
+        Log.d(TAG, "onClickHouseholdItemSave: ${item.isSynced}")
     }
 
-    fun com.kit.integrationmanager.model.Beneficiary?.toJson(): String? {
-        return GsonBuilder()
-            .setPrettyPrinting()
-            .create()
-            .toJson(this)
-    }
 
 }
