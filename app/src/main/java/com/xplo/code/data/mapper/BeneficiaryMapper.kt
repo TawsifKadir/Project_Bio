@@ -68,17 +68,11 @@ object BeneficiaryMapper {
         //beneficiary.currency = item.currency
         beneficiary.currency = FakeMapperValue.currency
         beneficiary.householdIncomeSource = item.householdIncomeSource
-
-        if(beneficiary.householdIncomeSource != IncomeSourceEnum.NONE  && item.householdMonthlyAvgIncome != 0){
-            beneficiary.householdMonthlyAvgIncome = item.householdMonthlyAvgIncome
-        }else{
-            beneficiary.householdMonthlyAvgIncome = 0
-        }
+        beneficiary.householdMonthlyAvgIncome = item.householdMonthlyAvgIncome
 
         beneficiary.selectionCriteria = item.selectionCriteria
         beneficiary.selectionReason = FakeMapperValue.selectionReasons
-        //beneficiary.selectionReason = item.selectionReason
-       // beneficiary.selectionReason = FakeMapperValue.selectionReasons
+
 
         beneficiary.spouseFirstName = item.spouseFirstName
         beneficiary.spouseLastName = item.spouseLastName

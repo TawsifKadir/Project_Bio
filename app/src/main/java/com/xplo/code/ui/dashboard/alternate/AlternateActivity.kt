@@ -245,7 +245,7 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
         STEP = 1
 
         doFragmentTransaction(
-            AlForm1Fragment.newInstance(null, id, hhName, type),
+            AlForm1Fragment.newInstance(null, id),
             AlForm1Fragment.TAG,
             addToBackStack,
             clearBackStack

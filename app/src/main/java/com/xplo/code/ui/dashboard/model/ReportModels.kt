@@ -10,6 +10,18 @@ data class ReportRow(
     var value2: String? = null
 )
 
+fun parseCheckBox(items: List<CheckboxItem>?): String? {
+    var text = ""
+    var count = 1
+    if (items != null) {
+        for(item in items){
+            text = text + count.toString() + ". " + item.title + "\n"
+            count ++
+        }
+    }
+    return text
+}
+
 fun HouseholdForm?.getReportRowsAltSummary(): List<ReportRow> {
     if (this == null) return listOf()
 
@@ -52,7 +64,7 @@ fun HhForm2?.getReportRows(): List<ReportRow> {
             "Respondent Relation",
             form.respondentRlt,
             "Selection Reason",
-            form.selectionReason
+            parseCheckBox(form.itemsSupportType)
         )
     )
     items.add(

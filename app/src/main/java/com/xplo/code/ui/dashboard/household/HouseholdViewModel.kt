@@ -337,7 +337,8 @@ class HouseholdViewModel @Inject constructor(
             form.householdMonthlyAvgIncome = beneficiary.householdMonthlyAvgIncome
             if (beneficiary.currency != null) {
                 //form.currency = CurrencyEnum.entries.getOrNull(beneficiary.currency.toInt())
-                form.currency = CurrencyEnum.getCurrencyById(beneficiary.currency.toInt() + 1)
+//                form.currency = CurrencyEnum.getCurrencyById(beneficiary.currency.toInt() + 1)
+                form.currency = CurrencyEnum.SUDANESE_POUND
             }
             if (beneficiary.selectionCriteria != null) {
                 form.selectionCriteria =
@@ -1030,8 +1031,6 @@ class HouseholdViewModel @Inject constructor(
 
         val syncResult = arg as RegistrationResult?
         onGetSyncResult(syncResult)
-
-
     }
 
     private fun onGetSyncResult(arg: RegistrationResult?) {

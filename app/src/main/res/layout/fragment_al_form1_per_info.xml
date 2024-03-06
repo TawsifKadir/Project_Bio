@@ -214,12 +214,32 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/IdType">
+                <LinearLayout
+                    style="@style/AppLinearLayoutInputBox"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/AppTextView.Input.Header"
+                        android:text="ID Type" />
+
+                    <EditText
+                        android:id="@+id/etIDType"
+                        style="@style/AppEditText.Form.Text"
+                        android:maxLength="14" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/llIdTypeInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:visibility="gone"
                 tools:visibility="visible">
+
 
                 <LinearLayout
                     style="@style/AppLinearLayoutInputBox"
@@ -232,7 +252,7 @@
                     <EditText
                         android:id="@+id/etIdNumber"
                         style="@style/AppEditText.Form.Number"
-                        android:maxLength="20" />
+                        android:maxLength="14" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -287,7 +307,6 @@
                 android:id="@+id/otherAlternateRelation"
                 android:visibility="gone"
                 tools:visibility="visible">
-
                 <TextView
                     style="@style/AppTextView.Input.Header"
                     android:text="Relation" />

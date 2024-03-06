@@ -14,6 +14,8 @@ import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.fragment.app.viewModels
 import com.kit.integrationmanager.model.NonPerticipationReasonEnum
+import com.kit.integrationmanager.model.OccupationEnum
+import com.kit.integrationmanager.model.RelationshipEnum
 import com.xplo.code.BuildConfig
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -68,12 +70,14 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
     //private lateinit var presenter: RegistrationContract.Presenter
     private var interactor: NomineeModal? = null
 
-    private lateinit var otherReason: LinearLayout
-    private lateinit var etOtherText: EditText
+    private lateinit var otherRelation: LinearLayout
+    private lateinit var etOtherRelation: EditText
     private lateinit var etFirstName: EditText
     private lateinit var etMiddleName: EditText
     private lateinit var etLastName: EditText
     private lateinit var etNickName: EditText
+    private lateinit var otherWork: LinearLayout
+    private lateinit var etOtherWork: EditText
     private lateinit var etAge: EditText
     private lateinit var spRelation: Spinner
     private lateinit var spGender: Spinner
@@ -131,8 +135,10 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         rgReadWrite = binding.include.rgReadWrite
         rbReadWriteYes = binding.include.rbReadWriteYes
         rbReadWriteNo = binding.include.rbReadWriteNo
-        etOtherText = binding.include.etOtherReason
-        otherReason = binding.include.otherReason
+        etOtherRelation = binding.include.etOtherRelation
+        otherRelation = binding.include.otherRelation
+        otherWork = binding.include.otherWork
+        etOtherWork = binding.include.etOtherWork
     }
 
     override fun initView() {
@@ -158,11 +164,11 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
             ) {
                 val selectedItem = parent?.getItemAtPosition(position).toString()
                 if(selectedItem.equals(NonPerticipationReasonEnum.REASON_OTHER.value, ignoreCase = true)){
-                    otherReason.visible()
+                    otherRelation.visible()
                 }else{
                     Log.d(HhForm6Nominee2Fragment.TAG,"Selected Spinner Other not selected")
-                    etOtherText.setText("")
-                    otherReason.gone()
+                    etOtherRelation.setText("")
+                    otherRelation.gone()
                 }
             }
 
@@ -171,6 +177,27 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
             }
         }
 
+        spOccupation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedItem = parent?.getItemAtPosition(position).toString()
+                if(selectedItem.contains("Other", ignoreCase = true)){
+                    otherWork.visible()
+                }else{
+                    Log.d(NomineeInputFragment.TAG,"Selected Spinner Other not selected")
+                    etOtherWork.setText("")
+                    otherWork.gone()
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
         onLongClickDataGeneration()
         onGenerateDummyInput()
 
@@ -211,8 +238,18 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         nominee.lastName = chkEditText3Char(etLastName, UiData.ER_ET_DF)
         nominee.nickName = chkEditTextNickName3Char(etNickName, UiData.ER_ET_DF)
         nominee.age = chkAge(etAge, UiData.ER_ET_DF)?.toInt()
+        if(spRelation.selectedItem.toString().equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
+            nominee.relation = etOtherRelation.text.toString()
+        }else{
+            nominee.relation = chkSpinner(spRelation, UiData.ER_SP_DF)
+        }
         nominee.relation = chkSpinner(spRelation, UiData.ER_SP_DF)
         nominee.gender = chkSpinner(spGender, UiData.ER_SP_DF)
+        if(spOccupation.selectedItem.toString().contains("Other", ignoreCase = true)){
+            nominee.occupation = etOtherWork.text.toString()
+        }else{
+            nominee.occupation = chkSpinner(spOccupation, UiData.ER_SP_DF)
+        }
         nominee.occupation = chkSpinner(spOccupation, UiData.ER_SP_DF)
 
         nominee.isReadWrite = chkRadioGroup(rgReadWrite, UiData.ER_RB_DF)
