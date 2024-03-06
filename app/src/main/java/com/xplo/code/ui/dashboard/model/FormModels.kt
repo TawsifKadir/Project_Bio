@@ -267,6 +267,7 @@ fun Nominee?.toDetails(): String? {
 data class HhForm5(
     //var fingerData: FingerData? = null
     var noFingerprintReason: String? = null,
+    var noFingerprintReasonText: String? = null,
     var fingers: List<Finger> = arrayListOf()
 )
 

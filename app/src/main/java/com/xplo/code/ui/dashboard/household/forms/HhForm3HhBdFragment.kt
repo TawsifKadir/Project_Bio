@@ -179,18 +179,23 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
         etMem0NormalMale = binding.viewHhTable.etMem0NormalMale
         etMem0DisableMale = binding.viewHhTable.etMem0DisableMale
         etMem0IllMale = binding.viewHhTable.etMem0IllMale
+
         etMem3NormalMale = binding.viewHhTable.etMem3NormalMale
         etMem3DisableMale = binding.viewHhTable.etMem3DisableMale
         etMem3IllMale = binding.viewHhTable.etMem3IllMale
+
         etMem6NormalMale = binding.viewHhTable.etMem6NormalMale
         etMem6DisableMale = binding.viewHhTable.etMem6DisableMale
         etMem6IllMale = binding.viewHhTable.etMem6IllMale
+
         etMem18NormalMale = binding.viewHhTable.etMem18NormalMale
         etMem18DisableMale = binding.viewHhTable.etMem18DisableMale
         etMem18IllMale = binding.viewHhTable.etMem18IllMale
+
         etMem36NormalMale = binding.viewHhTable.etMem36NormalMale
         etMem36DisableMale = binding.viewHhTable.etMem36DisableMale
         etMem36IllMale = binding.viewHhTable.etMem36IllMale
+
         etMem65NormalMale = binding.viewHhTable.etMem65NormalMale
         etMem65DisableMale = binding.viewHhTable.etMem65DisableMale
         etMem65IllMale = binding.viewHhTable.etMem65IllMale
@@ -198,18 +203,23 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
         etMem0NormalFemale = binding.viewHhTable.etMem0NormalFemale
         etMem0DisableFemale = binding.viewHhTable.etMem0DisableFemale
         etMem0IllFemale = binding.viewHhTable.etMem0IllFemale
+
         etMem3NormalFemale = binding.viewHhTable.etMem3NormalFemale
         etMem3DisableFemale = binding.viewHhTable.etMem3DisableFemale
         etMem3IllFemale = binding.viewHhTable.etMem3IllFemale
+
         etMem6NormalFemale = binding.viewHhTable.etMem6NormalFemale
         etMem6DisableFemale = binding.viewHhTable.etMem6DisableFemale
         etMem6IllFemale = binding.viewHhTable.etMem6IllFemale
+
         etMem18NormalFemale = binding.viewHhTable.etMem18NormalFemale
         etMem18DisableFemale = binding.viewHhTable.etMem18DisableFemale
         etMem18IllFemale = binding.viewHhTable.etMem18IllFemale
+
         etMem36NormalFemale = binding.viewHhTable.etMem36NormalFemale
         etMem36DisableFemale = binding.viewHhTable.etMem36DisableFemale
         etMem36IllFemale = binding.viewHhTable.etMem36IllFemale
+
         etMem65NormalFemale = binding.viewHhTable.etMem65NormalFemale
         etMem65DisableFemale = binding.viewHhTable.etMem65DisableFemale
         etMem65IllFemale = binding.viewHhTable.etMem65IllFemale
@@ -378,41 +388,51 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
         form.male0_2.normal = getEditTextInt(etMem0NormalMale)
         form.male0_2.disable = getEditTextInt(etMem0DisableMale)
         form.male0_2.ill = getEditTextInt(etMem0IllMale)
+
         form.male3_5.normal = getEditTextInt(etMem3NormalMale)
         form.male3_5.disable = getEditTextInt(etMem3DisableMale)
         form.male3_5.ill = getEditTextInt(etMem3IllMale)
+
         form.male6_17.normal = getEditTextInt(etMem6NormalMale)
         form.male6_17.disable = getEditTextInt(etMem6DisableMale)
         form.male6_17.ill = getEditTextInt(etMem6IllMale)
+
         form.male18_35.normal = getEditTextInt(etMem18NormalMale)
         form.male18_35.disable = getEditTextInt(etMem18DisableMale)
         form.male18_35.ill = getEditTextInt(etMem18IllMale)
+
         form.male36_64.normal = getEditTextInt(etMem36NormalMale)
         form.male36_64.disable = getEditTextInt(etMem36DisableMale)
         form.male36_64.ill = getEditTextInt(etMem36IllMale)
+
         form.male65p.normal = getEditTextInt(etMem65NormalMale)
         form.male65p.disable = getEditTextInt(etMem65DisableMale)
         form.male65p.ill = getEditTextInt(etMem65IllMale)
 
-
         form.female0_2.normal = getEditTextInt(etMem0NormalFemale)
         form.female0_2.disable = getEditTextInt(etMem0DisableFemale)
         form.female0_2.ill = getEditTextInt(etMem0IllFemale)
+
         form.female3_5.normal = getEditTextInt(etMem3NormalFemale)
         form.female3_5.disable = getEditTextInt(etMem3DisableFemale)
         form.female3_5.ill = getEditTextInt(etMem3IllFemale)
+
         form.female6_17.normal = getEditTextInt(etMem6NormalFemale)
         form.female6_17.disable = getEditTextInt(etMem6DisableFemale)
         form.female6_17.ill = getEditTextInt(etMem6IllFemale)
+
         form.female18_35.normal = getEditTextInt(etMem18NormalFemale)
         form.female18_35.disable = getEditTextInt(etMem18DisableFemale)
         form.female18_35.ill = getEditTextInt(etMem18IllFemale)
+
         form.female36_64.normal = getEditTextInt(etMem36NormalFemale)
         form.female36_64.disable = getEditTextInt(etMem36DisableFemale)
         form.female36_64.ill = getEditTextInt(etMem36IllFemale)
+
         form.female65p.normal = getEditTextInt(etMem65NormalFemale)
         form.female65p.disable = getEditTextInt(etMem65DisableFemale)
         form.female65p.ill = getEditTextInt(etMem65IllFemale)
+
         form.readWriteNumber = getEditTextInt(etReadWriteNumber)
         form.isReadWrite = chkRadioGroup(rgReadWrite, UiData.ER_RB_DF)
         val myIntList = listOf(

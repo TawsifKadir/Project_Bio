@@ -96,8 +96,39 @@ object BiometricHelper {
 
 
     fun fingerPrintIntentToNoFingerprintReason(intent: Intent?, userType: String?): String? {
-        if (intent == null) return NoFingerprintReasonEnum.Other.name
+        var reason =  intent?.getBooleanExtra("noFingerprint" , false) ////fingerPrintIntentToNoFingerprintReason(intent, userType)
+        var reasonID = 0
+        var reasonText = ""
+        if(reason == true){
+            if (intent != null) {
+                reasonID = intent.getIntExtra("noFingerprintReasonID", 0)!!
+            }
+            if(reasonID == NoFingerprintReasonEnum.Other.id) {
+                return NoFingerprintReasonEnum.Other.name
+            }else{
+                return NoFingerprintReasonEnum.NoFinger.name
+            }
+        }
         return NoFingerprintReasonEnum.NoFinger.name
+    }
+
+    fun fingerPrintIntentToNoFingerprintReasonText(intent: Intent?, userType: String?): String? {
+        var reason =  intent?.getBooleanExtra("noFingerprint" , false) ////fingerPrintIntentToNoFingerprintReason(intent, userType)
+        var reasonID = 0
+        var reasonText = ""
+
+        if(reason == true){
+            if (intent != null) {
+                reasonID = intent.getIntExtra("noFingerprintReasonID", 0)!!
+            }
+            if(reasonID == NoFingerprintReasonEnum.Other.id)
+                if (intent != null) {
+                    reasonText = intent.getStringExtra("noFingerprintReasonText").toString()
+                }
+
+
+        }
+        return reasonText
 
     }
 
