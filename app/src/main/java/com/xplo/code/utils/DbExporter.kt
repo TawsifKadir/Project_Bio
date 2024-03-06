@@ -21,7 +21,7 @@ import java.io.IOException
 
 object DbExporter {
 
-    private const val DB_NAME = "benedb.db"
+    private const val DB_NAME = "db.db"
 
     fun exportWithPermission(context: Context, activity: Activity) {
         if (!DbExporter.hasStoragePermission(context)) {
@@ -29,10 +29,11 @@ object DbExporter {
             DbExporter.askForPermission(activity)
             return
         }
+        DbController.close()
+        DbExporter.exportToSQLite(context)
     }
 
-    fun exportToSQLite(context: Context): Boolean {
-        DbController.close()
+    fun exportToSQLite(context: Context) {
         try {
             val dbFile: File = context.getDatabasePath(DB_NAME)
             if (dbFile.exists()) {
@@ -45,13 +46,10 @@ object DbExporter {
                 dst.transferFrom(src, 0, src.size())
                 src.close()
                 dst.close()
-                return true
             }
         } catch (e: IOException) {
             e.printStackTrace()
-            return  false
         }
-        return  false
     }
 
     fun askForPermission(activity: Activity) {

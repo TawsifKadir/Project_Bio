@@ -50,7 +50,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="@drawable/border_table_cell"
-                            android:text="@string/total_number_of_males" />
+                            android:text="@string/total_males" />
 
                         <TextView
                             style="@style/AppTextView.Table.Header"
@@ -58,7 +58,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="@drawable/border_table_cell"
-                            android:text="Without disabilities or illnesses" />
+                            android:text="@string/disable" />
 
                         <TextView
                             style="@style/AppTextView.Table.Header"
@@ -66,7 +66,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="@drawable/border_table_cell"
-                            android:text="@string/with_disability" />
+                            android:text="@string/chronically_ill" />
 
                         <TextView
                             style="@style/AppTextView.Table.Header"
@@ -74,7 +74,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="@drawable/border_table_cell"
-                            android:text="@string/with_chronically_ill" />
+                            android:text="@string/both" />
 
                     </LinearLayout>
 
@@ -709,7 +709,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:background="@drawable/border_table_cell"
-                                android:text="@string/total_number_of_females" />
+                                android:text="@string/total_females" />
 
                             <TextView
                                 style="@style/AppTextView.Table.Header"
@@ -717,7 +717,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:background="@drawable/border_table_cell"
-                                android:text="Without disabilities or illnesses" />
+                                android:text="@string/disable" />
 
                             <TextView
                                 style="@style/AppTextView.Table.Header"
@@ -725,7 +725,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:background="@drawable/border_table_cell"
-                                android:text="@string/with_disability" />
+                                android:text="@string/chronically_ill" />
 
                             <TextView
                                 style="@style/AppTextView.Table.Header"
@@ -733,7 +733,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:background="@drawable/border_table_cell"
-                                android:text="@string/with_chronically_ill" />
+                                android:text="@string/both" />
 
                         </LinearLayout>
 

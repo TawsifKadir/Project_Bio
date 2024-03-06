@@ -99,19 +99,20 @@
 
         <LinearLayout
             style="@style/AppLinearLayoutInputBox"
-            android:id="@+id/otherReason"
+            android:id="@+id/otherRelation"
             android:layout_weight="1">
 
             <TextView
                 style="@style/AppTextView.Input.Header"
-                android:text="Relation" />
+                android:text="@string/relation" />
 
 
             <EditText
                 style="@style/AppEditText.Form.Number"
-                android:maxLength="2"
-                android:id="@+id/etOtherReason"
-                android:hint="Please Specify"/>
+                android:maxLength="25"
+                android:inputType="text"
+                android:id="@+id/etOtherRelation"
+                android:hint="@string/please_specify"/>
 
         </LinearLayout>
 
@@ -181,7 +182,7 @@
                     android:id="@+id/rbReadWriteYes"
                     style="@style/AppRadioButton.Form"
                     android:text="Yes"
-                    tools:checked="true" />
+                    tools:checked="false" />
 
                 <RadioButton
                     android:id="@+id/rbReadWriteNo"
@@ -211,6 +212,32 @@
 
         </LinearLayout>
 
+        <include layout="@layout/view_margin_space" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            style="@style/AppLinearLayoutInputBox"
+            android:layout_weight="1"
+            android:id="@+id/otherWork">
+
+            <TextView
+                style="@style/AppTextView.Input.Header"
+                android:text="Other Work" />
+
+
+            <EditText
+                style="@style/AppEditText.Form.Number"
+                android:maxLength="2"
+                android:hint="Please Specify"
+                android:id="@+id/etOtherWork"/>
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

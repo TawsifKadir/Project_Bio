@@ -511,7 +511,7 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
     }
 
     private fun isOtherSpecify(txt: String?): Boolean {
-        return txt?.contains(NonPerticipationReasonEnum.REASON_OTHER.toString(), true).toBool()
+        return txt?.contains(NonPerticipationReasonEnum.REASON_OTHER.value, true).toBool()
     }
 
     private fun getTargetGender(): String? {

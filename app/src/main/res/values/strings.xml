@@ -93,5 +93,12 @@
 </string>
     <string name="add_nominee">Add Nominee</string>
     <string name="maximum_number_of_alternates_already_added">Maximum Number of Alternates already added</string>
+    <string name="both">Both</string>
+    <string name="chronically_ill">Chronically Ill</string>
+    <string name="disable">Disable</string>
+    <string name="total_females">Total females</string>
+    <string name="total_males">Total Males</string>
+    <string name="please_specify">Please Specify</string>
+    <string name="relation">Relation</string>
 
 </resources>

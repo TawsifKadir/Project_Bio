@@ -5,6 +5,8 @@ import android.content.Context
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
+import com.labters.lottiealertdialoglibrary.DialogTypes
+import com.labters.lottiealertdialoglibrary.LottieAlertDialog
 import com.xplo.code.R
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.ui.dashboard.household.forms.HhFormAlternateFragment
@@ -12,6 +14,8 @@ import com.xplo.code.ui.dashboard.household.forms.HouseholdHomeFragment
 import com.xplo.code.ui.dashboard.model.AlternateForm
 
 object DialogHandler {
+
+    private var alertDialog: LottieAlertDialog? = null
     fun showNomineeCOnfirmfationDialog(
         context: Context,
         nowObj: HhFormAlternateFragment,
@@ -42,6 +46,16 @@ object DialogHandler {
             dialog.dismiss()
         }
         dialog.show()
+    }
+
+    fun showLottieDialog(context: Context, title: String, description: String) {
+        DialogUtil.alertDialog = LottieAlertDialog.Builder(context, DialogTypes.TYPE_LOADING)
+            .setTitle(title)
+            .setDescription(description)
+            .build().apply {
+                show()
+                setCancelable(false)
+            }
     }
 
 }
