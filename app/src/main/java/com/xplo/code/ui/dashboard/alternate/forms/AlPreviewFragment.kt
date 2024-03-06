@@ -443,6 +443,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
                 Log.d(TAG, "Inserted the Alternate data")
                 // onSaveSuccess(null)
                 //DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", "Inserted the beneficiary data")
+             //   mDatabase.close()
             }
         } catch (ex: Exception) {
             DialogUtil.showLottieDialogSuccessMsg(

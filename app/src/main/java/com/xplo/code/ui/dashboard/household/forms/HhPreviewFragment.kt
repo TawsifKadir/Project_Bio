@@ -545,8 +545,10 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                     biometricList,
                     householdInfoList, alternateList, nomineeList, selectionReasonList
                 )
+
                 Log.d(TAG, "Inserted the beneficiary data")
                 onSaveSuccess(null)
+                //mDatabase!!.close()
                 //DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", "Inserted the beneficiary data")
             }
         } catch (ex: Exception) {

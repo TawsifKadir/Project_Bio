@@ -617,6 +617,12 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         // Toast.makeText(requireContext(), "Coming Soon", Toast.LENGTH_SHORT).show()
      //   viewModel.updateBeneficiary(requireContext(), item.applicationId)
         Log.d(TAG, "onClickHouseholdItemSave: ${item.isSynced}")
+
+        if (item.isSynced){
+             Toast.makeText(requireContext(), "Data is synced to remote database", Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(requireContext(), "Click Data is synced to remote database", Toast.LENGTH_SHORT).show()
+        }
     }
 
 

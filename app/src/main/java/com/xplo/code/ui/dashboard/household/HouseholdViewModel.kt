@@ -534,6 +534,7 @@ class HouseholdViewModel @Inject constructor(
             //Log.d(TAG, "showBeneficiary: ${form.alternatePayee1.payeeAge}")
             Log.d(TAG, "showBeneficiary: ${form.isReadWrite}")
             _event.value = Event.GetDataLocalDbByAppIdForView(form)
+         //   mDatabase.close()
         }
     }
 
@@ -558,6 +559,7 @@ class HouseholdViewModel @Inject constructor(
             }
             Log.d(TAG, "showBeneficiary: $beneficiary")
             _event.value = Event.GetDataLocalDb(beneficiary)
+         //   mDatabase.close()
         }
 
     }
@@ -572,7 +574,7 @@ class HouseholdViewModel @Inject constructor(
             Log.d(TAG, "showBeneficiary: $beneficiary")
             _event.value = Event.UpdateDataLocalDb(true)
         }
-
+       // mDatabase.close()
     }
 
 
