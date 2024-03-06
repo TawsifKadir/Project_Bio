@@ -28,6 +28,7 @@ object Config {
     var ACCESS_CODE: String? = null
     var ACCESS_TOKEN: String? = null
     var PLATFORM_ID: String? = null
+    var DEVICE_ID: String? = null
 
 
     // no effect in release apk

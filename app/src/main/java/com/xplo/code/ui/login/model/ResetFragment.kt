@@ -1,51 +1,22 @@
-package com.xplo.code.ui.dashboard.alternate.forms
+package com.xplo.code.ui.login.model
 
 
 import android.content.Context
 import android.os.Bundle
-import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.Button
 import android.widget.EditText
-import android.widget.RadioGroup
-import android.widget.Spinner
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.kit.integrationmanager.model.Login
-import com.xplo.code.R
-import com.xplo.code.core.Bk
-import com.xplo.code.core.TestConfig
-import com.xplo.code.core.ext.checkRbOpAB
-import com.xplo.code.core.ext.gone
-import com.xplo.code.core.ext.toBool
-import com.xplo.code.core.ext.visible
-import com.xplo.code.data.db.models.HouseholdItem
-import com.xplo.code.data.db.models.toHouseholdForm
-import com.xplo.code.databinding.FragmentAlForm1PerInfoBinding
-import com.xplo.code.ui.dashboard.UiData
-import com.xplo.code.ui.dashboard.alternate.AlternateContract
-import com.xplo.code.ui.dashboard.base.BasicFormFragment
-import com.xplo.code.ui.dashboard.household.HouseholdViewModel
-import com.xplo.code.ui.dashboard.household.list.CheckboxListAdapter
-import com.xplo.code.ui.dashboard.model.AlForm1
-import com.xplo.code.ui.dashboard.model.CheckboxItem
-import com.xplo.code.ui.dashboard.model.getFullName
-import com.xplo.code.ui.dashboard.model.isOk
-
-import com.xplo.code.BuildConfig
 import com.xplo.code.base.BaseFragment
-import com.xplo.code.databinding.FragmentLoginBinding
+import com.xplo.code.core.Bk
+import com.xplo.code.data_module.model.user.ResetPassRsp
 import com.xplo.code.databinding.FragmentResetBinding
-import com.xplo.code.databinding.FragmentSignupBinding
-import com.xplo.code.ui.login.LoginActivity
 import com.xplo.code.ui.login.LoginContract
 import com.xplo.code.ui.login.LoginViewModel
-import com.xplo.code.ui.login.model.LoginCredentials
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -59,10 +30,10 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class ResetFragment : BaseFragment(), LoginContract.ForgetPasswordView{
+class ResetFragment : BaseFragment(), LoginContract.ResetPasswordView {
 
     companion object {
-        const val TAG = "LoginFragment"
+        const val TAG = "ResetFragment"
 
         @JvmStatic
         fun newInstance(
@@ -81,7 +52,7 @@ class ResetFragment : BaseFragment(), LoginContract.ForgetPasswordView{
     private lateinit var etUserName: EditText
     private lateinit var etPassword: EditText
     private lateinit var etRetypePassword: EditText
-    private lateinit var btnresetPass: Button
+    private lateinit var btResetPassword: Button
     private val viewModel: LoginViewModel by viewModels()
 
     private var interactor: LoginContract.View? = null
@@ -111,16 +82,18 @@ class ResetFragment : BaseFragment(), LoginContract.ForgetPasswordView{
         initObserver()
 
     }
+
     override fun initInitial() {
         etUserName = binding.etUserId
         etPassword = binding.etPassword
         etRetypePassword = binding.etRetypePassword
-        btnresetPass = binding.btLogin
+        btResetPassword = binding.btResetPassword
     }
 
     override fun initView() {
 
     }
+
     override fun initObserver() {
 
         lifecycleScope.launchWhenStarted {
@@ -131,15 +104,15 @@ class ResetFragment : BaseFragment(), LoginContract.ForgetPasswordView{
                         showLoading()
                     }
 
-                    is LoginViewModel.Event.LoginSuccess -> {
+                    is LoginViewModel.Event.ResetPasswordSuccess -> {
                         hideLoading()
-//                        onLoginSuccess(event.token!!, event.id)
+                        onResetPasswordSuccess(event.rsp)
                         viewModel.clearEvent()
                     }
 
-                    is LoginViewModel.Event.LoginFailure -> {
+                    is LoginViewModel.Event.ResetPasswordFailure -> {
                         hideLoading()
-//                        onLoginFailure(event.msg)
+                        onResetPasswordFailure(event.msg)
                         viewModel.clearEvent()
                     }
 
@@ -147,10 +120,12 @@ class ResetFragment : BaseFragment(), LoginContract.ForgetPasswordView{
                 }
             }
         }
-        btnresetPass.setOnClickListener {
-            backToLogin()
+        btResetPassword.setOnClickListener {
+
+           onClickRetypePassword()
         }
     }
+
     override fun onPause() {
         super.onPause()
     }
@@ -167,6 +142,39 @@ class ResetFragment : BaseFragment(), LoginContract.ForgetPasswordView{
 
     override fun backToLogin() {
         interactor?.navigateToLogin()
+    }
+
+    override fun onClickRetypePassword() {
+        Log.d(TAG, "onClickRetypePassword() called")
+
+        val password = etPassword.text.toString()
+        val retypePassword = etRetypePassword.text.toString()
+        if (password.isEmpty()) return
+
+        if (password == retypePassword){
+            viewModel.resetPassword(password)
+        }else {
+            showAlerter(null, "Password didn't match")
+        }
+
+
+    }
+
+    override fun onResetPasswordSuccess(rsp: ResetPassRsp?) {
+        Log.d(TAG, "onResetPasswordSuccess() called with: rsp = $rsp")
+        if (rsp == null) return
+        if (rsp.token == null) return
+
+        showMessage("Reset Password Success")
+        getPrefHelper().setAccessToken(rsp.token)
+        navigateToHome()
+        requireActivity().finish()
+
+    }
+
+    override fun onResetPasswordFailure(msg: String?) {
+        Log.d(TAG, "onResetPasswordFailure() called with: msg = $msg")
+        showMessage("Reset Password Failure")
     }
 
 

@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kit.integrationmanager.model.Address
+import com.kit.integrationmanager.model.Location
 import com.kit.integrationmanager.model.ServerInfo
 import com.kit.integrationmanager.payload.login.request.LoginRequest
 import com.kit.integrationmanager.service.DeviceManager
@@ -14,6 +16,11 @@ import com.xplo.code.data_module.core.DispatcherProvider
 import com.xplo.code.data_module.core.Resource
 import com.xplo.code.data_module.fake.Fake
 import com.xplo.code.data_module.model.user.LoginRqb
+import com.xplo.code.data_module.model.user.RegisterDeviceRqb
+import com.xplo.code.data_module.model.user.RegisterDeviceRsp
+import com.xplo.code.data_module.model.user.ResetPassRqb
+import com.xplo.code.data_module.model.user.ResetPassRsp
+import com.xplo.code.data_module.model.user.isPending
 import com.xplo.code.data_module.repo.UserRepo
 import com.xplo.code.ui.login.model.LoginCredentials
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,8 +46,15 @@ class LoginViewModel @Inject constructor(
         object Loading : Event()
         object Empty : Event()
 
-        class LoginSuccess(val token: String, val id: String?) : Event()
+        class LoginSuccess(val token: String, val username: String?) : Event()
+        class LoginPending(val token: String, val username: String?) : Event()
         class LoginFailure(val msg: String?) : Event()
+
+        class ResetPasswordSuccess(val rsp: ResetPassRsp?) : Event()
+        class ResetPasswordFailure(val msg: String?) : Event()
+
+        class RegisterDeviceSuccess(val rsp: RegisterDeviceRsp?) : Event()
+        class RegisterDeviceFailure(val msg: String?) : Event()
 
     }
 
@@ -73,7 +87,13 @@ class LoginViewModel @Inject constructor(
                     if (token.isNullOrEmpty()) {
                         _event.value = Event.LoginFailure(response.callInfo?.msg)
                     } else {
-                        _event.value = Event.LoginSuccess(token, null)
+
+                        if (response.data.isPending()){
+                            _event.value = Event.LoginPending(token, response.data.userName)
+                        }else{
+                            _event.value = Event.LoginSuccess(token, response.data.userName)
+                        }
+
                     }
                 }
 
@@ -81,6 +101,60 @@ class LoginViewModel @Inject constructor(
             }
         }
 
+
+    }
+
+
+    fun resetPassword(newPassword: String?) {
+        Log.d(TAG, "resetPassword() called with: newPassword = $newPassword")
+
+        val body = ResetPassRqb(newPassword)
+        viewModelScope.launch(dispatchers.io) {
+            _event.value = Event.Loading
+            when (val response = repo.resetPassword(body)) {
+
+                is Resource.Failure -> {
+                    _event.value = Event.ResetPasswordFailure(response.callInfo?.msg)
+                }
+
+                is Resource.Success -> {
+                    _event.value = Event.ResetPasswordSuccess(response.data)
+                }
+
+                else -> {}
+            }
+        }
+
+    }
+
+
+    fun registerDevice(address: Address, location: Location, deviceId: String?, imei: String?) {
+        Log.d(
+            TAG,
+            "registerDevice() called with: address = $address, location = $location, deviceId = $deviceId, imei = $imei"
+        )
+
+        val body = RegisterDeviceRqb(
+            address = address,
+            location = location,
+            deviceId = deviceId,
+            imei = imei
+        )
+        viewModelScope.launch(dispatchers.io) {
+            _event.value = Event.Loading
+            when (val response = repo.registerDevice(body)) {
+
+                is Resource.Failure -> {
+                    _event.value = Event.RegisterDeviceFailure(response.callInfo?.msg)
+                }
+
+                is Resource.Success -> {
+                    _event.value = Event.RegisterDeviceSuccess(response.data)
+                }
+
+                else -> {}
+            }
+        }
 
     }
 

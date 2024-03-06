@@ -28,10 +28,10 @@
 
 
         <item
-            android:visible="false"
             android:id="@+id/mContentList"
             android:icon="@drawable/ic_baseline_format_list_bulleted_24"
-            android:title="Contents" />
+            android:title="Contents"
+            android:visible="false" />
 
 
     </group>
@@ -68,6 +68,12 @@
             android:id="@+id/mLoginLogout"
             android:icon="@drawable/ic_baseline_exit_to_app_24"
             android:title="@string/login" />
+
+        <item
+            android:id="@+id/mChangePassword"
+            android:icon="@drawable/ic_baseline_exit_to_app_24"
+            android:title="Change Password"
+            android:visible="false" />
 
     </group>
 
