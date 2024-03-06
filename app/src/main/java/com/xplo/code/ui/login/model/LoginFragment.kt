@@ -9,14 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.kit.integrationmanager.model.Login
-import com.kit.integrationmanager.model.ServerInfo
-import com.kit.integrationmanager.payload.login.request.LoginRequest
-import com.kit.integrationmanager.service.DeviceManager
-import com.kit.integrationmanager.service.LoginServiceImpl
-import com.kit.integrationmanager.store.AuthStore
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
+import com.xplo.code.data.Constants
+import com.xplo.code.data_module.core.Config
 import com.xplo.code.databinding.FragmentLoginBinding
 import com.xplo.code.ui.login.LoginContract
 import com.xplo.code.ui.login.LoginViewModel
@@ -88,8 +84,10 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
     }
 
     override fun initView() {
-
+        taskDev()
     }
+
+
     override fun initObserver() {
         binding.btLogin.setOnClickListener {
             val userId = binding.etUserId.text.toString()
@@ -119,8 +117,8 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
 //            }catch (e : Exception){
 //                Log.d(TAG,"Login Failed")
 //            }
-            //presenter.passwordLogin(loginCredentials)
-            viewModel.passwordLoginwithSDK(loginCredentials,requireContext())
+            viewModel.passwordLogin(loginCredentials)
+            //viewModel.passwordLoginwithSDK(loginCredentials,requireContext())
         }
 
         binding.btSignup.setOnClickListener {
@@ -152,7 +150,13 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
 
                     is LoginViewModel.Event.LoginSuccess -> {
                         hideLoading()
-                        onLoginSuccess(event.token!!, event.id)
+                        onLoginSuccess(event.token!!, event.username)
+                        viewModel.clearEvent()
+                    }
+
+                    is LoginViewModel.Event.LoginPending -> {
+                        hideLoading()
+                        onLoginPending(event.token!!, event.username)
                         viewModel.clearEvent()
                     }
 
@@ -190,17 +194,41 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
         interactor?.navigateToReset()
     }
 
-    override fun onLoginSuccess(token: String, id: String?) {
-        Log.d(TAG, "onLoginSuccess() called with: token = $token, id = $id")
+    override fun onLoginSuccess(token: String, username: String?) {
+        Log.d(TAG, "onLoginSuccess() called with: token = $token, id = $username")
         getPrefHelper().setAccessToken(token)
-        getPrefHelper().setUserId("abc07")
+        getPrefHelper().setUserId(username)
         navigateToHome()
         requireActivity().finish()
+    }
+
+    override fun onLoginPending(token: String, username: String?) {
+        Log.d(TAG, "onLoginPending() called with: token = $token, id = $username")
+        Config.ACCESS_TOKEN = token
+        //getPrefHelper().setUserId(username)
+        navigateToResetPassword()
     }
 
     override fun onLoginFailure(msg: String?) {
         Log.d(TAG, "onLoginFailure() called with: msg = [$msg]")
         showErrorMessage(msg)
+    }
+
+    private fun taskDev() {
+        if (!isDebugBuild()) return
+
+//        if (TestConfig.isTestLoginEnabled) {
+//            binding.etUserId.setText(Constants.TEST_USER_ID)
+//            binding.etPassword.setText(Constants.TEST_PASSWORD)
+//        }
+
+        binding.ivBannar.setOnLongClickListener {
+            //openActivity(LabActivity::class.java, null)
+            binding.etUserId.setText(Constants.TEST_USER_ID)
+            binding.etPassword.setText(Constants.TEST_PASSWORD)
+            return@setOnLongClickListener true
+        }
+
     }
 
     override fun update(o: java.util.Observable?, arg: Any?) {

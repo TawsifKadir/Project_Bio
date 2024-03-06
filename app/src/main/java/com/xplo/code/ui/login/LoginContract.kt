@@ -2,6 +2,7 @@ package com.xplo.code.ui.login
 
 import androidx.fragment.app.Fragment
 import com.xplo.code.base.BaseContract
+import com.xplo.code.data_module.model.user.ResetPassRsp
 import com.xplo.code.ui.login.model.LoginCredentials
 
 /**
@@ -42,7 +43,8 @@ interface LoginContract {
         fun navigateToSignup()
         fun navigateToResetPassword()
 
-        fun onLoginSuccess(token: String, id: String?)
+        fun onLoginSuccess(token: String, username: String?)
+        fun onLoginPending(token: String, username: String?)
         fun onLoginFailure(msg: String?)
 
     }
@@ -55,8 +57,12 @@ interface LoginContract {
 
     }
 
-    interface ForgetPasswordView : BaseContract.View {
+    interface ResetPasswordView : BaseContract.View {
         fun backToLogin()
+
+        fun onClickRetypePassword()
+        fun onResetPasswordSuccess(rsp: ResetPassRsp?)
+        fun onResetPasswordFailure(msg: String?)
     }
 
     interface Presenter : BaseContract.Presenter<View> {

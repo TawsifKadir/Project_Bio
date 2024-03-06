@@ -225,9 +225,18 @@ class MainActivity : BaseActivity(), MainContract.View,
                 return false
             }
 
+            R.id.mChangePassword -> {
+                onChangePassword()
+                return true
+            }
+
 
         }
         return true
+    }
+
+    fun onChangePassword() {
+        navigateToLogin()
     }
 
     override fun onLogout() {

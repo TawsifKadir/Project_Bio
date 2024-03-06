@@ -69,6 +69,11 @@
             android:icon="@drawable/ic_baseline_exit_to_app_24"
             android:title="@string/login" />
 
+        <item
+            android:id="@+id/mChangePassword"
+            android:icon="@drawable/ic_baseline_exit_to_app_24"
+            android:title="Change Password" />
+
     </group>
 
 

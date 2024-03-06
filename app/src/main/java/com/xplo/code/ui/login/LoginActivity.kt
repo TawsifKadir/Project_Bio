@@ -9,18 +9,13 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.lifecycleScope
 import com.xplo.code.R
 import com.xplo.code.base.BaseActivity
 import com.xplo.code.core.Bk
-import com.xplo.code.core.TestConfig
-import com.xplo.code.data.Constants
 import com.xplo.code.databinding.ActivityLoginBinding
 import com.xplo.code.ui.dashboard.alternate.forms.LoginFragment
-import com.xplo.code.ui.dashboard.alternate.forms.ResetFragment
+import com.xplo.code.ui.login.model.ResetFragment
 import com.xplo.code.ui.dashboard.alternate.forms.SignUpFragment
-import com.xplo.code.ui.login.model.LoginCredentials
-import com.xplo.code.ui.testing_lab.LabActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -113,7 +108,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     }
 
     override fun navigateToReset() {
-        doFragmentTransaction(ResetFragment.newInstance(null),ResetFragment.TAG,false,true)
+        doFragmentTransaction(ResetFragment.newInstance(null), ResetFragment.TAG,false,true)
     }
 
 

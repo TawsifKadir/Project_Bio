@@ -1,6 +1,7 @@
 package com.xplo.code.data.pref
 
 import com.xplo.code.data.Constants
+import com.xplo.code.data_module.core.Config
 
 /**
  * Copyright 2019 (C) xplo
@@ -42,6 +43,7 @@ class PrefHelperImpl : PrefHelper {
     }
 
     override fun setAccessToken(token: String?) {
+        Config.ACCESS_TOKEN = token
         PrefUtils.putString(Pk.USER_ACCESS_TOKEN, token)
     }
 
@@ -65,6 +67,7 @@ class PrefHelperImpl : PrefHelper {
     }
 
     override fun logout() {
+        Config.ACCESS_TOKEN = null
         for (item in userSessionKeys) {
             PrefUtils.remove(item)
         }

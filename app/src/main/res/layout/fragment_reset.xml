@@ -62,11 +62,11 @@
                     app:endIconTint="?attr/colorIcon">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etRetypePassword"
-                        android:inputType="textPassword"
+                        android:id="@+id/etPassword"
                         style="@style/AppTextInputEditText.Outline"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,78 +79,19 @@
                     app:endIconTint="?attr/colorIcon">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etPassword"
-                        android:inputType="textPassword"
+                        android:id="@+id/etRetypePassword"
                         style="@style/AppTextInputEditText.Outline"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!--        <EditText-->
-                <!--            android:id="@+id/etUserId"-->
-                <!--            android:layout_width="match_parent"-->
-                <!--            android:layout_height="wrap_content"-->
-                <!--            android:layout_marginTop="40dp"-->
-                <!--            android:background="@android:color/transparent"-->
-                <!--            android:drawableStart="@drawable/ic_person_black_24dp"-->
-                <!--            android:drawablePadding="12dp"-->
-                <!--            android:ems="10"-->
-                <!--            android:focusable="true"-->
-                <!--            android:hint="@string/id"-->
-                <!--            android:inputType="textPersonName"-->
-                <!--            android:maxLines="1"-->
-                <!--            android:padding="8dp"-->
-                <!--            android:textColor="?attr/colorTextPrimary"-->
-                <!--            tools:text="admin" />-->
-
-
-                <!--        <View-->
-                <!--            android:layout_width="match_parent"-->
-                <!--            android:layout_height="1dp"-->
-                <!--            android:background="@color/gray" />-->
-
-
-                <!--        <EditText-->
-                <!--            android:id="@+id/etPassword"-->
-                <!--            android:layout_width="match_parent"-->
-                <!--            android:layout_height="wrap_content"-->
-                <!--            android:layout_marginTop="4dp"-->
-                <!--            android:background="@android:color/transparent"-->
-                <!--            android:drawableStart="@drawable/ic_lock_black_24dp"-->
-                <!--            android:drawablePadding="12dp"-->
-                <!--            android:ems="10"-->
-                <!--            android:focusable="true"-->
-                <!--            android:hint="****"-->
-                <!--            android:inputType="textPassword"-->
-                <!--            android:maxLines="1"-->
-                <!--            android:padding="8dp"-->
-                <!--            android:textColor="?attr/colorTextPrimary" />-->
-
-                <!--        <View-->
-                <!--            android:layout_width="match_parent"-->
-                <!--            android:layout_height="1dp"-->
-                <!--            android:background="@color/gray" />-->
-
-                <!--        <CheckBox-->
-                <!--            android:id="@+id/cbShowPassword"-->
-                <!--            android:layout_width="wrap_content"-->
-                <!--            android:layout_height="wrap_content"-->
-                <!--            android:layout_marginStart="5dp"-->
-                <!--            android:layout_marginTop="4dp"-->
-                <!--            android:buttonTint="?attr/colorIcon"-->
-                <!--            android:text="@string/password_show"-->
-                <!--            android:textColor="?attr/colorTextPrimary" />-->
-
-                <!--        <View-->
-                <!--            android:layout_width="match_parent"-->
-                <!--            android:layout_height="0dp"-->
-                <!--            android:background="#f9d7db" />-->
 
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btLogin"
+                android:id="@+id/btResetPassword"
                 style="@style/AppButton.Primary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

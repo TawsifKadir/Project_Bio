@@ -12,7 +12,7 @@ object TestConfig {
     val isNomineeAlwaysEnabled = true           // default true
     val isAlternateAddInHouseholdFlow = true    // default true
 
-    val isFakeLoginEnabled = true       // default true
+    val isFakeLoginEnabled = false       // default true
     //val isTestLoginEnabled = false    // default false
 
     // only for nasif, for a temp purpose, will removed later
