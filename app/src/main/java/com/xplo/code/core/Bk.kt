@@ -19,5 +19,7 @@ object Bk {
     val KEY_NO = "KEY_NO"
     val KEY_GENDER = "KEY_GENDER"
     val KEY_REQUEST_CODE = "KEY_REQUEST_CODE"
+    val HH_NAMME = "HH_NAME"
+    val HH_TYPE = "HH_TYPE"
 
 }

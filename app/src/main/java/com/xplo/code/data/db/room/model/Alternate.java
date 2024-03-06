@@ -52,4 +52,7 @@ public class Alternate implements Serializable {
     @ColumnInfo(name = "payee_phone_no")
     public String payeePhoneNo;
 
+    @ColumnInfo(name = "type")
+    public String type;
+
 }

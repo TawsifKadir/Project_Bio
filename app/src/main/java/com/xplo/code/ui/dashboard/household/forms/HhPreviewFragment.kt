@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.kit.integrationmanager.model.AlternatePayee
 import com.kit.integrationmanager.model.Beneficiary
 import com.kit.integrationmanager.model.BiometricType
@@ -34,12 +32,12 @@ import com.xplo.code.data.db.room.model.Nominee
 import com.xplo.code.data.db.room.model.SelectionReason
 import com.xplo.code.data.mapper.EntityMapper
 import com.xplo.code.data.mapper.FakeMapperValue
-import com.xplo.code.data_module.core.Resource
 import com.xplo.code.databinding.FragmentHhPreviewBinding
 import com.xplo.code.ui.components.ReportViewUtils
 import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
+import com.xplo.code.ui.dashboard.model.AlternateForm
 import com.xplo.code.ui.dashboard.model.HhForm1
 import com.xplo.code.ui.dashboard.model.HhForm2
 import com.xplo.code.ui.dashboard.model.HhForm3
@@ -50,14 +48,8 @@ import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.ReportRow
 import com.xplo.code.ui.dashboard.model.getReportRows
 import com.xplo.code.ui.dashboard.model.getReportRowsAltSummary
-import com.xplo.code.ui.dashboard.model.AlternateForm
 import com.xplo.code.utils.DialogUtil
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.nio.charset.StandardCharsets
-import java.util.UUID
 
 /**
  * Copyright 2020 (C) xplo
@@ -441,59 +433,92 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                     prepareAddressEntity(uuid.toString(), beneficiaryBO.address)
                 val locationEO: Location =
                     prepareLocationEntity(uuid.toString(), beneficiaryBO.location)
-                val empList = listOf(
-                    beneficiaryBO.selectionReason
-                )
+                val empList = FakeMapperValue.selectionReasons
+//                val empList = listOf(
+//                    beneficiaryBO.selectionReason
+//                )
 //                val selectionReasonList: List<SelectionReason> =
 //                    prepareSelectionReasonEntity(uuid.toString(), empList)
 
                 val selectionReasonList: List<SelectionReason> =
-                    prepareSelectionReasonEntity(uuid.toString(), SelectionReasonEnum.DIS_REASON_1)
+                    prepareSelectionReasonEntity(uuid.toString(), empList)
 
                 val alternateList: MutableList<Alternate> =
                     ArrayList<Alternate>()
-                if(beneficiaryBO.alternatePayee1 != null){
+                if (beneficiaryBO.alternatePayee1 != null) {
                     val firstAlternateEO: Alternate =
-                        prepareAlternateEntity(uuid.toString(), beneficiaryBO.alternatePayee1)
+                        prepareAlternateEntity(
+                            uuid.toString(),
+                            beneficiaryBO.alternatePayee1,
+                            "ALT1"
+                        )
                     alternateList.add(firstAlternateEO)
                 }
-                if(beneficiaryBO.alternatePayee2 != null){
+                if (beneficiaryBO.alternatePayee2 != null) {
                     val secondAlternateEO: Alternate =
-                        prepareAlternateEntity(uuid.toString(), beneficiaryBO.alternatePayee2)
+                        prepareAlternateEntity(
+                            uuid.toString(),
+                            beneficiaryBO.alternatePayee2,
+                            "ALT2"
+                        )
                     alternateList.add(secondAlternateEO)
                 }
 
                 var nomineeList: List<Nominee> = ArrayList<Nominee>()
-                if(beneficiaryBO.nominees != null){
+                if (beneficiaryBO.nominees != null) {
                     nomineeList = prepareNomineeEntity(uuid.toString(), beneficiaryBO.nominees)
                 }
 
                 val householdInfoList: MutableList<HouseholdInfo> =
                     ArrayList<HouseholdInfo>()
                 val householdInfo2EO: HouseholdInfo =
-                    prepareHouseholdInfoEntity(uuid.toString(), beneficiaryBO.householdMember2)
+                    prepareHouseholdInfoEntity(
+                        uuid.toString(),
+                        beneficiaryBO.householdMember2,
+                        "M2"
+                    )
                 householdInfoList.add(householdInfo2EO)
                 val householdInfo5EO: HouseholdInfo =
-                    prepareHouseholdInfoEntity(uuid.toString(), beneficiaryBO.householdMember5)
+                    prepareHouseholdInfoEntity(
+                        uuid.toString(),
+                        beneficiaryBO.householdMember5,
+                        "M5"
+                    )
                 householdInfoList.add(householdInfo5EO)
                 val householdInfo17EO: HouseholdInfo =
-                    prepareHouseholdInfoEntity(uuid.toString(), beneficiaryBO.householdMember17)
+                    prepareHouseholdInfoEntity(
+                        uuid.toString(),
+                        beneficiaryBO.householdMember17,
+                        "M17"
+                    )
                 householdInfoList.add(householdInfo17EO)
                 val householdInfo35EO: HouseholdInfo =
-                    prepareHouseholdInfoEntity(uuid.toString(), beneficiaryBO.householdMember35)
+                    prepareHouseholdInfoEntity(
+                        uuid.toString(),
+                        beneficiaryBO.householdMember35,
+                        "M35"
+                    )
                 householdInfoList.add(householdInfo35EO)
                 val householdInfo64EO: HouseholdInfo =
-                    prepareHouseholdInfoEntity(uuid.toString(), beneficiaryBO.householdMember64)
+                    prepareHouseholdInfoEntity(
+                        uuid.toString(),
+                        beneficiaryBO.householdMember64,
+                        "M64"
+                    )
                 householdInfoList.add(householdInfo64EO)
                 val householdInfo65EO: HouseholdInfo =
-                    prepareHouseholdInfoEntity(uuid.toString(), beneficiaryBO.householdMember65)
+                    prepareHouseholdInfoEntity(
+                        uuid.toString(),
+                        beneficiaryBO.householdMember65,
+                        "M65"
+                    )
                 householdInfoList.add(householdInfo65EO)
 
                 val biometricList: MutableList<Biometric> =
                     ArrayList<Biometric>()
                 if (beneficiaryBO.biometrics != null) {
                     val beneficiaryBiometric: Biometric =
-                        prepareBiometricEntity(uuid.toString(), beneficiaryBO.biometrics)
+                        prepareBiometricEntity(uuid.toString(), beneficiaryBO.biometrics, "BENE")
                     biometricList.add(beneficiaryBiometric)
                 }
                 if (beneficiaryBO.alternatePayee1 != null && beneficiaryBO.alternatePayee1
@@ -501,7 +526,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                 ) {
                     val alternate1Biometric: Biometric = prepareBiometricEntity(
                         uuid.toString(),
-                        beneficiaryBO.alternatePayee1.biometrics
+                        beneficiaryBO.alternatePayee1.biometrics, "ALT1"
                     )
                     biometricList.add(alternate1Biometric)
                 }
@@ -510,7 +535,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                 ) {
                     val alternate2Biometric: Biometric = prepareBiometricEntity(
                         uuid.toString(),
-                        beneficiaryBO.alternatePayee2.biometrics
+                        beneficiaryBO.alternatePayee2.biometrics, "ALT2"
                     )
                     biometricList.add(alternate2Biometric)
                 }
@@ -526,49 +551,63 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                 //DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", "Inserted the beneficiary data")
             }
         } catch (ex: Exception) {
-            DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Failed", "Error while sending data")
+            DialogUtil.showLottieDialogSuccessMsg(
+                requireContext(),
+                "Failed",
+                "Error while sending data"
+            )
             Log.e(TAG, "Error while sending data : " + ex.message)
             ex.printStackTrace()
         }
-        }
+    }
 
     fun prepareBiometricEntity(
         appId: String?,
-        biometricList: List<com.kit.integrationmanager.model.Biometric?>?
+        biometricList: List<com.kit.integrationmanager.model.Biometric?>?,
+        type: String
     ): Biometric {
         val nowBiometricEO = Biometric()
         if (biometricList != null) {
             for (nowBiometric in biometricList) {
                 if (nowBiometric != null) {
                     nowBiometricEO.applicationId = appId
-                    nowBiometricEO.biometricUserType = FakeMapperValue.respondentId.toLong()
-                   if(nowBiometric.biometricType == BiometricType.PHOTO && nowBiometric.biometricData != null){
+                    nowBiometricEO.type = type
+                    //  nowBiometricEO.biometricUserType = nowBiometric.biometricUserType.id.toLong()
+                    nowBiometricEO.biometricUserType = nowBiometric.biometricUserType?.id?.toLong()
+                    if (nowBiometric.noFingerprintReasonText != null) {
+                        nowBiometricEO.noFingerprintReasonText =
+                            nowBiometric.noFingerprintReasonText
+                    }
+                    if (nowBiometric.noFingerPrint != null) {
+                        nowBiometricEO.noFingerPrint = nowBiometric.noFingerPrint
+                    }
+                    if (nowBiometric.noFingerprintReason != null) {
+                        nowBiometricEO.noFingerprintReason =
+                            nowBiometric.noFingerprintReason.id.toLong()
+                    }
+                    if (nowBiometric.biometricType == BiometricType.PHOTO && nowBiometric.biometricData != null) {
                         nowBiometricEO.photo = nowBiometric.biometricData
-                    }else if (nowBiometric.biometricType == BiometricType.LT && nowBiometric.biometricData != null){
+                    } else if (nowBiometric.biometricType == BiometricType.LT && nowBiometric.biometricData != null) {
                         nowBiometricEO.wsqLt = nowBiometric.biometricData
-                    }else if (nowBiometric.biometricType == BiometricType.LI && nowBiometric.biometricData != null){
+                    } else if (nowBiometric.biometricType == BiometricType.LI && nowBiometric.biometricData != null) {
                         nowBiometricEO.wsqLi = nowBiometric.biometricData
-                    }else if (nowBiometric.biometricType == BiometricType.LM && nowBiometric.biometricData != null){
+                    } else if (nowBiometric.biometricType == BiometricType.LM && nowBiometric.biometricData != null) {
                         nowBiometricEO.wsqLm = nowBiometric.biometricData
-                    }else if (nowBiometric.biometricType == BiometricType.LR && nowBiometric.biometricData != null){
+                    } else if (nowBiometric.biometricType == BiometricType.LR && nowBiometric.biometricData != null) {
                         nowBiometricEO.wsqLr = nowBiometric.biometricData
-                    }else if (nowBiometric.biometricType == BiometricType.LL && nowBiometric.biometricData != null){
+                    } else if (nowBiometric.biometricType == BiometricType.LL && nowBiometric.biometricData != null) {
                         nowBiometricEO.wsqLs = nowBiometric.biometricData
-                    }else if (nowBiometric.biometricType == BiometricType.RT && nowBiometric.biometricData != null){
+                    } else if (nowBiometric.biometricType == BiometricType.RT && nowBiometric.biometricData != null) {
                         nowBiometricEO.wsqRt = nowBiometric.biometricData
-                    }else if (nowBiometric.biometricType == BiometricType.RI && nowBiometric.biometricData != null){
+                    } else if (nowBiometric.biometricType == BiometricType.RI && nowBiometric.biometricData != null) {
                         nowBiometricEO.wsqRi = nowBiometric.biometricData
-                    }else if (nowBiometric.biometricType == BiometricType.RM && nowBiometric.biometricData != null){
+                    } else if (nowBiometric.biometricType == BiometricType.RM && nowBiometric.biometricData != null) {
                         nowBiometricEO.wsqRm = nowBiometric.biometricData
-                    }else if (nowBiometric.biometricType == BiometricType.RR && nowBiometric.biometricData != null){
+                    } else if (nowBiometric.biometricType == BiometricType.RR && nowBiometric.biometricData != null) {
                         nowBiometricEO.wsqRr = nowBiometric.biometricData
-                    }else if (nowBiometric.biometricType == BiometricType.RL && nowBiometric.biometricData != null){
+                    } else if (nowBiometric.biometricType == BiometricType.RL && nowBiometric.biometricData != null) {
                         nowBiometricEO.wsqRs = nowBiometric.biometricData
-                    }else{
-                       nowBiometricEO.noFingerprintReasonText = nowBiometric.noFingerprintReasonText
-                       nowBiometricEO.noFingerPrint = true
-                       nowBiometricEO.noFingerprintReason = FakeMapperValue.respondentId.toLong()
-                   }
+                    }
                 }
             }
         }
@@ -604,7 +643,11 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         return locationEO
     }
 
-    fun prepareAlternateEntity(appId: String?, alternateBO: AlternatePayee): Alternate {
+    fun prepareAlternateEntity(
+        appId: String?,
+        alternateBO: AlternatePayee,
+        type: String
+    ): Alternate {
         val alternateEO = Alternate()
         alternateEO.applicationId = appId
         alternateEO.payeeFirstName = alternateBO.payeeFirstName
@@ -619,6 +662,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         alternateEO.documentTypeOther = alternateBO.documentTypeOther
         alternateEO.nationalId = alternateBO.nationalId
         alternateEO.payeePhoneNo = alternateBO.payeePhoneNo
+        alternateEO.type = type
         return alternateEO
     }
 
@@ -650,7 +694,11 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         return nominees
     }
 
-    fun prepareHouseholdInfoEntity(appId: String?, member: HouseholdMember?): HouseholdInfo {
+    fun prepareHouseholdInfoEntity(
+        appId: String?,
+        member: HouseholdMember?,
+        type: String
+    ): HouseholdInfo {
         val householdInfoEO = HouseholdInfo()
         if (member != null) {
             householdInfoEO.applicationId = appId
@@ -661,29 +709,31 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             householdInfoEO.maleChronicalIll = member.maleChronicalIll
             householdInfoEO.femaleChronicalIll = member.femaleChronicalIll
             householdInfoEO.femaleNormal = member.femaleNormal
+            householdInfoEO.maleNormal = member.maleNormal
+            householdInfoEO.type = type
         }
         return householdInfoEO
     }
 
     fun prepareSelectionReasonEntity(
         appId: String,
-        reasons: SelectionReasonEnum
+        reasons: List<SelectionReasonEnum>
     ): List<SelectionReason> {
         //  Log.d(TAG, "Reason List: " + appId + reasons!![0].value)
         val selectionReasons: MutableList<SelectionReason> = java.util.ArrayList()
         if (reasons != null) {
-//            for (nowReason in reasons) {
-//                val nowSelectionReason = SelectionReason()
-//                nowSelectionReason.applicationId = appId
-//                nowSelectionReason.selectionReasonName = nowReason.value
-//                selectionReasons.add(nowSelectionReason)
-//            }
-            if (selectionReasons.size <= 0) {
+            for (nowReason in reasons) {
                 val nowSelectionReason = SelectionReason()
                 nowSelectionReason.applicationId = appId
-                nowSelectionReason.selectionReasonName = SelectionReasonEnum.LIPW_REASON_4.value
+                nowSelectionReason.selectionReasonName = nowReason.value
                 selectionReasons.add(nowSelectionReason)
             }
+//            if (selectionReasons.size <= 0) {
+//                val nowSelectionReason = SelectionReason()
+//                nowSelectionReason.applicationId = appId
+//                nowSelectionReason.selectionReasonName = SelectionReasonEnum.LIPW_REASON_4.value
+//                selectionReasons.add(nowSelectionReason)
+//            }
         }
         return selectionReasons
     }

@@ -21,6 +21,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.GsonBuilder
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -33,13 +34,14 @@ import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.toBool
 import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
+import com.xplo.code.data.db.room.model.Beneficiary
 import com.xplo.code.data.mapper.EntityMapper
 import com.xplo.code.databinding.FragmentHouseholdHomeBinding
-import com.xplo.code.network.fake.Fake
 import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.list.HouseholdListAdapter
+import com.xplo.code.ui.dashboard.household.list.HouseholdListAdapterNew
 import com.xplo.code.utils.DialogUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -57,7 +59,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
-    HouseholdListAdapter.OnItemClickListener {
+    HouseholdListAdapter.OnItemClickListener, HouseholdListAdapterNew.OnItemClickListener {
 
     companion object {
         const val TAG = "HouseholdHomeFragment"
@@ -79,7 +81,8 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     //private lateinit var presenter: HomeContract.Presenter
     private var interactor: HouseholdContract.View? = null
 
-    private var adapter: HouseholdListAdapter? = null
+    // private var adapter: HouseholdListAdapter? = null
+    private var adapterNew: HouseholdListAdapterNew? = null
 
     private lateinit var locationManager: LocationManager
     private val locationPermissionCode = 2
@@ -120,11 +123,19 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
 
-        adapter = HouseholdListAdapter()
-        adapter?.setOnItemClickListener(this)
-        binding.recyclerView.adapter = adapter
+//        adapter = HouseholdListAdapter()
+//        adapter?.setOnItemClickListener(this)
+//        binding.recyclerView.adapter = adapter
+
+        adapterNew = HouseholdListAdapterNew()
+        adapterNew?.setOnItemClickListener(this)
+        binding.recyclerView.adapter = adapterNew
+
+        //  showBeneficiary()
 
         //viewModel.getHouseholdItems()
+
+        viewModel.showBeneficiary(requireContext())
 
 
     }
@@ -140,6 +151,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                     }
 
                     is HouseholdViewModel.Event.GetHouseholdItemsSuccess -> {
+                        Log.d(TAG, "GetHouseHoldList Called")
                         hideLoading()
                         onGetHouseholdList(event.items)
                         viewModel.clearEvent()
@@ -152,10 +164,66 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                     }
 
                     is HouseholdViewModel.Event.GetHouseholdItemsSuccessMsg -> {
+                        Log.d(TAG, "GetHouseHoldListSuccess Called")
                         hideLoading()
-                        onGetHouseholdListSuccess(event.msg)
+                        onGetHouseholdListSuccess(event.msg, event.appId)
                         viewModel.clearEvent()
                     }
+
+                    is HouseholdViewModel.Event.GetDataLocalDb -> {
+                        hideLoading()
+                        // onGetHouseholdListSuccess(event.msg)
+                        adapterNew?.addAll(event.beneficiary)
+                        adapterNew?.notifyDataSetChanged()
+                        viewModel.clearEvent()
+                    }
+
+                    is HouseholdViewModel.Event.GetDataLocalDbByAppId -> {
+
+                        requireActivity().runOnUiThread {
+                            DialogUtil.showLottieDialog(
+                                requireContext(),
+                                "Data will sync to server",
+                                "Please wait"
+                            )
+                        }
+                        //Log.d(TAG, "onClickHouseholdItemSend() called with: item = $item, pos = $pos")
+                        //showToast("Feature not implemented yet")
+
+                        //viewModel.sendHouseholdItem(item, pos)
+                        GlobalScope.launch(Dispatchers.IO) {
+
+                            Log.d(
+                                TAG, "initObserver: ${
+                                    event.beneficiary.toJson()
+                                }"
+                            )
+                            viewModel.callRegisterApi(requireContext(), event.beneficiary)
+                        }
+                        //hideLoading()
+//                        Toast.makeText(
+//                            requireContext(),
+//                            event.beneficiary.applicationId,
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+                        viewModel.clearEvent()
+                    }
+
+                    is HouseholdViewModel.Event.DeleteDataLocalDbByAppId -> {
+                        hideLoading()
+                        if (event.beneficiary) {
+                            requireActivity().finish()
+                        }
+                        viewModel.clearEvent()
+                    }
+
+                    is HouseholdViewModel.Event.GetDataLocalDbByAppIdForView -> {
+                        hideLoading()
+                        navigateToHouseholdDetailsFromBeneficiary(event.beneficiary)
+
+                        viewModel.clearEvent()
+                    }
+
 
 //                    is HouseholdViewModel.Event.SendHouseholdFormSuccess -> {
 //                        hideLoading()
@@ -230,7 +298,11 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
         interactor?.resetRootForm()
 
-        viewModel.getHouseholdItems()
+        // viewModel.getHouseholdItems()
+
+        viewModel.showBeneficiary(requireContext())
+
+        // showBeneficiary()
 
     }
 
@@ -243,6 +315,10 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     override fun navigateToHouseholdDetails(content: HouseholdItem) {
         Log.d(TAG, "navigateToHouseholdDetails() called with: content = ${content.hid}")
         interactor?.navigateToFormDetails(content)
+    }
+
+    override fun navigateToHouseholdDetailsFromBeneficiary(item: com.kit.integrationmanager.model.Beneficiary?) {
+        interactor?.navigateToFormDetailsBeneficiary(item)
     }
 
     override fun onGetHouseholdList(items: List<HouseholdItem>?) {
@@ -260,12 +336,13 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
             binding.llBody.visibility = View.VISIBLE
         }
 
-        adapter?.addAll(items)
+        //  adapter?.addAll(items)
     }
 
     override fun onGetHouseholdListFailure(msg: String?) {
         //binding.llNoContentText.visibility = View.VISIBLE
         //binding.llBody.visibility = View.GONE
+
         DialogUtil.dismissLottieDialog()
         if (msg != null) {
             DialogUtil.showLottieDialogFailMsg(requireContext(), "Error", msg)
@@ -273,12 +350,17 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         Log.d(TAG, "onGetHouseholdListFailure() called with: msg = $msg")
         //showMessage(msg)
     }
-    override fun onGetHouseholdListSuccess(msg: String?) {
+
+    override fun onGetHouseholdListSuccess(msg: String?, appId: String?) {
         //binding.llNoContentText.visibility = View.VISIBLE
-       // binding.llBody.visibility = View.GONE
+        // binding.llBody.visibility = View.GONE
         DialogUtil.dismissLottieDialog()
         if (msg != null) {
             DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", msg)
+            if (appId != null) {
+                //  viewModel.updateBeneficiary(requireContext(), "6be82dbe-a3ee-49d2-976d-9c7e83f5ca2c")
+                viewModel.updateBeneficiary(requireContext(), appId)
+            }
         }
         Log.d(TAG, "onGetHouseholdListSuccess() called with: msg = $msg")
         //showMessage(msg)
@@ -315,6 +397,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
     }
 
+
     override fun onClickHouseholdItem(item: HouseholdItem, pos: Int) {
         Log.d(TAG, "onClickHouseholdItem() called with: item = ${item.hid}, pos = $pos")
         //dToast(item.title)
@@ -331,13 +414,13 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         val window = dialog.window
         window?.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
-        val btnOk : Button = dialog.findViewById<Button>(R.id.okButton)
-        val btnCancel : Button = dialog.findViewById<Button>(R.id.cancelButton)
+        val btnOk: Button = dialog.findViewById<Button>(R.id.okButton)
+        val btnCancel: Button = dialog.findViewById<Button>(R.id.cancelButton)
 
         btnOk.setOnClickListener {
 
             viewModel.deleteHouseholdItem(item)
-            adapter?.remove(pos)
+            //  adapter?.remove(pos)
             dialog.dismiss()
         }
 
@@ -491,4 +574,65 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         }
 
     }
+
+
+    override fun onClickHouseholdItem(item: Beneficiary, pos: Int) {
+        viewModel.showBeneficiaryByAppIdForViewDetails(requireContext(), item.applicationId)
+        //navigateToHouseholdDetails(item)
+    }
+
+    override fun onClickHouseholdItemDelete(item: Beneficiary, pos: Int) {
+        //Create Dialog Here
+        val dialog = Dialog(requireContext(), R.style.CustomDialogTheme)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.delete_dialog_resource)
+        val window = dialog.window
+        window?.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+        val btnOk: Button = dialog.findViewById<Button>(R.id.okButton)
+        val btnCancel: Button = dialog.findViewById<Button>(R.id.cancelButton)
+
+        btnOk.setOnClickListener {
+            viewModel.deleteBeneficiary(requireContext(), item.applicationId)
+            dialog.dismiss()
+        }
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    override fun onClickHouseholdItemSend(item: Beneficiary, pos: Int) {
+        viewModel.showBeneficiaryByAppId(requireContext(), item.applicationId)
+    }
+
+    override fun onClickHouseholdItemAddAlternate(item: Beneficiary, pos: Int) {
+        if (item.alternateSize >= 2) {
+            Toast.makeText(requireContext(), "Maximum 2 Alternate Add Options.", Toast.LENGTH_SHORT)
+                .show()
+        } else {
+            // navigateToAlternate(item.applicationId)
+            navigateToAlternateNew(
+                item.applicationId,
+                item.respondentFirstName + " " + item.respondentMiddleName + " " + item.respondentLastName,
+                "V"
+            )
+
+        }
+    }
+
+    override fun onClickHouseholdItemSave(item: Beneficiary, pos: Int) {
+        // Toast.makeText(requireContext(), "Coming Soon", Toast.LENGTH_SHORT).show()
+        viewModel.updateBeneficiary(requireContext(), item.applicationId)
+    }
+
+    fun com.kit.integrationmanager.model.Beneficiary?.toJson(): String? {
+        return GsonBuilder()
+            .setPrettyPrinting()
+            .create()
+            .toJson(this)
+    }
+
 }

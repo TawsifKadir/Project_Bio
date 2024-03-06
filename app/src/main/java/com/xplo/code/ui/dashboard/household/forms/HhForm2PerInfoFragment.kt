@@ -17,6 +17,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kit.integrationmanager.model.DocumentTypeEnum
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
 import com.kit.integrationmanager.model.NonPerticipationReasonEnum
@@ -477,7 +478,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
             form.idNumber = checkIDNumber(etIdNumber, UiData.ER_ET_DF, form.idNumberType)
         } else {
             form.idNumber = null
-            form.idNumberType = null
+            form.idNumberType = DocumentTypeEnum.NONE.value
         }
         Log.d(TAG,"check nick Name ${form.nickName}")
 

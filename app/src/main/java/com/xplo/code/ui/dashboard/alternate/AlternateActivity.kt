@@ -54,6 +54,22 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
         }
 
         @JvmStatic
+        fun openNew(context: Context, parent: String?, id: String?, hhName: String, type: String) {
+            Log.d(
+                TAG,
+                "openNew() called with: context = $context, parent = $parent, id = $id, hhName = $hhName, type = $type"
+            )
+            val bundle = Bundle()
+            bundle.putString(Bk.KEY_PARENT, parent)
+            bundle.putString(Bk.KEY_ID, id)
+            bundle.putString(Bk.HH_NAMME, hhName)
+            bundle.putString(Bk.HH_TYPE, type)
+            val intent = Intent(context, AlternateActivity::class.java)
+            intent.putExtras(bundle)
+            context.startActivity(intent)
+        }
+
+        @JvmStatic
         fun openForResultLegacy(context: Activity, parent: String?, id: String?, rqCode: Int) {
             Log.d(
                 TAG,
@@ -69,7 +85,12 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
         }
 
         @JvmStatic
-        fun openForResult(context: Activity, parent: String?, id: String?, activityResultLauncher: ActivityResultLauncher<Intent>) {
+        fun openForResult(
+            context: Activity,
+            parent: String?,
+            id: String?,
+            activityResultLauncher: ActivityResultLauncher<Intent>
+        ) {
             Log.d(
                 TAG,
                 "openForResult() called with: context = $context, parent = $parent, id = $id, activityResultLauncher = $activityResultLauncher"
@@ -77,7 +98,10 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
             bundle.putString(Bk.KEY_ID, id)
-            bundle.putInt(Bk.KEY_REQUEST_CODE, 100)     // just to check will activity open for a result
+            bundle.putInt(
+                Bk.KEY_REQUEST_CODE,
+                100
+            )     // just to check will activity open for a result
             val intent = Intent(context, AlternateActivity::class.java)
             intent.putExtras(bundle)
             activityResultLauncher.launch(intent)
@@ -89,6 +113,7 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
 
     private lateinit var binding: ActivityAlternateBinding
     private val viewModel: HouseholdViewModel by viewModels()
+
     //private lateinit var toolbar: Toolbar
     private lateinit var householdItem: HouseholdItem
 
@@ -118,7 +143,11 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
 
         val parent = intent.getStringExtra(Bk.KEY_PARENT)
         val id = intent.getStringExtra(Bk.KEY_ID)
+        val hhName = intent.getStringExtra(Bk.HH_NAMME)
+        val hhType = intent.getStringExtra(Bk.HH_TYPE)
         REQUEST_CODE = intent.getIntExtra(Bk.KEY_REQUEST_CODE, -1)
+        rootForm?.appId = id
+        rootForm?.hhType = hhType
         Log.d(TAG, "initView: parent: $parent")
 
 //        if (!isNetworkIsConnected) {
@@ -127,7 +156,7 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
 //        }
 
         if (id != null) {
-            navigateToForm1(id, false, true)
+            navigateToForm1(id, hhName, hhType, false, true)
         } else {
             navigateToAlternateHome()
         }
@@ -204,13 +233,19 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
         )
     }
 
-    override fun navigateToForm1(id: String?, addToBackStack: Boolean, clearBackStack: Boolean) {
+    override fun navigateToForm1(
+        id: String?,
+        hhName: String?,
+        type: String?,
+        addToBackStack: Boolean,
+        clearBackStack: Boolean
+    ) {
         Log.d(TAG, "navigateToForm1() called with: id = $id")
 
         STEP = 1
 
         doFragmentTransaction(
-            AlForm1Fragment.newInstance(null, id),
+            AlForm1Fragment.newInstance(null, id, hhName, type),
             AlForm1Fragment.TAG,
             addToBackStack,
             clearBackStack
@@ -317,9 +352,9 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
         this.rootForm = form
     }
 
-    override fun getHouseholdItem(): HouseholdItem? {
-        return this.householdItem
-    }
+//    override fun getHouseholdItem(): HouseholdItem? {
+//        return this.householdItem
+//    }
 
     override fun setHouseholdItem(item: HouseholdItem?) {
         if (item == null) return

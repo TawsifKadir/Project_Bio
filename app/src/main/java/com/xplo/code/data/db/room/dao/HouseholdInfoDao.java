@@ -26,7 +26,14 @@ public interface HouseholdInfoDao {
     @Query("SELECT * FROM household_info WHERE id = :id")
     HouseholdInfo getHouseholdInfoById(Long id);
 
+    @Query("SELECT * FROM household_info where application_id=:appId")
+    List<HouseholdInfo> getHouseholdInfoListByAppId(String appId);
+
     @Query("SELECT * FROM household_info")
     List<HouseholdInfo> getAllHouseholdInfo();
+
+    @Query("DELETE FROM household_info where application_id=:appId")
+    void deleteHouseholdByAppid(String appId);
+
 
 }
