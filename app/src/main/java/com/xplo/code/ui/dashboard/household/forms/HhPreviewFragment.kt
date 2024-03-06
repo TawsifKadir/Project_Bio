@@ -659,7 +659,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             if (alternateBO.payeeGender != null) alternateBO.payeeGender.ordinal.toLong() else null
         alternateEO.payeeAge = alternateBO.payeeAge
         alternateEO.documentType =
-            if (alternateBO.documentType != null) alternateBO.documentType.ordinal.toLong() else null
+            if (alternateBO.documentType != null) alternateBO.documentType.ordinal.toLong() else 4
         alternateEO.documentTypeOther = alternateBO.documentTypeOther
         alternateEO.nationalId = alternateBO.nationalId
         alternateEO.payeePhoneNo = alternateBO.payeePhoneNo
@@ -764,7 +764,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             beneficiaryEO.respondentLegalStatus =
                 if (beneficiaryBO.respondentLegalStatus != null) beneficiaryBO.respondentLegalStatus.ordinal.toLong() else null
             beneficiaryEO.documentType =
-                if (beneficiaryBO.documentType != null) beneficiaryBO.documentType.ordinal.toLong() else null
+                if (beneficiaryBO.documentType != null) beneficiaryBO.documentType.ordinal.toLong() else 4
             beneficiaryEO.documentTypeOther = beneficiaryBO.documentTypeOther
             beneficiaryEO.respondentId = beneficiaryBO.respondentId
             beneficiaryEO.respondentPhoneNo = beneficiaryBO.respondentPhoneNo
