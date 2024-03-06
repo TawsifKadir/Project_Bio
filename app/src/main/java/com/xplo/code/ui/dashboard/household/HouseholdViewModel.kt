@@ -80,7 +80,7 @@ class HouseholdViewModel @Inject constructor(
 
         class GetHouseholdItemsSuccess(val items: List<HouseholdItem>?) : Event()
         class GetHouseholdItemsFailure(val msg: String?) : Event()
-        class GetHouseholdItemsSuccessMsg(val msg: String?) : Event()
+        class GetHouseholdItemsSuccessMsg(val msg: String?, val appId: String?) : Event()
         class UpdateHouseholdItemSuccess(val id: String?) : Event()
         class UpdateHouseholdItemFailure(val msg: String?) : Event()
 
@@ -134,9 +134,13 @@ class HouseholdViewModel @Inject constructor(
         class GetDataLocalDb(val beneficiary: MutableList<com.xplo.code.data.db.room.model.Beneficiary>) :
             Event()
 
+        class UpdateDataLocalDb(val msg: Boolean) :
+            Event()
+
         class GetDataLocalDbByAppId(val beneficiary: Beneficiary) :
             Event()
-class GetDataLocalDbByAppIdForView(val beneficiary: Beneficiary) :
+
+        class GetDataLocalDbByAppIdForView(val beneficiary: Beneficiary) :
             Event()
 
         class DeleteDataLocalDbByAppId(val beneficiary: Boolean) : Event()
@@ -297,40 +301,47 @@ class GetDataLocalDbByAppIdForView(val beneficiary: Beneficiary) :
             form.spouseLastName = beneficiary.spouseLastName
             form.spouseNickName = beneficiary.spouseNickName
 
-            if(beneficiary.relationshipWithHouseholdHead != null){
-                form.relationshipWithHouseholdHead = RelationshipEnum.getRelationById(beneficiary.relationshipWithHouseholdHead.toInt()+1)
+            if (beneficiary.relationshipWithHouseholdHead != null) {
+                form.relationshipWithHouseholdHead =
+                    RelationshipEnum.getRelationById(beneficiary.relationshipWithHouseholdHead.toInt() + 1)
             }
 
             form.respondentAge = beneficiary.respondentAge
 
-            if (beneficiary.respondentGender != null){
-                form.respondentGender = GenderEnum.getGenderById(beneficiary.respondentGender.toInt()+1)
+            if (beneficiary.respondentGender != null) {
+                form.respondentGender =
+                    GenderEnum.getGenderById(beneficiary.respondentGender.toInt() + 1)
             }
 
-            if(beneficiary.respondentMaritalStatus != null){
-                form.respondentMaritalStatus = MaritalStatusEnum.getMartialStatusById(beneficiary.respondentMaritalStatus.toInt()+1)
+            if (beneficiary.respondentMaritalStatus != null) {
+                form.respondentMaritalStatus =
+                    MaritalStatusEnum.getMartialStatusById(beneficiary.respondentMaritalStatus.toInt() + 1)
             }
 
-            if(beneficiary.respondentLegalStatus != null){
-                form.respondentLegalStatus = LegalStatusEnum.getLegalStatusById(beneficiary.respondentLegalStatus.toInt()+1)
+            if (beneficiary.respondentLegalStatus != null) {
+                form.respondentLegalStatus =
+                    LegalStatusEnum.getLegalStatusById(beneficiary.respondentLegalStatus.toInt() + 1)
             }
-            if(beneficiary.documentType != null){
-                form.documentType = DocumentTypeEnum.getDocumentTypeById(beneficiary.documentType.toInt()+1)
+            if (beneficiary.documentType != null) {
+                form.documentType =
+                    DocumentTypeEnum.getDocumentTypeById(beneficiary.documentType.toInt() + 1)
             }
 
             form.documentTypeOther = beneficiary.documentTypeOther
             form.respondentId = beneficiary.respondentId
             form.respondentPhoneNo = beneficiary.respondentPhoneNo
-            if(beneficiary.householdIncomeSource != null){
-                form.householdIncomeSource = IncomeSourceEnum.getIncomeSourceById(beneficiary.householdIncomeSource.toInt()+1)
+            if (beneficiary.householdIncomeSource != null) {
+                form.householdIncomeSource =
+                    IncomeSourceEnum.getIncomeSourceById(beneficiary.householdIncomeSource.toInt() + 1)
             }
             form.householdMonthlyAvgIncome = beneficiary.householdMonthlyAvgIncome
-            if(beneficiary.currency != null){
+            if (beneficiary.currency != null) {
                 //form.currency = CurrencyEnum.entries.getOrNull(beneficiary.currency.toInt())
-                form.currency = CurrencyEnum.getCurrencyById(beneficiary.currency.toInt()+1)
+                form.currency = CurrencyEnum.getCurrencyById(beneficiary.currency.toInt() + 1)
             }
-            if(beneficiary.selectionCriteria != null){
-                form.selectionCriteria = SelectionCriteriaEnum.getSelectionCriteriaById(beneficiary.selectionCriteria.toInt()+1)
+            if (beneficiary.selectionCriteria != null) {
+                form.selectionCriteria =
+                    SelectionCriteriaEnum.getSelectionCriteriaById(beneficiary.selectionCriteria.toInt() + 1)
             }
 
             // Assuming form.selectionReason is a MutableList<SelectionReasonEnum>
@@ -367,19 +378,21 @@ class GetDataLocalDbByAppIdForView(val beneficiary: Beneficiary) :
             form.isReadWrite = beneficiary.isReadWrite
             form.memberReadWrite = beneficiary.memberReadWrite
             form.isOtherMemberPerticipating = beneficiary.isOtherMemberPerticipating
-            if(beneficiary.notPerticipationReason != null){
-                form.notPerticipationReason = NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt()+1)
+            if (beneficiary.notPerticipationReason != null) {
+                form.notPerticipationReason =
+                    NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt() + 1)
             }
             form.notPerticipationOtherReason = beneficiary.notPerticipationOtherReason
             form.nominees = EntityMapper.toNomineeItemsLdb(nominee)
 
             form.biometrics = EntityMapper.toBiometricEntityFromdbForBeneficiary(biometricBio)
 
-            if(alternateBio1 != null){
+            if (alternateBio1 != null) {
                 form.alternatePayee1 = EntityMapper.getFirstAlternateLdb(alternateEO, alternateBio1)
             }
             if (alternateEO.size == 2) {
-               form.alternatePayee2 = EntityMapper.getSecondAlternateLdb(alternateEO, alternateBio2)
+                form.alternatePayee2 =
+                    EntityMapper.getSecondAlternateLdb(alternateEO, alternateBio2)
             }
             form.createdBy = 0
             //Log.d(TAG, "showBeneficiary: ${form.alternatePayee1.payeeAge}")
@@ -423,40 +436,47 @@ class GetDataLocalDbByAppIdForView(val beneficiary: Beneficiary) :
             form.spouseLastName = beneficiary.spouseLastName
             form.spouseNickName = beneficiary.spouseNickName
 
-            if(beneficiary.relationshipWithHouseholdHead != null){
-                form.relationshipWithHouseholdHead = RelationshipEnum.getRelationById(beneficiary.relationshipWithHouseholdHead.toInt()+1)
+            if (beneficiary.relationshipWithHouseholdHead != null) {
+                form.relationshipWithHouseholdHead =
+                    RelationshipEnum.getRelationById(beneficiary.relationshipWithHouseholdHead.toInt() + 1)
             }
 
             form.respondentAge = beneficiary.respondentAge
 
-            if (beneficiary.respondentGender != null){
-                form.respondentGender = GenderEnum.getGenderById(beneficiary.respondentGender.toInt()+1)
+            if (beneficiary.respondentGender != null) {
+                form.respondentGender =
+                    GenderEnum.getGenderById(beneficiary.respondentGender.toInt() + 1)
             }
 
-            if(beneficiary.respondentMaritalStatus != null){
-                form.respondentMaritalStatus = MaritalStatusEnum.getMartialStatusById(beneficiary.respondentMaritalStatus.toInt()+1)
+            if (beneficiary.respondentMaritalStatus != null) {
+                form.respondentMaritalStatus =
+                    MaritalStatusEnum.getMartialStatusById(beneficiary.respondentMaritalStatus.toInt() + 1)
             }
 
-            if(beneficiary.respondentLegalStatus != null){
-                form.respondentLegalStatus = LegalStatusEnum.getLegalStatusById(beneficiary.respondentLegalStatus.toInt()+1)
+            if (beneficiary.respondentLegalStatus != null) {
+                form.respondentLegalStatus =
+                    LegalStatusEnum.getLegalStatusById(beneficiary.respondentLegalStatus.toInt() + 1)
             }
-            if(beneficiary.documentType != null){
-                form.documentType = DocumentTypeEnum.getDocumentTypeById(beneficiary.documentType.toInt()+1)
+            if (beneficiary.documentType != null) {
+                form.documentType =
+                    DocumentTypeEnum.getDocumentTypeById(beneficiary.documentType.toInt() + 1)
             }
 
             form.documentTypeOther = beneficiary.documentTypeOther
             form.respondentId = beneficiary.respondentId
             form.respondentPhoneNo = beneficiary.respondentPhoneNo
-            if(beneficiary.householdIncomeSource != null){
-                form.householdIncomeSource = IncomeSourceEnum.getIncomeSourceById(beneficiary.householdIncomeSource.toInt()+1)
+            if (beneficiary.householdIncomeSource != null) {
+                form.householdIncomeSource =
+                    IncomeSourceEnum.getIncomeSourceById(beneficiary.householdIncomeSource.toInt() + 1)
             }
             form.householdMonthlyAvgIncome = beneficiary.householdMonthlyAvgIncome
-            if(beneficiary.currency != null){
+            if (beneficiary.currency != null) {
                 //form.currency = CurrencyEnum.entries.getOrNull(beneficiary.currency.toInt())
-                form.currency = CurrencyEnum.getCurrencyById(beneficiary.currency.toInt()+1)
+                form.currency = CurrencyEnum.getCurrencyById(beneficiary.currency.toInt() + 1)
             }
-            if(beneficiary.selectionCriteria != null){
-                form.selectionCriteria = SelectionCriteriaEnum.getSelectionCriteriaById(beneficiary.selectionCriteria.toInt()+1)
+            if (beneficiary.selectionCriteria != null) {
+                form.selectionCriteria =
+                    SelectionCriteriaEnum.getSelectionCriteriaById(beneficiary.selectionCriteria.toInt() + 1)
             }
 
             // Assuming form.selectionReason is a MutableList<SelectionReasonEnum>
@@ -493,19 +513,21 @@ class GetDataLocalDbByAppIdForView(val beneficiary: Beneficiary) :
             form.isReadWrite = beneficiary.isReadWrite
             form.memberReadWrite = beneficiary.memberReadWrite
             form.isOtherMemberPerticipating = beneficiary.isOtherMemberPerticipating
-            if(beneficiary.notPerticipationReason != null){
-                form.notPerticipationReason = NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt()+1)
+            if (beneficiary.notPerticipationReason != null) {
+                form.notPerticipationReason =
+                    NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt() + 1)
             }
             form.notPerticipationOtherReason = beneficiary.notPerticipationOtherReason
             form.nominees = EntityMapper.toNomineeItemsLdb(nominee)
 
             form.biometrics = EntityMapper.toBiometricEntityFromdbForBeneficiary(biometricBio)
 
-            if(alternateBio1 != null){
+            if (alternateBio1 != null) {
                 form.alternatePayee1 = EntityMapper.getFirstAlternateLdb(alternateEO, alternateBio1)
             }
             if (alternateEO.size == 2) {
-                form.alternatePayee2 = EntityMapper.getSecondAlternateLdb(alternateEO, alternateBio2)
+                form.alternatePayee2 =
+                    EntityMapper.getSecondAlternateLdb(alternateEO, alternateBio2)
             }
             form.createdBy = 0
             //Log.d(TAG, "showBeneficiary: ${form.alternatePayee1.payeeAge}")
@@ -538,6 +560,20 @@ class GetDataLocalDbByAppIdForView(val beneficiary: Beneficiary) :
         }
 
     }
+
+    fun updateBeneficiary(context: Context, appId: String) {
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
+        //_event.value = Event.Loading
+        viewModelScope.launch(dispatchers.io) {
+            val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
+            val beneficiary = beneficiaryDao.updateBeneficiaryByAppId(appId)
+
+            Log.d(TAG, "showBeneficiary: $beneficiary")
+            _event.value = Event.UpdateDataLocalDb(true)
+        }
+
+    }
+
 
     override fun getHouseholdItems() {
 
@@ -945,11 +981,12 @@ class GetDataLocalDbByAppIdForView(val beneficiary: Beneficiary) :
 
     }
 
-    public fun callRegisterApi(context: Context, beneficiary: Beneficiary?){
+    public fun callRegisterApi(context: Context, beneficiary: Beneficiary?) {
         val integrationManager = IMHelper.getIntegrationManager(context, this)
         val header = IMHelper.getHeader()
         integrationManager.syncRecord(beneficiary, header)
     }
+
     override fun syncBeneficiaryEntity(context: Context, entity: BeneficiaryEntity?, pos: Int) {
         Log.d(
             TAG,
@@ -1013,7 +1050,7 @@ class GetDataLocalDbByAppIdForView(val beneficiary: Beneficiary) :
                 val registrationResult = arg as? RegistrationResult
                 if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
                     Log.d(DashboardFragment.TAG, "Registration Successful")
-                    _event.value = Event.GetHouseholdItemsSuccessMsg("Registration Successful")
+                    _event.value = Event.GetHouseholdItemsSuccessMsg("Registration Successful", "")
 
                     val appIds = registrationResult.applicationIds
                     if (appIds == null) {

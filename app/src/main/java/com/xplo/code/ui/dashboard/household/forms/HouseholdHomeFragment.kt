@@ -173,7 +173,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                     is HouseholdViewModel.Event.GetHouseholdItemsSuccessMsg -> {
                         Log.d(TAG, "GetHouseHoldListSuccess Called")
                         hideLoading()
-                        onGetHouseholdListSuccess(event.msg)
+                        onGetHouseholdListSuccess(event.msg, event.appId)
                         viewModel.clearEvent()
                     }
 
@@ -358,12 +358,15 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         //showMessage(msg)
     }
 
-    override fun onGetHouseholdListSuccess(msg: String?) {
+    override fun onGetHouseholdListSuccess(msg: String?, appId: String?) {
         //binding.llNoContentText.visibility = View.VISIBLE
         // binding.llBody.visibility = View.GONE
         DialogUtil.dismissLottieDialog()
         if (msg != null) {
             DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", msg)
+            if (appId != null) {
+                viewModel.updateBeneficiary(requireContext(), "6be82dbe-a3ee-49d2-976d-9c7e83f5ca2c")
+            }
         }
         Log.d(TAG, "onGetHouseholdListSuccess() called with: msg = $msg")
         //showMessage(msg)
