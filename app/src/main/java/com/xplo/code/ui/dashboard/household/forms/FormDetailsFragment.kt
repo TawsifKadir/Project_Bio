@@ -411,7 +411,7 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
 
                 // alternateForm.form2?.photoData=beneficiary.alternatePayee1.biometrics[0].biometricData
                 val phdata = PhotoData()
-                phdata.imgPath = beneficiary.biometrics[0].biometricUrl
+                phdata.imgPath = beneficiary.alternatePayee1.biometrics[0].biometricUrl
                 phdata.img = beneficiary.alternatePayee1.biometrics[0].biometricData
                 phdata.userType = beneficiary.alternatePayee1.biometrics[0].biometricUserType.name
                 a2Form.photoData = phdata
@@ -448,9 +448,9 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
                     beneficiary.alternatePayee2.documentTypeOther
                 //alternateForm.form2?.photoData=beneficiary.alternatePayee1.biometrics[0].biometricData
                 val phdata = PhotoData()
-                phdata.imgPath = beneficiary.biometrics[0].biometricUrl
-                phdata.img = beneficiary.alternatePayee1.biometrics[0].biometricData
-                phdata.userType = beneficiary.alternatePayee1.biometrics[0].biometricUserType.name
+                phdata.imgPath = beneficiary.alternatePayee2.biometrics[0].biometricUrl
+                phdata.img = beneficiary.alternatePayee2.biometrics[0].biometricData
+                phdata.userType = beneficiary.alternatePayee2.biometrics[0].biometricUserType.name
                 a2Form.photoData = phdata
                 alternateForm2.form1 = a1Form
                 alternateForm2.form2 = a2Form

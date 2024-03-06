@@ -54,7 +54,11 @@ object ReportViewUtils {
 
     }
 
-    fun getAltFormView(context: Context, layoutInflater: LayoutInflater, item: AlternateForm?): View {
+    fun getAltFormView(
+        context: Context,
+        layoutInflater: LayoutInflater,
+        item: AlternateForm?
+    ): View {
         Log.d(FormDetailsFragment.TAG, "getRowView() called with: item = $item")
 
 
@@ -65,7 +69,11 @@ object ReportViewUtils {
         val tvTitle: TextView = rowView.findViewById(R.id.tvTitle)
         val tvData: TextView = rowView.findViewById(R.id.tvData)
         val img: ImageView = rowView.findViewById(R.id.ivAvatar)
-        img.loadImage(item.form2?.photoData?.imgPath)
+        if (item.hhType == "V") {
+            img.loadImage(item.form2?.photoData?.img)
+        } else {
+            img.loadImage(item.form2?.photoData?.imgPath)
+        }
         tvTitle.text = item.form1.getFullName()
         tvData.text = item.toSummary()
 
