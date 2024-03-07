@@ -57,6 +57,10 @@ public abstract class BeneficiaryDatabase extends RoomDatabase {
         return sInstance;
     }
 
+    public static void dbClose(){
+        sInstance.dbClose();
+    }
+
     // Define your migration
     private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override

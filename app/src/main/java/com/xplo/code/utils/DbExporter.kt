@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.xplo.code.BuildConfig
 import com.xplo.code.data.db.DbController
+import com.xplo.code.data.db.room.database.BeneficiaryDatabase.dbClose
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -30,7 +31,8 @@ object DbExporter {
             askForPermission(activity)
             return
         }
-        DbController.close()
+        dbClose()
+        //DbController.close()
         exportToSQLite(context)
     }
 

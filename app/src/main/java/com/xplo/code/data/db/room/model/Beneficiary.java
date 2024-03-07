@@ -9,19 +9,15 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-import kotlin.jvm.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.Setter;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity(tableName = "beneficiary", indices = {@Index(value = {"application_id"}, unique = true)})
-
 public class Beneficiary implements Serializable {
-
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     public Long id;
@@ -124,6 +120,12 @@ public class Beneficiary implements Serializable {
 
     @ColumnInfo(name = "status")
     public Long status;
+
+    @ColumnInfo(name = "income_source_other")
+    public Long incomeSourceOther;
+
+    @ColumnInfo(name = "relationship_other")
+    public Long relationshipOther;
 
     @Ignore
     public int nomineeSize = 0;
