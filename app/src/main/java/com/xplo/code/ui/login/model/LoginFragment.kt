@@ -100,7 +100,7 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
         }
 
         binding.btResetPass.setOnClickListener {
-            navigateToResetPassword()
+            navigateToResetPassword(null)
         }
         //btSignup.setOnClickListener(this)
 
@@ -165,8 +165,8 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
         interactor?.navigateToSignUp()
     }
 
-    override fun navigateToResetPassword() {
-        interactor?.navigateToReset()
+    override fun navigateToResetPassword(userId: String?) {
+        interactor?.navigateToReset(userId)
     }
 
     override fun onClickLogin() {
@@ -218,7 +218,7 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
         Log.d(TAG, "onLoginPending() called with: token = $token, id = $username")
         Config.ACCESS_TOKEN = token
         //getPrefHelper().setUserId(username)
-        navigateToResetPassword()
+        navigateToResetPassword(username)
     }
 
     override fun onLoginFailure(msg: String?) {

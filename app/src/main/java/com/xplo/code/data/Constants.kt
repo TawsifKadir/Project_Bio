@@ -21,6 +21,7 @@ object Constants {
 
     // universal id
     val TEST_DEVICE_ID = "29feb6211b04-a56d-7d6a-e79e-018b2f19"
+    //val TEST_PASSWORD = "changeit"
 
 //    val TEST_DEVICE_ID = "d5a58ff3-dc14-4333-8076-72b0fb4cab7a"
 //    val TEST_USER_ID = "shovon"
@@ -32,7 +33,10 @@ object Constants {
 
 
 
-    val TEST_USER_ID = "tawsif_18"
+//    val TEST_USER_ID = "tawsif_18"
+//    val TEST_PASSWORD = "11112222"
+
+    val TEST_USER_ID = "nasif50"
     val TEST_PASSWORD = "11112222"
 
 

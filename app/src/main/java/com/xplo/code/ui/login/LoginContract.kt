@@ -24,7 +24,7 @@ interface LoginContract {
     interface View : BaseContract.View {
 
         fun navigateToSignUp()
-        fun navigateToReset()
+        fun navigateToReset(userId: String?)
         fun doFragmentTransaction(
             fragment: Fragment,
             tag: String,
@@ -41,7 +41,7 @@ interface LoginContract {
     interface LoginView : BaseContract.View {
 
         fun navigateToSignup()
-        fun navigateToResetPassword()
+        fun navigateToResetPassword(userId: String?)
 
         fun onClickLogin()
         fun onNormalLogin(credentials: LoginCredentials)
@@ -67,7 +67,7 @@ interface LoginContract {
     interface ResetPasswordView : BaseContract.View {
         fun backToLogin()
 
-        fun onClickRetypePassword()
+        fun onClickResetPassword()
         fun onResetPasswordSuccess(rsp: ResetPassRsp?)
         fun onResetPasswordFailure(msg: String?)
     }

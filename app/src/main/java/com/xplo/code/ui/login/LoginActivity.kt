@@ -116,8 +116,8 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         doFragmentTransaction(SignUpFragment.newInstance(null),SignUpFragment.TAG,true,false)
     }
 
-    override fun navigateToReset() {
-        doFragmentTransaction(ResetFragment.newInstance(null), ResetFragment.TAG,false,true)
+    override fun navigateToReset(userId: String?) {
+        doFragmentTransaction(ResetFragment.newInstance(null, userId), ResetFragment.TAG,false,true)
     }
 
 

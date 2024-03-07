@@ -26,6 +26,7 @@ object OfflineLoginUtils {
     private const val TAG = "OfflineLoginUtils"
 
     fun tryOfflineLogin(context: Context, credentials: LoginCredentials): TokenRsp? {
+        Log.d(TAG, "tryOfflineLogin() called with: context = $context, credentials = $credentials")
         val loginInfo = readLoginInfoFromCache(context)
         if (loginInfo == null) return null
 
@@ -66,6 +67,7 @@ object OfflineLoginUtils {
     }
 
     private fun readJsonFromCache(context: Context): String? {
+        Log.d(TAG, "readJsonFromCache() called with: context = $context")
         val file = File(context.filesDir, "login_cache.json")
         if (!file.exists()) return null
         try {
@@ -89,7 +91,7 @@ object OfflineLoginUtils {
     }
 
     private fun writeJsonToCache(context: Context, json: String?) {
-
+        Log.d(TAG, "writeJsonToCache() called with: context = $context, json = $json")
         val file = File(context.filesDir, "login_cache.json")
 
         if (!file.exists()) {
