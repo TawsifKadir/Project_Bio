@@ -427,12 +427,12 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                 // uuid = UUID.randomUUID()
                 uuid = beneficiaryBO.applicationId
                 val beneficiaryEO: com.xplo.code.data.db.room.model.Beneficiary =
-                    prepareBeneficiaryEntity(uuid.toString(), beneficiaryBO)
+                    prepareBeneficiaryEntity(uuid, beneficiaryBO)
                 val addressEO: Address =
-                    prepareAddressEntity(uuid.toString(), beneficiaryBO.address)
+                    prepareAddressEntity(uuid, beneficiaryBO.address)
                 val locationEO: Location =
-                    prepareLocationEntity(uuid.toString(), beneficiaryBO.location)
-                val empList = FakeMapperValue.selectionReasons
+                    prepareLocationEntity(uuid, beneficiaryBO.location)
+                //    val empList = FakeMapperValue.selectionReasons
 //                val empList = listOf(
 //                    beneficiaryBO.selectionReason
 //                )
@@ -440,14 +440,14 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
 //                    prepareSelectionReasonEntity(uuid.toString(), empList)
 
                 val selectionReasonList: List<SelectionReason> =
-                    prepareSelectionReasonEntity(uuid.toString(), empList)
+                    prepareSelectionReasonEntity(uuid, beneficiaryBO.selectionReason)
 
                 val alternateList: MutableList<Alternate> =
                     ArrayList<Alternate>()
                 if (beneficiaryBO.alternatePayee1 != null) {
                     val firstAlternateEO: Alternate =
                         prepareAlternateEntity(
-                            uuid.toString(),
+                            uuid,
                             beneficiaryBO.alternatePayee1,
                             "ALT1"
                         )
@@ -456,7 +456,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                 if (beneficiaryBO.alternatePayee2 != null) {
                     val secondAlternateEO: Alternate =
                         prepareAlternateEntity(
-                            uuid.toString(),
+                            uuid,
                             beneficiaryBO.alternatePayee2,
                             "ALT2"
                         )
@@ -465,49 +465,49 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
 
                 var nomineeList: List<Nominee> = ArrayList<Nominee>()
                 if (beneficiaryBO.nominees != null) {
-                    nomineeList = prepareNomineeEntity(uuid.toString(), beneficiaryBO.nominees)
+                    nomineeList = prepareNomineeEntity(uuid, beneficiaryBO.nominees)
                 }
 
                 val householdInfoList: MutableList<HouseholdInfo> =
                     ArrayList<HouseholdInfo>()
                 val householdInfo2EO: HouseholdInfo =
                     prepareHouseholdInfoEntity(
-                        uuid.toString(),
+                        uuid,
                         beneficiaryBO.householdMember2,
                         "M2"
                     )
                 householdInfoList.add(householdInfo2EO)
                 val householdInfo5EO: HouseholdInfo =
                     prepareHouseholdInfoEntity(
-                        uuid.toString(),
+                        uuid,
                         beneficiaryBO.householdMember5,
                         "M5"
                     )
                 householdInfoList.add(householdInfo5EO)
                 val householdInfo17EO: HouseholdInfo =
                     prepareHouseholdInfoEntity(
-                        uuid.toString(),
+                        uuid,
                         beneficiaryBO.householdMember17,
                         "M17"
                     )
                 householdInfoList.add(householdInfo17EO)
                 val householdInfo35EO: HouseholdInfo =
                     prepareHouseholdInfoEntity(
-                        uuid.toString(),
+                        uuid,
                         beneficiaryBO.householdMember35,
                         "M35"
                     )
                 householdInfoList.add(householdInfo35EO)
                 val householdInfo64EO: HouseholdInfo =
                     prepareHouseholdInfoEntity(
-                        uuid.toString(),
+                        uuid,
                         beneficiaryBO.householdMember64,
                         "M64"
                     )
                 householdInfoList.add(householdInfo64EO)
                 val householdInfo65EO: HouseholdInfo =
                     prepareHouseholdInfoEntity(
-                        uuid.toString(),
+                        uuid,
                         beneficiaryBO.householdMember65,
                         "M65"
                     )
@@ -517,14 +517,14 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                     ArrayList<Biometric>()
                 if (beneficiaryBO.biometrics != null) {
                     val beneficiaryBiometric: Biometric =
-                        prepareBiometricEntity(uuid.toString(), beneficiaryBO.biometrics, "BENE")
+                        prepareBiometricEntity(uuid, beneficiaryBO.biometrics, "BENE")
                     biometricList.add(beneficiaryBiometric)
                 }
                 if (beneficiaryBO.alternatePayee1 != null && beneficiaryBO.alternatePayee1
                         .biometrics != null
                 ) {
                     val alternate1Biometric: Biometric = prepareBiometricEntity(
-                        uuid.toString(),
+                        uuid,
                         beneficiaryBO.alternatePayee1.biometrics, "ALT1"
                     )
                     biometricList.add(alternate1Biometric)
@@ -533,7 +533,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                         .biometrics != null
                 ) {
                     val alternate2Biometric: Biometric = prepareBiometricEntity(
-                        uuid.toString(),
+                        uuid,
                         beneficiaryBO.alternatePayee2.biometrics, "ALT2"
                     )
                     biometricList.add(alternate2Biometric)

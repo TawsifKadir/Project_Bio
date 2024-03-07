@@ -80,7 +80,11 @@ object EntityMapper {
         form.currency = CurrencyEnum.SUDANESE_POUND
         form.selectionCriteria = SelectionCriteriaEnum.find(item.form2?.selectionCriteria)
         // form.selectionReason = SelectionReasonEnum.find(item.form2?.selectionReason)
-        form.selectionReason = listOf(SelectionReasonEnum.find(item.form2?.selectionReason))
+        val reasonList = ArrayList<SelectionReasonEnum>()
+        for (value in item.form2?.itemsSupportType!!) {
+            reasonList.add(SelectionReasonEnum.find(value.title))
+        }
+        form.selectionReason = reasonList
 
         // Address
         val address = Address()
