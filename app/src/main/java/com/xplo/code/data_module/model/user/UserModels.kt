@@ -90,6 +90,15 @@ data class RegisterDeviceRsp(
 
 )
 
+data class LogoutRsp(
+    @SerializedName("errorCode")
+    var errorCode: Int? = null,
+    @SerializedName("errorMsg")
+    var errorMsg: String? = null,
+    @SerializedName("operationResult")
+    var operationResult: Boolean? = null
+)
+
 data class ProfileInfo(
     @SerializedName("status")
     var status: String? = null

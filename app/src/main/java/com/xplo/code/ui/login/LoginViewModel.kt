@@ -16,6 +16,7 @@ import com.xplo.code.data_module.core.DispatcherProvider
 import com.xplo.code.data_module.core.Resource
 import com.xplo.code.data_module.fake.Fake
 import com.xplo.code.data_module.model.user.LoginRqb
+import com.xplo.code.data_module.model.user.LogoutRsp
 import com.xplo.code.data_module.model.user.RegisterDeviceRqb
 import com.xplo.code.data_module.model.user.RegisterDeviceRsp
 import com.xplo.code.data_module.model.user.ResetPassRqb
@@ -67,10 +68,15 @@ class LoginViewModel @Inject constructor(
         class RegisterDeviceSuccess(val rsp: RegisterDeviceRsp?) : Event()
         class RegisterDeviceFailure(val msg: String?) : Event()
 
+        class LogoutSuccess(val rsp: LogoutRsp?) : Event()
+        class LogoutFailure(val msg: String?) : Event()
+
     }
 
     private val _event = MutableStateFlow<Event>(Event.Empty)
     val event: StateFlow<Event> = _event
+
+    val isLogoutApiCallEnabled = true
 
     fun clearEvent() {
         _event.value = Event.Empty
@@ -198,6 +204,31 @@ class LoginViewModel @Inject constructor(
 
                 is Resource.Success -> {
                     _event.value = Event.RegisterDeviceSuccess(response.data)
+                }
+
+                else -> {}
+            }
+        }
+
+    }
+
+    fun logout(token: String?) {
+        Log.d(TAG, "logout() called with: token = $token")
+
+        if (!isLogoutApiCallEnabled) return
+
+        viewModelScope.launch(dispatchers.io) {
+            //_event.value = Event.Loading
+            when (val response = repo.logout(token)) {
+
+                is Resource.Failure -> {
+                    Log.d(TAG, "logout: failure")
+                    _event.value = Event.LogoutFailure(response.callInfo?.msg)
+                }
+
+                is Resource.Success -> {
+                    Log.d(TAG, "logout: success")
+                    _event.value = Event.LogoutSuccess(response.data)
                 }
 
                 else -> {}

@@ -21,6 +21,7 @@ import com.xplo.code.ui.dashboard.DashboardFragment
 import com.xplo.code.ui.dashboard.household.list.HouseholdListFragment
 import com.xplo.code.ui.favorite.FavoriteActivity
 import com.xplo.code.ui.home.HomeFragment
+import com.xplo.code.ui.login.LoginViewModel
 import com.xplo.code.ui.user_profile.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
@@ -60,6 +61,7 @@ class MainActivity : BaseActivity(), MainContract.View,
 
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
+    private val loginViewModel: LoginViewModel by viewModels()
     //private lateinit var presenter: MainContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -240,6 +242,7 @@ class MainActivity : BaseActivity(), MainContract.View,
     }
 
     override fun onLogout() {
+        loginViewModel.logout(getPrefHelper().getAccessToken())
         super.onLogout()
         onRefreshLoginLogoutView()
     }

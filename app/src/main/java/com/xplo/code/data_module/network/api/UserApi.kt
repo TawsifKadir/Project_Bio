@@ -2,6 +2,7 @@ package com.xplo.code.data_module.network.api
 
 import com.xplo.code.data_module.model.user.ImageUploadRsp
 import com.xplo.code.data_module.model.user.LoginRqb
+import com.xplo.code.data_module.model.user.LogoutRsp
 import com.xplo.code.data_module.model.user.ProfileInfo
 import com.xplo.code.data_module.model.user.ProfileUpdateRqb
 import com.xplo.code.data_module.model.user.RegisterDeviceRqb
@@ -13,6 +14,7 @@ import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.HeaderMap
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
@@ -31,6 +33,8 @@ interface UserApi {
     @POST("/afis/api/device/register")
     suspend fun registerDevice(@Body body: RegisterDeviceRqb): Response<RegisterDeviceRsp>
 
+    @GET("/afis/api/user/logout")
+    suspend fun logout(@HeaderMap headers: Map<String, String>): Response<LogoutRsp>
 
     @GET("/auth/api/{language}/profile/me")
     suspend fun getProfileData(@Path("language") language: String): Response<ProfileInfo>
