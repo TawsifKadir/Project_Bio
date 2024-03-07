@@ -722,19 +722,20 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
     ): List<SelectionReason> {
         //  Log.d(TAG, "Reason List: " + appId + reasons!![0].value)
         val selectionReasons: MutableList<SelectionReason> = java.util.ArrayList()
-        if (reasons != null) {
-            for (nowReason in reasons) {
-                val nowSelectionReason = SelectionReason()
-                nowSelectionReason.applicationId = appId
-                nowSelectionReason.selectionReasonName = nowReason.value
-                selectionReasons.add(nowSelectionReason)
+        for (nowReason in reasons) {
+            val nowSelectionReason = SelectionReason()
+            nowSelectionReason.applicationId = appId
+            //  Log.d(TAG, "prepareSelectionReasonEntity: ${nowReason.name}")
+            //  Log.d(TAG, "prepareSelectionReasonEntity: ${nowReason.value}")
+            Log.d(TAG, "prepareSelectionReasonEntity: ${reasons.size}")
+            try {
+                if (nowReason.name.isNotEmpty()) {
+                    nowSelectionReason.selectionReasonName = nowReason.name
+                }
+            } catch (ex: Exception) {
+                ex.printStackTrace()
             }
-//            if (selectionReasons.size <= 0) {
-//                val nowSelectionReason = SelectionReason()
-//                nowSelectionReason.applicationId = appId
-//                nowSelectionReason.selectionReasonName = SelectionReasonEnum.LIPW_REASON_4.value
-//                selectionReasons.add(nowSelectionReason)
-//            }
+            selectionReasons.add(nowSelectionReason)
         }
         return selectionReasons
     }
@@ -744,46 +745,44 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         beneficiaryBO: Beneficiary
     ): com.xplo.code.data.db.room.model.Beneficiary {
         val beneficiaryEO = com.xplo.code.data.db.room.model.Beneficiary()
-        if (beneficiaryBO != null) {
-            beneficiaryEO.applicationId = appId
-            beneficiaryEO.respondentFirstName = beneficiaryBO.respondentFirstName
-            beneficiaryEO.respondentMiddleName = beneficiaryBO.respondentMiddleName
-            beneficiaryEO.respondentLastName = beneficiaryBO.respondentLastName
-            beneficiaryEO.respondentNickName = beneficiaryBO.respondentNickName
-            beneficiaryEO.spouseFirstName = beneficiaryBO.spouseFirstName
-            beneficiaryEO.spouseMiddleName = beneficiaryBO.spouseMiddleName
-            beneficiaryEO.spouseLastName = beneficiaryBO.spouseLastName
-            beneficiaryEO.spouseNickName = beneficiaryBO.spouseNickName
-            beneficiaryEO.relationshipWithHouseholdHead =
-                if (beneficiaryBO.relationshipWithHouseholdHead != null) beneficiaryBO.relationshipWithHouseholdHead.ordinal.toLong() else null
-            beneficiaryEO.respondentAge = beneficiaryBO.respondentAge
-            beneficiaryEO.respondentGender =
-                if (beneficiaryBO.respondentGender != null) beneficiaryBO.respondentGender.ordinal.toLong() else null
-            beneficiaryEO.respondentMaritalStatus =
-                if (beneficiaryBO.respondentMaritalStatus != null) beneficiaryBO.respondentMaritalStatus.ordinal.toLong() else null
-            beneficiaryEO.respondentLegalStatus =
-                if (beneficiaryBO.respondentLegalStatus != null) beneficiaryBO.respondentLegalStatus.ordinal.toLong() else null
-            beneficiaryEO.documentType =
-                if (beneficiaryBO.documentType != null) beneficiaryBO.documentType.ordinal.toLong() else 4
-            beneficiaryEO.documentTypeOther = beneficiaryBO.documentTypeOther
-            beneficiaryEO.respondentId = beneficiaryBO.respondentId
-            beneficiaryEO.respondentPhoneNo = beneficiaryBO.respondentPhoneNo
-            beneficiaryEO.householdIncomeSource =
-                if (beneficiaryBO.householdIncomeSource != null) beneficiaryBO.householdIncomeSource.ordinal.toLong() else null
-            beneficiaryEO.householdMonthlyAvgIncome = beneficiaryBO.householdMonthlyAvgIncome
-            beneficiaryEO.householdSize = beneficiaryBO.householdSize
-            beneficiaryEO.isOtherMemberPerticipating = beneficiaryBO.isOtherMemberPerticipating
-            beneficiaryEO.isReadWrite = beneficiaryBO.isReadWrite
-            beneficiaryEO.memberReadWrite = beneficiaryBO.memberReadWrite
-            beneficiaryEO.notPerticipationReason =
-                if (beneficiaryBO.notPerticipationReason != null) beneficiaryBO.notPerticipationReason.ordinal.toLong() else null
-            beneficiaryEO.notPerticipationOtherReason = beneficiaryBO.notPerticipationOtherReason
-            beneficiaryEO.createdBy = beneficiaryBO.createdBy
-            beneficiaryEO.selectionCriteria =
-                if (beneficiaryBO.selectionCriteria != null) beneficiaryBO.selectionCriteria.ordinal.toLong() else null
-            beneficiaryEO.currency =
-                if (beneficiaryBO.currency != null) beneficiaryBO.currency.ordinal.toLong() else null
-        }
+        beneficiaryEO.applicationId = appId
+        beneficiaryEO.respondentFirstName = beneficiaryBO.respondentFirstName
+        beneficiaryEO.respondentMiddleName = beneficiaryBO.respondentMiddleName
+        beneficiaryEO.respondentLastName = beneficiaryBO.respondentLastName
+        beneficiaryEO.respondentNickName = beneficiaryBO.respondentNickName
+        beneficiaryEO.spouseFirstName = beneficiaryBO.spouseFirstName
+        beneficiaryEO.spouseMiddleName = beneficiaryBO.spouseMiddleName
+        beneficiaryEO.spouseLastName = beneficiaryBO.spouseLastName
+        beneficiaryEO.spouseNickName = beneficiaryBO.spouseNickName
+        beneficiaryEO.relationshipWithHouseholdHead =
+            if (beneficiaryBO.relationshipWithHouseholdHead != null) beneficiaryBO.relationshipWithHouseholdHead.ordinal.toLong() else null
+        beneficiaryEO.respondentAge = beneficiaryBO.respondentAge
+        beneficiaryEO.respondentGender =
+            if (beneficiaryBO.respondentGender != null) beneficiaryBO.respondentGender.ordinal.toLong() else null
+        beneficiaryEO.respondentMaritalStatus =
+            if (beneficiaryBO.respondentMaritalStatus != null) beneficiaryBO.respondentMaritalStatus.ordinal.toLong() else null
+        beneficiaryEO.respondentLegalStatus =
+            if (beneficiaryBO.respondentLegalStatus != null) beneficiaryBO.respondentLegalStatus.ordinal.toLong() else null
+        beneficiaryEO.documentType =
+            if (beneficiaryBO.documentType != null) beneficiaryBO.documentType.ordinal.toLong() else 4
+        beneficiaryEO.documentTypeOther = beneficiaryBO.documentTypeOther
+        beneficiaryEO.respondentId = beneficiaryBO.respondentId
+        beneficiaryEO.respondentPhoneNo = beneficiaryBO.respondentPhoneNo
+        beneficiaryEO.householdIncomeSource =
+            if (beneficiaryBO.householdIncomeSource != null) beneficiaryBO.householdIncomeSource.ordinal.toLong() else null
+        beneficiaryEO.householdMonthlyAvgIncome = beneficiaryBO.householdMonthlyAvgIncome
+        beneficiaryEO.householdSize = beneficiaryBO.householdSize
+        beneficiaryEO.isOtherMemberPerticipating = beneficiaryBO.isOtherMemberPerticipating
+        beneficiaryEO.isReadWrite = beneficiaryBO.isReadWrite
+        beneficiaryEO.memberReadWrite = beneficiaryBO.memberReadWrite
+        beneficiaryEO.notPerticipationReason =
+            if (beneficiaryBO.notPerticipationReason != null) beneficiaryBO.notPerticipationReason.ordinal.toLong() else null
+        beneficiaryEO.notPerticipationOtherReason = beneficiaryBO.notPerticipationOtherReason
+        beneficiaryEO.createdBy = beneficiaryBO.createdBy
+        beneficiaryEO.selectionCriteria =
+            if (beneficiaryBO.selectionCriteria != null) beneficiaryBO.selectionCriteria.ordinal.toLong() else null
+        beneficiaryEO.currency =
+            if (beneficiaryBO.currency != null) beneficiaryBO.currency.ordinal.toLong() else null
         return beneficiaryEO
     }
 
