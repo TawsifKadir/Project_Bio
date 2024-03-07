@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
@@ -44,8 +45,6 @@ import com.xplo.code.ui.dashboard.model.checkExtraCases
 import com.xplo.code.ui.dashboard.model.getOppositeGender
 import com.xplo.code.ui.dashboard.model.isExtraNomineeOk
 import com.xplo.code.ui.dashboard.model.isOk
-
-import com.xplo.code.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -80,7 +79,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
     private lateinit var binding: FragmentHhForm6Nominee2Binding
     private val viewModel: HouseholdViewModel by viewModels()
-
+    private lateinit var questionBox: LinearLayout
     //private lateinit var presenter: RegistrationContract.Presenter
     private var interactor: HouseholdContract.View? = null
 
@@ -130,7 +129,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         //btAddAnother = binding.viewNomineeAddNominee.btAddAnother
         recyclerView = binding.recyclerView
         rbNo = binding.rbNo
-
+        questionBox = binding.questionBox
     }
 
     override fun initView() {
@@ -141,11 +140,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         adapter = NomineeListAdapter()
         adapter?.setOnItemClickListener(this)
         recyclerView.adapter = adapter
-
-
         onReinstateData(interactor?.getRootForm()?.form6)
-
-
     }
 
     override fun initObserver() {
@@ -238,7 +233,11 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
             //onEnableDisableNominee(true)
             adapter?.addAll(form.nominees)
-
+            if(adapter != null){
+                if(adapter?.getDataset()?.size==5){
+                    questionBox.gone()
+                }
+            }
             if (form.xIsNomineeAdd.isNo()) {
                 checkRbNo(binding.rgNomineeAdd, binding.rbYes, binding.rbNo)
                 onEnableDisableNominee(false)
@@ -270,21 +269,19 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         Log.d(TAG, "onChangeRGNomineeAdd() called with: id = $id")
         when (id) {
             R.id.rbYes -> {
-                onRGNomineeAddYes()
+                if(checkOppositeGender()){
+                    onChooseNomineeAdd(null)
+                }else{
+                    onRGNomineeAddYes()
+                }
             }
-
             R.id.rbNo -> {
-                var dataset = readNomineeInputsFromList()
-                if(dataset.size == 0){
+                if(checkOppositeGender()){
                     onChooseNomineeNotAdd()
-                }
-                else if(dataset.size == 1  && (dataset[0].gender == interactor?.getRootForm()?.form2?.getOppositeGender())){
-                    onChooseNomineeNotAdd()
-                }
-                else{
+                }else{
                     onRGNomineeAddNo()
-                    onChooseNomineeNotAdd()
                 }
+
             }
         }
     }
@@ -292,13 +289,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
     override fun onRGNomineeAddYes() {
         Log.d(TAG, "onRGNomineeAddYes() called")
         val dataset = readNomineeInputsFromList()
-        if(dataset.size <= 1){
-            if(dataset.size == 1 && (dataset[0].gender != interactor?.getRootForm()?.form2?.getOppositeGender())){
-                onRGNomineeAddDialogYes()
-            }else{
-                onChooseNomineeAdd(null)
-            }
-        }else if(checkConsecutive()){
+        if(dataset.size == 4){
             onRGNomineeAddDialogYes()
         }else{
             onChooseNomineeAdd(null)
@@ -403,6 +394,11 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         Log.d(TAG, "onGetANomineeFromPopup() called with: nominee = $nominee")
         if (nominee == null) return
         adapter?.addItem(nominee)
+        if(adapter != null){
+            if (adapter!!.getDataset().size == 5){
+                questionBox.gone()
+            }
+        }
         questionText.setText(R.string.would_anyone_else_interested)
         onRefreshViewWhenListUpdated()
 
@@ -494,7 +490,9 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
                 showAlerter(checkExtraCases, null)
                 return
             }
-            if(rbNo.isChecked){
+            if(form.nominees.size == 5){
+                onValidated(form)
+            }else if(rbNo.isChecked){
                 onValidated(form)
             }else{
                 //R.string.nominee_objective_alerter_msg
@@ -505,16 +503,23 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
     }
     //Checks for consecutives in the dataset
-    private fun checkConsecutive(): Boolean {
+    private fun checkOppositeGender(): Boolean {
         val dataset = readNomineeInputsFromList()
         var length = dataset.size
-        if(length == 0 || length == 1) return false
-        //Check last and second last item
-        return dataset[length-1].gender == dataset[length-2].gender
+        if(length == 0) return true
+        if(length == 1) return false
+        else{
+            for(i in 0..<length-1){
+                if(dataset[i].gender?.equals(dataset[i+1].getOppositeGender(), ignoreCase = true) == true){
+                    return true
+                }
+            }
+        }
+        return false
     }
 
+
     override fun onLongClickDataGeneration() {
-        if (!BuildConfig.DEBUG) return
         if (!TestConfig.isLongClickDGEnabled) return
 
         binding.viewButtonBackNext.btNext.setOnLongClickListener {
@@ -525,7 +530,6 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
     override fun onGenerateDummyInput() {
         Log.d(TAG, "onGenerateDummyInput() called")
-        if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
 
@@ -544,6 +548,8 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         Log.d(TAG, "onClickNomineeDelete() called with: item = $item, pos = $pos")
         if(readNomineeInputsFromList().size == 1){
             questionText.setText(R.string.would_anyone_from_your_household_including_yourself_be_interested_in_participating)
+        }else if(readNomineeInputsFromList().size == 5){
+            questionBox.visible()
         }
         adapter?.remove(pos)
     }
