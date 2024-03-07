@@ -15,7 +15,6 @@ import com.kit.integrationmanager.model.MaritalStatusEnum
 import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.kit.integrationmanager.model.SelectionCriteriaEnum
-import com.kit.integrationmanager.model.SelectionReasonEnum
 import com.kit.integrationmanager.payload.RegistrationResult
 import com.kit.integrationmanager.payload.RegistrationStatus
 import com.xplo.code.data.db.models.BeneficiaryEntity
@@ -48,7 +47,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.util.ArrayList
 import java.util.Observable
 import java.util.Observer
 import javax.inject.Inject
@@ -349,16 +347,14 @@ class HouseholdViewModel @Inject constructor(
 
             // Assuming form.selectionReason is a MutableList<SelectionReasonEnum>
            // val selectionReasonList = FakeMapperValue.selectionReasons
-            val selectionReasonList = ArrayList<SelectionReasonEnum>()
-            for(value in selectionReasonList){
-                try {
-                  if (value.name.isNotEmpty()) {
-                      selectionReasonList.add(SelectionReasonEnum.find(value.name))
-                  }
-                }catch (ex:Exception){
-                   ex.printStackTrace()
-                }
-            }
+            val selectionReasonList = FakeMapperValue.selectionReasons
+//            if(selectionReason.selectionReasonName != null){
+//                SelectionReasonEnum.entries.getOrNull(selectionReason.selectionReasonName.toInt())?.let {
+//                    selectionReasonList.add(
+//                        it
+//                    )
+//                }
+//            }
 
             form.selectionReason = selectionReasonList
 
@@ -486,18 +482,14 @@ class HouseholdViewModel @Inject constructor(
             }
 
             // Assuming form.selectionReason is a MutableList<SelectionReasonEnum>
-            // val selectionReasonList = FakeMapperValue.selectionReasons
-            val selectionReasonList = ArrayList<SelectionReasonEnum>()
-            for(value in selectionReasonList){
-                try {
-                    if (value.name.isNotEmpty()) {
-                        selectionReasonList.add(SelectionReasonEnum.find(value.name))
-                    }
-                }catch (ex:Exception){
-                    ex.printStackTrace()
-                }
-            }
-
+            val selectionReasonList = FakeMapperValue.selectionReasons
+//            if(selectionReason.selectionReasonName != null){
+//                SelectionReasonEnum.entries.getOrNull(selectionReason.selectionReasonName.toInt())?.let {
+//                    selectionReasonList.add(
+//                        it
+//                    )
+//                }
+//            }
 
             form.selectionReason = selectionReasonList
 
