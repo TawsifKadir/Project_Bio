@@ -20,6 +20,8 @@ import com.xplo.code.data_module.model.user.RegisterDeviceRqb
 import com.xplo.code.data_module.model.user.RegisterDeviceRsp
 import com.xplo.code.data_module.model.user.ResetPassRqb
 import com.xplo.code.data_module.model.user.ResetPassRsp
+import com.xplo.code.data_module.model.user.TokenRsp
+import com.xplo.code.data_module.model.user.isAuthenticated
 import com.xplo.code.data_module.model.user.isPending
 import com.xplo.code.data_module.repo.UserRepo
 import com.xplo.code.ui.login.model.LoginCredentials
@@ -31,6 +33,15 @@ import java.util.Observable
 import java.util.Observer
 import javax.inject.Inject
 
+/**
+ * Copyright 2020 (C) xplo
+ *
+ * Created  : 3/14/20
+ * Updated  :
+ * Author   : xplo
+ * Desc     :
+ * Comment  :
+ */
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val repo: UserRepo,
@@ -65,13 +76,18 @@ class LoginViewModel @Inject constructor(
         _event.value = Event.Empty
     }
 
-    fun passwordLogin(credentials: LoginCredentials) {
-        Log.d(TAG, "passwordLogin() called with: loginCredentials = $credentials")
+    fun passwordLogin(context: Context, credentials: LoginCredentials) {
+        Log.d(TAG, "passwordLogin() called with: context = $context, credentials = $credentials")
 
         if (TestConfig.isFakeLoginEnabled) {
             _event.value = Event.LoginSuccess(Fake.token, null)
             return
         }
+
+//        if (!NetUtils.isOnline(Contextor.getInstance().context)){
+//            passwordLoginOffline(credentials)
+//            return
+//        }
 
         val body = LoginRqb(credentials.userId, credentials.password)
         viewModelScope.launch(dispatchers.io) {
@@ -88,9 +104,10 @@ class LoginViewModel @Inject constructor(
                         _event.value = Event.LoginFailure(response.callInfo?.msg)
                     } else {
 
-                        if (response.data.isPending()){
+                        if (response.data.isPending()) {
                             _event.value = Event.LoginPending(token, response.data.userName)
-                        }else{
+                        } else {
+                            OfflineLoginUtils.writeLoginInfoToCache(context, credentials, response.data)
                             _event.value = Event.LoginSuccess(token, response.data.userName)
                         }
 
@@ -104,9 +121,33 @@ class LoginViewModel @Inject constructor(
 
     }
 
+    fun passwordLoginOffline(context: Context, credentials: LoginCredentials) {
+        Log.d(
+            TAG,
+            "passwordLoginOffline() called with: context = $context, credentials = $credentials"
+        )
 
-    fun resetPassword(newPassword: String?) {
-        Log.d(TAG, "resetPassword() called with: newPassword = $newPassword")
+        val tokenRsp = OfflineLoginUtils.tryOfflineLogin(context, credentials)
+
+        if (tokenRsp == null || tokenRsp.token.isNullOrEmpty()) {
+            _event.value = Event.LoginFailure("offline login failure")
+            return
+        }
+
+        if (tokenRsp.isAuthenticated()) {
+            _event.value = Event.LoginSuccess(tokenRsp.token!!, tokenRsp.userName)
+        } else {
+            _event.value = Event.LoginFailure("offline login failure")
+        }
+
+    }
+
+
+    fun resetPassword(context: Context, userId: String?, newPassword: String?) {
+        Log.d(
+            TAG,
+            "resetPassword() called with: context = $context, userId = $userId, newPassword = $newPassword"
+        )
 
         val body = ResetPassRqb(newPassword)
         viewModelScope.launch(dispatchers.io) {
@@ -118,6 +159,13 @@ class LoginViewModel @Inject constructor(
                 }
 
                 is Resource.Success -> {
+                    val credentials = LoginCredentials(userId, newPassword)
+                    val tokenRsp = TokenRsp(
+                        token = response.data?.token,
+                        userName = userId,
+                        status = "ACTIVE"
+                    )
+                    OfflineLoginUtils.writeLoginInfoToCache(context, credentials, tokenRsp)
                     _event.value = Event.ResetPasswordSuccess(response.data)
                 }
 
@@ -165,34 +213,35 @@ class LoginViewModel @Inject constructor(
             _event.value = Event.LoginSuccess(Fake.token, null)
             return
         }
-            try{
-                if(DeviceManager.getInstance(context).isOnline) {
-                    val serverInfo = ServerInfo();
-                    serverInfo.port=8090;
-                    serverInfo.protocol="http"
-                    serverInfo.host_name="snsopafis.karoothitbd.com"
-                    val loginService = LoginServiceImpl(context,this,serverInfo)
-                    val headers = HashMap<String,String>()
-                    val loginRequest = LoginRequest.builder().userName(credentials.userId).password(credentials.password).deviceId(DeviceManager.getInstance(context).deviceUniqueID).build()
-                    loginService.doOnlineLogin(loginRequest,headers)
-                }else {
-                    val login = AuthStore.getInstance(context).loginInfoFromCache
-                    if(login==null){
-                        Log.e(TAG,"Intenet connectivity is required for device setup.")
-                    }
-                    else if(login.userName==credentials.userId && login.password==credentials.password){
-                        Log.e(TAG,"Offline Login Successful")
-                    }else{
-                        Log.e(TAG,"Offline login failed")
-                    }
+        try {
+            if (DeviceManager.getInstance(context).isOnline) {
+                val serverInfo = ServerInfo();
+                serverInfo.port = 8090;
+                serverInfo.protocol = "http"
+                serverInfo.host_name = "snsopafis.karoothitbd.com"
+                val loginService = LoginServiceImpl(context, this, serverInfo)
+                val headers = HashMap<String, String>()
+                val loginRequest = LoginRequest.builder().userName(credentials.userId)
+                    .password(credentials.password)
+                    .deviceId(DeviceManager.getInstance(context).deviceUniqueID).build()
+                loginService.doOnlineLogin(loginRequest, headers)
+            } else {
+                val login = AuthStore.getInstance(context).loginInfoFromCache
+                if (login == null) {
+                    Log.e(TAG, "Intenet connectivity is required for device setup.")
+                } else if (login.userName == credentials.userId && login.password == credentials.password) {
+                    Log.e(TAG, "Offline Login Successful")
+                } else {
+                    Log.e(TAG, "Offline login failed")
                 }
-            }catch (e : Exception){
-                Log.d(TAG,"Login Failed")
             }
+        } catch (e: Exception) {
+            Log.d(TAG, "Login Failed")
+        }
 
     }
 
     override fun update(o: Observable?, arg: Any?) {
-        Log.d(TAG,"Got response")
+        Log.d(TAG, "update() called with: o = $o, arg = $arg")
     }
 }

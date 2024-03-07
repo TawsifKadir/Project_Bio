@@ -151,8 +151,9 @@ class ResetFragment : BaseFragment(), LoginContract.ResetPasswordView {
         val retypePassword = etRetypePassword.text.toString()
         if (password.isEmpty()) return
 
+        val userId = getPrefHelper().getUserId()
         if (password == retypePassword){
-            viewModel.resetPassword(password)
+            viewModel.resetPassword(requireContext(), userId, password)
         }else {
             showAlerter(null, "Password didn't match")
         }

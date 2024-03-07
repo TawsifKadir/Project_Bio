@@ -33,7 +33,7 @@ object Constants {
 
 
     val TEST_USER_ID = "tawsif_18"
-    val TEST_PASSWORD = "changeit"
+    val TEST_PASSWORD = "11112222"
 
 
 }

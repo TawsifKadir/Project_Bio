@@ -15,8 +15,8 @@ data class User(
 data class TokenRsp(
     @SerializedName("token")
     var token: String? = null,
-    @SerializedName("id")
-    var id: String? = null,
+//    @SerializedName("id")
+//    var id: String? = null,
     @SerializedName("userName")
     var userName: String? = null,
     @SerializedName("status")
@@ -27,6 +27,13 @@ data class TokenRsp(
 fun TokenRsp?.isPending(): Boolean {
     if (this == null) return false
     if (this.status.equals("PENDING", true)) return true
+    return false
+}
+
+fun TokenRsp?.isAuthenticated(): Boolean {
+    if (this == null) return false
+    if (this.token.isNullOrEmpty()) return false
+    if (this.status.equals("ACTIVE", true)) return true
     return false
 }
 

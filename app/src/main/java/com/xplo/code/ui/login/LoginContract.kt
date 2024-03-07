@@ -31,9 +31,9 @@ interface LoginContract {
             addToBackStack: Boolean,
             clearBackStack: Boolean
         )
+
         fun onLoginSuccess(token: String, id: String?)
         fun onLoginFailure(msg: String?)
-
 
 
     }
@@ -42,6 +42,13 @@ interface LoginContract {
 
         fun navigateToSignup()
         fun navigateToResetPassword()
+
+        fun onClickLogin()
+        fun onNormalLogin(credentials: LoginCredentials)
+        fun onOfflineLogin(credentials: LoginCredentials)
+
+        fun onLoginWithSdk(credentials: LoginCredentials)
+
 
         fun onLoginSuccess(token: String, username: String?)
         fun onLoginPending(token: String, username: String?)
