@@ -1072,10 +1072,10 @@ object EntityMapper {
                 household.totalFemale = value.femaleTotal
                 household.femaleChronicalIll = value.femaleChronicalIll
                 household.femaleDisable = value.femaleDisable
-                household.femaleNormal = value.femaleNormal
+                household.femaleNormal = value.femaleBoth
                 household.maleChronicalIll = value.maleChronicalIll
                 household.maleDisable = value.maleDisable
-                household.maleNormal = value.maleNormal
+                household.maleNormal = value.maleBoth
             }
         }
         return household
