@@ -144,6 +144,8 @@ object EntityMapper {
         alternatePayee1.payeeNickName = item.form1?.alternateNickName
         alternatePayee1.payeeAge = item.form1?.age
         alternatePayee1.payeeGender = GenderEnum.find(item.form1?.gender)
+        alternatePayee1.relationWithHousehold = RelationshipEnum.find(item.form1?.selectAlternateRlt)
+        alternatePayee1.otherRelationshipWithHousehold = item.form1?.relationOther
         alternatePayee1.documentType = DocumentTypeEnum.find(item.form1?.idNumberType)
         alternatePayee1.documentTypeOther = item.form1?.documentTypeOther
         alternatePayee1.nationalId = item.form1?.idNumber
@@ -207,6 +209,9 @@ object EntityMapper {
 
         alternate.biometrics = toAlternateBiometricEntities(item)
 
+        alternate.relationWithHousehold = RelationshipEnum.find(item.form1?.selectAlternateRlt)
+        alternate.otherRelationshipWithHousehold = item.form1?.relationOther
+
         return alternate
     }
 
@@ -214,6 +219,7 @@ object EntityMapper {
         item: com.xplo.code.data.db.room.model.Alternate,
         bio_data: com.xplo.code.data.db.room.model.Biometric
     ): AlternatePayee? {
+        Log.d(TAG, "toAlternateLdb() called with: item = $item, bio_data = $bio_data")
         val alternate = AlternatePayee()
         //alternate.documentType = FakeMapperValue.documentType
         // alternate.nationalId = FakeMapperValue.nationalId
@@ -227,6 +233,9 @@ object EntityMapper {
         alternate.payeeGender = GenderEnum.getGenderById(item.payeeGender.toInt() + 1)
         alternate.payeePhoneNo = item.payeePhoneNo
         alternate.biometrics = toBiometricEntityFromdbForBeneficiary(bio_data)
+
+        alternate.relationWithHousehold = RelationshipEnum.valueOf(item.relationshipWithHousehold)
+        alternate.otherRelationshipWithHousehold = item.relationshipOther
 
         return alternate
     }

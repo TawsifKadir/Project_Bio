@@ -330,6 +330,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     }
 
     override fun onGetHouseholdListFailure(msg: String?) {
+        Log.d(TAG, "onGetHouseholdListFailure() called with: msg = $msg")
         //binding.llNoContentText.visibility = View.VISIBLE
         //binding.llBody.visibility = View.GONE
 
