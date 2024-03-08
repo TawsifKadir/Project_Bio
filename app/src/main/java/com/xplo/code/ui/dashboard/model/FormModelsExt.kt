@@ -3,6 +3,9 @@ package com.xplo.code.ui.dashboard.model
 import android.util.Log
 import com.google.gson.GsonBuilder
 import com.kit.integrationmanager.model.MaritalStatusEnum
+import com.kit.integrationmanager.model.NomineeOccupationEnum
+import com.kit.integrationmanager.model.OccupationEnum
+import com.kit.integrationmanager.model.RelationshipEnum
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.isNo
 import com.xplo.code.core.ext.toBool
@@ -273,6 +276,18 @@ fun Nominee?.isOk(): Boolean {
     if (this.age == null) return false
     if (this.gender.isNullOrEmpty()) return false
     if (this.occupation.isNullOrEmpty()) return false
+
+
+    if (this.relation.equals(RelationshipEnum.OTHER.value, true)) {
+        if (this.relationOthers.isNullOrEmpty()) return false
+    }
+
+    if (this.occupation.equals(NomineeOccupationEnum.OTHERS.value, true)) {
+        if (this.occupationOthers.isNullOrEmpty()) return false
+    }
+
+
+
 
     //var isReadWrite: Boolean? = null
     return true

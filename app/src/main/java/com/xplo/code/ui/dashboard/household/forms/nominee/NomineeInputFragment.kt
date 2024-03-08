@@ -274,11 +274,11 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         if (!TestConfig.isDummyDataEnabled) return
 
         etFirstName.setText("Ruben")
-        //etMiddleName.setText("middle")
+        etMiddleName.setText("middle")
         etLastName.setText("Dias")
-        etAge.setText("12")
+        etAge.setText("20")
         spRelation.setSelection(2)
-//        spGender.setSelection(2)
+        spGender.setSelection(2)
         spOccupation.setSelection(2)
         rgReadWrite.check(rbReadWriteNo.id)
     }

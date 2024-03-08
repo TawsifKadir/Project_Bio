@@ -5,6 +5,7 @@ import android.content.SyncResult
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import com.kit.integrationmanager.model.Beneficiary
 import com.kit.integrationmanager.model.CurrencyEnum
 import com.kit.integrationmanager.model.DocumentTypeEnum
@@ -987,6 +988,11 @@ class HouseholdViewModel @Inject constructor(
 
     public fun callRegisterApi(context: Context, beneficiary: Beneficiary?) {
         Log.d(TAG, "callRegisterApi() called with: context = $context, beneficiary = $beneficiary")
+
+        //beneficiary?.alternatePayee1?.biometrics = null
+        val json = Gson().toJson(beneficiary?.alternatePayee1)
+        Log.d(TAG, "callRegisterApi: json: $json")
+
         val integrationManager = IMHelper.getIntegrationManager(context, this)
         val header = IMHelper.getHeader()
         integrationManager.syncRecord(beneficiary, header)
