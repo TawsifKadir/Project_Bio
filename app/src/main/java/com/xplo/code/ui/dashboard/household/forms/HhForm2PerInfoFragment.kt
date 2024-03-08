@@ -424,7 +424,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
 
     }
     fun doSomethingForRbA(items: List<CheckboxItem>) {
-        var list = UiData.getPublicWorks()
+        var list = UiData.getSelectionReasonLipw()
         for (item in list) {
             // Check if the current item's id matches any of the ids in checkedItem
             if (items.any { checkedItem -> checkedItem.id == item.id }) {
@@ -435,7 +435,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
     }
 
     fun doSomethingForRbB(items: List<CheckboxItem>) {
-        var list = UiData.getDirectIncomeSupport()
+        var list = UiData.getSelectionReasonDis()
         for (item in list) {
             // Check if the current item's id matches any of the ids in checkedItem
             if (items.any { checkedItem -> checkedItem.id == item.id }) {
