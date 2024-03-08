@@ -57,8 +57,10 @@ public abstract class BeneficiaryDatabase extends RoomDatabase {
         return sInstance;
     }
 
-    public static void dbClose(){
-        sInstance.dbClose();
+    public static void dbCloseFromDB(){
+        if(sInstance != null){
+            sInstance.close();
+        }
     }
 
     // Define your migration
