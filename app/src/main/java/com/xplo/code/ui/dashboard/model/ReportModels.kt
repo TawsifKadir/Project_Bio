@@ -1,6 +1,11 @@
 package com.xplo.code.ui.dashboard.model
 
 import android.util.Log
+import com.kit.integrationmanager.model.DocumentTypeEnum
+import com.kit.integrationmanager.model.IncomeSourceEnum
+import com.kit.integrationmanager.model.NomineeOccupationEnum
+import com.kit.integrationmanager.model.OccupationEnum
+import com.kit.integrationmanager.model.RelationshipEnum
 import com.xplo.code.core.ext.toBool
 
 
@@ -56,26 +61,53 @@ fun HhForm2?.getReportRows(): List<ReportRow> {
 
     items.add(ReportRow("Name:", form.getFullName(), "Gender: ", form.gender))
     items.add(ReportRow("Age:", form.age.toString(), "Phone: ", form.phoneNumber))
-    items.add(ReportRow("Id No:", form.idNumber, "Id Type: ", form.idNumberType))
+    if(form.idNumberType.equals(DocumentTypeEnum.OTHER.value, ignoreCase = true)){
+        items.add(ReportRow("Id No:", form.idNumber, "Id Type: ", form.idNumberOthersvalue))
+    }else{
+        items.add(ReportRow("Id No:", form.idNumber, "Id Type: ", form.idNumberType))
+    }
     items.add(ReportRow("Phone Number", form.phoneNumber, "Marital Status", form.maritalStatus))
     items.add(ReportRow("Spouse Name", form.getSpouseFullName(), null, null))
     items.add(ReportRow("legal Status", form.legalStatus, null, null))
-    items.add(
-        ReportRow(
-            "Respondent Relation",
-            form.respondentRlt,
-            "Selection Reason",
-            parseCheckBox(form.itemsSupportType)
+    if(form.respondentRlt.equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
+        items.add(
+            ReportRow(
+                "Respondent Relation",
+                form.respondentRltOthersValue,
+                "Selection Reason",
+                parseCheckBox(form.itemsSupportType)
+            )
         )
-    )
-    items.add(
-        ReportRow(
-            "Selection Criteria",
-            form.selectionCriteria,
-            "Main Source Of Income",
-            form.mainSourceOfIncome
+    }else{
+        items.add(
+            ReportRow(
+                "Respondent Relation",
+                form.respondentRlt,
+                "Selection Reason",
+                parseCheckBox(form.itemsSupportType)
+            )
         )
-    )
+    }
+    if(form.mainSourceOfIncome.equals(IncomeSourceEnum.OTHER.value, ignoreCase = true)){
+        items.add(
+            ReportRow(
+                "Selection Criteria",
+                form.selectionCriteria,
+                "Main Source Of Income",
+                form.mainSourceOfIncomeOthers
+            )
+        )
+    }else{
+        items.add(
+            ReportRow(
+                "Selection Criteria",
+                form.selectionCriteria,
+                "Main Source Of Income",
+                form.mainSourceOfIncome
+            )
+        )
+    }
+
     items.add(
         ReportRow(
             "Monthly Average Income",
@@ -256,8 +288,16 @@ fun Nominee?.getNomineeItemRows(): List<ReportRow> {
 
     items.add(ReportRow("Name:", form.getFullName(), null, null))
     items.add(ReportRow("Age:", form.age.toString(), "Gender: ", form.gender))
-    items.add(ReportRow("Relation:", form.relation.toString(), "Age: ", form.age.toString()))
-    items.add(ReportRow("Gender:", form.gender.toString(), "Occupation: ", form.occupation))
+    if(form.relation.equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
+        items.add(ReportRow("Relation:", form.relationOthers, "Age: ", form.age.toString()))
+    }else{
+        items.add(ReportRow("Relation:", form.relation.toString(), "Age: ", form.age.toString()))
+    }
+    if(form.occupation.equals(NomineeOccupationEnum.OTHERS.value, ignoreCase = true)){
+        items.add(ReportRow("Gender:", form.gender.toString(), "Occupation: ", form.occupationOthers))
+    }else{
+        items.add(ReportRow("Gender:", form.gender.toString(), "Occupation: ", form.occupation))
+    }
     items.add(ReportRow("Can You Read & Write ? :", form.isReadWrite))
 
     return items
@@ -272,10 +312,17 @@ fun AlForm1?.getReportRows(): List<ReportRow> {
 
     items.add(ReportRow("Name:", form.getFullName(), null, null))
     items.add(ReportRow("Age:", form.age.toString(), "Gender: ", form.gender))
-    items.add(ReportRow("Id:", form.idNumber, "Id Number Type: ", form.idNumberType))
+    if(form.idNumberType.equals(DocumentTypeEnum.OTHER.value, ignoreCase = true)){
+        items.add(ReportRow("Id:", form.idNumber, "Id Number Type: ", form.idNumberOthersvalue))
+    }else{
+        items.add(ReportRow("Id:", form.idNumber, "Id Number Type: ", form.idNumberType))
+    }
     items.add(ReportRow("Phone Number:", form.phoneNumber))
-    items.add(ReportRow("Select Alternate Relation:", form.selectAlternateRlt))
-
+    if(form.selectAlternateRlt.equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
+        items.add(ReportRow("Select Alternate Relation:", form.relationOther))
+    }else{
+        items.add(ReportRow("Select Alternate Relation:", form.selectAlternateRlt))
+    }
     return items
 }
 
