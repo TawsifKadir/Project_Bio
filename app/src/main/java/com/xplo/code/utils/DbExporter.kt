@@ -12,6 +12,7 @@ import android.provider.Settings
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.airbnb.lottie.Lottie
 import com.xplo.code.BuildConfig
 import com.xplo.code.data.db.DbController
 import com.xplo.code.data.db.room.database.BeneficiaryDatabase.dbCloseFromDB
@@ -56,11 +57,14 @@ object DbExporter {
                     src.close()
                     dst.close()
 
+                    DialogUtil.showLottieDialogSuccessMsg(context, "Success", "Database exported successfully.Please Check in your folder(bio_reg/database)")
                     Log.d("DatabaseExport", "Database exported successfully.")
                 } catch (e: Exception) {
+                    DialogUtil.showLottieDialogFailMsg(context, "Error", "Error exporting database: ${e.message}")
                     Log.e("DatabaseExport", "Error exporting database: ${e.message}")
                 }
             } else {
+                DialogUtil.showLottieDialogFailMsg(context, "Error", "Database file does not exist.")
                 Log.e("DatabaseExport", "Database file does not exist.")
             }
         } catch (e: IOException) {
