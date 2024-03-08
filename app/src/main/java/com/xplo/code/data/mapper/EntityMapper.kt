@@ -66,6 +66,11 @@ object EntityMapper {
         form.spouseLastName = item.form2?.spouseLastName
         form.spouseNickName = item.form2?.spouseNickName
         form.relationshipWithHouseholdHead = RelationshipEnum.find(item.form2?.respondentRlt)
+
+        form.otherRelationshipWithHouseholdHead = item.form2?.respondentRltOthersValue ?: ""
+        form.documentTypeOther = item.form2?.idNumberOthersvalue ?: ""
+        form.otherHouseholdIncomeSource = item.form2?.mainSourceOfIncomeOthers ?: ""
+
         form.respondentAge = item.form2?.age
         form.respondentGender = GenderEnum.find(item.form2?.gender)
         form.respondentMaritalStatus = MaritalStatusEnum.find(item.form2?.maritalStatus)

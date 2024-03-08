@@ -755,7 +755,11 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         beneficiaryEO.spouseFirstName = beneficiaryBO.spouseFirstName
         beneficiaryEO.spouseMiddleName = beneficiaryBO.spouseMiddleName
         beneficiaryEO.spouseLastName = beneficiaryBO.spouseLastName
-        beneficiaryEO.spouseNickName = beneficiaryBO.spouseNickName
+
+        beneficiaryEO.incomeSourceOtherText = beneficiaryBO.otherHouseholdIncomeSource
+        beneficiaryEO.relationshipOtherText = beneficiaryBO.otherRelationshipWithHouseholdHead
+        beneficiaryEO.documentTypeOther = beneficiaryBO.documentTypeOther
+
         beneficiaryEO.relationshipWithHouseholdHead =
             if (beneficiaryBO.relationshipWithHouseholdHead != null) beneficiaryBO.relationshipWithHouseholdHead.ordinal.toLong() else null
         beneficiaryEO.respondentAge = beneficiaryBO.respondentAge
@@ -767,7 +771,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             if (beneficiaryBO.respondentLegalStatus != null) beneficiaryBO.respondentLegalStatus.ordinal.toLong() else null
         beneficiaryEO.documentType =
             if (beneficiaryBO.documentType != null) beneficiaryBO.documentType.ordinal.toLong() else 4
-        beneficiaryEO.documentTypeOther = beneficiaryBO.documentTypeOther
+
         beneficiaryEO.respondentId = beneficiaryBO.respondentId
         beneficiaryEO.respondentPhoneNo = beneficiaryBO.respondentPhoneNo
         beneficiaryEO.householdIncomeSource =

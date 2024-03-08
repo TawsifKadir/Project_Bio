@@ -467,7 +467,8 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         val form = HhForm2()
 
         if(spMainSourceOfIncome.selectedItem.toString().equals(IncomeSourceEnum.OTHER.toString(), ignoreCase = true)){
-            form.mainSourceOfIncome = chkEditText3Char(edtOthersourcetext, UiData.ER_SP_DF)
+            form.mainSourceOfIncome = chkSpinner(spMainSourceOfIncome, UiData.ER_SP_DF)
+            form.mainSourceOfIncomeOthers = chkEditText3Char(edtOthersourcetext, UiData.ER_SP_DF)
             Log.d(TAG,"Entered Main Source of Income other with ${form.mainSourceOfIncome}")
         }else{
             form.mainSourceOfIncome = chkSpinner(spMainSourceOfIncome, UiData.ER_SP_DF)
