@@ -121,7 +121,13 @@ object EntityMapper {
         form.householdMember65 = toHouseholdMember65(applicationId, item.form3)
         form.isReadWrite = getReadWrite(item.form3?.isReadWrite)
         form.memberReadWrite = item.form3?.readWriteNumber
-        form.isOtherMemberPerticipating = FakeMapperValue.isOtherMemberPerticipating
+
+        if(form.nominees.isEmpty()){
+            form.isOtherMemberPerticipating = false
+        }else{
+            form.isOtherMemberPerticipating = true
+        }
+
         form.notPerticipationReason = NonPerticipationReasonEnum.find(item.form6?.noNomineeReason)
         form.notPerticipationOtherReason = item.form6?.otherReason
 

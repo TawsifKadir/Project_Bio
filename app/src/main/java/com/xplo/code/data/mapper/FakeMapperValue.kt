@@ -10,11 +10,7 @@ import com.kit.integrationmanager.model.SelectionReasonEnum
 object FakeMapperValue {
 
     val currency  = CurrencyEnum.SUDANESE_POUND
-    val respondentId  = "12345678901234"
-    val name  = "fake_data"
     val isOtherMemberPerticipating = true
-    val fakePosition = 2
-    val fakeGender = GenderEnum.MALE
     val selectionReasons = listOf(
         SelectionReasonEnum.DIS_REASON_1,
         SelectionReasonEnum.DIS_REASON_2,

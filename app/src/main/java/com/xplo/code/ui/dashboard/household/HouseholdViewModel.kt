@@ -358,7 +358,6 @@ class HouseholdViewModel @Inject constructor(
                     SelectionCriteriaEnum.getSelectionCriteriaById(beneficiary.selectionCriteria.toInt() + 1)
             }
 
-            val selectionReasonList1 = FakeMapperValue.selectionReasons
             val selectionReasonList = ArrayList<SelectionReasonEnum>()
             for (item in selectionReason) {
                 val reasonId = item.id.toInt() + 1
@@ -502,7 +501,13 @@ class HouseholdViewModel @Inject constructor(
             }
 
             // Assuming form.selectionReason is a MutableList<SelectionReasonEnum>
-            val selectionReasonList = FakeMapperValue.selectionReasons
+            //val selectionReasonList = FakeMapperValue.selectionReasons
+            val selectionReasonList = ArrayList<SelectionReasonEnum>()
+            for (item in selectionReason) {
+                val reasonId = item.id.toInt() + 1
+                val selectionReason = SelectionReasonEnum.getSelectionReasonById(reasonId)
+                selectionReasonList.add(selectionReason)
+            }
 //            if(selectionReason.selectionReasonName != null){
 //                SelectionReasonEnum.entries.getOrNull(selectionReason.selectionReasonName.toInt())?.let {
 //                    selectionReasonList.add(
