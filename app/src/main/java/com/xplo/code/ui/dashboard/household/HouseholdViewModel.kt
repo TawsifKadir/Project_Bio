@@ -390,7 +390,13 @@ class HouseholdViewModel @Inject constructor(
             form.householdMember65 = EntityMapper.toHouseholdMember2Ldb(appId, householdInfo, "M65")
             form.isReadWrite = beneficiary.isReadWrite
             form.memberReadWrite = beneficiary.memberReadWrite
-            form.isOtherMemberPerticipating = beneficiary.isOtherMemberPerticipating
+
+            if(beneficiary.nomineeSize > 0){
+                form.isOtherMemberPerticipating = true
+            }else{
+                form.isOtherMemberPerticipating = false
+            }
+
             if (beneficiary.notPerticipationReason != null) {
                 form.notPerticipationReason =
                     NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt() + 1)
