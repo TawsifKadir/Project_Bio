@@ -240,15 +240,14 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         nominee.nickName = chkEditTextNickName3Char(etNickName, UiData.ER_ET_DF)
         nominee.age = chkAge(etAge, UiData.ER_ET_DF)?.toInt()
         nominee.relation = chkSpinner(spRelation, UiData.ER_SP_DF)
-        if(spRelation.selectedItem.toString().equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
+        if(nominee.relation.equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
             nominee.relationOthers = chkEditText3Char(etOtherRelation, UiData.ER_ET_DF)
         }
         nominee.gender = chkSpinner(spGender, UiData.ER_SP_DF)
-        if(spOccupation.selectedItem.toString().contains(NomineeOccupationEnum.OTHERS.value, ignoreCase = true)){
+        nominee.occupation = chkSpinner(spOccupation, UiData.ER_SP_DF)
+        if(nominee.occupation.equals(NomineeOccupationEnum.OTHERS.value, ignoreCase = true)){
             nominee.occupationOthers = chkEditText3Char(etOtherWork, UiData.ER_ET_DF)
         }
-        nominee.occupation = chkSpinner(spOccupation, UiData.ER_SP_DF)
-
         nominee.isReadWrite = chkRadioGroup(rgReadWrite, UiData.ER_RB_DF)
 
         if (nominee.isOk()) {
