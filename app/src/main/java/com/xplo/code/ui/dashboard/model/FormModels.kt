@@ -73,6 +73,7 @@ data class HhForm2(
     var monthlyAverageIncome: Int? = null,
     var gender: String? = null,
     var respondentRlt: String? = null,
+    var respondentRltOthersValue: String? = null,
     var maritalStatus: String? = null,
     var legalStatus: String? = null,
     //var spouseName: String? = null,

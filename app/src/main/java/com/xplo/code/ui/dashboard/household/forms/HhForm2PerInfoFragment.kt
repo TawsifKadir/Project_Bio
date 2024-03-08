@@ -476,7 +476,8 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         //form.currency = chkSpinner(spCurrency, UiData.ER_SP_DF)
         form.gender = chkSpinner(spGender, UiData.ER_SP_DF)
         if(spRespondentRlt.selectedItem.toString().equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
-            form.respondentRlt = etOthersText.text.toString()
+            form.respondentRlt = chkSpinner(spRespondentRlt, UiData.ER_SP_DF)
+            form.respondentRltOthersValue = chkEditText3Char(etOthersText, UiData.ER_SP_DF)
         }else{
             form.respondentRlt = chkSpinner(spRespondentRlt, UiData.ER_SP_DF)
         }
