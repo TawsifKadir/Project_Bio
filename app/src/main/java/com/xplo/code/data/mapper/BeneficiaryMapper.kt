@@ -144,12 +144,12 @@ object BeneficiaryMapper {
         val member = com.kit.integrationmanager.model.HouseholdMember()
         member.applicationId = id
 
-        member.maleNormal = item.maleNormal
+        member.maleBoth = item.maleNormal
         member.maleDisable = item.maleDisable
         member.maleChronicalIll = item.maleChronicalIll
         member.totalMale = item.totalMale
 
-        member.femaleNormal = item.femaleNormal
+        member.femaleBoth = item.femaleNormal
         member.femaleDisable = item.femaleDisable
         member.femaleChronicalIll = item.femaleChronicalIll
         member.totalFemale = item.totalFemale

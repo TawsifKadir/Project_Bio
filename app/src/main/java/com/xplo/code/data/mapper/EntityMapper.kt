@@ -1051,10 +1051,10 @@ object EntityMapper {
         household.totalFemale = item.mem0TotalFemale
         household.femaleChronicalIll = item.mem0IllFemale
         household.femaleDisable = item.mem0DisableFemale
-        household.femaleNormal = item.mem0NormalFemale
+        household.femaleBoth = item.mem0NormalFemale
         household.maleChronicalIll = item.mem0IllMale
         household.maleDisable = item.mem0DisableMale
-        household.maleNormal = item.mem0NormalMale
+        household.maleBoth = item.mem0NormalMale
         return household
     }
 
@@ -1072,10 +1072,10 @@ object EntityMapper {
                 household.totalFemale = value.femaleTotal
                 household.femaleChronicalIll = value.femaleChronicalIll
                 household.femaleDisable = value.femaleDisable
-                household.femaleNormal = value.femaleBoth
+                household.femaleBoth = value.femaleBoth
                 household.maleChronicalIll = value.maleChronicalIll
                 household.maleDisable = value.maleDisable
-                household.maleNormal = value.maleBoth
+                household.maleBoth = value.maleBoth
             }
         }
         return household
@@ -1092,10 +1092,10 @@ object EntityMapper {
         household.totalFemale = item.mem18TotalFemale
         household.femaleChronicalIll = item.mem18IllFemale
         household.femaleDisable = item.mem18DisableFemale
-        household.femaleNormal = item.mem18NormalFemale
+        household.femaleBoth = item.mem18NormalFemale
         household.maleChronicalIll = item.mem18IllMale
         household.maleDisable = item.mem18DisableMale
-        household.maleNormal = item.mem18NormalMale
+        household.maleBoth = item.mem18NormalMale
         return household
     }
 
@@ -1110,10 +1110,10 @@ object EntityMapper {
         household.totalFemale = item.mem36TotalFemale
         household.femaleChronicalIll = item.mem36IllFemale
         household.femaleDisable = item.mem36DisableFemale
-        household.femaleNormal = item.mem36NormalFemale
+        household.femaleBoth = item.mem36NormalFemale
         household.maleChronicalIll = item.mem36IllMale
         household.maleDisable = item.mem36DisableMale
-        household.maleNormal = item.mem36NormalMale
+        household.maleBoth = item.mem36NormalMale
         return household
     }
 
@@ -1128,10 +1128,10 @@ object EntityMapper {
         household.totalFemale = item.mem65TotalFemale
         household.femaleChronicalIll = item.mem65IllFemale
         household.femaleDisable = item.mem65DisableFemale
-        household.femaleNormal = item.mem65NormalFemale
+        household.femaleBoth = item.mem65NormalFemale
         household.maleChronicalIll = item.mem65IllMale
         household.maleDisable = item.mem65DisableMale
-        household.maleNormal = item.mem65NormalMale
+        household.maleBoth = item.mem65NormalMale
         return household
     }
 
@@ -1146,10 +1146,10 @@ object EntityMapper {
         household.totalFemale = item.mem6TotalFemale
         household.femaleChronicalIll = item.mem6IllFemale
         household.femaleDisable = item.mem6DisableFemale
-        household.femaleNormal = item.mem6NormalFemale
+        household.femaleBoth = item.mem6NormalFemale
         household.maleChronicalIll = item.mem6IllMale
         household.maleDisable = item.mem6DisableMale
-        household.maleNormal = item.mem6NormalMale
+        household.maleBoth = item.mem6NormalMale
         return household
     }
 
@@ -1164,10 +1164,10 @@ object EntityMapper {
         household.totalFemale = item.mem3TotalFemale
         household.femaleChronicalIll = item.mem3IllFemale
         household.femaleDisable = item.mem3DisableFemale
-        household.femaleNormal = item.mem3NormalFemale
+        household.femaleBoth = item.mem3NormalFemale
         household.maleChronicalIll = item.mem3IllMale
         household.maleDisable = item.mem3DisableMale
-        household.maleNormal = item.mem3NormalMale
+        household.maleBoth = item.mem3NormalMale
         return household
     }
 

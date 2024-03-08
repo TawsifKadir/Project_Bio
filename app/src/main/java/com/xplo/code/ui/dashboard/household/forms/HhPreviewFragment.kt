@@ -709,8 +709,8 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             householdInfoEO.femaleDisable = member.femaleDisable
             householdInfoEO.maleChronicalIll = member.maleChronicalIll
             householdInfoEO.femaleChronicalIll = member.femaleChronicalIll
-            householdInfoEO.femaleBoth = member.femaleNormal
-            householdInfoEO.maleBoth = member.maleNormal
+            householdInfoEO.femaleBoth = member.femaleBoth
+            householdInfoEO.maleBoth = member.maleBoth
             householdInfoEO.type = type
         }
         return householdInfoEO
