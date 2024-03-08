@@ -16,6 +16,7 @@ import com.kit.integrationmanager.model.MaritalStatusEnum
 import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.kit.integrationmanager.model.SelectionCriteriaEnum
+import com.kit.integrationmanager.model.SelectionReasonEnum
 import com.kit.integrationmanager.payload.RegistrationResult
 import com.kit.integrationmanager.payload.RegistrationStatus
 import com.xplo.code.data.db.models.BeneficiaryEntity
@@ -48,6 +49,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.util.ArrayList
 import java.util.Observable
 import java.util.Observer
 import javax.inject.Inject
@@ -356,20 +358,15 @@ class HouseholdViewModel @Inject constructor(
                     SelectionCriteriaEnum.getSelectionCriteriaById(beneficiary.selectionCriteria.toInt() + 1)
             }
 
-            // Assuming form.selectionReason is a MutableList<SelectionReasonEnum>
-           // val selectionReasonList = FakeMapperValue.selectionReasons
-            val selectionReasonList = FakeMapperValue.selectionReasons
-//            if(selectionReason.selectionReasonName != null){
-//                SelectionReasonEnum.entries.getOrNull(selectionReason.selectionReasonName.toInt())?.let {
-//                    selectionReasonList.add(
-//                        it
-//                    )
-//                }
-//            }
+            val selectionReasonList1 = FakeMapperValue.selectionReasons
+            val selectionReasonList = ArrayList<SelectionReasonEnum>()
+            for (item in selectionReason) {
+                val reasonId = item.id.toInt() + 1
+                val selectionReason = SelectionReasonEnum.getSelectionReasonById(reasonId)
+                selectionReasonList.add(selectionReason)
+            }
 
             form.selectionReason = selectionReasonList
-
-            // form.selectionReason = SelectionReasonEnum.find(selectionReason.selectionReasonName)
             val addressOb = Address()
             addressOb.stateId = address.stateId
             addressOb.countyId = address.countyId
