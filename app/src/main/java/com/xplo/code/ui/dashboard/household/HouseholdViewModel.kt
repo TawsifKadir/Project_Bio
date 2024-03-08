@@ -388,11 +388,6 @@ class HouseholdViewModel @Inject constructor(
             form.isReadWrite = beneficiary.isReadWrite
             form.memberReadWrite = beneficiary.memberReadWrite
 
-            if(beneficiary.nomineeSize > 0){
-                form.isOtherMemberPerticipating = true
-            }else{
-                form.isOtherMemberPerticipating = false
-            }
 
             if (beneficiary.notPerticipationReason != null) {
                 form.notPerticipationReason =
@@ -402,6 +397,12 @@ class HouseholdViewModel @Inject constructor(
             form.nominees = EntityMapper.toNomineeItemsLdb(nominee)
 
             form.biometrics = EntityMapper.toBiometricEntityFromdbForBeneficiary(biometricBio)
+
+            if(form.nominees.size > 0){
+                form.isOtherMemberPerticipating = true
+            }else{
+                form.isOtherMemberPerticipating = false
+            }
 
             if (alternateBio1 != null) {
                 form.alternatePayee1 = EntityMapper.getFirstAlternateLdb(alternateEO, alternateBio1)
