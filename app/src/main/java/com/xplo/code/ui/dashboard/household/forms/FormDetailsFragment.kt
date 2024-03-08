@@ -8,8 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.kit.integrationmanager.model.BiometricUserType
+import com.kit.integrationmanager.model.CurrencyEnum
+import com.kit.integrationmanager.model.DocumentTypeEnum
 import com.kit.integrationmanager.model.GenderEnum
+import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.Nominee
+import com.kit.integrationmanager.model.NomineeOccupationEnum
+import com.kit.integrationmanager.model.RelationshipEnum
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.core.ext.loadAvatar
@@ -212,15 +217,22 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
 
         if (beneficiary.documentType != null) {
             form2.idNumberType = beneficiary.documentType.value
+            if(form2.idNumberType.equals(DocumentTypeEnum.OTHER.value, ignoreCase = true)){
+                form2.idNumberOthersvalue = beneficiary.documentTypeOther
+            }
         }
         form2.phoneNumber = beneficiary.respondentPhoneNo
 
         if (beneficiary.householdIncomeSource != null) {
             form2.mainSourceOfIncome = beneficiary.householdIncomeSource.value
+            if(form2.mainSourceOfIncome.equals(IncomeSourceEnum.OTHER.value, ignoreCase = true)){
+                form2.mainSourceOfIncomeOthers = beneficiary.incomeSourceOther
+            }
         }
-        if (beneficiary.householdIncomeSource != null) {
-            form2.currency = beneficiary.householdIncomeSource.value
-        }
+        form2.currency = CurrencyEnum.SUDANESE_POUND.value
+//        if (beneficiary.householdIncomeSource != null) {
+//            form2.currency = beneficiary.householdIncomeSource.value
+//        }
         form2.monthlyAverageIncome = beneficiary.householdMonthlyAvgIncome
 
         if (beneficiary.respondentGender != null) {
@@ -229,6 +241,9 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
 
         if (beneficiary.respondentMaritalStatus != null) {
             form2.respondentRlt = beneficiary.respondentMaritalStatus.value
+            if(form2.respondentRlt.equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
+                form2.respondentRltOthersValue = beneficiary.relationshipOther
+            }
         }
         if (beneficiary.respondentMaritalStatus != null) {
             form2.maritalStatus = beneficiary.respondentMaritalStatus.value
@@ -376,9 +391,15 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
                 nominee.lastName = item.nomineeLastName
                 nominee.nickName = item.nomineeNickName
                 nominee.relation = item.relationshipWithHouseholdHead?.value
+                if(nominee.relation.equals(RelationshipEnum.OTHER.value)){
+                    nominee.relationOthers = item.relationshipOther
+                }
                 nominee.age = item.nomineeAge
                 nominee.gender = item.nomineeGender?.value
                 nominee.occupation = item.nomineeOccupation?.value
+                if(nominee.occupation.equals(NomineeOccupationEnum.OTHERS.value, ignoreCase = true)){
+                    nominee.occupationOthers = item.otherOccupation
+                }
                 nominee.isReadWrite = item.isReadWrite.toString()
                 newlist.add(nominee)
             }
@@ -402,13 +423,18 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
                 a1Form.age = beneficiary.alternatePayee1?.payeeAge
                 a1Form.idNumber = beneficiary.alternatePayee1?.nationalId
                 a1Form.idNumberType = beneficiary.alternatePayee1?.documentType?.name
+                if(a1Form.idNumberType.equals(DocumentTypeEnum.OTHER.value, ignoreCase = true)){
+                    a1Form.documentTypeOther =
+                        beneficiary.alternatePayee1?.documentTypeOther
+                }
                 //  alternateForm.form1?. idIsOrNot=beneficiary.alternatePayee1.
                 alternateForm.form1?.phoneNumber = beneficiary.alternatePayee1?.payeePhoneNo
                 //    alternateForm.form1?. selectAlternateRlt=beneficiary.alternatePayee1.
                 a1Form.gender = beneficiary.alternatePayee1?.payeeGender?.value
-                a1Form.documentTypeOther =
-                    beneficiary.alternatePayee1?.documentTypeOther
-
+                a1Form.selectAlternateRlt = beneficiary.alternatePayee1?.relationshipWithHouseholdHead?.value
+                if(a1Form.selectAlternateRlt.equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
+                    a1Form.relationOther = beneficiary.alternatePayee1?.relationshipOther
+                }
                 // alternateForm.form2?.photoData=beneficiary.alternatePayee1.biometrics[0].biometricData
                 val phdata = PhotoData()
                 phdata.imgPath = beneficiary.alternatePayee1.biometrics[0].biometricUrl
@@ -439,13 +465,18 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
                 a1Form.alternateNickName = beneficiary.alternatePayee2.payeeNickName
                 a1Form.age = beneficiary.alternatePayee2.payeeAge
                 a1Form.idNumber = beneficiary.alternatePayee2.nationalId
-                a1Form.idNumberType = beneficiary.alternatePayee2.documentType.name
-                // alternateForm2.form1?. idIsOrNot=beneficiary.alternatePayee1.
+                a1Form.idNumberType = beneficiary.alternatePayee1?.documentType?.name
+                if(a1Form.idNumberType.equals(DocumentTypeEnum.OTHER.value, ignoreCase = true)){
+                    a1Form.documentTypeOther =
+                        beneficiary.alternatePayee1?.documentTypeOther
+                }
+                a1Form.selectAlternateRlt = beneficiary.alternatePayee1?.relationshipWithHouseholdHead?.value
+                if(a1Form.selectAlternateRlt.equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
+                    a1Form.relationOther = beneficiary.alternatePayee1?.relationshipOther
+                }
                 a1Form.phoneNumber = beneficiary.alternatePayee2.payeePhoneNo
                 //  alternateForm2.form1?. selectAlternateRlt=beneficiary.alternatePayee1.
                 a1Form.gender = beneficiary.alternatePayee2.payeeGender.name
-                a1Form.documentTypeOther =
-                    beneficiary.alternatePayee2.documentTypeOther
                 //alternateForm.form2?.photoData=beneficiary.alternatePayee1.biometrics[0].biometricData
                 val phdata = PhotoData()
                 phdata.imgPath = beneficiary.alternatePayee2.biometrics[0].biometricUrl

@@ -1003,10 +1003,19 @@ object EntityMapper {
         }
 
         //nominee.nomineeOccupation = OccupationEnum.valueOf(item.nomineeOccupation.toString())
-        nominee.nomineeOccupation = OccupationEnum.HOMEMAKER
+        if(item.nomineeOccupation != null){
+            nominee.nomineeOccupation = NomineeOccupationEnum.getNomineeOccupationById(item.nomineeOccupation.toInt() + 1)
+            if(nominee.nomineeOccupation.value.equals(NomineeOccupationEnum.OTHERS.value, ignoreCase = true) ){
+                nominee.otherOccupation = item.otherOccupation
+            }
+        }
+
         if (item.relationshipWithHouseholdHead != null) {
             nominee.relationshipWithHouseholdHead =
                 RelationshipEnum.getRelationById(item.relationshipWithHouseholdHead.toInt() + 1)
+            if(nominee.relationshipWithHouseholdHead.value.equals(RelationshipEnum.OTHER.value, ignoreCase = true) ){
+                nominee.relationshipOther = item.relationshipOther
+            }
         }
         nominee.isReadWrite = item.isReadWrite
 
@@ -1043,10 +1052,14 @@ object EntityMapper {
         nominee.nomineeAge = item.age
         nominee.nomineeGender = GenderEnum.find(item.gender)
 
-        nominee.nomineeOccupation = OccupationEnum.FORMAL_JOB
-        nominee.otherOccupation = "otoc"
+        nominee.nomineeOccupation = NomineeOccupationEnum.find(item.occupation)
+        if(nominee.nomineeOccupation == NomineeOccupationEnum.OTHERS){
+            nominee.otherOccupation = item.occupationOthers
+        }
         nominee.relationshipWithHouseholdHead = RelationshipEnum.find(item.relation)
-
+        if(nominee.relationshipWithHouseholdHead == RelationshipEnum.OTHER){
+            nominee.relationshipOther = item.relationOthers
+        }
         nominee.isReadWrite = getReadWrite(item.isReadWrite)
 
         return nominee
@@ -1354,10 +1367,10 @@ object EntityMapper {
             nomineeAge = item.age ?: 0,
             nomineeGender = GenderEnum.find(item.gender),
 
-            nomineeOccupation = OccupationEnum.FORMAL_JOB,
-            otherOccupation = item.occupation,
+            nomineeOccupation = NomineeOccupationEnum.find(item.occupation),
+            otherOccupation = item.occupationOthers,
             relationshipWithHouseholdHead = RelationshipEnum.find(item.relation),
-
+            relationshipOther = item.relationOthers,
             isReadWrite = item.isReadWrite.isYes()
         )
     }
