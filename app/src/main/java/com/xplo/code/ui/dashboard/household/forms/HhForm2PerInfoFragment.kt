@@ -92,6 +92,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
     private lateinit var etNickName: EditText
     private lateinit var etAge: EditText
     private lateinit var etIdNumber: EditText
+    private lateinit var etIDType: EditText
     private lateinit var etPhoneNumber: EditText
     private lateinit var etMonthlyAverageIncome: EditText
     private lateinit var etSpouseFirstName: EditText
@@ -164,6 +165,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         etNickName = binding.etNickName
         etAge = binding.etAge
         etIdNumber = binding.etIdNumber
+        etIDType = binding.etIDType
         etPhoneNumber = binding.etPhoneNumber
         etMonthlyAverageIncome = binding.etMonthlyAverageIncome
         //etSpouseName = binding.etSpouseName
@@ -413,6 +415,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         etNickName.setText(form.nickName)
         etAge.setText(form.age.toString())
         etIdNumber.setText(form.idNumber)
+        etIDType.setText(form.idNumberOthersvalue)
         etPhoneNumber.setText(form.phoneNumber)
         etMonthlyAverageIncome.setText(form.monthlyAverageIncome.toString())
         //etSpouseName.setText(form.spouseName)
@@ -495,11 +498,13 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
 
         if (binding.llIdTypeInput.isVisible && binding.llIdType.isVisible) {
             if (spIdType.selectedItem.toString().equals(IDtypeEnum.OTHERS.value, ignoreCase = true)){
-                form.idNumberType = etIdType.text.toString()
+                form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
+                form.idNumber = checkIDNumber(etIdNumber, UiData.ER_ET_DF, form.idNumberType)
+                form.idNumberOthersvalue = chkEditText3Char(etIDType, UiData.ER_ET_DF)
             }else{
                 form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
+                form.idNumber = checkIDNumber(etIdNumber, UiData.ER_ET_DF, form.idNumberType)
             }
-            form.idNumber = checkIDNumber(etIdNumber, UiData.ER_ET_DF, form.idNumberType)
         } else {
             form.idNumber = null
             form.idNumberType = null
@@ -561,6 +566,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         etLastName.setText("Shadhin")
         etAge.setText("33")
         etIdNumber.setText("12345678910112")
+        etIDType.setText("12345678910112")
         etPhoneNumber.setText("01672708329")
         etMonthlyAverageIncome.setText("5000")
         //etSpouseName.setText("Yesmin")

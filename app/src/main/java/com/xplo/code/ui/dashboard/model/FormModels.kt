@@ -66,6 +66,7 @@ data class HhForm2(
     var age: Int? = null,
     var idNumber: String? = null,
     var idNumberType: String? = null,
+    var idNumberOthersvalue: String? = null,
     var phoneNumber: String? = null,
     var mainSourceOfIncome: String? = null,
     var currency: String? = null,
