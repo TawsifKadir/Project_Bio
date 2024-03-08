@@ -403,7 +403,7 @@ class HouseholdViewModel @Inject constructor(
             } else {
                 form.isOtherMemberPerticipating = false
             }
-            if (beneficiary.notPerticipationOtherReason != null) {
+            if (beneficiary.notPerticipationReason != null) {
                 form.notPerticipationReason = NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt() + 1)
                 form.notPerticipationOtherReason = beneficiary.notPerticipationOtherReason
             }
