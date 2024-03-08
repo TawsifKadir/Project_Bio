@@ -336,12 +336,19 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
 
         //form.phoneNumber = chkPhoneNumber(etPhoneNo, UiData.ER_ET_DF)
         form.phoneNumber = etPhoneNo.text.toString()
-        if(spAlternateRelation.selectedItem.toString().equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
-            //form.selectAlternateRlt = etothers.text.toString()
-            form.relationOther = etothers.text.toString()
-        }else{
-            form.selectAlternateRlt = chkSpinner(spAlternateRelation, UiData.ER_SP_DF)
+
+//        if(spAlternateRelation.selectedItem.toString().equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
+//            //form.selectAlternateRlt = etothers.text.toString()
+//            form.relationOther = etothers.text.toString()
+//        }else{
+//            form.selectAlternateRlt = chkSpinner(spAlternateRelation, UiData.ER_SP_DF)
+//        }
+
+        form.selectAlternateRlt = chkSpinner(spAlternateRelation, UiData.ER_SP_DF)
+        if (form.selectAlternateRlt.equals(RelationshipEnum.OTHER.value, true)){
+            form.relationOther = chkEditText3Char(etothers, UiData.ER_ET_DF)
         }
+
         form.gender = chkSpinner(spGender, UiData.ER_SP_DF)
         Log.d(TAG,"Number = ${form.idNumber}")
         Log.d(TAG,"Edit text = $etIdNumber")
