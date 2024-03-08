@@ -301,8 +301,8 @@ class HouseholdViewModel @Inject constructor(
             form.spouseMiddleName = beneficiary.spouseMiddleName
             form.spouseLastName = beneficiary.spouseLastName
             form.spouseNickName = beneficiary.spouseNickName
-            form.otherHouseholdIncomeSource = beneficiary.incomeSourceOtherText
-            form.otherRelationshipWithHouseholdHead = beneficiary.relationshipOtherText
+            form.incomeSourceOther = beneficiary.incomeSourceOtherText
+            form.relationshipOther = beneficiary.relationshipOtherText
             form.documentTypeOther = beneficiary.documentTypeOther
 
             if (beneficiary.relationshipWithHouseholdHead != null) {
@@ -331,8 +331,15 @@ class HouseholdViewModel @Inject constructor(
                     DocumentTypeEnum.getDocumentTypeById(beneficiary.documentType.toInt() + 1)
             }
 
-            form.documentTypeOther = beneficiary.documentTypeOther
-            form.respondentId = beneficiary.respondentId
+            if(form.documentType == DocumentTypeEnum.PASSPORT || form.documentType == DocumentTypeEnum.NATIONAL_ID){
+                form.respondentId = beneficiary.respondentId
+            }else if(form.documentType == DocumentTypeEnum.OTHER){
+                form.documentTypeOther = beneficiary.documentTypeOther
+                form.respondentId = beneficiary.respondentId
+            }else{
+                form.documentTypeOther = null
+            }
+
             form.respondentPhoneNo = beneficiary.respondentPhoneNo
             if (beneficiary.householdIncomeSource != null) {
                 form.householdIncomeSource =
@@ -383,7 +390,13 @@ class HouseholdViewModel @Inject constructor(
             form.householdMember65 = EntityMapper.toHouseholdMember2Ldb(appId, householdInfo, "M65")
             form.isReadWrite = beneficiary.isReadWrite
             form.memberReadWrite = beneficiary.memberReadWrite
-            form.isOtherMemberPerticipating = beneficiary.isOtherMemberPerticipating
+
+            if(beneficiary.nomineeSize > 0){
+                form.isOtherMemberPerticipating = true
+            }else{
+                form.isOtherMemberPerticipating = false
+            }
+
             if (beneficiary.notPerticipationReason != null) {
                 form.notPerticipationReason =
                     NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt() + 1)
