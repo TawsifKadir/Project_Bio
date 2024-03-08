@@ -388,20 +388,25 @@ class HouseholdViewModel @Inject constructor(
             form.isReadWrite = beneficiary.isReadWrite
             form.memberReadWrite = beneficiary.memberReadWrite
 
-
-            if (beneficiary.notPerticipationReason != null) {
-                form.notPerticipationReason =
-                    NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt() + 1)
-            }
-            form.notPerticipationOtherReason = beneficiary.notPerticipationOtherReason
-            form.nominees = EntityMapper.toNomineeItemsLdb(nominee)
-
             form.biometrics = EntityMapper.toBiometricEntityFromdbForBeneficiary(biometricBio)
 
-            if(form.nominees.size > 0){
+
+//            if (beneficiary.notPerticipationReason != null) {
+//                form.notPerticipationReason =
+//                    NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt() + 1)
+//            }
+//            form.notPerticipationOtherReason = beneficiary.notPerticipationOtherReason
+
+            form.nominees = EntityMapper.toNomineeItemsLdb(nominee)
+
+            if (form.nominees != null && form.nominees.size > 0) {
                 form.isOtherMemberPerticipating = true
-            }else{
+            } else {
                 form.isOtherMemberPerticipating = false
+            }
+            if (beneficiary.notPerticipationOtherReason != null) {
+                form.notPerticipationReason = NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt() + 1)
+                form.notPerticipationOtherReason = beneficiary.notPerticipationOtherReason
             }
 
             if (alternateBio1 != null) {
