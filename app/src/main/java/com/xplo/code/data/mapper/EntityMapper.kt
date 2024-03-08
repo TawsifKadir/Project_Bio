@@ -244,6 +244,7 @@ object EntityMapper {
         //alternate.documentType = FakeMapperValue.documentType
         // alternate.nationalId = FakeMapperValue.nationalId
         alternate.documentType = DocumentTypeEnum.getDocumentTypeById(item.documentType.toInt() + 1)
+        alternate.documentTypeOther = item.documentTypeOther
         alternate.nationalId = item.nationalId
         alternate.payeeFirstName = item.payeeFirstName
         alternate.payeeMiddleName = item.payeeMiddleName
