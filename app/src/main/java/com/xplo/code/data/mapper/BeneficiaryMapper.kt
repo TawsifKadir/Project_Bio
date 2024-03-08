@@ -53,7 +53,7 @@ object BeneficiaryMapper {
 
 
         beneficiary.documentType = item.documentTypeEnum
-        beneficiary.documentType = DocumentTypeEnum.NATIONAL_ID
+        //beneficiary.documentType = DocumentTypeEnum.NATIONAL_ID
         if(item.documentTypeEnum == DocumentTypeEnum.NONE){
             beneficiary.respondentId = null
         }else{
@@ -147,12 +147,12 @@ object BeneficiaryMapper {
         member.maleBoth = item.maleNormal
         member.maleDisable = item.maleDisable
         member.maleChronicalIll = item.maleChronicalIll
-        member.totalMale = item.totalMale
+        member.maleTotal = item.totalMale
 
         member.femaleBoth = item.femaleNormal
         member.femaleDisable = item.femaleDisable
         member.femaleChronicalIll = item.femaleChronicalIll
-        member.totalFemale = item.totalFemale
+        member.femaleTotal = item.totalFemale
 
         return member
 
@@ -176,7 +176,7 @@ object BeneficiaryMapper {
         //alternate.nationalId = FakeMapperValue.nationalId
 
         alternate.documentType = item.documentTypeEnum
-        alternate.documentType = DocumentTypeEnum.NATIONAL_ID
+        //alternate.documentType = DocumentTypeEnum.NATIONAL_ID
         if(item.documentTypeEnum == DocumentTypeEnum.NONE){
             alternate.nationalId = null
         }else{

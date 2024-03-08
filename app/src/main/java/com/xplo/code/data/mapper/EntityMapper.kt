@@ -75,9 +75,9 @@ object EntityMapper {
             form.documentType = DocumentTypeEnum.find(item.form2?.idNumberType)
         }
 
-        form.otherRelationshipWithHouseholdHead = item.form2?.respondentRltOthersValue ?: ""
+        form.relationshipOther = item.form2?.respondentRltOthersValue ?: ""
         form.documentTypeOther = item.form2?.idNumberOthersvalue ?: ""
-        form.otherHouseholdIncomeSource = item.form2?.mainSourceOfIncomeOthers ?: ""
+        form.incomeSourceOther = item.form2?.mainSourceOfIncomeOthers ?: ""
 
         form.respondentAge = item.form2?.age
         form.respondentGender = GenderEnum.find(item.form2?.gender)
@@ -155,8 +155,8 @@ object EntityMapper {
         alternatePayee1.payeeNickName = item.form1?.alternateNickName
         alternatePayee1.payeeAge = item.form1?.age
         alternatePayee1.payeeGender = GenderEnum.find(item.form1?.gender)
-        alternatePayee1.relationWithHousehold = RelationshipEnum.find(item.form1?.selectAlternateRlt)
-        alternatePayee1.otherRelationshipWithHousehold = item.form1?.relationOther
+        alternatePayee1.relationshipWithHouseholdHead = RelationshipEnum.find(item.form1?.selectAlternateRlt)
+        alternatePayee1.relationshipOther = item.form1?.relationOther
         alternatePayee1.documentType = DocumentTypeEnum.find(item.form1?.idNumberType)
         alternatePayee1.documentTypeOther = item.form1?.documentTypeOther
         alternatePayee1.nationalId = item.form1?.idNumber
@@ -216,21 +216,21 @@ object EntityMapper {
         }
 
         alternate.documentTypeOther =  item.form1?.idNumberOthersvalue
-        alternate.relationWithHousehold = RelationshipEnum.find(item.form1?.selectAlternateRlt)
-        alternate.otherRelationshipWithHousehold =item.form1?.relationOther
+        alternate.relationshipWithHouseholdHead = RelationshipEnum.find(item.form1?.selectAlternateRlt)
+        alternate.relationshipOther =item.form1?.relationOther
 
         alternate.payeeFirstName = item.form1?.alternateFirstName
         alternate.payeeMiddleName = item.form1?.alternateMiddleName
         alternate.payeeLastName = item.form1?.alternateLastName
         alternate.payeeNickName = item.form1?.alternateNickName
         alternate.payeeAge = item.form1?.age
-        //alternate.payeeGender = GenderEnum.find(item.form1?.gender)
-        alternate.payeeGender = FakeMapperValue.fakeGender
+        alternate.payeeGender = GenderEnum.find(item.form1?.gender)
+        //alternate.payeeGender = FakeMapperValue.fakeGender
         alternate.payeePhoneNo = item.form1?.phoneNumber
 
         alternate.biometrics = toAlternateBiometricEntities(item)
 
-        alternate.otherRelationshipWithHousehold = item.form1?.relationOther
+        alternate.relationshipOther = item.form1?.relationOther
 
         return alternate
     }
@@ -255,8 +255,8 @@ object EntityMapper {
         alternate.payeePhoneNo = item.payeePhoneNo
         alternate.biometrics = toBiometricEntityFromdbForBeneficiary(bio_data)
 
-        alternate.relationWithHousehold = RelationshipEnum.valueOf(item.relationshipWithHousehold)
-        alternate.otherRelationshipWithHousehold = item.relationshipOther
+        alternate.relationshipWithHouseholdHead = RelationshipEnum.valueOf(item.relationshipWithHousehold)
+        alternate.relationshipOther = item.relationshipOther
 
         return alternate
     }
@@ -1077,8 +1077,8 @@ object EntityMapper {
         if (item == null) return null
         val household = com.kit.integrationmanager.model.HouseholdMember()
         household.applicationId = id
-        household.totalMale = item.mem0TotalMale
-        household.totalFemale = item.mem0TotalFemale
+        household.maleTotal = item.mem0TotalMale
+        household.femaleTotal = item.mem0TotalFemale
         household.femaleChronicalIll = item.mem0IllFemale
         household.femaleDisable = item.mem0DisableFemale
         household.femaleBoth = item.mem0NormalFemale
@@ -1098,8 +1098,8 @@ object EntityMapper {
         for (value in item) {
             if (value.type == type) {
                 household.applicationId = id
-                household.totalMale = value.maleTotal
-                household.totalFemale = value.femaleTotal
+                household.maleTotal = value.maleTotal
+                household.femaleTotal = value.femaleTotal
                 household.femaleChronicalIll = value.femaleChronicalIll
                 household.femaleDisable = value.femaleDisable
                 household.femaleBoth = value.femaleBoth
@@ -1118,8 +1118,8 @@ object EntityMapper {
         if (item == null) return null
         val household = com.kit.integrationmanager.model.HouseholdMember()
         household.applicationId = id
-        household.totalMale = item.mem18TotalMale
-        household.totalFemale = item.mem18TotalFemale
+        household.maleTotal = item.mem18TotalMale
+        household.femaleTotal = item.mem18TotalFemale
         household.femaleChronicalIll = item.mem18IllFemale
         household.femaleDisable = item.mem18DisableFemale
         household.femaleBoth = item.mem18NormalFemale
@@ -1136,8 +1136,8 @@ object EntityMapper {
         if (item == null) return null
         val household = com.kit.integrationmanager.model.HouseholdMember()
         household.applicationId = id
-        household.totalMale = item.mem36TotalMale
-        household.totalFemale = item.mem36TotalFemale
+        household.maleTotal = item.mem36TotalMale
+        household.femaleTotal = item.mem36TotalFemale
         household.femaleChronicalIll = item.mem36IllFemale
         household.femaleDisable = item.mem36DisableFemale
         household.femaleBoth = item.mem36NormalFemale
@@ -1154,8 +1154,8 @@ object EntityMapper {
         if (item == null) return null
         val household = com.kit.integrationmanager.model.HouseholdMember()
         household.applicationId = id
-        household.totalMale = item.mem65TotalMale
-        household.totalFemale = item.mem65TotalFemale
+        household.maleTotal = item.mem65TotalMale
+        household.femaleTotal = item.mem65TotalFemale
         household.femaleChronicalIll = item.mem65IllFemale
         household.femaleDisable = item.mem65DisableFemale
         household.femaleBoth = item.mem65NormalFemale
@@ -1172,8 +1172,8 @@ object EntityMapper {
         if (item == null) return null
         val household = com.kit.integrationmanager.model.HouseholdMember()
         household.applicationId = id
-        household.totalMale = item.mem6TotalMale
-        household.totalFemale = item.mem6TotalFemale
+        household.maleTotal = item.mem6TotalMale
+        household.femaleTotal = item.mem6TotalFemale
         household.femaleChronicalIll = item.mem6IllFemale
         household.femaleDisable = item.mem6DisableFemale
         household.femaleBoth = item.mem6NormalFemale
@@ -1190,8 +1190,8 @@ object EntityMapper {
         if (item == null) return null
         val household = com.kit.integrationmanager.model.HouseholdMember()
         household.applicationId = id
-        household.totalMale = item.mem3TotalMale
-        household.totalFemale = item.mem3TotalFemale
+        household.maleTotal = item.mem3TotalMale
+        household.femaleTotal = item.mem3TotalFemale
         household.femaleChronicalIll = item.mem3IllFemale
         household.femaleDisable = item.mem3DisableFemale
         household.femaleBoth = item.mem3NormalFemale

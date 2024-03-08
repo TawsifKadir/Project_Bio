@@ -188,7 +188,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         adapterSupportType?.setOnItemClickListener(this)
         binding.rvSupportType.adapter = adapterSupportType
 
-        adapterSupportType?.addAll(UiData.getPublicWorks())
+        adapterSupportType?.addAll(UiData.getSelectionReasonLipw())
     }
 
     override fun initView() {
@@ -340,12 +340,12 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
 
     fun doSomethingForRbA() {
         binding.llrecycle.visible()
-        adapterSupportType?.addAll(UiData.getPublicWorks())
+        adapterSupportType?.addAll(UiData.getSelectionReasonLipw())
     }
 
     fun doSomethingForRbB() {
         binding.llrecycle.visible()
-        adapterSupportType?.addAll(UiData.getDirectIncomeSupport())
+        adapterSupportType?.addAll(UiData.getSelectionReasonDis())
     }
 
     fun doSomethingForYes() {
@@ -576,7 +576,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         //etSpouseName.setText("Yesmin")
 
         rgSelectionCriteria.check(R.id.rbA)
-        adapterSupportType?.addAll(UiData.getPublicWorksDummy())
+        //adapterSupportType?.addAll(UiData.getPublicWorksDummy())
     }
 
     override fun onPopulateView() {

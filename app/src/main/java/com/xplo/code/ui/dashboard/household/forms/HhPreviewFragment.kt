@@ -664,8 +664,8 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         alternateEO.nationalId = alternateBO.nationalId
         alternateEO.payeePhoneNo = alternateBO.payeePhoneNo
         alternateEO.type = type
-        alternateEO.relationshipWithHousehold = alternateBO.relationWithHousehold.name
-        alternateEO.relationshipOther = alternateBO.otherRelationshipWithHousehold
+        alternateEO.relationshipWithHousehold = alternateBO.relationshipWithHouseholdHead.name
+        alternateEO.relationshipOther = alternateBO.relationshipOther
         return alternateEO
     }
 
@@ -705,8 +705,8 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         val householdInfoEO = HouseholdInfo()
         if (member != null) {
             householdInfoEO.applicationId = appId
-            householdInfoEO.maleTotal = member.totalMale
-            householdInfoEO.femaleTotal = member.totalFemale
+            householdInfoEO.maleTotal = member.maleTotal
+            householdInfoEO.femaleTotal = member.femaleTotal
             householdInfoEO.maleDisable = member.maleDisable
             householdInfoEO.femaleDisable = member.femaleDisable
             householdInfoEO.maleChronicalIll = member.maleChronicalIll
@@ -756,8 +756,8 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         beneficiaryEO.spouseMiddleName = beneficiaryBO.spouseMiddleName
         beneficiaryEO.spouseLastName = beneficiaryBO.spouseLastName
 
-        beneficiaryEO.incomeSourceOtherText = beneficiaryBO.otherHouseholdIncomeSource
-        beneficiaryEO.relationshipOtherText = beneficiaryBO.otherRelationshipWithHouseholdHead
+        beneficiaryEO.incomeSourceOtherText = beneficiaryBO.incomeSourceOther
+        beneficiaryEO.relationshipOtherText = beneficiaryBO.relationshipOther
         beneficiaryEO.documentTypeOther = beneficiaryBO.documentTypeOther
 
         beneficiaryEO.relationshipWithHouseholdHead =

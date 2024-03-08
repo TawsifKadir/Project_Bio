@@ -69,6 +69,26 @@ object UiData {
     val directIncomeSupport = DirectIncomeSupportEnum.getArray()
 
 
+    fun getSelectionReasonLipw(): List<CheckboxItem> {
+        var array = SelectionReasonEnum.getArrayLipw()
+        var items = arrayListOf<CheckboxItem>()
+        for (i in array.indices) {
+            if (i == 0) continue
+            items.add(CheckboxItem(i, array[i], false))
+        }
+        return items
+    }
+
+    fun getSelectionReasonDis(): List<CheckboxItem> {
+        var array = SelectionReasonEnum.getArrayDis()
+        var items = arrayListOf<CheckboxItem>()
+        for (i in array.indices) {
+            if (i == 0) continue
+            items.add(CheckboxItem(i, array[i], false))
+        }
+        return items
+    }
+
     fun getPublicWorks(): List<CheckboxItem> {
         var array = publicWorks
         var items = arrayListOf<CheckboxItem>()

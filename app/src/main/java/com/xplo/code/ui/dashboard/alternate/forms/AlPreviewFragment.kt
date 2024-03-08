@@ -477,8 +477,8 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
         alternateEO.nationalId = alternateBO.nationalId
         alternateEO.payeePhoneNo = alternateBO.payeePhoneNo
         alternateEO.type = type
-        alternateEO.relationshipWithHousehold = alternateBO.relationWithHousehold.name
-        alternateEO.relationshipOther = alternateBO.otherRelationshipWithHousehold
+        alternateEO.relationshipWithHousehold = alternateBO.relationshipWithHouseholdHead.name
+        alternateEO.relationshipOther = alternateBO.relationshipOther
         return alternateEO
     }
 

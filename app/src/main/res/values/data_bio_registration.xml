@@ -200,21 +200,21 @@
         <item>No Relation</item>
     </string-array>
 
-    <string-array name="support_type_public_work_array">
-        <item>Poor household with no sufficient income to sustain the household</item>
-        <item>Household contain able bodied youth member (18–35)</item>
-        <item>Household headed by young men and women between the ages of 18 and 35</item>
-        <item>Household has three or more dependents</item>
+<!--    <string-array name="support_type_public_work_array">-->
+<!--        <item>Poor household with no sufficient income to sustain the household</item>-->
+<!--        <item>Household contain able bodied youth member (18–35)</item>-->
+<!--        <item>Household headed by young men and women between the ages of 18 and 35</item>-->
+<!--        <item>Household has three or more dependents</item>-->
 
-    </string-array>
+<!--    </string-array>-->
 
-    <string-array name="support_type_direct_income_array">
-        <item>Child headed households with no alternate income support</item>
-        <item>Elderly headed household lacking alternate income support and able bodied member</item>
-        <item>Persons with disability headed household lacking alternate income support and able bodied member</item>
-        <item>Chronically ill headed household lacking alternate income and able bodied member</item>
-        <item>Female headed household lacking alternate income support and able-bodied member</item>
-    </string-array>
+<!--    <string-array name="support_type_direct_income_array">-->
+<!--        <item>Child headed households with no alternate income support</item>-->
+<!--        <item>Elderly headed household lacking alternate income support and able bodied member</item>-->
+<!--        <item>Persons with disability headed household lacking alternate income support and able bodied member</item>-->
+<!--        <item>Chronically ill headed household lacking alternate income and able bodied member</item>-->
+<!--        <item>Female headed household lacking alternate income support and able-bodied member</item>-->
+<!--    </string-array>-->
 
     <string name="select_nominee_gender_label">Select Nominee Gender</string>
     <string-array name="select_nominee_gender_array">
