@@ -147,12 +147,12 @@ object BeneficiaryMapper {
         member.maleBoth = item.maleNormal
         member.maleDisable = item.maleDisable
         member.maleChronicalIll = item.maleChronicalIll
-        member.totalMale = item.totalMale
+        member.maleTotal = item.totalMale
 
         member.femaleBoth = item.femaleNormal
         member.femaleDisable = item.femaleDisable
         member.femaleChronicalIll = item.femaleChronicalIll
-        member.totalFemale = item.totalFemale
+        member.femaleTotal = item.totalFemale
 
         return member
 

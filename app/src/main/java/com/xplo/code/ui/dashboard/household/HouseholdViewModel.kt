@@ -301,8 +301,8 @@ class HouseholdViewModel @Inject constructor(
             form.spouseMiddleName = beneficiary.spouseMiddleName
             form.spouseLastName = beneficiary.spouseLastName
             form.spouseNickName = beneficiary.spouseNickName
-            form.otherHouseholdIncomeSource = beneficiary.incomeSourceOtherText
-            form.otherRelationshipWithHouseholdHead = beneficiary.relationshipOtherText
+            form.incomeSourceOther = beneficiary.incomeSourceOtherText
+            form.relationshipOther = beneficiary.relationshipOtherText
             form.documentTypeOther = beneficiary.documentTypeOther
 
             if (beneficiary.relationshipWithHouseholdHead != null) {
