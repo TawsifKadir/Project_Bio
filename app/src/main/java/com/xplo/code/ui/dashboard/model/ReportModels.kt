@@ -1,5 +1,6 @@
 package com.xplo.code.ui.dashboard.model
 
+import android.util.Log
 import com.xplo.code.core.ext.toBool
 
 
@@ -136,6 +137,7 @@ fun HhForm5?.getReportRows(): List<ReportRow> {
 
 
 fun List<Finger>?.getReportRows(): List<ReportRow> {
+    Log.d("TAG", "getReportRows() called $this")
 
     if (this.isNullOrEmpty()) {
         val items = arrayListOf<ReportRow>()
@@ -190,14 +192,25 @@ fun List<Finger>?.getReportRows(): List<ReportRow> {
         )
     )
 
+//    items.add(
+//        ReportRow(
+//            "Left Little:",
+//            fingers.isCaptured("LL").toString(),
+//            "Right Little: ",
+//            fingers.isCaptured("RL").toString(),
+//        )
+//    )
+
     items.add(
         ReportRow(
             "Left Little:",
-            fingers.isCaptured("LL").toString(),
+            (fingers.isCaptured("LL") || fingers.isCaptured("LS")).toString(),
             "Right Little: ",
-            fingers.isCaptured("RL").toString(),
+            (fingers.isCaptured("RL") || fingers.isCaptured("RS")).toString(),
         )
     )
+
+
     return items
 }
 

@@ -284,7 +284,9 @@ fun List<Finger>?.isCaptured(fingerCode: String?): Boolean {
     if (fingerCode == null) return false
 
     for (item in this) {
-        if (fingerCode.equals(item.fingerType, true)) return true
+        if (fingerCode.equals(item.fingerType, true)) {
+            if (item.isContainValidFingerprint()) return true
+        }
     }
 
     return false
