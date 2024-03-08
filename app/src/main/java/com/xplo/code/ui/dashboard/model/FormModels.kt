@@ -208,9 +208,11 @@ data class Nominee(
     var lastName: String? = null,
     var nickName: String? = null,
     var relation: String? = null,
+    var relationOthers: String? = null,
     var age: Int? = null,
     var gender: String? = null,
     var occupation: String? = null,
+    var occupationOthers: String? = null,
     var isReadWrite: String? = null
 )
 
@@ -357,6 +359,7 @@ data class AlForm1(
     var alternateNickName: String? = null,
     var age: Int? = null,
     var idNumber: String? = null,
+    var idNumberOthersvalue: String? = null,
     var idNumberType: String? = null,
     var idIsOrNot: String? = null,
     var phoneNumber: String? = null,

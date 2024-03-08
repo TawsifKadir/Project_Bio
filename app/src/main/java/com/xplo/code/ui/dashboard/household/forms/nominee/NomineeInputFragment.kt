@@ -13,6 +13,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.fragment.app.viewModels
+import com.kit.integrationmanager.model.NomineeOccupationEnum
 import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.OccupationEnum
 import com.kit.integrationmanager.model.RelationshipEnum
@@ -238,17 +239,13 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         nominee.lastName = chkEditText3Char(etLastName, UiData.ER_ET_DF)
         nominee.nickName = chkEditTextNickName3Char(etNickName, UiData.ER_ET_DF)
         nominee.age = chkAge(etAge, UiData.ER_ET_DF)?.toInt()
-        if(spRelation.selectedItem.toString().equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
-            nominee.relation = etOtherRelation.text.toString()
-        }else{
-            nominee.relation = chkSpinner(spRelation, UiData.ER_SP_DF)
-        }
         nominee.relation = chkSpinner(spRelation, UiData.ER_SP_DF)
+        if(spRelation.selectedItem.toString().equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
+            nominee.relationOthers = chkEditText3Char(etOtherRelation, UiData.ER_ET_DF)
+        }
         nominee.gender = chkSpinner(spGender, UiData.ER_SP_DF)
-        if(spOccupation.selectedItem.toString().contains("Other", ignoreCase = true)){
-            nominee.occupation = etOtherWork.text.toString()
-        }else{
-            nominee.occupation = chkSpinner(spOccupation, UiData.ER_SP_DF)
+        if(spOccupation.selectedItem.toString().contains(NomineeOccupationEnum.OTHERS.value, ignoreCase = true)){
+            nominee.occupationOthers = chkEditText3Char(etOtherWork, UiData.ER_ET_DF)
         }
         nominee.occupation = chkSpinner(spOccupation, UiData.ER_SP_DF)
 

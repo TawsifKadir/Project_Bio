@@ -92,6 +92,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
     private lateinit var spAlternateRelation: Spinner
     private lateinit var etPhoneNo: EditText
     private lateinit var etIdNumber: EditText
+    private lateinit var etIDType: EditText
     private lateinit var etAge: EditText
     private lateinit var etIdType: EditText
     private lateinit var etothers: EditText
@@ -145,7 +146,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         etAlternateMiddleName = binding.etAlternateMiddleName
         etAlternateLastName = binding.etAlternateLastName
         etAlternateNickName =binding.etAlternateNickName
-        etIdType = binding.etIDType
+        etIDType = binding.etIDType
         etothers = binding.etotherstext
     }
 
@@ -238,7 +239,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
                 }else if (selectedItem.equals(UiData.idType[3], ignoreCase = true)) {  ///Other Selected
 //                    etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
                     idType.visible()
-                    etIdType.setText("")
+                    etIDType.setText("")
                     etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
                     etIdNumber.setText("")
                 }
@@ -346,11 +347,13 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
 
         if (binding.llIdTypeInput.isVisible && binding.llIdType.isVisible) {
             if (spIdType.selectedItem.toString().equals(IDtypeEnum.OTHERS.value, ignoreCase = true)){
-                form.idNumberType = etIdType.text.toString()
+                form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
+                form.idNumber = checkIDNumber(etIdNumber, UiData.ER_ET_DF, form.idNumberType)
+                form.idNumberOthersvalue = chkEditText3Char(etIDType, UiData.ER_ET_DF)
             }else{
                 form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
+                form.idNumber = checkIDNumber(etIdNumber, UiData.ER_ET_DF, form.idNumberType)
             }
-            form.idNumber = checkIDNumber(etIdNumber, UiData.ER_ET_DF, form.idNumberType)
         } else {
             form.idNumber = null
             form.idNumberType = null
