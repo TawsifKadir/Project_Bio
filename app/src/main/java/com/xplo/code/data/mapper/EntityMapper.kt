@@ -65,7 +65,15 @@ object EntityMapper {
         form.spouseMiddleName = item.form2?.spouseMiddleName
         form.spouseLastName = item.form2?.spouseLastName
         form.spouseNickName = item.form2?.spouseNickName
+
         form.relationshipWithHouseholdHead = RelationshipEnum.find(item.form2?.respondentRlt)
+        form.householdIncomeSource = IncomeSourceEnum.find(item.form2?.mainSourceOfIncome)
+
+        if(item.form2?.idNumberType == null){
+            form.documentType = DocumentTypeEnum.NONE
+        }else{
+            form.documentType = DocumentTypeEnum.find(item.form2?.idNumberType)
+        }
 
         form.otherRelationshipWithHouseholdHead = item.form2?.respondentRltOthersValue ?: ""
         form.documentTypeOther = item.form2?.idNumberOthersvalue ?: ""
@@ -75,12 +83,10 @@ object EntityMapper {
         form.respondentGender = GenderEnum.find(item.form2?.gender)
         form.respondentMaritalStatus = MaritalStatusEnum.find(item.form2?.maritalStatus)
         form.respondentLegalStatus = LegalStatusEnum.find(item.form2?.legalStatus)
-        form.documentType = DocumentTypeEnum.find(item.form2?.idNumberType)
         //  form.documentTypeOther = item.form2?.firstName
-        form.documentTypeOther = "Other"
+        //form.documentTypeOther = "Other"
         form.respondentId = item.form2?.idNumber
         form.respondentPhoneNo = item.form2?.phoneNumber
-        form.householdIncomeSource = IncomeSourceEnum.find(item.form2?.mainSourceOfIncome)
         form.householdMonthlyAvgIncome = item.form2?.monthlyAverageIncome
         form.currency = CurrencyEnum.SUDANESE_POUND
         form.selectionCriteria = SelectionCriteriaEnum.find(item.form2?.selectionCriteria)
