@@ -11,7 +11,7 @@ apply plugin: 'dagger.hilt.android.plugin'
 //apply plugin: 'com.google.gms.google-services'
 
 def versionMajor = 0
-def versionMinor = 12
+def versionMinor = 13
 def versionPatch = 0
 
 android {
