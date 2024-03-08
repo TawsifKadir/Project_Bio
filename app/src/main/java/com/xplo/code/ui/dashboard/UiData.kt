@@ -8,7 +8,7 @@ import com.kit.integrationmanager.model.IDtypeEnum
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.LegalStatusEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
-import com.kit.integrationmanager.model.NomineeOccupationEnum
+import com.kit.integrationmanager.model.OccupationEnum
 import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.PublicWorkEnum
 import com.kit.integrationmanager.model.RelationshipEnum
@@ -64,7 +64,7 @@ object UiData {
     val selectionReason = SelectionReasonEnum.getArray()
     val nonParticipationReason = NonPerticipationReasonEnum.getArray()
     val idType = IDtypeEnum.getArray()
-    val nomineeOccupation = NomineeOccupationEnum.getArray()
+    val nomineeOccupation = OccupationEnum.getArray()
     val publicWorks = PublicWorkEnum.getArray()
     val directIncomeSupport = DirectIncomeSupportEnum.getArray()
 

@@ -13,9 +13,8 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.fragment.app.viewModels
-import com.kit.integrationmanager.model.NomineeOccupationEnum
-import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.OccupationEnum
+import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.xplo.code.BuildConfig
 import com.xplo.code.core.Bk
@@ -245,7 +244,7 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         }
         nominee.gender = chkSpinner(spGender, UiData.ER_SP_DF)
         nominee.occupation = chkSpinner(spOccupation, UiData.ER_SP_DF)
-        if(nominee.occupation.equals(NomineeOccupationEnum.OTHERS.value, ignoreCase = true)){
+        if(nominee.occupation.equals(OccupationEnum.OTHER.value, ignoreCase = true)){
             nominee.occupationOthers = chkEditText3Char(etOtherWork, UiData.ER_ET_DF)
         }
         nominee.isReadWrite = chkRadioGroup(rgReadWrite, UiData.ER_RB_DF)
