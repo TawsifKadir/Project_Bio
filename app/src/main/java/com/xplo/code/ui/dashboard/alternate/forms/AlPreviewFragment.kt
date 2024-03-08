@@ -356,16 +356,13 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
     }
 
     private fun getRowView(item: ReportRow?): View {
-        Log.d(TAG, "getRowView() called with: item = $item")
+        //Log.d(TAG, "getRowView() called with: item = $item")
         return ReportViewUtils.getRowView(requireContext(), layoutInflater, item)
     }
 
     fun insertAlternate(beneficiaryBO: Beneficiary, appId: String) {
-        Log.d(
-            HhPreviewFragment.TAG,
-            "alternate applicationId: = ${appId}"
-        )
-        Log.d(HhPreviewFragment.TAG, " applicationId: = ${appId}")
+        Log.d(TAG, "insertAlternate() called with: beneficiaryBO = $beneficiaryBO, appId = $appId")
+
         try {
             DatabaseExecutors.getInstance().diskIO().execute {
                 val mDatabase = BeneficiaryDatabase.getInstance(requireContext())
@@ -461,6 +458,10 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
         alternateBO: AlternatePayee,
         type: String
     ): Alternate {
+        Log.d(
+            TAG,
+            "prepareAlternateEntity() called with: appId = $appId, alternateBO = $alternateBO, type = $type"
+        )
         val alternateEO = Alternate()
         alternateEO.applicationId = appId
         alternateEO.payeeFirstName = alternateBO.payeeFirstName
@@ -476,6 +477,8 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
         alternateEO.nationalId = alternateBO.nationalId
         alternateEO.payeePhoneNo = alternateBO.payeePhoneNo
         alternateEO.type = type
+        alternateEO.relationshipWithHousehold = alternateBO.relationWithHousehold.name
+        alternateEO.relationshipOther = alternateBO.otherRelationshipWithHousehold
         return alternateEO
     }
 
@@ -484,6 +487,10 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
         biometricList: List<com.kit.integrationmanager.model.Biometric?>?,
         type: String
     ): Biometric {
+        Log.d(
+            TAG,
+            "prepareBiometricEntity() called with: appId = $appId, biometricList = $biometricList, type = $type"
+        )
         val nowBiometricEO = Biometric()
         if (biometricList != null) {
             for (nowBiometric in biometricList) {

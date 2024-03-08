@@ -986,6 +986,7 @@ class HouseholdViewModel @Inject constructor(
     }
 
     public fun callRegisterApi(context: Context, beneficiary: Beneficiary?) {
+        Log.d(TAG, "callRegisterApi() called with: context = $context, beneficiary = $beneficiary")
         val integrationManager = IMHelper.getIntegrationManager(context, this)
         val header = IMHelper.getHeader()
         integrationManager.syncRecord(beneficiary, header)

@@ -364,6 +364,7 @@ data class AlForm1(
     var idIsOrNot: String? = null,
     var phoneNumber: String? = null,
     var selectAlternateRlt: String? = null,
+    var relationOther: String? = null,
     var gender: String? = null,
     var documentTypeOther: String? = null
 ) : Serializable

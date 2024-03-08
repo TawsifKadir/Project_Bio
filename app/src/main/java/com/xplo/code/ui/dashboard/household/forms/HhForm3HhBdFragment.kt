@@ -1027,8 +1027,10 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
 
         etHouseholdSize.setText("6")
 
-        etMem0TotalMale.setText("3")
-        etMem0TotalFemale.setText("3")
+        etMem0TotalMale.setText("6")
+
+//        etMem0NormalMale.setText("3")
+//        etMem0NormalFemale.setText("3")
 
         etReadWriteNumber.setText("0")
 

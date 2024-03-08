@@ -23,9 +23,10 @@ import com.xplo.code.ui.dashboard.model.toSummary
  * Comment  :
  */
 object ReportViewUtils {
+    private const val TAG = "ReportViewUtils"
 
     fun getRowView(context: Context, layoutInflater: LayoutInflater, item: ReportRow?): View {
-        Log.d(FormDetailsFragment.TAG, "getRowView() called with: item = $item")
+        //Log.d(TAG, "getRowView() called with: item = $item")
 
 
         val rowView: View = layoutInflater.inflate(R.layout.row_report_item, null, false)
@@ -59,7 +60,7 @@ object ReportViewUtils {
         layoutInflater: LayoutInflater,
         item: AlternateForm?
     ): View {
-        Log.d(FormDetailsFragment.TAG, "getRowView() called with: item = $item")
+        //Log.d(TAG, "getRowView() called with: item = $item")
 
 
         val rowView: View = layoutInflater.inflate(R.layout.row_alternate_report_item, null, false)

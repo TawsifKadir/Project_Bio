@@ -421,7 +421,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
     }
 
     fun insertBeneficiary(beneficiaryBO: Beneficiary) {
-        Log.d(TAG, "beneficiaryBO applicationId: = ${beneficiaryBO.applicationId}")
+        Log.d(TAG, "insertBeneficiary() called with: beneficiaryBO = $beneficiaryBO")
         try {
             DatabaseExecutors.getInstance().diskIO().execute {
                 // uuid = UUID.randomUUID()
@@ -664,6 +664,8 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         alternateEO.nationalId = alternateBO.nationalId
         alternateEO.payeePhoneNo = alternateBO.payeePhoneNo
         alternateEO.type = type
+        alternateEO.relationshipWithHousehold = alternateBO.relationWithHousehold.name
+        alternateEO.relationshipOther = alternateBO.otherRelationshipWithHousehold
         return alternateEO
     }
 
