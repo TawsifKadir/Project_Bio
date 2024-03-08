@@ -122,10 +122,12 @@ object EntityMapper {
         form.isReadWrite = getReadWrite(item.form3?.isReadWrite)
         form.memberReadWrite = item.form3?.readWriteNumber
 
-        if(form.nominees.isEmpty()){
-            form.isOtherMemberPerticipating = false
-        }else{
-            form.isOtherMemberPerticipating = true
+        if(form.nominees != null){
+            if(form.nominees.size > 0){
+                form.isOtherMemberPerticipating = true
+            }else{
+                form.isOtherMemberPerticipating = false
+            }
         }
 
         form.notPerticipationReason = NonPerticipationReasonEnum.find(item.form6?.noNomineeReason)
