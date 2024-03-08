@@ -103,6 +103,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
     private lateinit var rgId: RadioGroup
     private lateinit var incomeField: LinearLayout
     private lateinit var etOthersText: EditText
+    private lateinit var edtOthersourcetext: EditText
     private lateinit var idType: LinearLayout
     private lateinit var etIdType: EditText
 
@@ -172,6 +173,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         rgSelectionCriteria = binding.rgSelectionCriteria
         rgId = binding.rgId
         etOthersText = binding.etotherstext
+        edtOthersourcetext = binding.edtOthersourcetext
         idType = binding.IdType
         etIdType = binding.etIDType
         idType.gone()
@@ -465,7 +467,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         val form = HhForm2()
 
         if(spMainSourceOfIncome.selectedItem.toString().equals(IncomeSourceEnum.OTHER.toString(), ignoreCase = true)){
-            form.mainSourceOfIncome = binding.etothersourcetext.text.toString()
+            form.mainSourceOfIncome = chkEditText3Char(edtOthersourcetext, UiData.ER_SP_DF)
             Log.d(TAG,"Entered Main Source of Income other with ${form.mainSourceOfIncome}")
         }else{
             form.mainSourceOfIncome = chkSpinner(spMainSourceOfIncome, UiData.ER_SP_DF)
