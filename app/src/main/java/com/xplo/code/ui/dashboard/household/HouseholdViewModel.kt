@@ -331,8 +331,15 @@ class HouseholdViewModel @Inject constructor(
                     DocumentTypeEnum.getDocumentTypeById(beneficiary.documentType.toInt() + 1)
             }
 
-            form.documentTypeOther = beneficiary.documentTypeOther
-            form.respondentId = beneficiary.respondentId
+            if(form.documentType == DocumentTypeEnum.PASSPORT || form.documentType == DocumentTypeEnum.NATIONAL_ID){
+                form.respondentId = beneficiary.respondentId
+            }else if(form.documentType == DocumentTypeEnum.OTHER){
+                form.documentTypeOther = beneficiary.documentTypeOther
+                form.respondentId = beneficiary.respondentId
+            }else{
+                form.documentTypeOther = null
+            }
+
             form.respondentPhoneNo = beneficiary.respondentPhoneNo
             if (beneficiary.householdIncomeSource != null) {
                 form.householdIncomeSource =
