@@ -1025,14 +1025,14 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
-//        etHouseholdSize.setText("6")
-//
-//        etMem0NormalMale.setText("3")
-//        etMem0NormalFemale.setText("3")
-//
-//        etReadWriteNumber.setText("0")
-//
-//        rgReadWrite.check(binding.rbNo.id)
+        etHouseholdSize.setText("6")
+
+        etMem0NormalMale.setText("3")
+        etMem0NormalFemale.setText("3")
+
+        etReadWriteNumber.setText("0")
+
+        rgReadWrite.check(binding.rbNo.id)
     }
 
     override fun onPopulateView() {
