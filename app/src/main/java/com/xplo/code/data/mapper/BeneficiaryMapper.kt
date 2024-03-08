@@ -53,7 +53,7 @@ object BeneficiaryMapper {
 
 
         beneficiary.documentType = item.documentTypeEnum
-        beneficiary.documentType = DocumentTypeEnum.NATIONAL_ID
+        //beneficiary.documentType = DocumentTypeEnum.NATIONAL_ID
         if(item.documentTypeEnum == DocumentTypeEnum.NONE){
             beneficiary.respondentId = null
         }else{
@@ -176,7 +176,7 @@ object BeneficiaryMapper {
         //alternate.nationalId = FakeMapperValue.nationalId
 
         alternate.documentType = item.documentTypeEnum
-        alternate.documentType = DocumentTypeEnum.NATIONAL_ID
+        //alternate.documentType = DocumentTypeEnum.NATIONAL_ID
         if(item.documentTypeEnum == DocumentTypeEnum.NONE){
             alternate.nationalId = null
         }else{
