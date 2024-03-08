@@ -37,12 +37,14 @@ class ResetFragment : BaseFragment(), LoginContract.ResetPasswordView {
 
         @JvmStatic
         fun newInstance(
-            parent: String?
+            parent: String?,
+            userId: String?
         ): ResetFragment {
-            Log.d(TAG, "newInstance() called with: parent = $parent")
+            Log.d(TAG, "newInstance() called with: parent = $parent, userId = $userId")
             val fragment = ResetFragment()
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
+            bundle.putString(Bk.KEY_ID, userId)
             fragment.arguments = bundle
             return fragment
         }
@@ -56,6 +58,8 @@ class ResetFragment : BaseFragment(), LoginContract.ResetPasswordView {
     private val viewModel: LoginViewModel by viewModels()
 
     private var interactor: LoginContract.View? = null
+
+    private var userId: String? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -92,6 +96,11 @@ class ResetFragment : BaseFragment(), LoginContract.ResetPasswordView {
 
     override fun initView() {
 
+        arguments.let {
+            userId = it?.getString(Bk.KEY_ID)
+        }
+        etUserName.setText(userId)
+        etUserName.isEnabled = false
     }
 
     override fun initObserver() {
@@ -122,7 +131,7 @@ class ResetFragment : BaseFragment(), LoginContract.ResetPasswordView {
         }
         btResetPassword.setOnClickListener {
 
-           onClickRetypePassword()
+           onClickResetPassword()
         }
     }
 
@@ -144,15 +153,16 @@ class ResetFragment : BaseFragment(), LoginContract.ResetPasswordView {
         interactor?.navigateToLogin()
     }
 
-    override fun onClickRetypePassword() {
-        Log.d(TAG, "onClickRetypePassword() called")
+    override fun onClickResetPassword() {
+        Log.d(TAG, "onClickResetPassword() called")
 
         val password = etPassword.text.toString()
         val retypePassword = etRetypePassword.text.toString()
         if (password.isEmpty()) return
 
+        //val userId = getPrefHelper().getUserId()
         if (password == retypePassword){
-            viewModel.resetPassword(password)
+            viewModel.resetPassword(requireContext(), userId, password)
         }else {
             showAlerter(null, "Password didn't match")
         }

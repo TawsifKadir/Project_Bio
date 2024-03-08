@@ -13,11 +13,20 @@ import com.xplo.code.R
 import com.xplo.code.base.BaseActivity
 import com.xplo.code.core.Bk
 import com.xplo.code.databinding.ActivityLoginBinding
-import com.xplo.code.ui.dashboard.alternate.forms.LoginFragment
+import com.xplo.code.ui.login.model.LoginFragment
 import com.xplo.code.ui.login.model.ResetFragment
 import com.xplo.code.ui.dashboard.alternate.forms.SignUpFragment
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Copyright 2020 (C) xplo
+ *
+ * Created  : 3/14/20
+ * Updated  :
+ * Author   : xplo
+ * Desc     :
+ * Comment  :
+ */
 @AndroidEntryPoint
 class LoginActivity : BaseActivity(), LoginContract.View {
 
@@ -100,24 +109,21 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     }
 
     override fun navigateToLogin() {
-        doFragmentTransaction(LoginFragment.newInstance(null),LoginFragment.TAG,false,true)
+        doFragmentTransaction(LoginFragment.newInstance(null), LoginFragment.TAG,false,true)
     }
 
     override fun navigateToSignUp() {
         doFragmentTransaction(SignUpFragment.newInstance(null),SignUpFragment.TAG,true,false)
     }
 
-    override fun navigateToReset() {
-        doFragmentTransaction(ResetFragment.newInstance(null), ResetFragment.TAG,false,true)
+    override fun navigateToReset(userId: String?) {
+        doFragmentTransaction(ResetFragment.newInstance(null, userId), ResetFragment.TAG,false,true)
     }
 
 
     override fun onLoginSuccess(token: String, id: String?) {
         Log.d(TAG, "onLoginSuccess() called with: token = $token, id = $id")
-        getPrefHelper().setAccessToken(token)
-        getPrefHelper().setUserId("abc07")
-        navigateToHome()
-        finish()
+
     }
 
     override fun onLoginFailure(msg: String?) {

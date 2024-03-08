@@ -1,4 +1,4 @@
-package com.xplo.code.ui.dashboard.alternate.forms
+package com.xplo.code.ui.login.model
 
 
 import android.content.Context
@@ -11,12 +11,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
+import com.xplo.code.core.Contextor
+import com.xplo.code.core.utils.NetUtils
 import com.xplo.code.data.Constants
 import com.xplo.code.data_module.core.Config
 import com.xplo.code.databinding.FragmentLoginBinding
 import com.xplo.code.ui.login.LoginContract
 import com.xplo.code.ui.login.LoginViewModel
-import com.xplo.code.ui.login.model.LoginCredentials
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Observer
 
@@ -79,6 +80,7 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
         initObserver()
 
     }
+
     override fun initInitial() {
 
     }
@@ -90,35 +92,7 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
 
     override fun initObserver() {
         binding.btLogin.setOnClickListener {
-            val userId = binding.etUserId.text.toString()
-            val password = binding.etPassword.text.toString()
-            val loginCredentials = LoginCredentials(userId, password)
-//            try{
-//                if(DeviceManager.getInstance(requireContext()).isOnline) {
-//                    val serverInfo = ServerInfo();
-//                    serverInfo.port=8090;
-//                    serverInfo.protocol="http"
-//                    serverInfo.host_name="snsopafis.karoothitbd.com"
-//                    val loginService = LoginServiceImpl(requireContext(),this,serverInfo)
-//                    val headers = HashMap<String,String>()
-//                    val loginRequest = LoginRequest.builder().userName(userId).password(password).deviceId(DeviceManager.getInstance(requireContext()).deviceUniqueID).build()
-//                    loginService.doOnlineLogin(loginRequest,headers)
-//                }else {
-//                    val login = AuthStore.getInstance(requireContext()).loginInfoFromCache
-//                    if(login==null){
-//                        Log.e(TAG,"Intenet connectivity is required for device setup.")
-//                    }
-//                    else if(login.userName==userId && login.password==password){
-//                        Log.e(TAG,"Offline Login Successful")
-//                    }else{
-//                        Log.e(TAG,"Offline login failed")
-//                    }
-//                }
-//            }catch (e : Exception){
-//                Log.d(TAG,"Login Failed")
-//            }
-            viewModel.passwordLogin(loginCredentials)
-            //viewModel.passwordLoginwithSDK(loginCredentials,requireContext())
+            onClickLogin()
         }
 
         binding.btSignup.setOnClickListener {
@@ -126,7 +100,7 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
         }
 
         binding.btResetPass.setOnClickListener {
-            navigateToResetPassword()
+            navigateToResetPassword(null)
         }
         //btSignup.setOnClickListener(this)
 
@@ -150,13 +124,13 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
 
                     is LoginViewModel.Event.LoginSuccess -> {
                         hideLoading()
-                        onLoginSuccess(event.token!!, event.username)
+                        onLoginSuccess(event.token, event.username)
                         viewModel.clearEvent()
                     }
 
                     is LoginViewModel.Event.LoginPending -> {
                         hideLoading()
-                        onLoginPending(event.token!!, event.username)
+                        onLoginPending(event.token, event.username)
                         viewModel.clearEvent()
                     }
 
@@ -172,6 +146,7 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
         }
 
     }
+
     override fun onPause() {
         super.onPause()
     }
@@ -190,8 +165,45 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
         interactor?.navigateToSignUp()
     }
 
-    override fun navigateToResetPassword() {
-        interactor?.navigateToReset()
+    override fun navigateToResetPassword(userId: String?) {
+        interactor?.navigateToReset(userId)
+    }
+
+    override fun onClickLogin() {
+        Log.d(TAG, "onClickLogin() called")
+
+        val userId = binding.etUserId.text.toString()
+        val password = binding.etPassword.text.toString()
+        val credentials = LoginCredentials(userId, password)
+
+        if (userId.isEmpty() || password.isEmpty()) {
+            showAlerter(null, "Enter valid login credentials")
+            return
+        }
+
+        if (!NetUtils.isOnline(Contextor.getInstance().context)) {
+            onOfflineLogin(credentials)
+            return
+        }
+
+        onNormalLogin(credentials)
+
+
+    }
+
+    override fun onNormalLogin(credentials: LoginCredentials) {
+        Log.d(TAG, "onNormalLogin() called with: credentials = $credentials")
+        viewModel.passwordLogin(requireContext(), credentials)
+    }
+
+    override fun onOfflineLogin(credentials: LoginCredentials) {
+        Log.d(TAG, "onOfflineLogin() called with: credentials = $credentials")
+        viewModel.passwordLoginOffline(requireContext(), credentials)
+    }
+
+    override fun onLoginWithSdk(credentials: LoginCredentials) {
+        Log.d(TAG, "onLoginWithSdk() called with: credentials = $credentials")
+        viewModel.passwordLoginwithSDK(credentials, requireContext())
     }
 
     override fun onLoginSuccess(token: String, username: String?) {
@@ -206,7 +218,7 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
         Log.d(TAG, "onLoginPending() called with: token = $token, id = $username")
         Config.ACCESS_TOKEN = token
         //getPrefHelper().setUserId(username)
-        navigateToResetPassword()
+        navigateToResetPassword(username)
     }
 
     override fun onLoginFailure(msg: String?) {
@@ -232,7 +244,8 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
     }
 
     override fun update(o: java.util.Observable?, arg: Any?) {
-        Log.d(TAG,"Update Called")
+        Log.d(TAG, "update() called with: o = $o, arg = $arg")
+
     }
 
 }
