@@ -10,6 +10,7 @@ import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.databinding.RowAlternateItemBinding
 import com.xplo.code.ui.dashboard.model.getFullName
+import com.xplo.code.utils.DialogHandler
 
 /**
  * Copyright 2022 (C) xplo
@@ -68,7 +69,7 @@ class AlternateListAdapter : RecyclerView.Adapter<AlternateListAdapter.ViewHolde
             binding.tvAge.text = "age: " + form.form2?.age
             binding.tvAlternate.text = "Alternate added: " + form.alternates.size
 
-            if(form.alternates.size >= 5){
+            if(form.alternates.size >= 2){
                 binding.root.isClickable = false
                 binding.tvAlternate.setTypeface(null, Typeface.BOLD)
             }

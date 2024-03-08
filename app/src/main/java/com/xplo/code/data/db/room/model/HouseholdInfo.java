@@ -36,12 +36,19 @@ public class HouseholdInfo implements Serializable {
     @ColumnInfo(name = "male_chronically_ill")
     public Integer maleChronicalIll;
 
-    @ColumnInfo(name = "female_normal")
-    public Integer femaleNormal;
+    @ColumnInfo(name = "male_both")
+    public Integer maleBoth;
+
+    @ColumnInfo(name = "female_both")
+    public Integer femaleBoth;
 
     @ColumnInfo(name = "female_disable")
     public Integer femaleDisable;
 
     @ColumnInfo(name = "female_chronically_ill")
     public Integer femaleChronicalIll;
+
+    @ColumnInfo(name = "type")
+    public String type;
+
 }

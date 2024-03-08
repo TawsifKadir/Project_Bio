@@ -17,6 +17,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kit.integrationmanager.model.IDtypeEnum
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
 import com.kit.integrationmanager.model.NonPerticipationReasonEnum
@@ -101,6 +102,8 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
     private lateinit var rgId: RadioGroup
     private lateinit var incomeField: LinearLayout
     private lateinit var etOthersText: EditText
+    private lateinit var idType: LinearLayout
+    private lateinit var etIdType: EditText
 
     private var adapterSupportType: CheckboxListAdapter? = null
 
@@ -167,11 +170,13 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         rgSelectionCriteria = binding.rgSelectionCriteria
         rgId = binding.rgId
         etOthersText = binding.etotherstext
-
+        idType = binding.IdType
+        etIdType = binding.etIDType
+        idType.gone()
         //publicRecycler = binding.recycler
         //directRecycler = binding.recycler
 
-        binding.rvSupportType.setHasFixedSize(true)
+//        binding.rvSupportType.setHasFixedSize(true)
         binding.rvSupportType.layoutManager = LinearLayoutManager(requireContext())
         binding.rvSupportType.itemAnimator = DefaultItemAnimator()
 
@@ -240,13 +245,20 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
                 position: Int,
                 id: Long
             ) {
+                idType.gone()
                 val selectedItem = parent.getItemAtPosition(position).toString()
-                if (selectedItem.equals(UiData.idType[2], ignoreCase = true)) {
+                if (selectedItem.equals(UiData.idType[2], ignoreCase = true)) { //NationalID selected
 //                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
                     etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
                     etIdNumber.setText("")
-                } else {
+                } else if (selectedItem.equals(UiData.idType[1], ignoreCase = true)){ // Passport Selected
 //                    etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
+                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
+                    etIdNumber.setText("")
+                }else if (selectedItem.equals(UiData.idType[3], ignoreCase = true)) {  ///Other Selected
+//                    etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
+                    idType.visible()
+                    etIdType.setText("")
                     etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
                     etIdNumber.setText("")
                 }
@@ -264,9 +276,9 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
                 id: Long
             ) {
                 val selectedItem = parent.getItemAtPosition(position).toString()
-                if (selectedItem.equals(RelationshipEnum.OTHER.toString(), ignoreCase = true)) {
+                if (selectedItem.equals("Other", ignoreCase = true)) {
                     binding.otherVisible.visible()
-                    etOthersText.setText("")
+
                 } else {
                     binding.otherVisible.gone()
                 }
@@ -315,16 +327,20 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
             when (checkedId) {
                 R.id.rbA -> doSomethingForRbA()
                 R.id.rbB -> doSomethingForRbB()
-                else -> {}
+                else -> {
+                    binding.llrecycle.gone()
+                }
             }
         }
     }
 
     fun doSomethingForRbA() {
+        binding.llrecycle.visible()
         adapterSupportType?.addAll(UiData.getPublicWorks())
     }
 
     fun doSomethingForRbB() {
+        binding.llrecycle.visible()
         adapterSupportType?.addAll(UiData.getDirectIncomeSupport())
     }
 
@@ -387,7 +403,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
 
         if (binding.rbA.isChecked) {
             form.itemsSupportType?.let { doSomethingForRbA(it) }
-        } else {
+        } else if (binding.rbB.isChecked){
             form.itemsSupportType?.let { doSomethingForRbB(it) }
         }
 
@@ -445,10 +461,20 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
 
         val form = HhForm2()
 
-        form.mainSourceOfIncome = chkSpinner(spMainSourceOfIncome, UiData.ER_SP_DF)
+        if(spMainSourceOfIncome.selectedItem.toString().equals(IncomeSourceEnum.OTHER.toString(), ignoreCase = true)){
+            form.mainSourceOfIncome = binding.etothersourcetext.text.toString()
+            Log.d(TAG,"Entered Main Source of Income other with ${form.mainSourceOfIncome}")
+        }else{
+            form.mainSourceOfIncome = chkSpinner(spMainSourceOfIncome, UiData.ER_SP_DF)
+            Log.d(TAG,"Entered Main Source of Income with ${form.mainSourceOfIncome}")
+        }
         //form.currency = chkSpinner(spCurrency, UiData.ER_SP_DF)
         form.gender = chkSpinner(spGender, UiData.ER_SP_DF)
-        form.respondentRlt = chkSpinner(spRespondentRlt, UiData.ER_SP_DF)
+        if(spRespondentRlt.selectedItem.toString().equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
+            form.respondentRlt = etOthersText.text.toString()
+        }else{
+            form.respondentRlt = chkSpinner(spRespondentRlt, UiData.ER_SP_DF)
+        }
         form.maritalStatus = chkSpinner(spMaritalStatus, UiData.ER_SP_DF)
         form.legalStatus = chkSpinner(spLegalStatus, UiData.ER_SP_DF)
 
@@ -468,12 +494,11 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         }
 
         if (binding.llIdTypeInput.isVisible && binding.llIdType.isVisible) {
-            form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
-//            if (form.idNumberType?.equals("Passport") == true) {
-//                form.idNumber = chkEditTextOnlyNumberAndChar(etIdNumber, UiData.ER_ET_DF)
-//            } else{
-//                form.idNumber = chkEditTextOnlyNumber(etIdNumber, UiData.ER_ET_DF)
-//            }
+            if (spIdType.selectedItem.toString().equals(IDtypeEnum.OTHERS.value, ignoreCase = true)){
+                form.idNumberType = etIdType.text.toString()
+            }else{
+                form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
+            }
             form.idNumber = checkIDNumber(etIdNumber, UiData.ER_ET_DF, form.idNumberType)
         } else {
             form.idNumber = null
@@ -485,15 +510,14 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         form.firstName = chkEditText3Char(etFirstName, UiData.ER_ET_DF)
         form.middleName = chkEditText3Char(etMiddleName, UiData.ER_ET_DF)
         form.lastName = chkEditText3Char(etLastName, UiData.ER_ET_DF)
-        form.nickName = chkEditTextNickName3Char(etNickName,UiData.ER_ET_DF)
+        form.nickName = chkEditTextNickName3Char(etNickName, UiData.ER_ET_DF)
         form.age = chkEditTextMax3Digit(etAge, UiData.ER_ET_DF)?.toInt()
         form.phoneNumber = chkPhoneNumber(etPhoneNumber, UiData.ER_ET_DF)
-        form.monthlyAverageIncome =
-            chkEditTextMonthlyAvgIncome(etMonthlyAverageIncome, UiData.ER_ET_DF)
+        form.monthlyAverageIncome = chkEditTextMonthlyAvgIncome(etMonthlyAverageIncome, UiData.ER_ET_DF)
         //form.spouseName = chkEditText(etSpouseName, UiData.ER_ET_DF)
         form.selectionCriteria = chkRadioGroup(rgSelectionCriteria, UiData.ER_RB_DF)
         form.idIsOrNot = chkRadioGroup(rgId, UiData.ER_RB_DF)
-
+        form.currency = "South Sudanese Pounds"
         form.itemsSupportType = adapterSupportType?.getCheckedItems()
         //checking
 
@@ -510,7 +534,6 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
     }
 
     override fun onLongClickDataGeneration() {
-        if (!BuildConfig.DEBUG) return
         if (!TestConfig.isLongClickDGEnabled) return
 
         binding.viewButtonBackNext.btNext.setOnLongClickListener {
@@ -520,29 +543,8 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
     }
     override fun onGenerateDummyInput() {
         Log.d(TAG, "onGenerateDummyInput() called")
-        if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
-        spIdType.setSelection(1)
-        spMainSourceOfIncome.setSelection(1)
-        spGender.setSelection(1)
-        spRespondentRlt.setSelection(1)
-        spMaritalStatus.setSelection(1)
-        spLegalStatus.setSelection(1)
-//        spSelectionReason.setSelection(1)
-        //spCurrency.setSelection(1)
-
-        etFirstName.setText("Mohd")
-        etMiddleName.setText("Moniruzzaman")
-        etLastName.setText("Shadhin")
-        etAge.setText("33")
-        etIdNumber.setText("12345678910112")
-        etPhoneNumber.setText("01672708329")
-        etMonthlyAverageIncome.setText("5000")
-        //etSpouseName.setText("Yesmin")
-
-        rgSelectionCriteria.check(R.id.rbA)
-        adapterSupportType?.addAll(UiData.getPublicWorksDummy())
     }
 
     override fun onPopulateView() {

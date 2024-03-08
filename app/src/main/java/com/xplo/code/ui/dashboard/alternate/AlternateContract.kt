@@ -1,4 +1,5 @@
 package com.xplo.code.ui.dashboard.alternate
+
 import android.content.Intent
 import android.net.Uri
 import android.widget.ImageView
@@ -25,7 +26,14 @@ interface AlternateContract {
     interface View : BaseContract.View {
 
         fun navigateToAlternateHome()
-        fun navigateToForm1(id: String?, addToBackStack: Boolean, clearBackStack: Boolean)
+        fun navigateToForm1(
+            id: String?,
+            hhName: String?,
+            type: String?,
+            addToBackStack: Boolean,
+            clearBackStack: Boolean
+        )
+
         fun navigateToForm2()
         fun navigateToForm3()
         fun navigateToPreview()
@@ -47,7 +55,7 @@ interface AlternateContract {
         fun getRootForm(): AlternateForm?
         fun setRootForm(form: AlternateForm?)
 
-        fun getHouseholdItem(): HouseholdItem?
+      //  fun getHouseholdItem(): HouseholdItem?
         fun setHouseholdItem(item: HouseholdItem?)
 
         fun getRequestCode(): Int
@@ -106,6 +114,7 @@ interface AlternateContract {
         fun onStartFingerprintCapture()
         fun onGetFingerprintIntent(intent: Intent?)
         fun onGetFingerprintData(items: List<Finger>?, noFingerprintReason: String?)
+        fun onGetFingerprintData(items: List<Finger>?, noFingerprintReason: String?, noFingerprintReasonText: String?)
 
         fun onRefreshFingerprints(items: List<Finger>?)
         fun onRefreshFingerDrawable(img: ImageView, finger: Finger?)

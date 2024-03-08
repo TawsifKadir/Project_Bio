@@ -40,7 +40,8 @@
                 tools:listitem="@layout/row_nominee_item"
                 tools:visibility="visible" />
 
-            <LinearLayout style="@style/AppLinearLayoutInputBox">
+            <LinearLayout style="@style/AppLinearLayoutInputBox"
+                android:id="@+id/questionBox">
 
                 <TextView
                     android:id="@+id/questionText"
@@ -56,7 +57,7 @@
                         android:id="@+id/rbYes"
                         style="@style/AppRadioButton.Form"
                         android:text="@string/yes"
-                        tools:checked="true" />
+                        tools:checked="false" />
 
                     <RadioButton
                         android:id="@+id/rbNo"

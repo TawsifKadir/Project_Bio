@@ -27,9 +27,13 @@ public interface SelectionReasonDao {
     SelectionReason getSelectionReasonById(Long id);
 
     @Query("SELECT * FROM selection_reason WHERE application_id = :appId")
-    SelectionReason getSelectionReasonByAppId(String appId);
+    List<SelectionReason> getSelectionReasonByAppId(String appId);
 
     @Query("SELECT * FROM selection_reason")
     List<SelectionReason> getAllSelectionReasons();
+
+    @Query("DELETE FROM selection_reason WHERE application_id = :appId")
+    void deleteReasonByAppId(String appId);
+
 }
 

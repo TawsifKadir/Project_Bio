@@ -41,6 +41,18 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         return txt
     }
 
+    override fun chkOtherText(editText: EditText, error: String?): String? {
+        val txt = editText.text.toString()
+        if(txt.isEmpty()){
+            editText.error = "This field cannot be blank"
+            return null
+        }
+        if(!isOnlyLetters(txt)){
+            editText.error = "Invalid Input"
+            return null
+        }
+        return txt
+    }
 
     override fun chkAge(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
@@ -93,7 +105,7 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
                     return null
                 }
             }else if(txt.isEmpty()){
-                return ""
+                return " "
             }
         }
         return txt
@@ -144,14 +156,14 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
     override fun chkEditTextNickName3Char(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {
-            if ( txt.length in 1..2) {
-                editText.error = "Minimum 3 character"
-                return null
+            if (txt.length>0 && txt.length<3) {
+                editText.error = "Invalid Name"
+                return "-1"
             } else if (txt.isEmpty() || txt == ""){
                 return txt
             }else if (!isOnlyLetters(txt)) {
                 editText.error = "Only Character Allow"
-                return null
+                return "-1"
             }
         }
         return txt
@@ -213,6 +225,8 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
 
         if (id != -1) {
             val rb = radioGroup.findViewById(id) as RadioButton
+            val lastChildPos: Int = radioGroup.childCount - 1
+            (radioGroup.getChildAt(lastChildPos) as RadioButton).error = null
             return rb.text.toString()
         }
 

@@ -67,4 +67,7 @@ public class Biometric implements Serializable {
 
     @ColumnInfo(name = "photo")
     public byte[] photo;
+
+    @ColumnInfo(name = "type")
+    public String type;
 }

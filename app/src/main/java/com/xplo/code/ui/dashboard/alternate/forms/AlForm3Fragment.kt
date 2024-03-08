@@ -16,6 +16,7 @@ import androidx.core.widget.ImageViewCompat
 import androidx.fragment.app.viewModels
 import com.faisal.fingerprintcapture.FingerprintCaptureActivity
 import com.faisal.fingerprintcapture.model.FingerprintID
+import com.kit.integrationmanager.model.BiometricUserType
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
@@ -60,6 +61,7 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
 
     private var fingerItemsStore: List<Finger>? = listOf<Finger>()
     private var noFingerprintReasonStore: String? = null
+    private var noFingerprintReasonTextStore: String? = null
 
 
     override fun onAttach(context: Context) {
@@ -178,15 +180,20 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
         //val data = intent.data
         //if (data == null) return
 
-        val reason = BiometricHelper.fingerPrintIntentToNoFingerprintReason(intent, "ALTERNATE")
-        val fingers = BiometricHelper.fingerPrintIntentToFingerItems(intent, "ALTERNATE")
+        val reason = BiometricHelper.fingerPrintIntentToNoFingerprintReason(intent, BiometricUserType.ALTERNATE.name)
+        val reasonText = BiometricHelper.fingerPrintIntentToNoFingerprintReasonText(intent, BiometricUserType.ALTERNATE.name)
+        val fingers = BiometricHelper.fingerPrintIntentToFingerItems(intent, BiometricUserType.ALTERNATE.name)
 
 
-        onGetFingerprintData(fingers, reason)
+        onGetFingerprintData(fingers, reason,reasonText)
 
     }
 
     override fun onGetFingerprintData(items: List<Finger>?, noFingerprintReason: String?) {
+
+    }
+
+    override fun onGetFingerprintData(items: List<Finger>?, noFingerprintReason: String?, noFingerprintReasonText: String?) {
         Log.d(
             TAG,
             "onGetFingerprintData() called with: items = $items, noFingerprintReason = $noFingerprintReason"
@@ -196,6 +203,7 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
         //fingerItemsStore.clear()
         this.fingerItemsStore = items
         this.noFingerprintReasonStore = noFingerprintReason
+        this.noFingerprintReasonTextStore = noFingerprintReasonText
 
         onRefreshFingerprints(items)
 
@@ -258,6 +266,7 @@ class AlForm3Fragment : BasicFormFragment(), AlternateContract.Form3View {
             form.fingers = this.fingerItemsStore!!
         }
         form.noFingerprintReason = this.noFingerprintReasonStore
+        form.noFingerprintReasonText = this.noFingerprintReasonTextStore
 
         if (!form.isOk()) {
             showAlerter("Warning", "Please Add Fingerprint")

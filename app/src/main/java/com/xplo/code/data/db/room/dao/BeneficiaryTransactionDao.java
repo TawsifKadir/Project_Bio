@@ -48,6 +48,21 @@ public abstract class BeneficiaryTransactionDao {
         insert(beneficiary);
     }
 
+    @Transaction
+    public void insertAlternateRecord(
+            List<Biometric> biometric,
+            List<Alternate> alternate
+    ) {
+
+        for (Alternate nowAlternate : alternate) {
+            insert(nowAlternate);
+        }
+        for (Biometric nowBiometric : biometric) {
+            insert(nowBiometric);
+        }
+
+    }
+
     @Insert
     abstract void insert(Beneficiary beneficiary);
 

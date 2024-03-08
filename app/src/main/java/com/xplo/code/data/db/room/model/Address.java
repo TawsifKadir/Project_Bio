@@ -2,6 +2,7 @@ package com.xplo.code.data.db.room.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity(tableName = "address")
+@Entity(tableName = "address", indices = {@Index(value = {"application_id"}, unique = true)})
 public class Address implements Serializable {
 
     @PrimaryKey(autoGenerate = true)

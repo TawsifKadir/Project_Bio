@@ -1,5 +1,6 @@
 package com.xplo.code.data_module.repo
 
+
 import com.xplo.code.data_module.core.CallInfo
 import com.xplo.code.data_module.core.Config
 import com.xplo.code.data_module.core.Resource
@@ -7,6 +8,10 @@ import com.xplo.code.data_module.model.user.ImageUploadRsp
 import com.xplo.code.data_module.model.user.LoginRqb
 import com.xplo.code.data_module.model.user.ProfileInfo
 import com.xplo.code.data_module.model.user.ProfileUpdateRqb
+import com.xplo.code.data_module.model.user.RegisterDeviceRqb
+import com.xplo.code.data_module.model.user.RegisterDeviceRsp
+import com.xplo.code.data_module.model.user.ResetPassRqb
+import com.xplo.code.data_module.model.user.ResetPassRsp
 import com.xplo.code.data_module.model.user.TokenRsp
 import com.xplo.code.data_module.network.api.UserApi
 import com.xplo.code.data_module.utils.FileUtils
@@ -29,15 +34,15 @@ class UserRepoImpl @Inject constructor(
             val response = api.generateToken(body)
             val result = response.body()
             val callInfo =
-                com.xplo.code.data_module.core.CallInfo(response.code(), response.message())
+                CallInfo(response.code(), response.message())
             if (response.isSuccessful && result != null) {
-                com.xplo.code.data_module.core.Resource.Success(result, callInfo)
+                Resource.Success(result, callInfo)
             } else {
-                com.xplo.code.data_module.core.Resource.Failure(callInfo)
+                Resource.Failure(callInfo)
             }
         } catch (e: Exception) {
-            com.xplo.code.data_module.core.Resource.Failure(
-                com.xplo.code.data_module.core.CallInfo(
+            Resource.Failure(
+                CallInfo(
                     -1,
                     e.message
                 )
@@ -45,20 +50,62 @@ class UserRepoImpl @Inject constructor(
         }
     }
 
-    override suspend fun getProfileData(): com.xplo.code.data_module.core.Resource<ProfileInfo> {
+    override suspend fun resetPassword(body: ResetPassRqb): Resource<ResetPassRsp> {
+        return try {
+            val response = api.resetPassword(body)
+            val result = response.body()
+            val callInfo =
+                CallInfo(response.code(), response.message())
+            if (response.isSuccessful && result != null) {
+                Resource.Success(result, callInfo)
+            } else {
+                Resource.Failure(callInfo)
+            }
+        } catch (e: Exception) {
+            Resource.Failure(
+                CallInfo(
+                    -1,
+                    e.message
+                )
+            )
+        }
+    }
+
+    override suspend fun registerDevice(body: RegisterDeviceRqb): Resource<RegisterDeviceRsp> {
+        return try {
+            val response = api.registerDevice(body)
+            val result = response.body()
+            val callInfo =
+                CallInfo(response.code(), response.message())
+            if (response.isSuccessful && result != null) {
+                Resource.Success(result, callInfo)
+            } else {
+                Resource.Failure(callInfo)
+            }
+        } catch (e: Exception) {
+            Resource.Failure(
+                CallInfo(
+                    -1,
+                    e.message
+                )
+            )
+        }
+    }
+
+    override suspend fun getProfileData(): Resource<ProfileInfo> {
         return try {
             val response = api.getProfileData("bn")
             val result = response.body()
             val callInfo =
-                com.xplo.code.data_module.core.CallInfo(response.code(), response.message())
+                CallInfo(response.code(), response.message())
             if (response.isSuccessful && result != null) {
-                com.xplo.code.data_module.core.Resource.Success(result, callInfo)
+                Resource.Success(result, callInfo)
             } else {
-                com.xplo.code.data_module.core.Resource.Failure(callInfo)
+                Resource.Failure(callInfo)
             }
         } catch (e: Exception) {
-            com.xplo.code.data_module.core.Resource.Failure(
-                com.xplo.code.data_module.core.CallInfo(
+            Resource.Failure(
+                CallInfo(
                     -1,
                     e.message
                 )
@@ -66,20 +113,20 @@ class UserRepoImpl @Inject constructor(
         }
     }
 
-    override suspend fun updateProfileInfo(body: ProfileUpdateRqb): com.xplo.code.data_module.core.Resource<ProfileInfo> {
+    override suspend fun updateProfileInfo(body: ProfileUpdateRqb): Resource<ProfileInfo> {
         return try {
             val response = api.updateProfileInfo(body, getLocale())
             val result = response.body()
             val callInfo =
-                com.xplo.code.data_module.core.CallInfo(response.code(), response.message())
+                CallInfo(response.code(), response.message())
             if (response.isSuccessful && result != null) {
-                com.xplo.code.data_module.core.Resource.Success(result, callInfo)
+                Resource.Success(result, callInfo)
             } else {
-                com.xplo.code.data_module.core.Resource.Failure(callInfo)
+                Resource.Failure(callInfo)
             }
         } catch (e: Exception) {
-            com.xplo.code.data_module.core.Resource.Failure(
-                com.xplo.code.data_module.core.CallInfo(
+            Resource.Failure(
+                CallInfo(
                     -1,
                     e.message
                 )
@@ -90,7 +137,7 @@ class UserRepoImpl @Inject constructor(
     override suspend fun uploadProfileAvatar(
         filePath: String,
         type: MediaType?
-    ): com.xplo.code.data_module.core.Resource<ImageUploadRsp> {
+    ): Resource<ImageUploadRsp> {
 
         val file = FileUtils.reduceFileSize(File(filePath))
         val reqFile: RequestBody = RequestBody.create(type, file)
@@ -102,15 +149,15 @@ class UserRepoImpl @Inject constructor(
             val response = api.uploadProfileAvatar(body)
             val result = response.body()
             val callInfo =
-                com.xplo.code.data_module.core.CallInfo(response.code(), response.message())
+                CallInfo(response.code(), response.message())
             if (response.isSuccessful && result != null) {
-                com.xplo.code.data_module.core.Resource.Success(result, callInfo)
+                Resource.Success(result, callInfo)
             } else {
-                com.xplo.code.data_module.core.Resource.Failure(callInfo)
+                Resource.Failure(callInfo)
             }
         } catch (e: Exception) {
-            com.xplo.code.data_module.core.Resource.Failure(
-                com.xplo.code.data_module.core.CallInfo(
+            Resource.Failure(
+                CallInfo(
                     -1,
                     e.message
                 )
@@ -120,6 +167,6 @@ class UserRepoImpl @Inject constructor(
 
 
     private fun getLocale(): String {
-        return com.xplo.code.data_module.core.Config.LOCALE
+        return Config.LOCALE
     }
 }

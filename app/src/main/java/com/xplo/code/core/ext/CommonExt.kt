@@ -1,5 +1,7 @@
 package com.xplo.code.core.ext
 
+import android.graphics.BitmapFactory
+import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RadioButton
@@ -104,6 +106,7 @@ fun TextView?.setValue(value: Int?) {
 
 
 fun ImageView?.loadImage(url: String?, phId: Int = R.drawable.ph_content_portrait) {
+    Log.d("TAG", "loadImage() called with: url = $url, phId = $phId")
     if (this == null) return
     if (url == null) return
     Glide.with(this.context)
@@ -116,4 +119,20 @@ fun ImageView?.loadAvatar(url: String?) {
     if (this == null) return
     if (url == null) return
     this.loadImage(url, R.drawable.ic_avatar_3)
+
+
+}
+
+ fun ImageView?.loadImage(byteArray: ByteArray?) {
+     if (this == null) return
+    if (byteArray?.isEmpty() == true) return
+
+    val bitmap = byteArray?.size?.let { BitmapFactory.decodeByteArray(byteArray, 0, it) }
+
+// Use Glide to load the Bitmap into an ImageView
+    Glide.with(this.context)
+        .load(bitmap)
+        .placeholder(R.drawable.ic_avatar_3)
+        .into(this);
+
 }

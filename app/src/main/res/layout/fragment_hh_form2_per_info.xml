@@ -116,7 +116,8 @@
 
                     <EditText
                         android:id="@+id/etNickName"
-                        style="@style/AppEditText.Form.Text.Min3" />
+                        style="@style/AppEditText.Form.Text"
+                        android:hint="Optional"/>
 
                 </LinearLayout>
 
@@ -266,10 +267,29 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/IdType">
+                <LinearLayout
+                    style="@style/AppLinearLayoutInputBox"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/AppTextView.Input.Header"
+                        android:text="ID Type" />
+
+                    <EditText
+                        android:id="@+id/etIDType"
+                        style="@style/AppEditText.Form.Text"
+                        android:maxLength="14" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/llIdTypeInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 tools:visibility="visible"
                 android:visibility="gone">
 
@@ -284,10 +304,12 @@
 
                     <EditText
                         android:id="@+id/etIdNumber"
-                        android:maxLength="20"
+                        android:maxLength="14"
                         style="@style/AppEditText.Form.Number" />
 
                 </LinearLayout>
+
+
 
             </LinearLayout>
 
@@ -485,7 +507,8 @@
 
                     <EditText
                         android:id="@+id/etSpouseNickName"
-                        style="@style/AppEditText.Form.Text" />
+                        style="@style/AppEditText.Form.Text"
+                        android:hint="Optional"/>
 
                 </LinearLayout>
 
@@ -539,7 +562,7 @@
                     <RadioButton
                         android:id="@+id/rbA"
                         style="@style/AppRadioButton.Form"
-                        android:checked="true"
+                        android:checked="false"
                         android:text="LIPW" />
 
                     <RadioButton
@@ -550,11 +573,16 @@
 
                 </RadioGroup>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    style="@style/AppLinearLayoutInputBox"
-                    android:id="@+id/rvSupportType"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent"
+                    android:id="@+id/llrecycle">
+                    <androidx.recyclerview.widget.RecyclerView
+                        style="@style/AppLinearLayoutInputBox"
+                        android:id="@+id/rvSupportType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
             </LinearLayout>
 
             <!--            <LinearLayout style="@style/AppLinearLayoutInputBox">-->

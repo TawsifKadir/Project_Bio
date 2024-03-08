@@ -11,6 +11,7 @@ import com.xplo.code.data.db.models.HouseholdItem
 import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.databinding.RowHouseholdItemBinding
 import com.xplo.code.ui.dashboard.model.getFullName
+import com.xplo.code.utils.DialogUtil
 
 /**
  * Copyright 2022 (C) xplo
@@ -28,6 +29,7 @@ class HouseholdListAdapter : RecyclerView.Adapter<HouseholdListAdapter.ViewHolde
 
     private var dataset = ArrayList<HouseholdItem>()
     private var listener: OnItemClickListener? = null
+    private var adapter: AlternateSumListAdapter? = null
 
     inner class ViewHolder(private val binding: RowHouseholdItemBinding) :
         RecyclerView.ViewHolder(binding.root) {

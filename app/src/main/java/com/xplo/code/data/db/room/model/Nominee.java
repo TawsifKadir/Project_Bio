@@ -53,4 +53,7 @@ public class Nominee implements Serializable {
     @ColumnInfo(name = "other_occupation")
     public String otherOccupation;
 
+    @ColumnInfo(name = "relationship_other")
+    public String relationshipOther;
+
 }

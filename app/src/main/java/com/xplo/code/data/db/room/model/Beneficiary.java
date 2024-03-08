@@ -3,6 +3,8 @@ package com.xplo.code.data.db.room.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -14,9 +16,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity(tableName = "beneficiary")
+@Entity(tableName = "beneficiary", indices = {@Index(value = {"application_id"}, unique = true)})
 public class Beneficiary implements Serializable {
-
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     public Long id;
@@ -119,6 +120,20 @@ public class Beneficiary implements Serializable {
 
     @ColumnInfo(name = "status")
     public Long status;
+
+    @ColumnInfo(name = "income_source_other")
+    public Long incomeSourceOther;
+
+    @ColumnInfo(name = "relationship_other")
+    public Long relationshipOther;
+
+    @Ignore
+    public int nomineeSize = 0;
+    @Ignore
+    public int alternateSize = 0;
+    @Ignore
+    public byte[] photoPath;
+
 
     /*
     @OneToOne(cascade = CascadeType.ALL)

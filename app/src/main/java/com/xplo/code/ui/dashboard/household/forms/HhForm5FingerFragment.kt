@@ -72,6 +72,7 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
 
     private var fingerItemsStore: List<Finger>? = listOf<Finger>()
     private var noFingerprintReasonStore: String? = null
+    private var noFingerprintReasonTextStore: String? = null
 
 
 
@@ -176,6 +177,7 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
         //if (fingers.isEmpty()) return
 
         this.noFingerprintReasonStore = form.noFingerprintReason
+        this.noFingerprintReasonTextStore = form.noFingerprintReasonText
         //fingerItemsStore.clear()
         this.fingerItemsStore = fingers
 
@@ -201,17 +203,26 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
             intent,
             BiometricUserType.BENEFICIARY.name
         )
+
+        val reasonText = BiometricHelper.fingerPrintIntentToNoFingerprintReasonText(
+            intent,
+            BiometricUserType.BENEFICIARY.name
+        )
         val fingers = BiometricHelper.fingerPrintIntentToFingerItems(
             intent,
             BiometricUserType.BENEFICIARY.name
         )
 
 
-        onGetFingerprintData(fingers, reason)
+        onGetFingerprintData(fingers, reason,reasonText)
 
     }
 
     override fun onGetFingerprintData(items: List<Finger>?, noFingerprintReason: String?) {
+
+    }
+
+    override fun onGetFingerprintData(items: List<Finger>?, noFingerprintReason: String?, noFingerprintReasonText: String?) {
         Log.d(
             TAG,
             "onGetFingerprintData() called with: items = $items, noFingerprintReason = $noFingerprintReason"
@@ -221,6 +232,7 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
         //fingerItemsStore.clear()
         this.fingerItemsStore = items
         this.noFingerprintReasonStore = noFingerprintReason
+        this.noFingerprintReasonTextStore = noFingerprintReasonText
 
         onRefreshFingerprints(items)
 
@@ -284,6 +296,7 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
             form.fingers = this.fingerItemsStore!!
         }
         form.noFingerprintReason = this.noFingerprintReasonStore
+        form.noFingerprintReasonText = this.noFingerprintReasonTextStore
 
 
         if (!form.isOk()) {

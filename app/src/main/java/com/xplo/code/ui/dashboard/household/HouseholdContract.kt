@@ -45,6 +45,7 @@ interface HouseholdContract {
         fun navigateToAlternateAddForm()
         fun navigateToPreview()
         fun navigateToFormDetails(item: HouseholdItem?)
+        fun navigateToFormDetailsBeneficiary(item: Beneficiary?)
 
         fun navigateToAnotherHousehold(hhForm1: HhForm1?)
 
@@ -118,10 +119,10 @@ interface HouseholdContract {
 
     interface HomeView : BaseContract.View {
         fun navigateToHouseholdDetails(item: HouseholdItem)
-
+        fun navigateToHouseholdDetailsFromBeneficiary(item: Beneficiary?)
         fun onGetHouseholdList(items: List<HouseholdItem>?)
         fun onGetHouseholdListFailure(msg: String?)
-        fun onGetHouseholdListSuccess(msg: String?)
+        fun onGetHouseholdListSuccess(msg: String?,appId:String?)
 
         fun onSubmitFormSuccess(id: String?, pos: Int)
         fun onSubmitFormFailure(msg: String?)
@@ -183,6 +184,7 @@ interface HouseholdContract {
         fun onStartFingerprintCapture()
         fun onGetFingerprintIntent(intent: Intent?)
         fun onGetFingerprintData(items: List<Finger>?, noFingerprintReason: String?)
+        fun onGetFingerprintData(items: List<Finger>?, noFingerprintReason: String?, noFingerprintReasonText: String?)
 
         fun onRefreshFingerprints(items: List<Finger>?)
         fun onRefreshFingerDrawable(img: ImageView, finger: Finger?)

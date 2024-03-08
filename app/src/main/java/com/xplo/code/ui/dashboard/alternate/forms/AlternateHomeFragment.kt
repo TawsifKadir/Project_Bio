@@ -128,9 +128,9 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
             }
         }
 
-        binding.btAddAlternate.setOnClickListener {
-            interactor?.navigateToForm1(null, false, false)
-        }
+//        binding.btAddAlternate.setOnClickListener {
+//            interactor?.navigateToForm1(null, false, false)
+//        }
 
     }
 
@@ -168,7 +168,7 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
         Log.d(TAG, "onClickHouseholdItem() called with: item = ${item.hid}, pos = $pos")
         //dToast(item.title)
         //navigateToHouseholdDetails(item)
-        interactor?.navigateToForm1(item.id, true, false)
+        interactor?.navigateToForm1(item.id, null, null, true, false)
     }
 
     override fun onClickHouseholdItemDelete(item: HouseholdItem, pos: Int) {
@@ -184,7 +184,7 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
 
     override fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int) {
         Log.d(TAG, "onClickHouseholdItemAddAlternate() called with: item = $item, pos = $pos")
-        interactor?.navigateToForm1(item.id, true, false)
+        interactor?.navigateToForm1(item.id, null,null,true, false)
     }
 
 }

@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.kit.integrationmanager.model.NonPerticipationReasonEnum
+
 import com.kit.integrationmanager.payload.RegistrationResult
 import com.kit.integrationmanager.payload.RegistrationStatus
 import com.xplo.code.base.BaseFragment
@@ -75,7 +75,7 @@ class DashboardFragment : BaseFragment(), DashboardContract.View, Observer {
     }
 
     override fun initView() {
-        Log.d(TAG,"Reason"+ NonPerticipationReasonEnum.REASON_OTHER.value)
+
     }
 
     override fun initObserver() {
@@ -157,7 +157,6 @@ class DashboardFragment : BaseFragment(), DashboardContract.View, Observer {
 
         val syncResult = arg as RegistrationResult?
         onGetSyncResult(syncResult)
-
 
     }
 

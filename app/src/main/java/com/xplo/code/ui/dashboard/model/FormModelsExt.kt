@@ -1,12 +1,13 @@
 package com.xplo.code.ui.dashboard.model
 
+import android.util.Log
 import com.google.gson.GsonBuilder
 import com.kit.integrationmanager.model.MaritalStatusEnum
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.isNo
 import com.xplo.code.core.ext.toBool
 import com.xplo.code.ui.dashboard.UiData
-
+import com.xplo.code.ui.dashboard.household.forms.HhForm2PerInfoFragment.Companion.TAG
 
 
 fun HhForm2?.getFullName(): String? {
@@ -62,16 +63,23 @@ fun Area.isOk(): Boolean {
 
 fun HhForm2.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
-
+    Log.d(TAG,"First Name Check")
     if (this.firstName.isNullOrBlank()) return false
+    Log.d(TAG,"Second Name Check")
     if (this.middleName.isNullOrBlank()) return false
+    Log.d(TAG,"Third Name Check")
     if (this.lastName.isNullOrBlank()) return false
-    //if (this.idNumber.isNullOrBlank()) return false
+    if (this.nickName.equals("-1", ignoreCase = true)) return false
+//    if (this.nickName == null) return false
+    Log.d(TAG,"Main Source of Income Check")
     if (this.mainSourceOfIncome.isNullOrBlank()) return false
+    Log.d(TAG,"Gender Check")
     if (this.gender.isNullOrBlank()) return false
+    Log.d(TAG,"Marital Status Check")
     if (this.maritalStatus.isNullOrBlank()) {
         return false
     }
+    Log.d(TAG,"Phone Number Check")
     if (this.phoneNumber == null) return false
     
     if (this.maritalStatus == MaritalStatusEnum.MARRIED.value) {
@@ -84,30 +92,37 @@ fun HhForm2.isOk(): Boolean {
         if (this.spouseLastName.isNullOrBlank()) {
             return false
         }
+        if(this.spouseNickName.equals("-1", ignoreCase = true)){
+            return false
+        }
     }
-
+    Log.d(TAG,"ID Check")
     if (this.idIsOrNot == null) {
         return false
     }else if(this.idIsOrNot.equals("Yes", ignoreCase = true)){
+        Log.d(TAG,"ID Number Check")
         if (this.idNumber.isNullOrBlank()) {
             return false
         }
+        Log.d(TAG,"ID Type Check")
         if (this.idNumberType.isNullOrBlank()) {
             return false
         }
     }
-
+    Log.d(TAG,"Legal Status Check")
     if (this.legalStatus.isNullOrBlank()) return false
+    Log.d(TAG,"Relation Check")
     if (this.respondentRlt.isNullOrBlank()) return false
     //if (this.spouseName.isNullOrBlank()) return false
 //    if (this.selectionReason.isNullOrBlank()) return false
+    Log.d(TAG,"Selection Criteria Check")
     if (this.selectionCriteria.isNullOrBlank()) return false
+    Log.d(TAG,"Monthly Income Check")
     if (this.monthlyAverageIncome == null) return false
 //    if (this.selectionReason.isNullOrBlank()) return false
-
+    Log.d(TAG,"Age Check")
     if (this.age == null) return false
-    if (this.monthlyAverageIncome == null) return false
-
+    Log.d(TAG,"Support Type Check")
     if ((this.itemsSupportType?.count() ?: 0) == 0) return false
 
     return true
@@ -253,6 +268,7 @@ fun Nominee?.isOk(): Boolean {
     if (this.firstName.isNullOrBlank()) return false
     if (this.lastName.isNullOrBlank()) return false
     if (this.middleName.isNullOrBlank()) return false
+    if(this.nickName.equals("-1", ignoreCase = true)) return false
     if (this.relation.isNullOrBlank()) return false
     if (this.age == null) return false
     if (this.gender.isNullOrEmpty()) return false
@@ -281,10 +297,10 @@ fun AlForm1.isOk(): Boolean {
     if (this.alternateFirstName.isNullOrBlank()) return false
     if (this.alternateMiddleName.isNullOrBlank()) return false
     if (this.alternateLastName.isNullOrBlank()) return false
+    if (this.alternateNickName.equals("-1", ignoreCase = true)) return false
     if (this.age == null) return false
     if (this.selectAlternateRlt == null) return false
     if (this.gender == null) return false
-
     if (this.idIsOrNot == null) {
         return false
     }else if(this.idIsOrNot.equals("Yes", ignoreCase = true)){

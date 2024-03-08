@@ -1,8 +1,10 @@
 package com.xplo.code.core
 
 import android.app.Application
+import com.xplo.code.data.Constants
 import com.xplo.code.data.RMemory
 import com.xplo.code.data.pref.PrefHelperImpl
+import com.xplo.code.data_module.core.Config
 import com.xplo.code.utils.Utils
 import dagger.hilt.android.HiltAndroidApp
 
@@ -35,6 +37,9 @@ class MainApplication : Application() {
 
     private fun initDataModule() {
        // com.xplo.data.core.Contextor.context = this
+
+        Config.DEVICE_ID = Constants.TEST_DEVICE_ID
+        Config.ACCESS_TOKEN = PrefHelperImpl().getAccessToken()
 
         //setting config for data module
         //Config.PLATFORM_ID = "abfea462-f64d-491e-9cd9-75ee001f45b0"
