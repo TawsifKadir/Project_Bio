@@ -6,6 +6,7 @@ import com.xplo.code.data_module.core.Config
 import com.xplo.code.data_module.core.Resource
 import com.xplo.code.data_module.model.user.ImageUploadRsp
 import com.xplo.code.data_module.model.user.LoginRqb
+import com.xplo.code.data_module.model.user.LogoutRsp
 import com.xplo.code.data_module.model.user.ProfileInfo
 import com.xplo.code.data_module.model.user.ProfileUpdateRqb
 import com.xplo.code.data_module.model.user.RegisterDeviceRqb
@@ -33,20 +34,14 @@ class UserRepoImpl @Inject constructor(
         return try {
             val response = api.generateToken(body)
             val result = response.body()
-            val callInfo =
-                CallInfo(response.code(), response.message())
+            val callInfo = CallInfo(response.code(), response.message())
             if (response.isSuccessful && result != null) {
                 Resource.Success(result, callInfo)
             } else {
                 Resource.Failure(callInfo)
             }
         } catch (e: Exception) {
-            Resource.Failure(
-                CallInfo(
-                    -1,
-                    e.message
-                )
-            )
+            Resource.Failure(CallInfo(-1, e.message))
         }
     }
 
@@ -54,20 +49,14 @@ class UserRepoImpl @Inject constructor(
         return try {
             val response = api.resetPassword(body)
             val result = response.body()
-            val callInfo =
-                CallInfo(response.code(), response.message())
+            val callInfo = CallInfo(response.code(), response.message())
             if (response.isSuccessful && result != null) {
                 Resource.Success(result, callInfo)
             } else {
                 Resource.Failure(callInfo)
             }
         } catch (e: Exception) {
-            Resource.Failure(
-                CallInfo(
-                    -1,
-                    e.message
-                )
-            )
+            Resource.Failure(CallInfo(-1, e.message))
         }
     }
 
@@ -75,20 +64,31 @@ class UserRepoImpl @Inject constructor(
         return try {
             val response = api.registerDevice(body)
             val result = response.body()
-            val callInfo =
-                CallInfo(response.code(), response.message())
+            val callInfo = CallInfo(response.code(), response.message())
             if (response.isSuccessful && result != null) {
                 Resource.Success(result, callInfo)
             } else {
                 Resource.Failure(callInfo)
             }
         } catch (e: Exception) {
-            Resource.Failure(
-                CallInfo(
-                    -1,
-                    e.message
-                )
-            )
+            Resource.Failure(CallInfo(-1, e.message))
+        }
+    }
+
+    override suspend fun logout(token: String?): Resource<LogoutRsp> {
+        val headers = HashMap<String, String>()
+        headers["Authorization"] = "Bearer $token"
+        return try {
+            val response = api.logout(headers)
+            val result = response.body()
+            val callInfo = CallInfo(response.code(), response.message())
+            if (response.isSuccessful && result != null) {
+                Resource.Success(result, callInfo)
+            } else {
+                Resource.Failure(callInfo)
+            }
+        } catch (e: Exception) {
+            Resource.Failure(CallInfo(-1, e.message))
         }
     }
 
@@ -96,20 +96,14 @@ class UserRepoImpl @Inject constructor(
         return try {
             val response = api.getProfileData("bn")
             val result = response.body()
-            val callInfo =
-                CallInfo(response.code(), response.message())
+            val callInfo = CallInfo(response.code(), response.message())
             if (response.isSuccessful && result != null) {
                 Resource.Success(result, callInfo)
             } else {
                 Resource.Failure(callInfo)
             }
         } catch (e: Exception) {
-            Resource.Failure(
-                CallInfo(
-                    -1,
-                    e.message
-                )
-            )
+            Resource.Failure(CallInfo(-1, e.message))
         }
     }
 
@@ -117,20 +111,14 @@ class UserRepoImpl @Inject constructor(
         return try {
             val response = api.updateProfileInfo(body, getLocale())
             val result = response.body()
-            val callInfo =
-                CallInfo(response.code(), response.message())
+            val callInfo = CallInfo(response.code(), response.message())
             if (response.isSuccessful && result != null) {
                 Resource.Success(result, callInfo)
             } else {
                 Resource.Failure(callInfo)
             }
         } catch (e: Exception) {
-            Resource.Failure(
-                CallInfo(
-                    -1,
-                    e.message
-                )
-            )
+            Resource.Failure(CallInfo(-1, e.message))
         }
     }
 
@@ -148,20 +136,14 @@ class UserRepoImpl @Inject constructor(
         return try {
             val response = api.uploadProfileAvatar(body)
             val result = response.body()
-            val callInfo =
-                CallInfo(response.code(), response.message())
+            val callInfo = CallInfo(response.code(), response.message())
             if (response.isSuccessful && result != null) {
                 Resource.Success(result, callInfo)
             } else {
                 Resource.Failure(callInfo)
             }
         } catch (e: Exception) {
-            Resource.Failure(
-                CallInfo(
-                    -1,
-                    e.message
-                )
-            )
+            Resource.Failure(CallInfo(-1, e.message))
         }
     }
 

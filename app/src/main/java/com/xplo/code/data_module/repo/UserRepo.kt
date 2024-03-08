@@ -3,6 +3,7 @@ package com.xplo.code.data_module.repo
 import com.xplo.code.data_module.core.Resource
 import com.xplo.code.data_module.model.user.ImageUploadRsp
 import com.xplo.code.data_module.model.user.LoginRqb
+import com.xplo.code.data_module.model.user.LogoutRsp
 import com.xplo.code.data_module.model.user.ProfileInfo
 import com.xplo.code.data_module.model.user.ProfileUpdateRqb
 import com.xplo.code.data_module.model.user.RegisterDeviceRqb
@@ -19,6 +20,8 @@ interface UserRepo {
     suspend fun resetPassword(body: ResetPassRqb): Resource<ResetPassRsp>
 
     suspend fun registerDevice(body: RegisterDeviceRqb): Resource<RegisterDeviceRsp>
+
+    suspend fun logout(token: String?): Resource<LogoutRsp>
 
     suspend fun getProfileData(): Resource<ProfileInfo>
 

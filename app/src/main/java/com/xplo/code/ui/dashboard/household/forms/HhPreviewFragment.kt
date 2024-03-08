@@ -421,7 +421,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
     }
 
     fun insertBeneficiary(beneficiaryBO: Beneficiary) {
-        Log.d(TAG, "beneficiaryBO applicationId: = ${beneficiaryBO.applicationId}")
+        Log.d(TAG, "insertBeneficiary() called with: beneficiaryBO = $beneficiaryBO")
         try {
             DatabaseExecutors.getInstance().diskIO().execute {
                 // uuid = UUID.randomUUID()
@@ -664,6 +664,8 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         alternateEO.nationalId = alternateBO.nationalId
         alternateEO.payeePhoneNo = alternateBO.payeePhoneNo
         alternateEO.type = type
+        alternateEO.relationshipWithHousehold = alternateBO.relationWithHousehold.name
+        alternateEO.relationshipOther = alternateBO.otherRelationshipWithHousehold
         return alternateEO
     }
 
@@ -709,8 +711,8 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             householdInfoEO.femaleDisable = member.femaleDisable
             householdInfoEO.maleChronicalIll = member.maleChronicalIll
             householdInfoEO.femaleChronicalIll = member.femaleChronicalIll
-            householdInfoEO.femaleBoth = member.femaleNormal
-            householdInfoEO.maleBoth = member.maleNormal
+            householdInfoEO.femaleBoth = member.femaleBoth
+            householdInfoEO.maleBoth = member.maleBoth
             householdInfoEO.type = type
         }
         return householdInfoEO
@@ -753,7 +755,11 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         beneficiaryEO.spouseFirstName = beneficiaryBO.spouseFirstName
         beneficiaryEO.spouseMiddleName = beneficiaryBO.spouseMiddleName
         beneficiaryEO.spouseLastName = beneficiaryBO.spouseLastName
-        beneficiaryEO.spouseNickName = beneficiaryBO.spouseNickName
+
+        beneficiaryEO.incomeSourceOtherText = beneficiaryBO.otherHouseholdIncomeSource
+        beneficiaryEO.relationshipOtherText = beneficiaryBO.otherRelationshipWithHouseholdHead
+        beneficiaryEO.documentTypeOther = beneficiaryBO.documentTypeOther
+
         beneficiaryEO.relationshipWithHouseholdHead =
             if (beneficiaryBO.relationshipWithHouseholdHead != null) beneficiaryBO.relationshipWithHouseholdHead.ordinal.toLong() else null
         beneficiaryEO.respondentAge = beneficiaryBO.respondentAge
@@ -765,7 +771,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             if (beneficiaryBO.respondentLegalStatus != null) beneficiaryBO.respondentLegalStatus.ordinal.toLong() else null
         beneficiaryEO.documentType =
             if (beneficiaryBO.documentType != null) beneficiaryBO.documentType.ordinal.toLong() else 4
-        beneficiaryEO.documentTypeOther = beneficiaryBO.documentTypeOther
+
         beneficiaryEO.respondentId = beneficiaryBO.respondentId
         beneficiaryEO.respondentPhoneNo = beneficiaryBO.respondentPhoneNo
         beneficiaryEO.householdIncomeSource =

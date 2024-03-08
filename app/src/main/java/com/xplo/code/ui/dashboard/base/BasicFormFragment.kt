@@ -89,6 +89,8 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
             txt = chkEditTextOnlyNumberAndChar(editText,error)
         }else if(idType.equals("National ID", ignoreCase = true)){
             txt = chkEditTextOnlyNumber(editText,error)
+        }else if(idType.equals("Other", ignoreCase = true)){
+            txt = chkEditTextOnlyNumberAndChar(editText,error)
         }else{
             txt = editText.text.toString()
         }

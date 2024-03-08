@@ -96,7 +96,7 @@ class DashboardFragment : BaseFragment(), DashboardContract.View, Observer {
 
         binding.btTest.setOnClickListener {
 
-            DbExporter.exportWithPermission(requireContext(), requireActivity())
+            //DbExporter.exportWithPermission(requireContext(), requireActivity())
 
 //            if (!DbExporter.hasStoragePermission(requireContext())){
 //                // Permission is already granted, proceed with your operation

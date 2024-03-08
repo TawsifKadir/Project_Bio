@@ -65,17 +65,28 @@ object EntityMapper {
         form.spouseMiddleName = item.form2?.spouseMiddleName
         form.spouseLastName = item.form2?.spouseLastName
         form.spouseNickName = item.form2?.spouseNickName
+
         form.relationshipWithHouseholdHead = RelationshipEnum.find(item.form2?.respondentRlt)
+        form.householdIncomeSource = IncomeSourceEnum.find(item.form2?.mainSourceOfIncome)
+
+        if(item.form2?.idNumberType == null){
+            form.documentType = DocumentTypeEnum.NONE
+        }else{
+            form.documentType = DocumentTypeEnum.find(item.form2?.idNumberType)
+        }
+
+        form.otherRelationshipWithHouseholdHead = item.form2?.respondentRltOthersValue ?: ""
+        form.documentTypeOther = item.form2?.idNumberOthersvalue ?: ""
+        form.otherHouseholdIncomeSource = item.form2?.mainSourceOfIncomeOthers ?: ""
+
         form.respondentAge = item.form2?.age
         form.respondentGender = GenderEnum.find(item.form2?.gender)
         form.respondentMaritalStatus = MaritalStatusEnum.find(item.form2?.maritalStatus)
         form.respondentLegalStatus = LegalStatusEnum.find(item.form2?.legalStatus)
-        form.documentType = DocumentTypeEnum.find(item.form2?.idNumberType)
         //  form.documentTypeOther = item.form2?.firstName
-        form.documentTypeOther = "Other"
+        //form.documentTypeOther = "Other"
         form.respondentId = item.form2?.idNumber
         form.respondentPhoneNo = item.form2?.phoneNumber
-        form.householdIncomeSource = IncomeSourceEnum.find(item.form2?.mainSourceOfIncome)
         form.householdMonthlyAvgIncome = item.form2?.monthlyAverageIncome
         form.currency = CurrencyEnum.SUDANESE_POUND
         form.selectionCriteria = SelectionCriteriaEnum.find(item.form2?.selectionCriteria)
@@ -144,6 +155,8 @@ object EntityMapper {
         alternatePayee1.payeeNickName = item.form1?.alternateNickName
         alternatePayee1.payeeAge = item.form1?.age
         alternatePayee1.payeeGender = GenderEnum.find(item.form1?.gender)
+        alternatePayee1.relationWithHousehold = RelationshipEnum.find(item.form1?.selectAlternateRlt)
+        alternatePayee1.otherRelationshipWithHousehold = item.form1?.relationOther
         alternatePayee1.documentType = DocumentTypeEnum.find(item.form1?.idNumberType)
         alternatePayee1.documentTypeOther = item.form1?.documentTypeOther
         alternatePayee1.nationalId = item.form1?.idNumber
@@ -207,6 +220,9 @@ object EntityMapper {
 
         alternate.biometrics = toAlternateBiometricEntities(item)
 
+        alternate.relationWithHousehold = RelationshipEnum.find(item.form1?.selectAlternateRlt)
+        alternate.otherRelationshipWithHousehold = item.form1?.relationOther
+
         return alternate
     }
 
@@ -214,6 +230,7 @@ object EntityMapper {
         item: com.xplo.code.data.db.room.model.Alternate,
         bio_data: com.xplo.code.data.db.room.model.Biometric
     ): AlternatePayee? {
+        Log.d(TAG, "toAlternateLdb() called with: item = $item, bio_data = $bio_data")
         val alternate = AlternatePayee()
         //alternate.documentType = FakeMapperValue.documentType
         // alternate.nationalId = FakeMapperValue.nationalId
@@ -227,6 +244,9 @@ object EntityMapper {
         alternate.payeeGender = GenderEnum.getGenderById(item.payeeGender.toInt() + 1)
         alternate.payeePhoneNo = item.payeePhoneNo
         alternate.biometrics = toBiometricEntityFromdbForBeneficiary(bio_data)
+
+        alternate.relationWithHousehold = RelationshipEnum.valueOf(item.relationshipWithHousehold)
+        alternate.otherRelationshipWithHousehold = item.relationshipOther
 
         return alternate
     }
@@ -1051,10 +1071,10 @@ object EntityMapper {
         household.totalFemale = item.mem0TotalFemale
         household.femaleChronicalIll = item.mem0IllFemale
         household.femaleDisable = item.mem0DisableFemale
-        household.femaleNormal = item.mem0NormalFemale
+        household.femaleBoth = item.mem0NormalFemale
         household.maleChronicalIll = item.mem0IllMale
         household.maleDisable = item.mem0DisableMale
-        household.maleNormal = item.mem0NormalMale
+        household.maleBoth = item.mem0NormalMale
         return household
     }
 
@@ -1072,10 +1092,10 @@ object EntityMapper {
                 household.totalFemale = value.femaleTotal
                 household.femaleChronicalIll = value.femaleChronicalIll
                 household.femaleDisable = value.femaleDisable
-                household.femaleNormal = value.femaleBoth
+                household.femaleBoth = value.femaleBoth
                 household.maleChronicalIll = value.maleChronicalIll
                 household.maleDisable = value.maleDisable
-                household.maleNormal = value.maleBoth
+                household.maleBoth = value.maleBoth
             }
         }
         return household
@@ -1092,10 +1112,10 @@ object EntityMapper {
         household.totalFemale = item.mem18TotalFemale
         household.femaleChronicalIll = item.mem18IllFemale
         household.femaleDisable = item.mem18DisableFemale
-        household.femaleNormal = item.mem18NormalFemale
+        household.femaleBoth = item.mem18NormalFemale
         household.maleChronicalIll = item.mem18IllMale
         household.maleDisable = item.mem18DisableMale
-        household.maleNormal = item.mem18NormalMale
+        household.maleBoth = item.mem18NormalMale
         return household
     }
 
@@ -1110,10 +1130,10 @@ object EntityMapper {
         household.totalFemale = item.mem36TotalFemale
         household.femaleChronicalIll = item.mem36IllFemale
         household.femaleDisable = item.mem36DisableFemale
-        household.femaleNormal = item.mem36NormalFemale
+        household.femaleBoth = item.mem36NormalFemale
         household.maleChronicalIll = item.mem36IllMale
         household.maleDisable = item.mem36DisableMale
-        household.maleNormal = item.mem36NormalMale
+        household.maleBoth = item.mem36NormalMale
         return household
     }
 
@@ -1128,10 +1148,10 @@ object EntityMapper {
         household.totalFemale = item.mem65TotalFemale
         household.femaleChronicalIll = item.mem65IllFemale
         household.femaleDisable = item.mem65DisableFemale
-        household.femaleNormal = item.mem65NormalFemale
+        household.femaleBoth = item.mem65NormalFemale
         household.maleChronicalIll = item.mem65IllMale
         household.maleDisable = item.mem65DisableMale
-        household.maleNormal = item.mem65NormalMale
+        household.maleBoth = item.mem65NormalMale
         return household
     }
 
@@ -1146,10 +1166,10 @@ object EntityMapper {
         household.totalFemale = item.mem6TotalFemale
         household.femaleChronicalIll = item.mem6IllFemale
         household.femaleDisable = item.mem6DisableFemale
-        household.femaleNormal = item.mem6NormalFemale
+        household.femaleBoth = item.mem6NormalFemale
         household.maleChronicalIll = item.mem6IllMale
         household.maleDisable = item.mem6DisableMale
-        household.maleNormal = item.mem6NormalMale
+        household.maleBoth = item.mem6NormalMale
         return household
     }
 
@@ -1164,10 +1184,10 @@ object EntityMapper {
         household.totalFemale = item.mem3TotalFemale
         household.femaleChronicalIll = item.mem3IllFemale
         household.femaleDisable = item.mem3DisableFemale
-        household.femaleNormal = item.mem3NormalFemale
+        household.femaleBoth = item.mem3NormalFemale
         household.maleChronicalIll = item.mem3IllMale
         household.maleDisable = item.mem3DisableMale
-        household.maleNormal = item.mem3NormalMale
+        household.maleBoth = item.mem3NormalMale
         return household
     }
 

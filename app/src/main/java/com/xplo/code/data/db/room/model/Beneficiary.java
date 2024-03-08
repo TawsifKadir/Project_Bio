@@ -123,9 +123,13 @@ public class Beneficiary implements Serializable {
 
     @ColumnInfo(name = "income_source_other")
     public Long incomeSourceOther;
+    @ColumnInfo(name = "income_source_other_text")
+    public String incomeSourceOtherText;
 
     @ColumnInfo(name = "relationship_other")
     public Long relationshipOther;
+    @ColumnInfo(name = "relationship_other_text")
+    public String relationshipOtherText;
 
     @Ignore
     public int nomineeSize = 0;

@@ -9,4 +9,7 @@ package com.xplo.code.ui.login.model
  * Desc     :
  * Comment  :
  */
-data class LoginCredentials(var userId: String, var password: String)
+data class LoginCredentials(
+    var userId: String? = null,
+    var password: String? = null,
+)

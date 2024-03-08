@@ -367,7 +367,7 @@
                     style="@style/AppTextView.Input.Header"
                     android:text="Income Source" />
                 <EditText
-                    android:id="@+id/etothersourcetext"
+                    android:id="@+id/edtOthersourcetext"
                     style="@style/AppEditText.Form.Text"
                     android:hint="Please Specify"/>
 

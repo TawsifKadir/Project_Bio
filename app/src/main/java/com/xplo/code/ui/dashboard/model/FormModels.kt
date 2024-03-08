@@ -66,12 +66,15 @@ data class HhForm2(
     var age: Int? = null,
     var idNumber: String? = null,
     var idNumberType: String? = null,
+    var idNumberOthersvalue: String? = null,
     var phoneNumber: String? = null,
     var mainSourceOfIncome: String? = null,
+    var mainSourceOfIncomeOthers: String? = null,
     var currency: String? = null,
     var monthlyAverageIncome: Int? = null,
     var gender: String? = null,
     var respondentRlt: String? = null,
+    var respondentRltOthersValue: String? = null,
     var maritalStatus: String? = null,
     var legalStatus: String? = null,
     //var spouseName: String? = null,
@@ -207,9 +210,11 @@ data class Nominee(
     var lastName: String? = null,
     var nickName: String? = null,
     var relation: String? = null,
+    var relationOthers: String? = null,
     var age: Int? = null,
     var gender: String? = null,
     var occupation: String? = null,
+    var occupationOthers: String? = null,
     var isReadWrite: String? = null
 )
 
@@ -356,10 +361,12 @@ data class AlForm1(
     var alternateNickName: String? = null,
     var age: Int? = null,
     var idNumber: String? = null,
+    var idNumberOthersvalue: String? = null,
     var idNumberType: String? = null,
     var idIsOrNot: String? = null,
     var phoneNumber: String? = null,
     var selectAlternateRlt: String? = null,
+    var relationOther: String? = null,
     var gender: String? = null,
     var documentTypeOther: String? = null
 ) : Serializable
