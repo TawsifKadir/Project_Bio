@@ -61,13 +61,15 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         @JvmStatic
         fun newInstance(
             parent: String?,
-            id: String?
+            id: String?,
+            hhName: String?,
         ): AlForm1Fragment {
             Log.d(TAG, "newInstance() called with: parent = $parent, id = $id")
             val fragment = AlForm1Fragment()
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
             bundle.putString(Bk.KEY_ID, id)
+            bundle.putString(Bk.HH_NAMME, hhName)
             fragment.arguments = bundle
             return fragment
         }
@@ -80,6 +82,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
     private var interactor: AlternateContract.View? = null
 
     private var id: String? = null
+    private var houseHoldName: String? = null
 
     private lateinit var idType: LinearLayout
     private lateinit var alternateOtherRelation: LinearLayout
@@ -130,6 +133,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
 
         if (arguments != null) {
             id = arguments?.getString(Bk.KEY_ID)
+            houseHoldName = arguments?.getString(Bk.HH_NAMME)
         }
 
         spGender = binding.spGender
@@ -164,7 +168,9 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
             binding.etHouseholdName.setText(id)
             return
         }
-
+        if(houseHoldName != ""){
+            binding.etHouseholdName.setText(houseHoldName)
+        }
         viewModel.getHouseholdItem(id)
 
 
@@ -336,12 +342,19 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
 
         //form.phoneNumber = chkPhoneNumber(etPhoneNo, UiData.ER_ET_DF)
         form.phoneNumber = etPhoneNo.text.toString()
-        if(spAlternateRelation.selectedItem.toString().equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
-            //form.selectAlternateRlt = etothers.text.toString()
-            form.relationOther = etothers.text.toString()
-        }else{
-            form.selectAlternateRlt = chkSpinner(spAlternateRelation, UiData.ER_SP_DF)
+
+//        if(spAlternateRelation.selectedItem.toString().equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
+//            //form.selectAlternateRlt = etothers.text.toString()
+//            form.relationOther = etothers.text.toString()
+//        }else{
+//            form.selectAlternateRlt = chkSpinner(spAlternateRelation, UiData.ER_SP_DF)
+//        }
+
+        form.selectAlternateRlt = chkSpinner(spAlternateRelation, UiData.ER_SP_DF)
+        if (form.selectAlternateRlt.equals(RelationshipEnum.OTHER.value, true)){
+            form.relationOther = chkEditText3Char(etothers, UiData.ER_ET_DF)
         }
+
         form.gender = chkSpinner(spGender, UiData.ER_SP_DF)
         Log.d(TAG,"Number = ${form.idNumber}")
         Log.d(TAG,"Edit text = $etIdNumber")

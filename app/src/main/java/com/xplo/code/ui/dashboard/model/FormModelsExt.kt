@@ -2,8 +2,10 @@ package com.xplo.code.ui.dashboard.model
 
 import android.util.Log
 import com.google.gson.GsonBuilder
+import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
 import com.kit.integrationmanager.model.NomineeOccupationEnum
+import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.OccupationEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.xplo.code.core.TestConfig
@@ -128,6 +130,16 @@ fun HhForm2.isOk(): Boolean {
     Log.d(TAG,"Support Type Check")
     if ((this.itemsSupportType?.count() ?: 0) == 0) return false
 
+
+    if (this.respondentRlt.equals(RelationshipEnum.OTHER.value, true)) {
+        if (this.respondentRltOthersValue.isNullOrEmpty()) return false
+    }
+
+    if (this.mainSourceOfIncome.equals(IncomeSourceEnum.OTHER.value, true)) {
+        if (this.mainSourceOfIncomeOthers.isNullOrEmpty()) return false
+    }
+
+
     return true
 }
 
@@ -179,6 +191,13 @@ fun HhForm6.isOk(): Boolean {
 //    }
 
     if (!this.nominees.isOk()) return false
+
+    if (this.xIsNomineeAdd.isNo()){
+        if (this.xNoNomineeReason?.equals(NonPerticipationReasonEnum.REASON_OTHER.value, true).toBool()){
+            if (this.xOtherReason.isNullOrEmpty()) return false
+        }
+    }
+
     return true
 }
 
@@ -326,6 +345,11 @@ fun AlForm1.isOk(): Boolean {
             return false
         }
     }
+
+    if (this.selectAlternateRlt.equals(RelationshipEnum.OTHER.value, true)) {
+        if (this.relationOther.isNullOrEmpty()) return false
+    }
+
     return true
 }
 
