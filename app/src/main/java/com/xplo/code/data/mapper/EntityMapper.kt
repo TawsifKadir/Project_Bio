@@ -208,7 +208,17 @@ object EntityMapper {
         if (item == null) return null
         val alternate = AlternatePayee()
         alternate.nationalId = item.form1?.idNumber
-        alternate.documentType = DocumentTypeEnum.find(item.form1?.idNumberType)
+
+        if(item.form1?.idNumberType == null){
+            alternate.documentType = DocumentTypeEnum.NONE
+        }else{
+            alternate.documentType = DocumentTypeEnum.find(item.form1?.idNumberType)
+        }
+
+        alternate.documentTypeOther =  item.form1?.idNumberOthersvalue
+        alternate.relationWithHousehold = RelationshipEnum.find(item.form1?.selectAlternateRlt)
+        alternate.otherRelationshipWithHousehold =item.form1?.relationOther
+
         alternate.payeeFirstName = item.form1?.alternateFirstName
         alternate.payeeMiddleName = item.form1?.alternateMiddleName
         alternate.payeeLastName = item.form1?.alternateLastName
@@ -220,7 +230,6 @@ object EntityMapper {
 
         alternate.biometrics = toAlternateBiometricEntities(item)
 
-        alternate.relationWithHousehold = RelationshipEnum.find(item.form1?.selectAlternateRlt)
         alternate.otherRelationshipWithHousehold = item.form1?.relationOther
 
         return alternate
