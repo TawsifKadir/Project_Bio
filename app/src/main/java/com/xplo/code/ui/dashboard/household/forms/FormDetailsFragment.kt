@@ -539,10 +539,10 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
     }
 
     private fun addReportAlternateForView(form: ArrayList<AlternateForm>?) {
-        Log.d(
-            TAG,
-            "addReportAlternateForView() called with: form = ${form?.get(0)?.form1?.alternateLastName}"
-        )
+//        Log.d(
+//            TAG,
+//            "addReportAlternateForView() called with: form = ${form?.get(0)?.form1?.alternateLastName}"
+//        )
         if (form == null) return
 
         for (item in form) {

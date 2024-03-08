@@ -41,6 +41,18 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         return txt
     }
 
+    override fun chkOtherText(editText: EditText, error: String?): String? {
+        val txt = editText.text.toString()
+        if(txt.isEmpty()){
+            editText.error = "This field cannot be blank"
+            return null
+        }
+        if(!isOnlyLetters(txt)){
+            editText.error = "Invalid Input"
+            return null
+        }
+        return txt
+    }
 
     override fun chkAge(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
