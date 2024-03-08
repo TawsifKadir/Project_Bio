@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
 import com.kit.integrationmanager.model.NomineeOccupationEnum
+import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.OccupationEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.xplo.code.core.TestConfig
@@ -190,6 +191,13 @@ fun HhForm6.isOk(): Boolean {
 //    }
 
     if (!this.nominees.isOk()) return false
+
+    if (this.xIsNomineeAdd.isNo()){
+        if (this.xNoNomineeReason?.equals(NonPerticipationReasonEnum.REASON_OTHER.value, true).toBool()){
+            if (this.xOtherReason.isNullOrEmpty()) return false
+        }
+    }
+
     return true
 }
 
