@@ -224,8 +224,8 @@ object EntityMapper {
         alternate.payeeLastName = item.form1?.alternateLastName
         alternate.payeeNickName = item.form1?.alternateNickName
         alternate.payeeAge = item.form1?.age
-        //alternate.payeeGender = GenderEnum.find(item.form1?.gender)
-        alternate.payeeGender = FakeMapperValue.fakeGender
+        alternate.payeeGender = GenderEnum.find(item.form1?.gender)
+        //alternate.payeeGender = FakeMapperValue.fakeGender
         alternate.payeePhoneNo = item.form1?.phoneNumber
 
         alternate.biometrics = toAlternateBiometricEntities(item)
