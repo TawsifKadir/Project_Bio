@@ -7,11 +7,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.core.Contextor
+import com.xplo.code.core.ext.invisible
+import com.xplo.code.core.ext.visible
 import com.xplo.code.core.utils.NetUtils
 import com.xplo.code.data.Constants
 import com.xplo.code.data_module.core.Config
@@ -52,7 +55,7 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
 
     private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by viewModels()
-
+    private lateinit var invalidLogin: TextView
     private var interactor: LoginContract.View? = null
 
     override fun onAttach(context: Context) {
@@ -86,6 +89,8 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
     }
 
     override fun initView() {
+        invalidLogin = binding.invalidLogin
+        invalidLogin.invisible()
         taskDev()
     }
 
@@ -99,9 +104,9 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
             navigateToSignup()
         }
 
-        binding.btResetPass.setOnClickListener {
-            navigateToResetPassword(null)
-        }
+//        binding.btResetPass.setOnClickListener {
+//            navigateToResetPassword(null)
+//        }
         //btSignup.setOnClickListener(this)
 
 //        binding.cbShowPassword.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -137,6 +142,7 @@ class LoginFragment : BaseFragment(), LoginContract.LoginView, Observer {
                     is LoginViewModel.Event.LoginFailure -> {
                         hideLoading()
                         onLoginFailure(event.msg)
+                        invalidLogin.visible()
                         viewModel.clearEvent()
                     }
 

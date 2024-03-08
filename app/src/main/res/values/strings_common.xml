@@ -281,6 +281,7 @@
     <string name="user">User</string>
     <string name="userid">Userid</string>
     <string name="username">Username</string>
+    <string name="invalid_login">Invalid username or password</string>
     <string name="version">Version</string>
     <string name="version_">Version: %s</string>
     <string name="video_not_available">Video Is Not Available</string>
