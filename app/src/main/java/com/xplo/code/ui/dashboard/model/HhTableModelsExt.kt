@@ -68,4 +68,11 @@ fun HhMember.getTotal(): Int {
     return normal + ill + disable
 }
 
+fun HhForm3.getTotalMale(): Int {
+    return this.male0_2.total + this.male3_5.total + this.male6_17.total + this.male18_35.total + this.male36_64.total + this.male65p.total
+}
+
+fun HhForm3.getTotalFemale(): Int {
+    return female0_2.total + female3_5.total + female6_17.total + female18_35.total + female36_64.total + female65p.total
+}
 
