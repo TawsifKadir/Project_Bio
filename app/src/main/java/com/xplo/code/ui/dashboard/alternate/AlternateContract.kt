@@ -6,6 +6,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.xplo.code.base.BaseContract
 import com.xplo.code.data.db.models.HouseholdItem
+import com.xplo.code.data.db.room.model.Beneficiary
 import com.xplo.code.ui.dashboard.model.AlForm1
 import com.xplo.code.ui.dashboard.model.AlForm2
 import com.xplo.code.ui.dashboard.model.AlForm3
@@ -80,9 +81,9 @@ interface AlternateContract {
     }
 
     interface HomeView : BaseContract.View {
-        fun navigateToHouseholdDetails(item: HouseholdItem)
+        fun navigateToHouseholdDetails(item: Beneficiary)
 
-        fun onGetHouseholdList(items: List<HouseholdItem>?)
+        fun onGetHouseholdList(items: List<Beneficiary>?)
         fun onGetHouseholdListFailure(msg: String?)
 
 

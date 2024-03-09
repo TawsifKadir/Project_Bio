@@ -240,9 +240,15 @@ class AlternateActivity : BaseActivity(), AlternateContract.View {
         addToBackStack: Boolean,
         clearBackStack: Boolean
     ) {
-        Log.d(TAG, "navigateToForm1() called with: id = $id")
+        Log.d(
+            TAG,
+            "navigateToForm1() called with: id = $id, hhName = $hhName, type = $type, addToBackStack = $addToBackStack, clearBackStack = $clearBackStack"
+        )
 
         STEP = 1
+        rootForm?.appId = id
+        rootForm?.hhType = type
+
 
         doFragmentTransaction(
             AlForm1Fragment.newInstance(null, id,hhName),

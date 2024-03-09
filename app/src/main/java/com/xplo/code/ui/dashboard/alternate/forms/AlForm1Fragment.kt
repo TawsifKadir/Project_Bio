@@ -168,10 +168,10 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
             binding.etHouseholdName.setText(id)
             return
         }
-        if(houseHoldName != ""){
+        if(!houseHoldName.isNullOrEmpty()){
             binding.etHouseholdName.setText(houseHoldName)
         }
-        viewModel.getHouseholdItem(id)
+        //viewModel.getHouseholdItem(id)
 
 
     }

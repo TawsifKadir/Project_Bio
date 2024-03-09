@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
 import com.xplo.code.core.ext.gone
-import com.xplo.code.data.db.models.HouseholdItem
+import com.xplo.code.data.db.room.model.Beneficiary
 import com.xplo.code.databinding.FragmentAlternateHomeBinding
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
-import com.xplo.code.ui.dashboard.household.list.AlternateListAdapter
+import com.xplo.code.ui.dashboard.household.list.AlternateListAdapter2
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -31,7 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
-    AlternateListAdapter.OnItemClickListener {
+    AlternateListAdapter2.OnItemClickListener {
 
     companion object {
         const val TAG = "AlternateHomeFragment"
@@ -53,7 +53,7 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
     //private lateinit var presenter: HomeContract.Presenter
     private var interactor: AlternateContract.View? = null
 
-    private var adapter: AlternateListAdapter? = null
+    private var adapter: AlternateListAdapter2? = null
 
 
     override fun onAttach(context: Context) {
@@ -92,13 +92,13 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
 
-        adapter = AlternateListAdapter()
+        adapter = AlternateListAdapter2()
         adapter?.setOnItemClickListener(this)
         binding.recyclerView.adapter = adapter
 
-        viewModel.getHouseholdItems()
+        //viewModel.getHouseholdItems()
 
-
+        viewModel.showBeneficiary(requireContext())
     }
 
     override fun initObserver() {
@@ -113,13 +113,19 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
 
                     is HouseholdViewModel.Event.GetHouseholdItemsSuccess -> {
                         hideLoading()
-                        onGetHouseholdList(event.items)
+                        //onGetHouseholdList(event.items)
                         viewModel.clearEvent()
                     }
 
                     is HouseholdViewModel.Event.GetHouseholdItemsFailure -> {
                         hideLoading()
                         onGetHouseholdListFailure(event.msg)
+                        viewModel.clearEvent()
+                    }
+
+                    is HouseholdViewModel.Event.GetDataLocalDb -> {
+                        hideLoading()
+                        onGetHouseholdList(event.beneficiary)
                         viewModel.clearEvent()
                     }
 
@@ -148,15 +154,24 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
         super.onDestroy()
     }
 
-    override fun navigateToHouseholdDetails(content: HouseholdItem) {
-        Log.d(TAG, "navigateToHouseholdDetails() called with: content = ${content.hid}")
-        interactor?.navigateToFormDetails(content)
+    override fun navigateToHouseholdDetails(content: Beneficiary) {
+        Log.d(TAG, "navigateToHouseholdDetails() called with: content = $content")
+        //interactor?.navigateToFormDetails(content)
     }
 
-    override fun onGetHouseholdList(items: List<HouseholdItem>?) {
+    override fun onGetHouseholdList(items: List<Beneficiary>?) {
         Log.d(TAG, "onGetHouseholdList() called with: items = ${items?.size}")
         if (items == null) return
-        adapter?.addAll(items)
+        //adapter?.addAll(items)
+
+        val pItems = arrayListOf<Beneficiary>()
+        for (item in items){
+            if (!item.isSynced) {
+                pItems.add(item)
+            }
+        }
+        adapter?.addAll(pItems)
+
     }
 
     override fun onGetHouseholdListFailure(msg: String?) {
@@ -164,27 +179,12 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
         //showMessage(msg)
     }
 
-    override fun onClickHouseholdItem(item: HouseholdItem, pos: Int) {
-        Log.d(TAG, "onClickHouseholdItem() called with: item = ${item.hid}, pos = $pos")
-        //dToast(item.title)
-        //navigateToHouseholdDetails(item)
-        interactor?.navigateToForm1(item.id, null, null, true, false)
-    }
+    override fun onClickBeneficiaryItem(item: Beneficiary, pos: Int) {
+        Log.d(TAG, "onClickBeneficiaryItem() called with: item = $item, pos = $pos")
+        //interactor?.navigateToForm1(item.applicationId, item.respondentFirstName, null, true, false)
 
-    override fun onClickHouseholdItemDelete(item: HouseholdItem, pos: Int) {
-        Log.d(TAG, "onClickHouseholdItemDelete() called with: item = $item, pos = $pos")
-        viewModel.deleteHouseholdItem(item)
-        adapter?.remove(pos)
-    }
-
-    override fun onClickHouseholdItemSend(item: HouseholdItem, pos: Int) {
-        Log.d(TAG, "onClickAlternateItemSend() called with: item = $item, pos = $pos")
-
-    }
-
-    override fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int) {
-        Log.d(TAG, "onClickHouseholdItemAddAlternate() called with: item = $item, pos = $pos")
-        interactor?.navigateToForm1(item.id, null,null,true, false)
+        val fname = item.respondentFirstName + " " + item.respondentMiddleName + " " + item.respondentLastName
+        interactor?.navigateToForm1(item.applicationId, fname, "V", true, false)
     }
 
 }
