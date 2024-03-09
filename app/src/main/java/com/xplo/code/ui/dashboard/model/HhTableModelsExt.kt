@@ -24,31 +24,31 @@ package com.xplo.code.ui.dashboard.model
 //    return mem0IllFemale + mem3IllFemale + mem6IllFemale + mem18IllFemale + mem36IllFemale + mem65IllFemale
 //}
 fun HhForm3.getNormalMale(): Int {
-    return male0_2.normal + male3_5.normal + male6_17.normal + male18_35.normal + male36_64.normal + male65p.normal
+    return this.male0_2.normal + this.male3_5.normal + this.male6_17.normal + this.male18_35.normal + this.male36_64.normal + this.male65p.normal
 }
 
 fun HhForm3.getDisableMale(): Int {
-    return male0_2.disable + male3_5.disable + male6_17.disable + male18_35.disable + male36_64.disable + male65p.disable
+    return this.male0_2.disable + this.male3_5.disable + this.male6_17.disable + this.male18_35.disable + this.male36_64.disable + this.male65p.disable
 }
 
 fun HhForm3.getIllMale(): Int {
-    return male0_2.ill + male3_5.ill + male6_17.ill + male18_35.ill + male36_64.ill + male65p.ill
+    return this.male0_2.ill + this.male3_5.ill + this.male6_17.ill + this.male18_35.ill + this.male36_64.ill + this.male65p.ill
 }
 
 fun HhForm3.getNormalFemale(): Int {
-    return female0_2.normal + female3_5.normal + female6_17.normal + female18_35.normal + female36_64.normal + female65p.normal
+    return this.female0_2.normal + this.female3_5.normal + this.female6_17.normal + this.female18_35.normal + this.female36_64.normal + this.female65p.normal
 }
 
 fun HhForm3.getDisableFemale(): Int {
-    return female0_2.disable + female3_5.disable + female6_17.disable + female18_35.disable + female36_64.disable + female65p.disable
+    return this.female0_2.disable + this.female3_5.disable + this.female6_17.disable + this.female18_35.disable + this.female36_64.disable + this.female65p.disable
 }
 
 fun HhForm3.getIllFemale(): Int {
-    return female0_2.ill + female3_5.ill + female6_17.ill + female18_35.ill + female36_64.ill + female65p.ill
+    return this.female0_2.ill + this.female3_5.ill + this.female6_17.ill + this.female18_35.ill + this.female36_64.ill + this.female65p.ill
 }
 
 fun HhForm3.getNormalPerson(): Int {
-    return getNormalMale() + getNormalFemale()
+    return this.getNormalMale() + this.getNormalFemale()
 }
 
 fun HhForm3.getDisablePerson(): Int {
@@ -66,3 +66,13 @@ fun HhForm3.getTotalTable(): Int {
 fun HhMember.getTotal(): Int {
     return normal + ill + disable
 }
+
+fun HhForm3.getTotalMale(): Int{
+    return this.getNormalMale() + this.getIllMale() + this.getDisableMale()
+}
+
+
+fun HhForm3.getTotalFemale(): Int{
+    return this.getNormalFemale() + this.getIllFemale() + this.getDisableFemale()
+}
+
