@@ -272,33 +272,33 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         hhMemberm.disable = beneficiary.householdMember2.maleDisable
         hhMemberm.ill = beneficiary.householdMember2.maleChronicalIll
         hhMemberm.normal = beneficiary.householdMember2.maleBoth
-        form3.female0_2 = hhMemberm
+        form3.male0_2 = hhMemberm
 
 
-        val hhMember35f = HhMember()
-        hhMember35f.disable = beneficiary.householdMember35.femaleDisable
-        hhMember35f.ill = beneficiary.householdMember35.femaleChronicalIll
-        hhMember35f.normal = beneficiary.householdMember35.femaleBoth
-        form3.female3_5 = hhMember35f
+        val hhMember5f = HhMember()
+        hhMember5f.disable = beneficiary.householdMember5.femaleDisable
+        hhMember5f.ill = beneficiary.householdMember5.femaleChronicalIll
+        hhMember5f.normal = beneficiary.householdMember5.femaleBoth
+        form3.female3_5 = hhMember5f
 
-        val hhMember35m = HhMember()
-        hhMember35m.disable = beneficiary.householdMember35.maleDisable
-        hhMember35m.ill = beneficiary.householdMember35.maleChronicalIll
-        hhMember35m.normal = beneficiary.householdMember35.maleBoth
-        form3.male3_5 = hhMember35m
+        val hhMember5m = HhMember()
+        hhMember5m.disable = beneficiary.householdMember5.maleDisable
+        hhMember5m.ill = beneficiary.householdMember5.maleChronicalIll
+        hhMember5m.normal = beneficiary.householdMember5.maleBoth
+        form3.male3_5 = hhMember5m
 
 
         val hhMember64f = HhMember()
         hhMember64f.disable = beneficiary.householdMember64.femaleDisable
         hhMember64f.ill = beneficiary.householdMember64.femaleChronicalIll
         hhMember64f.normal = beneficiary.householdMember64.femaleBoth
-        form3.female65p = hhMember64f
+        form3.female36_64 = hhMember64f
 
         val hhMember64m = HhMember()
         hhMember64m.disable = beneficiary.householdMember64.maleDisable
         hhMember64m.ill = beneficiary.householdMember64.maleChronicalIll
         hhMember64m.normal = beneficiary.householdMember64.maleBoth
-        form3.male65p = hhMember64m
+        form3.male36_64 = hhMember64m
 
 
         val hhMember65f = HhMember()
@@ -314,37 +314,36 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         form3.male65p = hhMember65m
 
 
-        val hhMember5f = HhMember()
-        hhMember5f.disable = beneficiary.householdMember5.femaleDisable
-        hhMember5f.ill = beneficiary.householdMember5.femaleChronicalIll
-        hhMember5f.normal = beneficiary.householdMember5.femaleBoth
-        form3.female65p = hhMember5f
+        val hhMember35f = HhMember()
+        hhMember35f.disable = beneficiary.householdMember35.femaleDisable
+        hhMember35f.ill = beneficiary.householdMember35.femaleChronicalIll
+        hhMember35f.normal = beneficiary.householdMember35.femaleBoth
+        form3.female18_35 = hhMember35f
 
-        val hhMember5m = HhMember()
-        hhMember5m.disable = beneficiary.householdMember5.maleDisable
-        hhMember5m.ill = beneficiary.householdMember5.maleChronicalIll
-        hhMember5m.normal = beneficiary.householdMember5.maleBoth
-        form3.male65p = hhMember5m
+        val hhMember35m = HhMember()
+        hhMember35m.disable = beneficiary.householdMember35.maleDisable
+        hhMember35m.ill = beneficiary.householdMember35.maleChronicalIll
+        hhMember35m.normal = beneficiary.householdMember35.maleBoth
+        form3.male18_35 = hhMember35m
 
 
         val hhMember17f = HhMember()
         hhMember17f.disable = beneficiary.householdMember17.femaleDisable
         hhMember17f.ill = beneficiary.householdMember17.femaleChronicalIll
         hhMember17f.normal = beneficiary.householdMember17.femaleBoth
-        form3.female65p = hhMember17f
+        form3.female6_17 = hhMember17f
 
         val hhMember17m = HhMember()
         hhMember17m.disable = beneficiary.householdMember17.maleDisable
         hhMember17m.ill = beneficiary.householdMember17.maleChronicalIll
         hhMember17m.normal = beneficiary.householdMember17.maleBoth
-        form3.male65p = hhMember17m
+        form3.male6_17 = hhMember17m
 
         form3.isReadWrite = beneficiary.isReadWrite.toString()
         form3.householdSize = beneficiary.householdSize
         form3.readWriteNumber = beneficiary.memberReadWrite
 
         addReportForm3(form3)
-
 
         val form4 = HhForm4()
         val photoData = PhotoData()
