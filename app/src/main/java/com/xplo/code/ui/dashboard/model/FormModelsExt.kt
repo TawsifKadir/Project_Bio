@@ -4,9 +4,8 @@ import android.util.Log
 import com.google.gson.GsonBuilder
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
-import com.kit.integrationmanager.model.NomineeOccupationEnum
-import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.OccupationEnum
+import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.isNo
@@ -301,7 +300,7 @@ fun Nominee?.isOk(): Boolean {
         if (this.relationOthers.isNullOrEmpty()) return false
     }
 
-    if (this.occupation.equals(NomineeOccupationEnum.OTHERS.value, true)) {
+    if (this.occupation.equals(OccupationEnum.OTHER.value, true)) {
         if (this.occupationOthers.isNullOrEmpty()) return false
     }
 

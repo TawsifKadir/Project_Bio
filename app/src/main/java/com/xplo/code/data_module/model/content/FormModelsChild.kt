@@ -7,7 +7,6 @@ import com.kit.integrationmanager.model.BiometricUserType
 import com.kit.integrationmanager.model.DocumentTypeEnum
 import com.kit.integrationmanager.model.GenderEnum
 import com.kit.integrationmanager.model.NoFingerprintReasonEnum
-import com.kit.integrationmanager.model.NomineeOccupationEnum
 import com.kit.integrationmanager.model.OccupationEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 
@@ -87,7 +86,7 @@ data class Nominee(
     var nomineeGender: GenderEnum? = null,
 
     @SerializedName("nomineeOccupation")
-    var nomineeOccupation: NomineeOccupationEnum? = null,
+    var nomineeOccupation: OccupationEnum? = null,
     @SerializedName("otherOccupation")
     var otherOccupation: String? = null,
     @SerializedName("relationshipWithHouseholdHead")

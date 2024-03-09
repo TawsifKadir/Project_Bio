@@ -13,7 +13,7 @@ import com.kit.integrationmanager.model.DocumentTypeEnum
 import com.kit.integrationmanager.model.GenderEnum
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.Nominee
-import com.kit.integrationmanager.model.NomineeOccupationEnum
+import com.kit.integrationmanager.model.OccupationEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
@@ -397,7 +397,7 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
                 nominee.age = item.nomineeAge
                 nominee.gender = item.nomineeGender?.value
                 nominee.occupation = item.nomineeOccupation?.value
-                if(nominee.occupation.equals(NomineeOccupationEnum.OTHERS.value, ignoreCase = true)){
+                if(nominee.occupation.equals(OccupationEnum.OTHER.value, ignoreCase = true)){
                     nominee.occupationOthers = item.otherOccupation
                 }
                 nominee.isReadWrite = item.isReadWrite.toString()

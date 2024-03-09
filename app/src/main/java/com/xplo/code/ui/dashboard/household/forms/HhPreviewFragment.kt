@@ -420,6 +420,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         return ReportViewUtils.getAltFormView(requireContext(), layoutInflater, item)
     }
 
+    //MappingDb Mapping data to local db
     fun insertBeneficiary(beneficiaryBO: Beneficiary) {
         Log.d(TAG, "insertBeneficiary() called with: beneficiaryBO = $beneficiaryBO")
         try {
@@ -684,6 +685,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
                 nomineeEO.nomineeNickName = nominee.nomineeNickName
                 nomineeEO.relationshipWithHouseholdHead =
                     if (nominee.relationshipWithHouseholdHead != null) nominee.relationshipWithHouseholdHead.ordinal.toLong() else null
+                nomineeEO.relationshipOther = nominee.relationshipOther
                 nomineeEO.nomineeAge = nominee.nomineeAge
                 nomineeEO.nomineeGender =
                     if (nominee.nomineeGender != null) nominee.nomineeGender.ordinal.toLong() else null

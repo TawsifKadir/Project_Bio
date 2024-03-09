@@ -3,7 +3,6 @@ package com.xplo.code.ui.dashboard.model
 import android.util.Log
 import com.kit.integrationmanager.model.DocumentTypeEnum
 import com.kit.integrationmanager.model.IncomeSourceEnum
-import com.kit.integrationmanager.model.NomineeOccupationEnum
 import com.kit.integrationmanager.model.OccupationEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.xplo.code.core.ext.toBool
@@ -293,7 +292,7 @@ fun Nominee?.getNomineeItemRows(): List<ReportRow> {
     }else{
         items.add(ReportRow("Relation:", form.relation.toString(), "Age: ", form.age.toString()))
     }
-    if(form.occupation.equals(NomineeOccupationEnum.OTHERS.value, ignoreCase = true)){
+    if(form.occupation.equals(OccupationEnum.OTHER.value, ignoreCase = true)){
         items.add(ReportRow("Gender:", form.gender.toString(), "Occupation: ", form.occupationOthers))
     }else{
         items.add(ReportRow("Gender:", form.gender.toString(), "Occupation: ", form.occupation))

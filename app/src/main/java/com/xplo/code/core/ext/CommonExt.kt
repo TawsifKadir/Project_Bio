@@ -91,11 +91,14 @@ fun RadioGroup?.checkRbOpAB(rbA: RadioButton, rbB: RadioButton, item: String?) {
     if (this == null) return
     if (item.isNullOrEmpty()) return
 
-    if (item.equals("public works", ignoreCase = true)) {
+
+
+    if (item.equals("lipw", ignoreCase = true)) {
         rbA.isChecked = true
     } else {
         rbB.isChecked = true
     }
+
 
 }
 

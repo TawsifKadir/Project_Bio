@@ -137,7 +137,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
         viewModel.showBeneficiary(requireContext())
 
-
+        DialogUtil.showLottieDialog(requireContext(), "Preparing Content", "Please wait")
     }
 
     override fun initObserver() {
@@ -172,7 +172,20 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
                     is HouseholdViewModel.Event.GetDataLocalDb -> {
                         hideLoading()
+                        DialogUtil.dismissLottieDialog()
                         // onGetHouseholdListSuccess(event.msg)
+
+                        if (event.beneficiary == null) {
+                            binding.llNoContentText.visibility = View.VISIBLE
+                            binding.llBody.visibility = View.GONE
+                        } else if (event.beneficiary.isEmpty()) {
+                            binding.llNoContentText.visibility = View.VISIBLE
+                            binding.llBody.visibility = View.GONE
+                        } else {
+                            binding.llNoContentText.visibility = View.GONE
+                            binding.llBody.visibility = View.VISIBLE
+                        }
+
                         adapterNew?.addAll(event.beneficiary)
                         adapterNew?.notifyDataSetChanged()
                         viewModel.clearEvent()
@@ -202,7 +215,9 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                     is HouseholdViewModel.Event.DeleteDataLocalDbByAppId -> {
                         hideLoading()
                         if (event.beneficiary) {
-                            requireActivity().finish()
+                            DialogUtil.showLottieDialog(requireContext(), "Preparing Content", "Please wait")
+                            //requireActivity().finish()
+                            viewModel.showBeneficiary(requireContext())
                         }
                         viewModel.clearEvent()
                     }

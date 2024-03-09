@@ -16,6 +16,7 @@ import com.kit.integrationmanager.model.MaritalStatusEnum
 import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.kit.integrationmanager.model.SelectionCriteriaEnum
+import com.kit.integrationmanager.model.SelectionReasonEnum
 import com.kit.integrationmanager.payload.RegistrationResult
 import com.kit.integrationmanager.payload.RegistrationStatus
 import com.xplo.code.data.db.models.BeneficiaryEntity
@@ -48,6 +49,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.util.ArrayList
 import java.util.Observable
 import java.util.Observer
 import javax.inject.Inject
@@ -267,6 +269,7 @@ class HouseholdViewModel @Inject constructor(
         }
     }
 
+    //MappingApi - Prepare for Api call
     fun showBeneficiaryByAppId(context: Context, appId: String) {
         val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context)
         val form: Beneficiary = Beneficiary()
@@ -356,20 +359,14 @@ class HouseholdViewModel @Inject constructor(
                     SelectionCriteriaEnum.getSelectionCriteriaById(beneficiary.selectionCriteria.toInt() + 1)
             }
 
-            // Assuming form.selectionReason is a MutableList<SelectionReasonEnum>
-           // val selectionReasonList = FakeMapperValue.selectionReasons
-            val selectionReasonList = FakeMapperValue.selectionReasons
-//            if(selectionReason.selectionReasonName != null){
-//                SelectionReasonEnum.entries.getOrNull(selectionReason.selectionReasonName.toInt())?.let {
-//                    selectionReasonList.add(
-//                        it
-//                    )
-//                }
-//            }
+            val selectionReasonList = ArrayList<SelectionReasonEnum>()
+            for (item in selectionReason) {
+                val reasonId = item.id.toInt() + 1
+                val selectionReason = SelectionReasonEnum.getSelectionReasonById(reasonId)
+                selectionReasonList.add(selectionReason)
+            }
 
             form.selectionReason = selectionReasonList
-
-            // form.selectionReason = SelectionReasonEnum.find(selectionReason.selectionReasonName)
             val addressOb = Address()
             addressOb.stateId = address.stateId
             addressOb.countyId = address.countyId
@@ -391,20 +388,26 @@ class HouseholdViewModel @Inject constructor(
             form.isReadWrite = beneficiary.isReadWrite
             form.memberReadWrite = beneficiary.memberReadWrite
 
-            if(beneficiary.nomineeSize > 0){
-                form.isOtherMemberPerticipating = true
-            }else{
-                form.isOtherMemberPerticipating = false
-            }
+            form.biometrics = EntityMapper.toBiometricEntityFromdbForBeneficiary(biometricBio)
 
-            if (beneficiary.notPerticipationReason != null) {
-                form.notPerticipationReason =
-                    NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt() + 1)
-            }
-            form.notPerticipationOtherReason = beneficiary.notPerticipationOtherReason
+
+//            if (beneficiary.notPerticipationReason != null) {
+//                form.notPerticipationReason =
+//                    NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt() + 1)
+//            }
+//            form.notPerticipationOtherReason = beneficiary.notPerticipationOtherReason
+
             form.nominees = EntityMapper.toNomineeItemsLdb(nominee)
 
-            form.biometrics = EntityMapper.toBiometricEntityFromdbForBeneficiary(biometricBio)
+            if (form.nominees != null && form.nominees.size > 0) {
+                form.isOtherMemberPerticipating = true
+            } else {
+                form.isOtherMemberPerticipating = false
+            }
+            if (beneficiary.notPerticipationReason != null) {
+                form.notPerticipationReason = NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt() + 1)
+                form.notPerticipationOtherReason = beneficiary.notPerticipationOtherReason
+            }
 
             if (alternateBio1 != null) {
                 form.alternatePayee1 = EntityMapper.getFirstAlternateLdb(alternateEO, alternateBio1)
@@ -499,7 +502,13 @@ class HouseholdViewModel @Inject constructor(
             }
 
             // Assuming form.selectionReason is a MutableList<SelectionReasonEnum>
-            val selectionReasonList = FakeMapperValue.selectionReasons
+            //val selectionReasonList = FakeMapperValue.selectionReasons
+            val selectionReasonList = ArrayList<SelectionReasonEnum>()
+            for (item in selectionReason) {
+                val reasonId = item.id.toInt() + 1
+                val selectionReason = SelectionReasonEnum.getSelectionReasonById(reasonId)
+                selectionReasonList.add(selectionReason)
+            }
 //            if(selectionReason.selectionReasonName != null){
 //                SelectionReasonEnum.entries.getOrNull(selectionReason.selectionReasonName.toInt())?.let {
 //                    selectionReasonList.add(

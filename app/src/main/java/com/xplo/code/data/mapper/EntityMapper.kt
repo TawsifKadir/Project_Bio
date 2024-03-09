@@ -12,9 +12,8 @@ import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.LegalStatusEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
 import com.kit.integrationmanager.model.NoFingerprintReasonEnum
-import com.kit.integrationmanager.model.NomineeOccupationEnum
-import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.OccupationEnum
+import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.kit.integrationmanager.model.SelectionCriteriaEnum
 import com.kit.integrationmanager.model.SelectionReasonEnum
@@ -126,7 +125,15 @@ object EntityMapper {
         form.householdMember65 = toHouseholdMember65(applicationId, item.form3)
         form.isReadWrite = getReadWrite(item.form3?.isReadWrite)
         form.memberReadWrite = item.form3?.readWriteNumber
-        form.isOtherMemberPerticipating = FakeMapperValue.isOtherMemberPerticipating
+
+        if(form.nominees != null){
+            if(form.nominees.size > 0){
+                form.isOtherMemberPerticipating = true
+            }else{
+                form.isOtherMemberPerticipating = false
+            }
+        }
+
         form.notPerticipationReason = NonPerticipationReasonEnum.find(item.form6?.noNomineeReason)
         form.notPerticipationOtherReason = item.form6?.otherReason
 
@@ -1009,8 +1016,8 @@ object EntityMapper {
 
         //nominee.nomineeOccupation = OccupationEnum.valueOf(item.nomineeOccupation.toString())
         if(item.nomineeOccupation != null){
-            nominee.nomineeOccupation = NomineeOccupationEnum.getNomineeOccupationById(item.nomineeOccupation.toInt() + 1)
-            if(nominee.nomineeOccupation.value.equals(NomineeOccupationEnum.OTHERS.value, ignoreCase = true) ){
+            nominee.nomineeOccupation = OccupationEnum.getOccupationById(item.nomineeOccupation.toInt() + 1)
+            if(nominee.nomineeOccupation.value.equals(OccupationEnum.OTHER.value, ignoreCase = true) ){
                 nominee.otherOccupation = item.otherOccupation
             }
         }
@@ -1057,8 +1064,8 @@ object EntityMapper {
         nominee.nomineeAge = item.age
         nominee.nomineeGender = GenderEnum.find(item.gender)
 
-        nominee.nomineeOccupation = NomineeOccupationEnum.find(item.occupation)
-        if(nominee.nomineeOccupation == NomineeOccupationEnum.OTHERS){
+        nominee.nomineeOccupation = OccupationEnum.find(item.occupation)
+        if(nominee.nomineeOccupation == OccupationEnum.OTHER){
             nominee.otherOccupation = item.occupationOthers
         }
         nominee.relationshipWithHouseholdHead = RelationshipEnum.find(item.relation)
@@ -1372,7 +1379,7 @@ object EntityMapper {
             nomineeAge = item.age ?: 0,
             nomineeGender = GenderEnum.find(item.gender),
 
-            nomineeOccupation = NomineeOccupationEnum.find(item.occupation),
+            nomineeOccupation = OccupationEnum.find(item.occupation),
             otherOccupation = item.occupationOthers,
             relationshipWithHouseholdHead = RelationshipEnum.find(item.relation),
             relationshipOther = item.relationOthers,
