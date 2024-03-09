@@ -269,6 +269,7 @@ class HouseholdViewModel @Inject constructor(
         }
     }
 
+    //MappingApi - Prepare for Api call
     fun showBeneficiaryByAppId(context: Context, appId: String) {
         val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context)
         val form: Beneficiary = Beneficiary()
