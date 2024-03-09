@@ -155,6 +155,20 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         }
         return txt
     }
+    override fun chkEditText3CharAllowSpace(editText: EditText, error: String?): String? {
+        val txt = editText.text.toString()
+        if (isValidationEnabled()) {
+            val txtWithoutSpace = txt.replace("\\s+".toRegex(), "")
+            if (txtWithoutSpace.length < 3) {
+                editText.error = "Minimum 3 characters required (excluding whitespace)"
+                return null
+            } else if (!txtWithoutSpace.all { it.isLetter() }) { // Check if all characters are letters
+                editText.error = "Only letters allowed"
+                return null
+            }
+        }
+        return txt
+    }
     override fun chkEditTextNickName3Char(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {

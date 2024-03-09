@@ -468,7 +468,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
 
         if(spMainSourceOfIncome.selectedItem.toString().equals(IncomeSourceEnum.OTHER.toString(), ignoreCase = true)){
             form.mainSourceOfIncome = chkSpinner(spMainSourceOfIncome, UiData.ER_SP_DF)
-            form.mainSourceOfIncomeOthers = chkEditText3Char(edtOthersourcetext, UiData.ER_SP_DF)
+            form.mainSourceOfIncomeOthers = chkEditText3CharAllowSpace(edtOthersourcetext, UiData.ER_SP_DF)
             Log.d(TAG,"Entered Main Source of Income other with ${form.mainSourceOfIncome}")
         }else{
             form.mainSourceOfIncome = chkSpinner(spMainSourceOfIncome, UiData.ER_SP_DF)
@@ -478,7 +478,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         form.gender = chkSpinner(spGender, UiData.ER_SP_DF)
         if(spRespondentRlt.selectedItem.toString().equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
             form.respondentRlt = chkSpinner(spRespondentRlt, UiData.ER_SP_DF)
-            form.respondentRltOthersValue = chkEditText3Char(etOthersText, UiData.ER_SP_DF)
+            form.respondentRltOthersValue = chkEditText3CharAllowSpace(etOthersText, UiData.ER_SP_DF)
         }else{
             form.respondentRlt = chkSpinner(spRespondentRlt, UiData.ER_SP_DF)
         }
@@ -504,7 +504,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
             if (spIdType.selectedItem.toString().equals(IDtypeEnum.OTHERS.value, ignoreCase = true)){
                 form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
                 form.idNumber = checkIDNumber(etIdNumber, UiData.ER_ET_DF, form.idNumberType)
-                form.idNumberOthersvalue = chkEditText3Char(etIDType, UiData.ER_ET_DF)
+                form.idNumberOthersvalue = chkEditText3CharAllowSpace(etIDType, UiData.ER_ET_DF)
             }else{
                 form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
                 form.idNumber = checkIDNumber(etIdNumber, UiData.ER_ET_DF, form.idNumberType)

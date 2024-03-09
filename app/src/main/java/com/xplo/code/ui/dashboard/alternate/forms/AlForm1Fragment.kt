@@ -352,7 +352,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
 
         form.selectAlternateRlt = chkSpinner(spAlternateRelation, UiData.ER_SP_DF)
         if (form.selectAlternateRlt.equals(RelationshipEnum.OTHER.value, true)){
-            form.relationOther = chkEditText3Char(etothers, UiData.ER_ET_DF)
+            form.relationOther = chkEditText3CharAllowSpace(etothers, UiData.ER_ET_DF)
         }
 
         form.gender = chkSpinner(spGender, UiData.ER_SP_DF)
@@ -363,7 +363,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
             if (spIdType.selectedItem.toString().equals(IDtypeEnum.OTHERS.value, ignoreCase = true)){
                 form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
                 form.idNumber = checkIDNumber(etIdNumber, UiData.ER_ET_DF, form.idNumberType)
-                form.idNumberOthersvalue = chkEditText3Char(etIDType, UiData.ER_ET_DF)
+                form.idNumberOthersvalue = chkEditText3CharAllowSpace(etIDType, UiData.ER_ET_DF)
             }else{
                 form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
                 form.idNumber = checkIDNumber(etIdNumber, UiData.ER_ET_DF, form.idNumberType)
