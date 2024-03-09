@@ -127,10 +127,10 @@ fun HhForm3?.getReportRows(): List<ReportRow> {
     items.add(ReportRow("Total:", form.householdSize.toString(), null, null))
     items.add(
         ReportRow(
-            "Normal Male:",
-            form.getNormalMale().toString(),
-            "Normal Female:",
-            form.getNormalFemale().toString(),
+            "Total Male:",
+            form.getTotalMale().toString(),
+            "Total Female:",
+            form.getTotalFemale().toString(),
         )
     )
     items.add(
@@ -149,7 +149,17 @@ fun HhForm3?.getReportRows(): List<ReportRow> {
             form.getIllFemale().toString(),
         )
     )
-    items.add(ReportRow("Total Input:", form.getTotalTable().toString(), null, null))
+
+    items.add(
+        ReportRow(
+            "Both Male:",
+            form.getNormalMale().toString(),
+            "Both Female:",
+            form.getNormalFemale().toString(),
+        )
+    )
+
+//    items.add(ReportRow("Total Input:", form.getTotalTable().toString(), null, null))
     items.add(ReportRow("Do You Read and Write :", form.isReadWrite, null, null))
     items.add(
         ReportRow(

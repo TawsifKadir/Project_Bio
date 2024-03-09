@@ -24,12 +24,13 @@ package com.xplo.code.ui.dashboard.model
 //    return mem0IllFemale + mem3IllFemale + mem6IllFemale + mem18IllFemale + mem36IllFemale + mem65IllFemale
 //}
 fun HhForm3.getNormalMale(): Int {
-    return male0_2.normal + male3_5.normal + male6_17.normal + male18_35.normal + male36_64.normal + male65p.normal
+    return this.male0_2.normal + this.male3_5.normal + this.male6_17.normal + this.male18_35.normal + this.male36_64.normal + this.male65p.normal
 }
 
 fun HhForm3.getDisableMale(): Int {
-    return male0_2.disable + male3_5.disable + male6_17.disable + male18_35.disable + male36_64.disable + male65p.disable
+    return this.male0_2.disable + this.male3_5.disable + this.male6_17.disable + this.male18_35.disable + this.male36_64.disable + this.male65p.disable
 }
+
 
 fun HhForm3.getIllMale(): Int {
     return male0_2.ill + male3_5.ill + male6_17.ill + male18_35.ill + male36_64.ill + male65p.ill
@@ -66,3 +67,5 @@ fun HhForm3.getTotalTable(): Int {
 fun HhMember.getTotal(): Int {
     return normal + ill + disable
 }
+
+

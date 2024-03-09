@@ -45,6 +45,7 @@ import com.xplo.code.ui.dashboard.model.checkExtraCases
 import com.xplo.code.ui.dashboard.model.getOppositeGender
 import com.xplo.code.ui.dashboard.model.isExtraNomineeOk
 import com.xplo.code.ui.dashboard.model.isOk
+import com.xplo.code.utils.DialogHandler
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -141,6 +142,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         adapter?.setOnItemClickListener(this)
         recyclerView.adapter = adapter
         onReinstateData(interactor?.getRootForm()?.form6)
+        DialogHandler.showNomineeConfirmfationDialog(requireContext())
     }
 
     override fun initObserver() {
