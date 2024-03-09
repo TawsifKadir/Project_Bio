@@ -67,17 +67,22 @@ object EntityMapper {
         form.spouseNickName = item.form2?.spouseNickName
 
         form.relationshipWithHouseholdHead = RelationshipEnum.find(item.form2?.respondentRlt)
+        if(form.relationshipWithHouseholdHead == RelationshipEnum.OTHER){
+            form.relationshipOther = item.form2?.respondentRltOthersValue
+        }
         form.householdIncomeSource = IncomeSourceEnum.find(item.form2?.mainSourceOfIncome)
-
+        if(form.householdIncomeSource == IncomeSourceEnum.OTHER){
+            form.incomeSourceOther = item.form2?.mainSourceOfIncomeOthers
+        }
         if(item.form2?.idNumberType == null){
             form.documentType = DocumentTypeEnum.NONE
         }else{
             form.documentType = DocumentTypeEnum.find(item.form2?.idNumberType)
         }
 
-        form.relationshipOther = item.form2?.respondentRltOthersValue ?: ""
-        form.documentTypeOther = item.form2?.idNumberOthersvalue ?: ""
-        form.incomeSourceOther = item.form2?.mainSourceOfIncomeOthers ?: ""
+//        form.relationshipOther = item.form2?.respondentRltOthersValue ?: ""
+//        form.documentTypeOther = item.form2?.idNumberOthersvalue ?: ""
+//        form.incomeSourceOther = item.form2?.mainSourceOfIncomeOthers ?: ""
 
         form.respondentAge = item.form2?.age
         form.respondentGender = GenderEnum.find(item.form2?.gender)

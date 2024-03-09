@@ -279,10 +279,10 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
     override fun onReadInput() {
         Log.d(TAG, "onReadInput() called")
 
-        val dataset = adapter?.getDataset()
-        if (dataset != null) {
-            DialogHandler.showNomineeCOnfirmfationDialog(requireContext(),this,dataset)
-        }
+//        val dataset = adapter?.getDataset()
+//        if (dataset != null) {
+//            DialogHandler.showNomineeCOnfirmfationDialog(requireContext(),this,dataset)
+//        }
     }
 
     override fun onLongClickDataGeneration() {

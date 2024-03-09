@@ -16,10 +16,8 @@ import com.xplo.code.ui.dashboard.model.AlternateForm
 object DialogHandler {
 
     private var alertDialog: LottieAlertDialog? = null
-    fun showNomineeCOnfirmfationDialog(
+    fun showNomineeConfirmfationDialog(
         context: Context,
-        nowObj: HhFormAlternateFragment,
-        nowList: ArrayList<AlternateForm>
     ) {
         //val dialog = Dialog(requireContext())
         val dialog = Dialog(context, R.style.CustomDialogTheme)
@@ -34,15 +32,9 @@ object DialogHandler {
          window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
  */
         val btnOk : Button = dialog.findViewById<Button>(R.id.okButton)
-        val btnCancel : Button = dialog.findViewById<Button>(R.id.cancelButton)
+//        val btnCancel : Button = dialog.findViewById<Button>(R.id.cancelButton)
 
         btnOk.setOnClickListener {
-
-            nowObj.onValidated(nowList)
-            dialog.dismiss()
-        }
-
-        btnCancel.setOnClickListener {
             dialog.dismiss()
         }
         dialog.show()
