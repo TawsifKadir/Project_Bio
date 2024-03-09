@@ -164,7 +164,14 @@ data class HhForm3(
     var readWriteNumber: Int? = null,
     var isReadWrite: String? = null
 
-)
+) {
+    fun getTotalMale(): Int? {
+        return mem0TotalMale + mem3TotalMale + mem6TotalMale + mem18TotalMale + mem36TotalMale + mem65TotalMale
+    }
+    fun getTotalFemale(): Int? {
+        return mem0TotalFemale + mem3TotalFemale + mem6TotalFemale + mem18TotalFemale + mem36TotalFemale + mem65TotalFemale
+    }
+}
 
 data class HhMember(
     var normal: Int = 0,

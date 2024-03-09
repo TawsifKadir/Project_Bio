@@ -31,24 +31,25 @@ fun HhForm3.getDisableMale(): Int {
     return this.male0_2.disable + this.male3_5.disable + this.male6_17.disable + this.male18_35.disable + this.male36_64.disable + this.male65p.disable
 }
 
+
 fun HhForm3.getIllMale(): Int {
-    return this.male0_2.ill + this.male3_5.ill + this.male6_17.ill + this.male18_35.ill + this.male36_64.ill + this.male65p.ill
+    return male0_2.ill + male3_5.ill + male6_17.ill + male18_35.ill + male36_64.ill + male65p.ill
 }
 
 fun HhForm3.getNormalFemale(): Int {
-    return this.female0_2.normal + this.female3_5.normal + this.female6_17.normal + this.female18_35.normal + this.female36_64.normal + this.female65p.normal
+    return female0_2.normal + female3_5.normal + female6_17.normal + female18_35.normal + female36_64.normal + female65p.normal
 }
 
 fun HhForm3.getDisableFemale(): Int {
-    return this.female0_2.disable + this.female3_5.disable + this.female6_17.disable + this.female18_35.disable + this.female36_64.disable + this.female65p.disable
+    return female0_2.disable + female3_5.disable + female6_17.disable + female18_35.disable + female36_64.disable + female65p.disable
 }
 
 fun HhForm3.getIllFemale(): Int {
-    return this.female0_2.ill + this.female3_5.ill + this.female6_17.ill + this.female18_35.ill + this.female36_64.ill + this.female65p.ill
+    return female0_2.ill + female3_5.ill + female6_17.ill + female18_35.ill + female36_64.ill + female65p.ill
 }
 
 fun HhForm3.getNormalPerson(): Int {
-    return this.getNormalMale() + this.getNormalFemale()
+    return getNormalMale() + getNormalFemale()
 }
 
 fun HhForm3.getDisablePerson(): Int {
@@ -67,12 +68,4 @@ fun HhMember.getTotal(): Int {
     return normal + ill + disable
 }
 
-fun HhForm3.getTotalMale(): Int{
-    return this.getNormalMale() + this.getIllMale() + this.getDisableMale()
-}
-
-
-fun HhForm3.getTotalFemale(): Int{
-    return this.getNormalFemale() + this.getIllFemale() + this.getDisableFemale()
-}
 
