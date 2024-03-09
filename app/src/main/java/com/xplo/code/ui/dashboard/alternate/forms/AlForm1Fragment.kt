@@ -341,7 +341,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         form.idNumber = chkEditText(etIdNumber, UiData.ER_ET_DF)
 
         //form.phoneNumber = chkPhoneNumber(etPhoneNo, UiData.ER_ET_DF)
-        form.phoneNumber = etPhoneNo.text.toString()
+        form.phoneNumber = chkPhoneNumber(etPhoneNo,UiData.ER_ET_DF)
 
 //        if(spAlternateRelation.selectedItem.toString().equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
 //            //form.selectAlternateRlt = etothers.text.toString()

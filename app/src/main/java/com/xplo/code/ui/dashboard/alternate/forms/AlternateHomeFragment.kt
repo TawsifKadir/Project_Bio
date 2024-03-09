@@ -97,8 +97,6 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
         binding.recyclerView.adapter = adapter
 
         viewModel.getHouseholdItems()
-
-
     }
 
     override fun initObserver() {
