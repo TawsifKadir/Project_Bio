@@ -166,12 +166,18 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
 
         val pItems = arrayListOf<Beneficiary>()
         for (item in items){
-            if (!item.isSynced) {
+            if (shouldShow(item)) {
                 pItems.add(item)
             }
         }
         adapter?.addAll(pItems)
 
+    }
+
+    private fun shouldShow(item: Beneficiary): Boolean {
+        if (item.isSynced) return false
+        if (item.alternateSize >= 2) return false
+        return true
     }
 
     override fun onGetHouseholdListFailure(msg: String?) {
