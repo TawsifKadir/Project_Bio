@@ -162,7 +162,7 @@ class DbRepoImpl @Inject constructor(
     }
 
     private fun getTable(): String {
-        return "state"
+        return "address"
     }
 
 }
