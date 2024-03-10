@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.room.ColumnInfo
 import com.kit.integrationmanager.model.AlternatePayee
 import com.kit.integrationmanager.model.Beneficiary
 import com.kit.integrationmanager.model.BiometricType
 import com.kit.integrationmanager.model.HouseholdMember
+import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.SelectionReasonEnum
 import com.xplo.code.BuildConfig
 import com.xplo.code.R
@@ -31,7 +33,6 @@ import com.xplo.code.data.db.room.model.Location
 import com.xplo.code.data.db.room.model.Nominee
 import com.xplo.code.data.db.room.model.SelectionReason
 import com.xplo.code.data.mapper.EntityMapper
-import com.xplo.code.data.mapper.FakeMapperValue
 import com.xplo.code.databinding.FragmentHhPreviewBinding
 import com.xplo.code.ui.components.ReportViewUtils
 import com.xplo.code.ui.components.XDialog
@@ -50,6 +51,8 @@ import com.xplo.code.ui.dashboard.model.getReportRows
 import com.xplo.code.ui.dashboard.model.getReportRowsAltSummary
 import com.xplo.code.utils.DialogUtil
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 /**
  * Copyright 2020 (C) xplo
@@ -427,8 +430,12 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             DatabaseExecutors.getInstance().diskIO().execute {
                 // uuid = UUID.randomUUID()
                 uuid = beneficiaryBO.applicationId
-                val beneficiaryEO: com.xplo.code.data.db.room.model.Beneficiary =
-                    prepareBeneficiaryEntity(uuid, beneficiaryBO)
+                val beneficiaryEO: com.xplo.code.data.db.room.model.Beneficiary = if (beneficiaryBO.nominees.isNullOrEmpty()) {
+                    prepareBeneficiaryEntity(uuid, beneficiaryBO, 0)
+                } else {
+                    prepareBeneficiaryEntity(uuid, beneficiaryBO, beneficiaryBO.nominees.size)
+                }
+
                 val addressEO: Address =
                     prepareAddressEntity(uuid, beneficiaryBO.address)
                 val locationEO: Location =
@@ -746,7 +753,8 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
 
     fun prepareBeneficiaryEntity(
         appId: String?,
-        beneficiaryBO: Beneficiary
+        beneficiaryBO: Beneficiary,
+        nomineSize: Int
     ): com.xplo.code.data.db.room.model.Beneficiary {
         val beneficiaryEO = com.xplo.code.data.db.room.model.Beneficiary()
         beneficiaryEO.applicationId = appId
@@ -754,12 +762,14 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         beneficiaryEO.respondentMiddleName = beneficiaryBO.respondentMiddleName
         beneficiaryEO.respondentLastName = beneficiaryBO.respondentLastName
         beneficiaryEO.respondentNickName = beneficiaryBO.respondentNickName
+
         beneficiaryEO.spouseFirstName = beneficiaryBO.spouseFirstName
         beneficiaryEO.spouseMiddleName = beneficiaryBO.spouseMiddleName
         beneficiaryEO.spouseLastName = beneficiaryBO.spouseLastName
+        beneficiaryEO.spouseNickName = beneficiaryBO.spouseNickName
 
-        beneficiaryEO.incomeSourceOtherText = beneficiaryBO.incomeSourceOther
-        beneficiaryEO.relationshipOtherText = beneficiaryBO.relationshipOther
+        beneficiaryEO.incomeSourceOther = beneficiaryBO.incomeSourceOther
+        beneficiaryEO.relationshipOther = beneficiaryBO.relationshipOther
         beneficiaryEO.documentTypeOther = beneficiaryBO.documentTypeOther
 
         beneficiaryEO.relationshipWithHouseholdHead =
@@ -791,7 +801,19 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             if (beneficiaryBO.selectionCriteria != null) beneficiaryBO.selectionCriteria.ordinal.toLong() else null
         beneficiaryEO.currency =
             if (beneficiaryBO.currency != null) beneficiaryBO.currency.ordinal.toLong() else null
+        beneficiaryEO.isOtherMemberPerticipating = nomineSize > 0
+        beneficiaryEO.creation_date = getCurrentDateTimeInMillis()
+        //  beneficiaryEO.status = beneficiaryBO.respondentLegalStatus.ordinal.toLong() //Fake Data
+
+
         return beneficiaryEO
+    }
+
+    fun getCurrentDateTimeInMillis(): Long {
+        val currentDateTime = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS")
+        val formattedDateTime = currentDateTime.format(formatter)
+        return formattedDateTime.toLong()
     }
 
 

@@ -115,21 +115,17 @@ public class Beneficiary implements Serializable {
     @ColumnInfo(name = "non_perticipation_reason")
     public Long notPerticipationReason;
 
-    @ColumnInfo(name = "non_perticipation_other_reason_text")
-    public String notPerticipationOtherReasonText;
+//    @ColumnInfo(name = "non_perticipation_other_reason_text")
+//    public String notPerticipationOtherReasonText;
 
     @ColumnInfo(name = "status")
     public Long status;
 
     @ColumnInfo(name = "income_source_other")
-    public Long incomeSourceOther;
-    @ColumnInfo(name = "income_source_other_text")
-    public String incomeSourceOtherText;
+    public String incomeSourceOther;
 
     @ColumnInfo(name = "relationship_other")
-    public Long relationshipOther;
-    @ColumnInfo(name = "relationship_other_text")
-    public String relationshipOtherText;
+    public String relationshipOther;
 
     @Ignore
     public int nomineeSize = 0;
