@@ -385,50 +385,108 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
         form.mem36TotalFemale=getEditTextInt(etMem36TotalFemale)
         form.mem65TotalFemale=getEditTextInt(etMem65TotalFemale)
 
+        //Men Breakdown here
+        form.mem0DisableMale=getEditTextInt(etMem0DisableMale)
+        form.mem3DisableMale=getEditTextInt(etMem3DisableMale)
+        form.mem6DisableMale=getEditTextInt(etMem6DisableMale)
+        form.mem18DisableMale=getEditTextInt(etMem18DisableMale)
+        form.mem36DisableMale=getEditTextInt(etMem36DisableMale)
+        form.mem65DisableMale=getEditTextInt(etMem65DisableMale)
+
+        form.mem0IllMale=getEditTextInt(etMem0IllMale)
+        form.mem3IllMale=getEditTextInt(etMem3IllMale)
+        form.mem6IllMale=getEditTextInt(etMem6IllMale)
+        form.mem18IllMale=getEditTextInt(etMem18IllMale)
+        form.mem36IllMale=getEditTextInt(etMem36IllMale)
+        form.mem65IllMale=getEditTextInt(etMem65IllMale)
+
+        form.mem0NormalMale=getEditTextInt(etMem0NormalMale)
+        form.mem3NormalMale=getEditTextInt(etMem3NormalMale)
+        form.mem6NormalMale=getEditTextInt(etMem6NormalMale)
+        form.mem18NormalMale=getEditTextInt(etMem18NormalMale)
+        form.mem36NormalMale=getEditTextInt(etMem36NormalMale)
+        form.mem65NormalMale=getEditTextInt(etMem65NormalMale)
+
+        //Female Breakdown here
+
+        form.mem0DisableFemale=getEditTextInt(etMem0DisableFemale)
+        form.mem3DisableFemale=getEditTextInt(etMem3DisableFemale)
+        form.mem6DisableFemale=getEditTextInt(etMem6DisableFemale)
+        form.mem18DisableFemale=getEditTextInt(etMem18DisableFemale)
+        form.mem36DisableFemale=getEditTextInt(etMem36DisableFemale)
+        form.mem65DisableFemale=getEditTextInt(etMem65DisableFemale)
+
+        form.mem0IllFemale=getEditTextInt(etMem0IllFemale)
+        form.mem3IllFemale=getEditTextInt(etMem3IllFemale)
+        form.mem6IllFemale=getEditTextInt(etMem6IllFemale)
+        form.mem18IllFemale=getEditTextInt(etMem18IllFemale)
+        form.mem36IllFemale=getEditTextInt(etMem36IllFemale)
+        form.mem65IllFemale=getEditTextInt(etMem65IllFemale)
+
+        form.mem0NormalFemale=getEditTextInt(etMem0NormalFemale)
+        form.mem3NormalFemale=getEditTextInt(etMem3NormalFemale)
+        form.mem6NormalFemale=getEditTextInt(etMem6NormalFemale)
+        form.mem18NormalFemale=getEditTextInt(etMem18NormalFemale)
+        form.mem36NormalFemale=getEditTextInt(etMem36NormalFemale)
+        form.mem65NormalFemale=getEditTextInt(etMem65NormalFemale)
+
+        //Finish here
+        form.male0_2.total = getEditTextInt(etMem0TotalMale)
         form.male0_2.normal = getEditTextInt(etMem0NormalMale)
         form.male0_2.disable = getEditTextInt(etMem0DisableMale)
         form.male0_2.ill = getEditTextInt(etMem0IllMale)
 
+        form.male3_5.total = getEditTextInt(etMem3TotalMale)
         form.male3_5.normal = getEditTextInt(etMem3NormalMale)
         form.male3_5.disable = getEditTextInt(etMem3DisableMale)
         form.male3_5.ill = getEditTextInt(etMem3IllMale)
 
+        form.male6_17.total = getEditTextInt(etMem6TotalMale)
         form.male6_17.normal = getEditTextInt(etMem6NormalMale)
         form.male6_17.disable = getEditTextInt(etMem6DisableMale)
         form.male6_17.ill = getEditTextInt(etMem6IllMale)
 
+        form.male18_35.total = getEditTextInt(etMem18TotalMale)
         form.male18_35.normal = getEditTextInt(etMem18NormalMale)
         form.male18_35.disable = getEditTextInt(etMem18DisableMale)
         form.male18_35.ill = getEditTextInt(etMem18IllMale)
 
+        form.male36_64.total = getEditTextInt(etMem36TotalMale)
         form.male36_64.normal = getEditTextInt(etMem36NormalMale)
         form.male36_64.disable = getEditTextInt(etMem36DisableMale)
         form.male36_64.ill = getEditTextInt(etMem36IllMale)
 
+        form.male65p.total = getEditTextInt(etMem65TotalMale)
         form.male65p.normal = getEditTextInt(etMem65NormalMale)
         form.male65p.disable = getEditTextInt(etMem65DisableMale)
         form.male65p.ill = getEditTextInt(etMem65IllMale)
 
+        form.female0_2.total = getEditTextInt(etMem0TotalFemale)
         form.female0_2.normal = getEditTextInt(etMem0NormalFemale)
         form.female0_2.disable = getEditTextInt(etMem0DisableFemale)
         form.female0_2.ill = getEditTextInt(etMem0IllFemale)
 
+        form.female3_5.total = getEditTextInt(etMem3TotalFemale)
         form.female3_5.normal = getEditTextInt(etMem3NormalFemale)
         form.female3_5.disable = getEditTextInt(etMem3DisableFemale)
         form.female3_5.ill = getEditTextInt(etMem3IllFemale)
 
+        form.female6_17.total = getEditTextInt(etMem6TotalFemale)
         form.female6_17.normal = getEditTextInt(etMem6NormalFemale)
         form.female6_17.disable = getEditTextInt(etMem6DisableFemale)
         form.female6_17.ill = getEditTextInt(etMem6IllFemale)
 
+        form.female18_35.total = getEditTextInt(etMem18TotalFemale)
         form.female18_35.normal = getEditTextInt(etMem18NormalFemale)
         form.female18_35.disable = getEditTextInt(etMem18DisableFemale)
         form.female18_35.ill = getEditTextInt(etMem18IllFemale)
 
+        form.female36_64.total = getEditTextInt(etMem36TotalFemale)
         form.female36_64.normal = getEditTextInt(etMem36NormalFemale)
         form.female36_64.disable = getEditTextInt(etMem36DisableFemale)
         form.female36_64.ill = getEditTextInt(etMem36IllFemale)
 
+        form.female65p.total = getEditTextInt(etMem65TotalFemale)
         form.female65p.normal = getEditTextInt(etMem65NormalFemale)
         form.female65p.disable = getEditTextInt(etMem65DisableFemale)
         form.female65p.ill = getEditTextInt(etMem65IllFemale)
