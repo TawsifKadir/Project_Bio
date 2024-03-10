@@ -3,6 +3,8 @@ package com.xplo.code.ui.dashboard.household.forms
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
@@ -205,6 +207,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
 
     }
     override fun initObserver() {
+        Log.d(TAG, "initObserver() called")
         binding.viewButtonBackNext.btBack.setOnClickListener {
             onClickBackButton()
         }
@@ -336,6 +339,8 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
                 }
             }
         }
+
+        onReinstateData(interactor?.getRootForm()?.form2)
     }
 
     fun doSomethingForRbA() {
@@ -366,7 +371,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
 //        binding.viewButtonBackNext.btBack.visible()
 //        binding.viewButtonBackNext.btNext.visible()
 
-        onReinstateData(interactor?.getRootForm()?.form2)
+        //onReinstateData(interactor?.getRootForm()?.form2)
 
     }
 
@@ -421,6 +426,10 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         etPhoneNumber.setText(form.phoneNumber)
         etMonthlyAverageIncome.setText(form.monthlyAverageIncome.toString())
         //etSpouseName.setText(form.spouseName)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            etIdNumber.setText(form.idNumber)
+        }, 100)
 
     }
     fun doSomethingForRbA(items: List<CheckboxItem>) {
