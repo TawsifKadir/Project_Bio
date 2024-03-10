@@ -118,9 +118,6 @@ public class Beneficiary implements Serializable {
 //    @ColumnInfo(name = "non_perticipation_other_reason_text")
 //    public String notPerticipationOtherReasonText;
 
-    @ColumnInfo(name = "status")
-    public Long status;
-
     @ColumnInfo(name = "income_source_other")
     public String incomeSourceOther;
 
