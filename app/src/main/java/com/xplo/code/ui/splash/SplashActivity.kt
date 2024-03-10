@@ -84,7 +84,7 @@ class SplashActivity : BaseActivity(), SplashContract.View, CoroutineScope {
     }
 
     suspend fun copyDb() {
-        val dbHelper = DbHelper(this, "odb.db")
+        val dbHelper = DbHelper(this, "odbv2.db")
         withContext(Dispatchers.IO) {
 
             if (!dbHelper.isDbExist) {

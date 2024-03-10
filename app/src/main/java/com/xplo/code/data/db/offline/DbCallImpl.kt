@@ -22,7 +22,7 @@ class DbCallImpl : DbCall {
     }
 
 
-    private val dbHelper = DbHelper(Contextor.getInstance().context, "odb.db")
+    private val dbHelper = DbHelper(Contextor.getInstance().context, "odbv2.db")
 
     override fun getItem(table: String, id: Int): ODbItem? {
         Log.d(TAG, "getItem() called with: table = $table, id = $id")

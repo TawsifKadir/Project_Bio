@@ -165,15 +165,16 @@ data class HhForm3(
     var isReadWrite: String? = null
 
 ) {
-    fun getTotalMale(): Int? {
-        return mem0TotalMale + mem3TotalMale + mem6TotalMale + mem18TotalMale + mem36TotalMale + mem65TotalMale
-    }
-    fun getTotalFemale(): Int? {
-        return mem0TotalFemale + mem3TotalFemale + mem6TotalFemale + mem18TotalFemale + mem36TotalFemale + mem65TotalFemale
-    }
+//    fun getTotalMale(): Int? {
+//        return mem0TotalMale + mem3TotalMale + mem6TotalMale + mem18TotalMale + mem36TotalMale + mem65TotalMale
+//    }
+//    fun getTotalFemale(): Int? {
+//        return mem0TotalFemale + mem3TotalFemale + mem6TotalFemale + mem18TotalFemale + mem36TotalFemale + mem65TotalFemale
+//    }
 }
 
 data class HhMember(
+    var total: Int = 0,
     var normal: Int = 0,
     var ill: Int = 0,
     var disable: Int = 0
