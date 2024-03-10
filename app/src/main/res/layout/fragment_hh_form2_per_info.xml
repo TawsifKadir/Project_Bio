@@ -281,7 +281,7 @@
                     <EditText
                         android:id="@+id/etIDType"
                         style="@style/AppEditText.Form.Text"
-                        android:maxLength="14" />
+                        android:maxLength="20" />
                 </LinearLayout>
             </LinearLayout>
 
