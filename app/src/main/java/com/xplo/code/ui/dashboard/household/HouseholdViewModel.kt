@@ -163,9 +163,9 @@ class HouseholdViewModel @Inject constructor(
 
 //        val uuid = UUID.randomUUID().toString()
 //        val hid = HIDGenerator.getHID()
-        var item = HouseholdItem(data = form.toJson(), id = form.id, hid = form.hid)
+        val item = HouseholdItem(data = form.toJson(), id = form.id, hid = form.hid)
 
-        var entity = EntityMapper.toBeneficiaryEntity(form)
+        val entity = EntityMapper.toBeneficiaryEntity(form)
         if (entity == null) return
 
         viewModelScope.launch(dispatchers.io) {
@@ -195,7 +195,7 @@ class HouseholdViewModel @Inject constructor(
 
 //        val uuid = UUID.randomUUID().toString()
 //        val hid = HIDGenerator.getHID()
-        var item = HouseholdItem(data = form.toJson(), id = form.id, hid = form.hid)
+        val item = HouseholdItem(data = form.toJson(), id = form.id, hid = form.hid)
 
         viewModelScope.launch(dispatchers.io) {
             _event.value = Event.Loading
@@ -246,25 +246,25 @@ class HouseholdViewModel @Inject constructor(
             val deleteBene = beneficiaryDao.deleteBeneficiary(beneficiary)
 
             val alternateDao: AlternateDao = mDatabase.alternateDao()
-            val deleAlternate = alternateDao.deleteAlternate(appId)
+            alternateDao.deleteAlternate(appId)
 
             val addressDao: AddressDao = mDatabase.addressDao()
-            val deleAddress = addressDao.deleteAddreesByAppId(appId)
+            addressDao.deleteAddreesByAppId(appId)
 
             val nomineeDao: NomineeDao = mDatabase.nomineeDao()
-            val deleNominee = nomineeDao.deleteNomineeByAppid(appId)
+            nomineeDao.deleteNomineeByAppid(appId)
 
             val locationDao: LocationDao = mDatabase.locationDao()
-            val deleLocatio = locationDao.deleteLocationByAppId(appId)
+            locationDao.deleteLocationByAppId(appId)
 
             val householdInfoDao: HouseholdInfoDao = mDatabase.householdInfoDao()
-            val deleHouslodInfo = householdInfoDao.deleteHouseholdByAppid(appId)
+            householdInfoDao.deleteHouseholdByAppid(appId)
 
             val biometricDao: BiometricDao = mDatabase.biometricDao()
-            val deleBiomatric = biometricDao.deleteBiomatricByAppId(appId)
+            biometricDao.deleteBiomatricByAppId(appId)
 
             val selectionReasonDao: SelectionReasonDao = mDatabase.selectionReasonDao()
-            val deleReason = selectionReasonDao.deleteReasonByAppId(appId)
+            selectionReasonDao.deleteReasonByAppId(appId)
             _event.value = Event.DeleteDataLocalDbByAppId(true)
         }
     }
