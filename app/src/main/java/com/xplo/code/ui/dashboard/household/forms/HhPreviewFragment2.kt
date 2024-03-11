@@ -207,7 +207,7 @@ class HhPreviewFragment2 : BaseFragment(), HouseholdContract.PreviewView {
             .setPosButtonText("Alternate Registration")
             .setNegButtonText(getString(R.string.home))
             .setNeuButtonText("Household Registration")
-            .setThumbId(R.drawable.ic_logo_photo)
+            .setThumbId(R.drawable.logo_splash)
             .setCancelable(false)
             .setListener(object : XDialog.DialogListener {
                 override fun onClickPositiveButton() {

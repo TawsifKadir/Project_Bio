@@ -212,7 +212,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
             .setPosButtonText("Another Alternate")
             .setNegButtonText(getString(R.string.cancel))
             //.setNeuButtonText(getString(R.string.alternate_reg_title))
-            .setThumbId(R.drawable.ic_logo_photo)
+            .setThumbId(R.drawable.logo_splash)
             .setCancelable(false)
             .setListener(object : XDialog.DialogListener {
                 override fun onClickPositiveButton() {
@@ -272,7 +272,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
                 .setMessage(getString(R.string.review_complete_reg_msg))
                 .setPosButtonText("Save")
                 .setNegButtonText(getString(R.string.cancel))
-                .setThumbId(R.drawable.ic_logo_photo)
+                .setThumbId(R.drawable.logo_splash)
                 .setCancelable(true)
                 .setListener(object : XDialog.DialogListener {
                     override fun onClickPositiveButton() {

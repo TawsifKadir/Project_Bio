@@ -30,7 +30,7 @@
                 android:layout_marginBottom="10dp"
                 android:padding="0dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_logo_photo"
+                android:src="@drawable/logo_splash"
                 android:visibility="visible" />
 
             <LinearLayout

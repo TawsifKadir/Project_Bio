@@ -303,7 +303,7 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View {
 //            .setMessage(getString(R.string.alternate_details))
 //            .setPosButtonText(getString(R.string.ok))
 //            .setNegButtonText(getString(R.string.cancel))
-//            .setThumbId(R.drawable.ic_logo_photo)
+//            .setThumbId(R.drawable.logo_splash)
 //            .setCancelable(false)
 //            .setListener(object : XDialog.DialogListener {
 //                override fun onClickPositiveButton() {

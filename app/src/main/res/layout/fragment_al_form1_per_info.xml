@@ -181,7 +181,6 @@
                         <RadioButton
                             android:id="@+id/rbNo"
                             style="@style/AppRadioButton.Form"
-                            android:checked="true"
                             android:text="@string/no" />
 
                     </RadioGroup>

@@ -155,6 +155,20 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
             onClickNextButton()
         }
 
+        binding.rgNomineeAdd.setOnCheckedChangeListener {group, checkedId ->
+            when(checkedId){
+                R.id.rbYes -> {
+                    (group.getChildAt(group.childCount - 1) as RadioButton).error = null
+                }
+                R.id.rbNo -> {
+                    (group.getChildAt(group.childCount - 1) as RadioButton).error = null
+                }
+                else -> {
+
+                }
+            }
+        }
+
         spReasonNoNominee.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
