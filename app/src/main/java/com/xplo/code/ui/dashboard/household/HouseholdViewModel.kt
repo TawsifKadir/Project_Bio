@@ -334,16 +334,20 @@ class HouseholdViewModel @Inject constructor(
                     DocumentTypeEnum.getDocumentTypeById(beneficiary.documentType.toInt() + 1)
             }
 
-            if(form.documentType == DocumentTypeEnum.PASSPORT || form.documentType == DocumentTypeEnum.NATIONAL_ID){
+            if (form.documentType == DocumentTypeEnum.PASSPORT || form.documentType == DocumentTypeEnum.NATIONAL_ID) {
                 form.respondentId = beneficiary.respondentId
-            }else if(form.documentType == DocumentTypeEnum.OTHER){
+            } else if (form.documentType == DocumentTypeEnum.OTHER) {
                 form.documentTypeOther = beneficiary.documentTypeOther
                 form.respondentId = beneficiary.respondentId
-            }else{
+            } else {
                 form.documentTypeOther = null
             }
+            if (beneficiary.respondentPhoneNo.isNullOrEmpty() || beneficiary.respondentPhoneNo.length < 10) {
+                form.respondentPhoneNo = null
+            } else {
+                form.respondentPhoneNo = beneficiary.respondentPhoneNo
+            }
 
-            form.respondentPhoneNo = beneficiary.respondentPhoneNo
             if (beneficiary.householdIncomeSource != null) {
                 form.householdIncomeSource =
                     IncomeSourceEnum.getIncomeSourceById(beneficiary.householdIncomeSource.toInt() + 1)
@@ -405,7 +409,8 @@ class HouseholdViewModel @Inject constructor(
                 form.isOtherMemberPerticipating = false
             }
             if (beneficiary.notPerticipationReason != null) {
-                form.notPerticipationReason = NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt() + 1)
+                form.notPerticipationReason =
+                    NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt() + 1)
                 form.notPerticipationOtherReason = beneficiary.notPerticipationOtherReason
             }
 
@@ -486,7 +491,14 @@ class HouseholdViewModel @Inject constructor(
 
             form.documentTypeOther = beneficiary.documentTypeOther
             form.respondentId = beneficiary.respondentId
-            form.respondentPhoneNo = beneficiary.respondentPhoneNo
+
+            if (beneficiary.respondentPhoneNo.isNullOrEmpty()) {
+                form.respondentPhoneNo = beneficiary.respondentId
+            } else {
+                form.respondentPhoneNo = beneficiary.respondentId
+            }
+
+            //   form.respondentPhoneNo = beneficiary.respondentPhoneNo
             if (beneficiary.householdIncomeSource != null) {
                 form.householdIncomeSource =
                     IncomeSourceEnum.getIncomeSourceById(beneficiary.householdIncomeSource.toInt() + 1)
@@ -561,7 +573,7 @@ class HouseholdViewModel @Inject constructor(
             //Log.d(TAG, "showBeneficiary: ${form.alternatePayee1.payeeAge}")
             Log.d(TAG, "showBeneficiary: ${form.isReadWrite}")
             _event.value = Event.GetDataLocalDbByAppIdForView(form)
-         //   mDatabase.close()
+            //   mDatabase.close()
         }
     }
 
@@ -586,7 +598,7 @@ class HouseholdViewModel @Inject constructor(
             }
             Log.d(TAG, "showBeneficiary: $beneficiary")
             _event.value = Event.GetDataLocalDb(beneficiary)
-         //   mDatabase.close()
+            //   mDatabase.close()
         }
 
     }
@@ -601,7 +613,7 @@ class HouseholdViewModel @Inject constructor(
             Log.d(TAG, "showBeneficiary: $beneficiary")
             _event.value = Event.UpdateDataLocalDb(true)
         }
-       // mDatabase.close()
+        // mDatabase.close()
     }
 
 
@@ -1015,7 +1027,7 @@ class HouseholdViewModel @Inject constructor(
         Log.d(TAG, "callRegisterApi() called with: context = $context, beneficiary = $beneficiary")
 
         //beneficiary?.alternatePayee1?.biometrics = null
-        val json = Gson().toJson(beneficiary?.alternatePayee1)
+        val json = Gson().toJson(beneficiary?.alternatePayee1?.payeePhoneNo)
         Log.d(TAG, "callRegisterApi: json: $json")
 
         val integrationManager = IMHelper.getIntegrationManager(context, this)
@@ -1081,7 +1093,7 @@ class HouseholdViewModel @Inject constructor(
                 _event.value =
                     Event.GetHouseholdItemsFailure("Received null parameter in update. Returning...")
             } else {
-                var appId=""
+                var appId = ""
                 val registrationResult = arg as? RegistrationResult
                 if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
                     Log.d(DashboardFragment.TAG, "Registration Successful")

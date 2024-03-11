@@ -267,7 +267,13 @@ object EntityMapper {
         alternate.payeeNickName = item.payeeNickName
         alternate.payeeAge = item.payeeAge
         alternate.payeeGender = GenderEnum.getGenderById(item.payeeGender.toInt() + 1)
-        alternate.payeePhoneNo = item.payeePhoneNo
+
+        if (item.payeePhoneNo.isNullOrEmpty() || item.payeePhoneNo.length < 10) {
+            alternate.payeePhoneNo = null
+        } else {
+            alternate.payeePhoneNo = item.payeePhoneNo
+        }
+
         alternate.biometrics = toBiometricEntityFromdbForBeneficiary(bio_data)
 
         alternate.relationshipWithHouseholdHead =
