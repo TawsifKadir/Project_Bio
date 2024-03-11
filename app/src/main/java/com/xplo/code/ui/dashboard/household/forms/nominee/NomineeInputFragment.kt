@@ -271,14 +271,14 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
-        etFirstName.setText("Ruben")
-        etMiddleName.setText("middle")
-        etLastName.setText("Dias")
-        etAge.setText("20")
-        spRelation.setSelection(2)
-        spGender.setSelection(2)
-        spOccupation.setSelection(2)
-        rgReadWrite.check(rbReadWriteNo.id)
+//        etFirstName.setText("Ruben")
+//        etMiddleName.setText("middle")
+//        etLastName.setText("Dias")
+//        etAge.setText("20")
+//        spRelation.setSelection(2)
+//        spGender.setSelection(2)
+//        spOccupation.setSelection(2)
+//        rgReadWrite.check(rbReadWriteNo.id)
     }
 
     override fun onPopulateView() {

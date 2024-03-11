@@ -565,26 +565,26 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
-        spIdType.setSelection(1)
-        spMainSourceOfIncome.setSelection(1)
-        spGender.setSelection(1)
-        spRespondentRlt.setSelection(1)
-        spMaritalStatus.setSelection(1)
-        spLegalStatus.setSelection(1)
-//        spSelectionReason.setSelection(1)
-        //spCurrency.setSelection(1)
-
-        etFirstName.setText("Mohd")
-        etMiddleName.setText("Moniruzzaman")
-        etLastName.setText("Shadhin")
-        etAge.setText("33")
-        etIdNumber.setText("12345678910112")
-        etIDType.setText("12345678910112")
-        etPhoneNumber.setText("01672708329")
-        etMonthlyAverageIncome.setText("5000")
-        //etSpouseName.setText("Yesmin")
-
-        rgSelectionCriteria.check(R.id.rbA)
+//        spIdType.setSelection(1)
+//        spMainSourceOfIncome.setSelection(1)
+//        spGender.setSelection(1)
+//        spRespondentRlt.setSelection(1)
+//        spMaritalStatus.setSelection(1)
+//        spLegalStatus.setSelection(1)
+////        spSelectionReason.setSelection(1)
+//        //spCurrency.setSelection(1)
+//
+//        etFirstName.setText("Mohd")
+//        etMiddleName.setText("Moniruzzaman")
+//        etLastName.setText("Shadhin")
+//        etAge.setText("33")
+//        etIdNumber.setText("12345678910112")
+//        etIDType.setText("12345678910112")
+//        etPhoneNumber.setText("01672708329")
+//        etMonthlyAverageIncome.setText("5000")
+//        //etSpouseName.setText("Yesmin")
+//
+//        rgSelectionCriteria.check(R.id.rbA)
         //adapterSupportType?.addAll(UiData.getPublicWorksDummy())
     }
 
