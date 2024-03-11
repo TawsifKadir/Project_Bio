@@ -17,6 +17,7 @@ import com.kit.integrationmanager.model.OccupationEnum
 import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.xplo.code.BuildConfig
+import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.gone
@@ -153,6 +154,16 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
     override fun initObserver() {
         binding.btNext.setOnClickListener {
             onReadInput()
+        }
+        binding.include.rgReadWrite.setOnCheckedChangeListener { group, checkedId ->
+            when(checkedId){
+                R.id.rbReadWriteYes -> {
+                    (group.getChildAt(group.childCount - 1) as RadioButton).error = null
+                }
+                R.id.rbReadWriteNo -> {
+                    (group.getChildAt(group.childCount - 1) as RadioButton).error = null
+                }
+            }
         }
 
         spRelation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{

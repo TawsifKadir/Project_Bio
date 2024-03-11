@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.core.view.isVisible
@@ -307,6 +308,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
                     etMonthlyAverageIncome.setText("0")
                     etMonthlyAverageIncome.isEnabled = false
                 }else{
+                    etMonthlyAverageIncome.setText("")
                     etMonthlyAverageIncome.isEnabled = true
                 }
                 if (selectedItem.equals("Other", ignoreCase = true)) {
@@ -324,16 +326,28 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
 
         binding.rgId.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                R.id.rbYes -> doSomethingForYes()
-                R.id.rbNo -> doSomethingForNo()
+                R.id.rbYes -> {
+                    (group.getChildAt(group.childCount - 1) as RadioButton).error = null
+                    doSomethingForYes()
+                }
+                R.id.rbNo -> {
+                    (group.getChildAt(group.childCount - 1) as RadioButton).error = null
+                    doSomethingForNo()
+                }
                 else -> {}
             }
         }
 
         binding.rgSelectionCriteria.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                R.id.rbA -> doSomethingForRbA()
-                R.id.rbB -> doSomethingForRbB()
+                R.id.rbA -> {
+                    (group.getChildAt(group.childCount - 1) as RadioButton).error = null
+                    doSomethingForRbA()
+                }
+                R.id.rbB -> {
+                    (group.getChildAt(group.childCount - 1) as RadioButton).error = null
+                    doSomethingForRbB()
+                }
                 else -> {
                     binding.llrecycle.gone()
                 }

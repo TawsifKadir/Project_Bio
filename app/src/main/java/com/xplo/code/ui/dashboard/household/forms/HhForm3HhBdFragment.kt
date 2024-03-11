@@ -24,6 +24,7 @@ import com.xplo.code.ui.dashboard.model.getTotalTable
 import com.xplo.code.ui.dashboard.model.isOk
 
 import com.xplo.code.BuildConfig
+import com.xplo.code.R
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -249,6 +250,18 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
         onLongClickDataGeneration()
         if (TestConfig.isAutoDGEnabled) {
             onGenerateDummyInput()
+        }
+
+        rgReadWrite.setOnCheckedChangeListener {group , checkedId ->
+            when (checkedId) {
+                R.id.rbYes -> {
+                    (group.getChildAt(group.childCount - 1) as RadioButton).error = null
+                }
+                R.id.rbNo -> {
+                    (group.getChildAt(group.childCount - 1) as RadioButton).error = null
+                }
+                else -> {}
+            }
         }
     }
 

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.core.view.isVisible
@@ -177,6 +178,20 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
     }
 
     override fun initObserver() {
+
+        binding.rgId.setOnCheckedChangeListener { group, checkedId ->
+            when(checkedId){
+                R.id.rbYes -> {
+                    (group.getChildAt(group.childCount - 1) as RadioButton).error = null
+                }
+                R.id.rbNo -> {
+                    (group.getChildAt(group.childCount - 1) as RadioButton).error = null
+                }
+                else -> {
+
+                }
+            }
+        }
 
         lifecycleScope.launchWhenStarted {
             viewModel.event.collect { event ->
