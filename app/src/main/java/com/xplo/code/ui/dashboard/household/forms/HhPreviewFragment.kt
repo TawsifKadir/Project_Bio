@@ -210,7 +210,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             .setMessage("Household successfully saved. Do you want register another household?")
             .setPosButtonText("yes")
             .setNegButtonText(getString(R.string.no))
-            .setThumbId(R.drawable.ic_logo_photo)
+            .setThumbId(R.drawable.logo_splash)
             .setCancelable(false)
             .setListener(object : XDialog.DialogListener {
                 override fun onClickPositiveButton() {
@@ -236,7 +236,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
 //            .setPosButtonText("Alternate Registration")
 //            .setNegButtonText(getString(R.string.home))
 //            .setNeuButtonText("Household Registration")
-//            .setThumbId(R.drawable.ic_logo_photo)
+//            .setThumbId(R.drawable.logo_splash)
 //            .setCancelable(false)
 //            .setListener(object : XDialog.DialogListener {
 //                override fun onClickPositiveButton() {
@@ -278,7 +278,7 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             .setMessage(getString(R.string.review_complete_reg_msg))
             .setPosButtonText("Save")
             .setNegButtonText(getString(R.string.cancel))
-            .setThumbId(R.drawable.ic_logo_photo)
+            .setThumbId(R.drawable.logo_splash)
             .setCancelable(true)
             .setListener(object : XDialog.DialogListener {
                 override fun onClickPositiveButton() {
