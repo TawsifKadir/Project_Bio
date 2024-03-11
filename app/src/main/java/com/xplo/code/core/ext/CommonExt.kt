@@ -57,8 +57,10 @@ fun RadioGroup?.checkRbPosNeg(rbPos: RadioButton, rbNeg: RadioButton, item: Stri
 
     if (item.equals("yes", ignoreCase = true)) {
         rbPos.isChecked = true
+        rbPos.error = null
     } else {
         rbNeg.isChecked = true
+        rbPos.error = null
     }
 
 }

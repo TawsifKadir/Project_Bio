@@ -17,6 +17,7 @@ import com.kit.integrationmanager.model.OccupationEnum
 import com.kit.integrationmanager.model.NonPerticipationReasonEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.xplo.code.BuildConfig
+import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.gone
@@ -154,6 +155,16 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         binding.btNext.setOnClickListener {
             onReadInput()
         }
+        binding.include.rgReadWrite.setOnCheckedChangeListener { group, checkedId ->
+            when(checkedId){
+                R.id.rbReadWriteYes -> {
+                    (group.getChildAt(group.childCount - 1) as RadioButton).error = null
+                }
+                R.id.rbReadWriteNo -> {
+                    (group.getChildAt(group.childCount - 1) as RadioButton).error = null
+                }
+            }
+        }
 
         spRelation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(
@@ -271,14 +282,14 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
-        etFirstName.setText("Ruben")
-        etMiddleName.setText("middle")
-        etLastName.setText("Dias")
-        etAge.setText("20")
-        spRelation.setSelection(2)
-        spGender.setSelection(2)
-        spOccupation.setSelection(2)
-        rgReadWrite.check(rbReadWriteNo.id)
+//        etFirstName.setText("Ruben")
+//        etMiddleName.setText("middle")
+//        etLastName.setText("Dias")
+//        etAge.setText("20")
+//        spRelation.setSelection(2)
+//        spGender.setSelection(2)
+//        spOccupation.setSelection(2)
+//        rgReadWrite.check(rbReadWriteNo.id)
     }
 
     override fun onPopulateView() {

@@ -453,7 +453,7 @@
 
                     <EditText
                         android:id="@+id/etSpouseFirstName"
-                        style="@style/AppEditText.Form.Text" />
+                        style="@style/AppEditText.Form.Text.Min3" />
 
                 </LinearLayout>
 
@@ -469,7 +469,7 @@
 
                     <EditText
                         android:id="@+id/etSpouseMiddleName"
-                        style="@style/AppEditText.Form.Text" />
+                        style="@style/AppEditText.Form.Text.Min3" />
 
                 </LinearLayout>
 
@@ -493,7 +493,7 @@
 
                     <EditText
                         android:id="@+id/etSpouseLastName"
-                        style="@style/AppEditText.Form.Text" />
+                        style="@style/AppEditText.Form.Text.Min3" />
 
                 </LinearLayout>
                 <include layout="@layout/view_margin_space" />

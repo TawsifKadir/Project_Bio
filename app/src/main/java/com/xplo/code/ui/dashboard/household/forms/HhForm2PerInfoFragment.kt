@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.core.view.isVisible
@@ -307,6 +308,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
                     etMonthlyAverageIncome.setText("0")
                     etMonthlyAverageIncome.isEnabled = false
                 }else{
+                    etMonthlyAverageIncome.setText("")
                     etMonthlyAverageIncome.isEnabled = true
                 }
                 if (selectedItem.equals("Other", ignoreCase = true)) {
@@ -324,16 +326,28 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
 
         binding.rgId.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                R.id.rbYes -> doSomethingForYes()
-                R.id.rbNo -> doSomethingForNo()
+                R.id.rbYes -> {
+                    (group.getChildAt(group.childCount - 1) as RadioButton).error = null
+                    doSomethingForYes()
+                }
+                R.id.rbNo -> {
+                    (group.getChildAt(group.childCount - 1) as RadioButton).error = null
+                    doSomethingForNo()
+                }
                 else -> {}
             }
         }
 
         binding.rgSelectionCriteria.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                R.id.rbA -> doSomethingForRbA()
-                R.id.rbB -> doSomethingForRbB()
+                R.id.rbA -> {
+                    (group.getChildAt(group.childCount - 1) as RadioButton).error = null
+                    doSomethingForRbA()
+                }
+                R.id.rbB -> {
+                    (group.getChildAt(group.childCount - 1) as RadioButton).error = null
+                    doSomethingForRbB()
+                }
                 else -> {
                     binding.llrecycle.gone()
                 }
@@ -565,26 +579,26 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
-        spIdType.setSelection(1)
-        spMainSourceOfIncome.setSelection(1)
-        spGender.setSelection(1)
-        spRespondentRlt.setSelection(1)
-        spMaritalStatus.setSelection(1)
-        spLegalStatus.setSelection(1)
-//        spSelectionReason.setSelection(1)
-        //spCurrency.setSelection(1)
-
-        etFirstName.setText("Mohd")
-        etMiddleName.setText("Moniruzzaman")
-        etLastName.setText("Shadhin")
-        etAge.setText("33")
-        etIdNumber.setText("12345678910112")
-        etIDType.setText("12345678910112")
-        etPhoneNumber.setText("01672708329")
-        etMonthlyAverageIncome.setText("5000")
-        //etSpouseName.setText("Yesmin")
-
-        rgSelectionCriteria.check(R.id.rbA)
+//        spIdType.setSelection(1)
+//        spMainSourceOfIncome.setSelection(1)
+//        spGender.setSelection(1)
+//        spRespondentRlt.setSelection(1)
+//        spMaritalStatus.setSelection(1)
+//        spLegalStatus.setSelection(1)
+////        spSelectionReason.setSelection(1)
+//        //spCurrency.setSelection(1)
+//
+//        etFirstName.setText("Mohd")
+//        etMiddleName.setText("Moniruzzaman")
+//        etLastName.setText("Shadhin")
+//        etAge.setText("33")
+//        etIdNumber.setText("12345678910112")
+//        etIDType.setText("12345678910112")
+//        etPhoneNumber.setText("01672708329")
+//        etMonthlyAverageIncome.setText("5000")
+//        //etSpouseName.setText("Yesmin")
+//
+//        rgSelectionCriteria.check(R.id.rbA)
         //adapterSupportType?.addAll(UiData.getPublicWorksDummy())
     }
 
