@@ -435,14 +435,16 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
         etLastName.setText(form.lastName)
         etNickName.setText(form.nickName)
         etAge.setText(form.age.toString())
-        etIdNumber.setText(form.idNumber)
-        etIDType.setText(form.idNumberOthersvalue)
+        //etIdNumber.setText(form.idNumber)
+        //etIDType.setText(form.idNumberOthersvalue)
         etPhoneNumber.setText(form.phoneNumber)
-        etMonthlyAverageIncome.setText(form.monthlyAverageIncome.toString())
+        //etMonthlyAverageIncome.setText(form.monthlyAverageIncome.toString())
         //etSpouseName.setText(form.spouseName)
 
         Handler(Looper.getMainLooper()).postDelayed({
             etIdNumber.setText(form.idNumber)
+            etIDType.setText(form.idNumberOthersvalue)
+            etMonthlyAverageIncome.setText(form.monthlyAverageIncome.toString())
         }, 100)
 
     }
