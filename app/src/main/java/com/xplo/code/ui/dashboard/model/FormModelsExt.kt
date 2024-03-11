@@ -334,6 +334,7 @@ fun AlForm1.isOk(): Boolean {
     if (this.age == null) return false
     if (this.selectAlternateRlt == null) return false
     if (this.gender == null) return false
+    if (this.phoneNumber == null) return false
     if (this.idIsOrNot == null) {
         return false
     }else if(this.idIsOrNot.equals("Yes", ignoreCase = true)){

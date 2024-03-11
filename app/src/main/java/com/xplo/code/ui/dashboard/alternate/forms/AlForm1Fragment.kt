@@ -352,7 +352,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
 
         val form = AlForm1()
 
-        form.age = chkEditText(etAge, UiData.ER_ET_DF)?.toInt() ?: 0
+        form.age = chkAge(etAge, UiData.ER_ET_DF)?.toInt()
         form.idNumber = chkEditText(etIdNumber, UiData.ER_ET_DF)
 
         //form.phoneNumber = chkPhoneNumber(etPhoneNo, UiData.ER_ET_DF)

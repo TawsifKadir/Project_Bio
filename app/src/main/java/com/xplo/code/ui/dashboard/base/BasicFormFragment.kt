@@ -61,11 +61,11 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
                 editText.error = "Please enter an age"
                 return null
             }
-            val age = txt.toInt()
-            if (age < 18 || age > 35) {
-                editText.error = "Age must be between 18 and 35"
-                return null
-            }
+//            val age = txt.toInt()
+//            if (age < 18 || age > 35) {
+//                editText.error = "Age must be between 18 and 35"
+//                return null
+//            }
         }
         return txt
     }
