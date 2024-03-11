@@ -41,6 +41,7 @@ object DbExporter {
             val dbFile: File = context.getDatabasePath(DB_NAME)
 
             if (dbFile.exists()) {
+                dbCloseFromDB()
                 exportDatabase(context, dbFile)
             } else {
                 showExportErrorDialog(context, "Error", "Database file does not exist.")
@@ -52,24 +53,29 @@ object DbExporter {
 
     private fun exportDatabase(context: Context, dbFile: File) {
         try {
-            val exportDir = File(Environment.getExternalStorageDirectory(), "bio_reg/database")
-            if (!exportDir.exists()) exportDir.mkdirs()
+            if (dbFile.exists()) {
+                val exportDir = File(Environment.getExternalStorageDirectory(), "bio_reg/database")
+                if (!exportDir.exists()) exportDir.mkdirs()
 
-            val exportFile = File(exportDir, DB_NAME)
-            exportFile.createNewFile()
+                val exportFile = File(exportDir, DB_NAME)
+                exportFile.createNewFile()
 
-            val src = FileInputStream(dbFile).channel
-            val dst = FileOutputStream(exportFile).channel
-            dst.transferFrom(src, 0, src.size())
+                val src = FileInputStream(dbFile).channel
+                val dst = FileOutputStream(exportFile).channel
+                dst.transferFrom(src, 0, src.size())
 
-            src.close()
-            dst.close()
+                src.close()
+                dst.close()
 
-            showExportSuccessDialog(context)
-            Log.d("DatabaseExport", "Database exported successfully.")
+                showExportSuccessDialog(context)
+                Log.d("DatabaseExport", "Database exported successfully.")
+            } else {
+                showExportErrorDialog(context, "Error", "Source database file does not exist.")
+                Log.e("DatabaseExport", "Source database file does not exist.")
+            }
         } catch (e: Exception) {
             showExportErrorDialog(context, "Error", "Error exporting database: ${e.message}")
-            Log.e("DatabaseExport", "Error exporting database: ${e.message}")
+            Log.e("DatabaseExport", "Error exporting database: ${e.message}", e)
         }
     }
 
