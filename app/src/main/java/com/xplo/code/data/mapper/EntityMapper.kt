@@ -78,6 +78,7 @@ object EntityMapper {
         } else {
             form.documentType = DocumentTypeEnum.find(item.form2?.idNumberType)
         }
+        form.documentTypeOther = item.form2?.idNumberOthersvalue
 
 //        form.relationshipOther = item.form2?.respondentRltOthersValue ?: ""
 //        form.documentTypeOther = item.form2?.idNumberOthersvalue ?: ""
