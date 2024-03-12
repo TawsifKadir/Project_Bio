@@ -2,6 +2,8 @@ package com.xplo.code.ui.dashboard.household.forms
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -37,7 +39,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
+class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View, TextWatcher {
 
     companion object {
         const val TAG = "HhForm3HhBdFragment"
@@ -121,6 +123,7 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
     private lateinit var rbYes: RadioButton
     private lateinit var rbNo: RadioButton
 
+    private lateinit var viewListTotal: List<EditText>
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -230,6 +233,31 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
         rgReadWrite = binding.rgReadWrite
         rbYes = binding.rbYes
         rbNo = binding.rbNo
+
+
+        viewListTotal = listOf(
+            etMem0TotalMale,
+            etMem3TotalMale,
+            etMem6TotalMale,
+            etMem18TotalMale,
+            etMem36TotalMale,
+            etMem65TotalMale,
+
+            etMem0TotalFemale,
+            etMem3TotalFemale,
+            etMem6TotalFemale,
+            etMem18TotalFemale,
+            etMem36TotalFemale,
+            etMem65TotalFemale
+
+
+        )
+
+
+        for (item in viewListTotal) {
+            item.addTextChangedListener(this)
+        }
+
 
     }
 
@@ -1096,14 +1124,14 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
-        etHouseholdSize.setText("6")
-
-        etMem0TotalMale.setText("6")
-
-//        etMem0NormalMale.setText("3")
-//        etMem0NormalFemale.setText("3")
-
-        etReadWriteNumber.setText("0")
+//        etHouseholdSize.setText("6")
+//
+//        etMem0TotalMale.setText("6")
+//
+////        etMem0NormalMale.setText("3")
+////        etMem0NormalFemale.setText("3")
+//
+//        etReadWriteNumber.setText("0")
 
         rgReadWrite.check(binding.rbNo.id)
     }
@@ -1111,6 +1139,31 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View {
     override fun onPopulateView() {
         Log.d(TAG, "onPopulateView() called")
 
+    }
+
+    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        Log.d(TAG, "beforeTextChanged() called with: p0 = $p0, p1 = $p1, p2 = $p2, p3 = $p3")
+
+    }
+
+    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        Log.d(TAG, "onTextChanged() called with: p0 = $p0, p1 = $p1, p2 = $p2, p3 = $p3")
+
+    }
+
+    override fun afterTextChanged(p0: Editable?) {
+        Log.d(TAG, "afterTextChanged() called with: p0 = $p0")
+        updateTotal()
+    }
+
+    private fun updateTotal(){
+        var sum = 0
+        for (item in viewListTotal){
+            var n = getEditTextInt(item)
+            sum += n
+        }
+
+        etHouseholdSize.setText(sum.toString())
     }
 
 
