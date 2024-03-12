@@ -27,6 +27,9 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.labters.lottiealertdialoglibrary.ClickListener
+import com.labters.lottiealertdialoglibrary.DialogTypes
+import com.labters.lottiealertdialoglibrary.LottieAlertDialog
 import com.xplo.code.R
 import com.xplo.code.base.BaseFragment
 import com.xplo.code.core.Bk
@@ -362,11 +365,24 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         // binding.llBody.visibility = View.GONE
         DialogUtil.dismissLottieDialog()
         if (msg != null) {
-            DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", msg)
-            if (appId != null) {
-                //  viewModel.updateBeneficiary(requireContext(), "6be82dbe-a3ee-49d2-976d-9c7e83f5ca2c")
-                viewModel.updateBeneficiary(requireContext(), appId)
-            }
+            //DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", msg)
+
+            val alertDialog  = LottieAlertDialog.Builder(context, DialogTypes.TYPE_SUCCESS)
+                .setTitle("Success")
+                .setDescription(msg)
+                .setPositiveText("Ok")
+                .setPositiveListener(object : ClickListener {
+                    override fun onClick(dialog: LottieAlertDialog) {
+                        if (appId != null) {
+                            //  viewModel.updateBeneficiary(requireContext(), "6be82dbe-a3ee-49d2-976d-9c7e83f5ca2c")
+                            viewModel.updateBeneficiary(requireContext(), appId)
+                        }
+                        viewModel.showBeneficiary(requireContext())
+                        dialog.dismiss()
+                    }
+                })
+                .build()
+                .show()
         }
         Log.d(TAG, "onGetHouseholdListSuccess() called with: msg = $msg")
         //showMessage(msg)
