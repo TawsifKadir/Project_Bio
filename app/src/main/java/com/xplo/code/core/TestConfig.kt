@@ -3,7 +3,7 @@ package com.xplo.code.core
 object TestConfig {
 
     val isValidationEnabled = true      // default true
-    val isDummyDataEnabled = true                                        // default false
+    val isDummyDataEnabled = false                                        // default false
     val isLongClickDGEnabled = true
     val isAutoDGEnabled = true
 
@@ -12,7 +12,7 @@ object TestConfig {
     val isNomineeAlwaysEnabled = true           // default true
     val isAlternateAddInHouseholdFlow = true    // default true
 
-    val isFakeLoginEnabled = true       // default true
+    val isFakeLoginEnabled = false       // default true
     //val isTestLoginEnabled = false    // default false
 
     // only for nasif, for a temp purpose, will removed later
