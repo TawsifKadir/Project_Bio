@@ -102,6 +102,8 @@ interface AlternateContract {
         fun onValidated(form: AlForm2?)
         fun onReinstateData(form: AlForm2?)
 
+        fun onClickCapturePhoto()
+
 
         fun onGetImageUri(uri: Uri?)
 
