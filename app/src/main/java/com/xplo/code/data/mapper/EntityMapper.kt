@@ -73,6 +73,7 @@ object EntityMapper {
         if (form.householdIncomeSource == IncomeSourceEnum.OTHER) {
             form.incomeSourceOther = item.form2?.mainSourceOfIncomeOthers
         }
+
         if (item.form2?.idNumberType == null) {
             form.documentType = DocumentTypeEnum.NONE
         } else {
