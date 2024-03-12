@@ -174,6 +174,8 @@ interface HouseholdContract {
         fun onValidated(form: HhForm4?)
         fun onReinstateData(form: HhForm4?)
 
+        fun onClickCapturePhoto()
+
         fun onGetImageUri(uri: Uri?)
     }
 

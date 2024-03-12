@@ -285,6 +285,8 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.airbnb.android:lottie:4.2.1'
     implementation 'com.github.mayuce:LottieAlertDialog:1.1'
+
+    implementation 'com.github.fondesa:kpermissions:3.5.0'
 }
 
 def static genVersionCode(Integer major, Integer minor, Integer patch) {
