@@ -490,7 +490,10 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
         when {
             result.anyPermanentlyDenied() -> context.showPermanentlyDeniedDialog(result)
             result.anyShouldShowRationale() -> context.showRationaleDialog(result, request)
-            result.allGranted() -> context.showGrantedToast(result)
+            result.allGranted() -> {
+                context.showGrantedToast(result)
+                launchCameraIntent()
+            }
         }
 
     }
