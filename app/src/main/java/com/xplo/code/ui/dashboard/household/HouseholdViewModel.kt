@@ -342,6 +342,7 @@ class HouseholdViewModel @Inject constructor(
             } else {
                 form.documentTypeOther = null
             }
+
             if (beneficiary.respondentPhoneNo.isNullOrEmpty() || beneficiary.respondentPhoneNo.length < 10) {
                 form.respondentPhoneNo = null
             } else {
@@ -493,9 +494,9 @@ class HouseholdViewModel @Inject constructor(
             form.respondentId = beneficiary.respondentId
 
             if (beneficiary.respondentPhoneNo.isNullOrEmpty()) {
-                form.respondentPhoneNo = beneficiary.respondentId
+                form.respondentPhoneNo = ""
             } else {
-                form.respondentPhoneNo = beneficiary.respondentId
+                form.respondentPhoneNo = beneficiary.respondentPhoneNo
             }
 
             //   form.respondentPhoneNo = beneficiary.respondentPhoneNo
