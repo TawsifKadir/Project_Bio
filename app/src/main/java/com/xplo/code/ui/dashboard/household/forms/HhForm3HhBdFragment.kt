@@ -234,6 +234,8 @@ class HhForm3HhBdFragment : BasicFormFragment(), HouseholdContract.Form3View, Te
         rbYes = binding.rbYes
         rbNo = binding.rbNo
 
+        etHouseholdSize.isEnabled = false
+
 
         viewListTotal = listOf(
             etMem0TotalMale,
