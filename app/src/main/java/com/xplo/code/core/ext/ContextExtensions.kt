@@ -3,6 +3,7 @@ package com.xplo.code.core.ext
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.provider.Settings
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -23,6 +24,10 @@ import com.xplo.code.R
 internal fun Context.showGrantedToast(permissions: List<PermissionStatus>) {
     val msg = getString(R.string.granted_permissions, permissions.toMessage<PermissionStatus.Granted>())
     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+}
+
+internal fun Context.isTiramisu(): Boolean {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
 }
 
 internal fun Context.showRationaleDialog(permissions: List<PermissionStatus>, request: PermissionRequest) {

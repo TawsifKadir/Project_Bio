@@ -48,6 +48,7 @@ import com.xplo.code.ui.photo.ImageUtil
 import com.xplo.code.utils.FormAppUtils
 
 import com.xplo.code.BuildConfig
+import com.xplo.code.core.ext.isTiramisu
 import com.xplo.code.core.ext.showGrantedToast
 import com.xplo.code.core.ext.showPermanentlyDeniedDialog
 import com.xplo.code.core.ext.showRationaleDialog
@@ -101,13 +102,15 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
     var newPhotoBase64 = ""
 
 
-    private val request by lazy {
-        permissionsBuilder(
-            Manifest.permission.CAMERA,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.MANAGE_EXTERNAL_STORAGE
-        ).build()
-    }
+//    private val request by lazy {
+//        permissionsBuilder(
+//            Manifest.permission.CAMERA,
+//            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//            Manifest.permission.MANAGE_EXTERNAL_STORAGE
+//        ).build()
+//    }
+
+    private lateinit var request: PermissionRequest
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -138,6 +141,19 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
     override fun initInitial() {
         //presenter = RegistrationPresenter(DataRepoImpl())
         //presenter.attach(this)
+
+        request = permissionsBuilder(
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.MANAGE_EXTERNAL_STORAGE
+        ).build()
+
+        if (requireContext().isTiramisu()){
+            request = permissionsBuilder(
+                Manifest.permission.CAMERA
+            ).build()
+        }
+
         ImagePickerActivity.clearCache(requireContext())
 
 
