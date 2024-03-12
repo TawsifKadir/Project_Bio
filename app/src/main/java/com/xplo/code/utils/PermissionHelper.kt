@@ -61,6 +61,10 @@ object PermissionHelper {
 
     fun hasStoragePermission(context: Context): Boolean {
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return true
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             return Environment.isExternalStorageManager()
         }
@@ -79,6 +83,10 @@ object PermissionHelper {
     }
 
     fun hasCameraAndStoragePermission(context: Context): Boolean {
-        return hasCameraPermission(context) && hasStoragePermission(context)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return hasCameraPermission(context)
+        }else{
+            return hasCameraPermission(context) && hasStoragePermission(context)
+        }
     }
 }
