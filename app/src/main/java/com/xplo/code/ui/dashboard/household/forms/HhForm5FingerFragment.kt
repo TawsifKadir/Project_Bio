@@ -187,7 +187,7 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
 
     override fun onStartFingerprintCapture() {
         Log.d(TAG, "onStartFingerprintCapture() called")
-
+        showLoading()
         val intent = Intent(context, FingerprintCaptureActivity::class.java)
         getResult.launch(intent)
     }
@@ -380,6 +380,7 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) {
+            hideLoading()
             if (it.resultCode == Activity.RESULT_OK) {
                 onGetFingerprintIntent(it.data)
             } else {
