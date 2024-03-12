@@ -15,15 +15,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.MultiplePermissionsReport
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.fondesa.kpermissions.PermissionStatus
+import com.fondesa.kpermissions.allGranted
+import com.fondesa.kpermissions.anyPermanentlyDenied
+import com.fondesa.kpermissions.anyShouldShowRationale
+import com.fondesa.kpermissions.extension.permissionsBuilder
+import com.fondesa.kpermissions.request.PermissionRequest
+//import com.karumi.dexter.Dexter
+//import com.karumi.dexter.MultiplePermissionsReport
+//import com.karumi.dexter.PermissionToken
+//import com.karumi.dexter.listener.PermissionRequest
+//import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.kit.integrationmanager.model.BiometricUserType
 import com.xplo.code.R
 import com.xplo.code.core.Bk
@@ -40,7 +48,11 @@ import com.xplo.code.ui.photo.ImageUtil
 import com.xplo.code.utils.FormAppUtils
 
 import com.xplo.code.BuildConfig
+import com.xplo.code.core.ext.showGrantedToast
+import com.xplo.code.core.ext.showPermanentlyDeniedDialog
+import com.xplo.code.core.ext.showRationaleDialog
 import com.xplo.code.utils.ImageUtils
+import com.xplo.code.utils.PermissionHelper
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -55,8 +67,9 @@ import java.io.IOException
  * Comment  :
  */
 
+@RequiresApi(Build.VERSION_CODES.R)
 @AndroidEntryPoint
-class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View {
+class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View, PermissionRequest.Listener  {
 
     companion object {
         const val TAG = "HhForm4CapPhotoFragment"
@@ -86,6 +99,16 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
     var file: File? = null
     var form = HhForm4()
     var newPhotoBase64 = ""
+
+
+    private val request by lazy {
+        permissionsBuilder(
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.MANAGE_EXTERNAL_STORAGE
+        ).build()
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -116,58 +139,60 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
         //presenter = RegistrationPresenter(DataRepoImpl())
         //presenter.attach(this)
         ImagePickerActivity.clearCache(requireContext())
-        binding.quickStartCroppedImage?.setOnClickListener {
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                Dexter.withActivity(requireActivity())
-                    .withPermissions(
-                        Manifest.permission.CAMERA
-                    )
-                    .withListener(object : MultiplePermissionsListener {
-                        override fun onPermissionsChecked(report: MultiplePermissionsReport) {
-                            if (report.areAllPermissionsGranted()) {
-                                //showImagePickerOptions()
-                                launchCameraIntent()
-                            }
-                            if (report.isAnyPermissionPermanentlyDenied) {
-                                showSettingsDialog()
-                            }
-                        }
 
-                        override fun onPermissionRationaleShouldBeShown(
-                            permissions: List<PermissionRequest>,
-                            token: PermissionToken
-                        ) {
-                            token.continuePermissionRequest()
-                        }
-                    }).check()
-            } else {
-                Dexter.withActivity(requireActivity())
-                    .withPermissions(
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    )
-                    .withListener(object : MultiplePermissionsListener {
-                        override fun onPermissionsChecked(report: MultiplePermissionsReport) {
-                            if (report.areAllPermissionsGranted()) {
-                                //showImagePickerOptions()
-                                launchCameraIntent()
-                            }
-                            if (report.isAnyPermissionPermanentlyDenied) {
-                                showSettingsDialog()
-                            }
-                        }
-
-                        override fun onPermissionRationaleShouldBeShown(
-                            permissions: List<PermissionRequest>,
-                            token: PermissionToken
-                        ) {
-                            token.continuePermissionRequest()
-                        }
-                    }).check()
-            }
-
-        }
+//        binding.quickStartCroppedImage?.setOnClickListener {
+//
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//                Dexter.withActivity(requireActivity())
+//                    .withPermissions(
+//                        Manifest.permission.CAMERA
+//                    )
+//                    .withListener(object : MultiplePermissionsListener {
+//                        override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+//                            if (report.areAllPermissionsGranted()) {
+//                                //showImagePickerOptions()
+//                                launchCameraIntent()
+//                            }
+//                            if (report.isAnyPermissionPermanentlyDenied) {
+//                                showSettingsDialog()
+//                            }
+//                        }
+//
+//                        override fun onPermissionRationaleShouldBeShown(
+//                            permissions: List<PermissionRequest>,
+//                            token: PermissionToken
+//                        ) {
+//                            token.continuePermissionRequest()
+//                        }
+//                    }).check()
+//            } else {
+//                Dexter.withActivity(requireActivity())
+//                    .withPermissions(
+//                        Manifest.permission.CAMERA,
+//                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                    )
+//                    .withListener(object : MultiplePermissionsListener {
+//                        override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+//                            if (report.areAllPermissionsGranted()) {
+//                                //showImagePickerOptions()
+//                                launchCameraIntent()
+//                            }
+//                            if (report.isAnyPermissionPermanentlyDenied) {
+//                                showSettingsDialog()
+//                            }
+//                        }
+//
+//                        override fun onPermissionRationaleShouldBeShown(
+//                            permissions: List<PermissionRequest>,
+//                            token: PermissionToken
+//                        ) {
+//                            token.continuePermissionRequest()
+//                        }
+//                    }).check()
+//            }
+//
+//        }
     }
 
     override fun initView() {
@@ -184,6 +209,18 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
         binding.viewButtonBackNext.btNext.setOnClickListener {
             onClickNextButton()
         }
+
+        binding.quickStartCroppedImage.setOnClickListener {
+            onClickCapturePhoto()
+        }
+
+        request.addListener(this)
+        request.addListener {
+            if (it.anyPermanentlyDenied()) {
+                Toast.makeText(requireContext(), R.string.additional_listener_msg, Toast.LENGTH_SHORT).show()
+            }
+        }
+
     }
 
     override fun onResume() {
@@ -209,6 +246,29 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
             form.photoData?.imgPath?.let { loadProfile(it) }
             this.form = form
         }
+
+
+    }
+
+    override fun onClickCapturePhoto() {
+        Log.d(TAG, "onClickCapturePhoto() called")
+
+        if (PermissionHelper.hasCameraAndStoragePermission(requireContext())){
+            launchCameraIntent()
+            return
+        }
+//
+//        if (!PermissionHelper.hasCameraPermission(requireContext())){
+//            PermissionHelper.askForPermissionCamera(requireActivity())
+//            return
+//        }
+//
+//        if (!PermissionHelper.hasStoragePermission(requireContext())){
+//            PermissionHelper.askForPermissionStorage(requireActivity())
+//            return
+//        }
+
+        request.send()
 
 
     }
@@ -405,6 +465,18 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
                 android.R.color.transparent
             )
         )
+    }
+
+    override fun onPermissionsResult(result: List<PermissionStatus>) {
+        Log.d(TAG, "onPermissionsResult() called with: result = $result")
+
+        val context = requireContext()
+        when {
+            result.anyPermanentlyDenied() -> context.showPermanentlyDeniedDialog(result)
+            result.anyShouldShowRationale() -> context.showRationaleDialog(result, request)
+            result.allGranted() -> context.showGrantedToast(result)
+        }
+
     }
 
 
