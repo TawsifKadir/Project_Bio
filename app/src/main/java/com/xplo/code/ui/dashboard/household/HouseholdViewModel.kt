@@ -307,6 +307,7 @@ class HouseholdViewModel @Inject constructor(
             form.incomeSourceOther = beneficiary.incomeSourceOther
             form.relationshipOther = beneficiary.relationshipOther
             form.documentTypeOther = beneficiary.documentTypeOther
+            form.householdSize = beneficiary.householdSize
 
             if (beneficiary.relationshipWithHouseholdHead != null) {
                 form.relationshipWithHouseholdHead =
@@ -383,7 +384,7 @@ class HouseholdViewModel @Inject constructor(
             locationObj.lon = location.lon
             form.location = EntityMapper.toLocation(locationObj)
 
-            form.householdSize = householdInfo.size
+           // form.householdSize = householdInfo.size
             form.householdMember2 = EntityMapper.toHouseholdMember2Ldb(appId, householdInfo, "M2")
             form.householdMember5 = EntityMapper.toHouseholdMember2Ldb(appId, householdInfo, "M5")
             form.householdMember17 = EntityMapper.toHouseholdMember2Ldb(appId, householdInfo, "M17")

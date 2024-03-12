@@ -8,12 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.room.ColumnInfo
 import com.kit.integrationmanager.model.AlternatePayee
 import com.kit.integrationmanager.model.Beneficiary
 import com.kit.integrationmanager.model.BiometricType
 import com.kit.integrationmanager.model.HouseholdMember
-import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.SelectionReasonEnum
 import com.xplo.code.BuildConfig
 import com.xplo.code.R
@@ -430,11 +428,12 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
             DatabaseExecutors.getInstance().diskIO().execute {
                 // uuid = UUID.randomUUID()
                 uuid = beneficiaryBO.applicationId
-                val beneficiaryEO: com.xplo.code.data.db.room.model.Beneficiary = if (beneficiaryBO.nominees.isNullOrEmpty()) {
-                    prepareBeneficiaryEntity(uuid, beneficiaryBO, 0)
-                } else {
-                    prepareBeneficiaryEntity(uuid, beneficiaryBO, beneficiaryBO.nominees.size)
-                }
+                val beneficiaryEO: com.xplo.code.data.db.room.model.Beneficiary =
+                    if (beneficiaryBO.nominees.isNullOrEmpty()) {
+                        prepareBeneficiaryEntity(uuid, beneficiaryBO, 0)
+                    } else {
+                        prepareBeneficiaryEntity(uuid, beneficiaryBO, beneficiaryBO.nominees.size)
+                    }
 
                 val addressEO: Address =
                     prepareAddressEntity(uuid, beneficiaryBO.address)
@@ -793,9 +792,13 @@ class HhPreviewFragment : BaseFragment(), HouseholdContract.PreviewView {
         beneficiaryEO.isOtherMemberPerticipating = beneficiaryBO.isOtherMemberPerticipating
         beneficiaryEO.isReadWrite = beneficiaryBO.isReadWrite
         beneficiaryEO.memberReadWrite = beneficiaryBO.memberReadWrite
+
+        if (beneficiaryBO.notPerticipationOtherReason != null) {
+            beneficiaryEO.notPerticipationOtherReason = beneficiaryBO.notPerticipationOtherReason
+        }
         beneficiaryEO.notPerticipationReason =
             if (beneficiaryBO.notPerticipationReason != null) beneficiaryBO.notPerticipationReason.ordinal.toLong() else null
-        beneficiaryEO.notPerticipationOtherReason = beneficiaryBO.notPerticipationOtherReason
+
         beneficiaryEO.createdBy = beneficiaryBO.createdBy
         beneficiaryEO.selectionCriteria =
             if (beneficiaryBO.selectionCriteria != null) beneficiaryBO.selectionCriteria.ordinal.toLong() else null

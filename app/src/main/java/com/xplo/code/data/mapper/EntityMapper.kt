@@ -138,6 +138,7 @@ object EntityMapper {
 
         form.notPerticipationReason = NonPerticipationReasonEnum.find(item.form6?.noNomineeReason)
         form.notPerticipationOtherReason = item.form6?.otherReason
+        form.notPerticipationOtherReason
 
         form.nominees = toNomineeItems(item.form6?.nominees)
 
@@ -286,7 +287,9 @@ object EntityMapper {
 
     private fun toBiometricEntity(
         item: Finger?,
-        photoData: PhotoData?
+        photoData: PhotoData?,
+        reasonText: String?,
+        reason: String?
     ): com.kit.integrationmanager.model.Biometric? {
         if (item != null) {
             val biometric = com.kit.integrationmanager.model.Biometric()
@@ -301,8 +304,11 @@ object EntityMapper {
                 biometric.biometricData = item.fingerPrint
             }
             biometric.noFingerPrint = item.noFingerprint
-            biometric.noFingerprintReason = NoFingerprintReasonEnum.NoFinger
-            biometric.noFingerprintReasonText = ""
+
+            biometric.noFingerprintReason = NoFingerprintReasonEnum.find(reason)
+
+            biometric.noFingerprintReasonText = reasonText
+            biometric.noFingerprintReasonText
 
             biometric.biometricUrl = ""
             return biometric
@@ -930,11 +936,16 @@ object EntityMapper {
         //if (items?.form5?.fingers.isNullOrEmpty()) return null
         val list = arrayListOf<com.kit.integrationmanager.model.Biometric>()
 
-        val photoBiometric = toBiometricEntity(null, items?.form4?.photoData)
+        val photoBiometric = toBiometricEntity(null, items?.form4?.photoData, "", "")
         if (photoBiometric != null) list.add(photoBiometric)
 
         for (item in items?.form5?.fingers!!) {
-            val element = toBiometricEntity(item, null)
+            val element = toBiometricEntity(
+                item,
+                null,
+                items.form5?.noFingerprintReasonText,
+                items.form5?.noFingerprintReason
+            )
             if (element != null) {
                 list.add(element)
             }
@@ -969,11 +980,16 @@ object EntityMapper {
         //if (items?.form5?.fingers.isNullOrEmpty()) return null
         val list = arrayListOf<com.kit.integrationmanager.model.Biometric>()
 
-        val photoBiometric = toBiometricEntity(null, items?.form2?.photoData)
+        val photoBiometric = toBiometricEntity(null, items?.form2?.photoData, "", "")
         if (photoBiometric != null) list.add(photoBiometric)
 
         for (item in items?.form3?.fingers!!) {
-            val element = toBiometricEntity(item, null)
+            val element = toBiometricEntity(
+                item,
+                null,
+                items.form3?.noFingerprintReasonText,
+                items.form3?.noFingerprintReason
+            )
             if (element != null) {
                 list.add(element)
             }
@@ -1079,7 +1095,6 @@ object EntityMapper {
         nominee.nomineeLastName = item.lastName
         nominee.nomineeNickName = item.nickName
         nominee.nomineeMiddleName = item.middleName
-//        nominee.nomineeMiddleName = FakeMapperValue.name
 
         nominee.nomineeAge = item.age
         nominee.nomineeGender = GenderEnum.find(item.gender)
@@ -1192,7 +1207,7 @@ object EntityMapper {
 
         household.femaleChronicalIll = item.female36_64.ill
         household.femaleDisable = item.female36_64.disable
-        household.femaleBoth = item.female36_64.ill
+        household.femaleBoth = item.female36_64.normal
 
         household.maleChronicalIll = item.male36_64.ill
         household.maleDisable = item.male36_64.disable

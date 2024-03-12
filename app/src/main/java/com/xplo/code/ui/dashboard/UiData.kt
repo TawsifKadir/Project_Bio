@@ -41,6 +41,8 @@ object UiData {
     val bomaNameOptions = getStringArray(R.array.boma_name_array)
     val payamNameOptions = getStringArray(R.array.payam_name_array)
 
+
+
 //    val relationshipOptions = getStringArray(R.array.respondent_relationship_to_the_household_head_array)
 //    val genderOptions = getStringArray(R.array.respondent_gender_array)
 //    val maritalStatusOptions = getStringArray(R.array.respondent_marital_status_array)

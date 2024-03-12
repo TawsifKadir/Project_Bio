@@ -297,8 +297,7 @@ class HhForm5FingerFragment : BasicFormFragment(), HouseholdContract.Form5View {
         }
         form.noFingerprintReason = this.noFingerprintReasonStore
         form.noFingerprintReasonText = this.noFingerprintReasonTextStore
-
-
+form.noFingerprintReason
         if (!form.isOk()) {
             showAlerter("Warning", "Please Add Fingerprint or Reason")
             return
