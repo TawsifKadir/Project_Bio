@@ -123,7 +123,7 @@ dependencies {
 
     //implementation files('libs/IntegrationManager.aar')
     //implementation files('libs/IntegrationManager-v1.1.aar')
-    implementation files('libs/IntegrationManager-debug-l.aar')
+    implementation files('libs/IntegrationManager-debug.aar')
 
 //    implementation files('libs/IntegrationManager-v1.4.aar')
 
