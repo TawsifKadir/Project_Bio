@@ -1,64 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Livelihood Component"
-        android:textSize="20sp"
-        android:padding="15dp"
-        android:textStyle="bold"/>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="14dp"
-        app:cardBackgroundColor="#fcf1ec">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/longstring"
-            android:maxLines="50"
-            android:ellipsize="end"
-            android:textSize="16sp"
-            android:padding="16dp"/>
-    </androidx.cardview.widget.CardView>
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end"
-        android:layout_margin="5dp"
-        android:padding="5dp"
-        android:orientation="horizontal">
-<!--        <Button-->
-<!--            android:id="@+id/cancelButton"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="@drawable/bg_round_box"-->
-<!--            android:text="Cancel"-->
-<!--            android:layout_margin="5dp"-->
-<!--            android:padding="5dp"-->
-<!--            android:textAllCaps="false"-->
-<!--            android:textColor="#E3133A"-->
-<!--            android:textStyle="bold"-->
-<!--            android:drawableStart="@drawable/baseline_cancel_24"-->
-<!--            />-->
-        <Button
-            android:id="@+id/okButton"
-            android:layout_width="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_round_box"
-            android:text="Ok"
-            android:layout_margin="5dp"
-            android:padding="5dp"
-            android:textAllCaps="false"
-            android:textColor="#40AC1C"
-            android:textStyle="bold"
-            android:drawableStart="@drawable/baseline_done_24"
-            />
+            android:padding="15dp"
+            android:text="Livelihood Component"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="#fcf1ec"
+            app:cardCornerRadius="14dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="50"
+                android:padding="16dp"
+                android:text="@string/longstring"
+                android:textSize="16sp" />
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
+</ScrollView>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:gravity="end"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+    <!-- Add your fixed buttons here -->
+    <Button
+        android:id="@+id/okButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_round_box"
+        android:drawableStart="@drawable/baseline_done_24"
+        android:padding="5dp"
+        android:text="Ok"
+        android:textAllCaps="false"
+        android:textColor="#40AC1C"
+        android:textStyle="bold" />
 </LinearLayout>
+</LinearLayout>
+<!-- -->
+<!--    <?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_marginTop="5dp"-->
+<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--android:orientation="vertical">-->
+<!--<TextView-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:text="Livelihood Component"-->
+<!--    android:textSize="20sp"-->
+<!--    android:padding="15dp"-->
+<!--    android:textStyle="bold"/>-->
+<!--<androidx.cardview.widget.CardView-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:layout_margin="10dp"-->
+<!--    app:cardCornerRadius="14dp"-->
+<!--    app:cardBackgroundColor="#fcf1ec">-->
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:text="@string/longstring"-->
+<!--        android:maxLines="50"-->
+<!--        android:ellipsize="end"-->
+<!--        android:textSize="16sp"-->
+<!--        android:padding="16dp"/>-->
+<!--</androidx.cardview.widget.CardView>-->
+<!--<LinearLayout-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:gravity="end"-->
+<!--    android:layout_margin="5dp"-->
+<!--    android:padding="5dp"-->
+<!--    android:orientation="horizontal">-->
+<!--    &lt;!&ndash;        <Button&ndash;&gt;-->
+<!--    &lt;!&ndash;            android:id="@+id/cancelButton"&ndash;&gt;-->
+<!--    &lt;!&ndash;            android:layout_width="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;            android:background="@drawable/bg_round_box"&ndash;&gt;-->
+<!--    &lt;!&ndash;            android:text="Cancel"&ndash;&gt;-->
+<!--    &lt;!&ndash;            android:layout_margin="5dp"&ndash;&gt;-->
+<!--    &lt;!&ndash;            android:padding="5dp"&ndash;&gt;-->
+<!--    &lt;!&ndash;            android:textAllCaps="false"&ndash;&gt;-->
+<!--    &lt;!&ndash;            android:textColor="#E3133A"&ndash;&gt;-->
+<!--    &lt;!&ndash;            android:textStyle="bold"&ndash;&gt;-->
+<!--    &lt;!&ndash;            android:drawableStart="@drawable/baseline_cancel_24"&ndash;&gt;-->
+<!--    &lt;!&ndash;            />&ndash;&gt;-->
+<!--    <Button-->
+<!--        android:id="@+id/okButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/bg_round_box"-->
+<!--        android:text="Ok"-->
+<!--        android:layout_margin="5dp"-->
+<!--        android:padding="5dp"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textColor="#40AC1C"-->
+<!--        android:textStyle="bold"-->
+<!--        android:drawableStart="@drawable/baseline_done_24"-->
+<!--        />-->
+<!--</LinearLayout>-->
+<!--</LinearLayout>-->
+<!-- -->
