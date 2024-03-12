@@ -17,6 +17,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -49,6 +50,7 @@ import com.xplo.code.ui.photo.ImagePickerActivity
 import com.xplo.code.ui.photo.ImageUtil
 
 import com.xplo.code.BuildConfig
+import com.xplo.code.core.ext.isTiramisu
 import com.xplo.code.core.ext.showGrantedToast
 import com.xplo.code.core.ext.showPermanentlyDeniedDialog
 import com.xplo.code.core.ext.showRationaleDialog
@@ -70,6 +72,7 @@ import java.io.IOException
  */
 
 @AndroidEntryPoint
+@RequiresApi(Build.VERSION_CODES.R)
 class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View, PermissionRequest.Listener  {
 
     companion object {
@@ -101,13 +104,15 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View, Permis
     var form = AlForm2()
 
 
-    private val request by lazy {
-        permissionsBuilder(
-            Manifest.permission.CAMERA,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.MANAGE_EXTERNAL_STORAGE
-        ).build()
-    }
+//    private val request by lazy {
+//        permissionsBuilder(
+//            Manifest.permission.CAMERA,
+//            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//            Manifest.permission.MANAGE_EXTERNAL_STORAGE
+//        ).build()
+//    }
+
+    private lateinit var request: PermissionRequest
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -138,6 +143,18 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View, Permis
         //presenter = RegistrationPresenter(DataRepoImpl())
         //presenter.attach(this)
         ImagePickerActivity.clearCache(requireContext())
+
+        request = permissionsBuilder(
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.MANAGE_EXTERNAL_STORAGE
+        ).build()
+
+        if (requireContext().isTiramisu()){
+            request = permissionsBuilder(
+                Manifest.permission.CAMERA
+            ).build()
+        }
 
 //        binding.quickStartCroppedImage?.setOnClickListener {
 //
@@ -210,6 +227,10 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View, Permis
 
         binding.viewButtonBackNext.btNext.setOnClickListener {
             onClickNextButton()
+        }
+
+        binding.quickStartCroppedImage.setOnClickListener {
+            onClickCapturePhoto()
         }
 
         request.addListener(this)
@@ -513,7 +534,10 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View, Permis
         when {
             result.anyPermanentlyDenied() -> context.showPermanentlyDeniedDialog(result)
             result.anyShouldShowRationale() -> context.showRationaleDialog(result, request)
-            result.allGranted() -> context.showGrantedToast(result)
+            result.allGranted() -> {
+                context.showGrantedToast(result)
+                launchCameraIntent()
+            }
         }
     }
 

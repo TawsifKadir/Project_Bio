@@ -416,21 +416,21 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
     override fun onGenerateDummyInput() {
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
-//
-//        spGender.setSelection(2)
-//        spAlternateRelation.setSelection(2)
-//
-//        //etName.setText("Shadhin")
-//        etAge.setText("29")
-//        etIdNumber.setText("122")
-//        etPhoneNo.setText("01829372012")
-//        spIdType.setSelection(1)
-//
-//        //etHouseholdName.setText("Mohd")
-//
-//        etAlternateFirstName.setText("Mohd")
-//        etAlternateMiddleName.setText("Moniruzzaman")
-//        etAlternateLastName.setText("Shadhin")
+
+        spGender.setSelection(2)
+        spAlternateRelation.setSelection(2)
+
+        //etName.setText("Shadhin")
+        etAge.setText("29")
+        etIdNumber.setText("122")
+        etPhoneNo.setText("01829372012")
+        spIdType.setSelection(1)
+
+        //etHouseholdName.setText("Mohd")
+
+        etAlternateFirstName.setText("Mohd")
+        etAlternateMiddleName.setText("Moniruzzaman")
+        etAlternateLastName.setText("Shadhin")
     }
 
     override fun onPopulateView() {
