@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kit.integrationmanager.model.GenderEnum
 import com.xplo.code.R
+import com.xplo.code.core.ext.gone
+import com.xplo.code.core.ext.visible
 import com.xplo.code.data.db.room.model.Beneficiary
 import com.xplo.code.databinding.RowHouseholdItemBinding
 import com.xplo.code.ui.dashboard.household.forms.HouseholdHomeFragment
@@ -91,9 +93,11 @@ class HouseholdListAdapterNew : RecyclerView.Adapter<HouseholdListAdapterNew.Vie
             if (item.isSynced) {
                 // binding.btSend.visibility=View.VISIBLE
                 binding.btSyncStatus.setImageResource(R.drawable.baseline_cloud_done_24)
+                binding.btAddAlternate.gone()
             } else {
                 //  binding.btSend.visibility=View.VISIBLE
                 binding.btSyncStatus.setImageResource(R.drawable.sync_saved_locally_24px)
+                binding.btAddAlternate.visible()
             }
             loadImage(item.photoPath)
         }
