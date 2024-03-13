@@ -512,7 +512,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
                 onValidated(form)
             }else{
                 //R.string.nominee_objective_alerter_msg
-                showAlerterLong("Add Nominee",text)
+//                showAlerterLong("Add Nominee",text)
             }
         }
 
@@ -589,7 +589,19 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
             TAG,
             "onCheckedChanged() called with: radioGroup = $radioGroup, checkedId = $checkedId"
         )
-
+        when (checkedId) {
+            R.id.rbYes -> {
+                if (radioGroup != null) {
+                    (radioGroup.getChildAt(radioGroup.childCount - 1) as RadioButton).error = null
+                }
+            }
+            R.id.rbNo -> {
+                if (radioGroup != null) {
+                    (radioGroup.getChildAt(radioGroup.childCount - 1) as RadioButton).error = null
+                }
+            }
+            else -> {}
+        }
         onChangeRGNomineeAdd(checkedId)
 
     }
