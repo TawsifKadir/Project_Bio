@@ -27,6 +27,7 @@ interface BasicFormView {
     //    fun getOrAssertEditTextInt(view: EditText, error: String?): Int?
 //    fun getOrAssertEditTextDouble(view: EditText, error: String?): Double?
     fun chkSpinner(spinner: Spinner, error: String?): String?
+    fun chkNomineeOccupationSpinner(spinner: Spinner, error: String?): String?
     fun chkRadioGroup(radioGroup: RadioGroup, error: String?): String?
     fun getRadioGroup(radioGroup: RadioGroup): String?
 

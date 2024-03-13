@@ -236,6 +236,17 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         return txt
     }
 
+    override fun chkNomineeOccupationSpinner(spinner: Spinner, error: String?): String? {
+        val pos = spinner.selectedItemPosition
+        if (pos < 0) return null
+        val txt = spinner.selectedItem.toString()
+
+        if (!isValidationEnabled()) return txt
+
+        return txt
+    }
+
+
     override fun chkRadioGroup(radioGroup: RadioGroup, error: String?): String? {
         val id = radioGroup.checkedRadioButtonId
 
