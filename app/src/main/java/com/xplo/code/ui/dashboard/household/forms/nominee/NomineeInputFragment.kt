@@ -254,7 +254,7 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
             nominee.relationOthers = chkEditText3CharAllowSpace(etOtherRelation, UiData.ER_ET_DF)
         }
         nominee.gender = chkSpinner(spGender, UiData.ER_SP_DF)
-        nominee.occupation = chkSpinner(spOccupation, UiData.ER_SP_DF)
+        nominee.occupation = chkNomineeOccupationSpinner(spOccupation, UiData.ER_SP_DF)
         if(nominee.occupation.equals(OccupationEnum.OTHER.value, ignoreCase = true)){
             nominee.occupationOthers = chkEditText3CharAllowSpace(etOtherWork, UiData.ER_ET_DF)
         }
