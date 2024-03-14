@@ -128,17 +128,28 @@ object EntityMapper {
         form.isReadWrite = getReadWrite(item.form3?.isReadWrite)
         form.memberReadWrite = item.form3?.readWriteNumber
 
-        if (form.nominees != null) {
-            if (form.nominees.size > 0) {
+        if (item.form6?.nominees != null) {
+            if (item.form6?.nominees?.size!! > 0) {
                 form.isOtherMemberPerticipating = true
+                form.notPerticipationReason =
+                    NonPerticipationReasonEnum.find(item.form6?.xNoNomineeReason)
+                form.notPerticipationOtherReason = item.form6?.xOtherReason
             } else {
                 form.isOtherMemberPerticipating = false
+                form.notPerticipationReason =
+                    NonPerticipationReasonEnum.find(item.form6?.noNomineeReason)
+                form.notPerticipationOtherReason = item.form6?.otherReason
             }
+        } else {
+            form.isOtherMemberPerticipating = false
+            form.notPerticipationReason =
+                NonPerticipationReasonEnum.find(item.form6?.noNomineeReason)
+            form.notPerticipationOtherReason = item.form6?.otherReason
         }
 
-        form.notPerticipationReason = NonPerticipationReasonEnum.find(item.form6?.noNomineeReason)
-        form.notPerticipationOtherReason = item.form6?.otherReason
-        form.notPerticipationOtherReason
+
+        //  form.notPerticipationReason
+        //  form.notPerticipationOtherReason
 
         form.nominees = toNomineeItems(item.form6?.nominees)
 
@@ -306,9 +317,7 @@ object EntityMapper {
             biometric.noFingerPrint = item.noFingerprint
 
             biometric.noFingerprintReason = NoFingerprintReasonEnum.find(reason)
-
             biometric.noFingerprintReasonText = reasonText
-            biometric.noFingerprintReasonText
 
             biometric.biometricUrl = ""
             return biometric
