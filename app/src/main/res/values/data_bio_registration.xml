@@ -22,8 +22,8 @@
     <string name="respondent_spouse_nick_name_min_3_letters">Respondent Spouse Nick Name</string>
 
 
-    <string name="respondent_age_max_3_digit">Respondent Age (max 99)</string>
-    <string name="respondent_id_number">Respondent Id Number</string>
+    <string name="respondent_age_max_3_digit">Age (max 99)</string>
+    <string name="respondent_id_number">Id Number</string>
 
     <string name="selection_criteria">Selection Criteria</string>
     <!--    <string name="household_main_source_of_income">Household Main Source of Income</string>-->
