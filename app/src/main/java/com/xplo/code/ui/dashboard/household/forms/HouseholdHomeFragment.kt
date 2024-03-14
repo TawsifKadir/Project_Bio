@@ -47,8 +47,10 @@ import com.xplo.code.ui.dashboard.household.list.HouseholdListAdapter
 import com.xplo.code.ui.dashboard.household.list.HouseholdListAdapterNew
 import com.xplo.code.utils.DialogUtil
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
@@ -366,17 +368,16 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         DialogUtil.dismissLottieDialog()
         if (msg != null) {
             //DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", msg)
-
+            if (appId != null) {
+                //  viewModel.updateBeneficiary(requireContext(), "6be82dbe-a3ee-49d2-976d-9c7e83f5ca2c")
+                viewModel.updateBeneficiary(requireContext(), appId)
+            }
             val alertDialog  = LottieAlertDialog.Builder(context, DialogTypes.TYPE_SUCCESS)
                 .setTitle("Success")
                 .setDescription(msg)
                 .setPositiveText("Ok")
                 .setPositiveListener(object : ClickListener {
                     override fun onClick(dialog: LottieAlertDialog) {
-                        if (appId != null) {
-                            //  viewModel.updateBeneficiary(requireContext(), "6be82dbe-a3ee-49d2-976d-9c7e83f5ca2c")
-                            viewModel.updateBeneficiary(requireContext(), appId)
-                        }
                         viewModel.showBeneficiary(requireContext())
                         dialog.dismiss()
                     }
