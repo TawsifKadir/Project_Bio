@@ -229,7 +229,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
                     is HouseholdViewModel.Event.GetDataLocalDbByAppIdForView -> {
                         hideLoading()
-                        navigateToHouseholdDetailsFromBeneficiary(event.beneficiary)
+                        navigateToHouseholdDetailsFromBeneficiary(event.beneficiaryViewDetails)
 
                         viewModel.clearEvent()
                     }

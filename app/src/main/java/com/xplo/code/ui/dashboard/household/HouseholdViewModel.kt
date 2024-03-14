@@ -143,7 +143,7 @@ class HouseholdViewModel @Inject constructor(
         class GetDataLocalDbByAppId(val beneficiary: Beneficiary) :
             Event()
 
-        class GetDataLocalDbByAppIdForView(val beneficiary: Beneficiary) :
+        class GetDataLocalDbByAppIdForView(val beneficiaryViewDetails: Beneficiary) :
             Event()
 
         class DeleteDataLocalDbByAppId(val beneficiary: Boolean) : Event()
