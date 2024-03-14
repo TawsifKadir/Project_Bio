@@ -3,6 +3,8 @@ package com.xplo.code.ui.dashboard.alternate.forms
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
@@ -290,6 +292,8 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
                 // Another interface callback
             }
         }
+
+        onReinstateData(interactor?.getRootForm()?.form1)
     }
 
     fun doSomethingForYes() {
@@ -353,7 +357,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         val form = AlForm1()
 
         form.age = chkAge(etAge, UiData.ER_ET_DF)?.toInt()
-        form.idNumber = chkEditText(etIdNumber, UiData.ER_ET_DF)
+        //form.idNumber = chkEditText(etIdNumber, UiData.ER_ET_DF)
 
         //form.phoneNumber = chkPhoneNumber(etPhoneNo, UiData.ER_ET_DF)
         form.phoneNumber = chkPhoneNumber(etPhoneNo,UiData.ER_ET_DF)
@@ -467,6 +471,11 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         etAlternateMiddleName.setText(form.alternateMiddleName)
         etAlternateLastName.setText(form.alternateLastName)
         etAlternateNickName.setText(form.alternateNickName)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            etIdNumber.setText(form.idNumber)
+            etIDType.setText(form.idNumberOthersvalue)
+        }, 200)
 
     }
 
