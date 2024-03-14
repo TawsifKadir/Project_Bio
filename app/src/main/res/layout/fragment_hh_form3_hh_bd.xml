@@ -43,7 +43,8 @@
                 <EditText
                     android:id="@+id/etHouseholdSize"
                     style="@style/AppEditText.Form.Number"
-                    android:maxLength="2" />
+                    android:hint="0"
+                    android:maxLength="3" />
 
             </LinearLayout>
 

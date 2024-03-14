@@ -160,6 +160,7 @@ fun HhForm3.isOk(): Boolean {
     if (!TestConfig.isValidationEnabled) return true
 
     if (this.householdSize == null) return false
+    if (this.householdSize!! <= 0) return false
 
     if (this.readWriteNumber == null) return false
     if (this.isReadWrite.isNullOrEmpty()) return false
