@@ -73,7 +73,7 @@ object BiometricHelper {
                     fingerType = fingerCodes[i],
                     userType = userType,
                     noFingerprint = true,
-                   noFingerprintReason = reasonText
+                    noFingerprintReason = reasonText
                 )
                 items.add(dfinger)
                 continue
@@ -106,10 +106,10 @@ object BiometricHelper {
             if(reasonID == NoFingerprintReasonEnum.Other.id) {
                 return NoFingerprintReasonEnum.Other.name
             }else{
-                return NoFingerprintReasonEnum.NoFinger.name
+                return NoFingerprintReasonEnum.getNoFingerprintReasonById(reasonID).name
             }
         }
-        return NoFingerprintReasonEnum.NoFinger.name
+        return NoFingerprintReasonEnum.getNoFingerprintReasonById(reasonID).name
     }
 
     fun fingerPrintIntentToNoFingerprintReasonText(intent: Intent?, userType: String?): String? {
