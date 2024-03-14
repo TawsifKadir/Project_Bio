@@ -14,4 +14,7 @@
 .cxx
 /.idea/
 !/.idea/dictionaries/nasifahmed.xml
-/app/release/
+/app/release/ 
+*.apk
+release/
+
