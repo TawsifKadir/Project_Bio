@@ -513,6 +513,7 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
             }else{
                 //R.string.nominee_objective_alerter_msg
 //                showAlerterLong("Add Nominee",text)
+                (binding.rgNomineeAdd.getChildAt(binding.rgNomineeAdd.childCount - 1) as RadioButton).error = UiData.ER_ET_DF
             }
         }
 
