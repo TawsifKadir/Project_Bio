@@ -376,9 +376,9 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
 
     }
 
-    override fun onForceUpdate() {
-        Log.d(TAG, "onForceUpdate: ")
-    }
+//    override fun onForceUpdate() {
+//        Log.d(TAG, "onForceUpdate: ")
+//    }
 
     override fun navigateToHome() {
         //openActivity(MainActivity::class.java, null)
@@ -413,13 +413,13 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
         HouseholdActivity.open(this, null)
     }
 
-    override fun navigateToAlternate(id: String?) {
-        AlternateActivity.open(this, null, id)
+    override fun navigateToAlternate(id: String?, name: String?) {
+        AlternateActivity.open(this, null, id, name)
     }
 
-    override fun navigateToAlternateNew(id: String?, hhName: String, type: String) {
-        AlternateActivity.openNew(this, null, id, hhName, type)
-    }
+//    override fun navigateToAlternateNew(id: String?, hhName: String, type: String) {
+//        AlternateActivity.openNew(this, null, id, hhName, type)
+//    }
 
     override fun navigateToPayment() {
         PaymentActivity.open(this, null)

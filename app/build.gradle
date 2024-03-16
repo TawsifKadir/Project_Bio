@@ -20,7 +20,7 @@ android {
 
     compileSdk 34
     defaultConfig {
-        applicationId "com.xplo.skl"
+        applicationId "com.karooth.bio"
         minSdk 29
         targetSdk 34
         versionCode genVersionCode(versionMajor, versionMinor, versionPatch)
@@ -34,8 +34,8 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            applicationIdSuffix = ".dev"
-            versionNameSuffix = '-dev'
+            //applicationIdSuffix = ".dev"
+            //versionNameSuffix = '-dev'
 
             //buildConfigField "String", 'BASE_URL', '"http://stage.xplo.com/"'
             resValue "string", "app_version_name_bc", "Version: ${defaultConfig.versionName}-dev"
@@ -272,6 +272,8 @@ dependencies {
     implementation 'com.github.mayuce:LottieAlertDialog:1.1'
 
     implementation 'com.github.fondesa:kpermissions:3.5.0'
+    implementation 'com.github.SirLordPouya.AndroidAppUpdater:main:10.0.0'
+
 }
 
 def static genVersionCode(Integer major, Integer minor, Integer patch) {

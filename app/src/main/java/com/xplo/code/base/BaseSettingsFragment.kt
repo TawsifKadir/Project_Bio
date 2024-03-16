@@ -179,9 +179,9 @@ open class BaseSettingsFragment : PreferenceFragmentCompat(), BaseContract.View 
         getBaseActivity()?.onRefreshLoginLogoutView()
     }
 
-    override fun onForceUpdate() {
-        getBaseActivity()?.onForceUpdate()
-    }
+//    override fun onForceUpdate() {
+//        getBaseActivity()?.onForceUpdate()
+//    }
 
     override fun navigateToHome() {
         getBaseActivity()?.navigateToHome()
@@ -211,13 +211,13 @@ open class BaseSettingsFragment : PreferenceFragmentCompat(), BaseContract.View 
         getBaseActivity()?.navigateToHousehold()
     }
 
-    override fun navigateToAlternate(id: String?) {
-        getBaseActivity()?.navigateToAlternate(id)
+    override fun navigateToAlternate(id: String?, name: String?) {
+
     }
 
-    override fun navigateToAlternateNew(id: String?, hhName: String, type: String) {
-        getBaseActivity()?.navigateToAlternateNew(id, hhName, type)
-    }
+//    override fun navigateToAlternateNew(id: String?, hhName: String, type: String) {
+//        getBaseActivity()?.navigateToAlternateNew(id, hhName, type)
+//    }
 
     override fun navigateToPayment() {
         getBaseActivity()?.navigateToPayment()

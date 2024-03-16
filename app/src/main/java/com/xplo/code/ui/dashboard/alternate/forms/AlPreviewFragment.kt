@@ -204,32 +204,34 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
 
     override fun onUpdateSuccess(id: String?) {
         Log.d(TAG, "onUpdateSuccess() called with: id = $id")
+        showToast("update success")
+        navigateToHome()
 
-        XDialog.Builder(requireActivity().supportFragmentManager)
-            .setLayoutId(R.layout.custom_dialog_pnn)
-            .setTitle("Alternate")
-            .setMessage("Do you want to register another alternate?")
-            .setPosButtonText("Another Alternate")
-            .setNegButtonText(getString(R.string.cancel))
-            //.setNeuButtonText(getString(R.string.alternate_reg_title))
-            .setThumbId(R.drawable.logo_splash)
-            .setCancelable(false)
-            .setListener(object : XDialog.DialogListener {
-                override fun onClickPositiveButton() {
-                    interactor?.navigateToAlternateHome()
-                }
-
-                override fun onClickNegativeButton() {
-                    requireActivity().finish()
-                    //interactor?.navigateToHome()
-                }
-
-                override fun onClickNeutralButton() {
-                    //interactor?.navigateToAlternate(id)
-                }
-            })
-            .build()
-            .show()
+//        XDialog.Builder(requireActivity().supportFragmentManager)
+//            .setLayoutId(R.layout.custom_dialog_pnn)
+//            .setTitle("Alternate")
+//            .setMessage("Do you want to register another alternate?")
+//            .setPosButtonText("Another Alternate")
+//            .setNegButtonText(getString(R.string.cancel))
+//            //.setNeuButtonText(getString(R.string.alternate_reg_title))
+//            .setThumbId(R.drawable.logo_splash)
+//            .setCancelable(false)
+//            .setListener(object : XDialog.DialogListener {
+//                override fun onClickPositiveButton() {
+//                    interactor?.navigateToAlternateHome()
+//                }
+//
+//                override fun onClickNegativeButton() {
+//                    requireActivity().finish()
+//                    //interactor?.navigateToHome()
+//                }
+//
+//                override fun onClickNeutralButton() {
+//                    //interactor?.navigateToAlternate(id)
+//                }
+//            })
+//            .build()
+//            .show()
     }
 
     override fun onUpdateFailure(msg: String?) {
@@ -255,6 +257,35 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
             return
         }
 
+        XDialog.Builder(requireActivity().supportFragmentManager)
+            .setLayoutId(R.layout.custom_dialog_pnn)
+            .setTitle(getString(R.string.alternate_reg))
+            .setMessage(getString(R.string.review_complete_reg_msg))
+            .setPosButtonText("Save")
+            .setNegButtonText(getString(R.string.cancel))
+            .setThumbId(R.drawable.logo_splash)
+            .setCancelable(true)
+            .setListener(object : XDialog.DialogListener {
+                override fun onClickPositiveButton() {
+                    val entity = EntityMapper.toAlternateModelEntity(rootForm)
+                    if (entity != null) {
+                        insertAlternate(entity, entity.applicationId)
+                    }
+
+                    navigateToHome()
+                }
+
+                override fun onClickNegativeButton() {
+                    navigateToHome()
+                }
+
+                override fun onClickNeutralButton() {
+
+                }
+            })
+            .build()
+            .show()
+
 
         // var hhItem = interactor?.getHouseholdItem()
         //   if (hhItem == null) return
@@ -264,43 +295,16 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
         //   hhItem.data = hhForm.toJson()
 
 
-        if (rootForm.hhType == "V") {
-
-            XDialog.Builder(requireActivity().supportFragmentManager)
-                .setLayoutId(R.layout.custom_dialog_pnn)
-                .setTitle(getString(R.string.alternate_reg))
-                .setMessage(getString(R.string.review_complete_reg_msg))
-                .setPosButtonText("Save")
-                .setNegButtonText(getString(R.string.cancel))
-                .setThumbId(R.drawable.logo_splash)
-                .setCancelable(true)
-                .setListener(object : XDialog.DialogListener {
-                    override fun onClickPositiveButton() {
-                        val entity = EntityMapper.toAlternateModelEntity(rootForm)
-                        if (entity != null) {
-                            insertAlternate(entity, entity.applicationId)
-                        }
-
-                        navigateToHome()
-                    }
-
-                    override fun onClickNegativeButton() {
-                        navigateToHome()
-                    }
-
-                    override fun onClickNeutralButton() {
-
-                    }
-                })
-                .build()
-                .show()
-
-//            val entity = EntityMapper.toAlternateModelEntity(rootForm)
-//            if (entity != null) {
-//                insertAlternate(entity, entity.applicationId)
-//            }
-
-        }
+//        if (rootForm.hhType == "V") {
+//
+//
+//
+////            val entity = EntityMapper.toAlternateModelEntity(rootForm)
+////            if (entity != null) {
+////                insertAlternate(entity, entity.applicationId)
+////            }
+//
+//        }
 
         //   viewModel.updateHouseholdItem(hhItem)
 

@@ -212,7 +212,7 @@ class HhPreviewFragment2 : BaseFragment(), HouseholdContract.PreviewView {
             .setListener(object : XDialog.DialogListener {
                 override fun onClickPositiveButton() {
                     requireActivity().finish()
-                    interactor?.navigateToAlternate(id)
+                    //interactor?.navigateToAlternate(id)
                 }
 
                 override fun onClickNegativeButton() {

@@ -24,6 +24,7 @@ open class PkSettings {
 
         val pfTheme = resources.getString(R.string.pfTheme)
         val pfAbout = resources.getString(R.string.pfAbout)
+        val pfUpdate = resources.getString(R.string.pfUpdate)
         val pfMoreApps = resources.getString(R.string.pfMoreApps)
         val pfResetAll = resources.getString(R.string.pfResetAll)
         val pfDeveloper = resources.getString(R.string.pfDeveloper)

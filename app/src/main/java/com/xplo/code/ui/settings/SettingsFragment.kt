@@ -16,9 +16,9 @@ import com.xplo.code.data.RMemory
 import com.xplo.code.data.pref.PkSettings
 import com.xplo.code.ui.main_act.MainActivity
 import com.xplo.code.ui.user_profile.ProfileActivity
+import com.xplo.code.update_app.AppUpdateUtils
 import com.xplo.code.utils.AppInfo
 import com.xplo.code.utils.DbExporter
-import com.xplo.code.utils.DialogUtil
 import com.xplo.code.utils.EasyMenu
 
 /**
@@ -30,8 +30,9 @@ import com.xplo.code.utils.EasyMenu
  * Desc     :
  * Comment  :
  */
-class SettingsFragment : BaseSettingsFragment(),
-    SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
+class SettingsFragment : BaseSettingsFragment(), SettingsContract.View,
+    SharedPreferences.OnSharedPreferenceChangeListener,
+    Preference.OnPreferenceClickListener {
 
     companion object {
         private const val TAG = "SettingsFragment"
@@ -63,6 +64,7 @@ class SettingsFragment : BaseSettingsFragment(),
     private var pfShare: Preference? = null
     private var pfFeedback: Preference? = null
     private var pfAbout: Preference? = null
+    private var pfUpdate: Preference? = null
     private var pfDeveloper: Preference? = null
     private var pfExportDb: Preference? = null
 
@@ -95,6 +97,7 @@ class SettingsFragment : BaseSettingsFragment(),
         pfShare = findPreference(PkSettings.pfShare)
         pfFeedback = findPreference(PkSettings.pfFeedback)
         pfAbout = findPreference(PkSettings.pfAbout)
+        pfUpdate = findPreference(PkSettings.pfUpdate)
         pfDeveloper = findPreference(PkSettings.pfDeveloper)
 
         pfDevOption = findPreference(PkSettings.pfDevOption)
@@ -109,6 +112,7 @@ class SettingsFragment : BaseSettingsFragment(),
         pfDevOption?.onPreferenceClickListener = this
 
         pfAbout?.onPreferenceClickListener = this
+        pfUpdate?.onPreferenceClickListener = this
         pfDeveloper?.onPreferenceClickListener = this
         pfResetAll?.onPreferenceClickListener = this
         pfExportDb?.onPreferenceClickListener = this
@@ -198,6 +202,11 @@ class SettingsFragment : BaseSettingsFragment(),
 
             PkSettings.pfAbout -> {
                 EasyMenu.showAboutText(requireContext())
+                return true
+            }
+
+            PkSettings.pfUpdate -> {
+                onCheckAppUpdate()
                 return true
             }
 
@@ -301,6 +310,46 @@ class SettingsFragment : BaseSettingsFragment(),
     override fun onPause() {
         super.onPause()
         preferenceManager.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onCheckAppUpdate() {
+        Log.d(TAG, "onCheckAppUpdate() called")
+        onNormalUpdate()
+    }
+
+    override fun onNormalUpdate() {
+        Log.d(TAG, "onNormalUpdate() called")
+
+//        AlertDialog.Builder(requireContext())
+//            .setMessage("App update available")
+//            .setCancelable(true)
+//            .setPositiveButton(getString(R.string.ok)) { dialogInterface, i ->
+//
+//            }
+//            .setNegativeButton(getString(R.string.cancel)) { dialogInterface, i ->
+//
+//            }
+//            .create()
+//            .show()
+
+        AppUpdateUtils.showNormalDialog(requireContext(), requireActivity().supportFragmentManager)
+    }
+
+    override fun onForceUpdate() {
+        Log.d(TAG, "onForceUpdate() called")
+
+        AlertDialog.Builder(requireContext())
+            .setMessage("App update available")
+            .setCancelable(false)
+            .setPositiveButton(getString(R.string.ok)) { dialogInterface, i ->
+
+            }
+            .setNegativeButton(getString(R.string.cancel)) { dialogInterface, i ->
+
+            }
+            .create()
+            .show()
+
     }
 
 
