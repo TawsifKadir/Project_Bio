@@ -99,8 +99,8 @@ interface BaseContract {
         fun navigateToHistory()
 
         fun navigateToHousehold()
-        fun navigateToAlternate(id: String?)
-        fun navigateToAlternateNew(id: String?, hhName: String, type: String)
+        fun navigateToAlternate(id: String?, name: String?)
+//        fun navigateToAlternateNew(id: String?, hhName: String, type: String)
         fun navigateToPayment()
         fun navigateToReport()
 
@@ -110,7 +110,7 @@ interface BaseContract {
         fun isLoggedIn(): Boolean
         fun onLogout()
         fun onRefreshLoginLogoutView()
-        fun onForceUpdate()
+        //fun onForceUpdate()
 
 
     }

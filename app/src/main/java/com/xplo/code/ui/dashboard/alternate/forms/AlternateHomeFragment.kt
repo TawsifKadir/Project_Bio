@@ -190,7 +190,7 @@ class AlternateHomeFragment : BaseFragment(), AlternateContract.HomeView,
         //interactor?.navigateToForm1(item.applicationId, item.respondentFirstName, null, true, false)
 
         val fname = item.respondentFirstName + " " + item.respondentMiddleName + " " + item.respondentLastName
-        interactor?.navigateToForm1(item.applicationId, fname, "V", true, false)
+        interactor?.navigateToForm1(item.applicationId, fname, true, false)
     }
 
 }

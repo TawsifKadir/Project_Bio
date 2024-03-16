@@ -64,7 +64,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
-    HouseholdListAdapter.OnItemClickListener, HouseholdListAdapterNew.OnItemClickListener {
+    HouseholdListAdapterNew.OnItemClickListener {
 
     companion object {
         const val TAG = "HouseholdHomeFragment"
@@ -421,68 +421,68 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     }
 
 
-    override fun onClickHouseholdItem(item: HouseholdItem, pos: Int) {
-        Log.d(TAG, "onClickHouseholdItem() called with: item = ${item.hid}, pos = $pos")
-        //dToast(item.title)
-        navigateToHouseholdDetails(item)
-    }
+//    override fun onClickHouseholdItem(item: HouseholdItem, pos: Int) {
+//        Log.d(TAG, "onClickHouseholdItem() called with: item = ${item.hid}, pos = $pos")
+//        //dToast(item.title)
+//        navigateToHouseholdDetails(item)
+//    }
+//
+//    override fun onClickHouseholdItemDelete(item: HouseholdItem, pos: Int) {
+//        Log.d(TAG, "onClickHouseholdItemDelete() called with: item = $item, pos = $pos")
+//        //Create Dialog Here
+//        val dialog = Dialog(requireContext(), R.style.CustomDialogTheme)
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//        dialog.setCancelable(false)
+//        dialog.setContentView(R.layout.delete_dialog_resource)
+//        val window = dialog.window
+//        window?.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+//
+//        val btnOk: Button = dialog.findViewById<Button>(R.id.okButton)
+//        val btnCancel: Button = dialog.findViewById<Button>(R.id.cancelButton)
+//
+//        btnOk.setOnClickListener {
+//
+//            viewModel.deleteHouseholdItem(item)
+//            //  adapter?.remove(pos)
+//            dialog.dismiss()
+//        }
+//
+//        btnCancel.setOnClickListener {
+//            dialog.dismiss()
+//        }
+//        dialog.show()
+//
+//    }
 
-    override fun onClickHouseholdItemDelete(item: HouseholdItem, pos: Int) {
-        Log.d(TAG, "onClickHouseholdItemDelete() called with: item = $item, pos = $pos")
-        //Create Dialog Here
-        val dialog = Dialog(requireContext(), R.style.CustomDialogTheme)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(false)
-        dialog.setContentView(R.layout.delete_dialog_resource)
-        val window = dialog.window
-        window?.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+//    override fun onClickHouseholdItemSend(item: HouseholdItem, pos: Int) {
+//        requireActivity().runOnUiThread {
+//            DialogUtil.showLottieDialog(requireContext(), "Data will sync to server", "Please wait")
+//        }
+//        Log.d(TAG, "onClickHouseholdItemSend() called with: item = $item, pos = $pos")
+//        //showToast("Feature not implemented yet")
+//
+//        //viewModel.sendHouseholdItem(item, pos)
+//        GlobalScope.launch(Dispatchers.IO) {
+//            viewModel.syncHouseholdForm(requireContext(), item.toHouseholdForm(), pos)
+//        }
+//        //viewModel.syncHouseholdForm(requireContext(), item.toHouseholdForm(), pos)
+//
+////        val beneficiary = Fake.getABenificiary()
+////        viewModel.sendBeneficiary(beneficiary,0)
+////        viewModel.syncBeneficiary(requireContext(), beneficiary, 0 )
+//    }
 
-        val btnOk: Button = dialog.findViewById<Button>(R.id.okButton)
-        val btnCancel: Button = dialog.findViewById<Button>(R.id.cancelButton)
-
-        btnOk.setOnClickListener {
-
-            viewModel.deleteHouseholdItem(item)
-            //  adapter?.remove(pos)
-            dialog.dismiss()
-        }
-
-        btnCancel.setOnClickListener {
-            dialog.dismiss()
-        }
-        dialog.show()
-
-    }
-
-    override fun onClickHouseholdItemSend(item: HouseholdItem, pos: Int) {
-        requireActivity().runOnUiThread {
-            DialogUtil.showLottieDialog(requireContext(), "Data will sync to server", "Please wait")
-        }
-        Log.d(TAG, "onClickHouseholdItemSend() called with: item = $item, pos = $pos")
-        //showToast("Feature not implemented yet")
-
-        //viewModel.sendHouseholdItem(item, pos)
-        GlobalScope.launch(Dispatchers.IO) {
-            viewModel.syncHouseholdForm(requireContext(), item.toHouseholdForm(), pos)
-        }
-        //viewModel.syncHouseholdForm(requireContext(), item.toHouseholdForm(), pos)
-
-//        val beneficiary = Fake.getABenificiary()
-//        viewModel.sendBeneficiary(beneficiary,0)
-//        viewModel.syncBeneficiary(requireContext(), beneficiary, 0 )
-    }
-
-    override fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int) {
-        Log.d(TAG, "onClickHouseholdItemAddAlternate() called with: item = $item, pos = $pos")
-        navigateToAlternate(item.id)
-    }
-
-    override fun onClickHouseholdItemSave(item: HouseholdItem, pos: Int) {
-        Log.d(TAG, "onClickHouseholdItemSave() called with: item = $item, pos = $pos")
-        val entity = EntityMapper.toBeneficiaryEntity(item.toHouseholdForm())
-        viewModel.saveBeneficiaryEntity(entity)
-
-    }
+//    override fun onClickHouseholdItemAddAlternate(item: HouseholdItem, pos: Int) {
+//        Log.d(TAG, "onClickHouseholdItemAddAlternate() called with: item = $item, pos = $pos")
+//        //navigateToAlternate(item.id)
+//    }
+//
+//    override fun onClickHouseholdItemSave(item: HouseholdItem, pos: Int) {
+//        Log.d(TAG, "onClickHouseholdItemSave() called with: item = $item, pos = $pos")
+//        val entity = EntityMapper.toBeneficiaryEntity(item.toHouseholdForm())
+//        viewModel.saveBeneficiaryEntity(entity)
+//
+//    }
 
 
     override fun onRequestPermissionsResult(
@@ -637,10 +637,15 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                 .show()
         } else {
             // navigateToAlternate(item.applicationId)
-            navigateToAlternateNew(
+//            navigateToAlternateNew(
+//                item.applicationId,
+//                item.respondentFirstName + " " + item.respondentMiddleName + " " + item.respondentLastName,
+//                "V"
+//            )
+
+            navigateToAlternate(
                 item.applicationId,
-                item.respondentFirstName + " " + item.respondentMiddleName + " " + item.respondentLastName,
-                "V"
+                item.respondentFirstName + " " + item.respondentMiddleName + " " + item.respondentLastName
             )
 
         }

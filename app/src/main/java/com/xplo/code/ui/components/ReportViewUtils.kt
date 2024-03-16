@@ -70,11 +70,16 @@ object ReportViewUtils {
         val tvTitle: TextView = rowView.findViewById(R.id.tvTitle)
         val tvData: TextView = rowView.findViewById(R.id.tvData)
         val img: ImageView = rowView.findViewById(R.id.ivAvatar)
-        if (item.hhType == "V") {
-            img.loadImage(item.form2?.photoData?.img)
-        } else {
-            img.loadImage(item.form2?.photoData?.imgPath)
-        }
+
+        img.loadImage(item.form2?.photoData?.img)
+
+        // TODO: raihan vai
+//        if (item.hhType == "V") {
+//            img.loadImage(item.form2?.photoData?.img)
+//        } else {
+//            img.loadImage(item.form2?.photoData?.imgPath)
+//        }
+
         tvTitle.text = item.form1.getFullName()
         tvData.text = item.toSummary()
 

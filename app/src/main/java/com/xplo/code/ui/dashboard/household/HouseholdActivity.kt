@@ -2,10 +2,12 @@ package com.xplo.code.ui.dashboard.household
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -225,6 +227,7 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun navigateToForm4() {
         Log.d(TAG, "navigateToForm4() called")
         STEP = 4

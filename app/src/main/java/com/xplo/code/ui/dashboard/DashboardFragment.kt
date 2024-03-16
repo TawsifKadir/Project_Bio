@@ -83,7 +83,7 @@ class DashboardFragment : BaseFragment(), DashboardContract.View, Observer {
             navigateToHousehold()
         }
         binding.viewAlternate.setOnClickListener {
-            navigateToAlternate(null)
+            //navigateToAlternate(null)
         }
         binding.viewReport.setOnClickListener {
             //navigateToReport()

@@ -26,11 +26,10 @@ interface AlternateContract {
 
     interface View : BaseContract.View {
 
-        fun navigateToAlternateHome()
+//        fun navigateToAlternateHome()
         fun navigateToForm1(
             id: String?,
             hhName: String?,
-            type: String?,
             addToBackStack: Boolean,
             clearBackStack: Boolean
         )
@@ -38,7 +37,7 @@ interface AlternateContract {
         fun navigateToForm2()
         fun navigateToForm3()
         fun navigateToPreview()
-        fun navigateToFormDetails(item: HouseholdItem?)
+//        fun navigateToFormDetails(item: HouseholdItem?)
 
 
         fun onBackButton()
@@ -57,7 +56,7 @@ interface AlternateContract {
         fun setRootForm(form: AlternateForm?)
 
       //  fun getHouseholdItem(): HouseholdItem?
-        fun setHouseholdItem(item: HouseholdItem?)
+//        fun setHouseholdItem(item: HouseholdItem?)
 
         fun getRequestCode(): Int
         fun isCallForResult(): Boolean
@@ -93,8 +92,8 @@ interface AlternateContract {
         fun onValidated(form: AlForm1?)
         fun onReinstateData(form: AlForm1?)
 
-        fun onGetHouseholdItem(item: HouseholdItem?)
-        fun onGetHouseholdItemFailure(msg: String?)
+//        fun onGetHouseholdItem(item: HouseholdItem?)
+//        fun onGetHouseholdItemFailure(msg: String?)
     }
 
     interface Form2View : BaseContract.View, CommonView {

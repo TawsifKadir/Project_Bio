@@ -234,7 +234,10 @@ interface HouseholdContract {
         fun onReinstateData(forms: ArrayList<AlternateForm>?)
 
         fun onClickAddAlternate()
+        fun onOpenAlternateForm(id: String?, name: String?, form: AlternateForm?, pos: Int)
         fun onGetAnAlternate(form: AlternateForm?)
+
+
 
     }
 

@@ -472,7 +472,7 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
                 alternateForm.form1 = a1Form
                 alternateForm.form2 = a2Form
                 alternateForm.appId = beneficiary.applicationId
-                alternateForm.hhType = "V"
+//                alternateForm.hhType = "V"
                 arrayListValue.add(alternateForm)
             }
         } catch (ex: Exception) {
@@ -519,7 +519,7 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
                 alternateForm2.form1 = a1Form
                 alternateForm2.form2 = a2Form
                 alternateForm2.appId = beneficiary.applicationId
-                alternateForm2.hhType = "V"
+//                alternateForm2.hhType = "V"
                 arrayListValue.add(alternateForm2)
             }
 
