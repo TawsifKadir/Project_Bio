@@ -190,9 +190,9 @@ abstract class BaseFragment : Fragment(), BaseContract.View, NomineeModal.Listen
         getBaseActivity()?.onRefreshLoginLogoutView()
     }
 
-    override fun onForceUpdate() {
-        getBaseActivity()?.onForceUpdate()
-    }
+//    override fun onForceUpdate() {
+//        getBaseActivity()?.onForceUpdate()
+//    }
 
     override fun navigateToHome() {
         getBaseActivity()?.navigateToHome()

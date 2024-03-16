@@ -376,9 +376,9 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
 
     }
 
-    override fun onForceUpdate() {
-        Log.d(TAG, "onForceUpdate: ")
-    }
+//    override fun onForceUpdate() {
+//        Log.d(TAG, "onForceUpdate: ")
+//    }
 
     override fun navigateToHome() {
         //openActivity(MainActivity::class.java, null)

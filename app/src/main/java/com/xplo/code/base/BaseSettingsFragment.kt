@@ -179,9 +179,9 @@ open class BaseSettingsFragment : PreferenceFragmentCompat(), BaseContract.View 
         getBaseActivity()?.onRefreshLoginLogoutView()
     }
 
-    override fun onForceUpdate() {
-        getBaseActivity()?.onForceUpdate()
-    }
+//    override fun onForceUpdate() {
+//        getBaseActivity()?.onForceUpdate()
+//    }
 
     override fun navigateToHome() {
         getBaseActivity()?.navigateToHome()

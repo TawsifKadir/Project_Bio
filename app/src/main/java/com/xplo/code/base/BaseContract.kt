@@ -110,7 +110,7 @@ interface BaseContract {
         fun isLoggedIn(): Boolean
         fun onLogout()
         fun onRefreshLoginLogoutView()
-        fun onForceUpdate()
+        //fun onForceUpdate()
 
 
     }

@@ -13,11 +13,17 @@ import com.xplo.code.base.BaseContract
  */
 interface SettingsContract {
 
-    interface View : BaseContract.View {
+    interface View : BaseContract.View, AppUpdate {
 
     }
 
     interface Presenter : BaseContract.Presenter<View> {
 
+    }
+
+    interface AppUpdate {
+        fun onCheckAppUpdate()
+        fun onNormalUpdate()
+        fun onForceUpdate()
     }
 }

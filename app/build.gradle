@@ -272,6 +272,8 @@ dependencies {
     implementation 'com.github.mayuce:LottieAlertDialog:1.1'
 
     implementation 'com.github.fondesa:kpermissions:3.5.0'
+    implementation 'com.github.SirLordPouya.AndroidAppUpdater:main:10.0.0'
+
 }
 
 def static genVersionCode(Integer major, Integer minor, Integer patch) {
