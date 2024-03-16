@@ -67,7 +67,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
             id: String?,
             hhName: String?,
         ): AlForm1Fragment {
-            Log.d(TAG, "newInstance() called with: parent = $parent, id = $id")
+            Log.d(TAG, "newInstance() called with: parent = $parent, id = $id, hhName = $hhName")
             val fragment = AlForm1Fragment()
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
@@ -166,15 +166,17 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         bindSpinnerData(spAlternateRelation, UiData.relationshipOptions)
         bindSpinnerData(spIdType, UiData.idType)
         idType.gone()
-        // has no id, passed name instead of id
-        if (interactor?.isCallForResult().toBool()) {
-            binding.etHouseholdName.setText(id)
-            return
-        }
-        if(!houseHoldName.isNullOrEmpty()){
-            binding.etHouseholdName.setText(houseHoldName)
-        }
-        //viewModel.getHouseholdItem(id)
+//        // has no id, passed name instead of id
+//        if (interactor?.isCallForResult().toBool()) {
+//            binding.etHouseholdName.setText(id)
+//            return
+//        }
+//        if(!houseHoldName.isNullOrEmpty()){
+//            binding.etHouseholdName.setText(houseHoldName)
+//        }
+//        //viewModel.getHouseholdItem(id)
+
+        binding.etHouseholdName.setText(houseHoldName)
 
 
     }
@@ -203,17 +205,17 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
                         //showLoading()
                     }
 
-                    is HouseholdViewModel.Event.GetHouseholdItemSuccess -> {
-                        hideLoading()
-                        onGetHouseholdItem(event.item)
-                        viewModel.clearEvent()
-                    }
-
-                    is HouseholdViewModel.Event.GetHouseholdItemFailure -> {
-                        hideLoading()
-                        onGetHouseholdItemFailure(event.msg)
-                        viewModel.clearEvent()
-                    }
+//                    is HouseholdViewModel.Event.GetHouseholdItemSuccess -> {
+//                        hideLoading()
+//                        onGetHouseholdItem(event.item)
+//                        viewModel.clearEvent()
+//                    }
+//
+//                    is HouseholdViewModel.Event.GetHouseholdItemFailure -> {
+//                        hideLoading()
+//                        onGetHouseholdItemFailure(event.msg)
+//                        viewModel.clearEvent()
+//                    }
 
                     else -> Unit
                 }
@@ -479,17 +481,17 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
 
     }
 
-    override fun onGetHouseholdItem(item: HouseholdItem?) {
-        Log.d(TAG, "onGetHouseholdItem() called with: item = $item")
-
-        interactor?.setHouseholdItem(item)
-
-        binding.etHouseholdName.setText(item.toHouseholdForm()?.form2?.getFullName())
-    }
-
-    override fun onGetHouseholdItemFailure(msg: String?) {
-        Log.d(TAG, "onGetHouseholdItemFailure() called with: msg = $msg")
-    }
+//    override fun onGetHouseholdItem(item: HouseholdItem?) {
+//        Log.d(TAG, "onGetHouseholdItem() called with: item = $item")
+//
+//        interactor?.setHouseholdItem(item)
+//
+//        binding.etHouseholdName.setText(item.toHouseholdForm()?.form2?.getFullName())
+//    }
+//
+//    override fun onGetHouseholdItemFailure(msg: String?) {
+//        Log.d(TAG, "onGetHouseholdItemFailure() called with: msg = $msg")
+//    }
 
     override fun onStatusChangeCheckboxItem(item: CheckboxItem, pos: Int, isChecked: Boolean) {
         TODO("Not yet implemented")

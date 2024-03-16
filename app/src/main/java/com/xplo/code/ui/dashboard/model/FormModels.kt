@@ -33,11 +33,11 @@ data class ConsentStatus(
 )
 
 data class AlternateForm(
+    var appId: String? = null,
+    var pos: Int = -1,
     var form1: AlForm1? = null,
     var form2: AlForm2? = null,
-    var form3: AlForm3? = null,
-    var appId: String? = null,
-    var hhType: String? = null
+    var form3: AlForm3? = null
 ) : Serializable
 
 data class HhForm1(

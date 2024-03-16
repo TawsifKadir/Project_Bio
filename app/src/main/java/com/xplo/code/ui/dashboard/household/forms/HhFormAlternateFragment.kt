@@ -7,18 +7,14 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.view.WindowManager
 import android.widget.Button
-import android.widget.PopupWindow
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,7 +26,6 @@ import com.xplo.code.ui.dashboard.alternate.AlternateActivity
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
-import com.xplo.code.utils.DialogHandler
 import com.xplo.code.ui.dashboard.household.list.AlternateSumListAdapter
 import com.xplo.code.ui.dashboard.model.AlternateForm
 import com.xplo.code.ui.dashboard.model.getFullName
@@ -244,20 +239,32 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
 
     override fun onClickAddAlternate() {
         Log.d(TAG, "onClickAddAlternate() called")
-        //AlternateActivity.openForResult(requireActivity(), null, null, REQUEST_CODE)
-        val name = interactor?.getRootForm()?.form2.getFullName()
-        AlternateActivity.openForResult(requireActivity(), null, name, activityResultLauncher)
 
+        val name = interactor?.getRootForm()?.form2.getFullName()
+        val id = interactor?.getRootForm()?.id
+        onOpenAlternateForm(id, name, null, -1)
+
+    }
+
+    override fun onOpenAlternateForm(id: String?, name: String?, form: AlternateForm?, pos: Int) {
+        Log.d(
+            TAG,
+            "onOpenAlternateForm() called with: id = $id, name = $name, form = $form, pos = $pos"
+        )
+
+        //AlternateActivity.openForResult(requireActivity(), null, null, REQUEST_CODE)
+        AlternateActivity.openForResult(requireActivity(), null, id, name, form, activityResultLauncher)
     }
 
     override fun onGetAnAlternate(form: AlternateForm?) {
         Log.d(TAG, "onGetAnAlternate() called with: form = $form")
         if (form == null) return
         showToast("1 alternate added")
-//        Handler(Looper.getMainLooper()).postDelayed({
-//            //Do something after 100ms
-//            adapter?.addItem(form)
-//        }, 500)
+
+        if (form.pos != -1){
+            adapter?.remove(form.pos)
+        }
+
         adapter?.addItem(form)
         val rootForm = interactor?.getRootForm()
         if(adapter != null){
@@ -265,6 +272,8 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
         }
         interactor?.setRootForm(rootForm)
     }
+
+
     override fun onClickBackButton() {
         Log.d(TAG, "onClickBackButton() called")
         interactor?.onBackButton()
@@ -306,7 +315,10 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
 
     override fun onClickAlternateForm(item: AlternateForm, pos: Int) {
         Log.d(TAG, "onClickAlternateForm() called with: item = $item, pos = $pos")
-
+        val name = interactor?.getRootForm()?.form2.getFullName()
+        val id = interactor?.getRootForm()?.id
+        item.pos = pos
+        //onOpenAlternateForm(id, name, item, pos)
     }
 
     override fun onClickAlternateFormDelete(item: AlternateForm, pos: Int) {
