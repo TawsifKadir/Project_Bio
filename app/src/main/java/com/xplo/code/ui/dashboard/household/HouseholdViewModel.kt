@@ -35,7 +35,6 @@ import com.xplo.code.data.db.room.dao.SelectionReasonDao
 import com.xplo.code.data.db.room.database.BeneficiaryDatabase
 import com.xplo.code.data.mapper.BeneficiaryMapper
 import com.xplo.code.data.mapper.EntityMapper
-import com.xplo.code.data.mapper.FakeMapperValue
 import com.xplo.code.data_module.core.DispatcherProvider
 import com.xplo.code.data_module.core.Resource
 import com.xplo.code.data_module.model.content.Address
@@ -1282,13 +1281,6 @@ class HouseholdViewModel @Inject constructor(
     }
 
     private fun onGetSyncResult(arg: RegistrationResult?) {
-//        Log.d(TAG, "onGetSyncResult() called with: syncResult = ${syncResult?.syncStatus}")
-//        if (syncResult == null) return
-//
-//        when (syncResult.syncStatus) {
-//            SyncStatus.SUCCESS -> onSyncSuccess(syncResult)
-//            else -> onSyncFailure(syncResult)
-
         viewModelScope.launch(dispatchers.io) {
             if (arg == null) {
                 _event.value =
