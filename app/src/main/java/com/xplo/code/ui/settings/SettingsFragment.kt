@@ -2,7 +2,6 @@ package com.xplo.code.ui.settings
 
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -17,9 +16,9 @@ import com.xplo.code.data.RMemory
 import com.xplo.code.data.pref.PkSettings
 import com.xplo.code.ui.main_act.MainActivity
 import com.xplo.code.ui.user_profile.ProfileActivity
+import com.xplo.code.update_app.AppUpdateUtils
 import com.xplo.code.utils.AppInfo
 import com.xplo.code.utils.DbExporter
-import com.xplo.code.utils.DialogUtil
 import com.xplo.code.utils.EasyMenu
 
 /**
@@ -321,17 +320,19 @@ class SettingsFragment : BaseSettingsFragment(), SettingsContract.View,
     override fun onNormalUpdate() {
         Log.d(TAG, "onNormalUpdate() called")
 
-        AlertDialog.Builder(requireContext())
-            .setMessage("App update available")
-            .setCancelable(true)
-            .setPositiveButton(getString(R.string.ok)) { dialogInterface, i ->
+//        AlertDialog.Builder(requireContext())
+//            .setMessage("App update available")
+//            .setCancelable(true)
+//            .setPositiveButton(getString(R.string.ok)) { dialogInterface, i ->
+//
+//            }
+//            .setNegativeButton(getString(R.string.cancel)) { dialogInterface, i ->
+//
+//            }
+//            .create()
+//            .show()
 
-            }
-            .setNegativeButton(getString(R.string.cancel)) { dialogInterface, i ->
-
-            }
-            .create()
-            .show()
+        AppUpdateUtils.showNormalDialog(requireContext(), requireActivity().supportFragmentManager)
     }
 
     override fun onForceUpdate() {
