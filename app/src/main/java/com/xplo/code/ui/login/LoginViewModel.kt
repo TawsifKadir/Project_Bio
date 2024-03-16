@@ -26,6 +26,7 @@ import com.xplo.code.data_module.model.user.isAuthenticated
 import com.xplo.code.data_module.model.user.isPending
 import com.xplo.code.data_module.repo.UserRepo
 import com.xplo.code.ui.login.model.LoginCredentials
+import com.xplo.code.utils.IMHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -246,10 +247,7 @@ class LoginViewModel @Inject constructor(
         }
         try {
             if (DeviceManager.getInstance(context).isOnline) {
-                val serverInfo = ServerInfo();
-                serverInfo.port = 8090;
-                serverInfo.protocol = "http"
-                serverInfo.host_name = "snsopafis.karoothitbd.com"
+                val serverInfo = IMHelper.getServerInfo()
                 val loginService = LoginServiceImpl(context, this, serverInfo)
                 val headers = HashMap<String, String>()
                 val loginRequest = LoginRequest.builder().userName(credentials.userId)

@@ -18,7 +18,7 @@ object Config {
 //     */
 //    var IF_DEBUG = true
 
-    private var BASE_URL = "http://snsopafis.karoothitbd.com:8090/"
+    private var BASE_URL = "https://snsopafis.southsudansafetynet.info/"
     //var BASE_URL_LEGACY = "https://api.xdb-solutions.com/"
     private var BASE_URL_STAGE = "http://snsopafis.karoothitbd.com:8090/"
 
@@ -32,18 +32,18 @@ object Config {
 
 
     // no effect in release apk
-    var API_TYPE = com.xplo.code.data_module.core.ApiType.LIVE
+    var API_TYPE = ApiType.LIVE
 
 
     fun getBaseUrl(): String {
 
-        var url = com.xplo.code.data_module.core.Config.BASE_URL
+        var url = BASE_URL
 
         if (!BuildConfig.DEBUG) return url
 
-        url = when (com.xplo.code.data_module.core.Config.API_TYPE) {
-            com.xplo.code.data_module.core.ApiType.LIVE -> com.xplo.code.data_module.core.Config.BASE_URL
-            com.xplo.code.data_module.core.ApiType.STAGE -> com.xplo.code.data_module.core.Config.BASE_URL_STAGE
+        url = when (API_TYPE) {
+            ApiType.LIVE -> BASE_URL
+            ApiType.STAGE -> BASE_URL_STAGE
         }
 
         return url
