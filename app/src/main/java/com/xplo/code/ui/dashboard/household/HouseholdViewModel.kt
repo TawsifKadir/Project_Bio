@@ -82,7 +82,7 @@ class HouseholdViewModel @Inject constructor(
 
         class GetHouseholdItemsSuccess(val items: List<HouseholdItem>?) : Event()
         class GetHouseholdItemsFailure(val msg: String?) : Event()
-        class GetHouseholdItemsSuccessMsg(val msg: String?, val appId: String?) : Event()
+        class GetHouseholdItemsSuccessMsg(val msg: String?, val appId: MutableList<String>) : Event()
         class UpdateHouseholdItemSuccess(val id: String?) : Event()
         class UpdateHouseholdItemFailure(val msg: String?) : Event()
 
@@ -1303,12 +1303,12 @@ class HouseholdViewModel @Inject constructor(
                     for (nowId in appIds) {
                         // _event.value = Event.GetHouseholdItemsSuccessMsg("Beneficiary ID : $nowId")
                         Log.d(DashboardFragment.TAG, "Beneficiary ID : $nowId")
-                        if (appIds.size == 1) {
-                            appId = nowId
-                        }
+//                        if (appIds.size == 1) {
+//                            appId = nowId
+//                        }
                     }
                     _event.value =
-                        Event.GetHouseholdItemsSuccessMsg("Registration Successful", appId)
+                        Event.GetHouseholdItemsSuccessMsg("Registration Successful", appIds)
 
                 } else {
                     _event.value =

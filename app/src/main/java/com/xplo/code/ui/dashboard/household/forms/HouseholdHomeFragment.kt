@@ -44,9 +44,11 @@ import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.list.HouseholdListAdapterNew
 import com.xplo.code.utils.DialogUtil
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.ArrayList
 
 /**
  * Copyright 2022 (C) xplo
@@ -145,6 +147,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     @SuppressLint("NotifyDataSetChanged")
     override fun initObserver() {
 
@@ -382,15 +385,16 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         //showMessage(msg)
     }
 
-    override fun onGetHouseholdListSuccess(msg: String?, appId: String?) {
+    override fun onGetHouseholdListSuccess(msg: String?, appIdList: MutableList<String>?) {
         //binding.llNoContentText.visibility = View.VISIBLE
         // binding.llBody.visibility = View.GONE
         DialogUtil.dismissLottieDialog()
         if (msg != null) {
             //DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", msg)
-            if (appId != null) {
-                //  viewModel.updateBeneficiary(requireContext(), "6be82dbe-a3ee-49d2-976d-9c7e83f5ca2c")
-                viewModel.updateBeneficiary(requireContext(), appId)
+            if (appIdList != null) {
+                for (appId in appIdList) {
+                    viewModel.updateBeneficiary(requireContext(), appId)
+                }
             }
             val alertDialog = LottieAlertDialog.Builder(context, DialogTypes.TYPE_SUCCESS)
                 .setTitle("Success")
@@ -405,6 +409,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                 .build()
                 .show()
         }
+
         Log.d(TAG, "onGetHouseholdListSuccess() called with: msg = $msg")
         //showMessage(msg)
     }

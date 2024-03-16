@@ -122,7 +122,7 @@ interface HouseholdContract {
         fun navigateToHouseholdDetailsFromBeneficiary(item: Beneficiary?)
         fun onGetHouseholdList(items: List<HouseholdItem>?)
         fun onGetHouseholdListFailure(msg: String?)
-        fun onGetHouseholdListSuccess(msg: String?,appId:String?)
+        fun onGetHouseholdListSuccess(msg: String?,appIdList:MutableList<String>?)
 
         fun onSubmitFormSuccess(id: String?, pos: Int)
         fun onSubmitFormFailure(msg: String?)
