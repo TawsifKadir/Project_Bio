@@ -2,8 +2,16 @@ package com.xplo.code.core
 
 object TestConfig {
 
+    //for build just make it false
+    val isDummyDataEnabled = false  // default false
+
+
+
+
+
+
+
     val isValidationEnabled = true      // default true
-    val isDummyDataEnabled = true                                        // default false
     val isLongClickDGEnabled = true
     val isAutoDGEnabled = true
 
@@ -12,15 +20,12 @@ object TestConfig {
     val isNomineeAlwaysEnabled = true           // default true
     val isAlternateAddInHouseholdFlow = true    // default true
 
-    val isFakeLoginEnabled = false       // default true
-    //val isTestLoginEnabled = false    // default false
+    val isFakeLoginEnabled = false       // default false
 
     // only for nasif, for a temp purpose, will removed later
     val isNavHackEnabled = false        // default false
     val isNomineeFlow2Enabled = true    // default true
-    val isDevBarEnabled = true         // default false
 
     val isFingerPrintRequired = true   // default true
-    val isAlternateRequired = false     // default true
 
 }
