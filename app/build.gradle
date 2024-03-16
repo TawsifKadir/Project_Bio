@@ -20,7 +20,7 @@ android {
 
     compileSdk 34
     defaultConfig {
-        applicationId "com.xplo.skl"
+        applicationId "com.karooth.bio"
         minSdk 29
         targetSdk 34
         versionCode genVersionCode(versionMajor, versionMinor, versionPatch)
@@ -34,8 +34,8 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            applicationIdSuffix = ".dev"
-            versionNameSuffix = '-dev'
+            //applicationIdSuffix = ".dev"
+            //versionNameSuffix = '-dev'
 
             //buildConfigField "String", 'BASE_URL', '"http://stage.xplo.com/"'
             resValue "string", "app_version_name_bc", "Version: ${defaultConfig.versionName}-dev"
