@@ -1,6 +1,7 @@
 package com.xplo.code.ui.dashboard.household.forms
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -21,7 +22,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.GsonBuilder
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -36,21 +36,16 @@ import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.toBool
 import com.xplo.code.data.db.models.HouseholdItem
-import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.data.db.room.model.Beneficiary
-import com.xplo.code.data.mapper.EntityMapper
 import com.xplo.code.databinding.FragmentHouseholdHomeBinding
 import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
-import com.xplo.code.ui.dashboard.household.list.HouseholdListAdapter
 import com.xplo.code.ui.dashboard.household.list.HouseholdListAdapterNew
 import com.xplo.code.utils.DialogUtil
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
@@ -143,11 +138,18 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         viewModel.showBeneficiary(requireContext())
 
         DialogUtil.showLottieDialog(requireContext(), "Preparing Content", "Please wait")
+
+        binding.fab.setOnClickListener {
+            Toast.makeText(requireContext(), "Fab Button", Toast.LENGTH_SHORT).show()
+            viewModel.bulkBeneficiaryList(requireContext())
+        }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun initObserver() {
 
-        lifecycleScope.launchWhenStarted {
+
+        lifecycleScope.launch {
             viewModel.event.collect { event ->
                 when (event) {
 
@@ -180,10 +182,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                         DialogUtil.dismissLottieDialog()
                         // onGetHouseholdListSuccess(event.msg)
 
-                        if (event.beneficiary == null) {
-                            binding.llNoContentText.visibility = View.VISIBLE
-                            binding.llBody.visibility = View.GONE
-                        } else if (event.beneficiary.isEmpty()) {
+                        if (event.beneficiary.isEmpty()) {
                             binding.llNoContentText.visibility = View.VISIBLE
                             binding.llBody.visibility = View.GONE
                         } else {
@@ -217,10 +216,31 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                         viewModel.clearEvent()
                     }
 
+                    is HouseholdViewModel.Event.GetDataLocalDbForBulk -> {
+
+                        requireActivity().runOnUiThread {
+                            DialogUtil.showLottieDialog(
+                                requireContext(),
+                                "Data will sync to server",
+                                "Please wait"
+                            )
+                        }
+
+                        GlobalScope.launch(Dispatchers.IO) {
+
+                            viewModel.callRegisterApiBulk(requireContext(), event.beneficiaryList)
+                        }
+                        viewModel.clearEvent()
+                    }
+
                     is HouseholdViewModel.Event.DeleteDataLocalDbByAppId -> {
                         hideLoading()
                         if (event.beneficiary) {
-                            DialogUtil.showLottieDialog(requireContext(), "Preparing Content", "Please wait")
+                            DialogUtil.showLottieDialog(
+                                requireContext(),
+                                "Preparing Content",
+                                "Please wait"
+                            )
                             //requireActivity().finish()
                             viewModel.showBeneficiary(requireContext())
                         }
@@ -372,7 +392,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                 //  viewModel.updateBeneficiary(requireContext(), "6be82dbe-a3ee-49d2-976d-9c7e83f5ca2c")
                 viewModel.updateBeneficiary(requireContext(), appId)
             }
-            val alertDialog  = LottieAlertDialog.Builder(context, DialogTypes.TYPE_SUCCESS)
+            val alertDialog = LottieAlertDialog.Builder(context, DialogTypes.TYPE_SUCCESS)
                 .setTitle("Success")
                 .setDescription(msg)
                 .setPositiveText("Ok")
@@ -653,13 +673,21 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
     override fun onClickHouseholdItemSave(item: Beneficiary, pos: Int) {
         // Toast.makeText(requireContext(), "Coming Soon", Toast.LENGTH_SHORT).show()
-     //   viewModel.updateBeneficiary(requireContext(), item.applicationId)
+        //   viewModel.updateBeneficiary(requireContext(), item.applicationId)
         Log.d(TAG, "onClickHouseholdItemSave: ${item.isSynced}")
 
-        if (item.isSynced){
-             Toast.makeText(requireContext(), "Data is synced to remote database", Toast.LENGTH_SHORT).show()
-        }else{
-            Toast.makeText(requireContext(), "Click Data is synced to remote database", Toast.LENGTH_SHORT).show()
+        if (item.isSynced) {
+            Toast.makeText(
+                requireContext(),
+                "Data is synced to remote database",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Click Data is synced to remote database",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
