@@ -477,7 +477,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         Handler(Looper.getMainLooper()).postDelayed({
             etIdNumber.setText(form.idNumber)
             etIDType.setText(form.idNumberOthersvalue)
-        }, 200)
+        }, 1000)
 
     }
 

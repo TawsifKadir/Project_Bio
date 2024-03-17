@@ -445,7 +445,7 @@ class HhForm2PerInfoFragment : BasicFormFragment(), HouseholdContract.Form2View,
             etIdNumber.setText(form.idNumber)
             etIDType.setText(form.idNumberOthersvalue)
             etMonthlyAverageIncome.setText(form.monthlyAverageIncome.toString())
-        }, 200)
+        }, 1000)
 
     }
     fun doSomethingForRbA(items: List<CheckboxItem>) {
