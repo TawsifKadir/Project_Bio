@@ -318,7 +318,7 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
         val name = interactor?.getRootForm()?.form2.getFullName()
         val id = interactor?.getRootForm()?.id
         item.pos = pos
-        //onOpenAlternateForm(id, name, item, pos)
+        onOpenAlternateForm(id, name, item, pos)
     }
 
     override fun onClickAlternateFormDelete(item: AlternateForm, pos: Int) {
