@@ -1,11 +1,17 @@
 package com.xplo.code.utils
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
+import androidx.core.content.ContextCompat
 import com.labters.lottiealertdialoglibrary.ClickListener
 import com.labters.lottiealertdialoglibrary.DialogTypes
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog
+import com.xplo.code.R
 
 object DialogUtil {
+    @SuppressLint("StaticFieldLeak")
     var alertDialog: LottieAlertDialog? = null
 
     fun showLottieDialog(context: Context, title: String, description: String) {
@@ -28,15 +34,8 @@ object DialogUtil {
             }
     }
 
-    fun showLottieDialogFailMsg(context: Context,  description: String) {
-//        alertDialog = LottieAlertDialog.Builder(context, DialogTypes.TYPE_ERROR)
-//            .setTitle(title)
-//            .setDescription(description)
-//            .build().apply {
-//                show()
-//                setCancelable(true)
-//            }
-        val alertDialog = LottieAlertDialog.Builder(context, DialogTypes.TYPE_ERROR)
+    fun showLottieDialogFailMsg(context: Context, description: String) {
+        LottieAlertDialog.Builder(context, DialogTypes.TYPE_ERROR)
             .setTitle("Attention!")
             .setDescription(description)
             .setPositiveText("Ok")
@@ -45,8 +44,12 @@ object DialogUtil {
                     dialog.dismiss()
                 }
             })
-            .build()
-            .show()
+            .setPositiveButtonColor(Color.RED)
+            .setPositiveTextColor(Color.WHITE)
+            .build().apply {
+                show()
+                setCancelable(true)
+            }
 
     }
 
@@ -55,6 +58,3 @@ object DialogUtil {
         alertDialog?.dismiss()
     }
 }
-//just call
-//DialogUtil.showLottieDialog(requireContext(), "Preparing Content", "Please wait")
-//DialogUtil.dismissLottieDialog()
