@@ -1,5 +1,10 @@
 package com.xplo.code.ui.dashboard.household.forms
 
+//import com.karumi.dexter.Dexter
+//import com.karumi.dexter.MultiplePermissionsReport
+//import com.karumi.dexter.PermissionToken
+//import com.karumi.dexter.listener.PermissionRequest
+//import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import android.Manifest
 import android.app.Activity
 import android.content.Context
@@ -27,15 +32,16 @@ import com.fondesa.kpermissions.anyPermanentlyDenied
 import com.fondesa.kpermissions.anyShouldShowRationale
 import com.fondesa.kpermissions.extension.permissionsBuilder
 import com.fondesa.kpermissions.request.PermissionRequest
-//import com.karumi.dexter.Dexter
-//import com.karumi.dexter.MultiplePermissionsReport
-//import com.karumi.dexter.PermissionToken
-//import com.karumi.dexter.listener.PermissionRequest
-//import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.kit.integrationmanager.model.BiometricUserType
+import com.kit.photocapture.Utility
+import com.xplo.code.BuildConfig
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
+import com.xplo.code.core.ext.isTiramisu
+import com.xplo.code.core.ext.showGrantedToast
+import com.xplo.code.core.ext.showPermanentlyDeniedDialog
+import com.xplo.code.core.ext.showRationaleDialog
 import com.xplo.code.databinding.FragmentHhForm4CapPhotoBinding
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdContract
@@ -47,12 +53,6 @@ import com.xplo.code.ui.photo.ImagePickerActivity
 import com.xplo.code.ui.photo.ImageUtil
 import com.xplo.code.utils.FormAppUtils
 
-import com.xplo.code.BuildConfig
-import com.xplo.code.core.ext.isTiramisu
-import com.xplo.code.core.ext.showGrantedToast
-import com.xplo.code.core.ext.showPermanentlyDeniedDialog
-import com.xplo.code.core.ext.showRationaleDialog
-import com.xplo.code.utils.ImageUtils
 import com.xplo.code.utils.PermissionHelper
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
@@ -227,7 +227,9 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
         }
 
         binding.quickStartCroppedImage.setOnClickListener {
-            onClickCapturePhoto()
+            //onClickCapturePhoto()
+            val nowIntent = Intent(requireContext(), com.kit.photocapture.PhotoCaptureActivity::class.java)
+            startActivityForResult(nowIntent, 2)
         }
 
         request.addListener(this)
@@ -421,10 +423,44 @@ class HhForm4CapPhotoFragment : BasicFormFragment(), HouseholdContract.Form4View
         data: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, data)
+        /*
         if (requestCode == REQUEST_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 val uri = data!!.getParcelableExtra<Uri>("path")
                 onGetImageUri(uri)
+            }
+        }
+         */
+
+        if (requestCode == 2) {
+            if (resultCode == Activity.RESULT_OK) {
+
+                val uriStr = data!!.getStringExtra("IMAGE_URI")
+                Log.d(TAG, "Received URI $uriStr")
+                if (uriStr != null) {
+                    val imgUri = Uri.parse(uriStr)
+                    onGetImageUri(imgUri)
+//                    val nowBmp = Utility.getImageData(requireContext(), imgUri)
+//                    if (nowBmp != null) {
+//                        if (mPhotoView != null) {
+//                            mPhotoView.setImageBitmap(nowBmp)
+//                            val nowData = convertBitmapToByteArray(nowBmp)
+//                            if (nowData != null) {
+//                                Log.d(TAG, "IMAGE SIZE IS : " + nowData.size)
+//                                Log.d(TAG, "IMAGE WIDTH IS : " + nowBmp.width)
+//                                Log.d(TAG, "IMAGE HEIGHT IS : " + nowBmp.height)
+//                            } else {
+//                                Log.e(TAG, "BITMAP TO BYTE CONVERSION ERROR ")
+//                            }
+//                        }
+//                    } else {
+//                        Log.e(TAG, "Error converting Uri to BMP")
+//                    }
+                } else {
+                    Log.e(TAG, "Received null uri from activity")
+                }
+            } else {
+                Log.d(TAG, "Error occurred ")
             }
         }
     }
