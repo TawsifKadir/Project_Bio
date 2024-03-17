@@ -88,7 +88,7 @@ object DbExporter {
     }
 
     private fun showExportErrorDialog(context: Context, title: String, message: String) {
-        DialogUtil.showLottieDialogFailMsg(context, title, message)
+        DialogUtil.showLottieDialogFailMsg(context, message)
     }
 
     private fun askForStoragePermission(activity: Activity) {

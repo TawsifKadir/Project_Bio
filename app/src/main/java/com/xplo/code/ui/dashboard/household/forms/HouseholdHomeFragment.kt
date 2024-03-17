@@ -43,6 +43,7 @@ import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.list.HouseholdListAdapterNew
 import com.xplo.code.utils.DialogUtil
+import com.xplo.code.utils.DialogUtil.showLottieDialogFailMsg
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -378,7 +379,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
         DialogUtil.dismissLottieDialog()
         if (msg != null) {
-            DialogUtil.showLottieDialogFailMsg(requireContext(), "Error", msg)
+            DialogUtil.showLottieDialogFailMsg(requireContext(), msg)
         }
         Log.d(TAG, "onGetHouseholdListFailure() called with: msg = $msg")
         //showMessage(msg)
@@ -660,16 +661,10 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         if (item.alternateSize >= 2) {
 //            Toast.makeText(requireContext(), "Maximum 2 Alternate Add Options.", Toast.LENGTH_SHORT)
 //                .show()
-            showDialogError("Maximum 2 Alternate Add Options.")
+            showLottieDialogFailMsg(requireContext(), "Maximum 2 Alternate Add Options.")
         } else if (item.applicationStatus == 1) {
-//            Toast.makeText(
-//                requireContext(),
-//                "Completed Data Not Edit Permission",
-//                Toast.LENGTH_SHORT
-//            )
-//                .show()
 
-            showDialogError("Completed Data Not Edit Permission")
+            showLottieDialogFailMsg(requireContext(), "Completed Data Not Edit Permission")
 
         } else {
             // navigateToAlternate(item.applicationId)
@@ -705,20 +700,6 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                 Toast.LENGTH_SHORT
             ).show()
         }
-    }
-
-    fun showDialogError(msg: String?) {
-        val alertDialog = LottieAlertDialog.Builder(context, DialogTypes.TYPE_ERROR)
-            .setTitle("Attention!")
-            .setDescription(msg)
-            .setPositiveText("Ok")
-            .setPositiveListener(object : ClickListener {
-                override fun onClick(dialog: LottieAlertDialog) {
-                    dialog.dismiss()
-                }
-            })
-            .build()
-            .show()
     }
 
 
