@@ -19,7 +19,6 @@ import android.widget.Spinner
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.google.api.Distribution.BucketOptions.Linear
 import com.kit.integrationmanager.model.IDtypeEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.xplo.code.R
@@ -27,10 +26,7 @@ import com.xplo.code.core.Bk
 import com.xplo.code.core.TestConfig
 import com.xplo.code.core.ext.checkRbOpAB
 import com.xplo.code.core.ext.gone
-import com.xplo.code.core.ext.toBool
 import com.xplo.code.core.ext.visible
-import com.xplo.code.data.db.models.HouseholdItem
-import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.databinding.FragmentAlForm1PerInfoBinding
 import com.xplo.code.ui.dashboard.UiData
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
@@ -39,10 +35,10 @@ import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.list.CheckboxListAdapter
 import com.xplo.code.ui.dashboard.model.AlForm1
 import com.xplo.code.ui.dashboard.model.CheckboxItem
-import com.xplo.code.ui.dashboard.model.getFullName
 import com.xplo.code.ui.dashboard.model.isOk
 
 import com.xplo.code.BuildConfig
+import com.xplo.code.core.ext.checkRbPosNeg
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -97,12 +93,16 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
     private lateinit var spGender: Spinner
     private lateinit var spAlternateRelation: Spinner
     private lateinit var etPhoneNo: EditText
-    private lateinit var etIdNumber: EditText
-    private lateinit var etIDType: EditText
+
+    //private lateinit var etIDType: EditText
     private lateinit var etAge: EditText
-    private lateinit var etIdType: EditText
-    private lateinit var etothers: EditText
+
+    private lateinit var etOtherRelation: EditText
+
     private lateinit var spIdType: Spinner
+    private lateinit var etIdTypeOther: EditText
+    private lateinit var etIdNumber: EditText
+
     private lateinit var rgId: RadioGroup
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -142,9 +142,9 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         spGender = binding.spGender
         spAlternateRelation = binding.spAlternateRelation
         etPhoneNo = binding.etPhoneNo
-        etIdNumber = binding.etIdNumber
+        //etIdNumber = binding.etIdNumber
         etAge = binding.etAge
-        spIdType = binding.spIdType
+
         rgId = binding.rgId
         idType = binding.IdType
         alternateOtherRelation = binding.otherAlternateRelation
@@ -153,8 +153,12 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         etAlternateMiddleName = binding.etAlternateMiddleName
         etAlternateLastName = binding.etAlternateLastName
         etAlternateNickName =binding.etAlternateNickName
-        etIDType = binding.etIDType
-        etothers = binding.etotherstext
+
+        spIdType = binding.spIdType
+        etIdTypeOther = binding.etIdTypeOther
+        etIdNumber = binding.etIdNumber
+
+        etOtherRelation = binding.etOtherRelation
     }
 
     override fun initView() {
@@ -264,7 +268,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
                 }else if (selectedItem.equals(UiData.idType[3], ignoreCase = true)) {  ///Other Selected
 //                    etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
                     idType.visible()
-                    etIDType.setText("")
+                    etIdTypeOther.setText("")
                     etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
                     etIdNumber.setText("")
                 }
@@ -373,7 +377,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
 
         form.selectAlternateRlt = chkSpinner(spAlternateRelation, UiData.ER_SP_DF)
         if (form.selectAlternateRlt.equals(RelationshipEnum.OTHER.value, true)){
-            form.relationOther = chkEditText3CharAllowSpace(etothers, UiData.ER_ET_DF)
+            form.relationOther = chkEditText3CharAllowSpace(etOtherRelation, UiData.ER_ET_DF)
         }
 
         form.gender = chkSpinner(spGender, UiData.ER_SP_DF)
@@ -384,7 +388,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
             if (spIdType.selectedItem.toString().equals(IDtypeEnum.OTHERS.value, ignoreCase = true)){
                 form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
                 form.idNumber = checkIDNumber(etIdNumber, UiData.ER_ET_DF, form.idNumberType)
-                form.idNumberOthersvalue = chkEditText3CharAllowSpace(etIDType, UiData.ER_ET_DF)
+                form.idNumberTypeOther = chkEditText3CharAllowSpace(etIdTypeOther, UiData.ER_ET_DF)
             }else{
                 form.idNumberType = chkSpinner(spIdType, UiData.ER_SP_DF)
                 form.idNumber = checkIDNumber(etIdNumber, UiData.ER_ET_DF, form.idNumberType)
@@ -462,7 +466,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
         setSpinnerItem(spGender, UiData.genderOptions, form.gender)
         setSpinnerItem(spAlternateRelation, UiData.relationshipOptions, form.selectAlternateRlt)
         setSpinnerItem(spIdType, UiData.idType, form.idNumberType)
-        rgId.checkRbOpAB(binding.rbYes, binding.rbNo, form.idIsOrNot)
+        rgId.checkRbPosNeg(binding.rbYes, binding.rbNo, form.idIsOrNot)
         etAge.setText(form.age.toString())
         etIdNumber.setText(form.idNumber)
         etPhoneNo.setText(form.phoneNumber)
@@ -476,8 +480,9 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
 
         Handler(Looper.getMainLooper()).postDelayed({
             etIdNumber.setText(form.idNumber)
-            etIDType.setText(form.idNumberOthersvalue)
-        }, 200)
+            etIdTypeOther.setText(form.idNumberTypeOther)
+            etOtherRelation.setText(form.relationOther)
+        }, 1000)
 
     }
 

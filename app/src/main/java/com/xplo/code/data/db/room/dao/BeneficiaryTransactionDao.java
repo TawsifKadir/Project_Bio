@@ -4,7 +4,6 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Transaction;
 
-
 import com.xplo.code.data.db.room.model.Address;
 import com.xplo.code.data.db.room.model.Alternate;
 import com.xplo.code.data.db.room.model.Beneficiary;
@@ -13,6 +12,7 @@ import com.xplo.code.data.db.room.model.HouseholdInfo;
 import com.xplo.code.data.db.room.model.Location;
 import com.xplo.code.data.db.room.model.Nominee;
 import com.xplo.code.data.db.room.model.SelectionReason;
+import com.xplo.code.data.db.room.model.SyncBeneficiary;
 
 import java.util.List;
 
@@ -86,4 +86,7 @@ public abstract class BeneficiaryTransactionDao {
 
     @Insert
     abstract void insert(SelectionReason selectionReason);
+
+    @Insert
+    abstract void insert(SyncBeneficiary syncBeneficiary);
 }

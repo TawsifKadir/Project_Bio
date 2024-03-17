@@ -242,7 +242,7 @@ object EntityMapper {
             alternate.documentType = DocumentTypeEnum.find(item.form1?.idNumberType)
         }
 
-        alternate.documentTypeOther = item.form1?.idNumberOthersvalue
+        alternate.documentTypeOther = item.form1?.idNumberTypeOther
         alternate.relationshipWithHouseholdHead =
             RelationshipEnum.find(item.form1?.selectAlternateRlt)
         alternate.relationshipOther = item.form1?.relationOther

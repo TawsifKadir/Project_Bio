@@ -2,7 +2,9 @@ package com.xplo.code.ui.login
 
 import android.content.Context
 import android.util.Log
+import androidx.annotation.Keep
 import com.google.gson.Gson
+import com.google.gson.annotations.SerializedName
 import com.xplo.code.core.ext.toBool
 import com.xplo.code.data_module.model.user.TokenRsp
 import com.xplo.code.ui.login.model.LoginCredentials
@@ -120,8 +122,10 @@ object OfflineLoginUtils {
     }
 }
 
-
+@Keep
 data class LoginInfo(
+    @SerializedName("credentials")
     val credentials: LoginCredentials?,
+    @SerializedName("tokenRsp")
     val tokenRsp: TokenRsp?
 )

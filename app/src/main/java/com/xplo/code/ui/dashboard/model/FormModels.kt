@@ -371,7 +371,7 @@ data class AlForm1(
     var alternateNickName: String? = null,
     var age: Int? = null,
     var idNumber: String? = null,
-    var idNumberOthersvalue: String? = null,
+    var idNumberTypeOther: String? = null,
     var idNumberType: String? = null,
     var idIsOrNot: String? = null,
     var phoneNumber: String? = null,

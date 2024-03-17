@@ -1,5 +1,8 @@
 package com.xplo.code.ui.login.model
 
+import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
+
 /**
  * Copyright 2020 (C) xplo
  *
@@ -9,7 +12,10 @@ package com.xplo.code.ui.login.model
  * Desc     :
  * Comment  :
  */
+@Keep
 data class LoginCredentials(
+    @SerializedName("userId")
     var userId: String? = null,
-    var password: String? = null,
+    @SerializedName("password")
+    var password: String? = null
 )

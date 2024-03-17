@@ -12,9 +12,7 @@ import android.provider.Settings
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.airbnb.lottie.Lottie
 import com.xplo.code.BuildConfig
-import com.xplo.code.data.db.DbController
 import com.xplo.code.data.db.room.database.BeneficiaryDatabase.dbCloseFromDB
 import java.io.File
 import java.io.FileInputStream
@@ -44,7 +42,7 @@ object DbExporter {
                 dbCloseFromDB()
                 exportDatabase(context, dbFile)
             } else {
-                showExportErrorDialog(context, "Error", "Database file does not exist.")
+                DialogUtil.showLottieDialogFailMsg(context, "Database file does not exist.")
             }
         } catch (e: IOException) {
             e.printStackTrace()
@@ -67,29 +65,22 @@ object DbExporter {
                 src.close()
                 dst.close()
 
-                showExportSuccessDialog(context)
+                DialogUtil.showLottieDialogSuccessMsg(
+                    context,
+                    "Success",
+                    "Database exported successfully. Please check in your folder (bio_reg/database)"
+                )
                 Log.d("DatabaseExport", "Database exported successfully.")
             } else {
-                showExportErrorDialog(context, "Error", "Source database file does not exist.")
+                DialogUtil.showLottieDialogFailMsg(context, "Source database file does not exist.")
                 Log.e("DatabaseExport", "Source database file does not exist.")
             }
         } catch (e: Exception) {
-            showExportErrorDialog(context, "Error", "Error exporting database: ${e.message}")
+            DialogUtil.showLottieDialogFailMsg(context, "Error exporting database: ${e.message}")
             Log.e("DatabaseExport", "Error exporting database: ${e.message}", e)
         }
     }
 
-    private fun showExportSuccessDialog(context: Context) {
-        DialogUtil.showLottieDialogSuccessMsg(
-            context,
-            "Success",
-            "Database exported successfully. Please check in your folder (bio_reg/database)"
-        )
-    }
-
-    private fun showExportErrorDialog(context: Context, title: String, message: String) {
-        DialogUtil.showLottieDialogFailMsg(context, title, message)
-    }
 
     private fun askForStoragePermission(activity: Activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -117,88 +108,3 @@ object DbExporter {
         }
     }
 }
-
-//
-//object DbExporter {
-//
-//    private const val DB_NAME = "benedb.db"
-//
-//    fun exportWithPermission(context: Context, activity: Activity) {
-//        if (!hasStoragePermission(context)) {
-//            Log.d("TAG", "exportWithPermission: ")
-//            // ask permission
-//            askForPermission(activity)
-//            return
-//        }
-//        Log.d("TAG", "exportWithPermission:2 ")
-//
-//        dbCloseFromDB()
-//        //DbController.close()
-//        exportToSQLite(context)
-//    }
-//
-//    fun exportToSQLite(context: Context) {
-//        try {
-//            val dbFile: File = context.getDatabasePath(DB_NAME)
-//
-//            if (dbFile.exists()) {
-//                try {
-//                    val exportDir =
-//                        File(Environment.getExternalStorageDirectory(), "bio_reg/database")
-//                    if (!exportDir.exists()) exportDir.mkdirs()
-//
-//                    val exportFile = File(exportDir, DB_NAME)
-//                    exportFile.createNewFile()
-//
-//                    val src = FileInputStream(dbFile).channel
-//                    val dst = FileOutputStream(exportFile).channel
-//                    dst.transferFrom(src, 0, src.size())
-//
-//                    src.close()
-//                    dst.close()
-//
-//                    DialogUtil.showLottieDialogSuccessMsg(context, "Success", "Database exported successfully.Please Check in your folder(bio_reg/database)")
-//                    Log.d("DatabaseExport", "Database exported successfully.")
-//                } catch (e: Exception) {
-//                    DialogUtil.showLottieDialogFailMsg(context, "Error", "Error exporting database: ${e.message}")
-//                    Log.e("DatabaseExport", "Error exporting database: ${e.message}")
-//                }
-//            } else {
-//                DialogUtil.showLottieDialogFailMsg(context, "Error", "Database file does not exist.")
-//                Log.e("DatabaseExport", "Database file does not exist.")
-//            }
-//        } catch (e: IOException) {
-//            e.printStackTrace()
-//        }
-//    }
-//
-//    fun askForPermission(activity: Activity) {
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//            val uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID)
-//            activity.startActivity(
-//                Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri)
-//            )
-//            return
-//        }
-//
-//        // Permission is not granted, request it
-//        ActivityCompat.requestPermissions(
-//            activity,
-//            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-//            100
-//        )
-//    }
-//
-//    fun hasStoragePermission(context: Context): Boolean {
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//            return Environment.isExternalStorageManager()
-//        }
-//
-//        return ContextCompat.checkSelfPermission(
-//            context,
-//            Manifest.permission.WRITE_EXTERNAL_STORAGE
-//        ) != PackageManager.PERMISSION_GRANTED
-//    }
-//}

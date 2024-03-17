@@ -6,10 +6,13 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.kit.integrationmanager.model.AlternatePayee
 import com.kit.integrationmanager.model.Beneficiary
+import com.kit.integrationmanager.model.BiometricType
 import com.kit.integrationmanager.model.CurrencyEnum
 import com.kit.integrationmanager.model.DocumentTypeEnum
 import com.kit.integrationmanager.model.GenderEnum
+import com.kit.integrationmanager.model.HouseholdMember
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.LegalStatusEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
@@ -27,12 +30,20 @@ import com.xplo.code.data.db.repo.DbRepo
 import com.xplo.code.data.db.room.dao.AddressDao
 import com.xplo.code.data.db.room.dao.AlternateDao
 import com.xplo.code.data.db.room.dao.BeneficiaryDao
+import com.xplo.code.data.db.room.dao.BeneficiaryTransactionDao
 import com.xplo.code.data.db.room.dao.BiometricDao
 import com.xplo.code.data.db.room.dao.HouseholdInfoDao
 import com.xplo.code.data.db.room.dao.LocationDao
 import com.xplo.code.data.db.room.dao.NomineeDao
 import com.xplo.code.data.db.room.dao.SelectionReasonDao
 import com.xplo.code.data.db.room.database.BeneficiaryDatabase
+import com.xplo.code.data.db.room.database.DatabaseExecutors
+import com.xplo.code.data.db.room.model.Alternate
+import com.xplo.code.data.db.room.model.Biometric
+import com.xplo.code.data.db.room.model.HouseholdInfo
+import com.xplo.code.data.db.room.model.Nominee
+import com.xplo.code.data.db.room.model.SelectionReason
+import com.xplo.code.data.db.room.model.SyncBeneficiary
 import com.xplo.code.data.mapper.BeneficiaryMapper
 import com.xplo.code.data.mapper.EntityMapper
 import com.xplo.code.data_module.core.DispatcherProvider
@@ -41,13 +52,17 @@ import com.xplo.code.data_module.model.content.Address
 import com.xplo.code.data_module.model.content.Location
 import com.xplo.code.data_module.repo.UserRepo
 import com.xplo.code.ui.dashboard.DashboardFragment
+import com.xplo.code.ui.dashboard.household.forms.HhPreviewFragment
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.toJson
+import com.xplo.code.utils.DialogUtil
 import com.xplo.code.utils.IMHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.ArrayList
 import java.util.Observable
 import java.util.Observer
@@ -82,7 +97,9 @@ class HouseholdViewModel @Inject constructor(
 
         class GetHouseholdItemsSuccess(val items: List<HouseholdItem>?) : Event()
         class GetHouseholdItemsFailure(val msg: String?) : Event()
-        class GetHouseholdItemsSuccessMsg(val msg: String?, val appId: MutableList<String>) : Event()
+        class GetHouseholdItemsSuccessMsg(val msg: String?, val appId: MutableList<String>) :
+            Event()
+
         class UpdateHouseholdItemSuccess(val id: String?) : Event()
         class UpdateHouseholdItemFailure(val msg: String?) : Event()
 
@@ -138,6 +155,10 @@ class HouseholdViewModel @Inject constructor(
 
         class UpdateDataLocalDb(val msg: Boolean) :
             Event()
+
+        class InsertDataLocalDb(val msg: String) :
+            Event()
+
 
         class GetDataLocalDbByAppId(val beneficiary: Beneficiary) :
             Event()
@@ -621,10 +642,14 @@ class HouseholdViewModel @Inject constructor(
 
             }
 
+            if (dataList.size > 0) {
+                _event.value = Event.GetDataLocalDbForBulk(dataList)
+            } else {
+                _event.value = Event.GetHouseholdItemsFailure("No Beneficiary Found For Bulk Sync.")
+            }
 
             //Log.d(TAG, "showBeneficiary: ${form.alternatePayee1.payeeAge}")
             Log.d(TAG, "bulkBeneficiaryList: ${beneficiaryList.size}")
-            _event.value = Event.GetDataLocalDbForBulk(dataList)
         }
     }
 
@@ -767,29 +792,34 @@ class HouseholdViewModel @Inject constructor(
     }
 
     fun showBeneficiary(context: Context) {
-        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
-        //_event.value = Event.Loading
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context)
+
         viewModelScope.launch(dispatchers.io) {
             val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
             val nomineeDao = mDatabase.nomineeDao()
             val alternateDao = mDatabase.alternateDao()
             val biometricDao = mDatabase.biometricDao()
-            val beneficiary = beneficiaryDao.allBeneficiaries
-            for (iten in beneficiary) {
-                val nominee = nomineeDao.getNomineeListByAppId(iten.applicationId)
-                val alternate = alternateDao.getAlternateList(iten.applicationId)
-                val biometric = biometricDao.getPhoto(iten.applicationId)
-                Log.d(TAG, "showBeneficiary: ${nominee.size}")
-                Log.d(TAG, "showBeneficiary: ${alternate.size}")
-                iten.alternateSize = alternate.size
-                iten.nomineeSize = nominee.size
-                iten.photoPath = biometric.photo
+
+            val beneficiaries = beneficiaryDao.allBeneficiaries
+
+            beneficiaries.forEach { beneficiary ->
+                val nomineeList = nomineeDao.getNomineeListByAppId(beneficiary.applicationId)
+                val alternateList = alternateDao.getAlternateList(beneficiary.applicationId)
+                val biometric = biometricDao.getPhoto(beneficiary.applicationId)
+
+                beneficiary.alternateSize = alternateList.size
+                beneficiary.nomineeSize = nomineeList.size
+                beneficiary.photoPath = biometric.photo
+
+                Log.d(TAG, "showBeneficiary: Nominee count - ${nomineeList.size}")
+                Log.d(TAG, "showBeneficiary: Alternate count - ${alternateList.size}")
             }
-            Log.d(TAG, "showBeneficiary: $beneficiary")
-            _event.value = Event.GetDataLocalDb(beneficiary)
-            //   mDatabase.close()
+
+            Log.d(TAG, "showBeneficiary: Beneficiaries - $beneficiaries")
+            _event.value = Event.GetDataLocalDb(beneficiaries)
         }
 
+        // Note: No need to close the database here since you're using Room, which manages database connections automatically.
     }
 
     fun updateBeneficiary(context: Context, appId: String) {
@@ -803,6 +833,177 @@ class HouseholdViewModel @Inject constructor(
             _event.value = Event.UpdateDataLocalDb(true)
         }
         // mDatabase.close()
+    }
+
+    fun insertBeneficiary(context: Context, beneficiaryBO: Beneficiary, applicationStatus: Int) {
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
+        viewModelScope.launch(dispatchers.io) {
+
+            //MappingDb Mapping data to local db
+            Log.d(
+                HhPreviewFragment.TAG,
+                "insertBeneficiary() called with: beneficiaryBO = $beneficiaryBO"
+            )
+            try {
+                DatabaseExecutors.getInstance().diskIO().execute {
+                    val uuid = beneficiaryBO.applicationId
+                    val beneficiaryEO: com.xplo.code.data.db.room.model.Beneficiary =
+                        if (beneficiaryBO.nominees.isNullOrEmpty()) {
+                            prepareBeneficiaryEntity(uuid, beneficiaryBO, 0, applicationStatus)
+                        } else {
+                            prepareBeneficiaryEntity(
+                                uuid,
+                                beneficiaryBO,
+                                beneficiaryBO.nominees.size,
+                                applicationStatus
+                            )
+                        }
+
+                    val addressEO: com.xplo.code.data.db.room.model.Address =
+                        prepareAddressEntity(uuid, beneficiaryBO.address)
+                    val locationEO: com.xplo.code.data.db.room.model.Location =
+                        prepareLocationEntity(uuid, beneficiaryBO.location)
+
+                    val selectionReasonList: List<SelectionReason> =
+                        prepareSelectionReasonEntity(uuid, beneficiaryBO.selectionReason)
+
+                    val alternateList: MutableList<Alternate> =
+                        ArrayList<Alternate>()
+                    if (beneficiaryBO.alternatePayee1 != null) {
+                        val firstAlternateEO: Alternate =
+                            prepareAlternateEntity(
+                                uuid,
+                                beneficiaryBO.alternatePayee1,
+                                "ALT1"
+                            )
+                        alternateList.add(firstAlternateEO)
+                    }
+                    if (beneficiaryBO.alternatePayee2 != null) {
+                        val secondAlternateEO: Alternate =
+                            prepareAlternateEntity(
+                                uuid,
+                                beneficiaryBO.alternatePayee2,
+                                "ALT2"
+                            )
+                        alternateList.add(secondAlternateEO)
+                    }
+
+                    var nomineeList: List<Nominee> = ArrayList<Nominee>()
+                    if (beneficiaryBO.nominees != null) {
+                        nomineeList = prepareNomineeEntity(uuid, beneficiaryBO.nominees)
+                    }
+
+                    val householdInfoList: MutableList<HouseholdInfo> =
+                        ArrayList<HouseholdInfo>()
+                    val householdInfo2EO: HouseholdInfo =
+                        prepareHouseholdInfoEntity(
+                            uuid,
+                            beneficiaryBO.householdMember2,
+                            "M2"
+                        )
+                    householdInfoList.add(householdInfo2EO)
+                    val householdInfo5EO: HouseholdInfo =
+                        prepareHouseholdInfoEntity(
+                            uuid,
+                            beneficiaryBO.householdMember5,
+                            "M5"
+                        )
+                    householdInfoList.add(householdInfo5EO)
+                    val householdInfo17EO: HouseholdInfo =
+                        prepareHouseholdInfoEntity(
+                            uuid,
+                            beneficiaryBO.householdMember17,
+                            "M17"
+                        )
+                    householdInfoList.add(householdInfo17EO)
+                    val householdInfo35EO: HouseholdInfo =
+                        prepareHouseholdInfoEntity(
+                            uuid,
+                            beneficiaryBO.householdMember35,
+                            "M35"
+                        )
+                    householdInfoList.add(householdInfo35EO)
+                    val householdInfo64EO: HouseholdInfo =
+                        prepareHouseholdInfoEntity(
+                            uuid,
+                            beneficiaryBO.householdMember64,
+                            "M64"
+                        )
+                    householdInfoList.add(householdInfo64EO)
+                    val householdInfo65EO: HouseholdInfo =
+                        prepareHouseholdInfoEntity(
+                            uuid,
+                            beneficiaryBO.householdMember65,
+                            "M65"
+                        )
+                    householdInfoList.add(householdInfo65EO)
+
+                    val biometricList: MutableList<Biometric> =
+                        ArrayList<Biometric>()
+                    if (beneficiaryBO.biometrics != null) {
+                        val beneficiaryBiometric: Biometric =
+                            prepareBiometricEntity(uuid, beneficiaryBO.biometrics, "BENE")
+                        biometricList.add(beneficiaryBiometric)
+                    }
+                    if (beneficiaryBO.alternatePayee1 != null && beneficiaryBO.alternatePayee1
+                            .biometrics != null
+                    ) {
+                        val alternate1Biometric: Biometric = prepareBiometricEntity(
+                            uuid,
+                            beneficiaryBO.alternatePayee1.biometrics, "ALT1"
+                        )
+                        biometricList.add(alternate1Biometric)
+                    }
+                    if (beneficiaryBO.alternatePayee2 != null && beneficiaryBO.alternatePayee2
+                            .biometrics != null
+                    ) {
+                        val alternate2Biometric: Biometric = prepareBiometricEntity(
+                            uuid,
+                            beneficiaryBO.alternatePayee2.biometrics, "ALT2"
+                        )
+                        biometricList.add(alternate2Biometric)
+                    }
+                    val beneficiaryTransactionDao: BeneficiaryTransactionDao =
+                        mDatabase.beneficiaryTransactionDao()
+                    beneficiaryTransactionDao.insertBeneficiaryRecord(
+                        beneficiaryEO, addressEO, locationEO,
+                        biometricList,
+                        householdInfoList, alternateList, nomineeList, selectionReasonList
+                    )
+
+                    Log.d(HhPreviewFragment.TAG, "Inserted the beneficiary data")
+                    _event.value = Event.InsertDataLocalDb("Inserted the beneficiary data")
+                }
+            } catch (ex: Exception) {
+                _event.value =
+                    Event.SaveFormPEntityFailure("Error while sending data : " + ex.message)
+
+                Log.e(HhPreviewFragment.TAG, "Error while sending data : " + ex.message)
+                ex.printStackTrace()
+            }
+        }
+        // mDatabase.close()
+    }
+
+    fun deleteAndInsertBeneficiary(context: Context, appId: String) {
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context)
+
+        viewModelScope.launch(dispatchers.io) {
+            // Delete the beneficiary with the given application ID
+            deleteBeneficiary(context, appId)
+
+            // Insert a new beneficiary
+            val insertSyncBeneficiary = SyncBeneficiary().apply {
+                applicationId = appId
+                beneficiaryName = "Test"
+            }
+            val insertedId =
+                mDatabase.syncBeneficiaryDao().insertSyncBeneficiary(insertSyncBeneficiary)
+
+            Log.d(TAG, "Inserted beneficiary with ID: $insertedId")
+
+            _event.value = Event.UpdateDataLocalDb(true)
+        }
     }
 
 
@@ -1212,28 +1413,38 @@ class HouseholdViewModel @Inject constructor(
 
     }
 
-    public fun callRegisterApi(context: Context, beneficiary: Beneficiary?) {
+    fun callRegisterApi(context: Context, beneficiary: Beneficiary?) {
         Log.d(TAG, "callRegisterApi() called with: context = $context, beneficiary = $beneficiary")
 
-        //beneficiary?.alternatePayee1?.biometrics = null
-        val json = Gson().toJson(beneficiary?.alternatePayee1?.payeePhoneNo)
-        Log.d(TAG, "callRegisterApi: json: $json")
+        beneficiary?.let { validBeneficiary ->
+            // Uncomment the line below if you need to log the JSON representation of the payee phone number
+            // val json = Gson().toJson(validBeneficiary.alternatePayee1?.payeePhoneNo)
+            // Log.d(TAG, "JSON representation of payee phone number: $json")
 
-        val integrationManager = IMHelper.getIntegrationManager(context, this)
-        val header = IMHelper.getHeader()
-        integrationManager.syncRecord(beneficiary, header)
+            val integrationManager = IMHelper.getIntegrationManager(context, this)
+            val header = IMHelper.getHeader()
+            integrationManager.syncRecord(validBeneficiary, header)
+        } ?: run {
+            Log.e(TAG, "Beneficiary is null.")
+        }
     }
 
-    public fun callRegisterApiBulk(context: Context, beneficiary: ArrayList<Beneficiary>?) {
+
+    fun callRegisterApiBulk(context: Context, beneficiaries: ArrayList<Beneficiary>?) {
         Log.d(
             TAG,
-            "callRegisterApiBulk= $context, beneficiary = ${beneficiary?.size}"
+            "callRegisterApiBulk - Context: $context, Beneficiary Count: ${beneficiaries?.size}"
         )
 
-        val integrationManager = IMHelper.getIntegrationManager(context, this)
-        val header = IMHelper.getHeader()
-        integrationManager.syncRecords(beneficiary, header)
+        beneficiaries?.let { beneficiaryList ->
+            val integrationManager = IMHelper.getIntegrationManager(context, this)
+            val header = IMHelper.getHeader()
+            integrationManager.syncRecords(beneficiaryList, header)
+        } ?: run {
+            Log.e(TAG, "Beneficiaries list is null or empty.")
+        }
     }
+
 
     override fun syncBeneficiaryEntity(context: Context, entity: BeneficiaryEntity?, pos: Int) {
         Log.d(
@@ -1282,82 +1493,115 @@ class HouseholdViewModel @Inject constructor(
 
     private fun onGetSyncResult(arg: RegistrationResult?) {
         viewModelScope.launch(dispatchers.io) {
-            if (arg == null) {
-                _event.value =
-                    Event.GetHouseholdItemsFailure("Received null parameter in update. Returning...")
-            } else {
-                var appId = ""
-                val registrationResult = arg as? RegistrationResult
-                if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
+            arg?.let { registrationResult ->
+                if (registrationResult.syncStatus == RegistrationStatus.SUCCESS) {
                     Log.d(DashboardFragment.TAG, "Registration Successful")
-
                     val appIds = registrationResult.applicationIds
-                    if (appIds == null) {
-                        Log.e(
-                            DashboardFragment.TAG,
-                            "No beneficiary list received. Returning ... "
-                        )
-                        //_event.value = Event.GetHouseholdItemsSuccessMsg("No beneficiary list received. Returning ... ")
+                    if (appIds.isNullOrEmpty()) {
+                        Log.e(DashboardFragment.TAG, "No beneficiary list received. Returning ...")
+                        _event.value =
+                            Event.GetHouseholdItemsFailure("No beneficiary list received.")
+                    } else {
+                        Log.d(DashboardFragment.TAG, "Registered following users:")
+                        appIds.forEach { nowId ->
+                            Log.d(DashboardFragment.TAG, "Beneficiary ID: $nowId")
+                        }
+                        _event.value =
+                            Event.GetHouseholdItemsSuccessMsg("Registration Successful", appIds)
                     }
-                    Log.d(DashboardFragment.TAG, "Registered following users: ")
-                    for (nowId in appIds) {
-                        // _event.value = Event.GetHouseholdItemsSuccessMsg("Beneficiary ID : $nowId")
-                        Log.d(DashboardFragment.TAG, "Beneficiary ID : $nowId")
-//                        if (appIds.size == 1) {
-//                            appId = nowId
-//                        }
-                    }
-                    _event.value =
-                        Event.GetHouseholdItemsSuccessMsg("Registration Successful", appIds)
-
                 } else {
-                    _event.value =
-                        Event.GetHouseholdItemsFailure("Error code : ${registrationResult?.syncStatus?.errorCode}" + " Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
-                    Log.d(DashboardFragment.TAG, "Registration Failed")
-                    Log.d(
-                        DashboardFragment.TAG,
-                        "Error code : ${registrationResult?.syncStatus?.errorCode}"
-                    )
-                    Log.d(
-                        DashboardFragment.TAG,
-                        "Error Msg : ${registrationResult?.syncStatus?.errorMsg}"
-                    )
+                    val errorCode = registrationResult.syncStatus?.errorCode ?: "Unknown"
+                    val errorMsg = registrationResult.syncStatus?.errorMsg ?: "Unknown"
+                    val failureMsg = "Error code: $errorCode, Error Msg: $errorMsg"
+                    Log.d(DashboardFragment.TAG, "Registration Failed: $failureMsg")
+                    _event.value = Event.GetHouseholdItemsFailure(failureMsg)
                 }
+            } ?: run {
+                Log.d(DashboardFragment.TAG, "Received null parameter. Returning...")
+                _event.value = Event.GetHouseholdItemsFailure("Received null parameter.")
             }
-
         }
-//        try {
-//
-//            Log.d(DashboardFragment.TAG, "Received update>>>>")
+    }
+
+
+//    private fun onGetSyncResult(arg: RegistrationResult?) {
+//        viewModelScope.launch(dispatchers.io) {
 //            if (arg == null) {
-//                Log.d(DashboardFragment.TAG, "Received null parameter in update. Returning...")
-//                return
+//                _event.value =
+//                    Event.GetHouseholdItemsFailure("Received null parameter in update. Returning...")
 //            } else {
-//                Log.d(DashboardFragment.TAG, "Received parameter in update.")
+//                var appId = ""
 //                val registrationResult = arg as? RegistrationResult
 //                if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
 //                    Log.d(DashboardFragment.TAG, "Registration Successful")
 //
 //                    val appIds = registrationResult.applicationIds
 //                    if (appIds == null) {
-//                        Log.e(DashboardFragment.TAG, "No beneficiary list received. Returning ... ")
-//                        return
+//                        Log.e(
+//                            DashboardFragment.TAG,
+//                            "No beneficiary list received. Returning ... "
+//                        )
+//                        //_event.value = Event.GetHouseholdItemsSuccessMsg("No beneficiary list received. Returning ... ")
 //                    }
-//
 //                    Log.d(DashboardFragment.TAG, "Registered following users: ")
 //                    for (nowId in appIds) {
+//                        // _event.value = Event.GetHouseholdItemsSuccessMsg("Beneficiary ID : $nowId")
 //                        Log.d(DashboardFragment.TAG, "Beneficiary ID : $nowId")
+////                        if (appIds.size == 1) {
+////                            appId = nowId
+////                        }
 //                    }
+//                    _event.value =
+//                        Event.GetHouseholdItemsSuccessMsg("Registration Successful", appIds)
+//
 //                } else {
+//                    _event.value =
+//                        Event.GetHouseholdItemsFailure("Error code : ${registrationResult?.syncStatus?.errorCode}" + " Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
 //                    Log.d(DashboardFragment.TAG, "Registration Failed")
-//                    Log.d(DashboardFragment.TAG, "Error code : ${registrationResult?.syncStatus?.errorCode}")
-//                    Log.d(DashboardFragment.TAG, "Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
+//                    Log.d(
+//                        DashboardFragment.TAG,
+//                        "Error code : ${registrationResult?.syncStatus?.errorCode}"
+//                    )
+//                    Log.d(
+//                        DashboardFragment.TAG,
+//                        "Error Msg : ${registrationResult?.syncStatus?.errorMsg}"
+//                    )
 //                }
 //            }
-//        } catch (exc: Exception) {
-//            Log.e(DashboardFragment.TAG, "Error while processing update : ${exc.message}")
+//
 //        }
-    }
+////        try {
+////
+////            Log.d(DashboardFragment.TAG, "Received update>>>>")
+////            if (arg == null) {
+////                Log.d(DashboardFragment.TAG, "Received null parameter in update. Returning...")
+////                return
+////            } else {
+////                Log.d(DashboardFragment.TAG, "Received parameter in update.")
+////                val registrationResult = arg as? RegistrationResult
+////                if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
+////                    Log.d(DashboardFragment.TAG, "Registration Successful")
+////
+////                    val appIds = registrationResult.applicationIds
+////                    if (appIds == null) {
+////                        Log.e(DashboardFragment.TAG, "No beneficiary list received. Returning ... ")
+////                        return
+////                    }
+////
+////                    Log.d(DashboardFragment.TAG, "Registered following users: ")
+////                    for (nowId in appIds) {
+////                        Log.d(DashboardFragment.TAG, "Beneficiary ID : $nowId")
+////                    }
+////                } else {
+////                    Log.d(DashboardFragment.TAG, "Registration Failed")
+////                    Log.d(DashboardFragment.TAG, "Error code : ${registrationResult?.syncStatus?.errorCode}")
+////                    Log.d(DashboardFragment.TAG, "Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
+////                }
+////            }
+////        } catch (exc: Exception) {
+////            Log.e(DashboardFragment.TAG, "Error while processing update : ${exc.message}")
+////        }
+//    }
 
     private fun onSyncSuccess(syncResult: SyncResult) {
         Log.d(TAG, "onSyncSuccess() called with: syncResult = $syncResult")
@@ -1370,6 +1614,258 @@ class HouseholdViewModel @Inject constructor(
         Log.d(TAG, "onSyncFailure() called with: syncResult = $syncResult")
         _event.value = Event.SyncFormFailure("sync failed")
 
+    }
+
+
+    fun prepareBiometricEntity(
+        appId: String?,
+        biometricList: List<com.kit.integrationmanager.model.Biometric?>?,
+        type: String
+    ): Biometric {
+        val nowBiometricEO = Biometric()
+        if (biometricList != null) {
+            for (nowBiometric in biometricList) {
+                if (nowBiometric != null) {
+                    nowBiometricEO.applicationId = appId
+                    nowBiometricEO.type = type
+                    //  nowBiometricEO.biometricUserType = nowBiometric.biometricUserType.id.toLong()
+                    nowBiometricEO.biometricUserType = nowBiometric.biometricUserType?.id?.toLong()
+                    if (nowBiometric.noFingerprintReasonText != null) {
+                        nowBiometricEO.noFingerprintReasonText =
+                            nowBiometric.noFingerprintReasonText
+                    }
+                    if (nowBiometric.noFingerPrint != null) {
+                        nowBiometricEO.noFingerPrint = nowBiometric.noFingerPrint
+                    }
+                    if (nowBiometric.noFingerprintReason != null) {
+                        nowBiometricEO.noFingerprintReason =
+                            nowBiometric.noFingerprintReason.id.toLong()
+                    }
+                    if (nowBiometric.biometricType == BiometricType.PHOTO && nowBiometric.biometricData != null) {
+                        nowBiometricEO.photo = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.LT && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqLt = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.LI && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqLi = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.LM && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqLm = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.LR && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqLr = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.LL && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqLs = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.RT && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqRt = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.RI && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqRi = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.RM && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqRm = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.RR && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqRr = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.RL && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqRs = nowBiometric.biometricData
+                    }
+                }
+            }
+        }
+        return nowBiometricEO
+    }
+
+    fun prepareAddressEntity(
+        appId: String?,
+        addressBO: com.kit.integrationmanager.model.Address?
+    ): com.xplo.code.data.db.room.model.Address {
+        val addressEO = com.xplo.code.data.db.room.model.Address()
+        if (addressBO != null) {
+            addressEO.applicationId = appId
+            //addressEO.setAddressLine(addressBO.getAddressLine());
+            addressEO.stateId = addressBO.stateId
+            addressEO.countyId = addressBO.countyId
+            addressEO.payam = addressBO.payam
+            addressEO.boma = addressBO.boma
+        }
+        return addressEO
+    }
+
+    fun prepareLocationEntity(
+        appId: String?,
+        locationBO: com.kit.integrationmanager.model.Location?
+    ): com.xplo.code.data.db.room.model.Location {
+        val locationEO = com.xplo.code.data.db.room.model.Location()
+        if (locationBO != null) {
+            locationEO.lat = locationBO.lat
+            locationEO.lon = locationBO.lon
+            locationEO.applicationId = appId
+        }
+        return locationEO
+    }
+
+    fun prepareAlternateEntity(
+        appId: String?,
+        alternateBO: AlternatePayee,
+        type: String
+    ): Alternate {
+        val alternateEO = Alternate()
+        alternateEO.applicationId = appId
+        alternateEO.payeeFirstName = alternateBO.payeeFirstName
+        alternateEO.payeeMiddleName = alternateBO.payeeMiddleName
+        alternateEO.payeeLastName = alternateBO.payeeLastName
+        alternateEO.payeeNickName = alternateBO.payeeNickName
+        alternateEO.payeeGender =
+            if (alternateBO.payeeGender != null) alternateBO.payeeGender.ordinal.toLong() else null
+        alternateEO.payeeAge = alternateBO.payeeAge
+        alternateEO.documentType =
+            if (alternateBO.documentType != null) alternateBO.documentType.ordinal.toLong() else 3
+        alternateEO.documentTypeOther = alternateBO.documentTypeOther
+        alternateEO.nationalId = alternateBO.nationalId
+        alternateEO.payeePhoneNo = alternateBO.payeePhoneNo
+        alternateEO.type = type
+        alternateEO.relationshipWithHousehold = alternateBO.relationshipWithHouseholdHead.name
+        alternateEO.relationshipOther = alternateBO.relationshipOther
+        return alternateEO
+    }
+
+    fun prepareNomineeEntity(
+        appId: String?,
+        nomineeList: List<com.kit.integrationmanager.model.Nominee>?
+    ): List<Nominee> {
+        val nominees: MutableList<Nominee> = java.util.ArrayList()
+        if (nomineeList != null) {
+            for (nominee in nomineeList) {
+                val nomineeEO = Nominee()
+                nomineeEO.applicationId = appId
+                nomineeEO.nomineeFirstName = nominee.nomineeFirstName
+                nomineeEO.nomineeMiddleName = nominee.nomineeMiddleName
+                nomineeEO.nomineeLastName = nominee.nomineeLastName
+                nomineeEO.nomineeNickName = nominee.nomineeNickName
+                nomineeEO.relationshipWithHouseholdHead =
+                    if (nominee.relationshipWithHouseholdHead != null) nominee.relationshipWithHouseholdHead.ordinal.toLong() else null
+                nomineeEO.relationshipOther = nominee.relationshipOther
+                nomineeEO.nomineeAge = nominee.nomineeAge
+                nomineeEO.nomineeGender =
+                    if (nominee.nomineeGender != null) nominee.nomineeGender.ordinal.toLong() else null
+                nomineeEO.isReadWrite = nominee.isReadWrite
+                nomineeEO.nomineeOccupation =
+                    if (nominee.nomineeOccupation != null) nominee.nomineeOccupation.ordinal.toLong() else null
+                nomineeEO.otherOccupation = nominee.otherOccupation
+                nominees.add(nomineeEO)
+            }
+        }
+        return nominees
+    }
+
+    fun prepareHouseholdInfoEntity(
+        appId: String?,
+        member: HouseholdMember?,
+        type: String
+    ): HouseholdInfo {
+        val householdInfoEO = HouseholdInfo()
+        if (member != null) {
+            householdInfoEO.applicationId = appId
+            householdInfoEO.maleTotal = member.maleTotal
+            householdInfoEO.femaleTotal = member.femaleTotal
+            householdInfoEO.maleDisable = member.maleDisable
+            householdInfoEO.femaleDisable = member.femaleDisable
+            householdInfoEO.maleChronicalIll = member.maleChronicalIll
+            householdInfoEO.femaleChronicalIll = member.femaleChronicalIll
+            householdInfoEO.femaleBoth = member.femaleBoth
+            householdInfoEO.maleBoth = member.maleBoth
+            householdInfoEO.type = type
+        }
+        return householdInfoEO
+    }
+
+    fun prepareSelectionReasonEntity(
+        appId: String,
+        reasons: List<SelectionReasonEnum>
+    ): List<SelectionReason> {
+        //  Log.d(TAG, "Reason List: " + appId + reasons!![0].value)
+        val selectionReasons: MutableList<SelectionReason> = java.util.ArrayList()
+        for (nowReason in reasons) {
+            val nowSelectionReason = SelectionReason()
+            nowSelectionReason.applicationId = appId
+            //  Log.d(TAG, "prepareSelectionReasonEntity: ${nowReason.name}")
+            //  Log.d(TAG, "prepareSelectionReasonEntity: ${nowReason.value}")
+            Log.d(HhPreviewFragment.TAG, "prepareSelectionReasonEntity: ${reasons.size}")
+            try {
+                if (nowReason.name.isNotEmpty()) {
+                    nowSelectionReason.selectionReasonName = nowReason.name
+                }
+            } catch (ex: Exception) {
+                ex.printStackTrace()
+            }
+            selectionReasons.add(nowSelectionReason)
+        }
+        return selectionReasons
+    }
+
+    fun prepareBeneficiaryEntity(
+        appId: String?,
+        beneficiaryBO: Beneficiary,
+        nomineSize: Int,
+        applicationStatus: Int
+    ): com.xplo.code.data.db.room.model.Beneficiary {
+        val beneficiaryEO = com.xplo.code.data.db.room.model.Beneficiary()
+        beneficiaryEO.applicationId = appId
+        beneficiaryEO.applicationStatus = applicationStatus
+        beneficiaryEO.respondentFirstName = beneficiaryBO.respondentFirstName
+        beneficiaryEO.respondentMiddleName = beneficiaryBO.respondentMiddleName
+        beneficiaryEO.respondentLastName = beneficiaryBO.respondentLastName
+        beneficiaryEO.respondentNickName = beneficiaryBO.respondentNickName
+
+        beneficiaryEO.spouseFirstName = beneficiaryBO.spouseFirstName
+        beneficiaryEO.spouseMiddleName = beneficiaryBO.spouseMiddleName
+        beneficiaryEO.spouseLastName = beneficiaryBO.spouseLastName
+        beneficiaryEO.spouseNickName = beneficiaryBO.spouseNickName
+
+        beneficiaryEO.incomeSourceOther = beneficiaryBO.incomeSourceOther
+        beneficiaryEO.relationshipOther = beneficiaryBO.relationshipOther
+        beneficiaryEO.documentTypeOther = beneficiaryBO.documentTypeOther
+
+        beneficiaryEO.relationshipWithHouseholdHead =
+            if (beneficiaryBO.relationshipWithHouseholdHead != null) beneficiaryBO.relationshipWithHouseholdHead.ordinal.toLong() else null
+        beneficiaryEO.respondentAge = beneficiaryBO.respondentAge
+        beneficiaryEO.respondentGender =
+            if (beneficiaryBO.respondentGender != null) beneficiaryBO.respondentGender.ordinal.toLong() else null
+        beneficiaryEO.respondentMaritalStatus =
+            if (beneficiaryBO.respondentMaritalStatus != null) beneficiaryBO.respondentMaritalStatus.ordinal.toLong() else null
+        beneficiaryEO.respondentLegalStatus =
+            if (beneficiaryBO.respondentLegalStatus != null) beneficiaryBO.respondentLegalStatus.ordinal.toLong() else null
+        beneficiaryEO.documentType =
+            if (beneficiaryBO.documentType != null) beneficiaryBO.documentType.ordinal.toLong() else 4
+
+        beneficiaryEO.respondentId = beneficiaryBO.respondentId
+        beneficiaryEO.respondentPhoneNo = beneficiaryBO.respondentPhoneNo
+        beneficiaryEO.householdIncomeSource =
+            if (beneficiaryBO.householdIncomeSource != null) beneficiaryBO.householdIncomeSource.ordinal.toLong() else null
+        beneficiaryEO.householdMonthlyAvgIncome = beneficiaryBO.householdMonthlyAvgIncome
+        beneficiaryEO.householdSize = beneficiaryBO.householdSize
+        beneficiaryEO.isOtherMemberPerticipating = beneficiaryBO.isOtherMemberPerticipating
+        beneficiaryEO.isReadWrite = beneficiaryBO.isReadWrite
+        beneficiaryEO.memberReadWrite = beneficiaryBO.memberReadWrite
+
+        if (beneficiaryBO.notPerticipationOtherReason != null) {
+            beneficiaryEO.notPerticipationOtherReason = beneficiaryBO.notPerticipationOtherReason
+        }
+        beneficiaryEO.notPerticipationReason =
+            if (beneficiaryBO.notPerticipationReason != null) beneficiaryBO.notPerticipationReason.ordinal.toLong() else null
+
+        beneficiaryEO.createdBy = beneficiaryBO.createdBy
+        beneficiaryEO.selectionCriteria =
+            if (beneficiaryBO.selectionCriteria != null) beneficiaryBO.selectionCriteria.ordinal.toLong() else null
+        beneficiaryEO.currency =
+            if (beneficiaryBO.currency != null) beneficiaryBO.currency.ordinal.toLong() else null
+        beneficiaryEO.isOtherMemberPerticipating = nomineSize > 0
+        beneficiaryEO.creation_date = getCurrentDateTimeInMillis()
+
+
+        return beneficiaryEO
+    }
+
+    fun getCurrentDateTimeInMillis(): Long {
+        val currentDateTime = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS")
+        val formattedDateTime = currentDateTime.format(formatter)
+        return formattedDateTime.toLong()
     }
 
 
