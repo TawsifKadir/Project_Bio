@@ -12,9 +12,7 @@ import android.provider.Settings
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.airbnb.lottie.Lottie
 import com.xplo.code.BuildConfig
-import com.xplo.code.data.db.DbController
 import com.xplo.code.data.db.room.database.BeneficiaryDatabase.dbCloseFromDB
 import java.io.File
 import java.io.FileInputStream

@@ -2,6 +2,7 @@ package com.xplo.code.ui.dashboard.household.forms
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -17,6 +18,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -49,7 +51,6 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.util.ArrayList
 
 /**
  * Copyright 2022 (C) xplo
@@ -379,25 +380,22 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
         DialogUtil.dismissLottieDialog()
         if (msg != null) {
-            DialogUtil.showLottieDialogFailMsg(requireContext(), msg)
+            showLottieDialogFailMsg(requireContext(), msg)
         }
         Log.d(TAG, "onGetHouseholdListFailure() called with: msg = $msg")
         //showMessage(msg)
     }
 
     override fun onGetHouseholdListSuccess(msg: String?, appIdList: MutableList<String>?) {
-        //binding.llNoContentText.visibility = View.VISIBLE
-        // binding.llBody.visibility = View.GONE
         DialogUtil.dismissLottieDialog()
         if (msg != null) {
-            //DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", msg)
             if (appIdList != null) {
                 for (appId in appIdList) {
                     //  viewModel.updateBeneficiary(requireContext(), appId)
                     viewModel.deleteAndInsertBeneficiary(requireContext(), appId)
                 }
             }
-            val alertDialog = LottieAlertDialog.Builder(context, DialogTypes.TYPE_SUCCESS)
+            LottieAlertDialog.Builder(context, DialogTypes.TYPE_SUCCESS)
                 .setTitle("Success")
                 .setDescription(msg)
                 .setPositiveText("Ok")
@@ -407,8 +405,10 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                         dialog.dismiss()
                     }
                 })
-                .build()
-                .show()
+                .build().apply {
+                    show()
+                    setCancelable(true)
+                }
         }
 
         Log.d(TAG, "onGetHouseholdListSuccess() called with: msg = $msg")
@@ -565,12 +565,27 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         builder.show()
     }
 
+//    private fun openSettings() {
+//        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+//        val uri = Uri.fromParts("package", requireContext().packageName, null)
+//        intent.data = uri
+//        startActivityForResult(intent, 101)
+//    }
+
+    private val settingsLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                // Handle the result if needed
+            }
+        }
+
     private fun openSettings() {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
         val uri = Uri.fromParts("package", requireContext().packageName, null)
         intent.data = uri
-        startActivityForResult(intent, 101)
+        settingsLauncher.launch(intent)
     }
+
 
     private fun askForConsent() {
 

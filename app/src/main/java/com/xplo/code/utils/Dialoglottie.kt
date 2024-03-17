@@ -1,14 +1,11 @@
 package com.xplo.code.utils
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
-import androidx.core.content.ContextCompat
 import com.labters.lottiealertdialoglibrary.ClickListener
 import com.labters.lottiealertdialoglibrary.DialogTypes
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog
-import com.xplo.code.R
 
 object DialogUtil {
     @SuppressLint("StaticFieldLeak")
