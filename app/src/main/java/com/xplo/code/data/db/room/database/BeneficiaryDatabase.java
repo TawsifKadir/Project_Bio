@@ -59,6 +59,9 @@ public abstract class BeneficiaryDatabase extends RoomDatabase {
     private static final Migration MIGRATION_3_4 = new Migration(3, 4) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE Beneficiary ADD COLUMN application_status INTEGER NOT NULL DEFAULT 0");
+            database.execSQL("ALTER TABLE Beneficiary ADD COLUMN api_count INTEGER NOT NULL DEFAULT 0");
+
             database.execSQL("CREATE TABLE IF NOT EXISTS sync_beneficiary " +
                     "(id INTEGER PRIMARY KEY AUTOINCREMENT, application_id TEXT, beneficiary_name TEXT)");
         }
