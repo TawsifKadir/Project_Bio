@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kit.integrationmanager.model.GenderEnum
@@ -24,7 +26,8 @@ import com.xplo.code.ui.dashboard.household.forms.HouseholdHomeFragment
  * Desc     :
  * Comment  :
  */
-class HouseholdListAdapterNew : RecyclerView.Adapter<HouseholdListAdapterNew.ViewHolder>() {
+class HouseholdListAdapterNew : RecyclerView.Adapter<HouseholdListAdapterNew.ViewHolder>(),
+    Filterable {
 
     companion object {
         private const val TAG = "HouseholdListAdapterNew"
@@ -186,5 +189,40 @@ class HouseholdListAdapterNew : RecyclerView.Adapter<HouseholdListAdapterNew.Vie
         fun onClickHouseholdItemAddAlternate(item: Beneficiary, pos: Int)
         fun onClickHouseholdItemSave(item: Beneficiary, pos: Int)
     }
+
+    override fun getFilter(): Filter {
+        return HouseholdFilter()
+    }
+
+    inner class HouseholdFilter : Filter() {
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val filteredList = ArrayList<Beneficiary>()
+            if (constraint.isNullOrBlank()) {
+                filteredList.addAll(dataset)
+            } else {
+                val filterPattern = constraint.toString().lowercase().trim()
+                for (item in dataset) {
+                    if (item.respondentFirstName.lowercase().contains(filterPattern)
+                        || item.respondentLastName.lowercase().contains(filterPattern)
+                    ) {
+                        filteredList.add(item)
+                    }
+                }
+            }
+            val results = FilterResults()
+            results.values = filteredList
+            return results
+        }
+
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+            dataset.clear()
+            if (results != null && results.values != null) {
+                @Suppress("UNCHECKED_CAST")
+                dataset.addAll(results.values as ArrayList<Beneficiary>)
+            }
+            notifyDataSetChanged()
+        }
+    }
+
 
 }

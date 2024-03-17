@@ -6,10 +6,13 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.kit.integrationmanager.model.AlternatePayee
 import com.kit.integrationmanager.model.Beneficiary
+import com.kit.integrationmanager.model.BiometricType
 import com.kit.integrationmanager.model.CurrencyEnum
 import com.kit.integrationmanager.model.DocumentTypeEnum
 import com.kit.integrationmanager.model.GenderEnum
+import com.kit.integrationmanager.model.HouseholdMember
 import com.kit.integrationmanager.model.IncomeSourceEnum
 import com.kit.integrationmanager.model.LegalStatusEnum
 import com.kit.integrationmanager.model.MaritalStatusEnum
@@ -27,12 +30,19 @@ import com.xplo.code.data.db.repo.DbRepo
 import com.xplo.code.data.db.room.dao.AddressDao
 import com.xplo.code.data.db.room.dao.AlternateDao
 import com.xplo.code.data.db.room.dao.BeneficiaryDao
+import com.xplo.code.data.db.room.dao.BeneficiaryTransactionDao
 import com.xplo.code.data.db.room.dao.BiometricDao
 import com.xplo.code.data.db.room.dao.HouseholdInfoDao
 import com.xplo.code.data.db.room.dao.LocationDao
 import com.xplo.code.data.db.room.dao.NomineeDao
 import com.xplo.code.data.db.room.dao.SelectionReasonDao
 import com.xplo.code.data.db.room.database.BeneficiaryDatabase
+import com.xplo.code.data.db.room.database.DatabaseExecutors
+import com.xplo.code.data.db.room.model.Alternate
+import com.xplo.code.data.db.room.model.Biometric
+import com.xplo.code.data.db.room.model.HouseholdInfo
+import com.xplo.code.data.db.room.model.Nominee
+import com.xplo.code.data.db.room.model.SelectionReason
 import com.xplo.code.data.db.room.model.SyncBeneficiary
 import com.xplo.code.data.mapper.BeneficiaryMapper
 import com.xplo.code.data.mapper.EntityMapper
@@ -42,13 +52,17 @@ import com.xplo.code.data_module.model.content.Address
 import com.xplo.code.data_module.model.content.Location
 import com.xplo.code.data_module.repo.UserRepo
 import com.xplo.code.ui.dashboard.DashboardFragment
+import com.xplo.code.ui.dashboard.household.forms.HhPreviewFragment
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.toJson
+import com.xplo.code.utils.DialogUtil
 import com.xplo.code.utils.IMHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.ArrayList
 import java.util.Observable
 import java.util.Observer
@@ -141,6 +155,10 @@ class HouseholdViewModel @Inject constructor(
 
         class UpdateDataLocalDb(val msg: Boolean) :
             Event()
+
+        class InsertDataLocalDb(val msg: String) :
+            Event()
+
 
         class GetDataLocalDbByAppId(val beneficiary: Beneficiary) :
             Event()
@@ -244,18 +262,12 @@ class HouseholdViewModel @Inject constructor(
     }
 
     fun deleteBeneficiary(context: Context, appId: String) {
-        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context)
-
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
         viewModelScope.launch(dispatchers.io) {
             val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
-
-            // Get the beneficiary by application ID
             val beneficiary = beneficiaryDao.getBeneficiaryByAppId(appId)
-
-            // Delete the beneficiary
             val deleteBene = beneficiaryDao.deleteBeneficiary(beneficiary)
 
-            // Delete associated data from other tables
             val alternateDao: AlternateDao = mDatabase.alternateDao()
             alternateDao.deleteAlternate(appId)
 
@@ -276,7 +288,6 @@ class HouseholdViewModel @Inject constructor(
 
             val selectionReasonDao: SelectionReasonDao = mDatabase.selectionReasonDao()
             selectionReasonDao.deleteReasonByAppId(appId)
-
             _event.value = Event.DeleteDataLocalDbByAppId(true)
         }
     }
@@ -408,9 +419,20 @@ class HouseholdViewModel @Inject constructor(
 
             form.biometrics = EntityMapper.toBiometricEntityFromdbForBeneficiary(biometricBio)
 
+
+//            if (beneficiary.notPerticipationReason != null) {
+//                form.notPerticipationReason =
+//                    NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt() + 1)
+//            }
+//            form.notPerticipationOtherReason = beneficiary.notPerticipationOtherReason
+
             form.nominees = EntityMapper.toNomineeItemsLdb(nominee)
 
-            form.isOtherMemberPerticipating = form.nominees != null && form.nominees.size > 0
+            if (form.nominees != null && form.nominees.size > 0) {
+                form.isOtherMemberPerticipating = true
+            } else {
+                form.isOtherMemberPerticipating = false
+            }
             if (beneficiary.notPerticipationReason != null) {
                 form.notPerticipationReason =
                     NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt() + 1)
@@ -533,6 +555,8 @@ class HouseholdViewModel @Inject constructor(
                 }
                 form.householdMonthlyAvgIncome = beneficiary.householdMonthlyAvgIncome
                 if (beneficiary.currency != null) {
+                    //form.currency = CurrencyEnum.entries.getOrNull(beneficiary.currency.toInt())
+//                form.currency = CurrencyEnum.getCurrencyById(beneficiary.currency.toInt() + 1)
                     form.currency = CurrencyEnum.SUDANESE_POUND
                 }
                 if (beneficiary.selectionCriteria != null) {
@@ -559,6 +583,7 @@ class HouseholdViewModel @Inject constructor(
                 locationObj.lon = location.lon
                 form.location = EntityMapper.toLocation(locationObj)
 
+                // form.householdSize = householdInfo.size
                 form.householdMember2 = EntityMapper.toHouseholdMember2Ldb(
                     beneficiary.applicationId,
                     householdInfo,
@@ -617,6 +642,8 @@ class HouseholdViewModel @Inject constructor(
 
             }
 
+
+            //Log.d(TAG, "showBeneficiary: ${form.alternatePayee1.payeeAge}")
             Log.d(TAG, "bulkBeneficiaryList: ${beneficiaryList.size}")
             _event.value = Event.GetDataLocalDbForBulk(dataList)
         }
@@ -792,22 +819,167 @@ class HouseholdViewModel @Inject constructor(
     }
 
     fun updateBeneficiary(context: Context, appId: String) {
-        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context)
-
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
+        //_event.value = Event.Loading
         viewModelScope.launch(dispatchers.io) {
             val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
+            val beneficiary = beneficiaryDao.updateBeneficiaryByAppId(appId)
 
-            // Update the beneficiary with the given application ID
-            val rowsAffected = beneficiaryDao.updateBeneficiaryByAppId(appId)
-
-            Log.d(TAG, "Updated $rowsAffected beneficiary(s)")
-
+            Log.d(TAG, "showBeneficiary: $beneficiary")
             _event.value = Event.UpdateDataLocalDb(true)
         }
-
-        // Note: No need to close the database here since you're using Room, which manages database connections automatically.
+        // mDatabase.close()
     }
 
+    fun insertBeneficiary(context: Context, beneficiaryBO: Beneficiary, applicationStatus: Int) {
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
+        viewModelScope.launch(dispatchers.io) {
+
+            //MappingDb Mapping data to local db
+            Log.d(
+                HhPreviewFragment.TAG,
+                "insertBeneficiary() called with: beneficiaryBO = $beneficiaryBO"
+            )
+            try {
+                DatabaseExecutors.getInstance().diskIO().execute {
+                    val uuid = beneficiaryBO.applicationId
+                    val beneficiaryEO: com.xplo.code.data.db.room.model.Beneficiary =
+                        if (beneficiaryBO.nominees.isNullOrEmpty()) {
+                            prepareBeneficiaryEntity(uuid, beneficiaryBO, 0, applicationStatus)
+                        } else {
+                            prepareBeneficiaryEntity(
+                                uuid,
+                                beneficiaryBO,
+                                beneficiaryBO.nominees.size,
+                                applicationStatus
+                            )
+                        }
+
+                    val addressEO: com.xplo.code.data.db.room.model.Address =
+                        prepareAddressEntity(uuid, beneficiaryBO.address)
+                    val locationEO: com.xplo.code.data.db.room.model.Location =
+                        prepareLocationEntity(uuid, beneficiaryBO.location)
+
+                    val selectionReasonList: List<SelectionReason> =
+                        prepareSelectionReasonEntity(uuid, beneficiaryBO.selectionReason)
+
+                    val alternateList: MutableList<Alternate> =
+                        ArrayList<Alternate>()
+                    if (beneficiaryBO.alternatePayee1 != null) {
+                        val firstAlternateEO: Alternate =
+                            prepareAlternateEntity(
+                                uuid,
+                                beneficiaryBO.alternatePayee1,
+                                "ALT1"
+                            )
+                        alternateList.add(firstAlternateEO)
+                    }
+                    if (beneficiaryBO.alternatePayee2 != null) {
+                        val secondAlternateEO: Alternate =
+                            prepareAlternateEntity(
+                                uuid,
+                                beneficiaryBO.alternatePayee2,
+                                "ALT2"
+                            )
+                        alternateList.add(secondAlternateEO)
+                    }
+
+                    var nomineeList: List<Nominee> = ArrayList<Nominee>()
+                    if (beneficiaryBO.nominees != null) {
+                        nomineeList = prepareNomineeEntity(uuid, beneficiaryBO.nominees)
+                    }
+
+                    val householdInfoList: MutableList<HouseholdInfo> =
+                        ArrayList<HouseholdInfo>()
+                    val householdInfo2EO: HouseholdInfo =
+                        prepareHouseholdInfoEntity(
+                            uuid,
+                            beneficiaryBO.householdMember2,
+                            "M2"
+                        )
+                    householdInfoList.add(householdInfo2EO)
+                    val householdInfo5EO: HouseholdInfo =
+                        prepareHouseholdInfoEntity(
+                            uuid,
+                            beneficiaryBO.householdMember5,
+                            "M5"
+                        )
+                    householdInfoList.add(householdInfo5EO)
+                    val householdInfo17EO: HouseholdInfo =
+                        prepareHouseholdInfoEntity(
+                            uuid,
+                            beneficiaryBO.householdMember17,
+                            "M17"
+                        )
+                    householdInfoList.add(householdInfo17EO)
+                    val householdInfo35EO: HouseholdInfo =
+                        prepareHouseholdInfoEntity(
+                            uuid,
+                            beneficiaryBO.householdMember35,
+                            "M35"
+                        )
+                    householdInfoList.add(householdInfo35EO)
+                    val householdInfo64EO: HouseholdInfo =
+                        prepareHouseholdInfoEntity(
+                            uuid,
+                            beneficiaryBO.householdMember64,
+                            "M64"
+                        )
+                    householdInfoList.add(householdInfo64EO)
+                    val householdInfo65EO: HouseholdInfo =
+                        prepareHouseholdInfoEntity(
+                            uuid,
+                            beneficiaryBO.householdMember65,
+                            "M65"
+                        )
+                    householdInfoList.add(householdInfo65EO)
+
+                    val biometricList: MutableList<Biometric> =
+                        ArrayList<Biometric>()
+                    if (beneficiaryBO.biometrics != null) {
+                        val beneficiaryBiometric: Biometric =
+                            prepareBiometricEntity(uuid, beneficiaryBO.biometrics, "BENE")
+                        biometricList.add(beneficiaryBiometric)
+                    }
+                    if (beneficiaryBO.alternatePayee1 != null && beneficiaryBO.alternatePayee1
+                            .biometrics != null
+                    ) {
+                        val alternate1Biometric: Biometric = prepareBiometricEntity(
+                            uuid,
+                            beneficiaryBO.alternatePayee1.biometrics, "ALT1"
+                        )
+                        biometricList.add(alternate1Biometric)
+                    }
+                    if (beneficiaryBO.alternatePayee2 != null && beneficiaryBO.alternatePayee2
+                            .biometrics != null
+                    ) {
+                        val alternate2Biometric: Biometric = prepareBiometricEntity(
+                            uuid,
+                            beneficiaryBO.alternatePayee2.biometrics, "ALT2"
+                        )
+                        biometricList.add(alternate2Biometric)
+                    }
+                    val beneficiaryTransactionDao: BeneficiaryTransactionDao =
+                        mDatabase.beneficiaryTransactionDao()
+                    beneficiaryTransactionDao.insertBeneficiaryRecord(
+                        beneficiaryEO, addressEO, locationEO,
+                        biometricList,
+                        householdInfoList, alternateList, nomineeList, selectionReasonList
+                    )
+
+                    Log.d(HhPreviewFragment.TAG, "Inserted the beneficiary data")
+                    _event.value = Event.InsertDataLocalDb("Inserted the beneficiary data")
+                }
+            } catch (ex: Exception) {
+                _event.value =
+                    Event.SaveFormPEntityFailure("Error while sending data : " + ex.message)
+
+                Log.e(HhPreviewFragment.TAG, "Error while sending data : " + ex.message)
+                ex.printStackTrace()
+            }
+        }
+        // mDatabase.close()
+    }
 
     fun deleteAndInsertBeneficiary(context: Context, appId: String) {
         val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context)
@@ -1438,6 +1610,258 @@ class HouseholdViewModel @Inject constructor(
         Log.d(TAG, "onSyncFailure() called with: syncResult = $syncResult")
         _event.value = Event.SyncFormFailure("sync failed")
 
+    }
+
+
+    fun prepareBiometricEntity(
+        appId: String?,
+        biometricList: List<com.kit.integrationmanager.model.Biometric?>?,
+        type: String
+    ): Biometric {
+        val nowBiometricEO = Biometric()
+        if (biometricList != null) {
+            for (nowBiometric in biometricList) {
+                if (nowBiometric != null) {
+                    nowBiometricEO.applicationId = appId
+                    nowBiometricEO.type = type
+                    //  nowBiometricEO.biometricUserType = nowBiometric.biometricUserType.id.toLong()
+                    nowBiometricEO.biometricUserType = nowBiometric.biometricUserType?.id?.toLong()
+                    if (nowBiometric.noFingerprintReasonText != null) {
+                        nowBiometricEO.noFingerprintReasonText =
+                            nowBiometric.noFingerprintReasonText
+                    }
+                    if (nowBiometric.noFingerPrint != null) {
+                        nowBiometricEO.noFingerPrint = nowBiometric.noFingerPrint
+                    }
+                    if (nowBiometric.noFingerprintReason != null) {
+                        nowBiometricEO.noFingerprintReason =
+                            nowBiometric.noFingerprintReason.id.toLong()
+                    }
+                    if (nowBiometric.biometricType == BiometricType.PHOTO && nowBiometric.biometricData != null) {
+                        nowBiometricEO.photo = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.LT && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqLt = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.LI && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqLi = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.LM && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqLm = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.LR && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqLr = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.LL && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqLs = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.RT && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqRt = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.RI && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqRi = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.RM && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqRm = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.RR && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqRr = nowBiometric.biometricData
+                    } else if (nowBiometric.biometricType == BiometricType.RL && nowBiometric.biometricData != null) {
+                        nowBiometricEO.wsqRs = nowBiometric.biometricData
+                    }
+                }
+            }
+        }
+        return nowBiometricEO
+    }
+
+    fun prepareAddressEntity(
+        appId: String?,
+        addressBO: com.kit.integrationmanager.model.Address?
+    ): com.xplo.code.data.db.room.model.Address {
+        val addressEO = com.xplo.code.data.db.room.model.Address()
+        if (addressBO != null) {
+            addressEO.applicationId = appId
+            //addressEO.setAddressLine(addressBO.getAddressLine());
+            addressEO.stateId = addressBO.stateId
+            addressEO.countyId = addressBO.countyId
+            addressEO.payam = addressBO.payam
+            addressEO.boma = addressBO.boma
+        }
+        return addressEO
+    }
+
+    fun prepareLocationEntity(
+        appId: String?,
+        locationBO: com.kit.integrationmanager.model.Location?
+    ): com.xplo.code.data.db.room.model.Location {
+        val locationEO = com.xplo.code.data.db.room.model.Location()
+        if (locationBO != null) {
+            locationEO.lat = locationBO.lat
+            locationEO.lon = locationBO.lon
+            locationEO.applicationId = appId
+        }
+        return locationEO
+    }
+
+    fun prepareAlternateEntity(
+        appId: String?,
+        alternateBO: AlternatePayee,
+        type: String
+    ): Alternate {
+        val alternateEO = Alternate()
+        alternateEO.applicationId = appId
+        alternateEO.payeeFirstName = alternateBO.payeeFirstName
+        alternateEO.payeeMiddleName = alternateBO.payeeMiddleName
+        alternateEO.payeeLastName = alternateBO.payeeLastName
+        alternateEO.payeeNickName = alternateBO.payeeNickName
+        alternateEO.payeeGender =
+            if (alternateBO.payeeGender != null) alternateBO.payeeGender.ordinal.toLong() else null
+        alternateEO.payeeAge = alternateBO.payeeAge
+        alternateEO.documentType =
+            if (alternateBO.documentType != null) alternateBO.documentType.ordinal.toLong() else 3
+        alternateEO.documentTypeOther = alternateBO.documentTypeOther
+        alternateEO.nationalId = alternateBO.nationalId
+        alternateEO.payeePhoneNo = alternateBO.payeePhoneNo
+        alternateEO.type = type
+        alternateEO.relationshipWithHousehold = alternateBO.relationshipWithHouseholdHead.name
+        alternateEO.relationshipOther = alternateBO.relationshipOther
+        return alternateEO
+    }
+
+    fun prepareNomineeEntity(
+        appId: String?,
+        nomineeList: List<com.kit.integrationmanager.model.Nominee>?
+    ): List<Nominee> {
+        val nominees: MutableList<Nominee> = java.util.ArrayList()
+        if (nomineeList != null) {
+            for (nominee in nomineeList) {
+                val nomineeEO = Nominee()
+                nomineeEO.applicationId = appId
+                nomineeEO.nomineeFirstName = nominee.nomineeFirstName
+                nomineeEO.nomineeMiddleName = nominee.nomineeMiddleName
+                nomineeEO.nomineeLastName = nominee.nomineeLastName
+                nomineeEO.nomineeNickName = nominee.nomineeNickName
+                nomineeEO.relationshipWithHouseholdHead =
+                    if (nominee.relationshipWithHouseholdHead != null) nominee.relationshipWithHouseholdHead.ordinal.toLong() else null
+                nomineeEO.relationshipOther = nominee.relationshipOther
+                nomineeEO.nomineeAge = nominee.nomineeAge
+                nomineeEO.nomineeGender =
+                    if (nominee.nomineeGender != null) nominee.nomineeGender.ordinal.toLong() else null
+                nomineeEO.isReadWrite = nominee.isReadWrite
+                nomineeEO.nomineeOccupation =
+                    if (nominee.nomineeOccupation != null) nominee.nomineeOccupation.ordinal.toLong() else null
+                nomineeEO.otherOccupation = nominee.otherOccupation
+                nominees.add(nomineeEO)
+            }
+        }
+        return nominees
+    }
+
+    fun prepareHouseholdInfoEntity(
+        appId: String?,
+        member: HouseholdMember?,
+        type: String
+    ): HouseholdInfo {
+        val householdInfoEO = HouseholdInfo()
+        if (member != null) {
+            householdInfoEO.applicationId = appId
+            householdInfoEO.maleTotal = member.maleTotal
+            householdInfoEO.femaleTotal = member.femaleTotal
+            householdInfoEO.maleDisable = member.maleDisable
+            householdInfoEO.femaleDisable = member.femaleDisable
+            householdInfoEO.maleChronicalIll = member.maleChronicalIll
+            householdInfoEO.femaleChronicalIll = member.femaleChronicalIll
+            householdInfoEO.femaleBoth = member.femaleBoth
+            householdInfoEO.maleBoth = member.maleBoth
+            householdInfoEO.type = type
+        }
+        return householdInfoEO
+    }
+
+    fun prepareSelectionReasonEntity(
+        appId: String,
+        reasons: List<SelectionReasonEnum>
+    ): List<SelectionReason> {
+        //  Log.d(TAG, "Reason List: " + appId + reasons!![0].value)
+        val selectionReasons: MutableList<SelectionReason> = java.util.ArrayList()
+        for (nowReason in reasons) {
+            val nowSelectionReason = SelectionReason()
+            nowSelectionReason.applicationId = appId
+            //  Log.d(TAG, "prepareSelectionReasonEntity: ${nowReason.name}")
+            //  Log.d(TAG, "prepareSelectionReasonEntity: ${nowReason.value}")
+            Log.d(HhPreviewFragment.TAG, "prepareSelectionReasonEntity: ${reasons.size}")
+            try {
+                if (nowReason.name.isNotEmpty()) {
+                    nowSelectionReason.selectionReasonName = nowReason.name
+                }
+            } catch (ex: Exception) {
+                ex.printStackTrace()
+            }
+            selectionReasons.add(nowSelectionReason)
+        }
+        return selectionReasons
+    }
+
+    fun prepareBeneficiaryEntity(
+        appId: String?,
+        beneficiaryBO: Beneficiary,
+        nomineSize: Int,
+        applicationStatus: Int
+    ): com.xplo.code.data.db.room.model.Beneficiary {
+        val beneficiaryEO = com.xplo.code.data.db.room.model.Beneficiary()
+        beneficiaryEO.applicationId = appId
+        beneficiaryEO.applicationStatus = applicationStatus
+        beneficiaryEO.respondentFirstName = beneficiaryBO.respondentFirstName
+        beneficiaryEO.respondentMiddleName = beneficiaryBO.respondentMiddleName
+        beneficiaryEO.respondentLastName = beneficiaryBO.respondentLastName
+        beneficiaryEO.respondentNickName = beneficiaryBO.respondentNickName
+
+        beneficiaryEO.spouseFirstName = beneficiaryBO.spouseFirstName
+        beneficiaryEO.spouseMiddleName = beneficiaryBO.spouseMiddleName
+        beneficiaryEO.spouseLastName = beneficiaryBO.spouseLastName
+        beneficiaryEO.spouseNickName = beneficiaryBO.spouseNickName
+
+        beneficiaryEO.incomeSourceOther = beneficiaryBO.incomeSourceOther
+        beneficiaryEO.relationshipOther = beneficiaryBO.relationshipOther
+        beneficiaryEO.documentTypeOther = beneficiaryBO.documentTypeOther
+
+        beneficiaryEO.relationshipWithHouseholdHead =
+            if (beneficiaryBO.relationshipWithHouseholdHead != null) beneficiaryBO.relationshipWithHouseholdHead.ordinal.toLong() else null
+        beneficiaryEO.respondentAge = beneficiaryBO.respondentAge
+        beneficiaryEO.respondentGender =
+            if (beneficiaryBO.respondentGender != null) beneficiaryBO.respondentGender.ordinal.toLong() else null
+        beneficiaryEO.respondentMaritalStatus =
+            if (beneficiaryBO.respondentMaritalStatus != null) beneficiaryBO.respondentMaritalStatus.ordinal.toLong() else null
+        beneficiaryEO.respondentLegalStatus =
+            if (beneficiaryBO.respondentLegalStatus != null) beneficiaryBO.respondentLegalStatus.ordinal.toLong() else null
+        beneficiaryEO.documentType =
+            if (beneficiaryBO.documentType != null) beneficiaryBO.documentType.ordinal.toLong() else 4
+
+        beneficiaryEO.respondentId = beneficiaryBO.respondentId
+        beneficiaryEO.respondentPhoneNo = beneficiaryBO.respondentPhoneNo
+        beneficiaryEO.householdIncomeSource =
+            if (beneficiaryBO.householdIncomeSource != null) beneficiaryBO.householdIncomeSource.ordinal.toLong() else null
+        beneficiaryEO.householdMonthlyAvgIncome = beneficiaryBO.householdMonthlyAvgIncome
+        beneficiaryEO.householdSize = beneficiaryBO.householdSize
+        beneficiaryEO.isOtherMemberPerticipating = beneficiaryBO.isOtherMemberPerticipating
+        beneficiaryEO.isReadWrite = beneficiaryBO.isReadWrite
+        beneficiaryEO.memberReadWrite = beneficiaryBO.memberReadWrite
+
+        if (beneficiaryBO.notPerticipationOtherReason != null) {
+            beneficiaryEO.notPerticipationOtherReason = beneficiaryBO.notPerticipationOtherReason
+        }
+        beneficiaryEO.notPerticipationReason =
+            if (beneficiaryBO.notPerticipationReason != null) beneficiaryBO.notPerticipationReason.ordinal.toLong() else null
+
+        beneficiaryEO.createdBy = beneficiaryBO.createdBy
+        beneficiaryEO.selectionCriteria =
+            if (beneficiaryBO.selectionCriteria != null) beneficiaryBO.selectionCriteria.ordinal.toLong() else null
+        beneficiaryEO.currency =
+            if (beneficiaryBO.currency != null) beneficiaryBO.currency.ordinal.toLong() else null
+        beneficiaryEO.isOtherMemberPerticipating = nomineSize > 0
+        beneficiaryEO.creation_date = getCurrentDateTimeInMillis()
+
+
+        return beneficiaryEO
+    }
+
+    fun getCurrentDateTimeInMillis(): Long {
+        val currentDateTime = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS")
+        val formattedDateTime = currentDateTime.format(formatter)
+        return formattedDateTime.toLong()
     }
 
 

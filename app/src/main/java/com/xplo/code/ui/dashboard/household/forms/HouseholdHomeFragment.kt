@@ -142,7 +142,6 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         DialogUtil.showLottieDialog(requireContext(), "Preparing Content", "Please wait")
 
         binding.fab.setOnClickListener {
-            Toast.makeText(requireContext(), "Fab Button", Toast.LENGTH_SHORT).show()
             viewModel.bulkBeneficiaryList(requireContext())
         }
     }
@@ -659,8 +658,19 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
     override fun onClickHouseholdItemAddAlternate(item: Beneficiary, pos: Int) {
         if (item.alternateSize >= 2) {
-            Toast.makeText(requireContext(), "Maximum 2 Alternate Add Options.", Toast.LENGTH_SHORT)
-                .show()
+//            Toast.makeText(requireContext(), "Maximum 2 Alternate Add Options.", Toast.LENGTH_SHORT)
+//                .show()
+            showDialogError("Maximum 2 Alternate Add Options.")
+        } else if (item.applicationStatus == 1) {
+//            Toast.makeText(
+//                requireContext(),
+//                "Completed Data Not Edit Permission",
+//                Toast.LENGTH_SHORT
+//            )
+//                .show()
+
+            showDialogError("Completed Data Not Edit Permission")
+
         } else {
             // navigateToAlternate(item.applicationId)
 //            navigateToAlternateNew(
@@ -695,6 +705,20 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                 Toast.LENGTH_SHORT
             ).show()
         }
+    }
+
+    fun showDialogError(msg: String?) {
+        val alertDialog = LottieAlertDialog.Builder(context, DialogTypes.TYPE_ERROR)
+            .setTitle("Attention!")
+            .setDescription(msg)
+            .setPositiveText("Ok")
+            .setPositiveListener(object : ClickListener {
+                override fun onClick(dialog: LottieAlertDialog) {
+                    dialog.dismiss()
+                }
+            })
+            .build()
+            .show()
     }
 
 
