@@ -13,9 +13,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.xplo.code.data.db.room.dao.*;
 import com.xplo.code.data.db.room.model.*;
 
-@Database(entities = {Beneficiary.class, Address.class, Location.class, Alternate.class,
-        Nominee.class, Biometric.class, HouseholdInfo.class, SelectionReason.class, SyncBeneficiary.class},
-        version = 4, exportSchema = false)
+@Database(entities = {Beneficiary.class, Address.class, Location.class, Alternate.class, Nominee.class, Biometric.class, HouseholdInfo.class, SelectionReason.class, SyncBeneficiary.class}, version = 4, exportSchema = true)
 public abstract class BeneficiaryDatabase extends RoomDatabase {
     private static final String LOG_TAG = BeneficiaryDatabase.class.getSimpleName();
     private static final Object LOCK = new Object();
@@ -26,10 +24,7 @@ public abstract class BeneficiaryDatabase extends RoomDatabase {
         if (sInstance == null) {
             synchronized (LOCK) {
                 Log.d(LOG_TAG, "Creating new database instance");
-                sInstance = Room.databaseBuilder(context.getApplicationContext(),
-                                BeneficiaryDatabase.class, DATABASE_NAME)
-                        .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
-                        .build();
+                sInstance = Room.databaseBuilder(context.getApplicationContext(), BeneficiaryDatabase.class, DATABASE_NAME).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4).build();
             }
         }
         Log.d(LOG_TAG, "Getting the database instance");
@@ -59,11 +54,9 @@ public abstract class BeneficiaryDatabase extends RoomDatabase {
     private static final Migration MIGRATION_3_4 = new Migration(3, 4) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("ALTER TABLE Beneficiary ADD COLUMN application_status INTEGER NOT NULL DEFAULT 0");
-            database.execSQL("ALTER TABLE Beneficiary ADD COLUMN api_count INTEGER NOT NULL DEFAULT 0");
+            database.execSQL("ALTER TABLE Beneficiary ADD COLUMN application_status INTEGER NOT NULL DEFAULT 0, ADD COLUMN api_count INTEGER NOT NULL DEFAULT 0");
 
-            database.execSQL("CREATE TABLE IF NOT EXISTS sync_beneficiary " +
-                    "(id INTEGER PRIMARY KEY AUTOINCREMENT, application_id TEXT, beneficiary_name TEXT)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS sync_beneficiary " + "(id INTEGER PRIMARY KEY AUTOINCREMENT, application_id TEXT, beneficiary_name TEXT)");
         }
     };
 
