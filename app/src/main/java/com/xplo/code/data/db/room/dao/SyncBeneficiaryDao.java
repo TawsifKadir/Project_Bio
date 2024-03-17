@@ -8,7 +8,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.xplo.code.data.db.room.model.SyncBeneficiary;
-import com.xplo.code.data.db.room.model.SyncBeneficiary;
 
 import java.util.List;
 
@@ -30,10 +29,8 @@ public interface SyncBeneficiaryDao {
     List<SyncBeneficiary> getSyncBeneficiaryByAppId(String appId);
 
     @Query("SELECT * FROM sync_beneficiary")
-    List<SyncBeneficiary> getAllSyncBeneficiarys();
+    List<SyncBeneficiary> getAllSyncBeneficiaries();
 
     @Query("DELETE FROM sync_beneficiary WHERE application_id = :appId")
-    void deleteReasonByAppId(String appId);
-
+    void deleteSyncBeneficiaryByAppId(String appId);
 }
-

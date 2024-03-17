@@ -244,12 +244,18 @@ class HouseholdViewModel @Inject constructor(
     }
 
     fun deleteBeneficiary(context: Context, appId: String) {
-        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context)
+
         viewModelScope.launch(dispatchers.io) {
             val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
+
+            // Get the beneficiary by application ID
             val beneficiary = beneficiaryDao.getBeneficiaryByAppId(appId)
+
+            // Delete the beneficiary
             val deleteBene = beneficiaryDao.deleteBeneficiary(beneficiary)
 
+            // Delete associated data from other tables
             val alternateDao: AlternateDao = mDatabase.alternateDao()
             alternateDao.deleteAlternate(appId)
 
@@ -270,6 +276,7 @@ class HouseholdViewModel @Inject constructor(
 
             val selectionReasonDao: SelectionReasonDao = mDatabase.selectionReasonDao()
             selectionReasonDao.deleteReasonByAppId(appId)
+
             _event.value = Event.DeleteDataLocalDbByAppId(true)
         }
     }
@@ -401,20 +408,9 @@ class HouseholdViewModel @Inject constructor(
 
             form.biometrics = EntityMapper.toBiometricEntityFromdbForBeneficiary(biometricBio)
 
-
-//            if (beneficiary.notPerticipationReason != null) {
-//                form.notPerticipationReason =
-//                    NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt() + 1)
-//            }
-//            form.notPerticipationOtherReason = beneficiary.notPerticipationOtherReason
-
             form.nominees = EntityMapper.toNomineeItemsLdb(nominee)
 
-            if (form.nominees != null && form.nominees.size > 0) {
-                form.isOtherMemberPerticipating = true
-            } else {
-                form.isOtherMemberPerticipating = false
-            }
+            form.isOtherMemberPerticipating = form.nominees != null && form.nominees.size > 0
             if (beneficiary.notPerticipationReason != null) {
                 form.notPerticipationReason =
                     NonPerticipationReasonEnum.getNonParticipationById(beneficiary.notPerticipationReason.toInt() + 1)
@@ -537,8 +533,6 @@ class HouseholdViewModel @Inject constructor(
                 }
                 form.householdMonthlyAvgIncome = beneficiary.householdMonthlyAvgIncome
                 if (beneficiary.currency != null) {
-                    //form.currency = CurrencyEnum.entries.getOrNull(beneficiary.currency.toInt())
-//                form.currency = CurrencyEnum.getCurrencyById(beneficiary.currency.toInt() + 1)
                     form.currency = CurrencyEnum.SUDANESE_POUND
                 }
                 if (beneficiary.selectionCriteria != null) {
@@ -565,7 +559,6 @@ class HouseholdViewModel @Inject constructor(
                 locationObj.lon = location.lon
                 form.location = EntityMapper.toLocation(locationObj)
 
-                // form.householdSize = householdInfo.size
                 form.householdMember2 = EntityMapper.toHouseholdMember2Ldb(
                     beneficiary.applicationId,
                     householdInfo,
@@ -624,8 +617,6 @@ class HouseholdViewModel @Inject constructor(
 
             }
 
-
-            //Log.d(TAG, "showBeneficiary: ${form.alternatePayee1.payeeAge}")
             Log.d(TAG, "bulkBeneficiaryList: ${beneficiaryList.size}")
             _event.value = Event.GetDataLocalDbForBulk(dataList)
         }
@@ -770,57 +761,73 @@ class HouseholdViewModel @Inject constructor(
     }
 
     fun showBeneficiary(context: Context) {
-        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
-        //_event.value = Event.Loading
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context)
+
         viewModelScope.launch(dispatchers.io) {
             val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
             val nomineeDao = mDatabase.nomineeDao()
             val alternateDao = mDatabase.alternateDao()
             val biometricDao = mDatabase.biometricDao()
-            val beneficiary = beneficiaryDao.allBeneficiaries
-            for (iten in beneficiary) {
-                val nominee = nomineeDao.getNomineeListByAppId(iten.applicationId)
-                val alternate = alternateDao.getAlternateList(iten.applicationId)
-                val biometric = biometricDao.getPhoto(iten.applicationId)
-                Log.d(TAG, "showBeneficiary: ${nominee.size}")
-                Log.d(TAG, "showBeneficiary: ${alternate.size}")
-                iten.alternateSize = alternate.size
-                iten.nomineeSize = nominee.size
-                iten.photoPath = biometric.photo
+
+            val beneficiaries = beneficiaryDao.allBeneficiaries
+
+            beneficiaries.forEach { beneficiary ->
+                val nomineeList = nomineeDao.getNomineeListByAppId(beneficiary.applicationId)
+                val alternateList = alternateDao.getAlternateList(beneficiary.applicationId)
+                val biometric = biometricDao.getPhoto(beneficiary.applicationId)
+
+                beneficiary.alternateSize = alternateList.size
+                beneficiary.nomineeSize = nomineeList.size
+                beneficiary.photoPath = biometric.photo
+
+                Log.d(TAG, "showBeneficiary: Nominee count - ${nomineeList.size}")
+                Log.d(TAG, "showBeneficiary: Alternate count - ${alternateList.size}")
             }
-            Log.d(TAG, "showBeneficiary: $beneficiary")
-            _event.value = Event.GetDataLocalDb(beneficiary)
-            //   mDatabase.close()
+
+            Log.d(TAG, "showBeneficiary: Beneficiaries - $beneficiaries")
+            _event.value = Event.GetDataLocalDb(beneficiaries)
         }
 
+        // Note: No need to close the database here since you're using Room, which manages database connections automatically.
     }
 
     fun updateBeneficiary(context: Context, appId: String) {
-        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
-        //_event.value = Event.Loading
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context)
+
         viewModelScope.launch(dispatchers.io) {
             val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
-            val beneficiary = beneficiaryDao.updateBeneficiaryByAppId(appId)
 
-            Log.d(TAG, "showBeneficiary: $beneficiary")
+            // Update the beneficiary with the given application ID
+            val rowsAffected = beneficiaryDao.updateBeneficiaryByAppId(appId)
+
+            Log.d(TAG, "Updated $rowsAffected beneficiary(s)")
+
             _event.value = Event.UpdateDataLocalDb(true)
         }
-        // mDatabase.close()
+
+        // Note: No need to close the database here since you're using Room, which manages database connections automatically.
     }
 
+
     fun deleteAndInsertBeneficiary(context: Context, appId: String) {
-        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context)
+
         viewModelScope.launch(dispatchers.io) {
-            val insertSyncBeneficiary = SyncBeneficiary()
-            insertSyncBeneficiary.applicationId = appId
-            insertSyncBeneficiary.beneficiaryName = "Test"
-            val value = mDatabase.syncBeneficiaryDao().insertSyncBeneficiary(insertSyncBeneficiary)
+            // Delete the beneficiary with the given application ID
             deleteBeneficiary(context, appId)
 
-            Log.d(TAG, "showBeneficiary: $")
+            // Insert a new beneficiary
+            val insertSyncBeneficiary = SyncBeneficiary().apply {
+                applicationId = appId
+                beneficiaryName = "Test"
+            }
+            val insertedId =
+                mDatabase.syncBeneficiaryDao().insertSyncBeneficiary(insertSyncBeneficiary)
+
+            Log.d(TAG, "Inserted beneficiary with ID: $insertedId")
+
             _event.value = Event.UpdateDataLocalDb(true)
         }
-        // mDatabase.close()
     }
 
 
@@ -1230,28 +1237,38 @@ class HouseholdViewModel @Inject constructor(
 
     }
 
-    public fun callRegisterApi(context: Context, beneficiary: Beneficiary?) {
+    fun callRegisterApi(context: Context, beneficiary: Beneficiary?) {
         Log.d(TAG, "callRegisterApi() called with: context = $context, beneficiary = $beneficiary")
 
-        //beneficiary?.alternatePayee1?.biometrics = null
-        val json = Gson().toJson(beneficiary?.alternatePayee1?.payeePhoneNo)
-        Log.d(TAG, "callRegisterApi: json: $json")
+        beneficiary?.let { validBeneficiary ->
+            // Uncomment the line below if you need to log the JSON representation of the payee phone number
+            // val json = Gson().toJson(validBeneficiary.alternatePayee1?.payeePhoneNo)
+            // Log.d(TAG, "JSON representation of payee phone number: $json")
 
-        val integrationManager = IMHelper.getIntegrationManager(context, this)
-        val header = IMHelper.getHeader()
-        integrationManager.syncRecord(beneficiary, header)
+            val integrationManager = IMHelper.getIntegrationManager(context, this)
+            val header = IMHelper.getHeader()
+            integrationManager.syncRecord(validBeneficiary, header)
+        } ?: run {
+            Log.e(TAG, "Beneficiary is null.")
+        }
     }
 
-    public fun callRegisterApiBulk(context: Context, beneficiary: ArrayList<Beneficiary>?) {
+
+    fun callRegisterApiBulk(context: Context, beneficiaries: ArrayList<Beneficiary>?) {
         Log.d(
             TAG,
-            "callRegisterApiBulk= $context, beneficiary = ${beneficiary?.size}"
+            "callRegisterApiBulk - Context: $context, Beneficiary Count: ${beneficiaries?.size}"
         )
 
-        val integrationManager = IMHelper.getIntegrationManager(context, this)
-        val header = IMHelper.getHeader()
-        integrationManager.syncRecords(beneficiary, header)
+        beneficiaries?.let { beneficiaryList ->
+            val integrationManager = IMHelper.getIntegrationManager(context, this)
+            val header = IMHelper.getHeader()
+            integrationManager.syncRecords(beneficiaryList, header)
+        } ?: run {
+            Log.e(TAG, "Beneficiaries list is null or empty.")
+        }
     }
+
 
     override fun syncBeneficiaryEntity(context: Context, entity: BeneficiaryEntity?, pos: Int) {
         Log.d(
@@ -1300,82 +1317,115 @@ class HouseholdViewModel @Inject constructor(
 
     private fun onGetSyncResult(arg: RegistrationResult?) {
         viewModelScope.launch(dispatchers.io) {
-            if (arg == null) {
-                _event.value =
-                    Event.GetHouseholdItemsFailure("Received null parameter in update. Returning...")
-            } else {
-                var appId = ""
-                val registrationResult = arg as? RegistrationResult
-                if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
+            arg?.let { registrationResult ->
+                if (registrationResult.syncStatus == RegistrationStatus.SUCCESS) {
                     Log.d(DashboardFragment.TAG, "Registration Successful")
-
                     val appIds = registrationResult.applicationIds
-                    if (appIds == null) {
-                        Log.e(
-                            DashboardFragment.TAG,
-                            "No beneficiary list received. Returning ... "
-                        )
-                        //_event.value = Event.GetHouseholdItemsSuccessMsg("No beneficiary list received. Returning ... ")
+                    if (appIds.isNullOrEmpty()) {
+                        Log.e(DashboardFragment.TAG, "No beneficiary list received. Returning ...")
+                        _event.value =
+                            Event.GetHouseholdItemsFailure("No beneficiary list received.")
+                    } else {
+                        Log.d(DashboardFragment.TAG, "Registered following users:")
+                        appIds.forEach { nowId ->
+                            Log.d(DashboardFragment.TAG, "Beneficiary ID: $nowId")
+                        }
+                        _event.value =
+                            Event.GetHouseholdItemsSuccessMsg("Registration Successful", appIds)
                     }
-                    Log.d(DashboardFragment.TAG, "Registered following users: ")
-                    for (nowId in appIds) {
-                        // _event.value = Event.GetHouseholdItemsSuccessMsg("Beneficiary ID : $nowId")
-                        Log.d(DashboardFragment.TAG, "Beneficiary ID : $nowId")
-//                        if (appIds.size == 1) {
-//                            appId = nowId
-//                        }
-                    }
-                    _event.value =
-                        Event.GetHouseholdItemsSuccessMsg("Registration Successful", appIds)
-
                 } else {
-                    _event.value =
-                        Event.GetHouseholdItemsFailure("Error code : ${registrationResult?.syncStatus?.errorCode}" + " Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
-                    Log.d(DashboardFragment.TAG, "Registration Failed")
-                    Log.d(
-                        DashboardFragment.TAG,
-                        "Error code : ${registrationResult?.syncStatus?.errorCode}"
-                    )
-                    Log.d(
-                        DashboardFragment.TAG,
-                        "Error Msg : ${registrationResult?.syncStatus?.errorMsg}"
-                    )
+                    val errorCode = registrationResult.syncStatus?.errorCode ?: "Unknown"
+                    val errorMsg = registrationResult.syncStatus?.errorMsg ?: "Unknown"
+                    val failureMsg = "Error code: $errorCode, Error Msg: $errorMsg"
+                    Log.d(DashboardFragment.TAG, "Registration Failed: $failureMsg")
+                    _event.value = Event.GetHouseholdItemsFailure(failureMsg)
                 }
+            } ?: run {
+                Log.d(DashboardFragment.TAG, "Received null parameter. Returning...")
+                _event.value = Event.GetHouseholdItemsFailure("Received null parameter.")
             }
-
         }
-//        try {
-//
-//            Log.d(DashboardFragment.TAG, "Received update>>>>")
+    }
+
+
+//    private fun onGetSyncResult(arg: RegistrationResult?) {
+//        viewModelScope.launch(dispatchers.io) {
 //            if (arg == null) {
-//                Log.d(DashboardFragment.TAG, "Received null parameter in update. Returning...")
-//                return
+//                _event.value =
+//                    Event.GetHouseholdItemsFailure("Received null parameter in update. Returning...")
 //            } else {
-//                Log.d(DashboardFragment.TAG, "Received parameter in update.")
+//                var appId = ""
 //                val registrationResult = arg as? RegistrationResult
 //                if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
 //                    Log.d(DashboardFragment.TAG, "Registration Successful")
 //
 //                    val appIds = registrationResult.applicationIds
 //                    if (appIds == null) {
-//                        Log.e(DashboardFragment.TAG, "No beneficiary list received. Returning ... ")
-//                        return
+//                        Log.e(
+//                            DashboardFragment.TAG,
+//                            "No beneficiary list received. Returning ... "
+//                        )
+//                        //_event.value = Event.GetHouseholdItemsSuccessMsg("No beneficiary list received. Returning ... ")
 //                    }
-//
 //                    Log.d(DashboardFragment.TAG, "Registered following users: ")
 //                    for (nowId in appIds) {
+//                        // _event.value = Event.GetHouseholdItemsSuccessMsg("Beneficiary ID : $nowId")
 //                        Log.d(DashboardFragment.TAG, "Beneficiary ID : $nowId")
+////                        if (appIds.size == 1) {
+////                            appId = nowId
+////                        }
 //                    }
+//                    _event.value =
+//                        Event.GetHouseholdItemsSuccessMsg("Registration Successful", appIds)
+//
 //                } else {
+//                    _event.value =
+//                        Event.GetHouseholdItemsFailure("Error code : ${registrationResult?.syncStatus?.errorCode}" + " Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
 //                    Log.d(DashboardFragment.TAG, "Registration Failed")
-//                    Log.d(DashboardFragment.TAG, "Error code : ${registrationResult?.syncStatus?.errorCode}")
-//                    Log.d(DashboardFragment.TAG, "Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
+//                    Log.d(
+//                        DashboardFragment.TAG,
+//                        "Error code : ${registrationResult?.syncStatus?.errorCode}"
+//                    )
+//                    Log.d(
+//                        DashboardFragment.TAG,
+//                        "Error Msg : ${registrationResult?.syncStatus?.errorMsg}"
+//                    )
 //                }
 //            }
-//        } catch (exc: Exception) {
-//            Log.e(DashboardFragment.TAG, "Error while processing update : ${exc.message}")
+//
 //        }
-    }
+////        try {
+////
+////            Log.d(DashboardFragment.TAG, "Received update>>>>")
+////            if (arg == null) {
+////                Log.d(DashboardFragment.TAG, "Received null parameter in update. Returning...")
+////                return
+////            } else {
+////                Log.d(DashboardFragment.TAG, "Received parameter in update.")
+////                val registrationResult = arg as? RegistrationResult
+////                if (registrationResult?.syncStatus == RegistrationStatus.SUCCESS) {
+////                    Log.d(DashboardFragment.TAG, "Registration Successful")
+////
+////                    val appIds = registrationResult.applicationIds
+////                    if (appIds == null) {
+////                        Log.e(DashboardFragment.TAG, "No beneficiary list received. Returning ... ")
+////                        return
+////                    }
+////
+////                    Log.d(DashboardFragment.TAG, "Registered following users: ")
+////                    for (nowId in appIds) {
+////                        Log.d(DashboardFragment.TAG, "Beneficiary ID : $nowId")
+////                    }
+////                } else {
+////                    Log.d(DashboardFragment.TAG, "Registration Failed")
+////                    Log.d(DashboardFragment.TAG, "Error code : ${registrationResult?.syncStatus?.errorCode}")
+////                    Log.d(DashboardFragment.TAG, "Error Msg : ${registrationResult?.syncStatus?.errorMsg}")
+////                }
+////            }
+////        } catch (exc: Exception) {
+////            Log.e(DashboardFragment.TAG, "Error while processing update : ${exc.message}")
+////        }
+//    }
 
     private fun onSyncSuccess(syncResult: SyncResult) {
         Log.d(TAG, "onSyncSuccess() called with: syncResult = $syncResult")

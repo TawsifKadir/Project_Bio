@@ -4,7 +4,6 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Transaction;
 
-
 import com.xplo.code.data.db.room.model.Address;
 import com.xplo.code.data.db.room.model.Alternate;
 import com.xplo.code.data.db.room.model.Beneficiary;
