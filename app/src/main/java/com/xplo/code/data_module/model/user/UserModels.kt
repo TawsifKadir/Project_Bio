@@ -1,5 +1,6 @@
 package com.xplo.code.data_module.model.user
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import com.kit.integrationmanager.model.Address
 import com.kit.integrationmanager.model.Location
@@ -12,6 +13,7 @@ data class User(
 
 )
 
+@Keep
 data class TokenRsp(
     @SerializedName("token")
     var token: String? = null,
