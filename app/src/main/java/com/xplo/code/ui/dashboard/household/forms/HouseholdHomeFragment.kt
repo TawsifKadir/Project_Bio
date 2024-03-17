@@ -393,7 +393,8 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
             //DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", msg)
             if (appIdList != null) {
                 for (appId in appIdList) {
-                    viewModel.updateBeneficiary(requireContext(), appId)
+                    //  viewModel.updateBeneficiary(requireContext(), appId)
+                    viewModel.deleteAndInsertBeneficiary(requireContext(), appId)
                 }
             }
             val alertDialog = LottieAlertDialog.Builder(context, DialogTypes.TYPE_SUCCESS)

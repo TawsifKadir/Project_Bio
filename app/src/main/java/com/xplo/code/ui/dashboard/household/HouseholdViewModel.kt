@@ -33,6 +33,7 @@ import com.xplo.code.data.db.room.dao.LocationDao
 import com.xplo.code.data.db.room.dao.NomineeDao
 import com.xplo.code.data.db.room.dao.SelectionReasonDao
 import com.xplo.code.data.db.room.database.BeneficiaryDatabase
+import com.xplo.code.data.db.room.model.SyncBeneficiary
 import com.xplo.code.data.mapper.BeneficiaryMapper
 import com.xplo.code.data.mapper.EntityMapper
 import com.xplo.code.data_module.core.DispatcherProvider
@@ -82,7 +83,9 @@ class HouseholdViewModel @Inject constructor(
 
         class GetHouseholdItemsSuccess(val items: List<HouseholdItem>?) : Event()
         class GetHouseholdItemsFailure(val msg: String?) : Event()
-        class GetHouseholdItemsSuccessMsg(val msg: String?, val appId: MutableList<String>) : Event()
+        class GetHouseholdItemsSuccessMsg(val msg: String?, val appId: MutableList<String>) :
+            Event()
+
         class UpdateHouseholdItemSuccess(val id: String?) : Event()
         class UpdateHouseholdItemFailure(val msg: String?) : Event()
 
@@ -800,6 +803,21 @@ class HouseholdViewModel @Inject constructor(
             val beneficiary = beneficiaryDao.updateBeneficiaryByAppId(appId)
 
             Log.d(TAG, "showBeneficiary: $beneficiary")
+            _event.value = Event.UpdateDataLocalDb(true)
+        }
+        // mDatabase.close()
+    }
+
+    fun deleteAndInsertBeneficiary(context: Context, appId: String) {
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
+        viewModelScope.launch(dispatchers.io) {
+            val insertSyncBeneficiary = SyncBeneficiary()
+            insertSyncBeneficiary.applicationId = appId
+            insertSyncBeneficiary.beneficiaryName = "Test"
+            val value = mDatabase.syncBeneficiaryDao().insertSyncBeneficiary(insertSyncBeneficiary)
+            deleteBeneficiary(context, appId)
+
+            Log.d(TAG, "showBeneficiary: $")
             _event.value = Event.UpdateDataLocalDb(true)
         }
         // mDatabase.close()

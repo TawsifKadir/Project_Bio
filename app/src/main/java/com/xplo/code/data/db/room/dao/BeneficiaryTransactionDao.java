@@ -13,6 +13,7 @@ import com.xplo.code.data.db.room.model.HouseholdInfo;
 import com.xplo.code.data.db.room.model.Location;
 import com.xplo.code.data.db.room.model.Nominee;
 import com.xplo.code.data.db.room.model.SelectionReason;
+import com.xplo.code.data.db.room.model.SyncBeneficiary;
 
 import java.util.List;
 
@@ -86,4 +87,7 @@ public abstract class BeneficiaryTransactionDao {
 
     @Insert
     abstract void insert(SelectionReason selectionReason);
+
+    @Insert
+    abstract void insert(SyncBeneficiary syncBeneficiary);
 }
