@@ -642,10 +642,14 @@ class HouseholdViewModel @Inject constructor(
 
             }
 
+            if (dataList.size > 0) {
+                _event.value = Event.GetDataLocalDbForBulk(dataList)
+            } else {
+                _event.value = Event.GetHouseholdItemsFailure("No Beneficiary Found For Bulk Sync.")
+            }
 
             //Log.d(TAG, "showBeneficiary: ${form.alternatePayee1.payeeAge}")
             Log.d(TAG, "bulkBeneficiaryList: ${beneficiaryList.size}")
-            _event.value = Event.GetDataLocalDbForBulk(dataList)
         }
     }
 

@@ -331,13 +331,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         setToolbarTitle("Household")
 
         interactor?.resetRootForm()
-
-        // viewModel.getHouseholdItems()
-
         viewModel.showBeneficiary(requireContext())
-
-        // showBeneficiary()
-
     }
 
 
