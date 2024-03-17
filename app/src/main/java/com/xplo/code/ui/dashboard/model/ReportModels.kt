@@ -322,7 +322,7 @@ fun AlForm1?.getReportRows(): List<ReportRow> {
     items.add(ReportRow("Name:", form.getFullName(), null, null))
     items.add(ReportRow("Age:", form.age.toString(), "Gender: ", form.gender))
     if(form.idNumberType.equals(DocumentTypeEnum.OTHER.value, ignoreCase = true)){
-        items.add(ReportRow("Id:", form.idNumber, "Id Number Type: ", form.idNumberOthersvalue))
+        items.add(ReportRow("Id:", form.idNumber, "Id Number Type: ", form.idNumberTypeOther))
     }else{
         items.add(ReportRow("Id:", form.idNumber, "Id Number Type: ", form.idNumberType))
     }

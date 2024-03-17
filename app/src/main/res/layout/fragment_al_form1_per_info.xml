@@ -194,6 +194,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                tools:visibility="visible"
                 android:visibility="gone">
 
                 <LinearLayout
@@ -222,10 +223,10 @@
 
                     <TextView
                         style="@style/AppTextView.Input.Header"
-                        android:text="ID Type" />
+                        android:text="ID Type (Other)" />
 
                     <EditText
-                        android:id="@+id/etIDType"
+                        android:id="@+id/etIdTypeOther"
                         style="@style/AppEditText.Form.Text"
                         android:maxLength="14" />
                 </LinearLayout>
@@ -311,7 +312,7 @@
                     android:text="Relation" />
 
                 <EditText
-                    android:id="@+id/etotherstext"
+                    android:id="@+id/etOtherRelation"
                     style="@style/AppEditText.Form.Text"
                     android:hint="Please Specify"/>
 
