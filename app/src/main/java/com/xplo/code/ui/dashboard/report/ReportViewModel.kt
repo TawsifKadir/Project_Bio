@@ -1,12 +1,21 @@
 package com.xplo.code.ui.dashboard.report
 
+import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.xplo.code.data.db.room.dao.BeneficiaryDao
+import com.xplo.code.data.db.room.dao.SyncBeneficiaryDao
+import com.xplo.code.data.db.room.database.BeneficiaryDatabase
+import com.xplo.code.data.db.room.model.SyncBeneficiary
 import com.xplo.code.data_module.core.DispatcherProvider
 import com.xplo.code.data_module.model.content.ContentItem
 import com.xplo.code.data_module.repo.UserRepo
+import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,6 +38,9 @@ class ReportViewModel @Inject constructor(
 
         class UpdateFavoriteSuccess(val position: Int) : Event()
         class UpdateFavoriteFailure(val msg: String?) : Event()
+
+        class GetSyncDataLocalDb(val beneficiary: MutableList<SyncBeneficiary>) :
+            Event()
 
     }
 
@@ -58,6 +70,20 @@ class ReportViewModel @Inject constructor(
 //        }
 //
 
+    }
+
+    fun showBeneficiary(context: Context) {
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context)
+
+        viewModelScope.launch(dispatchers.io) {
+            val beneficiaryDao: SyncBeneficiaryDao = mDatabase.syncBeneficiaryDao()
+
+            val beneficiaries = beneficiaryDao.allSyncBeneficiaries
+
+            _event.value = Event.GetSyncDataLocalDb(beneficiaries)
+        }
+
+        // Note: No need to close the database here since you're using Room, which manages database connections automatically.
     }
 
 

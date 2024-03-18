@@ -5,7 +5,6 @@ import android.content.SyncResult
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
 import com.kit.integrationmanager.model.AlternatePayee
 import com.kit.integrationmanager.model.Beneficiary
 import com.kit.integrationmanager.model.BiometricType
@@ -55,7 +54,6 @@ import com.xplo.code.ui.dashboard.DashboardFragment
 import com.xplo.code.ui.dashboard.household.forms.HhPreviewFragment
 import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.toJson
-import com.xplo.code.utils.DialogUtil
 import com.xplo.code.utils.IMHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -63,7 +61,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.ArrayList
 import java.util.Observable
 import java.util.Observer
 import javax.inject.Inject
@@ -259,6 +256,37 @@ class HouseholdViewModel @Inject constructor(
             }
         }
 
+    }
+
+    fun deleteBeneficiaryBulk(context: Context, appId: String) {
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
+        viewModelScope.launch(dispatchers.io) {
+            val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
+            val beneficiary = beneficiaryDao.getBeneficiaryByAppId(appId)
+            val deleteBene = beneficiaryDao.deleteBeneficiary(beneficiary)
+
+            val alternateDao: AlternateDao = mDatabase.alternateDao()
+            alternateDao.deleteAlternate(appId)
+
+            val addressDao: AddressDao = mDatabase.addressDao()
+            addressDao.deleteAddreesByAppId(appId)
+
+            val nomineeDao: NomineeDao = mDatabase.nomineeDao()
+            nomineeDao.deleteNomineeByAppid(appId)
+
+            val locationDao: LocationDao = mDatabase.locationDao()
+            locationDao.deleteLocationByAppId(appId)
+
+            val householdInfoDao: HouseholdInfoDao = mDatabase.householdInfoDao()
+            householdInfoDao.deleteHouseholdByAppid(appId)
+
+            val biometricDao: BiometricDao = mDatabase.biometricDao()
+            biometricDao.deleteBiomatricByAppId(appId)
+
+            val selectionReasonDao: SelectionReasonDao = mDatabase.selectionReasonDao()
+            selectionReasonDao.deleteReasonByAppId(appId)
+            //  _event.value = Event.DeleteDataLocalDbByAppId(true)
+        }
     }
 
     fun deleteBeneficiary(context: Context, appId: String) {
@@ -990,7 +1018,7 @@ class HouseholdViewModel @Inject constructor(
 
         viewModelScope.launch(dispatchers.io) {
             // Delete the beneficiary with the given application ID
-            deleteBeneficiary(context, appId)
+            deleteBeneficiaryBulk(context, appId)
 
             // Insert a new beneficiary
             val insertSyncBeneficiary = SyncBeneficiary().apply {

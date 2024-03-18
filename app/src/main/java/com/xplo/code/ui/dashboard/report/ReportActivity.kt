@@ -4,13 +4,18 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.xplo.code.R
 import com.xplo.code.base.BaseActivity
 import com.xplo.code.core.Bk
+import com.xplo.code.data.db.room.model.SyncBeneficiary
 import com.xplo.code.databinding.ActivityReportBinding
+import com.xplo.code.utils.DialogUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -23,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class ReportActivity : BaseActivity(), ReportContract.View {
+class ReportActivity : BaseActivity(), ReportContract.View, ReportListAdapter.OnItemClickListener {
 
     companion object {
         private const val TAG = "ReportActivity"
@@ -44,7 +49,10 @@ class ReportActivity : BaseActivity(), ReportContract.View {
 
     private lateinit var binding: ActivityReportBinding
     private val viewModel: ReportViewModel by viewModels()
+
     //private lateinit var toolbar: Toolbar
+    private var adapter: ReportListAdapter? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +75,12 @@ class ReportActivity : BaseActivity(), ReportContract.View {
 
         val parent = intent.getStringExtra(Bk.KEY_PARENT)
         Log.d(TAG, "initView: parent: $parent")
+
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.itemAnimator = DefaultItemAnimator()
+        adapter = ReportListAdapter()
+        adapter?.setOnItemClickListener(this)
+        binding.recyclerView.adapter = adapter
 
 //        if (!isNetworkIsConnected) {
 //            onNoInternet()
@@ -96,6 +110,20 @@ class ReportActivity : BaseActivity(), ReportContract.View {
                         //onGetReportsFailure(event.msg)
                     }
 
+                    is ReportViewModel.Event.GetSyncDataLocalDb -> {
+                        hideLoading()
+                        if (event.beneficiary.isEmpty()) {
+                            DialogUtil.showLottieDialogFailMsg(
+                                this@ReportActivity,
+                                "No Data Found."
+                            )
+                        } else {
+                            adapter?.addAll(event.beneficiary)
+                            adapter?.notifyDataSetChanged()
+                        }
+
+                    }
+
 
                     else -> Unit
                 }
@@ -118,12 +146,18 @@ class ReportActivity : BaseActivity(), ReportContract.View {
 
         setToolbarTitle("Report")
 
+        viewModel.showBeneficiary(this)
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
         //presenter.detach()
         //presenter.onDetachView()
+    }
+
+    override fun onClickHouseholdItem(item: SyncBeneficiary, pos: Int) {
+        Toast.makeText(this, item.applicationId, Toast.LENGTH_SHORT).show()
     }
 
 

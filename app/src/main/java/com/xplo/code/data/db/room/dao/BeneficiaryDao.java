@@ -62,7 +62,7 @@ public interface BeneficiaryDao {
     @Query("SELECT * FROM nominee WHERE application_id = :appId")
     List<Nominee> getNomineeByAppId(String appId);
 
-    @Query("SELECT * FROM beneficiary")
+    @Query("SELECT * FROM beneficiary WHERE is_synced=0")
     List<Beneficiary> getAllBeneficiaries();
 
 

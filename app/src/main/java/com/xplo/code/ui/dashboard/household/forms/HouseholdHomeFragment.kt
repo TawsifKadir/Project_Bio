@@ -231,7 +231,6 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                         }
 
                         GlobalScope.launch(Dispatchers.IO) {
-
                             viewModel.callRegisterApiBulk(requireContext(), event.beneficiaryList)
                         }
                         viewModel.clearEvent()
