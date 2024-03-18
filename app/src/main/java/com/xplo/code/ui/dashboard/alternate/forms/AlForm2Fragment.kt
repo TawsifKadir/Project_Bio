@@ -54,6 +54,7 @@ import com.xplo.code.core.ext.isTiramisu
 import com.xplo.code.core.ext.showGrantedToast
 import com.xplo.code.core.ext.showPermanentlyDeniedDialog
 import com.xplo.code.core.ext.showRationaleDialog
+import com.xplo.code.ui.dashboard.household.forms.HhForm4CapPhotoFragment
 import com.xplo.code.utils.ImageUtils
 import com.xplo.code.utils.PermissionHelper
 import dagger.hilt.android.AndroidEntryPoint
@@ -230,7 +231,9 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View, Permis
         }
 
         binding.quickStartCroppedImage.setOnClickListener {
-            onClickCapturePhoto()
+            //onClickCapturePhoto()
+            val nowIntent = Intent(requireContext(), com.kit.photocapture.PhotoCaptureActivity::class.java)
+            startActivityForResult(nowIntent, 2)
         }
 
         request.addListener(this)
@@ -466,12 +469,46 @@ class AlForm2Fragment : BasicFormFragment(), AlternateContract.Form2View, Permis
         data: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, data)
+        /*
         if (requestCode == REQUEST_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 val uri = data!!.getParcelableExtra<Uri>("path")
                 onGetImageUri(uri)
             }
         }
+         */
+        if (requestCode == 2) {
+            if (resultCode == Activity.RESULT_OK) {
+
+                val uriStr = data!!.getStringExtra("IMAGE_URI")
+                Log.d(HhForm4CapPhotoFragment.TAG, "Received URI $uriStr")
+                if (uriStr != null) {
+                    val imgUri = Uri.parse(uriStr)
+                    onGetImageUri(imgUri)
+//                    val nowBmp = Utility.getImageData(requireContext(), imgUri)
+//                    if (nowBmp != null) {
+//                        if (mPhotoView != null) {
+//                            mPhotoView.setImageBitmap(nowBmp)
+//                            val nowData = convertBitmapToByteArray(nowBmp)
+//                            if (nowData != null) {
+//                                Log.d(TAG, "IMAGE SIZE IS : " + nowData.size)
+//                                Log.d(TAG, "IMAGE WIDTH IS : " + nowBmp.width)
+//                                Log.d(TAG, "IMAGE HEIGHT IS : " + nowBmp.height)
+//                            } else {
+//                                Log.e(TAG, "BITMAP TO BYTE CONVERSION ERROR ")
+//                            }
+//                        }
+//                    } else {
+//                        Log.e(TAG, "Error converting Uri to BMP")
+//                    }
+                } else {
+                    Log.e(HhForm4CapPhotoFragment.TAG, "Received null uri from activity")
+                }
+            } else {
+                Log.d(HhForm4CapPhotoFragment.TAG, "Error occurred ")
+            }
+        }
+
     }
 
     private fun setToModel(path: String?, bytearray: ByteArray) {
