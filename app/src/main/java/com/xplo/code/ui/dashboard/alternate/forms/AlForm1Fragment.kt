@@ -259,7 +259,7 @@ class AlForm1Fragment : BasicFormFragment(), AlternateContract.Form1View , Check
                 val selectedItem = parent.getItemAtPosition(position).toString()
                 if (selectedItem.equals(UiData.idType[2], ignoreCase = true)) { //NationalID selected
 //                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
-                    etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER
+                    etIdNumber.inputType = InputType.TYPE_CLASS_TEXT
                     etIdNumber.setText("")
                 } else if (selectedItem.equals(UiData.idType[1], ignoreCase = true)){ // Passport Selected
 //                    etIdNumber.inputType = InputType.TYPE_CLASS_NUMBER

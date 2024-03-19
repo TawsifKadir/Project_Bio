@@ -4,16 +4,16 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.xplo.skl",
+  "applicationId": "com.karooth.bio",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 200,
-      "versionName": "0.2.0",
-      "outputFile": "bio-registration-0.2.0-release.apk"
+      "versionCode": 2201,
+      "versionName": "0.22.1",
+      "outputFile": "bio-registration-0.22.1-release.apk"
     }
   ],
   "elementType": "File"

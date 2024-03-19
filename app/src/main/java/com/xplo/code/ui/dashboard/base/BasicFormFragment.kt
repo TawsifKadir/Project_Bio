@@ -72,8 +72,11 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
     override fun chkEditTextOnlyNumberAndChar(editText: EditText, error: String?): String? {
         val txt = editText.text.toString()
         if (isValidationEnabled()) {
-            if (txt.isEmpty() || txt == "" || txt.length != 14) {
-                editText.error = "Minimum 14 character"
+            if (txt.isEmpty() || txt == "" || txt.length > 15) {
+                editText.error = "Maximum 14 character"
+                return null
+            }else if (txt.length < 5) {
+                editText.error = "Minimum 5 character"
                 return null
             } else if (!isOnlyNumberAndChar(txt)) {
                 editText.error = "No Special Character Allow"
@@ -88,7 +91,7 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
         if(idType.equals("Passport", ignoreCase = true)){
             txt = chkEditTextOnlyNumberAndChar(editText,error)
         }else if(idType.equals("National ID", ignoreCase = true)){
-            txt = chkEditTextOnlyNumber(editText,error)
+            txt = chkEditTextOnlyNumberAndChar(editText,error)
         }else if(idType.equals("Other", ignoreCase = true)){
             txt = chkEditTextOnlyNumberAndChar(editText,error)
         }else{
