@@ -240,13 +240,8 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                             .setPositiveText("Ok")
                             .setPositiveListener(object : ClickListener {
                                 override fun onClick(dialog: LottieAlertDialog) {
+
                                     dialog.dismiss()
-                                    GlobalScope.launch(Dispatchers.IO) {
-                                        viewModel.callRegisterApi(
-                                            requireContext(),
-                                            event.beneficiary
-                                        )
-                                    }
                                     requireActivity().runOnUiThread {
                                         DialogUtil.showLottieDialog(
                                             requireContext(),
@@ -254,6 +249,13 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                                             "Please wait"
                                         )
                                     }
+                                    GlobalScope.launch(Dispatchers.IO) {
+                                        viewModel.callRegisterApi(
+                                            requireContext(),
+                                            event.beneficiary
+                                        )
+                                    }
+
                                     // hideLoading()
                                     //  viewModel.clearEvent()
                                 }
@@ -296,6 +298,13 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                             .setPositiveListener(object : ClickListener {
                                 override fun onClick(dialog: LottieAlertDialog) {
                                     dialog.dismiss()
+                                    requireActivity().runOnUiThread {
+                                        DialogUtil.showLottieDialog(
+                                            requireContext(),
+                                            "Data will sync to server",
+                                            "Please wait"
+                                        )
+                                    }
                                     GlobalScope.launch(Dispatchers.IO) {
                                         viewModel.callRegisterApiBulk(
                                             requireContext(),
