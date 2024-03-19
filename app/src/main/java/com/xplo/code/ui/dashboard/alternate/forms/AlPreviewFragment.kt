@@ -262,7 +262,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
             .setLayoutId(R.layout.custom_dialog_pnn)
             .setTitle(getString(R.string.alternate_reg))
             .setMessage(getString(R.string.review_complete_reg_msg))
-            .setPosButtonText("Complete Registration")
+            .setPosButtonText("Complete")
             .setNeuButtonText("Add Another")
             .setNegButtonText(getString(R.string.cancel))
             .setThumbId(R.drawable.logo_splash)
