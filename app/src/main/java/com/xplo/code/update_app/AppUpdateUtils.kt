@@ -20,8 +20,9 @@ object AppUpdateUtils {
     private const val TAG = "AppUpdateUtils"
 
     //https://cafebazaar.ir/download/bazaar.apk
-    private const val APK_URL_BASE = "https://cafebazaar.ir/download/"
-    private const val APK_NAME_LATEST = "bazaar.apk"
+    //https://snsopapk.southsudansafetynet.info/download/test_nasif/test50.apk
+    private const val APK_URL_BASE = "https://snsopapk.southsudansafetynet.info/download/test_nasif/"
+    private const val APK_NAME_LATEST = "test50.apk"
 
     const val APK_PACKAGE_NAME = "com.tencent.mm"
 
