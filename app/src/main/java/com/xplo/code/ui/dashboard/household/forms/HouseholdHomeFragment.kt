@@ -255,7 +255,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                                         )
                                     }
                                     // hideLoading()
-                                    viewModel.clearEvent()
+                                    //  viewModel.clearEvent()
                                 }
                             })
                             .setPositiveButtonColor(Color.RED)
@@ -300,11 +300,10 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                                         viewModel.callRegisterApiBulk(
                                             requireContext(),
                                             event.beneficiaryList
-
                                         )
                                     }
                                     //hideLoading()
-                                    viewModel.clearEvent()
+                                    //  viewModel.clearEvent()
                                 }
                             })
                             .setPositiveButtonColor(Color.RED)

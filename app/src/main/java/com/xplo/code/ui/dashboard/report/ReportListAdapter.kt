@@ -1,24 +1,12 @@
 package com.xplo.code.ui.dashboard.report
 
-import android.graphics.BitmapFactory
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.kit.integrationmanager.model.GenderEnum
-import com.xplo.code.R
-import com.xplo.code.core.ext.gone
-import com.xplo.code.core.ext.visible
-import com.xplo.code.data.db.room.model.Beneficiary
 import com.xplo.code.data.db.room.model.SyncBeneficiary
-import com.xplo.code.databinding.RowHouseholdItemBinding
-import com.xplo.code.databinding.RowReportItemBinding
 import com.xplo.code.databinding.RowReportListItemBinding
-import com.xplo.code.ui.dashboard.household.forms.HouseholdHomeFragment
 
 
 /**

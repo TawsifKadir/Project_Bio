@@ -1027,8 +1027,8 @@ class HouseholdViewModel @Inject constructor(
             // Insert a new beneficiary
             val insertSyncBeneficiary = SyncBeneficiary().apply {
                 applicationId = appId
-                beneficiaryName =
-                    beneficiary.respondentFirstName + " " + beneficiary.respondentMiddleName + " " + beneficiary.respondentLastName
+                // beneficiaryName = beneficiary.respondentFirstName + " " + beneficiary.respondentMiddleName + " " + beneficiary.respondentLastName
+                beneficiaryName = "Test"
             }
             val insertedId =
                 mDatabase.syncBeneficiaryDao().insertSyncBeneficiary(insertSyncBeneficiary)
@@ -1052,8 +1052,8 @@ class HouseholdViewModel @Inject constructor(
                     // Insert a new beneficiary
                     val insertSyncBeneficiary = SyncBeneficiary().apply {
                         applicationId = appId
-                        beneficiaryName =
-                            beneficiary.respondentFirstName + " " + beneficiary.respondentMiddleName + " " + beneficiary.respondentLastName
+                        // beneficiaryName =beneficiary.respondentFirstName + " " + beneficiary.respondentMiddleName + " " + beneficiary.respondentLastName
+                        beneficiaryName = "Test"
                     }
                     val insertedId =
                         mDatabase.syncBeneficiaryDao().insertSyncBeneficiary(insertSyncBeneficiary)
