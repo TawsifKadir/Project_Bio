@@ -3,6 +3,7 @@ package com.xplo.code.ui.dashboard.alternate.forms
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,9 @@ import androidx.lifecycle.lifecycleScope
 import com.kit.integrationmanager.model.AlternatePayee
 import com.kit.integrationmanager.model.Beneficiary
 import com.kit.integrationmanager.model.BiometricType
+import com.labters.lottiealertdialoglibrary.ClickListener
+import com.labters.lottiealertdialoglibrary.DialogTypes
+import com.labters.lottiealertdialoglibrary.LottieAlertDialog
 import com.xplo.code.R
 import com.xplo.code.core.Bk
 import com.xplo.code.core.ext.loadAvatar
@@ -381,7 +385,24 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
 
                 val alternate = alternateDao.getAlternateList(appId)
                 var type = ""
-                if (alternate.size == 0) {
+                if (alternate.size == 2) {
+                    LottieAlertDialog.Builder(context, DialogTypes.TYPE_ERROR)
+                        .setTitle("Attention!")
+                        .setDescription("Maximum 2 Alternate add Permission.")
+                        .setPositiveText("Ok")
+                        .setPositiveListener(object : ClickListener {
+                            override fun onClick(dialog: LottieAlertDialog) {
+                                dialog.dismiss()
+                                navigateToHome()
+                            }
+                        })
+                        .setPositiveButtonColor(Color.RED)
+                        .setPositiveTextColor(Color.WHITE)
+                        .build().apply {
+                            show()
+                            setCancelable(false)
+                        }
+                } else if (alternate.size == 0) {
                     type = "ALT1"
                     val bene =
                         beneficiaryDao.updateBeneficiaryByAppIdAndAppStatus(
