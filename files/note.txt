@@ -1,2 +1,53 @@
 https://www.pluralsight.com/guides/mvp-with-testing-part-2
 https://dzone.com/articles/a-guide-to-mocking-with-mockito
+
+
+
+Public URLs using Production Domain southsudansafetynet.info:
+SNSOP MIS:
+https://snsopmis.southsudansafetynet.info
+SSSNP MIS:
+https://sssnpmis.southsudansafetynet.info
+FAO MIS:
+https://faomis.southsudansafetynet.info
+SNSOP API:
+https://snsopapi.southsudansafetynet.info/swagger/index.html
+SSSNP API:
+https://sssnpapi.southsudansafetynet.info/swagger/index.html
+AFIS ADMIN Portal:
+https://snsopafisadmin.southsudansafetynet.info
+AFIS Beneficiary API:
+https://snsopafis.southsudansafetynet.info/afis/swagger-ui.html
+APK Download Link:
+https://snsopapk.southsudansafetynet.info/download/test.apk
+
+https://snsopapk.southsudansafetynet.info/download/test_nasif/bio-registration-0.50.0.apk
+https://snsopapk.southsudansafetynet.info/download/test_nasif/test50.apk
+
+
+upload APK.
+Host: 20.87.211.109
+Port: 22
+SFTPUser: sftpuser1
+Pass: SFTPUser@!234%^&
+######
+
+
+-keep class com.kit.integrationmanager.MainActivity
+-keep class com.kit.integrationmanager.**
+-keepclassmembers class com.kit.integrationmanager.** { *; }
+-dontwarn com.kit.integrationmanager.R$id
+
+
+# Keep generic signature of Call, Response (R8 full mode strips signatures from non-kept items).
+ -keep,allowobfuscation,allowshrinking interface retrofit2.Call
+ -keep,allowobfuscation,allowshrinking class retrofit2.Response
+
+ # With R8 full mode generic signatures are stripped for classes that are not
+ # kept. Suspend functions are wrapped in continuations where the type argument
+ # is used.
+ -keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
+
+
+ -keep class * extends com.google.protobuf.GeneratedMessageLite { *; }
+ -keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation

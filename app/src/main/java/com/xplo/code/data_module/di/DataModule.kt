@@ -10,9 +10,8 @@ import com.chuckerteam.chucker.api.RetentionManager
 import com.google.gson.Gson
 import com.localebro.okhttpprofiler.OkHttpProfilerInterceptor
 import com.xplo.code.data_module.core.Config
-import com.xplo.code.data_module.core.Contextor
-import com.xplo.code.data_module.core.InterceptorHelper
 import com.xplo.code.data_module.network.api.ContentApi
+import com.xplo.code.data_module.network.api.PublicApi
 import com.xplo.code.data_module.network.api.UserApi
 import com.xplo.code.data_module.network.interceptor.CurlInterceptor
 import com.xplo.code.data_module.network.interceptor.HeaderInterceptor
@@ -156,6 +155,11 @@ object DataModule {
 
     @Provides
     @Singleton
+    fun providePublicApi(client: OkHttpClient): PublicApi =
+        createRetrofitClient(client).create(PublicApi::class.java)
+
+    @Provides
+    @Singleton
     fun provideContentApi(client: OkHttpClient): ContentApi =
         createRetrofitClient(client).create(ContentApi::class.java)
 
@@ -163,7 +167,7 @@ object DataModule {
      * Method to create retrofit client for saas
      */
     private fun createRetrofitClient(client: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl(com.xplo.code.data_module.core.Config.getBaseUrl())
+        .baseUrl(Config.getBaseUrl())
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()
