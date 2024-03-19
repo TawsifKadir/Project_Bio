@@ -1021,15 +1021,13 @@ class HouseholdViewModel @Inject constructor(
 
         viewModelScope.launch(dispatchers.io) {
             // Delete the beneficiary with the given application ID
-            val beneficiary = mDatabase.beneficiaryDao().getBeneficiaryByAppId(appId)
+            // val beneficiary = mDatabase.beneficiaryDao().getBeneficiaryByAppId(appId)
             deleteBeneficiaryBulk(context, appId)
 
             // Insert a new beneficiary
-            val insertSyncBeneficiary = SyncBeneficiary().apply {
-                applicationId = appId
-                // beneficiaryName = beneficiary.respondentFirstName + " " + beneficiary.respondentMiddleName + " " + beneficiary.respondentLastName
-                beneficiaryName = "Test"
-            }
+            val insertSyncBeneficiary = SyncBeneficiary()
+            insertSyncBeneficiary.applicationId = appId
+            insertSyncBeneficiary.beneficiaryName = "Test Name"
             val insertedId =
                 mDatabase.syncBeneficiaryDao().insertSyncBeneficiary(insertSyncBeneficiary)
 
@@ -1046,15 +1044,19 @@ class HouseholdViewModel @Inject constructor(
             if (appIdList != null) {
                 for (appId in appIdList) {
                     // Delete the beneficiary with the given application ID
-                    val beneficiary = mDatabase.beneficiaryDao().getBeneficiaryByAppId(appId)
+                    //  val beneficiary = mDatabase.beneficiaryDao().getBeneficiaryByAppId(appId)
                     deleteBeneficiaryBulk(context, appId)
 
-                    // Insert a new beneficiary
-                    val insertSyncBeneficiary = SyncBeneficiary().apply {
-                        applicationId = appId
-                        // beneficiaryName =beneficiary.respondentFirstName + " " + beneficiary.respondentMiddleName + " " + beneficiary.respondentLastName
-                        beneficiaryName = "Test"
-                    }
+//                    // Insert a new beneficiary
+//                    val insertSyncBeneficiary = SyncBeneficiary().apply {
+//                        applicationId = appId
+//                        // beneficiaryName =beneficiary.respondentFirstName + " " + beneficiary.respondentMiddleName + " " + beneficiary.respondentLastName
+//                        beneficiaryName = "Test"
+//                    }
+
+                    val insertSyncBeneficiary = SyncBeneficiary()
+                    insertSyncBeneficiary.applicationId = appId
+                    insertSyncBeneficiary.beneficiaryName = "Test Name"
                     val insertedId =
                         mDatabase.syncBeneficiaryDao().insertSyncBeneficiary(insertSyncBeneficiary)
                 }
