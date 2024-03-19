@@ -485,12 +485,9 @@ class HouseholdViewModel @Inject constructor(
     }
 
     fun bulkBeneficiaryList(context: Context) {
-        val dataList: ArrayList<Beneficiary> = ArrayList()
-
-        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context)
-        val form: Beneficiary = Beneficiary()
-        //_event.value = Event.Loading
         viewModelScope.launch(dispatchers.io) {
+
+            val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context)
             val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
             val alternateDao: AlternateDao = mDatabase.alternateDao()
             val addressDao: AddressDao = mDatabase.addressDao()
@@ -500,8 +497,13 @@ class HouseholdViewModel @Inject constructor(
             val biometricDao: BiometricDao = mDatabase.biometricDao()
             val selectionReasonDao: SelectionReasonDao = mDatabase.selectionReasonDao()
 
+            val dataList: java.util.ArrayList<Beneficiary> = ArrayList()
+
             val beneficiaryList = beneficiaryDao.beneficiaryForBulk
             for (beneficiary in beneficiaryList) {
+                val form: Beneficiary = Beneficiary()
+
+                Log.d(TAG, "bulkBeneficiaryList: ${beneficiary.applicationId}")
                 // Data Bind With Api Obj
 
                 val address = addressDao.getAddressByAppId(beneficiary.applicationId)
@@ -672,7 +674,9 @@ class HouseholdViewModel @Inject constructor(
                 dataList.add(form)
 
             }
-
+            for (data in dataList) {
+                Log.d(TAG, "bulkBeneficiaryList:${data.applicationId} ")
+            }
             if (dataList.size > 0) {
                 _event.value = Event.GetDataLocalDbForBulk(dataList)
             } else {
@@ -1489,6 +1493,20 @@ class HouseholdViewModel @Inject constructor(
             integrationManager.syncRecord(validBeneficiary, header)
         } ?: run {
             Log.e(TAG, "Beneficiary is null.")
+        }
+    }
+
+    fun callRegisterApiNew(context: Context, beneficiaries: ArrayList<Beneficiary>?) {
+        Log.d(TAG, "callRegisterApi() called with: context = $context, beneficiary = $")
+
+        beneficiaries?.let { beneficiaryList ->
+            val integrationManager = IMHelper.getIntegrationManager(context, this)
+            val header = IMHelper.getHeader()
+            for (beneficiary in beneficiaries) {
+                integrationManager.syncRecord(beneficiary, header)
+            }
+        } ?: run {
+            Log.e(TAG, "Beneficiaries list is null or empty.")
         }
     }
 

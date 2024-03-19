@@ -32,7 +32,7 @@ public interface BeneficiaryDao {
     @Query("SELECT * FROM beneficiary WHERE id = :id")
     Beneficiary getBeneficiaryById(Long id);
 
-    @Query("SELECT * FROM beneficiary WHERE application_status = 1 AND is_synced=0 LIMIT 1")
+    @Query("SELECT * FROM beneficiary WHERE application_status = 1 AND is_synced=0")
     List<Beneficiary> getBeneficiaryForBulk();
 
     @Query("SELECT * FROM beneficiary WHERE application_id = :appId")

@@ -52,6 +52,8 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.concurrent.Executors
+import kotlin.collections.ArrayList
 
 /**
  * Copyright 2022 (C) xplo
@@ -91,6 +93,13 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
     private lateinit var locationManager: LocationManager
     private val locationPermissionCode = 2
+
+    var dataList: ArrayList<com.kit.integrationmanager.model.Beneficiary> = ArrayList()
+
+
+    private val executor =
+        Executors.newFixedThreadPool(5) // Adjust the number of threads as per your requirement
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -282,7 +291,6 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 //                                "Please wait"
 //                            )
 //                        }
-
                         LottieAlertDialog.Builder(context, DialogTypes.TYPE_QUESTION)
                             .setTitle("Attention!")
                             .setDescription("All the records will be deleted after synchronization. Do you want to proceed?")
@@ -311,6 +319,21 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                                             event.beneficiaryList
                                         )
                                     }
+
+
+//                                    for (item in event.beneficiaryList) {
+//                                        Log.d(TAG, "onClick: ${item.applicationId}")
+//                                        GlobalScope.launch(Dispatchers.IO) {
+//                                            viewModel.callRegisterApiNew(
+//                                                requireContext(),
+//                                                item
+//                                            )
+//                                        }
+//                                    }
+
+
+                                    // dataList=event.beneficiaryList
+
                                     //hideLoading()
                                     //  viewModel.clearEvent()
                                 }
