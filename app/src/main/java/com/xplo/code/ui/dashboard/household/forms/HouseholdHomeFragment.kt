@@ -214,19 +214,6 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                     }
 
                     is HouseholdViewModel.Event.GetDataLocalDbByAppId -> {
-
-//                        requireActivity().runOnUiThread {
-//                            DialogUtil.showLottieDialog(
-//                                requireContext(),
-//                                "Data will sync to server",
-//                                "Please wait"
-//                            )
-//                        }
-                        //Log.d(TAG, "onClickHouseholdItemSend() called with: item = $item, pos = $pos")
-                        //showToast("Feature not implemented yet")
-
-                        //viewModel.sendHouseholdItem(item, pos)
-
                         LottieAlertDialog.Builder(context, DialogTypes.TYPE_QUESTION)
                             .setTitle("Attention!")
                             .setDescription("The record will be deleted after synchronization. Do you want to proceed?")
@@ -241,7 +228,6 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                             .setPositiveText("Ok")
                             .setPositiveListener(object : ClickListener {
                                 override fun onClick(dialog: LottieAlertDialog) {
-
                                     dialog.dismiss()
                                     requireActivity().runOnUiThread {
                                         DialogUtil.showLottieDialog(
@@ -671,13 +657,6 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         builder.show()
     }
 
-//    private fun openSettings() {
-//        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-//        val uri = Uri.fromParts("package", requireContext().packageName, null)
-//        intent.data = uri
-//        startActivityForResult(intent, 101)
-//    }
-
     private val settingsLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -775,7 +754,14 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     }
 
     override fun onClickHouseholdItemSend(item: Beneficiary, pos: Int) {
-        viewModel.showBeneficiaryByAppId(requireContext(), item.applicationId)
+        if (item.applicationStatus == 1) {
+            viewModel.showBeneficiaryByAppId(requireContext(), item.applicationId)
+        } else {
+            showLottieDialogFailMsg(
+                requireContext(),
+                "Only Completed Data is sync to remote api."
+            )
+        }
     }
 
     override fun onClickHouseholdItemAddAlternate(item: Beneficiary, pos: Int) {
