@@ -137,17 +137,9 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
 
-//        adapter = HouseholdListAdapter()
-//        adapter?.setOnItemClickListener(this)
-//        binding.recyclerView.adapter = adapter
-
         adapterNew = HouseholdListAdapterNew()
         adapterNew?.setOnItemClickListener(this)
         binding.recyclerView.adapter = adapterNew
-
-        //  showBeneficiary()
-
-        //viewModel.getHouseholdItems()
 
         viewModel.showBeneficiary(requireContext())
 
@@ -313,11 +305,15 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                                             "Please wait"
                                         )
                                     }
+
+                                    dataList = event.beneficiaryList
+
                                     GlobalScope.launch(Dispatchers.IO) {
-                                        viewModel.callRegisterApiBulk(
-                                            requireContext(),
-                                            event.beneficiaryList
-                                        )
+//                                        viewModel.callRegisterApiBulk(
+//                                            requireContext(),
+//                                            event.beneficiaryList
+//                                        )
+                                        processAndSendData(requireContext())
                                     }
 
 
@@ -827,5 +823,39 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
+    fun processAndSendData(context: Context) {
+        // Run the data processing and sending operation on a background thread using coroutines
+        GlobalScope.launch(Dispatchers.IO) {
+            // Split data into chunks of 10 entries each
+            val dataChunks = splitIntoChunks(dataList, 10)
+
+            // Process each chunk and send to remote API
+            for (chunk in dataChunks) {
+                sendDataToAPI(chunk)
+            }
+        }
+    }
+
+
+    private fun splitIntoChunks(
+        dataList: List<com.kit.integrationmanager.model.Beneficiary>,
+        chunkSize: Int
+    ): ArrayList<List<com.kit.integrationmanager.model.Beneficiary>> {
+        val dataChunks = ArrayList<List<com.kit.integrationmanager.model.Beneficiary>>()
+        var index = 0
+        while (index < dataList.size) {
+            val chunk = dataList.subList(index, kotlin.math.min(index + chunkSize, dataList.size))
+            dataChunks.add(chunk)
+            index += chunkSize
+        }
+        return dataChunks
+    }
+
+    private fun sendDataToAPI(dataChunk: List<com.kit.integrationmanager.model.Beneficiary>) {
+        // Implement logic to send the data chunk to the remote API
+        // You may use HttpURLConnection, OkHttp, Retrofit, or any other HTTP client library
+        viewModel.callRegisterApiBulk(requireContext(), dataChunk)
+    }
 
 }

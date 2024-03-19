@@ -1,9 +1,9 @@
 package com.xplo.code.ui.dashboard.household.list
 
+import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
@@ -77,11 +77,8 @@ class HouseholdListAdapterNew : RecyclerView.Adapter<HouseholdListAdapterNew.Vie
             }
         }
 
+        @SuppressLint("SetTextI18n")
         fun bind(item: Beneficiary) {
-            //Log.d(TAG, "bind() called with: item = $item")
-            //   val form = item.toHouseholdForm()
-            //   if (form == null) return
-
             binding.tvId.text = "id: " + item.applicationId
             binding.tvName.text =
                 item.respondentFirstName + " " + item.respondentMiddleName + " " + item.respondentLastName
@@ -91,6 +88,11 @@ class HouseholdListAdapterNew : RecyclerView.Adapter<HouseholdListAdapterNew.Vie
             binding.tvAge.text = "age: " + item.respondentAge
             binding.tvNominee.text = "Nominee: " + item.nomineeSize
             binding.tvAlternate.text = "Alternate: " + item.alternateSize
+            if (item.applicationStatus == 1) {
+                binding.tvStatus.text = "Status: Completed"
+            } else if (item.applicationStatus == 0) {
+                binding.tvStatus.text = "Status: Draft"
+            }
             //binding.btSyncStatus.setImageResource(R.drawable.baseline_cloud_done_24)
             Log.d(TAG, "bind: isSynced ${item.isSynced}")
             if (item.isSynced) {
@@ -112,10 +114,10 @@ class HouseholdListAdapterNew : RecyclerView.Adapter<HouseholdListAdapterNew.Vie
 
 
 // Use Glide to load the Bitmap into an ImageView
-            Glide.with(binding.ivAvatar.getContext())
+            Glide.with(binding.ivAvatar.context)
                 .load(bitmap)
                 .placeholder(R.drawable.ic_avatar_3)
-                .into(binding.ivAvatar);
+                .into(binding.ivAvatar)
 
 //            Glide.with(binding.ivAvatar.context)
 //                .load(url)
@@ -151,27 +153,32 @@ class HouseholdListAdapterNew : RecyclerView.Adapter<HouseholdListAdapterNew.Vie
         return dataset[position]
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addItem(item: Beneficiary) {
         dataset.add(item)
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addItem(position: Int, item: Beneficiary) {
         dataset.add(position, item)
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addAll(items: List<Beneficiary>) {
         dataset.clear()
         dataset.addAll(items)
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun remove(item: Beneficiary) {
         dataset.remove(item)
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun remove(position: Int) {
         dataset.removeAt(position)
         notifyDataSetChanged()
@@ -214,9 +221,10 @@ class HouseholdListAdapterNew : RecyclerView.Adapter<HouseholdListAdapterNew.Vie
             return results
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
             dataset.clear()
-            if (results != null && results.values != null) {
+            if (results?.values != null) {
                 @Suppress("UNCHECKED_CAST")
                 dataset.addAll(results.values as ArrayList<Beneficiary>)
             }

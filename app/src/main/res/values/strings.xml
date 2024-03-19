@@ -110,5 +110,6 @@
     <string name="request_again">Request again</string>
     <string name="test_activity_permissions">Test activity permissions</string>
     <string name="test_fragment_permissions">Test fragment permissions</string>
+    <string name="status">Status</string>
 
 </resources>

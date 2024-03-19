@@ -21,6 +21,7 @@ import com.xplo.code.core.ext.toBool
 import com.xplo.code.core.ext.visible
 import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.data.db.room.dao.AlternateDao
+import com.xplo.code.data.db.room.dao.BeneficiaryDao
 import com.xplo.code.data.db.room.dao.BeneficiaryTransactionDao
 import com.xplo.code.data.db.room.database.BeneficiaryDatabase
 import com.xplo.code.data.db.room.database.DatabaseExecutors
@@ -261,7 +262,8 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
             .setLayoutId(R.layout.custom_dialog_pnn)
             .setTitle(getString(R.string.alternate_reg))
             .setMessage(getString(R.string.review_complete_reg_msg))
-            .setPosButtonText("Save")
+            .setPosButtonText("Complete Registration")
+            .setNeuButtonText("Add Another")
             .setNegButtonText(getString(R.string.cancel))
             .setThumbId(R.drawable.logo_splash)
             .setCancelable(true)
@@ -269,7 +271,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
                 override fun onClickPositiveButton() {
                     val entity = EntityMapper.toAlternateModelEntity(rootForm)
                     if (entity != null) {
-                        insertAlternate(entity, entity.applicationId)
+                        insertAlternate(entity, entity.applicationId, 1)
                     }
 
                     navigateToHome()
@@ -280,7 +282,11 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
                 }
 
                 override fun onClickNeutralButton() {
-
+                    val entity = EntityMapper.toAlternateModelEntity(rootForm)
+                    if (entity != null) {
+                        insertAlternate(entity, entity.applicationId, 0)
+                    }
+                    navigateToHome()
                 }
             })
             .build()
@@ -364,19 +370,28 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
         return ReportViewUtils.getRowView(requireContext(), layoutInflater, item)
     }
 
-    fun insertAlternate(beneficiaryBO: Beneficiary, appId: String) {
+    fun insertAlternate(beneficiaryBO: Beneficiary, appId: String, applicationStatus: Int) {
         Log.d(TAG, "insertAlternate() called with: beneficiaryBO = $beneficiaryBO, appId = $appId")
 
         try {
             DatabaseExecutors.getInstance().diskIO().execute {
                 val mDatabase = BeneficiaryDatabase.getInstance(requireContext())
                 val alternateDao: AlternateDao = mDatabase.alternateDao()
+                val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
+
                 val alternate = alternateDao.getAlternateList(appId)
                 var type = ""
                 if (alternate.size == 0) {
                     type = "ALT1"
+                    val bene =
+                        beneficiaryDao.updateBeneficiaryByAppIdAndAppStatus(
+                            appId,
+                            applicationStatus
+                        )
                 } else if (alternate.size == 1) {
                     type = "ALT2"
+                    val bene =
+                        beneficiaryDao.updateBeneficiaryByAppIdAndAppStatus(appId, 1)
                 }
 
                 val alternateList: MutableList<Alternate> =
@@ -444,7 +459,7 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
                 Log.d(TAG, "Inserted the Alternate data")
                 // onSaveSuccess(null)
                 //DialogUtil.showLottieDialogSuccessMsg(requireContext(), "Success", "Inserted the beneficiary data")
-             //   mDatabase.close()
+                //   mDatabase.close()
             }
         } catch (ex: Exception) {
             DialogUtil.showLottieDialogSuccessMsg(

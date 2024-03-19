@@ -90,13 +90,13 @@
                     android:layout_height="wrap_content"
                     tools:text="id: 02" />
 
-                <!--            <TextView-->
-                <!--                android:id="@+id/tvData"-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:includeFontPadding="false"-->
-                <!--                android:lineSpacingMultiplier="1.5"-->
-                <!--                tools:text="@string/dummy_text_medium" />-->
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:lineSpacingMultiplier="1.5"
+                    tools:text="@string/status" />
 
 
             </LinearLayout>
