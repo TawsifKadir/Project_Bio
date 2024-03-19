@@ -247,8 +247,8 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                                     //  viewModel.clearEvent()
                                 }
                             })
-                            .setPositiveButtonColor(Color.RED)
-                            .setPositiveTextColor(Color.WHITE)
+                            .setPositiveButtonColor(Color.GREEN)
+                            .setPositiveTextColor(Color.RED)
                             .setNegativeButtonColor(Color.RED)
                             .setNegativeTextColor(Color.WHITE)
                             .build().apply {
@@ -320,8 +320,8 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                                     //  viewModel.clearEvent()
                                 }
                             })
-                            .setPositiveButtonColor(Color.RED)
-                            .setPositiveTextColor(Color.WHITE)
+                            .setPositiveButtonColor(Color.GREEN)
+                            .setPositiveTextColor(Color.RED)
                             .setNegativeButtonColor(Color.RED)
                             .setNegativeTextColor(Color.WHITE)
                             .build().apply {

@@ -251,11 +251,11 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         if (beneficiary.respondentLegalStatus != null) {
             form2.legalStatus = beneficiary.respondentLegalStatus.value
         }
-        if (beneficiary.selectionReason != null) {
-            for (reason in beneficiary.selectionReason) {
-                form2.selectionReason = reason.value
-            }
-        }
+//        if (beneficiary.selectionReason != null) {
+//            for (reason in beneficiary.selectionReason) {
+//                form2.selectionReason = reason.value
+//            }
+//        }
 
         if (beneficiary.selectionCriteria != null) {
             form2.selectionCriteria = beneficiary.selectionCriteria.value
