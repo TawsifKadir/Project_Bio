@@ -7,6 +7,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
@@ -168,6 +169,18 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                         viewModel.clearEvent()
                     }
 
+                    is HouseholdViewModel.Event.UpdateDataLocalDbBulk -> {
+                        Log.d(TAG, "GetHouseHoldList Called")
+                        hideLoading()
+                        viewModel.clearEvent()
+                    }
+
+                    is HouseholdViewModel.Event.UpdateDataLocalDb -> {
+                        Log.d(TAG, "GetHouseHoldList Called")
+                        hideLoading()
+                        viewModel.clearEvent()
+                    }
+
                     is HouseholdViewModel.Event.GetHouseholdItemsFailure -> {
                         hideLoading()
                         onGetHouseholdListFailure(event.msg)
@@ -201,38 +214,108 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 
                     is HouseholdViewModel.Event.GetDataLocalDbByAppId -> {
 
-                        requireActivity().runOnUiThread {
-                            DialogUtil.showLottieDialog(
-                                requireContext(),
-                                "Data will sync to server",
-                                "Please wait"
-                            )
-                        }
+//                        requireActivity().runOnUiThread {
+//                            DialogUtil.showLottieDialog(
+//                                requireContext(),
+//                                "Data will sync to server",
+//                                "Please wait"
+//                            )
+//                        }
                         //Log.d(TAG, "onClickHouseholdItemSend() called with: item = $item, pos = $pos")
                         //showToast("Feature not implemented yet")
 
                         //viewModel.sendHouseholdItem(item, pos)
-                        GlobalScope.launch(Dispatchers.IO) {
 
-                            viewModel.callRegisterApi(requireContext(), event.beneficiary)
-                        }
+                        LottieAlertDialog.Builder(context, DialogTypes.TYPE_QUESTION)
+                            .setTitle("Attention!")
+                            .setDescription("The record will be deleted after synchronization. Do you want to proceed?")
+                            .setNegativeText("NO")
+                            .setNegativeListener(object : ClickListener {
+                                override fun onClick(dialog: LottieAlertDialog) {
+                                    dialog.dismiss()
+                                    hideLoading()
+                                    viewModel.clearEvent()
+                                }
+                            })
+                            .setPositiveText("Ok")
+                            .setPositiveListener(object : ClickListener {
+                                override fun onClick(dialog: LottieAlertDialog) {
+                                    dialog.dismiss()
+                                    GlobalScope.launch(Dispatchers.IO) {
+                                        viewModel.callRegisterApi(
+                                            requireContext(),
+                                            event.beneficiary
+                                        )
+                                    }
+                                    requireActivity().runOnUiThread {
+                                        DialogUtil.showLottieDialog(
+                                            requireContext(),
+                                            "Data will sync to server",
+                                            "Please wait"
+                                        )
+                                    }
+                                    // hideLoading()
+                                    viewModel.clearEvent()
+                                }
+                            })
+                            .setPositiveButtonColor(Color.RED)
+                            .setPositiveTextColor(Color.WHITE)
+                            .setNegativeButtonColor(Color.RED)
+                            .setNegativeTextColor(Color.WHITE)
+                            .build().apply {
+                                show()
+                                setCancelable(false)
+                            }
+
                         //hideLoading()
                         viewModel.clearEvent()
                     }
 
                     is HouseholdViewModel.Event.GetDataLocalDbForBulk -> {
 
-                        requireActivity().runOnUiThread {
-                            DialogUtil.showLottieDialog(
-                                requireContext(),
-                                "Data will sync to server",
-                                "Please wait"
-                            )
-                        }
+//                        requireActivity().runOnUiThread {
+//                            DialogUtil.showLottieDialog(
+//                                requireContext(),
+//                                "Data will sync to server",
+//                                "Please wait"
+//                            )
+//                        }
 
-                        GlobalScope.launch(Dispatchers.IO) {
-                            viewModel.callRegisterApiBulk(requireContext(), event.beneficiaryList)
-                        }
+                        LottieAlertDialog.Builder(context, DialogTypes.TYPE_QUESTION)
+                            .setTitle("Attention!")
+                            .setDescription("All the records will be deleted after synchronization. Do you want to proceed?")
+                            .setPositiveText("Ok")
+                            .setNegativeText("NO")
+                            .setNegativeListener(object : ClickListener {
+                                override fun onClick(dialog: LottieAlertDialog) {
+                                    dialog.dismiss()
+                                    hideLoading()
+                                    viewModel.clearEvent()
+                                }
+                            })
+                            .setPositiveListener(object : ClickListener {
+                                override fun onClick(dialog: LottieAlertDialog) {
+                                    dialog.dismiss()
+                                    GlobalScope.launch(Dispatchers.IO) {
+                                        viewModel.callRegisterApiBulk(
+                                            requireContext(),
+                                            event.beneficiaryList
+
+                                        )
+                                    }
+                                    //hideLoading()
+                                    viewModel.clearEvent()
+                                }
+                            })
+                            .setPositiveButtonColor(Color.RED)
+                            .setPositiveTextColor(Color.WHITE)
+                            .setNegativeButtonColor(Color.RED)
+                            .setNegativeTextColor(Color.WHITE)
+                            .build().apply {
+                                show()
+                                setCancelable(false)
+                            }
+
                         viewModel.clearEvent()
                     }
 
@@ -383,10 +466,13 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         DialogUtil.dismissLottieDialog()
         if (msg != null) {
             if (appIdList != null) {
-                for (appId in appIdList) {
-                    //  viewModel.updateBeneficiary(requireContext(), appId)
-                    viewModel.deleteAndInsertBeneficiary(requireContext(), appId)
+                if (appIdList.size == 1) {
+                    viewModel.deleteAndInsertBeneficiary(requireContext(), appIdList[0])
+                } else {
+                    viewModel.deleteAndInsertBeneficiaryBulk(requireContext(), appIdList)
                 }
+                //  viewModel.updateBeneficiary(requireContext(), appId)
+
             }
             LottieAlertDialog.Builder(context, DialogTypes.TYPE_SUCCESS)
                 .setTitle("Success")

@@ -16,6 +16,8 @@ import com.xplo.code.core.ext.visible
 import com.xplo.code.data.db.room.model.Beneficiary
 import com.xplo.code.data.db.room.model.SyncBeneficiary
 import com.xplo.code.databinding.RowHouseholdItemBinding
+import com.xplo.code.databinding.RowReportItemBinding
+import com.xplo.code.databinding.RowReportListItemBinding
 import com.xplo.code.ui.dashboard.household.forms.HouseholdHomeFragment
 
 
@@ -37,7 +39,7 @@ class ReportListAdapter : RecyclerView.Adapter<ReportListAdapter.ViewHolder>(),
     private var dataset = ArrayList<SyncBeneficiary>()
     private var listener: OnItemClickListener? = null
 
-    inner class ViewHolder(private val binding: RowHouseholdItemBinding) :
+    inner class ViewHolder(private val binding: RowReportListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -53,35 +55,17 @@ class ReportListAdapter : RecyclerView.Adapter<ReportListAdapter.ViewHolder>(),
         }
 
         fun bind(item: SyncBeneficiary) {
-            binding.tvId.text = "id: " + item.applicationId
-            binding.tvName.text = item.beneficiaryName
+            binding.tvId.text = "ID: " + item.applicationId
+            binding.tvName.text = "Name: " + item.beneficiaryName
 
         }
 
-        private fun loadImage(byteArray: ByteArray?) {
-            if (byteArray?.isEmpty() == true) return
-
-            val bitmap = byteArray?.size?.let { BitmapFactory.decodeByteArray(byteArray, 0, it) }
-
-
-// Use Glide to load the Bitmap into an ImageView
-            Glide.with(binding.ivAvatar.getContext())
-                .load(bitmap)
-                .placeholder(R.drawable.ic_avatar_3)
-                .into(binding.ivAvatar);
-
-//            Glide.with(binding.ivAvatar.context)
-//                .load(url)
-//                .placeholder(R.drawable.ic_avatar_3)
-//                .into(binding.ivAvatar)
-
-        }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            RowHouseholdItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            RowReportListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         // set the view's size, margins, paddings and layout parameters
         return ViewHolder(binding)
     }

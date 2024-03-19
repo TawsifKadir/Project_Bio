@@ -153,6 +153,9 @@ class HouseholdViewModel @Inject constructor(
         class UpdateDataLocalDb(val msg: Boolean) :
             Event()
 
+        class UpdateDataLocalDbBulk(val msg: Boolean) :
+            Event()
+
         class InsertDataLocalDb(val msg: String) :
             Event()
 
@@ -1018,12 +1021,14 @@ class HouseholdViewModel @Inject constructor(
 
         viewModelScope.launch(dispatchers.io) {
             // Delete the beneficiary with the given application ID
+            val beneficiary = mDatabase.beneficiaryDao().getBeneficiaryByAppId(appId)
             deleteBeneficiaryBulk(context, appId)
 
             // Insert a new beneficiary
             val insertSyncBeneficiary = SyncBeneficiary().apply {
                 applicationId = appId
-                beneficiaryName = "Test"
+                beneficiaryName =
+                    beneficiary.respondentFirstName + " " + beneficiary.respondentMiddleName + " " + beneficiary.respondentLastName
             }
             val insertedId =
                 mDatabase.syncBeneficiaryDao().insertSyncBeneficiary(insertSyncBeneficiary)
@@ -1031,6 +1036,34 @@ class HouseholdViewModel @Inject constructor(
             Log.d(TAG, "Inserted beneficiary with ID: $insertedId")
 
             _event.value = Event.UpdateDataLocalDb(true)
+        }
+    }
+
+    fun deleteAndInsertBeneficiaryBulk(context: Context, appIdList: MutableList<String>?) {
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context)
+
+        viewModelScope.launch(dispatchers.io) {
+            if (appIdList != null) {
+                for (appId in appIdList) {
+                    // Delete the beneficiary with the given application ID
+                    val beneficiary = mDatabase.beneficiaryDao().getBeneficiaryByAppId(appId)
+                    deleteBeneficiaryBulk(context, appId)
+
+                    // Insert a new beneficiary
+                    val insertSyncBeneficiary = SyncBeneficiary().apply {
+                        applicationId = appId
+                        beneficiaryName =
+                            beneficiary.respondentFirstName + " " + beneficiary.respondentMiddleName + " " + beneficiary.respondentLastName
+                    }
+                    val insertedId =
+                        mDatabase.syncBeneficiaryDao().insertSyncBeneficiary(insertSyncBeneficiary)
+                }
+            }
+
+
+            Log.d(TAG, "Inserted beneficiary with ID")
+
+            _event.value = Event.UpdateDataLocalDbBulk(true)
         }
     }
 
@@ -1534,8 +1567,17 @@ class HouseholdViewModel @Inject constructor(
                         appIds.forEach { nowId ->
                             Log.d(DashboardFragment.TAG, "Beneficiary ID: $nowId")
                         }
-                        _event.value =
-                            Event.GetHouseholdItemsSuccessMsg("Registration Successful", appIds)
+                        if (appIds.size == 1) {
+                            _event.value =
+                                Event.GetHouseholdItemsSuccessMsg("Sync Data Successful", appIds)
+                        } else {
+                            _event.value =
+                                Event.GetHouseholdItemsSuccessMsg(
+                                    "Bulk Sync Data Successful",
+                                    appIds
+                                )
+                        }
+
                     }
                 } else {
                     val errorCode = registrationResult.syncStatus?.errorCode ?: "Unknown"
