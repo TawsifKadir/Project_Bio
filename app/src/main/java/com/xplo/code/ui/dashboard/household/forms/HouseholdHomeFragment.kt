@@ -220,7 +220,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                     is HouseholdViewModel.Event.GetDataLocalDbByAppId -> {
                         LottieAlertDialog.Builder(context, DialogTypes.TYPE_QUESTION)
                             .setTitle("Attention!")
-                            .setDescription("The record will be deleted after synchronization. Do you want to proceed?")
+                            .setDescription("Please make sure the records have been exported before synchronization, as the record will be deleted after this action. Do you want to proceed?")
                             .setNegativeText("NO")
                             .setNegativeListener(object : ClickListener {
                                 override fun onClick(dialog: LottieAlertDialog) {
