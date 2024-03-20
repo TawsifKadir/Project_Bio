@@ -18,19 +18,23 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 object DbExporter {
 
     private const val DB_NAME = "benedb.db"
 
-    fun exportWithPermission(context: Context, activity: Activity) {
-        if (!hasStoragePermission(context)) {
+    fun exportWithPermission(context: Context, activity: Activity): Boolean {
+        return if (!hasStoragePermission(context)) {
             Log.d("TAG", "exportWithPermission: ")
             askForStoragePermission(activity)
+            false
         } else {
             Log.d("TAG", "exportWithPermission:2 ")
             closeAndExportDatabase(context)
+            true
         }
     }
 
@@ -55,7 +59,8 @@ object DbExporter {
                 val exportDir = File(Environment.getExternalStorageDirectory(), "bio_reg/database")
                 if (!exportDir.exists()) exportDir.mkdirs()
 
-                val exportFile = File(exportDir, DB_NAME)
+                val exportFile =
+                    File(exportDir, getCurrentDateTimeInMillis().toString() + "_" + DB_NAME)
                 exportFile.createNewFile()
 
                 val src = FileInputStream(dbFile).channel
@@ -106,5 +111,12 @@ object DbExporter {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             ) == PackageManager.PERMISSION_GRANTED
         }
+    }
+
+    fun getCurrentDateTimeInMillis(): Long {
+        val currentDateTime = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS")
+        val formattedDateTime = currentDateTime.format(formatter)
+        return formattedDateTime.toLong()
     }
 }
