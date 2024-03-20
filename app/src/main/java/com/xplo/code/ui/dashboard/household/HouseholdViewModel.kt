@@ -422,8 +422,37 @@ class HouseholdViewModel @Inject constructor(
             val selectionReasonList = ArrayList<SelectionReasonEnum>()
             for (item in selectionReason) {
                 val reasonId = item.id.toInt() + 1
-                val selectionReason = SelectionReasonEnum.getSelectionReasonById(reasonId)
-                selectionReasonList.add(selectionReason)
+                if (SelectionReasonEnum.DIS_REASON_1.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.DIS_REASON_1
+                    selectionReasonList.add(selectionReason)
+                } else if (SelectionReasonEnum.DIS_REASON_2.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.DIS_REASON_2
+                    selectionReasonList.add(selectionReason)
+                } else if (SelectionReasonEnum.DIS_REASON_3.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.DIS_REASON_3
+                    selectionReasonList.add(selectionReason)
+                } else if (SelectionReasonEnum.DIS_REASON_4.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.DIS_REASON_4
+                    selectionReasonList.add(selectionReason)
+                } else if (SelectionReasonEnum.DIS_REASON_5.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.DIS_REASON_5
+                    selectionReasonList.add(selectionReason)
+                } else if (SelectionReasonEnum.LIPW_REASON_1.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.LIPW_REASON_1
+                    selectionReasonList.add(selectionReason)
+                } else if (SelectionReasonEnum.LIPW_REASON_2.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.LIPW_REASON_2
+                    selectionReasonList.add(selectionReason)
+                } else if (SelectionReasonEnum.LIPW_REASON_3.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.LIPW_REASON_3
+                    selectionReasonList.add(selectionReason)
+                } else if (SelectionReasonEnum.LIPW_REASON_4.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.LIPW_REASON_4
+                    selectionReasonList.add(selectionReason)
+                } else if (SelectionReasonEnum.LIPW_REASON_5.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.LIPW_REASON_5
+                    selectionReasonList.add(selectionReason)
+                }
             }
 
             form.selectionReason = selectionReasonList
@@ -775,8 +804,37 @@ class HouseholdViewModel @Inject constructor(
             val selectionReasonList = ArrayList<SelectionReasonEnum>()
             for (item in selectionReason) {
                 val reasonId = item.id.toInt() + 1
-                val selectionReason = SelectionReasonEnum.getSelectionReasonById(reasonId)
-                selectionReasonList.add(selectionReason)
+                if (SelectionReasonEnum.DIS_REASON_1.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.DIS_REASON_1
+                    selectionReasonList.add(selectionReason)
+                } else if (SelectionReasonEnum.DIS_REASON_2.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.DIS_REASON_2
+                    selectionReasonList.add(selectionReason)
+                } else if (SelectionReasonEnum.DIS_REASON_3.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.DIS_REASON_3
+                    selectionReasonList.add(selectionReason)
+                } else if (SelectionReasonEnum.DIS_REASON_4.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.DIS_REASON_4
+                    selectionReasonList.add(selectionReason)
+                } else if (SelectionReasonEnum.DIS_REASON_5.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.DIS_REASON_5
+                    selectionReasonList.add(selectionReason)
+                } else if (SelectionReasonEnum.LIPW_REASON_1.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.LIPW_REASON_1
+                    selectionReasonList.add(selectionReason)
+                } else if (SelectionReasonEnum.LIPW_REASON_2.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.LIPW_REASON_2
+                    selectionReasonList.add(selectionReason)
+                } else if (SelectionReasonEnum.LIPW_REASON_3.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.LIPW_REASON_3
+                    selectionReasonList.add(selectionReason)
+                } else if (SelectionReasonEnum.LIPW_REASON_4.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.LIPW_REASON_4
+                    selectionReasonList.add(selectionReason)
+                } else if (SelectionReasonEnum.LIPW_REASON_5.name == item.selectionReasonName) {
+                    val selectionReason = SelectionReasonEnum.LIPW_REASON_5
+                    selectionReasonList.add(selectionReason)
+                }
             }
 
             form.selectionReason = selectionReasonList

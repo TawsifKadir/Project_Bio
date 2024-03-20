@@ -30,6 +30,7 @@ import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.model.AlForm1
 import com.xplo.code.ui.dashboard.model.AlForm2
 import com.xplo.code.ui.dashboard.model.AlternateForm
+import com.xplo.code.ui.dashboard.model.CheckboxItem
 import com.xplo.code.ui.dashboard.model.Finger
 import com.xplo.code.ui.dashboard.model.HhForm1
 import com.xplo.code.ui.dashboard.model.HhForm2
@@ -251,11 +252,20 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
         if (beneficiary.respondentLegalStatus != null) {
             form2.legalStatus = beneficiary.respondentLegalStatus.value
         }
-//        if (beneficiary.selectionReason != null) {
-//            for (reason in beneficiary.selectionReason) {
-//                form2.selectionReason = reason.value
-//            }
-//        }
+        if (beneficiary.selectionReason != null) {
+            // Convert the string to a list of CheckboxItem objects
+            val checkboxItemList = ArrayList<CheckboxItem>()
+
+            for (reason in beneficiary.selectionReason) {
+                val item = CheckboxItem()
+                item.id = reason.id
+                item.title = reason.value
+                item.isChecked = !reason.value.isNullOrEmpty()
+                checkboxItemList.add(item)
+            }
+            form2.itemsSupportType = checkboxItemList
+
+        }
 
         if (beneficiary.selectionCriteria != null) {
             form2.selectionCriteria = beneficiary.selectionCriteria.value
@@ -358,7 +368,7 @@ class FormDetailsFragment : BaseFragment(), HouseholdContract.FormDetailsView {
 
         form3.readWriteNumber = beneficiary.memberReadWrite
 
-        var totalList = listOf<Int>(
+        val totalList = listOf<Int>(
             hhMemberm.total, hhMemberf.total,
             hhMember5m.total, hhMember5f.total,
             hhMember17m.total, hhMember17f.total,
