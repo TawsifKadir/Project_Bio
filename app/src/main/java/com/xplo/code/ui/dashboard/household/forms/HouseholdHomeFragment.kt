@@ -147,10 +147,13 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         DialogUtil.showLottieDialog(requireContext(), "Preparing Content", "Please wait")
 
         binding.fab.setOnClickListener {
-            val value = DbExporter.exportWithPermission(requireContext(), requireActivity())
-            if (value) {
-                viewModel.bulkBeneficiaryList(requireContext())
-            }
+//            val value = DbExporter.exportWithPermission(requireContext(), requireActivity())
+//            if (value) {
+//                viewModel.bulkBeneficiaryList(requireContext())
+//            }
+
+
+            viewModel.bulkBeneficiaryList(requireContext())
         }
     }
 
@@ -299,11 +302,20 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                                     dataList = event.beneficiaryList
 
                                     GlobalScope.launch(Dispatchers.IO) {
+                                        val value = DbExporter.fileWriteWithPermission(
+                                            requireContext(),
+                                            requireActivity()
+                                        )
+
+                                        if (value) {
+                                            processAndSendData(requireContext())
+                                        }
+
+
 //                                        viewModel.callRegisterApiBulk(
 //                                            requireContext(),
 //                                            event.beneficiaryList
 //                                        )
-                                        processAndSendData(requireContext())
                                     }
 
 
@@ -845,7 +857,14 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     private fun sendDataToAPI(dataChunk: List<com.kit.integrationmanager.model.Beneficiary>) {
         // Implement logic to send the data chunk to the remote API
         // You may use HttpURLConnection, OkHttp, Retrofit, or any other HTTP client library
+        for (beneficiary in dataChunk) {
+            // Process each beneficiary
+            DbExporter.saveLoginInfoToCache(requireContext(), beneficiary)
+        }
+
+        // Call the method after the loop completes
         viewModel.callRegisterApiBulk(requireContext(), dataChunk)
+
     }
 
 }

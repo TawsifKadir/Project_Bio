@@ -12,12 +12,16 @@ import android.provider.Settings
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.fasterxml.jackson.core.JsonProcessingException
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.kit.integrationmanager.model.Beneficiary
 import com.xplo.code.BuildConfig
 import com.xplo.code.data.db.room.database.BeneficiaryDatabase.dbCloseFromDB
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
+import java.io.OutputStreamWriter
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -118,5 +122,71 @@ object DbExporter {
         val formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS")
         val formattedDateTime = currentDateTime.format(formatter)
         return formattedDateTime.toLong()
+    }
+
+    fun saveLoginInfoToCache(
+        context: Context,
+        beneficiary: Beneficiary?
+    ): Boolean {
+        val mapper = ObjectMapper()
+        if (context == null) return false
+        var data: String? = null
+        data = try {
+            mapper.writerWithDefaultPrettyPrinter().writeValueAsString(beneficiary)
+        } catch (jsonException: JsonProcessingException) {
+            Log.e("TAG", jsonException.message!!)
+            jsonException.printStackTrace()
+            return false
+        }
+        if (data == null) {
+            Log.e("TAG", "Null data received after JSON parsing")
+            return false
+        }
+        if (beneficiary != null) {
+            return writeToCache(context, data, beneficiary.applicationId)
+        } else {
+            return false
+        }
+    }
+
+    private fun writeToCache(context: Context, data: String, applicationId: String): Boolean {
+        val exportDir = File(Environment.getExternalStorageDirectory(), "bio_reg/beneficiary/")
+        val exportFile =
+            File(exportDir, applicationId + "_" + getCurrentDateTimeInMillis() + ".json")
+        if (!exportFile.exists()) {
+            exportDir.mkdirs()
+            try {
+                exportFile.createNewFile()
+            } catch (exc: java.lang.Exception) {
+                Log.e("TAG", "Error occured while creating cahce file.")
+                exc.printStackTrace()
+                return false
+            }
+        }
+        try {
+            FileOutputStream(exportFile).use { fos ->
+                OutputStreamWriter(fos).use { osw ->
+                    osw.write(data)
+                    osw.flush()
+                }
+            }
+        } catch (exc: Exception) {
+            Log.e("TAG", "Error occured while writing to cahce.")
+            exc.printStackTrace()
+            return false
+        }
+        return true
+    }
+
+    fun fileWriteWithPermission(
+        context: Context, activity: Activity
+    ): Boolean {
+        return if (!hasStoragePermission(context)) {
+            Log.d("TAG", "exportWithPermission: ")
+            askForStoragePermission(activity)
+            false
+        } else {
+            true
+        }
     }
 }
