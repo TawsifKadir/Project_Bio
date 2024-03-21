@@ -2,6 +2,8 @@ package com.xplo.code.ui.dashboard.household.forms.nominee
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +15,8 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.fragment.app.viewModels
-import com.kit.integrationmanager.model.OccupationEnum
 import com.kit.integrationmanager.model.NonPerticipationReasonEnum
+import com.kit.integrationmanager.model.OccupationEnum
 import com.kit.integrationmanager.model.RelationshipEnum
 import com.xplo.code.BuildConfig
 import com.xplo.code.R
@@ -30,7 +32,6 @@ import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.forms.HhForm6Nominee2Fragment
 import com.xplo.code.ui.dashboard.model.Nominee
 import com.xplo.code.ui.dashboard.model.isOk
-
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -52,14 +53,19 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         fun newInstance(
             parent: String?,
             no: Int,
-            gender: String?
+            gender: String?,
+            nominee: Nominee?
         ): NomineeInputFragment {
-            Log.d(TAG, "newInstance() called with: parent = $parent, no = $no, gender = $gender")
+            Log.d(
+                TAG,
+                "newInstance() called with: parent = $parent, no = $no, gender = $gender, nominee = $nominee"
+            )
             val fragment = NomineeInputFragment()
             val bundle = Bundle()
             bundle.putString(Bk.KEY_PARENT, parent)
             bundle.putInt(Bk.KEY_NO, no)
             bundle.putString(Bk.KEY_GENDER, gender)
+            bundle.putSerializable(Bk.KEY_ITEM, nominee)
             fragment.arguments = bundle
             return fragment
         }
@@ -89,6 +95,8 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
 
     private var nomineeNo = 0
     private var gender: String? = null
+    private var nominee: Nominee? = null
+    private var pos = -1
 
 
     override fun onAttach(context: Context) {
@@ -114,6 +122,7 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         initInitial()
         initView()
         initObserver()
+        onReinstateData(nominee)
 
     }
 
@@ -123,6 +132,11 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         arguments?.let {
             nomineeNo = it.getInt(Bk.KEY_NO)
             gender = it.getString(Bk.KEY_GENDER)
+            nominee = it.getSerializable(Bk.KEY_ITEM) as Nominee?
+
+            if(nominee!=null){
+                pos = nominee!!.pos
+            }
         }
 
         etFirstName = binding.include.etFirstName
@@ -156,17 +170,18 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
             onReadInput()
         }
         binding.include.rgReadWrite.setOnCheckedChangeListener { group, checkedId ->
-            when(checkedId){
+            when (checkedId) {
                 R.id.rbReadWriteYes -> {
                     (group.getChildAt(group.childCount - 1) as RadioButton).error = null
                 }
+
                 R.id.rbReadWriteNo -> {
                     (group.getChildAt(group.childCount - 1) as RadioButton).error = null
                 }
             }
         }
 
-        spRelation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spRelation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -174,10 +189,14 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
                 id: Long
             ) {
                 val selectedItem = parent?.getItemAtPosition(position).toString()
-                if(selectedItem.equals(NonPerticipationReasonEnum.REASON_OTHER.value, ignoreCase = true)){
+                if (selectedItem.equals(
+                        NonPerticipationReasonEnum.REASON_OTHER.value,
+                        ignoreCase = true
+                    )
+                ) {
                     otherRelation.visible()
-                }else{
-                    Log.d(HhForm6Nominee2Fragment.TAG,"Selected Spinner Other not selected")
+                } else {
+                    Log.d(TAG, "Selected Spinner Other not selected")
                     etOtherRelation.setText("")
                     otherRelation.gone()
                 }
@@ -188,7 +207,7 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
             }
         }
 
-        spOccupation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spOccupation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -196,10 +215,10 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
                 id: Long
             ) {
                 val selectedItem = parent?.getItemAtPosition(position).toString()
-                if(selectedItem.contains("Other", ignoreCase = true)){
+                if (selectedItem.contains("Other", ignoreCase = true)) {
                     otherWork.visible()
-                }else{
-                    Log.d(NomineeInputFragment.TAG,"Selected Spinner Other not selected")
+                } else {
+                    Log.d(NomineeInputFragment.TAG, "Selected Spinner Other not selected")
                     etOtherWork.setText("")
                     otherWork.gone()
                 }
@@ -209,8 +228,11 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
                 TODO("Not yet implemented")
             }
         }
+
         onLongClickDataGeneration()
-        onGenerateDummyInput()
+        if (TestConfig.isAutoDGEnabled) {
+            onGenerateDummyInput()
+        }
 
         if (gender?.isNotBlank().toBool()) {
             setSpinnerItem(spGender, UiData.genderOptions, gender)
@@ -228,9 +250,34 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         super.onDestroy()
     }
 
+    override fun onReinstateData(item: Nominee?) {
+        Log.d(TAG, "onReinstateData() called with: item = $item")
+        if (item == null) return
+
+        etFirstName.setText(item.firstName)
+        etMiddleName.setText(item.middleName)
+        etLastName.setText(item.lastName)
+        etNickName.setText(item.nickName)
+        etAge.setText(item.age.toString())
+
+        setSpinnerItem(spRelation, UiData.relationshipOptions, item.relation)
+        setSpinnerItem(spGender, UiData.genderOptions, item.gender)
+        setSpinnerItem(spOccupation, UiData.nomineeOccupation, item.occupation)
+
+        checkRbPosNeg(rgReadWrite, rbReadWriteYes, rbReadWriteNo, item.isReadWrite)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            etOtherRelation.setText(item.relationOthers)
+            etOtherWork.setText(item.occupationOthers)
+        }, 1000)
+
+
+    }
+
 
     override fun onGetNomineeSuccess(item: Nominee?) {
         Log.d(TAG, "onGetNomineeSuccess() called with: item = $item")
+        item?.pos = pos
         interactor?.onCompleteModal(item)
     }
 
@@ -250,12 +297,12 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         nominee.nickName = chkEditTextNickName3Char(etNickName, UiData.ER_ET_DF)
         nominee.age = chkAge(etAge, UiData.ER_ET_DF)?.toInt()
         nominee.relation = chkSpinner(spRelation, UiData.ER_SP_DF)
-        if(nominee.relation.equals(RelationshipEnum.OTHER.value, ignoreCase = true)){
+        if (nominee.relation.equals(RelationshipEnum.OTHER.value, ignoreCase = true)) {
             nominee.relationOthers = chkEditText3CharAllowSpace(etOtherRelation, UiData.ER_ET_DF)
         }
         nominee.gender = chkSpinner(spGender, UiData.ER_SP_DF)
         nominee.occupation = chkNomineeOccupationSpinner(spOccupation, UiData.ER_SP_DF)
-        if(nominee.occupation.equals(OccupationEnum.OTHER.value, ignoreCase = true)){
+        if (nominee.occupation.equals(OccupationEnum.OTHER.value, ignoreCase = true)) {
             nominee.occupationOthers = chkEditText3CharAllowSpace(etOtherWork, UiData.ER_ET_DF)
         }
         nominee.isReadWrite = chkRadioGroup(rgReadWrite, UiData.ER_RB_DF)
@@ -282,14 +329,14 @@ class NomineeInputFragment : BasicFormFragment(), NomineeModalContract.InputView
         if (!BuildConfig.DEBUG) return
         if (!TestConfig.isDummyDataEnabled) return
 
-//        etFirstName.setText("Ruben")
-//        etMiddleName.setText("middle")
-//        etLastName.setText("Dias")
-//        etAge.setText("20")
-//        spRelation.setSelection(2)
-//        spGender.setSelection(2)
-//        spOccupation.setSelection(2)
-//        rgReadWrite.check(rbReadWriteNo.id)
+        etFirstName.setText("Ruben")
+        etMiddleName.setText("middle")
+        etLastName.setText("Dias")
+        etAge.setText("20")
+        spRelation.setSelection(2)
+        spGender.setSelection(2)
+        spOccupation.setSelection(2)
+        rgReadWrite.check(rbReadWriteNo.id)
     }
 
     override fun onPopulateView() {

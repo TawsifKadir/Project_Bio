@@ -216,6 +216,7 @@ interface HouseholdContract {
         fun onAddNominee(gender: String?)
 
         fun onGetANomineeFromPopup(nominee: Nominee?)
+        fun onGetUpdatedNomineeFromPopup(nominee: Nominee?, pos: Int)
         fun onRefreshViewWhenListUpdated()
         fun onListHasData()
         fun onListEmpty()

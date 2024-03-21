@@ -87,6 +87,11 @@ class NomineeListAdapter : RecyclerView.Adapter<NomineeListAdapter.ViewHolder>()
         notifyDataSetChanged()
     }
 
+    fun updateItem(position: Int, item: Nominee) {
+        dataset[position] = item
+        notifyItemChanged(position)
+    }
+
     fun addAll(items: List<Nominee>) {
         dataset.clear()
         dataset.addAll(items)
