@@ -11,8 +11,8 @@ apply plugin: 'dagger.hilt.android.plugin'
 //apply plugin: 'com.google.gms.google-services'
 
 def versionMajor = 0
-def versionMinor = 25
-def versionPatch = 3
+def versionMinor = 26
+def versionPatch = 4
 
 android {
 
@@ -123,10 +123,11 @@ dependencies {
 
     //new sdk for fingerprint and photo capture demo
   //  implementation files('libs/BiometricSDK-Demo.aar')
-    implementation files('libs/BiometricSDK-v1.6-debug.aar')
+  //  implementation files('libs/BiometricSDK-v1.6-debug.aar')
 
     //new sdk for fingerprint and photo capture target
 //    implementation files('libs/BiometricSDK-Target.aar')
+    implementation files('libs/BiometricSDK-v1.6-target-debug.aar')
 
 
     //implementation project(":data")
