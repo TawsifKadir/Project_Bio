@@ -118,14 +118,24 @@ dependencies {
 
     //implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation files('libs/IntegrationManager-debug.aar')
+    implementation files('libs/OpenCV-debug.aar')
+
+    //new sdk for fingerprint and photo capture demo
+    implementation files('libs/BiometricSDK-Demo.aar')
+
+    //new sdk for fingerprint and photo capture target
+//    implementation files('libs/BiometricSDK-Target.aar')
+
+
+
+
+
+
     //implementation project(":data")
 //    implementation files('libs/finger_morpho.aar')        // original
     //implementation files('libs/FingerprintCapture-debug.aar')
-    implementation files('libs/IntegrationManager-debug.aar')
-    implementation files('libs/OpenCV-debug.aar')
     //implementation files('libs/SNSOPPhotoCapture-debug.aar')
-    implementation files('libs/BiometricSDK-Demo.aar')
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
