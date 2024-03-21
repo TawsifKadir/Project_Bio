@@ -1,7 +1,7 @@
 package com.xplo.code.data.mapper
 
 import android.content.Intent
-import com.faisal.fingerprintcapture.model.FingerprintData
+import com.kit.fingerprintcapture.model.FingerprintData
 import com.kit.integrationmanager.model.NoFingerprintReasonEnum
 import com.xplo.code.ui.dashboard.model.Finger
 import java.util.Base64

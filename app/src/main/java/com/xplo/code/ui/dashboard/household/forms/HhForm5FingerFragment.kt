@@ -14,8 +14,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.fragment.app.viewModels
-import com.faisal.fingerprintcapture.FingerprintCaptureActivity
-import com.faisal.fingerprintcapture.model.FingerprintID
+import com.kit.fingerprintcapture.FingerprintCaptureActivity
+import com.kit.fingerprintcapture.model.FingerprintID
 import com.kit.integrationmanager.model.BiometricUserType
 import com.xplo.code.R
 import com.xplo.code.core.Bk
