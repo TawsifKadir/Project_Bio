@@ -25,10 +25,19 @@ object DialogUtil {
         alertDialog = LottieAlertDialog.Builder(context, DialogTypes.TYPE_SUCCESS)
             .setTitle(title)
             .setDescription(description)
+            .setPositiveText("Ok")
+            .setPositiveListener(object : ClickListener {
+                override fun onClick(dialog: LottieAlertDialog) {
+                    dialog.dismiss()
+                }
+            })
+            .setPositiveButtonColor(Color.RED)
+            .setPositiveTextColor(Color.WHITE)
             .build().apply {
                 show()
                 setCancelable(true)
             }
+
     }
 
     fun showLottieDialogFailMsg(context: Context, description: String) {

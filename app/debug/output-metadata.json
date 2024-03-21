@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.karooth.bio",
+  "variantName": "debug",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 2403,
+      "versionName": "0.24.3",
+      "outputFile": "bio-registration-0.24.3-debug.apk"
+    }
+  ],
+  "elementType": "File"
+}

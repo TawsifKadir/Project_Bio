@@ -45,6 +45,7 @@ import com.xplo.code.ui.components.XDialogSheet
 import com.xplo.code.ui.dashboard.household.HouseholdContract
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
 import com.xplo.code.ui.dashboard.household.list.HouseholdListAdapterNew
+import com.xplo.code.utils.DbExporter
 import com.xplo.code.utils.DialogUtil
 import com.xplo.code.utils.DialogUtil.showLottieDialogFailMsg
 import dagger.hilt.android.AndroidEntryPoint
@@ -146,7 +147,10 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         DialogUtil.showLottieDialog(requireContext(), "Preparing Content", "Please wait")
 
         binding.fab.setOnClickListener {
-            viewModel.bulkBeneficiaryList(requireContext())
+            val value = DbExporter.exportWithPermission(requireContext(), requireActivity())
+            if (value) {
+                viewModel.bulkBeneficiaryList(requireContext())
+            }
         }
     }
 
@@ -216,7 +220,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                     is HouseholdViewModel.Event.GetDataLocalDbByAppId -> {
                         LottieAlertDialog.Builder(context, DialogTypes.TYPE_QUESTION)
                             .setTitle("Attention!")
-                            .setDescription("The record will be deleted after synchronization. Do you want to proceed?")
+                            .setDescription("Please make sure the records have been exported before synchronization, as the record will be deleted after this action. Do you want to proceed?")
                             .setNegativeText("NO")
                             .setNegativeListener(object : ClickListener {
                                 override fun onClick(dialog: LottieAlertDialog) {

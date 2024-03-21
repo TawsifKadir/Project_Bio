@@ -1053,7 +1053,7 @@ object EntityMapper {
         //nominee.nomineeOccupation = OccupationEnum.valueOf(item.nomineeOccupation.toString())
         if (item.nomineeOccupation != null) {
             nominee.nomineeOccupation =
-                OccupationEnum.getOccupationById(item.nomineeOccupation.toInt() + 1)
+                OccupationEnum.getOccupationById(item.nomineeOccupation.toInt())
             if (nominee.nomineeOccupation.value.equals(
                     OccupationEnum.OTHER.value,
                     ignoreCase = true
