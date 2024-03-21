@@ -182,11 +182,11 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
     override fun navigateToForm1() {
         Log.d(TAG, "navigateToForm1() called")
 
-        // will remove later, dev purpose
-        if (TestConfig.isNavHackEnabled){
-            navigateToForm6()
-            return
-        }
+//        // will remove later, dev purpose
+//        if (TestConfig.isNavHackEnabled){
+//            navigateToForm6()
+//            return
+//        }
 
         STEP = 1
         doFragmentTransaction(
@@ -214,7 +214,7 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
 
 //        // will remove later, dev purpose
 //        if (TestConfig.isNavHackEnabled) {
-//            navigateToForm6()
+//            navigateToAlternateAddForm()
 //            return
 //        }
 

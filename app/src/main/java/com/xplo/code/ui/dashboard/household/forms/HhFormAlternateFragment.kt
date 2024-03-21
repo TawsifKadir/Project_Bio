@@ -262,7 +262,8 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
         showToast("1 alternate added")
 
         if (form.pos != -1){
-            adapter?.remove(form.pos)
+            onGetUpdatedAlternate(form, form.pos)
+            return
         }
 
         adapter?.addItem(form)
@@ -271,6 +272,17 @@ class HhFormAlternateFragment : BasicFormFragment(), HouseholdContract.FormAlter
             rootForm?.alternates = adapter!!.getDataset()
         }
         interactor?.setRootForm(rootForm)
+    }
+
+    override fun onGetUpdatedAlternate(form: AlternateForm?, pos: Int) {
+        Log.d(TAG, "onGetUpdatedAlternate() called with: form = $form, pos = $pos")
+        if (form == null) return
+        if (pos < 0) return
+        if (adapter == null) return
+
+        adapter?.updateItem(pos, form)
+
+
     }
 
 
