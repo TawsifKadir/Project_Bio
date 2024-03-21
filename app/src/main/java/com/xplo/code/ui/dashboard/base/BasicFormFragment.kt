@@ -110,7 +110,7 @@ abstract class BasicFormFragment : BaseFragment(), BasicFormView {
                     return null
                 }
             }else if(txt.isEmpty()){
-                return " "
+                return ""
             }
         }
         return txt

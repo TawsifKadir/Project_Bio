@@ -213,6 +213,7 @@ fun HhForm6?.getNomineeNumber(): Int {
 }
 
 data class Nominee(
+    var pos: Int = -1,
     var firstName: String? = null,
     var middleName: String? = null,
     var lastName: String? = null,
@@ -224,7 +225,7 @@ data class Nominee(
     var occupation: String? = null,
     var occupationOthers: String? = null,
     var isReadWrite: String? = null
-)
+): Serializable
 
 fun Nominee?.getOppositeGender(): String? {
     if (this == null) return null

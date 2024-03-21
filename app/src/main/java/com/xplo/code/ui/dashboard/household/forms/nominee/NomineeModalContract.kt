@@ -46,6 +46,8 @@ interface NomineeModalContract {
 
     interface InputView : CommonView {
 
+        fun onReinstateData(item: Nominee?)
+
         fun onGetNomineeSuccess(item: Nominee?)
         fun onGetNomineeFailure(msg: String?)
 
