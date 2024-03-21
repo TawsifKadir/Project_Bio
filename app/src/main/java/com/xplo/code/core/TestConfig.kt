@@ -3,7 +3,7 @@ package com.xplo.code.core
 object TestConfig {
 
     //for build just make it false
-    val isDummyDataEnabled = false  // default false
+    val isDummyDataEnabled = true  // default false
 
 
 
