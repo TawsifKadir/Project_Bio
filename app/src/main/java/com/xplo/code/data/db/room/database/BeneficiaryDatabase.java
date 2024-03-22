@@ -13,18 +13,25 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.xplo.code.data.db.room.dao.*;
 import com.xplo.code.data.db.room.model.*;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 @Database(entities = {Beneficiary.class, Address.class, Location.class, Alternate.class, Nominee.class, Biometric.class, HouseholdInfo.class, SelectionReason.class, SyncBeneficiary.class}, version = 4, exportSchema = true)
 public abstract class BeneficiaryDatabase extends RoomDatabase {
     private static final String LOG_TAG = BeneficiaryDatabase.class.getSimpleName();
     private static final Object LOCK = new Object();
     private static final String DATABASE_NAME = "benedb.db";
     private static BeneficiaryDatabase sInstance;
+    private Timer inactivityTimer;
+    private boolean activityDetected;
 
     public static synchronized BeneficiaryDatabase getInstance(Context context) {
         if (sInstance == null) {
             synchronized (LOCK) {
                 Log.d(LOG_TAG, "Creating new database instance");
                 sInstance = Room.databaseBuilder(context.getApplicationContext(), BeneficiaryDatabase.class, DATABASE_NAME).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4).build();
+                // Start inactivity timer when creating the database instance
+                sInstance.startInactivityTimer();
             }
         }
         Log.d(LOG_TAG, "Getting the database instance");
@@ -79,4 +86,35 @@ public abstract class BeneficiaryDatabase extends RoomDatabase {
     public abstract BeneficiaryTransactionDao beneficiaryTransactionDao();
 
     public abstract SyncBeneficiaryDao syncBeneficiaryDao();
+
+    private void startInactivityTimer() {
+        inactivityTimer = new Timer();
+        // 5 minute in milliseconds
+        long inactivityTimeout = 10 * 60000;
+        inactivityTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (!activityDetected) {
+                    closeConnection();
+                    Log.d(LOG_TAG, "Database closed due to inactivity.");
+                } else {
+                    activityDetected = false;
+                }
+            }
+        }, inactivityTimeout);
+    }
+
+    private void resetTimer() {
+        if (inactivityTimer != null) {
+            inactivityTimer.cancel();
+            startInactivityTimer();
+        }
+    }
+
+    private void closeConnection() {
+        if (sInstance != null) {
+            sInstance.close();
+        }
+    }
+
 }
