@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.kit.integrationmanager.model.AlternatePayee
@@ -23,36 +22,26 @@ import com.xplo.code.core.Bk
 import com.xplo.code.core.ext.loadAvatar
 import com.xplo.code.core.ext.toBool
 import com.xplo.code.core.ext.visible
-import com.xplo.code.data.db.models.toHouseholdForm
 import com.xplo.code.data.db.room.dao.AlternateDao
 import com.xplo.code.data.db.room.dao.BeneficiaryDao
 import com.xplo.code.data.db.room.dao.BeneficiaryTransactionDao
 import com.xplo.code.data.db.room.database.BeneficiaryDatabase
 import com.xplo.code.data.db.room.database.DatabaseExecutors
-import com.xplo.code.data.db.room.model.Address
 import com.xplo.code.data.db.room.model.Alternate
 import com.xplo.code.data.db.room.model.Biometric
-import com.xplo.code.data.db.room.model.HouseholdInfo
-import com.xplo.code.data.db.room.model.Location
-import com.xplo.code.data.db.room.model.Nominee
-import com.xplo.code.data.db.room.model.SelectionReason
 import com.xplo.code.data.mapper.EntityMapper
-import com.xplo.code.data.mapper.FakeMapperValue
 import com.xplo.code.databinding.FragmentAlPreviewBinding
 import com.xplo.code.ui.components.ReportViewUtils
 import com.xplo.code.ui.components.XDialog
 import com.xplo.code.ui.dashboard.alternate.AlternateContract
 import com.xplo.code.ui.dashboard.base.BasicFormFragment
 import com.xplo.code.ui.dashboard.household.HouseholdViewModel
-import com.xplo.code.ui.dashboard.household.forms.HhPreviewFragment
 import com.xplo.code.ui.dashboard.model.AlForm1
 import com.xplo.code.ui.dashboard.model.AlForm2
 import com.xplo.code.ui.dashboard.model.AlForm3
 import com.xplo.code.ui.dashboard.model.AlternateForm
-import com.xplo.code.ui.dashboard.model.HouseholdForm
 import com.xplo.code.ui.dashboard.model.ReportRow
 import com.xplo.code.ui.dashboard.model.getReportRows
-import com.xplo.code.ui.dashboard.model.toJson
 import com.xplo.code.utils.DialogUtil
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -286,11 +275,21 @@ class AlPreviewFragment : BasicFormFragment(), AlternateContract.PreviewView {
                 }
 
                 override fun onClickNeutralButton() {
+                    var applicationId = ""
+                    var houseHoldName = ""
                     val entity = EntityMapper.toAlternateModelEntity(rootForm)
                     if (entity != null) {
+                        applicationId = entity.applicationId
+                        houseHoldName =
+                            entity.respondentFirstName + " " + entity.respondentMiddleName + " " + entity.respondentLastName
                         insertAlternate(entity, entity.applicationId, 0)
+//                        navigateToAlternate(
+//                            applicationId,
+//                            houseHoldName
+//                        )
                     }
                     navigateToHome()
+
                 }
             })
             .build()

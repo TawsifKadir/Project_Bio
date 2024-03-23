@@ -147,18 +147,13 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         DialogUtil.showLottieDialog(requireContext(), "Preparing Content", "Please wait")
 
         binding.fab.setOnClickListener {
-            val value = DbExporter.exportWithPermission(requireContext(), requireActivity())
-            if (value) {
-                viewModel.bulkBeneficiaryList(requireContext())
-            }
+            viewModel.bulkBeneficiaryList(requireContext())
         }
     }
 
     @OptIn(DelicateCoroutinesApi::class)
     @SuppressLint("NotifyDataSetChanged")
     override fun initObserver() {
-
-
         lifecycleScope.launch {
             viewModel.event.collect { event ->
                 when (event) {
@@ -275,7 +270,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
 //                        }
                         LottieAlertDialog.Builder(context, DialogTypes.TYPE_QUESTION)
                             .setTitle("Attention!")
-                            .setDescription("All the records will be deleted after synchronization. Do you want to proceed?")
+                            .setDescription("Please make sure the records have been exported before synchronization, as all the records will be deleted after this action. Do you want to proceed?")
                             .setPositiveText("Ok")
                             .setNegativeText("NO")
                             .setNegativeListener(object : ClickListener {
@@ -299,11 +294,20 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                                     dataList = event.beneficiaryList
 
                                     GlobalScope.launch(Dispatchers.IO) {
+                                        val value = DbExporter.fileWriteWithPermission(
+                                            requireContext(),
+                                            requireActivity()
+                                        )
+
+                                        if (value) {
+                                            processAndSendData(requireContext())
+                                        }
+
+
 //                                        viewModel.callRegisterApiBulk(
 //                                            requireContext(),
 //                                            event.beneficiaryList
 //                                        )
-                                        processAndSendData(requireContext())
                                     }
 
 
@@ -339,13 +343,21 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
                     is HouseholdViewModel.Event.DeleteDataLocalDbByAppId -> {
                         hideLoading()
                         if (event.beneficiary) {
-                            DialogUtil.showLottieDialog(
-                                requireContext(),
-                                "Preparing Content",
-                                "Please wait"
-                            )
-                            //requireActivity().finish()
-                            viewModel.showBeneficiary(requireContext())
+                            LottieAlertDialog.Builder(context, DialogTypes.TYPE_SUCCESS)
+                                .setTitle("Success")
+                                .setDescription("Beneficiary Delete Success")
+                                .setPositiveText("Ok")
+                                .setPositiveListener(object : ClickListener {
+                                    override fun onClick(dialog: LottieAlertDialog) {
+                                        viewModel.showBeneficiary(requireContext())
+                                        dialog.dismiss()
+                                    }
+                                })
+                                .build().apply {
+                                    show()
+                                    setCancelable(false)
+                                }
+
                         }
                         viewModel.clearEvent()
                     }
@@ -769,22 +781,38 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     }
 
     override fun onClickHouseholdItemAddAlternate(item: Beneficiary, pos: Int) {
-        if (item.alternateSize >= 2) {
-//            Toast.makeText(requireContext(), "Maximum 2 Alternate Add Options.", Toast.LENGTH_SHORT)
-//                .show()
-            showLottieDialogFailMsg(requireContext(), "Maximum 2 Alternate Add Options.")
+        if (item.alternateSize >= 2 && item.applicationStatus == 0) {
+            // showLottieDialogFailMsg(requireContext(), "Maximum 2 Alternate Add Options.")
+            LottieAlertDialog.Builder(context, DialogTypes.TYPE_QUESTION)
+                .setTitle("Attention!")
+                .setDescription("Maximum alternates are added. Do you want to mark this record as complete?")
+                .setNegativeText("NO")
+                .setNegativeListener(object : ClickListener {
+                    override fun onClick(dialog: LottieAlertDialog) {
+                        dialog.dismiss()
+                    }
+                })
+                .setPositiveText("Ok")
+                .setPositiveListener(object : ClickListener {
+                    override fun onClick(dialog: LottieAlertDialog) {
+                        dialog.dismiss()
+                        viewModel.updateBeneficiaryByAppIdAndAppStatus(
+                            requireContext(),
+                            item.applicationId
+                        )
+                    }
+                })
+                .setPositiveButtonColor(Color.GREEN)
+                .setPositiveTextColor(Color.RED)
+                .setNegativeButtonColor(Color.RED)
+                .setNegativeTextColor(Color.WHITE)
+                .build().apply {
+                    show()
+                    setCancelable(false)
+                }
         } else if (item.applicationStatus == 1) {
-
-            showLottieDialogFailMsg(requireContext(), "Completed Data Not Edit Permission")
-
+            showLottieDialogFailMsg(requireContext(), "Completed Data Not Edit Permission.")
         } else {
-            // navigateToAlternate(item.applicationId)
-//            navigateToAlternateNew(
-//                item.applicationId,
-//                item.respondentFirstName + " " + item.respondentMiddleName + " " + item.respondentLastName,
-//                "V"
-//            )
-
             navigateToAlternate(
                 item.applicationId,
                 item.respondentFirstName + " " + item.respondentMiddleName + " " + item.respondentLastName
@@ -794,8 +822,6 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     }
 
     override fun onClickHouseholdItemSave(item: Beneficiary, pos: Int) {
-        // Toast.makeText(requireContext(), "Coming Soon", Toast.LENGTH_SHORT).show()
-        //   viewModel.updateBeneficiary(requireContext(), item.applicationId)
         Log.d(TAG, "onClickHouseholdItemSave: ${item.isSynced}")
 
         if (item.isSynced) {
@@ -818,7 +844,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         // Run the data processing and sending operation on a background thread using coroutines
         GlobalScope.launch(Dispatchers.IO) {
             // Split data into chunks of 10 entries each
-            val dataChunks = splitIntoChunks(dataList, 10)
+            val dataChunks = splitIntoChunks(dataList, 5)
 
             // Process each chunk and send to remote API
             for (chunk in dataChunks) {
@@ -845,7 +871,14 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
     private fun sendDataToAPI(dataChunk: List<com.kit.integrationmanager.model.Beneficiary>) {
         // Implement logic to send the data chunk to the remote API
         // You may use HttpURLConnection, OkHttp, Retrofit, or any other HTTP client library
+        for (beneficiary in dataChunk) {
+            // Process each beneficiary
+            DbExporter.saveLoginInfoToCache(beneficiary)
+        }
+
+        // Call the method after the loop completes
         viewModel.callRegisterApiBulk(requireContext(), dataChunk)
+
     }
 
 }

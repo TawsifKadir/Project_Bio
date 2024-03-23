@@ -3,16 +3,16 @@ package com.xplo.code.utils
 import android.Manifest
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.xplo.code.BuildConfig
+import com.fasterxml.jackson.core.JsonProcessingException
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.kit.integrationmanager.model.Beneficiary
 import com.xplo.code.data.db.room.database.BeneficiaryDatabase.dbCloseFromDB
 import java.io.File
 import java.io.FileInputStream
@@ -21,88 +21,64 @@ import java.io.IOException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-
 object DbExporter {
 
     private const val DB_NAME = "benedb.db"
+    private const val PERMISSION_REQUEST_CODE = 100
+    private const val BENEFICIARY_CACHE_DIR = "bio_reg/beneficiary/"
+    private const val DATABASE_EXPORT_DIR = "bio_reg/database/"
+
+    private val TAG = DbExporter::class.java.simpleName
 
     fun exportWithPermission(context: Context, activity: Activity): Boolean {
         return if (!hasStoragePermission(context)) {
-            Log.d("TAG", "exportWithPermission: ")
             askForStoragePermission(activity)
             false
         } else {
-            Log.d("TAG", "exportWithPermission:2 ")
             closeAndExportDatabase(context)
             true
         }
     }
 
     private fun closeAndExportDatabase(context: Context) {
-        try {
-            val dbFile: File = context.getDatabasePath(DB_NAME)
-
-            if (dbFile.exists()) {
-                dbCloseFromDB()
-                exportDatabase(context, dbFile)
-            } else {
-                DialogUtil.showLottieDialogFailMsg(context, "Database file does not exist.")
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
+        val dbFile: File = context.getDatabasePath(DB_NAME)
+        if (dbFile.exists()) {
+            dbCloseFromDB()
+            exportDatabase(context, dbFile)
+        } else {
+            showErrorMessage(context, "Database file does not exist.")
         }
     }
 
     private fun exportDatabase(context: Context, dbFile: File) {
         try {
-            if (dbFile.exists()) {
-                val exportDir = File(Environment.getExternalStorageDirectory(), "bio_reg/database")
-                if (!exportDir.exists()) exportDir.mkdirs()
+            val exportDir = File(Environment.getExternalStorageDirectory(), DATABASE_EXPORT_DIR)
+            exportDir.mkdirs()
+            val exportFile = File(exportDir, "${getCurrentDateTimeInMillis()}_$DB_NAME")
+            exportFile.createNewFile()
 
-                val exportFile =
-                    File(exportDir, getCurrentDateTimeInMillis().toString() + "_" + DB_NAME)
-                exportFile.createNewFile()
-
-                val src = FileInputStream(dbFile).channel
-                val dst = FileOutputStream(exportFile).channel
-                dst.transferFrom(src, 0, src.size())
-
-                src.close()
-                dst.close()
-
-                DialogUtil.showLottieDialogSuccessMsg(
-                    context,
-                    "Success",
-                    "Database exported successfully. Please check in your folder (bio_reg/database)"
-                )
-                Log.d("DatabaseExport", "Database exported successfully.")
-            } else {
-                DialogUtil.showLottieDialogFailMsg(context, "Source database file does not exist.")
-                Log.e("DatabaseExport", "Source database file does not exist.")
+            FileOutputStream(exportFile).use { output ->
+                FileInputStream(dbFile).use { input ->
+                    input.copyTo(output)
+                }
             }
+            showSuccessMessage(context, "Database exported successfully.")
         } catch (e: Exception) {
-            DialogUtil.showLottieDialogFailMsg(context, "Error exporting database: ${e.message}")
-            Log.e("DatabaseExport", "Error exporting database: ${e.message}", e)
+            showErrorMessage(context, "Error exporting database: ${e.message}")
+            Log.e(TAG, "Error exporting database")
         }
     }
 
-
-    private fun askForStoragePermission(activity: Activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID)
-            activity.startActivity(
-                Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri)
-            )
+    fun askForStoragePermission(activity: Activity) {
+        val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
         } else {
-            ActivityCompat.requestPermissions(
-                activity,
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                100
-            )
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
         }
+        ActivityCompat.requestPermissions(activity, arrayOf(permission), PERMISSION_REQUEST_CODE)
     }
 
-    private fun hasStoragePermission(context: Context): Boolean {
+    fun hasStoragePermission(context: Context): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             Environment.isExternalStorageManager()
         } else {
@@ -113,10 +89,52 @@ object DbExporter {
         }
     }
 
-    fun getCurrentDateTimeInMillis(): Long {
-        val currentDateTime = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS")
-        val formattedDateTime = currentDateTime.format(formatter)
-        return formattedDateTime.toLong()
+    private fun getCurrentDateTimeInMillis(): Long {
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS")).toLong()
+    }
+
+    fun saveLoginInfoToCache(beneficiary: Beneficiary?): Boolean {
+        val mapper = ObjectMapper()
+        val data = try {
+            mapper.writeValueAsString(beneficiary)
+        } catch (e: JsonProcessingException) {
+            Log.e(TAG, "Error converting Beneficiary to JSON")
+            return false
+        }
+        return writeToCache(data, beneficiary?.applicationId ?: "")
+    }
+
+    private fun writeToCache(data: String, applicationId: String): Boolean {
+        val exportDir = File(Environment.getExternalStorageDirectory(), BENEFICIARY_CACHE_DIR)
+        val exportFile = File(exportDir, "$applicationId${"_" + getCurrentDateTimeInMillis()}.json")
+
+        return try {
+            exportDir.mkdirs()
+            exportFile.createNewFile()
+            exportFile.writeText(data)
+            true
+        } catch (e: IOException) {
+            Log.e(TAG, "Error writing to cache")
+            false
+        }
+    }
+
+    fun fileWriteWithPermission(context: Context, activity: Activity): Boolean {
+        return if (!hasStoragePermission(context)) {
+            askForStoragePermission(activity)
+            false
+        } else {
+            true
+        }
+    }
+
+    private fun showErrorMessage(context: Context, message: String) {
+        DialogUtil.showLottieDialogFailMsg(context, message)
+        Log.e(TAG, message)
+    }
+
+    private fun showSuccessMessage(context: Context, message: String) {
+        DialogUtil.showLottieDialogSuccessMsg(context, "Success", message)
+        Log.d(TAG, message)
     }
 }

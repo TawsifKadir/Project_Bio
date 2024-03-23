@@ -409,11 +409,8 @@ class HouseholdViewModel @Inject constructor(
                     IncomeSourceEnum.getIncomeSourceById(beneficiary.householdIncomeSource.toInt() + 1)
             }
             form.householdMonthlyAvgIncome = beneficiary.householdMonthlyAvgIncome
-            if (beneficiary.currency != null) {
-                //form.currency = CurrencyEnum.entries.getOrNull(beneficiary.currency.toInt())
-//                form.currency = CurrencyEnum.getCurrencyById(beneficiary.currency.toInt() + 1)
-                form.currency = CurrencyEnum.SUDANESE_POUND
-            }
+            form.currency = CurrencyEnum.SUDANESE_POUND
+
             if (beneficiary.selectionCriteria != null) {
                 form.selectionCriteria =
                     SelectionCriteriaEnum.getSelectionCriteriaById(beneficiary.selectionCriteria.toInt() + 1)
@@ -421,7 +418,6 @@ class HouseholdViewModel @Inject constructor(
 
             val selectionReasonList = ArrayList<SelectionReasonEnum>()
             for (item in selectionReason) {
-                val reasonId = item.id.toInt() + 1
                 if (SelectionReasonEnum.DIS_REASON_1.name == item.selectionReasonName) {
                     val selectionReason = SelectionReasonEnum.DIS_REASON_1
                     selectionReasonList.add(selectionReason)
@@ -629,8 +625,37 @@ class HouseholdViewModel @Inject constructor(
                 val selectionReasonList = ArrayList<SelectionReasonEnum>()
                 for (item in selectionReason) {
                     val reasonId = item.id.toInt() + 1
-                    val selectionReason = SelectionReasonEnum.getSelectionReasonById(reasonId)
-                    selectionReasonList.add(selectionReason)
+                    if (SelectionReasonEnum.DIS_REASON_1.name == item.selectionReasonName) {
+                        val selectionReason = SelectionReasonEnum.DIS_REASON_1
+                        selectionReasonList.add(selectionReason)
+                    } else if (SelectionReasonEnum.DIS_REASON_2.name == item.selectionReasonName) {
+                        val selectionReason = SelectionReasonEnum.DIS_REASON_2
+                        selectionReasonList.add(selectionReason)
+                    } else if (SelectionReasonEnum.DIS_REASON_3.name == item.selectionReasonName) {
+                        val selectionReason = SelectionReasonEnum.DIS_REASON_3
+                        selectionReasonList.add(selectionReason)
+                    } else if (SelectionReasonEnum.DIS_REASON_4.name == item.selectionReasonName) {
+                        val selectionReason = SelectionReasonEnum.DIS_REASON_4
+                        selectionReasonList.add(selectionReason)
+                    } else if (SelectionReasonEnum.DIS_REASON_5.name == item.selectionReasonName) {
+                        val selectionReason = SelectionReasonEnum.DIS_REASON_5
+                        selectionReasonList.add(selectionReason)
+                    } else if (SelectionReasonEnum.LIPW_REASON_1.name == item.selectionReasonName) {
+                        val selectionReason = SelectionReasonEnum.LIPW_REASON_1
+                        selectionReasonList.add(selectionReason)
+                    } else if (SelectionReasonEnum.LIPW_REASON_2.name == item.selectionReasonName) {
+                        val selectionReason = SelectionReasonEnum.LIPW_REASON_2
+                        selectionReasonList.add(selectionReason)
+                    } else if (SelectionReasonEnum.LIPW_REASON_3.name == item.selectionReasonName) {
+                        val selectionReason = SelectionReasonEnum.LIPW_REASON_3
+                        selectionReasonList.add(selectionReason)
+                    } else if (SelectionReasonEnum.LIPW_REASON_4.name == item.selectionReasonName) {
+                        val selectionReason = SelectionReasonEnum.LIPW_REASON_4
+                        selectionReasonList.add(selectionReason)
+                    } else if (SelectionReasonEnum.LIPW_REASON_5.name == item.selectionReasonName) {
+                        val selectionReason = SelectionReasonEnum.LIPW_REASON_5
+                        selectionReasonList.add(selectionReason)
+                    }
                 }
 
                 form.selectionReason = selectionReasonList
@@ -921,6 +946,19 @@ class HouseholdViewModel @Inject constructor(
         viewModelScope.launch(dispatchers.io) {
             val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
             val beneficiary = beneficiaryDao.updateBeneficiaryByAppId(appId)
+
+            Log.d(TAG, "showBeneficiary: $beneficiary")
+            _event.value = Event.UpdateDataLocalDb(true)
+        }
+        // mDatabase.close()
+    }
+
+    fun updateBeneficiaryByAppIdAndAppStatus(context: Context, appId: String) {
+        val mDatabase: BeneficiaryDatabase = BeneficiaryDatabase.getInstance(context);
+        //_event.value = Event.Loading
+        viewModelScope.launch(dispatchers.io) {
+            val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
+            val beneficiary = beneficiaryDao.updateBeneficiaryByAppIdAndAppStatus(appId, 1)
 
             Log.d(TAG, "showBeneficiary: $beneficiary")
             _event.value = Event.UpdateDataLocalDb(true)

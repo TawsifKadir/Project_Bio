@@ -11,9 +11,9 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 2403,
-      "versionName": "0.24.3",
-      "outputFile": "bio-registration-0.24.3-debug.apk"
+      "versionCode": 2901,
+      "versionName": "0.29.1",
+      "outputFile": "bio-registration-0.29.1-debug.apk"
     }
   ],
   "elementType": "File"

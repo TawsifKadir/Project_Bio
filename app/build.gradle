@@ -11,8 +11,8 @@ apply plugin: 'dagger.hilt.android.plugin'
 //apply plugin: 'com.google.gms.google-services'
 
 def versionMajor = 0
-def versionMinor = 24
-def versionPatch = 4
+def versionMinor = 29
+def versionPatch = 1
 
 android {
 
@@ -122,14 +122,10 @@ dependencies {
     implementation files('libs/OpenCV-debug.aar')
 
     //new sdk for fingerprint and photo capture demo
-//    implementation files('libs/BiometricSDK-Demo.aar')
+    implementation files('libs/BiometricSDK-Demo.aar')
 
     //new sdk for fingerprint and photo capture target
-    implementation files('libs/BiometricSDK-Target.aar')
-
-
-
-
+//    implementation files('libs/BiometricSDK-Target.aar')
 
 
     //implementation project(":data")
@@ -143,7 +139,7 @@ dependencies {
     //implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0'
     runtimeOnly 'org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.2'
     compileOnly "org.projectlombok:lombok:1.18.30"
-    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+  //  compileOnly 'org.projectlombok:lombok:1.18.30'
 
 //    compileOnly "org.projectlombok:lombok:1.18.30"
 //    annotationProcessor 'org.projectlombok:lombok:1.18.30'
@@ -302,6 +298,7 @@ dependencies {
     implementation("commons-io:commons-io:2.6")
     implementation("net.sourceforge.streamsupport:streamsupport:1.6.1")
 
+
 }
 
 def static genVersionCode(Integer major, Integer minor, Integer patch) {
@@ -311,3 +308,4 @@ def static genVersionCode(Integer major, Integer minor, Integer patch) {
 def static genVersionName(Integer major, Integer minor, Integer patch) {
     return "${major}.${minor}.${patch}"
 }
+

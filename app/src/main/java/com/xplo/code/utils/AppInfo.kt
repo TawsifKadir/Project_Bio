@@ -51,12 +51,6 @@ object AppInfo {
             return packageInfo.versionName
         }
 
-    val appVersionNameLocalized: String
-        get() {
-            if (Utils.isLanguageBangla()) return EtoB.getBangla(appVersionName)
-            return appVersionName
-        }
-
     @Suppress("DEPRECATION")
     private val packageInfo: PackageInfo
         get() {
