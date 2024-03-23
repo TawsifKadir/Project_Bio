@@ -409,11 +409,8 @@ class HouseholdViewModel @Inject constructor(
                     IncomeSourceEnum.getIncomeSourceById(beneficiary.householdIncomeSource.toInt() + 1)
             }
             form.householdMonthlyAvgIncome = beneficiary.householdMonthlyAvgIncome
-            if (beneficiary.currency != null) {
-                //form.currency = CurrencyEnum.entries.getOrNull(beneficiary.currency.toInt())
-//                form.currency = CurrencyEnum.getCurrencyById(beneficiary.currency.toInt() + 1)
-                form.currency = CurrencyEnum.SUDANESE_POUND
-            }
+            form.currency = CurrencyEnum.SUDANESE_POUND
+
             if (beneficiary.selectionCriteria != null) {
                 form.selectionCriteria =
                     SelectionCriteriaEnum.getSelectionCriteriaById(beneficiary.selectionCriteria.toInt() + 1)
@@ -421,7 +418,6 @@ class HouseholdViewModel @Inject constructor(
 
             val selectionReasonList = ArrayList<SelectionReasonEnum>()
             for (item in selectionReason) {
-                val reasonId = item.id.toInt() + 1
                 if (SelectionReasonEnum.DIS_REASON_1.name == item.selectionReasonName) {
                     val selectionReason = SelectionReasonEnum.DIS_REASON_1
                     selectionReasonList.add(selectionReason)
@@ -962,7 +958,7 @@ class HouseholdViewModel @Inject constructor(
         //_event.value = Event.Loading
         viewModelScope.launch(dispatchers.io) {
             val beneficiaryDao: BeneficiaryDao = mDatabase.beneficiaryDao()
-            val beneficiary = beneficiaryDao.updateBeneficiaryByAppIdAndAppStatus(appId,1)
+            val beneficiary = beneficiaryDao.updateBeneficiaryByAppIdAndAppStatus(appId, 1)
 
             Log.d(TAG, "showBeneficiary: $beneficiary")
             _event.value = Event.UpdateDataLocalDb(true)

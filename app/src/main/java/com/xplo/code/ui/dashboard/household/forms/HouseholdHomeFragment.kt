@@ -873,7 +873,7 @@ class HouseholdHomeFragment : BaseFragment(), HouseholdContract.HomeView,
         // You may use HttpURLConnection, OkHttp, Retrofit, or any other HTTP client library
         for (beneficiary in dataChunk) {
             // Process each beneficiary
-            DbExporter.saveLoginInfoToCache(requireContext(), beneficiary)
+            DbExporter.saveLoginInfoToCache(beneficiary)
         }
 
         // Call the method after the loop completes

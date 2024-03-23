@@ -39,6 +39,11 @@ import com.xplo.code.ui.login.LoginActivity
 import com.xplo.code.ui.main_act.MainActivity
 import com.xplo.code.ui.settings.SettingsActivity
 import java.util.*
+import android.os.Build
+import android.view.WindowInsets
+import android.view.WindowInsetsController
+import androidx.activity.OnBackPressedCallback
+
 
 /**
  * Copyright 2020 (C) xplo
@@ -142,6 +147,18 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
             android.R.id.home -> {
                 //finish()
                 onBackPressed()
+                // Create a callback and override onBackPressed
+//                val callback = object : OnBackPressedCallback(true /* enabled by default */) {
+//                    override fun handleOnBackPressed() {
+//                        // Handle the back button press event here
+//                        // For example, you can navigate back or perform other actions
+//                        // Call isEnabled() to check if the callback is enabled
+//                        // Call remove() to remove the callback if it's no longer needed
+//                    }
+//                }
+//
+//                // Add the callback to the back press dispatcher
+//                onBackPressedDispatcher.addCallback(this, callback)
             }
 
             R.id.mSettings -> {
@@ -199,15 +216,38 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
     override fun hideStatusBar() {
 
         //getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.gradEnd));
-        val flags = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+//        val flags = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//                or View.SYSTEM_UI_FLAG_FULLSCREEN
+//                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+//
+//
+//        window.decorView.systemUiVisibility = flags
 
+        // Ensure that you are targeting at least Android 11 (API level 30)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val controller = window.insetsController
+            controller?.let {
+                // Hide both the status bar and the navigation bar
+                it.hide(WindowInsets.Type.systemBars())
+                // Set the behavior to immersive with sticky bars
+                it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            }
+        } else {
+            // For devices running older versions of Android
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            or View.SYSTEM_UI_FLAG_FULLSCREEN
+                            or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    )
+        }
 
-        window.decorView.systemUiVisibility = flags
     }
 
     override fun showFullScreen() {

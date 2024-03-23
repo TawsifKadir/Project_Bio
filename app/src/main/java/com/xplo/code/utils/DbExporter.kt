@@ -69,7 +69,7 @@ object DbExporter {
         }
     }
 
-    private fun askForStoragePermission(activity: Activity) {
+    fun askForStoragePermission(activity: Activity) {
         val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
         } else {
@@ -78,7 +78,7 @@ object DbExporter {
         ActivityCompat.requestPermissions(activity, arrayOf(permission), PERMISSION_REQUEST_CODE)
     }
 
-    private fun hasStoragePermission(context: Context): Boolean {
+    fun hasStoragePermission(context: Context): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             Environment.isExternalStorageManager()
         } else {
@@ -93,7 +93,7 @@ object DbExporter {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS")).toLong()
     }
 
-    fun saveLoginInfoToCache(context: Context, beneficiary: Beneficiary?): Boolean {
+    fun saveLoginInfoToCache(beneficiary: Beneficiary?): Boolean {
         val mapper = ObjectMapper()
         val data = try {
             mapper.writeValueAsString(beneficiary)
@@ -101,10 +101,10 @@ object DbExporter {
             Log.e(TAG, "Error converting Beneficiary to JSON")
             return false
         }
-        return writeToCache(context, data, beneficiary?.applicationId ?: "")
+        return writeToCache(data, beneficiary?.applicationId ?: "")
     }
 
-    private fun writeToCache(context: Context, data: String, applicationId: String): Boolean {
+    private fun writeToCache(data: String, applicationId: String): Boolean {
         val exportDir = File(Environment.getExternalStorageDirectory(), BENEFICIARY_CACHE_DIR)
         val exportFile = File(exportDir, "$applicationId${"_" + getCurrentDateTimeInMillis()}.json")
 
