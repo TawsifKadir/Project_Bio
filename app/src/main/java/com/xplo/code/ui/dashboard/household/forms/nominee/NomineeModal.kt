@@ -48,6 +48,7 @@ class NomineeModal(builder: Builder) : BottomSheetDialogFragment(), NomineeModal
     private var parent: String? = null
     private var no: Int = 0
     private var gender: String? = null
+    private var nominee: Nominee? = null
 
     init {
         this.fm = builder.fm
@@ -55,6 +56,7 @@ class NomineeModal(builder: Builder) : BottomSheetDialogFragment(), NomineeModal
         this.parent = builder.parent
         this.no = builder.no
         this.gender = builder.gender
+        this.nominee = builder.nominee
     }
 
     override fun onAttach(context: Context) {
@@ -301,7 +303,7 @@ class NomineeModal(builder: Builder) : BottomSheetDialogFragment(), NomineeModal
         Log.d(TAG, "navigateToFirstPage() called")
 
         doFragmentTransaction(
-            NomineeInputFragment.newInstance(null, no, gender),
+            NomineeInputFragment.newInstance(null, no, gender, nominee),
             NomineeInputFragment.TAG,
             true,
             false
@@ -349,6 +351,7 @@ class NomineeModal(builder: Builder) : BottomSheetDialogFragment(), NomineeModal
         var parent: String? = null
         var no: Int = 0
         var gender: String? = null
+        var nominee: Nominee? = null
 
         fun listener(listener: Listener?) = apply { this.listener = listener }
 
@@ -357,6 +360,8 @@ class NomineeModal(builder: Builder) : BottomSheetDialogFragment(), NomineeModal
         fun no(no: Int) = apply { this.no = no }
 
         fun gender(gender: String?) = apply { this.gender = gender }
+
+        fun nominee(nominee: Nominee?) = apply { this.nominee = nominee }
 
         fun build() = NomineeModal(this)
 

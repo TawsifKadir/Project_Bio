@@ -409,6 +409,12 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
     override fun onGetANomineeFromPopup(nominee: Nominee?) {
         Log.d(TAG, "onGetANomineeFromPopup() called with: nominee = $nominee")
         if (nominee == null) return
+
+        if (nominee.pos != -1) {
+            onGetUpdatedNomineeFromPopup(nominee, nominee.pos)
+            return
+        }
+
         adapter?.addItem(nominee)
         if(adapter != null){
             if (adapter!!.getDataset().size == 5){
@@ -418,6 +424,15 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
         questionText.setText(R.string.would_anyone_else_interested)
         onRefreshViewWhenListUpdated()
 
+    }
+
+    override fun onGetUpdatedNomineeFromPopup(nominee: Nominee?, pos: Int) {
+        Log.d(TAG, "onGetUpdatedNomineeFromPopup() called with: nominee = $nominee, pos = $pos")
+        if (nominee == null) return
+        if (pos<0) return
+        if (adapter == null) return
+
+        adapter?.updateItem(pos, nominee)
     }
 
     override fun onRefreshViewWhenListUpdated() {
@@ -558,6 +573,17 @@ class HhForm6Nominee2Fragment : BasicFormFragment(), HouseholdContract.Form62Vie
 
     override fun onClickNomineeItem(item: Nominee, pos: Int) {
         Log.d(TAG, "onClickNomineeItem() called with: item = $item, pos = $pos")
+
+        item.pos = pos
+
+        NomineeModal.Builder(requireActivity().supportFragmentManager)
+            .listener(this)
+            .parent(null)
+            .no(pos+1)
+            .gender(null)
+            .nominee(item)
+            .build()
+            .show()
 
     }
 

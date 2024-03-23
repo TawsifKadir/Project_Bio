@@ -118,14 +118,24 @@ dependencies {
 
     //implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    //implementation project(":data")
-//    implementation files('libs/finger_morpho.aar')        // original
-//    implementation files('libs/FingerprintCapture-debug.aar')
     implementation files('libs/IntegrationManager-debug.aar')
     implementation files('libs/OpenCV-debug.aar')
-//    implementation files('libs/SNSOPPhotoCapture-debug.aar')
-    implementation files('libs/BiometricSDK-debug.aar')
 
+    //new sdk for fingerprint and photo capture demo
+    implementation files('libs/BiometricSDK-Demo.aar')
+
+    //new sdk for fingerprint and photo capture target
+//    implementation files('libs/BiometricSDK-Target.aar')
+
+
+
+
+
+
+    //implementation project(":data")
+//    implementation files('libs/finger_morpho.aar')        // original
+    //implementation files('libs/FingerprintCapture-debug.aar')
+    //implementation files('libs/SNSOPPhotoCapture-debug.aar')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
@@ -229,14 +239,7 @@ dependencies {
 //    implementation 'com.facebook.android:facebook-applinks:5.4.0'
 
     implementation 'com.facebook.android:facebook-login:latest.release'
-    implementation("com.google.code.gson:gson:2.8.6")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.10.2")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.10.2")
 
-    implementation("it.unimi.dsi:fastutil:7.2.1")
-    implementation("com.machinezoo.noexception:noexception:1.4.4")
-    implementation("commons-io:commons-io:2.6")
-    implementation("net.sourceforge.streamsupport:streamsupport:1.6.1")
 
     // dagger
 //    implementation 'com.google.dagger:dagger:2.27'
@@ -289,6 +292,15 @@ dependencies {
 
     implementation 'com.github.fondesa:kpermissions:3.5.0'
     implementation 'com.github.SirLordPouya.AndroidAppUpdater:main:10.0.0'
+
+    implementation("com.google.code.gson:gson:2.8.6")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.10.2")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.10.2")
+
+    implementation("it.unimi.dsi:fastutil:7.2.1")
+    implementation("com.machinezoo.noexception:noexception:1.4.4")
+    implementation("commons-io:commons-io:2.6")
+    implementation("net.sourceforge.streamsupport:streamsupport:1.6.1")
 
 }
 

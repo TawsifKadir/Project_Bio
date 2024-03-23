@@ -343,6 +343,11 @@ class HhForm6NomineeFragment : BasicFormFragment(), HouseholdContract.Form6View,
 
     }
 
+    override fun onGetUpdatedNomineeFromPopup(nominee: Nominee?, pos: Int) {
+        Log.d(TAG, "onGetUpdatedNomineeFromPopup() called with: nominee = $nominee, pos = $pos")
+
+    }
+
     override fun onRefreshViewWhenListUpdated() {
         Log.d(TAG, "onRefreshViewWhenListUpdated() called")
         if (isListContainsData()) {

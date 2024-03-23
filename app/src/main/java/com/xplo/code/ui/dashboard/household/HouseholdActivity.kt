@@ -184,7 +184,7 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
 
 //        // will remove later, dev purpose
 //        if (TestConfig.isNavHackEnabled){
-//            navigateToForm4()
+//            navigateToForm6()
 //            return
 //        }
 
@@ -214,7 +214,7 @@ class HouseholdActivity : BaseActivity(), HouseholdContract.View {
 
 //        // will remove later, dev purpose
 //        if (TestConfig.isNavHackEnabled) {
-//            navigateToForm6()
+//            navigateToAlternateAddForm()
 //            return
 //        }
 

@@ -121,6 +121,11 @@ class AlternateSumListAdapter : RecyclerView.Adapter<AlternateSumListAdapter.Vie
         notifyDataSetChanged()
     }
 
+    fun updateItem(position: Int, item: AlternateForm) {
+        dataset[position] = item
+        notifyItemChanged(position)
+    }
+
     fun addAll(items: List<AlternateForm>) {
         dataset.clear()
         dataset.addAll(items)
