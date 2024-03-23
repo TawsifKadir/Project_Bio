@@ -12,7 +12,7 @@ apply plugin: 'dagger.hilt.android.plugin'
 
 def versionMajor = 0
 def versionMinor = 24
-def versionPatch = 3
+def versionPatch = 4
 
 android {
 
@@ -122,10 +122,10 @@ dependencies {
     implementation files('libs/OpenCV-debug.aar')
 
     //new sdk for fingerprint and photo capture demo
-    implementation files('libs/BiometricSDK-Demo.aar')
+//    implementation files('libs/BiometricSDK-Demo.aar')
 
     //new sdk for fingerprint and photo capture target
-//    implementation files('libs/BiometricSDK-Target.aar')
+    implementation files('libs/BiometricSDK-Target.aar')
 
 
 
