@@ -103,6 +103,7 @@ interface BaseContract {
 //        fun navigateToAlternateNew(id: String?, hhName: String, type: String)
         fun navigateToPayment()
         fun navigateToReport()
+        fun navigateToPayroll()
 
         /**
          * Extra method

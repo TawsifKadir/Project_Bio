@@ -43,6 +43,7 @@ import android.os.Build
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import androidx.activity.OnBackPressedCallback
+import com.xplo.code.ui.dashboard.payroll.PayrollActivity
 
 
 /**
@@ -467,6 +468,9 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
 
     override fun navigateToReport() {
         ReportActivity.open(this, null)
+    }
+    override fun navigateToPayroll() {
+        PayrollActivity.open(this, null)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

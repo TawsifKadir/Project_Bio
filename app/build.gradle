@@ -200,7 +200,6 @@ dependencies {
 //    implementation 'com.squareup.okhttp3:okhttp:4.2.2'
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3'
     implementation 'com.github.bumptech.glide:glide:4.15.1'
-    implementation "com.fasterxml.jackson.core:jackson-databind:2.16.1"
     // network interceptor
     implementation 'com.facebook.stetho:stetho:1.6.0'
     implementation 'com.facebook.stetho:stetho-okhttp3:1.6.0'
@@ -290,8 +289,9 @@ dependencies {
     implementation 'com.github.SirLordPouya.AndroidAppUpdater:main:10.0.0'
 
     implementation("com.google.code.gson:gson:2.8.6")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.10.2")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.10.2")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.16.1")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.16.1")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.16.1")
 
     implementation("it.unimi.dsi:fastutil:7.2.1")
     implementation("com.machinezoo.noexception:noexception:1.4.4")
