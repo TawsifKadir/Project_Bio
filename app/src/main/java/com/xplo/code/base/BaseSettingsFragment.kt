@@ -227,6 +227,10 @@ open class BaseSettingsFragment : PreferenceFragmentCompat(), BaseContract.View 
         getBaseActivity()?.navigateToReport()
     }
 
+    override fun navigateToPayroll() {
+        getBaseActivity()?.navigateToPayroll()
+    }
+
     private fun getBaseActivity(): BaseActivity? {
 
         if (activity != null) {

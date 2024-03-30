@@ -237,6 +237,9 @@ abstract class BaseFragment : Fragment(), BaseContract.View, NomineeModal.Listen
     override fun navigateToReport() {
         getBaseActivity()?.navigateToReport()
     }
+    override fun navigateToPayroll() {
+        getBaseActivity()?.navigateToPayroll()
+    }
 
     private fun getBaseActivity(): BaseActivity? {
 

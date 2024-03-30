@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewForeground"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    android:backgroundTint="?attr/colorBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    card_view:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:gravity="top"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tvReqNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:maxLines="1"
+            android:textColor="#426881"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="Request no: 2022-SNSJKDFJF-74589"
+
+            />
+
+        <TextView
+            android:id="@+id/tvWorkCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:maxLines="1"
+            android:textColor="#426881"
+            android:textSize="15sp"
+            tools:text="Work Code: DIS - Direct Income Support" />
+
+        <TextView
+            android:id="@+id/tvHouseHoldNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="#426881"
+            android:textSize="15sp"
+            tools:text="Household Number: e6d2d589-5564-496a-900b-0fccf469e79b" />
+
+
+        <TextView
+            android:id="@+id/tvPaymentCycle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:maxLines="1"
+            android:textColor="#426881"
+            tools:text="Payment Cycle: Payment Cycle 3" />
+
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:maxLines="1"
+            android:textColor="#426881"
+            tools:text="Request Date: 2022-05-01 - 2022-05-01" />
+
+        <TextView
+            android:id="@+id/tvCreationDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:maxLines="1"
+            android:textColor="#426881"
+            tools:text="Created Date: 2022-05-01" />
+
+
+        <TextView
+            android:id="@+id/tvAttendance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:maxLines="1"
+            android:textColor="#426881"
+            tools:text="Total Attendance: 20" />
+
+
+        <TextView
+            android:id="@+id/tvWageRate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:maxLines="1"
+            android:textColor="#426881"
+            android:textStyle="bold"
+            tools:text="Wage Rate: $2.5" />
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+

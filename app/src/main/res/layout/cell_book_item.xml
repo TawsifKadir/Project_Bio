@@ -33,16 +33,14 @@
             android:layout_marginTop="5dp"
             android:maxLines="1"
 
-            tools:text="@string/dummy_book_title" />
+ />
 
         <TextView
             android:id="@+id/tvAuthor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:maxLines="1"
-
-            tools:text="@string/dummy_writer" />
+            android:maxLines="1" />
 
 
     </LinearLayout>
