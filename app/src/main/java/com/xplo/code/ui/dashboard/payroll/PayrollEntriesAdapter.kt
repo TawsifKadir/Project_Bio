@@ -16,31 +16,26 @@ import com.xplo.code.ui.dashboard.model.PayrollEntry
  * Comment  :
  */
 class PayrollEntriesAdapter(
-    private var dataset: List<PayrollEntry.Result>
+    private var dataset: List<PayrollEntry.Result>,
+    private val onRootClick: (position: Int) -> Unit,
+    private val viewModel: PayrollViewModel
 ) : RecyclerView.Adapter<PayrollEntriesAdapter.ViewHolder>() {
-
-    companion object {
-        private const val TAG = "AlternateListAdapter"
-    }
 
     inner class ViewHolder(private val binding: PayrollEntryItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(item: PayrollEntry.Result) {
+        fun bind(item: PayrollEntry.Result, position: Int) {
             binding.apply {
-                tvAttendance.text = "Total Attendance: ${item.totAttendance}"
-                tvCreationDate.text = "Created Date: ${item.dateofCreation}"
-                tvDate.text = "Request From: ${item.reqFromDate}- Request To: ${item.reqToDate}"
-                tvHouseHoldNo.text = "Household Number: ${item.householdNumber}"
-                tvPaymentCycle.text = "Payment Cycle: ${item.paymentCycle}"
-                tvReqNo.text = "Request No: ${item.reqNo}"
+                tvHouseHold.text = "Household Number:\n${item.householdNumber}"
+                tvPaymentCycle.text = item.paymentCycle
                 tvWageRate.text = "Wage Rate: $${item.wageRateUSD}"
-                tvWorkCode.text = "Work Code: ${item.workCode}"
+                tvWorkCode.text = "${position+1+(viewModel.currentPageNo-1)*10}. "+item.workCode
+                root.setOnClickListener {
+                    onRootClick.invoke(position)
+                }
             }
 
         }
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -53,7 +48,7 @@ class PayrollEntriesAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val item = dataset[position]
-        holder.bind(item)
+        holder.bind(item, position)
 
 
     }

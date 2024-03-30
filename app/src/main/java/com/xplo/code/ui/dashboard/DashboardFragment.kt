@@ -89,14 +89,12 @@ class DashboardFragment : BaseFragment(), DashboardContract.View, Observer {
             navigateToReport()
             // showAlerter("warning", "Not implemented yet")
         }
-        binding.viewPayroll.setOnClickListener {
-            navigateToPayroll()
-        }
+
         binding.viewPayment.setOnClickListener {
             //navigateToPayment()
             //  binding.btTest.callOnClick()
-            showAlerter("warning", "Not implemented yet")
-
+//            showAlerter("warning", "Not implemented yet")
+            navigateToPayroll()
         }
 
         binding.btTest.setOnClickListener {

@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.xplo.code.data.pref.PrefHelper
+import com.xplo.code.ui.dashboard.model.PayrollEntry
 import java.util.Locale
 
 /**
@@ -104,6 +105,7 @@ interface BaseContract {
         fun navigateToPayment()
         fun navigateToReport()
         fun navigateToPayroll()
+        fun navigateToPayrollDetails(result: PayrollEntry.Result)
 
         /**
          * Extra method

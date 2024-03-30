@@ -13,7 +13,6 @@
     <uses-permission android:name="android.permission.CAMERA" /> <!-- Without this folders will be inaccessible in Android-11 and above devices -->
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" /> <!-- Without this entry storage-permission entry will not be visible under app-info permissions list Android-10 and below -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="29"
@@ -33,7 +32,9 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,LockedOrientationActivity"
         tools:replace="android:theme">
-
+        <activity
+            android:name=".ui.dashboard.payroll.PayrollDetailsActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.photo.ImagePickerActivity"
             android:exported="false"

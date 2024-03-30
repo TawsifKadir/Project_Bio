@@ -11,6 +11,7 @@ import com.xplo.code.core.utils.NetUtils
 import com.xplo.code.BuildConfig
 import com.xplo.code.data.pref.PrefHelper
 import com.xplo.code.data.pref.PrefHelperImpl
+import com.xplo.code.ui.dashboard.model.PayrollEntry
 import java.util.*
 
 /**
@@ -229,6 +230,9 @@ open class BaseSettingsFragment : PreferenceFragmentCompat(), BaseContract.View 
 
     override fun navigateToPayroll() {
         getBaseActivity()?.navigateToPayroll()
+    }
+    override fun navigateToPayrollDetails(result: PayrollEntry.Result) {
+        getBaseActivity()?.navigateToPayrollDetails(result)
     }
 
     private fun getBaseActivity(): BaseActivity? {

@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.lifecycleScope
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.xplo.code.R
@@ -13,8 +15,15 @@ import com.xplo.code.core.Bk
 import com.xplo.code.databinding.ActivityPayrollBinding
 import com.xplo.code.ui.dashboard.model.PayrollEntry
 import com.xplo.code.ui.dashboard.report.ReportContract
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.Dispatcher
 
 class PayrollActivity : BaseActivity(), ReportContract.View {
+    private lateinit var binding: ActivityPayrollBinding
+    private val viewModel by viewModels<PayrollViewModel>()
+
 
     companion object {
         private const val TAG = "PayrollActivity"
@@ -31,7 +40,6 @@ class PayrollActivity : BaseActivity(), ReportContract.View {
 
     }
 
-    private lateinit var binding: ActivityPayrollBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -51,20 +59,35 @@ class PayrollActivity : BaseActivity(), ReportContract.View {
     override fun initView() {
         setToolBar()
 
-        val entries = "wsgetbenworkwagesdet.json"
-            .loadJsonFromAsset()
-            .parseJsonToList()
-            .result
-
-
-        binding.apply {
-            recyclerView.adapter = PayrollEntriesAdapter(entries)
+        lifecycleScope.launch{
+            val entries = "wsgetbenworkwagesdet.json"
+                .loadJsonFromAsset()
+                .parseJsonToList()
+                .result
+            viewModel.entries = entries
         }
 
     }
 
     override fun initObserver() {
-
+        viewModel.currentPageEntries.observe(this){entries->
+            binding.apply {
+                pageNo.text = viewModel.currentPageNo.toString()
+                recyclerView.adapter = PayrollEntriesAdapter(
+                    dataset = entries,
+                    onRootClick = {position->
+                        viewModel.currentPageEntry = entries[position]
+                        navigateToPayrollDetails(entries[position])
+                    },
+                    viewModel)
+                pre.setOnClickListener {
+                    viewModel.changePage(false,entries.first())
+                }
+                next.setOnClickListener {
+                    viewModel.changePage(true,entries.last())
+                }
+            }
+        }
     }
 
     private fun setToolBar() {
@@ -78,7 +101,7 @@ class PayrollActivity : BaseActivity(), ReportContract.View {
 
     override fun onResume() {
         super.onResume()
-        setToolbarTitle("Payroll Entries")
+        setToolbarTitle("Payroll")
     }
 
     private fun String.loadJsonFromAsset(): String {
@@ -89,4 +112,5 @@ class PayrollActivity : BaseActivity(), ReportContract.View {
         val mapper = jacksonObjectMapper()
         return mapper.readValue(this)
     }
+
 }

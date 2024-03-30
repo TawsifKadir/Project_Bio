@@ -14,6 +14,7 @@ import com.xplo.code.data.pref.PrefHelper
 import com.xplo.code.data.pref.PrefHelperImpl
 import com.xplo.code.ui.dashboard.household.forms.nominee.NomineeModal
 import com.xplo.code.ui.dashboard.model.Nominee
+import com.xplo.code.ui.dashboard.model.PayrollEntry
 import java.util.*
 
 
@@ -236,6 +237,9 @@ abstract class BaseFragment : Fragment(), BaseContract.View, NomineeModal.Listen
 
     override fun navigateToReport() {
         getBaseActivity()?.navigateToReport()
+    }
+    override fun navigateToPayrollDetails(result: PayrollEntry.Result) {
+        getBaseActivity()?.navigateToPayrollDetails(result)
     }
     override fun navigateToPayroll() {
         getBaseActivity()?.navigateToPayroll()

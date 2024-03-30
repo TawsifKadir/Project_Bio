@@ -1,8 +1,11 @@
 package com.xplo.code.ui.dashboard.model
 
 
+import android.os.Parcelable
 import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class PayrollEntry(
     @JsonProperty("BenfWorkWagesDetails")
     val benfWorkWagesDetails: String = "",
@@ -10,7 +13,8 @@ data class PayrollEntry(
     val result: List<Result> = listOf(),
     @JsonProperty("status")
     val status: String = ""
-) {
+): Parcelable {
+    @Parcelize
     data class Result(
         @JsonProperty("DateofCreation")
         val dateofCreation: String = "",
@@ -48,5 +52,5 @@ data class PayrollEntry(
         val wageRateUSDTotal: Int = 0,
         @JsonProperty("WorkCode")
         val workCode: String = ""
-    )
+    ): Parcelable
 }

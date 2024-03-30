@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.dashboard.payroll.PayrollDetailsActivity">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        app:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include layout="@layout/toolbar" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBar">
+
+
+        <TextView
+            android:id="@+id/intWagePaymentReqid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="intWagePaymentReqid: " />
+
+        <TextView
+            android:id="@+id/ReqFromDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ReqFromDate: " />
+
+        <TextView
+            android:id="@+id/ReqToDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ReqToDate: " />
+
+        <TextView
+            android:id="@+id/Exchangerateattime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exchangerateattime: " />
+
+        <TextView
+            android:id="@+id/WageRateUSD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WageRateUSD: " />
+
+        <TextView
+            android:id="@+id/ReqNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ReqNo: " />
+
+        <TextView
+            android:id="@+id/intWagesReqBenTransid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="intWagesReqBenTransid: " />
+
+        <TextView
+            android:id="@+id/intBenid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="intBenid: " />
+
+        <TextView
+            android:id="@+id/EnrollmentNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EnrollmentNo: " />
+
+        <TextView
+            android:id="@+id/household_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="household_number: " />
+
+        <TextView
+            android:id="@+id/intWorkid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="intWorkid: " />
+
+        <TextView
+            android:id="@+id/WorkCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WorkCode: " />
+
+        <TextView
+            android:id="@+id/TotAttendance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TotAttendance: " />
+
+        <TextView
+            android:id="@+id/WageRateUSDTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WageRateUSDTotal: " />
+
+        <TextView
+            android:id="@+id/DateofCreation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DateofCreation: " />
+
+        <TextView
+            android:id="@+id/Status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status: " />
+
+        <TextView
+            android:id="@+id/PaymentCycle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PaymentCycle: " />
+
+        <TextView
+            android:id="@+id/WageRateSSPTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WageRateSSPTotal: " />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
